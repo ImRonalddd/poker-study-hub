@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{{COURSE_TITLE}} &mdash; Quick Reference</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Source+Serif+4:ital,wght@0,400;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+  onload="renderMathInElement(document.body,{delimiters:[{left:'\\(',right:'\\)',display:false},{left:'\\[',right:'\\]',display:true}],throwOnError:false});"></script>
+<style>
+:root {
+  --bg: #FFFFFF;
+  --text: #000000;
+  --text-dim: #525252;
+  --border: #000000;
+  --border-light: #E5E5E5;
+  --blue: #2563EB;
+  --purple: #7C3AED;
+  --orange: #EA580C;
+  --red: #DC2626;
+}
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; border-radius: 0 !important; }
+
+body {
+  font-family: 'Source Serif 4', Georgia, serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 40px 24px 80px;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3 { font-family: 'Playfair Display', serif; font-weight: 700; }
+h1 { font-size: 2.4rem; font-weight: 900; margin-bottom: 8px; }
+h2 { font-size: 1.4rem; margin-top: 48px; margin-bottom: 12px; padding-bottom: 4px; border-bottom: 2px solid var(--border); }
+h3 { font-size: 1.1rem; margin-top: 24px; margin-bottom: 8px; }
+
+.subtitle {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.85rem;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 40px;
+}
+
+.back-link {
+  display: inline-block;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text-dim);
+  text-decoration: none;
+  margin-bottom: 2rem;
+}
+.back-link:hover { color: var(--text); }
+
+p { margin-bottom: 12px; font-size: 0.95rem; }
+
+table { width: 100%; border-collapse: collapse; margin: 12px 0 20px; font-size: 0.9rem; }
+th, td { padding: 8px 10px; border: 1px solid var(--border-light); text-align: left; }
+th {
+  background: var(--bg);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border-bottom: 2px solid var(--border);
+}
+td { vertical-align: top; }
+
+.box {
+  padding: 16px 20px;
+  margin: 16px 0;
+  border-left: 4px solid;
+  background: #FAFAFA;
+  font-size: 0.93rem;
+}
+.box-label {
+  display: block;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 6px;
+}
+.box-definition { border-color: var(--blue); }
+.box-definition .box-label { color: var(--blue); }
+.box-insight { border-color: var(--purple); }
+.box-insight .box-label { color: var(--purple); }
+.box-example { border-color: var(--orange); }
+.box-example .box-label { color: var(--orange); }
+.box-trap { border-color: var(--red); }
+.box-trap .box-label { color: var(--red); }
+
+.two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 16px 0; }
+@media (max-width: 600px) { .two-col { grid-template-columns: 1fr; } }
+
+.footer {
+  margin-top: 48px;
+  padding-top: 16px;
+  border-top: 1px solid var(--border-light);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  color: var(--text-dim);
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+@media print {
+  body { padding: 20px; font-size: 11pt; max-width: none; }
+  .back-link { display: none; }
+  h2 { break-before: auto; }
+  .box { break-inside: avoid; }
+  table { break-inside: avoid; }
+}
+</style>
+</head>
+<body>
+
+<a href="index.html" class="back-link">&larr; Back to {{COURSE_TITLE}}</a>
+
+<h1>Quick Reference</h1>
+<div class="subtitle">{{COURSE_TITLE}} &mdash; Printable Cheat Sheet</div>
+
+<!-- ============================================================ -->
+<h2>{{SECTION_1_TITLE}}</h2>
+
+<table>
+  <tr><th>{{COL_1}}</th><th>{{COL_2}}</th><th>{{COL_3}}</th></tr>
+  <tr><td>{{DATA}}</td><td>{{DATA}}</td><td>{{DATA}}</td></tr>
+</table>
+
+<!-- ============================================================ -->
+<h2>{{SECTION_2_TITLE}}</h2>
+
+<div class="box box-insight">
+  <span class="box-label">Key Rule</span>
+  <p>{{RULE_TEXT}}</p>
+</div>
+
+<!-- Key formulas with KaTeX display math: -->
+<!-- \[\text{Pot Odds} = \frac{\text{Call}}{\text{Total Pot After Call}}\] -->
+
+<!-- Inline math: You need \(\frac{10}{30} = 33\%\) equity. -->
+
+<!-- IMPORTANT: Dollar amounts ($100) must be PLAIN TEXT, never LaTeX -->
+
+<div class="footer">
+  Source: PokerCoaching.com &mdash; {{INSTRUCTOR}} | Print-friendly
+</div>
+
+</body>
+</html>

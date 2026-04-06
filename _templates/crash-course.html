@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{{COURSE_TITLE}} &mdash; Crash Course</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Source+Serif+4:ital,wght@0,400;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+  onload="renderMathInElement(document.body,{delimiters:[{left:'\\(',right:'\\)',display:false},{left:'\\[',right:'\\]',display:true}],throwOnError:false});"></script>
+<style>
+:root {
+  --bg: #FFFFFF;
+  --text: #000000;
+  --text-dim: #525252;
+  --border: #000000;
+  --border-light: #E5E5E5;
+  --blue: #2563EB;
+  --purple: #7C3AED;
+  --orange: #EA580C;
+  --red: #DC2626;
+}
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; border-radius: 0 !important; }
+
+body {
+  font-family: 'Source Serif 4', Georgia, serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.7;
+  max-width: 780px;
+  margin: 0 auto;
+  padding: 40px 24px 80px;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3 { font-family: 'Playfair Display', serif; font-weight: 700; letter-spacing: -0.01em; }
+h1 { font-size: 2.4rem; font-weight: 900; margin-bottom: 8px; line-height: 1.15; }
+h2 { font-size: 1.7rem; margin-top: 56px; margin-bottom: 16px; padding-bottom: 6px; border-bottom: 2px solid var(--border); }
+h3 { font-size: 1.2rem; margin-top: 32px; margin-bottom: 10px; }
+
+.subtitle {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.85rem;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 40px;
+}
+
+.back-link {
+  display: inline-block;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text-dim);
+  text-decoration: none;
+  margin-bottom: 2rem;
+  transition: color 0.1s;
+}
+.back-link:hover { color: var(--text); }
+
+p { margin-bottom: 14px; }
+ul, ol { margin: 10px 0 14px 24px; }
+li { margin-bottom: 6px; }
+strong { font-weight: 700; }
+
+table { width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 0.95rem; }
+th, td { padding: 8px 12px; border: 1px solid var(--border-light); text-align: left; }
+th { background: var(--bg); font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; border-bottom: 2px solid var(--border); }
+
+/* === BOX TYPES === */
+.box {
+  padding: 20px 24px;
+  margin: 24px 0;
+  border-left: 4px solid;
+  background: #FAFAFA;
+}
+.box-label {
+  display: block;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.72rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 8px;
+}
+
+.box-definition { border-color: var(--blue); }
+.box-definition .box-label { color: var(--blue); }
+
+.box-insight { border-color: var(--purple); }
+.box-insight .box-label { color: var(--purple); }
+
+.box-example { border-color: var(--orange); }
+.box-example .box-label { color: var(--orange); }
+
+.box-trap { border-color: var(--red); }
+.box-trap .box-label { color: var(--red); }
+
+/* === TABLE OF CONTENTS === */
+.toc {
+  border: 1px solid var(--border-light);
+  padding: 20px 24px;
+  margin: 24px 0;
+}
+.toc-title {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 10px;
+}
+.toc ol { margin: 0; padding-left: 20px; }
+.toc li { font-size: 0.95rem; margin-bottom: 4px; }
+.toc a { color: var(--text); text-decoration: none; border-bottom: 1px solid var(--border-light); }
+.toc a:hover { border-color: var(--text); }
+
+.footer {
+  margin-top: 60px;
+  padding-top: 20px;
+  border-top: 1px solid var(--border-light);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  color: var(--text-dim);
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+</style>
+</head>
+<body>
+
+<a href="index.html" class="back-link">&larr; Back to {{COURSE_TITLE}}</a>
+
+<h1>Crash Course</h1>
+<div class="subtitle">{{COURSE_TITLE}} &mdash; {{READ_TIME}} min read</div>
+
+<div class="toc">
+  <div class="toc-title">Contents</div>
+  <ol>
+    <li><a href="#topic-1">{{TOPIC_1_TITLE}}</a></li>
+    <li><a href="#topic-2">{{TOPIC_2_TITLE}}</a></li>
+    <!-- Add more topics -->
+  </ol>
+</div>
+
+<!-- ============================================================ -->
+<h2 id="topic-1">1. {{TOPIC_1_TITLE}}</h2>
+
+<p>{{TOPIC_INTRODUCTION}}</p>
+
+<div class="box box-definition">
+  <span class="box-label">Definition &mdash; {{TERM}}</span>
+  <p>{{DEFINITION_TEXT}}</p>
+</div>
+
+<div class="box box-insight">
+  <span class="box-label">Key Insight</span>
+  <p>{{INSIGHT_TEXT}}</p>
+</div>
+
+<div class="box box-example">
+  <span class="box-label">Worked Example &mdash; {{EXAMPLE_TITLE}}</span>
+  <p><strong>Setup:</strong> {{POSITIONS_STACKS_ACTIONS}}</p>
+  <p><strong>Board:</strong> {{BOARD_TEXTURE}}</p>
+  <p><strong>Analysis:</strong> {{WHY_CORRECT_AND_EV}}</p>
+</div>
+
+<div class="box box-trap">
+  <span class="box-label">Trap &mdash; {{TRAP_TITLE}}</span>
+  <p>{{WHAT_PLAYERS_DO_WRONG}}</p>
+</div>
+
+<!-- Display math example (renders on its own line): -->
+<!-- \[\text{Required Win\%} = \frac{\text{Call}}{\text{Pot} + \text{Call}}\] -->
+
+<!-- Inline math example (renders inline with text): -->
+<!-- You need \(\frac{10}{30} = 33\%\) equity to call. -->
+
+<!-- IMPORTANT: Dollar amounts like $100 must be PLAIN TEXT, never inside \( \) -->
+
+<!-- ============================================================ -->
+<h2 id="topic-2">2. {{TOPIC_2_TITLE}}</h2>
+
+<p>{{CONTENT}}</p>
+
+<!-- Repeat sections as needed -->
+
+<div class="footer">
+  Source: PokerCoaching.com &mdash; {{INSTRUCTOR}}
+</div>
+
+</body>
+</html>

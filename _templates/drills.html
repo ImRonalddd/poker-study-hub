@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{{COURSE_TITLE}} &mdash; Interactive Drills</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;1,400;1,600&family=Source+Serif+4:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+  onload="renderMathInElement(document.body,{delimiters:[{left:'\\(',right:'\\)',display:false},{left:'\\[',right:'\\]',display:true}],throwOnError:false});"></script>
+<style>
+:root{--bg:#FFFFFF;--surface:#FFFFFF;--surface2:#F5F5F5;--accent:#000;--text:#000;--text-dim:#525252;--correct:#1a7a5e;--wrong:#b91c1c;--border:#000;--border-light:#E5E5E5}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;border-radius:0!important}
+body{font-family:'Source Serif 4','Georgia',serif;background:var(--bg);color:var(--text);line-height:1.6;-webkit-font-smoothing:antialiased}
+.container{max-width:700px;margin:0 auto;padding:2rem 1.5rem 4rem}
+.back-link{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:0.75rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--text-dim);text-decoration:none;margin-bottom:1rem;transition:color 0.1s}
+.back-link:hover{color:var(--text)}
+h1{font-family:'Playfair Display',serif;font-weight:800;font-size:2.2rem;text-align:center;margin:1rem 0 0.3rem}
+.subtitle{font-family:'JetBrains Mono',monospace;font-size:0.72rem;font-weight:500;text-transform:uppercase;letter-spacing:0.15em;color:var(--text-dim);text-align:center;margin-bottom:0.5rem}
+.hotkeys{font-family:'JetBrains Mono',monospace;font-size:0.7rem;color:var(--text-dim);text-align:center;margin-bottom:2rem;line-height:1.8}
+.hotkeys kbd{display:inline-block;padding:0.1em 0.45em;border:1px solid var(--border-light);background:var(--surface2);font-weight:600;margin:0 0.1em}
+#progress-bar{width:100%;height:4px;background:var(--border-light);margin-bottom:1.5rem}
+#progress-fill{height:100%;background:var(--accent);transition:width 0.3s}
+#score-display{font-family:'JetBrains Mono',monospace;font-size:0.8rem;text-align:center;margin-bottom:1.5rem;color:var(--text-dim)}
+#question-area{min-height:350px}
+.q-number{font-family:'JetBrains Mono',monospace;font-size:0.72rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--text-dim);margin-bottom:0.5rem}
+.q-text{font-size:1.15rem;font-weight:600;margin-bottom:1.5rem;line-height:1.5}
+.option{display:block;width:100%;text-align:left;font-family:'Source Serif 4',serif;font-size:1rem;padding:0.85rem 1rem;margin-bottom:0.6rem;border:2px solid var(--border-light);background:var(--surface);cursor:pointer;transition:border-color 0.15s,background 0.15s}
+.option:hover:not(.disabled){border-color:var(--accent);background:var(--surface2)}
+.option.selected-correct{border-color:var(--correct);background:#f0fdf4;color:var(--correct);font-weight:600}
+.option.selected-wrong{border-color:var(--wrong);background:#fef2f2;color:var(--wrong)}
+.option.show-correct{border-color:var(--correct);background:#f0fdf4}
+.option.disabled{cursor:default;opacity:0.7}
+.option .opt-key{font-family:'JetBrains Mono',monospace;font-weight:700;margin-right:0.5rem;font-size:0.9rem}
+#explanation{margin-top:1.2rem;padding:1rem 1.25rem;border-left:4px solid var(--accent);background:var(--surface2);display:none;font-size:0.95rem;line-height:1.6}
+#explanation.visible{display:block}
+#next-btn{display:none;margin-top:1.5rem;width:100%;padding:0.8rem;font-family:'JetBrains Mono',monospace;font-size:0.85rem;font-weight:600;text-transform:uppercase;letter-spacing:0.1em;border:2px solid var(--accent);background:var(--accent);color:var(--bg);cursor:pointer;transition:opacity 0.15s}
+#next-btn:hover{opacity:0.85}
+#results{display:none;text-align:center}
+#results h2{font-family:'Playfair Display',serif;font-size:1.8rem;margin-bottom:1rem}
+#results .score-big{font-family:'JetBrains Mono',monospace;font-size:3rem;font-weight:700;margin:1rem 0}
+#results .score-big .correct-n{color:var(--correct)}
+#results .score-big .wrong-n{color:var(--wrong)}
+#review-section{margin-top:2rem;text-align:left}
+#review-section h3{font-family:'Playfair Display',serif;font-size:1.3rem;margin-bottom:1rem}
+.review-item{padding:1rem;margin-bottom:1rem;border:1px solid var(--border-light);background:var(--surface2)}
+.review-item .ri-q{font-weight:600;margin-bottom:0.4rem}
+.review-item .ri-your{color:var(--wrong);font-size:0.9rem}
+.review-item .ri-correct{color:var(--correct);font-size:0.9rem}
+.ri-explain{font-size:0.88rem;color:var(--text-dim);margin-top:0.3rem}
+.btn-restart{margin-top:2rem;padding:0.8rem 2rem;font-family:'JetBrains Mono',monospace;font-size:0.85rem;font-weight:600;text-transform:uppercase;letter-spacing:0.1em;border:2px solid var(--accent);background:var(--accent);color:var(--bg);cursor:pointer}
+.btn-restart:hover{opacity:0.85}
+</style>
+</head>
+<body>
+<div class="container">
+
+<a href="index.html" class="back-link">&larr; Back to {{COURSE_TITLE}}</a>
+
+<h1>{{DRILL_TITLE}}</h1>
+<div class="subtitle">{{SUBTITLE}} &mdash; {{QUESTION_COUNT}} Questions</div>
+<div class="hotkeys"><kbd>1</kbd><kbd>2</kbd><kbd>3</kbd><kbd>4</kbd> answer &nbsp; <kbd>Space</kbd> next &nbsp; <kbd>R</kbd> restart &nbsp; <kbd>H</kbd> toggle hotkey help</div>
+
+<div id="progress-bar"><div id="progress-fill" style="width:0%"></div></div>
+<div id="score-display"></div>
+
+<div id="question-area"></div>
+<div id="explanation"></div>
+<button id="next-btn">Next Question (Space)</button>
+
+<div id="results">
+<h2>Results</h2>
+<div class="score-big"><span class="correct-n" id="r-correct"></span> / <span id="r-total"></span></div>
+<p id="r-pct"></p>
+<div id="review-section"><h3>Review Missed</h3><div id="review-list"></div></div>
+<button class="btn-restart" onclick="restart()">Restart (R)</button>
+</div>
+</div>
+
+<script>
+// ============================================================
+// QUESTION DATA — Replace with actual questions
+// Each: {q: "Question text", opts: ["A","B","C","D"], ans: 0-3, ex: "Explanation"}
+// ============================================================
+const allQuestions = [
+  {q:"{{QUESTION_1}}", opts:["{{OPT_A}}","{{OPT_B}}","{{OPT_C}}","{{OPT_D}}"], ans:0, ex:"{{EXPLANATION_1}}"},
+  // Add 25-35 questions
+];
+
+// ============================================================
+// DRILL ENGINE — Do not modify
+// ============================================================
+let current = 0, score = 0, answered = false;
+const missed = [];
+const qa = document.getElementById('question-area');
+const exEl = document.getElementById('explanation');
+const nextBtn = document.getElementById('next-btn');
+const progFill = document.getElementById('progress-fill');
+const scoreDisp = document.getElementById('score-display');
+const resultsDiv = document.getElementById('results');
+
+function showQuestion() {
+  if (current >= allQuestions.length) { showResults(); return; }
+  answered = false;
+  const q = allQuestions[current];
+  progFill.style.width = (current / allQuestions.length * 100) + '%';
+  scoreDisp.textContent = 'Score: ' + score + ' / ' + current;
+
+  // Build question HTML using string concatenation (NEVER template literals with ${})
+  var html = '<div class="q-number">Question ' + (current + 1) + ' of ' + allQuestions.length + '</div>';
+  html += '<div class="q-text">' + q.q + '</div>';
+  var keys = ['A', 'B', 'C', 'D'];
+  for (var i = 0; i < q.opts.length; i++) {
+    html += '<button class="option" data-idx="' + i + '" onclick="selectAnswer(' + i + ')">';
+    html += '<span class="opt-key">' + keys[i] + '</span>' + q.opts[i];
+    html += '</button>';
+  }
+  qa.innerHTML = html;
+  exEl.className = ''; exEl.style.display = 'none';
+  nextBtn.style.display = 'none';
+}
+
+function selectAnswer(idx) {
+  if (answered) return;
+  answered = true;
+  var q = allQuestions[current];
+  var btns = qa.querySelectorAll('.option');
+  for (var i = 0; i < btns.length; i++) {
+    btns[i].classList.add('disabled');
+    if (i === q.ans) btns[i].classList.add('show-correct');
+  }
+  if (idx === q.ans) {
+    btns[idx].classList.add('selected-correct');
+    score++;
+  } else {
+    btns[idx].classList.add('selected-wrong');
+    missed.push({q: q.q, yours: q.opts[idx], correct: q.opts[q.ans], ex: q.ex});
+  }
+  exEl.innerHTML = q.ex;
+  exEl.style.display = 'block';
+  exEl.className = 'visible';
+  nextBtn.style.display = 'block';
+}
+
+function nextQuestion() {
+  current++;
+  showQuestion();
+}
+
+function showResults() {
+  qa.style.display = 'none';
+  exEl.style.display = 'none';
+  nextBtn.style.display = 'none';
+  progFill.style.width = '100%';
+  scoreDisp.textContent = '';
+  resultsDiv.style.display = 'block';
+  document.getElementById('r-correct').textContent = score;
+  document.getElementById('r-total').textContent = allQuestions.length;
+  var pct = Math.round(score / allQuestions.length * 100);
+  document.getElementById('r-pct').textContent = pct + '% correct';
+  var reviewHtml = '';
+  for (var i = 0; i < missed.length; i++) {
+    var m = missed[i];
+    reviewHtml += '<div class="review-item">';
+    reviewHtml += '<div class="ri-q">' + m.q + '</div>';
+    reviewHtml += '<div class="ri-your">Your answer: ' + m.yours + '</div>';
+    reviewHtml += '<div class="ri-correct">Correct: ' + m.correct + '</div>';
+    reviewHtml += '<div class="ri-explain">' + m.ex + '</div>';
+    reviewHtml += '</div>';
+  }
+  if (missed.length === 0) reviewHtml = '<p>Perfect score!</p>';
+  document.getElementById('review-list').innerHTML = reviewHtml;
+}
+
+function restart() {
+  current = 0; score = 0; missed.length = 0;
+  qa.style.display = 'block';
+  resultsDiv.style.display = 'none';
+  showQuestion();
+}
+
+// Keyboard shortcuts
+document.addEventListener('keydown', function(e) {
+  if (e.key >= '1' && e.key <= '4' && !answered) selectAnswer(parseInt(e.key) - 1);
+  if ((e.key === ' ' || e.key === 'Enter') && answered) { e.preventDefault(); nextQuestion(); }
+  if (e.key === 'r' || e.key === 'R') { if (resultsDiv.style.display === 'block') restart(); }
+});
+
+nextBtn.addEventListener('click', nextQuestion);
+showQuestion();
+</script>
+</body>
+</html>
