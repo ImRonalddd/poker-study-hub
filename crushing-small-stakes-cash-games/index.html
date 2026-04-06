@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Crushing Small Stakes Cash Games &mdash; Study Hub</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;0,900;1,400&family=Source+Serif+4:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #FFFFFF;
+  --text: #000000;
+  --text-dim: #525252;
+  --border: #000000;
+  --border-light: #E5E5E5;
+  --blue: #2563EB;
+  --purple: #7C3AED;
+  --orange: #EA580C;
+  --red: #DC2626;
+}
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; border-radius: 0 !important; }
+
+body {
+  font-family: 'Source Serif 4', Georgia, serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+}
+
+.container { max-width: 900px; margin: 0 auto; padding: 4rem 2rem 6rem; }
+
+.back-link {
+  display: inline-block;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text-dim);
+  text-decoration: none;
+  margin-bottom: 2rem;
+  transition: color 0.1s;
+}
+.back-link:hover { color: var(--text); }
+
+.header { text-align: center; margin-bottom: 3rem; }
+.header h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: 3rem;
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  margin-bottom: 0.3rem;
+}
+.header .instructor {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--text-dim);
+  margin-bottom: 1rem;
+}
+.header .description {
+  font-size: 1.05rem;
+  color: var(--text-dim);
+  max-width: 640px;
+  margin: 0 auto;
+  line-height: 1.8;
+}
+
+.stats-bar {
+  display: flex;
+  justify-content: center;
+  gap: 3rem;
+  padding: 1.5rem 0;
+  border-top: 4px solid var(--text);
+  border-bottom: 1px solid var(--border-light);
+  margin-bottom: 3rem;
+}
+.stat { text-align: center; }
+.stat-number {
+  font-family: 'Playfair Display', serif;
+  font-size: 2rem;
+  font-weight: 700;
+  display: block;
+}
+.stat-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--text-dim);
+}
+
+.section-heading {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--text-dim);
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--border-light);
+  margin-bottom: 1rem;
+  margin-top: 2.5rem;
+}
+
+.materials { display: flex; flex-direction: column; gap: 1rem; margin-bottom: 1rem; }
+
+.material-card {
+  border: 2px solid var(--text);
+  padding: 1.6rem 2.2rem;
+  text-decoration: none;
+  color: var(--text);
+  display: block;
+  transition: background 0.1s, color 0.1s;
+  position: relative;
+}
+.material-card:hover { background: var(--text); color: var(--bg); }
+.material-card:hover .material-desc,
+.material-card:hover .material-meta { color: rgba(255,255,255,0.7); }
+.material-card:hover .material-tag { border-color: rgba(255,255,255,0.3); color: rgba(255,255,255,0.7); background: rgba(255,255,255,0.08); }
+
+.material-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.4rem;
+  font-weight: 700;
+  margin-bottom: 0.25rem;
+}
+.material-meta {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 0.6rem;
+}
+.material-desc { color: var(--text-dim); line-height: 1.6; margin-bottom: 0.7rem; }
+.material-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+.material-tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.6rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 0.25rem 0.6rem;
+  border: 1px solid var(--border-light);
+  color: var(--text-dim);
+}
+.material-arrow {
+  position: absolute;
+  right: 2rem;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1.4rem;
+  opacity: 0;
+  transition: opacity 0.1s;
+}
+.material-card:hover .material-arrow { opacity: 1; }
+
+/* Quick Reference standalone card */
+.qr-section { margin-top: 2.5rem; margin-bottom: 3rem; }
+
+/* Episode guide */
+.episodes {
+  border: 1px solid var(--border-light);
+  padding: 2rem;
+  margin-bottom: 3rem;
+}
+.episodes-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.3rem;
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 4px solid var(--text);
+}
+.episode-section-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--text-dim);
+  margin: 1.5rem 0 0.6rem;
+}
+.episode-section-label:first-child { margin-top: 0; }
+
+.episode-list { list-style: none; }
+.episode-list li {
+  padding: 0.55rem 0;
+  border-bottom: 1px solid var(--border-light);
+  display: flex;
+  align-items: baseline;
+  gap: 1rem;
+}
+.episode-list li:last-child { border-bottom: none; }
+.ep-num {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: var(--text-dim);
+  flex-shrink: 0;
+  width: 2.2rem;
+}
+.ep-title { font-weight: 500; font-size: 0.95rem; }
+.ep-tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.6rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-dim);
+  margin-left: auto;
+  flex-shrink: 0;
+}
+
+.footer {
+  text-align: center;
+  margin-top: 3rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--border-light);
+}
+.footer p {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+@media (max-width: 600px) {
+  .header h1 { font-size: 2rem; }
+  .stats-bar { gap: 1.5rem; flex-wrap: wrap; }
+  .stat-number { font-size: 1.5rem; }
+  .material-card { padding: 1.3rem; }
+  .material-title { font-size: 1.2rem; }
+  .material-arrow { display: none; }
+}
+</style>
+</head>
+<body>
+<div class="container">
+
+  <a href="../index.html" class="back-link">&larr; Back to Poker Study Hub</a>
+
+  <div class="header">
+    <h1>Crushing Small Stakes Cash Games</h1>
+    <div class="instructor">Instructor: Jonathan Little &mdash; Beginner&ndash;Intermediate &bull; Cash Games (Live + Online)</div>
+    <p class="description">
+      A complete small stakes cash game curriculum covering preflop fundamentals, exploitative postflop
+      strategies, and 12 live webinar sessions with hand analysis, mental game coaching, and advanced bonus classes.
+    </p>
+  </div>
+
+  <div class="stats-bar">
+    <div class="stat">
+      <span class="stat-number">57</span>
+      <span class="stat-label">Lessons</span>
+    </div>
+    <div class="stat">
+      <span class="stat-number">~10h+</span>
+      <span class="stat-label">Runtime</span>
+    </div>
+    <div class="stat">
+      <span class="stat-number">3</span>
+      <span class="stat-label">Sections</span>
+    </div>
+    <div class="stat">
+      <span class="stat-number">Live+Online</span>
+      <span class="stat-label">Format</span>
+    </div>
+  </div>
+
+  <!-- Preflop Materials -->
+  <div class="section-heading">Preflop Instruction &mdash; 20 Lessons</div>
+  <div class="materials">
+
+    <a href="crash-course-preflop.html" class="material-card">
+      <div class="material-title">Preflop Crash Course</div>
+      <div class="material-meta">15&ndash;20 min read</div>
+      <div class="material-desc">
+        Concise overview of the preflop section organized by topic. Covers open-raise strategy,
+        3-bet/4-bet ranges, big blind and small blind adjustments, limper exploitation, and stack-size
+        considerations for small stakes live games.
+      </div>
+      <div class="material-tags">
+        <span class="material-tag">Open Raising</span>
+        <span class="material-tag">3-Bet / 4-Bet</span>
+        <span class="material-tag">Blind Play</span>
+        <span class="material-tag">Limpers</span>
+        <span class="material-tag">Stack Depth</span>
+      </div>
+      <span class="material-arrow">&rarr;</span>
+    </a>
+
+    <a href="revision-guide-preflop.html" class="material-card">
+      <div class="material-title">Preflop Revision Guide</div>
+      <div class="material-meta">Deep-dive reference &mdash; comprehensive</div>
+      <div class="material-desc">
+        Every preflop concept with full context: positions, stack depths, opponent tendencies, and
+        the reasoning behind each adjustment. Covers shallow- and deep-stacked play, squeeze strategy,
+        splash-the-pot games, and playing against posters.
+      </div>
+      <div class="material-tags">
+        <span class="material-tag">Full Examples</span>
+        <span class="material-tag">Squeeze Strategy</span>
+        <span class="material-tag">Shallow Stacked</span>
+        <span class="material-tag">Deep Stacked</span>
+        <span class="material-tag">Live Exploits</span>
+      </div>
+      <span class="material-arrow">&rarr;</span>
+    </a>
+
+    <a href="drills-preflop.html" class="material-card">
+      <div class="material-title">Preflop Interactive Drills</div>
+      <div class="material-meta">Scenario-based multiple choice questions</div>
+      <div class="material-desc">
+        Multiple-choice scenarios testing open-raise decisions, 3-bet and 4-bet strategy, big blind
+        and small blind play, squeeze spots, and stack-depth adjustments drawn from the live play examples.
+      </div>
+      <div class="material-tags">
+        <span class="material-tag">Open Raise Decisions</span>
+        <span class="material-tag">Facing 3-Bets</span>
+        <span class="material-tag">4-Bet Strategy</span>
+        <span class="material-tag">BB Defense</span>
+        <span class="material-tag">Live Play</span>
+      </div>
+      <span class="material-arrow">&rarr;</span>
+    </a>
+
+  </div>
+
+  <!-- Postflop Materials -->
+  <div class="section-heading">Postflop Tips &amp; Exploits &mdash; 25 Lessons</div>
+  <div class="materials">
+
+    <a href="crash-course-postflop.html" class="material-card">
+      <div class="material-title">Postflop Crash Course</div>
+      <div class="material-meta">15&ndash;20 min read</div>
+      <div class="material-desc">
+        Concise overview of the postflop section organized by topic. Key exploitative strategies for
+        small stakes: thin value, bluffing, big calls versus maniacs, big folds versus tight players,
+        and multi-way pot adjustments.
+      </div>
+      <div class="material-tags">
+        <span class="material-tag">Thin Value</span>
+        <span class="material-tag">Bluffing</span>
+        <span class="material-tag">Maniacs</span>
+        <span class="material-tag">Multi-Way Pots</span>
+        <span class="material-tag">C-Bet Defense</span>
+      </div>
+      <span class="material-arrow">&rarr;</span>
+    </a>
+
+    <a href="revision-guide-postflop.html" class="material-card">
+      <div class="material-title">Postflop Revision Guide</div>
+      <div class="material-meta">Deep-dive reference &mdash; comprehensive</div>
+      <div class="material-desc">
+        Every postflop concept with full context: board textures, opponent types, ranges, and EV cost
+        of mistakes. Covers river raise defense, draw-heavy board play, not slow-playing, and developing
+        intuition for exploiting recreational players.
+      </div>
+      <div class="material-tags">
+        <span class="material-tag">River Raises</span>
+        <span class="material-tag">Draw Boards</span>
+        <span class="material-tag">Slow-Playing</span>
+        <span class="material-tag">Exploit Intuition</span>
+        <span class="material-tag">Mental Game</span>
+      </div>
+      <span class="material-arrow">&rarr;</span>
+    </a>
+
+    <a href="drills-postflop.html" class="material-card">
+      <div class="material-title">Postflop Interactive Drills</div>
+      <div class="material-meta">Scenario-based multiple choice questions</div>
+      <div class="material-desc">
+        Multiple-choice postflop scenarios covering thin value spots, bluff selection, calling down
+        maniacs, big folds when draws come in, and multi-way pot strategy from the live play examples.
+      </div>
+      <div class="material-tags">
+        <span class="material-tag">Value vs Bluff</span>
+        <span class="material-tag">River Decisions</span>
+        <span class="material-tag">Draw Completions</span>
+        <span class="material-tag">Multi-Way</span>
+        <span class="material-tag">Opponent Typing</span>
+      </div>
+      <span class="material-arrow">&rarr;</span>
+    </a>
+
+  </div>
+
+  <!-- Quick Reference -->
+  <div class="qr-section">
+    <div class="section-heading">Quick Reference</div>
+    <div class="materials">
+      <a href="quick-reference.html" class="material-card">
+        <div class="material-title">Quick Reference</div>
+        <div class="material-meta">Printable cheat sheet</div>
+        <div class="material-desc">
+          Small stakes preflop open ranges by position, 3-bet and squeeze guidelines, postflop
+          heuristics, opponent type profiles, and key exploitative adjustments for live games.
+        </div>
+        <div class="material-tags">
+          <span class="material-tag">Open Ranges</span>
+          <span class="material-tag">3-Bet Ranges</span>
+          <span class="material-tag">Postflop Heuristics</span>
+          <span class="material-tag">Opponent Profiles</span>
+          <span class="material-tag">Live Adjustments</span>
+        </div>
+        <span class="material-arrow">&rarr;</span>
+      </a>
+    </div>
+  </div>
+
+  <!-- Episode Guide -->
+  <div class="episodes">
+    <div class="episodes-title">Lesson Guide</div>
+
+    <!-- Section 1: Preflop Instruction -->
+    <div class="episode-section-label">Section 1 &mdash; Preflop Instruction (20 Lessons)</div>
+    <ol class="episode-list">
+      <li>
+        <span class="ep-num">01</span>
+        <span class="ep-title">Introduction</span>
+        <span class="ep-tag">Intro</span>
+      </li>
+      <li>
+        <span class="ep-num">02</span>
+        <span class="ep-title">Big Blind Preflop Strategies</span>
+        <span class="ep-tag">Concept</span>
+      </li>
+      <li>
+        <span class="ep-num">03</span>
+        <span class="ep-title">Deep-Stacked Preflop Tips</span>
+        <span class="ep-tag">Concept</span>
+      </li>
+      <li>
+        <span class="ep-num">04</span>
+        <span class="ep-title">How to Play Facing Limpers</span>
+        <span class="ep-tag">Concept</span>
+      </li>
+      <li>
+        <span class="ep-num">05</span>
+        <span class="ep-title">Playing Against Posters Preflop</span>
+        <span class="ep-tag">Concept</span>
+      </li>
+      <li>
+        <span class="ep-num">06</span>
+        <span class="ep-title">Playing Splash-the-Pot Games Preflop</span>
+        <span class="ep-tag">Concept</span>
+      </li>
+      <li>
+        <span class="ep-num">07</span>
+        <span class="ep-title">Preflop 4-Betting Strategies</span>
+        <span class="ep-tag">Concept</span>
+      </li>
+      <li>
+        <span class="ep-num">08</span>
+        <span class="ep-title">Shallow-Stacked Preflop Tips</span>
+        <span class="ep-tag">Concept</span>
+      </li>
+      <li>
+        <span class="ep-num">09</span>
+        <span class="ep-title">Small Blind Preflop Strategies</span>
+        <span class="ep-tag">Concept</span>
+      </li>
+      <li>
+        <span class="ep-num">10</span>
+        <span class="ep-title">Squeezing and Over-Call Preflop Strategies</span>
+        <span class="ep-tag">Concept</span>
+      </li>
+      <li>
+        <span class="ep-num">11</span>
+        <span class="ep-title">When Facing a 3-Bet Preflop</span>
+        <span class="ep-tag">Concept</span>
+      </li>
+      <li>
+        <span class="ep-num">12</span>
+        <span class="ep-title">Live Play Examples: 4-Betting Strategies</span>
+        <span class="ep-tag">Live Play</span>
+      </li>
+      <li>
+        <span class="ep-num">13</span>
+        <span class="ep-title">Live Play Examples: Deep-Stacked Adjustments</span>
+        <span class="ep-tag">Live Play</span>
+      </li>
+      <li>
+        <span class="ep-num">14</span>
+        <span class="ep-title">Live Play Examples: Facing Limpers</span>
+        <span class="ep-tag">Live Play</span>
+      </li>
+      <li>
+        <span class="ep-num">15</span>
+        <span class="ep-title">Live Play Examples: Playing Against Posters</span>
+        <span class="ep-tag">Live Play</span>
+      </li>
+      <li>
+        <span class="ep-num">16</span>
+        <span class="ep-title">Live Play Examples: Playing Splash-the-Pot Pots</span>
+        <span class="ep-tag">Live Play</span>
+      </li>
+      <li>
+        <span class="ep-num">17</span>
+        <span class="ep-title">Live Play Examples: Shallow-Stacked Adjustments</span>
+        <span class="ep-tag">Live Play</span>
+      </li>
+      <li>
+        <span class="ep-num">18</span>
+        <span class="ep-title">Live Play Examples: Small Blind Strategies</span>
+        <span class="ep-tag">Live Play</span>
+      </li>
+      <li>
+        <span class="ep-num">19</span>
+        <span class="ep-title">Live Play Examples: Squeezing and Over-Call Preflop</span>
+        <span class="ep-tag">Live Play</span>
+      </li>
+      <li>
+        <span class="ep-num">20</span>
+        <span class="ep-title">Live Play Examples: When Facing a 3-Bet</span>
+        <span class="ep-tag">Live Play</span>
+      </li>
+    </ol>
+
+    <!-- Section 2: Postflop Tips & Exploits -->
+    <div class="episode-section-label">Section 2 &mdash; Postflop Tips &amp; Exploits (25 Lessons)</div>
+    <ol class="episode-list">
+      <li>
+        <span class="ep-num">01</span>
+        <span class="ep-title">Developing Intuition: Exploiting Your Opponents</span>
+        <span class="ep-tag">Concept</span>
+      </li>
+      <li>
+        <span class="ep-num">02</span>
+        <span class="ep-title">How to Deal with Bad Beats &amp; Downswings</span>
+        <span class="ep-tag">Mental Game</span>
+      </li>
+      <li>
+        <span class="ep-num">03</span>
+        <span class="ep-title">How to Play Against Frequent Continuation Bets</span>
+        <span class="ep-tag">Concept</span>
+      </li>
+      <li>
+        <span class="ep-num">04</span>
+        <span class="ep-title">How to Play Against Postflop Leads</span>
+        <span class="ep-tag">Concept</span>
+      </li>
+      <li>
+        <span class="ep-num">05</span>
+        <span class="ep-title">How to Play Against River Raises</span>
+        <span class="ep-tag">Concept</span>
+      </li>
+      <li>
+        <span class="ep-num">06</span>
+        <span class="ep-title">Making Big Calls Against Maniacs</span>
+        <span class="ep-tag">Concept</span>
+      </li>
+      <li>
+        <span class="ep-num">07</span>
+        <span class="ep-title">Making Big Calls When Draws Miss</span>
+        <span class="ep-tag">Concept</span>
+      </li>
+      <li>
+        <span class="ep-num">08</span>
+        <span class="ep-title">Making Big Folds on Dry Boards</span>
+        <span class="ep-tag">Concept</span>
+      </li>
+      <li>
+        <span class="ep-num">09</span>
+        <span class="ep-title">Making Big Folds When Draws Come In</span>
+        <span class="ep-tag">Concept</span>
+      </li>
+      <li>
+        <span class="ep-num">10</span>
+        <span class="ep-title">When to Go for the Bluff</span>
+        <span class="ep-tag">Concept</span>
+      </li>
+      <li>
+        <span class="ep-num">11</span>
+        <span class="ep-title">When to Go for Thin Value</span>
+        <span class="ep-tag">Concept</span>
+      </li>
+      <li>
+        <span class="ep-num">12</span>
+        <span class="ep-title">When to Play Aggressively in Multi-Way Pots</span>
+        <span class="ep-tag">Concept</span>
+      </li>
+      <li>
+        <span class="ep-num">13</span>
+        <span class="ep-title">When to Play Tightly in Multi-Way Pots</span>
+        <span class="ep-tag">Concept</span>
+      </li>
+      <li>
+        <span class="ep-num">14</span>
+        <span class="ep-title">Live Play Example: How to Play Against River Raises</span>
+        <span class="ep-tag">Live Play</span>
+      </li>
+      <li>
+        <span class="ep-num">15</span>
+        <span class="ep-title">Live Play Examples: Developing Intuition &amp; Exploiting Opponents</span>
+        <span class="ep-tag">Live Play</span>
+      </li>
+      <li>
+        <span class="ep-num">16</span>
+        <span class="ep-title">Live Play Examples: Against Frequent Continuation Bets</span>
+        <span class="ep-tag">Live Play</span>
+      </li>
+      <li>
+        <span class="ep-num">17</span>
+        <span class="ep-title">Live Play Examples: Against Postflop Leads</span>
+        <span class="ep-tag">Live Play</span>
+      </li>
+      <li>
+        <span class="ep-num">18</span>
+        <span class="ep-title">Live Play Examples: Making Big Calls Against Maniacs</span>
+        <span class="ep-tag">Live Play</span>
+      </li>
+      <li>
+        <span class="ep-num">19</span>
+        <span class="ep-title">Live Play Examples: Making Big Calls When Draws Miss</span>
+        <span class="ep-tag">Live Play</span>
+      </li>
+      <li>
+        <span class="ep-num">20</span>
+        <span class="ep-title">Live Play Examples: Making Big Folds When Draws Come In</span>
+        <span class="ep-tag">Live Play</span>
+      </li>
+      <li>
+        <span class="ep-num">21</span>
+        <span class="ep-title">Live Play Examples: Not Slow-Playing</span>
+        <span class="ep-tag">Live Play</span>
+      </li>
+      <li>
+        <span class="ep-num">22</span>
+        <span class="ep-title">Live Play Examples: When to Go for the Bluff</span>
+        <span class="ep-tag">Live Play</span>
+      </li>
+      <li>
+        <span class="ep-num">23</span>
+        <span class="ep-title">Live Play Examples: When to Go for Thin Value</span>
+        <span class="ep-tag">Live Play</span>
+      </li>
+      <li>
+        <span class="ep-num">24</span>
+        <span class="ep-title">Live Play Examples: When to Play Aggressively in Multi-Way Pots</span>
+        <span class="ep-tag">Live Play</span>
+      </li>
+      <li>
+        <span class="ep-num">25</span>
+        <span class="ep-title">Live Play Examples: When to Play Tightly in Multi-Way Pots</span>
+        <span class="ep-tag">Live Play</span>
+      </li>
+    </ol>
+
+    <!-- Section 3: Original Webinar Series -->
+    <div class="episode-section-label">Section 3 &mdash; Original Webinar Series (12 Episodes)</div>
+    <ol class="episode-list">
+      <li>
+        <span class="ep-num">01</span>
+        <span class="ep-title">Crushing Cash Games &mdash; Part 1</span>
+        <span class="ep-tag">Webinar</span>
+      </li>
+      <li>
+        <span class="ep-num">02</span>
+        <span class="ep-title">Crushing Cash Games &mdash; Part 2</span>
+        <span class="ep-tag">Webinar</span>
+      </li>
+      <li>
+        <span class="ep-num">03</span>
+        <span class="ep-title">Crushing Cash Games &mdash; Part 3</span>
+        <span class="ep-tag">Webinar</span>
+      </li>
+      <li>
+        <span class="ep-num">04</span>
+        <span class="ep-title">Crushing Cash Games &mdash; Part 4</span>
+        <span class="ep-tag">Webinar</span>
+      </li>
+      <li>
+        <span class="ep-num">05</span>
+        <span class="ep-title">Crushing Cash Games &mdash; Part 5</span>
+        <span class="ep-tag">Webinar</span>
+      </li>
+      <li>
+        <span class="ep-num">06</span>
+        <span class="ep-title">Crushing Cash Games &mdash; Part 6</span>
+        <span class="ep-tag">Webinar</span>
+      </li>
+      <li>
+        <span class="ep-num">07</span>
+        <span class="ep-title">Crushing Cash Games &mdash; Part 7</span>
+        <span class="ep-tag">Webinar</span>
+      </li>
+      <li>
+        <span class="ep-num">08</span>
+        <span class="ep-title">Crushing Cash Games &mdash; Part 8</span>
+        <span class="ep-tag">Webinar</span>
+      </li>
+      <li>
+        <span class="ep-num">09</span>
+        <span class="ep-title">Bonus: Advanced Cash Game Class 1 &mdash; Part 1</span>
+        <span class="ep-tag">Bonus</span>
+      </li>
+      <li>
+        <span class="ep-num">10</span>
+        <span class="ep-title">Bonus: Advanced Cash Game Class 1 &mdash; Part 2</span>
+        <span class="ep-tag">Bonus</span>
+      </li>
+      <li>
+        <span class="ep-num">11</span>
+        <span class="ep-title">Bonus: Advanced Cash Game Class 2 &mdash; Part 1</span>
+        <span class="ep-tag">Bonus</span>
+      </li>
+      <li>
+        <span class="ep-num">12</span>
+        <span class="ep-title">Bonus: Advanced Cash Game Class 2 &mdash; Part 2</span>
+        <span class="ep-tag">Bonus</span>
+      </li>
+    </ol>
+  </div>
+
+  <div class="footer">
+    <p>Study materials generated from PokerCoaching.com course transcripts</p>
+  </div>
+
+</div>
+</body>
+</html>

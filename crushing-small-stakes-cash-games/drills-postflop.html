@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Postflop Drills -- Crushing Small Stakes Cash Games</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;1,400;1,600&family=Source+Serif+4:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#FFFFFF;--surface:#FFFFFF;--surface2:#F5F5F5;--accent:#000;--text:#000;--text-dim:#525252;--correct:#1a7a5e;--wrong:#b91c1c;--border:#000;--border-light:#E5E5E5}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;border-radius:0!important}
+body{font-family:'Source Serif 4','Georgia',serif;background:var(--bg);color:var(--text);line-height:1.6;-webkit-font-smoothing:antialiased}
+.container{max-width:700px;margin:0 auto;padding:2rem 1.5rem 4rem}
+h1{font-family:'Playfair Display',serif;font-weight:800;font-size:2.2rem;text-align:center;margin:2rem 0 0.3rem}
+.subtitle{font-family:'JetBrains Mono',monospace;font-size:0.72rem;font-weight:500;text-transform:uppercase;letter-spacing:0.15em;color:var(--text-dim);text-align:center;margin-bottom:0.5rem}
+.hotkeys{font-family:'JetBrains Mono',monospace;font-size:0.7rem;color:var(--text-dim);text-align:center;margin-bottom:2rem;line-height:1.8}
+.hotkeys kbd{display:inline-block;padding:0.1em 0.45em;border:1px solid var(--border-light);background:var(--surface2);font-weight:600;margin:0 0.1em}
+#progress-bar{width:100%;height:4px;background:var(--border-light);margin-bottom:1.5rem}
+#progress-fill{height:100%;background:var(--accent);transition:width 0.3s}
+#score-display{font-family:'JetBrains Mono',monospace;font-size:0.8rem;text-align:center;margin-bottom:1.5rem;color:var(--text-dim)}
+#question-area{min-height:350px}
+.q-number{font-family:'JetBrains Mono',monospace;font-size:0.72rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--text-dim);margin-bottom:0.5rem}
+.q-text{font-size:1.15rem;font-weight:600;margin-bottom:1.5rem;line-height:1.5}
+.option{display:block;width:100%;text-align:left;font-family:'Source Serif 4',serif;font-size:1rem;padding:0.85rem 1rem;margin-bottom:0.6rem;border:2px solid var(--border-light);background:var(--surface);cursor:pointer;transition:border-color 0.15s,background 0.15s}
+.option:hover:not(.disabled){border-color:var(--accent);background:var(--surface2)}
+.option.selected-correct{border-color:var(--correct);background:#f0fdf4;color:var(--correct);font-weight:600}
+.option.selected-wrong{border-color:var(--wrong);background:#fef2f2;color:var(--wrong)}
+.option.show-correct{border-color:var(--correct);background:#f0fdf4}
+.option.disabled{cursor:default;opacity:0.7}
+.option .opt-key{font-family:'JetBrains Mono',monospace;font-weight:700;margin-right:0.5rem;font-size:0.9rem}
+#explanation{margin-top:1.2rem;padding:1rem 1.25rem;border-left:4px solid var(--accent);background:var(--surface2);display:none;font-size:0.95rem;line-height:1.6}
+#explanation.visible{display:block}
+#next-btn{display:none;margin-top:1.5rem;width:100%;padding:0.8rem;font-family:'JetBrains Mono',monospace;font-size:0.85rem;font-weight:600;text-transform:uppercase;letter-spacing:0.1em;border:2px solid var(--accent);background:var(--accent);color:var(--bg);cursor:pointer;transition:opacity 0.15s}
+#next-btn:hover{opacity:0.85}
+#results{display:none;text-align:center}
+#results h2{font-family:'Playfair Display',serif;font-size:1.8rem;margin-bottom:1rem}
+#results .score-big{font-family:'JetBrains Mono',monospace;font-size:3rem;font-weight:700;margin:1rem 0}
+#results .score-big .correct-n{color:var(--correct)}
+#results .score-big .wrong-n{color:var(--wrong)}
+#review-section{margin-top:2rem;text-align:left}
+#review-section h3{font-family:'Playfair Display',serif;font-size:1.3rem;margin-bottom:1rem}
+.review-item{padding:1rem;margin-bottom:1rem;border:1px solid var(--border-light);background:var(--surface2)}
+.review-item .ri-q{font-weight:600;margin-bottom:0.4rem}
+.review-item .ri-your{color:var(--wrong);font-size:0.9rem}
+.review-item .ri-correct{color:var(--correct);font-size:0.9rem}
+.ri-explain{font-size:0.88rem;color:var(--text-dim);margin-top:0.3rem}
+.btn-restart{margin-top:2rem;padding:0.8rem 2rem;font-family:'JetBrains Mono',monospace;font-size:0.85rem;font-weight:600;text-transform:uppercase;letter-spacing:0.1em;border:2px solid var(--accent);background:var(--accent);color:var(--bg);cursor:pointer}
+.btn-restart:hover{opacity:0.85}
+</style>
+</head>
+<body>
+<div class="container">
+<h1>Postflop Drills</h1>
+<div class="subtitle">Crushing Small Stakes Cash Games &mdash; 18 Questions</div>
+<div class="hotkeys"><kbd>1</kbd><kbd>2</kbd><kbd>3</kbd><kbd>4</kbd> answer &nbsp; <kbd>Space</kbd> next &nbsp; <kbd>R</kbd> restart &nbsp; <kbd>H</kbd> toggle hotkeys</div>
+
+<div id="progress-bar"><div id="progress-fill" style="width:0%"></div></div>
+<div id="score-display"></div>
+
+<div id="question-area"></div>
+<div id="explanation"></div>
+<button id="next-btn">Next Question (Space)</button>
+
+<div id="results">
+<h2>Results</h2>
+<div class="score-big"><span class="correct-n" id="r-correct"></span> / <span id="r-total"></span></div>
+<p id="r-pct"></p>
+<div id="review-section"><h3>Review Missed</h3><div id="review-list"></div></div>
+<button class="btn-restart" onclick="restart()">Restart (R)</button>
+</div>
+</div>
+
+<script>
+const allQuestions = [
+  {
+    q: "You have middle pair on the river after check-calling flop and turn. Your opponent bets into you. You have done nothing aggressive at any point. What does this line tell your opponent, and what should you expect?",
+    opts: [
+      "Your passive line looks strong -- they will assume you have two pair or better",
+      "Your passive line looks capped -- they expect you to have at most top pair and may bluff you",
+      "Your line is balanced -- they have no information about your hand strength",
+      "They will always check because they fear your check-calls represent a trap"
+    ],
+    ans: 1,
+    ex: "When you check-call twice without ever raising, you look capped at something like top pair no kicker or worse. Maniacs and thinking opponents will pick up on this and bluff you frequently. The flip side: if you know your opponent WILL bluff in this spot, you should plan to call the river rather than fold. Your passive line induces bluffs -- that is both a vulnerability and a weapon."
+  },
+  {
+    q: "You have top pair with a weak kicker on the river. The board ran out with no draws completing. You are in position and the action checks to you. What should you do?",
+    opts: [
+      "Check behind -- your hand is marginal and you risk a check-raise",
+      "Bet small (around half pot) for thin value -- your hand beats most of their checking range",
+      "Bet pot to charge draws that may have called",
+      "Only bet if you have the top kicker with top pair"
+    ],
+    ans: 1,
+    ex: "Against most players, a half-pot bet in position is ideal for thin value. Whenever your made hand beats most of your opponent's potential calling range, go for value. The math is simple: if they call with a worse hand more than 50% of the time, the bet is profitable. Do not be afraid to lose sometimes -- that is normal. The trap is using too large a size; against most opponents, half pot extracts value from weak pairs and weak top pairs without scaring them away."
+  },
+  {
+    q: "You bet the flop and the turn as the preflop aggressor. The river bricks. Your opponent has check-called both streets and checks the river. You have king-high -- no pair, no draw. What is the most common mistake players make here?",
+    opts: [
+      "Betting too large on the river and scaring the opponent off",
+      "Betting the river at all -- they should check back with no equity",
+      "Giving up and checking back, letting the opponent win with bottom pair or worse",
+      "Raising instead of calling if the opponent leads small"
+    ],
+    ans: 2,
+    ex: "Most players barrel flop and turn then give up on the river -- that is a huge mistake. At small stakes, opponents are often call-happy on earlier streets because they want to 'see what happens' by the river. When they do not improve, they are sitting there with bottom pair or a busted draw in a big pot. If you do not bluff the river, you let them win for free. A large river bet (even 2x pot) works well because they only need to fold 67% of the time for it to profit -- and at small stakes, opponents fold far more than that to big bets after calling twice."
+  },
+  {
+    q: "On a board of 9-8-6 with two flush cards, you bet flop, bet turn, and now face the river. The flush draw and straight draws all missed. Your opponent check-called both streets. You have a bluff (no pair). What is true about your opponent's river range?",
+    opts: [
+      "Their range is now weighted heavily toward strong made hands since they called twice",
+      "Their range naturally contains many busted draws -- flush draws, open-enders -- who cannot win at showdown",
+      "All busted draws have folded by the turn; only strong hands remain",
+      "Draw-heavy boards mean opponents always have the made hand on the river"
+    ],
+    ans: 1,
+    ex: "On a draw-heavy board like 9-8-6, your opponent's check-calling range includes all their draws: flush draws, open-enders, combo draws. When all of those miss on the river, their range is loaded with busted hands that cannot win at showdown. This is precisely when you should NOT fold and should consider bluffing. Your opponent will naturally have a large chunk of jack-high, ten-high, etc. Big river bets in this spot are extremely profitable. Conversely, if you were the one check-calling, do not fold the river when draws miss -- call down."
+  },
+  {
+    q: "You are out of position versus a maniac who raises and re-raises frequently and bluffs on all streets. You check-call the flop and turn with middle pair. The river is a blank. The maniac bets pot. What is the key adjustment?",
+    opts: [
+      "Fold -- middle pair is not strong enough to call three streets",
+      "Raise the river to define their hand and take control",
+      "Call -- overfolding to maniacs is the biggest mistake you can make against them",
+      "Check-raise all-in to deny them the bluff equity they rely on"
+    ],
+    ans: 2,
+    ex: "The worst mistake against a maniac is check-calling flop, check-calling turn, then folding a blank river. You have induced a bluff by never putting in a raise -- your range looks capped and weak, exactly what a maniac wants to see. Since they start with wide ranges containing all the good hands PLUS too many bad hands, and they bluff on all betting rounds, your middle pair beats a huge portion of their range. Call. Note: if you know a specific maniac bluffs flop and turn but never the river, tighten up on the river only."
+  },
+  {
+    q: "On a Q-7-2 rainbow board with no draws, your opponent bets flop, you call with second pair (sevens). They bet the turn (a 3). You call. River is a 5. They bet again. What is different about this spot compared to a draw-heavy board?",
+    opts: [
+      "Nothing is different -- you should always call three streets with second pair",
+      "On a dry board with no draws, the opponent has no busted draws to bluff with -- their range is more heavily weighted toward value",
+      "Dry boards favor the caller because the opponent cannot rep a draw",
+      "You should fold immediately on the flop since dry boards favor the preflop aggressor"
+    ],
+    ans: 1,
+    ex: "On a dry board like Q-7-2, there are no flush draws, no straight draws. When an opponent bets all three streets, they cannot have busted draws because there are no draws to bust. Their betting range is therefore almost entirely made hands: queens, sets, two pair, maybe pocket jacks as a value bet. They expect you to have a pair (what else called the flop and turn?), so they are betting because they can beat your pair. With second pair in this spot, you should lean toward a fold unless you have strong reason to believe they bluff three streets on dry boards."
+  },
+  {
+    q: "When you should go for thin value on the river out of position, what bet size is generally best?",
+    opts: [
+      "Full pot -- large bets get the most value",
+      "Min-bet (1-2 big blinds) -- the smallest bet to guarantee a call",
+      "Around one-third pot or smaller -- this size gets calls from the widest range of weaker hands",
+      "Half pot in position, two-thirds pot out of position"
+    ],
+    ans: 2,
+    ex: "Out of position, a third pot or even smaller is the recommended size for thin value. Going too large scares off the exact weak hands you are trying to extract value from. The exception: when your opponent is especially call-happy (a non-believer who never folds), you can go larger or even overbet since they will call anyway. In position, half pot is the standard thin value size. Size your bet to the range of hands you want to call -- if you want middle pair and ace-high to call, bet small."
+  },
+  {
+    q: "You face a flop lead (a 'donk bet') from an out-of-position player who called your preflop raise. This player leads frequently with many hand types. What is the best adjustment?",
+    opts: [
+      "Always fold to leads since the GTO response is to never lead, meaning they have the nuts",
+      "Always raise the lead to take control of the pot",
+      "Raise with your premium made hands that crush their leading range, call with marginal made hands and draws",
+      "Flat call everything and play your hand for pot control"
+    ],
+    ans: 2,
+    ex: "A lead is a bet made into the preflop aggressor and is roughly 0% frequency from GTO -- so when someone leads, they are making a mistake or playing exploitatively. Against a player who leads frequently (with marginal made hands and draws, not just the nuts), raise with hands that crush their range and call with marginal hands getting good odds. If you think they will fold their marginal hands to a raise, you can raise with almost everything since it becomes a free pot. Figure out their leading range first, then exploit it."
+  },
+  {
+    q: "In a multi-way pot (4 players), the flop comes J-9-5. Under the gun bets into everyone. You are next to act with J-T (top pair, third kicker). Three players have yet to act. What should you do?",
+    opts: [
+      "Call -- top pair is strong enough in any pot size",
+      "Raise to thin the field and protect your hand",
+      "Fold -- facing a bet with players behind who have shown nothing, top pair weak kicker is close to a fold",
+      "Call and plan to check-fold all turns"
+    ],
+    ans: 2,
+    ex: "Multi-way pots with aggression demand caution. The UTG player is betting into everyone, meaning they are confident their hand is good. You still have three players behind who could have two pair, a set, or a stronger top pair. J-T on J-9-5 is top pair third kicker -- a decent hand heads-up, but a marginal hand here. Calling risks being squeezed from behind. Raising is worse -- you cannot fold out a set or two pair, and you do not know what the players behind hold. The correct play is to fold. Top pair no kicker in a multi-way contested pot is often close to a fold."
+  },
+  {
+    q: "You bet the flop in position after calling a preflop raise. The preflop raiser (out of position) checks the turn to you. Their checking range is NOT well-protected -- they always bet their good hands. What is the correct adjustment?",
+    opts: [
+      "Check back to pot control -- they checked, so they must have something",
+      "Bet frequently since their checking range is capped at non-premium hands and they likely overfold",
+      "Only bet if you have a strong hand -- checking ranges are always protected at low stakes",
+      "Raise if they check-call to charge them for their equity"
+    ],
+    ans: 1,
+    ex: "Most low-stakes players bet all their good hands, leaving their checking range unprotected (full of middle pair, weak top pair, and junk). When they check to you on the turn -- especially after betting or raising preflop -- their range is essentially capped. Against this type of player, bet the turn and barrel the river frequently. You will win a large chunk of small pots. Their bet-all-good-hands strategy is a major leak that makes them exploitable any time they check."
+  },
+  {
+    q: "You bet the river and your opponent raises. You have a strong hand (top pair top kicker). What should you do at small stakes?",
+    opts: [
+      "Call or re-raise -- they are likely bluffing since river raises are common bluffs",
+      "Fold almost always -- at small stakes, almost no one bluff-raises the river; they almost certainly have a better hand",
+      "Call if you have a flush blocker, fold otherwise",
+      "Re-raise all-in to deny them value"
+    ],
+    ans: 1,
+    ex: "River raises at small stakes are almost never bluffs -- probably 95% of the time they have a strong hand. When someone raises the river, they are saying: 'I can beat your strong hand.' Top pair top kicker is not a strong enough hand to call a river raise at small stakes unless you have very specific reads that your opponent bluff-raises rivers. The one nuance: if you made a tiny river bet (5-10% pot), some players will raise with marginal hands as a semi-steal. In that case you can consider a call. Against any reasonable-sized river bet, a raise means you are almost certainly beat."
+  },
+  {
+    q: "You are in position facing a continuation bet on a 10-8-5 two-tone flop. You have two overcards (K-Q) and a backdoor flush draw. No direct equity against their range. What is the correct play?",
+    opts: [
+      "Fold -- you have no equity on this board",
+      "Raise the flop to take control",
+      "Call the flop -- if they check the turn, bet as if you have a strong hand; fold to a turn barrel",
+      "Check-raise with the intention of folding to a 3-bet"
+    ],
+    ans: 2,
+    ex: "Floating (calling with the intention of betting turns) is a key postflop weapon. With K-Q on 10-8-5, you have overcards, backdoor draws, and position. Call the flop. If they check the turn, your range contains all the kings and queens that called -- so you can bet the turn for value (your K-Q improves) or as a bluff with the weaker hands in your range. If they bet the turn, fold unless you pick up equity. The mistake is checking back K-Q on the turn hoping to win at showdown -- king-high almost never wins at showdown, so you must be willing to bet it as a bluff."
+  },
+  {
+    q: "Against a calling station who calls almost any bet on the flop and turn, what is the correct river strategy?",
+    opts: [
+      "Bluff the river -- they will fold since they gave up their strong hands by not raising",
+      "Bet large on the river to maximize value",
+      "Bet small (around one-third pot or less) for value -- this gets called by the widest range; avoid bluffing",
+      "Check back and let them bluff into you"
+    ],
+    ans: 2,
+    ex: "Two rules for calling stations: (1) Never bluff them -- they will call with anything and your bluffs fail constantly. (2) Value bet them thinly and often. Against a calling station, bet small on the river because small bets get called by the widest range of weak hands (ace-high, low pair, gutshots that missed). If you bet pot, they may fold. If you bet 25%, they call with hands like third pair and ace-high. The goal is to extract max value across all three streets -- thin value bet flop, thin value bet turn, small value bet river."
+  },
+  {
+    q: "You hold 8-7 on a board of J-6-2-3-5 (rainbow). The river completes no draw (no flush, gutshots only). You have no pair. Your opponent has check-called you on the flop and turn without raising. Should you consider a river bluff?",
+    opts: [
+      "No -- never bluff with a hand that beats nothing",
+      "Yes -- your opponent is capped (never raised), the board has no completed draws, and they likely have one pair at best which they may fold to a big bet",
+      "Only bluff if you have a flush blocker",
+      "Check back and hope for the best at showdown"
+    ],
+    ans: 1,
+    ex: "This is a classic river bluff spot. Your opponent check-called twice without raising -- they look capped at one pair or a missed draw. On J-6-2-3-5, there is no completed flush draw, but gut shots existed (4 or 7 completing). Their range contains many single pairs that cannot beat a bluff. You block some straight combos (8 and 7 reduce the number of made straights they can hold). A pot-sized or 2x pot bluff here works because: (1) they look like one pair, (2) most small-stakes players fold one pair to a big bet, (3) you need them to fold only 50-67% of the time."
+  },
+  {
+    q: "Your opponent raises to 4x the big blind under the gun -- they normally raise to 3x. Alarm bells go off. What is the correct adjustment?",
+    opts: [
+      "Ignore the sizing -- standard raise variance, no information",
+      "Play more aggressively -- they are likely uncomfortable with their hand",
+      "Play more cautiously -- abnormal betting patterns, especially unusual sizes, typically indicate a stronger range",
+      "3-bet them to find out where they stand"
+    ],
+    ans: 2,
+    ex: "Developing intuition means recognizing when an opponent does something abnormal. An unusual preflop raise size (larger than their standard) often signals strength -- they want more money in the pot. In live poker, players also act out of turn when excited (strong hand), breathe more heavily with big hands, or stare without blinking. These behavioral deviations from baseline tell you to proceed cautiously. At small stakes, weird behavior almost always indicates strength, not weakness. Against maniacs, the signals may be reversed -- but with most players, unusual actions = strong hand."
+  },
+  {
+    q: "You want to bluff the river with a pot-sized bet. Your opponent's range on this river is: top pair bad kicker, middle pair, and busted draws. What percentage of the time do they need to fold for your bluff to profit?",
+    opts: [
+      "More than 33% (you risk 1 unit to win 1 unit in the pot)",
+      "More than 50% (you risk 1 unit to win 1 unit -- break even at 50%)",
+      "More than 67% (pot-sized bet risks 1 unit to win 1 unit, so break-even is 1/(1+1) = 50%)",
+      "More than 75%"
+    ],
+    ans: 1,
+    ex: "With a pot-sized bet, you risk 1 unit to win 1 unit already in the pot. Break-even: your bet / (your bet + pot) = 1/(1+1) = 50%. So they need to fold more than 50% of the time. At small stakes, opponents with top pair bad kicker and middle pair in a big pot will fold far more than 50% to a pot bet -- often 70-80%. Now consider a 2x pot overbet: you risk 2 units to win 1, so break-even = 2/(2+1) = 67%. Both bets can be profitable if opponents fold enough, but the overbet requires more fold equity. Against players with capped ranges who respect big bets, overbets are often more profitable."
+  },
+  {
+    q: "In a multi-way pot, the flop and turn check through. On the river, the action checks to you with everyone behind having shown no interest in the pot. You have ace-high. What should you do?",
+    opts: [
+      "Check -- everyone checked, so they could all have strong hands slow-playing",
+      "Bet small to test the waters",
+      "Make a significant bet or overbet -- multiple checks in a multi-way pot mean everyone is weak; steal the pot",
+      "Check and fold to any bet"
+    ],
+    ans: 2,
+    ex: "Multi-way double-checks are gold. When the flop AND turn check through in a multi-way pot, virtually no one has a strong hand -- if they did, they would have bet to protect it. Everyone has announced they are weak. Most players do not protect their multi-way checking ranges with strong hands. In this spot, a large bet or overbet steals the pot the vast majority of the time. Even ace-high (which cannot win at showdown) should be betting aggressively here. The key insight: weak-looking boards + multiple streets of checking = opponents are almost always weak."
+  },
+  {
+    q: "Draws have completed on the river (flush fills, straight completes). Your opponent, who bet flop and turn, now bets into you again. You have middle pair. What is the correct thinking?",
+    opts: [
+      "Call -- they probably just continued their bluff and their draw missed",
+      "Raise -- if they bet all three streets they are likely bluffing on the river",
+      "Lean toward folding -- draws completing removes most bluffs from their range; their betting range is now heavily weighted toward value",
+      "The draw completing is irrelevant to your decision"
+    ],
+    ans: 2,
+    ex: "When draws complete and your opponent keeps betting, their range purifies heavily toward value. Here is why: all the bluffs in their range were draws on the flop and turn. Those draws have now either completed into strong made hands or are gone (they would not continue betting with missed draws). Additionally, players who had marginal made hands will often check back on the river because they think they can win at showdown. That means the bets on a draw-completing river come almost entirely from made hands. Your middle pair is now a bluff-catcher in a spot where there are very few bluffs -- overfold here."
+  }
+];
+
+let questions, current, score, missed, answered;
+
+function shuffle(a) {
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+function restart() {
+  questions = shuffle([...allQuestions]);
+  current = 0;
+  score = 0;
+  missed = [];
+  answered = false;
+  document.getElementById('results').style.display = 'none';
+  document.getElementById('question-area').style.display = 'block';
+  document.getElementById('next-btn').style.display = 'none';
+  document.getElementById('explanation').classList.remove('visible');
+  document.getElementById('explanation').textContent = '';
+  showQ();
+}
+
+function showQ() {
+  if (current >= questions.length) { showResults(); return; }
+  answered = false;
+  const q = questions[current];
+  const pct = ((current) / questions.length * 100).toFixed(0);
+  document.getElementById('progress-fill').style.width = pct + '%';
+  document.getElementById('score-display').textContent = 'Question ' + (current + 1) + ' of ' + questions.length + '  |  Score: ' + score;
+  let html = '<div class="q-number">Question ' + (current + 1) + '</div><div class="q-text">' + q.q + '</div>';
+  q.opts.forEach(function(o, i) {
+    html += '<button class="option" data-idx="' + i + '" onclick="pick(' + i + ')"><span class="opt-key">' + (i + 1) + '.</span>' + o + '</button>';
+  });
+  document.getElementById('question-area').innerHTML = html;
+  document.getElementById('explanation').classList.remove('visible');
+  document.getElementById('explanation').textContent = '';
+  document.getElementById('next-btn').style.display = 'none';
+}
+
+function pick(idx) {
+  if (answered) return;
+  answered = true;
+  const q = questions[current];
+  const btns = document.querySelectorAll('.option');
+  btns.forEach(function(b) {
+    b.classList.add('disabled');
+    const bi = parseInt(b.dataset.idx);
+    if (bi === q.ans) b.classList.add(bi === idx ? 'selected-correct' : 'show-correct');
+    else if (bi === idx) b.classList.add('selected-wrong');
+  });
+  if (idx === q.ans) {
+    score++;
+  } else {
+    missed.push({ q: q.q, your: q.opts[idx], correct: q.opts[q.ans], ex: q.ex });
+  }
+  document.getElementById('explanation').textContent = q.ex;
+  document.getElementById('explanation').classList.add('visible');
+  document.getElementById('next-btn').style.display = 'block';
+  document.getElementById('score-display').textContent = 'Question ' + (current + 1) + ' of ' + questions.length + '  |  Score: ' + score;
+}
+
+function advance() {
+  if (!answered) return;
+  current++;
+  showQ();
+}
+
+function showResults() {
+  document.getElementById('question-area').style.display = 'none';
+  document.getElementById('next-btn').style.display = 'none';
+  document.getElementById('explanation').classList.remove('visible');
+  document.getElementById('progress-fill').style.width = '100%';
+  const r = document.getElementById('results');
+  r.style.display = 'block';
+  document.getElementById('r-correct').textContent = score;
+  document.getElementById('r-total').textContent = questions.length;
+  document.getElementById('r-pct').textContent = (score / questions.length * 100).toFixed(0) + '% correct';
+  let rh = '';
+  if (missed.length === 0) {
+    rh = '<p>Perfect score -- nothing to review.</p>';
+  } else {
+    missed.forEach(function(m) {
+      rh += '<div class="review-item"><div class="ri-q">' + m.q + '</div><div class="ri-your">Your answer: ' + m.your + '</div><div class="ri-correct">Correct: ' + m.correct + '</div><div class="ri-explain">' + m.ex + '</div></div>';
+    });
+  }
+  document.getElementById('review-list').innerHTML = rh;
+}
+
+document.getElementById('next-btn').addEventListener('click', advance);
+
+document.addEventListener('keydown', function(e) {
+  if (e.key === ' ' || e.key === 'Enter') { e.preventDefault(); if (answered) advance(); }
+  if (e.key === 'r' || e.key === 'R') { if (document.getElementById('results').style.display === 'block') restart(); }
+  if (!answered && e.key >= '1' && e.key <= '4') {
+    const i = parseInt(e.key) - 1;
+    const opts = document.querySelectorAll('.option');
+    if (i < opts.length) pick(i);
+  }
+  if (e.key === 'h' || e.key === 'H') {
+    const hk = document.querySelector('.hotkeys');
+    hk.style.display = hk.style.display === 'none' ? 'block' : 'none';
+  }
+});
+
+restart();
+</script>
+</body>
+</html>

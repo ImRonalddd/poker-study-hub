@@ -1,0 +1,1336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Revision Guide — Crushing Small Stakes Cash Games</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;0,900;1,400&family=Source+Serif+4:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+  onload="renderMathInElement(document.body,{delimiters:[{left:'\\(',right:'\\)',display:false},{left:'\\[',right:'\\]',display:true}],throwOnError:false});"></script>
+<style>
+:root {
+  --bg: #FFFFFF;
+  --text: #000000;
+  --text-dim: #525252;
+  --border: #000000;
+  --border-light: #E5E5E5;
+  --blue: #2563EB;
+  --purple: #7C3AED;
+  --orange: #EA580C;
+  --red: #DC2626;
+  --green: #1a7a5e;
+  --wrong: #b91c1c;
+}
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; border-radius: 0 !important; }
+
+body {
+  font-family: 'Source Serif 4', Georgia, serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+}
+
+.page-wrap {
+  max-width: 780px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem 4rem;
+}
+
+/* Back link */
+.back-link {
+  display: inline-block;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text-dim);
+  text-decoration: none;
+  margin-bottom: 2rem;
+}
+.back-link:hover { color: var(--text); }
+
+/* Header */
+.doc-header {
+  border-bottom: 4px solid var(--border);
+  padding-bottom: 1.5rem;
+  margin-bottom: 2.5rem;
+}
+.doc-header .label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--text-dim);
+  margin-bottom: 0.5rem;
+}
+.doc-header h1 {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 2.4rem;
+  font-weight: 900;
+  line-height: 1.15;
+  margin-bottom: 0.5rem;
+}
+.doc-header .sub {
+  font-family: 'Source Serif 4', Georgia, serif;
+  font-size: 1.05rem;
+  color: var(--text-dim);
+}
+
+/* Table of Contents */
+.toc {
+  border: 2px solid var(--border);
+  padding: 1.5rem;
+  margin-bottom: 2.5rem;
+  background: #fafafa;
+}
+.toc-title {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  margin-bottom: 1rem;
+}
+.toc ol {
+  padding-left: 1.4rem;
+}
+.toc li {
+  margin-bottom: 0.3rem;
+  font-size: 0.95rem;
+}
+.toc a {
+  color: var(--text);
+  text-decoration: none;
+  font-weight: 500;
+}
+.toc a:hover { text-decoration: underline; }
+
+/* Section headings */
+h2 {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 1.7rem;
+  font-weight: 700;
+  margin-top: 3rem;
+  margin-bottom: 1.2rem;
+  padding-bottom: 0.4rem;
+  border-bottom: 2px solid var(--border);
+}
+h3 {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin-top: 2rem;
+  margin-bottom: 0.8rem;
+}
+h4 {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-top: 1.5rem;
+  margin-bottom: 0.5rem;
+  color: var(--text-dim);
+}
+
+p { margin-bottom: 1rem; }
+ul, ol { padding-left: 1.6rem; margin-bottom: 1rem; }
+li { margin-bottom: 0.35rem; }
+strong { font-weight: 700; }
+
+/* Boxes */
+.box {
+  border-left: 4px solid;
+  padding: 1rem 1.2rem;
+  margin: 1.5rem 0;
+}
+.box-label {
+  display: block;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  margin-bottom: 0.6rem;
+}
+.box p:last-child { margin-bottom: 0; }
+.box ul:last-child { margin-bottom: 0; }
+
+.box-definition {
+  border-color: var(--blue);
+  background: #eff6ff;
+}
+.box-definition .box-label { color: var(--blue); }
+
+.box-insight {
+  border-color: var(--purple);
+  background: #f5f3ff;
+}
+.box-insight .box-label { color: var(--purple); }
+
+.box-example {
+  border-color: var(--orange);
+  background: #fff7ed;
+}
+.box-example .box-label { color: var(--orange); }
+
+.box-trap {
+  border-color: var(--red);
+  background: #fef2f2;
+}
+.box-trap .box-label { color: var(--red); }
+
+/* Range table */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.2rem 0;
+  font-size: 0.9rem;
+}
+th {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  background: var(--text);
+  color: #fff;
+  padding: 0.5rem 0.8rem;
+  text-align: left;
+}
+td {
+  padding: 0.45rem 0.8rem;
+  border-bottom: 1px solid var(--border-light);
+  vertical-align: top;
+}
+tr:last-child td { border-bottom: none; }
+tr:nth-child(even) td { background: #f9f9f9; }
+
+/* Formula display */
+.formula-block {
+  background: #f4f4f4;
+  border: 1px solid var(--border-light);
+  padding: 1rem 1.2rem;
+  margin: 1rem 0;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.85rem;
+}
+
+/* Hand notation */
+.hand { font-weight: 700; }
+.board {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.9rem;
+  font-weight: 600;
+  background: #f4f4f4;
+  padding: 0.15rem 0.4rem;
+  border: 1px solid var(--border-light);
+}
+
+/* Section anchor spacing */
+section { margin-top: 0.5rem; }
+
+/* Divider */
+hr {
+  border: none;
+  border-top: 1px solid var(--border-light);
+  margin: 2.5rem 0;
+}
+
+/* Footer */
+.doc-footer {
+  margin-top: 4rem;
+  padding-top: 1.5rem;
+  border-top: 2px solid var(--border);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text-dim);
+}
+
+@media (max-width: 600px) {
+  .doc-header h1 { font-size: 1.8rem; }
+  h2 { font-size: 1.4rem; }
+  table { font-size: 0.8rem; }
+  td, th { padding: 0.35rem 0.5rem; }
+}
+</style>
+</head>
+<body>
+<div class="page-wrap">
+
+<a href="index.html" class="back-link">&#8592; Back to Course Hub</a>
+
+<header class="doc-header">
+  <div class="label">Revision Guide &mdash; Comprehensive Reference</div>
+  <h1>Crushing Small Stakes Cash Games</h1>
+  <p class="sub">Jonathan Little &mdash; Full deep-dive covering preflop ranges, player-type exploitation, postflop decision trees, bet sizing, and advanced concepts from both course versions.</p>
+</header>
+
+<nav class="toc">
+  <div class="toc-title">Contents</div>
+  <ol>
+    <li><a href="#foundations">Core Philosophy &amp; Foundations</a></li>
+    <li><a href="#preflop-ranges">Preflop Opening Ranges by Position</a></li>
+    <li><a href="#blinds">Blind Strategies (SB &amp; BB)</a></li>
+    <li><a href="#facing-3bets">Facing 3-Bets &amp; 4-Bet Strategies</a></li>
+    <li><a href="#limpers">Playing Against Limpers</a></li>
+    <li><a href="#squeeze">Squeezing &amp; Over-Calling</a></li>
+    <li><a href="#stack-depth">Stack Depth Adjustments</a></li>
+    <li><a href="#player-types">The Four Player Types</a></li>
+    <li><a href="#passive-crush">Crushing Passive Players</a></li>
+    <li><a href="#tag-crush">Crushing Tight Aggressive Players</a></li>
+    <li><a href="#lag-crush">Crushing Loose Aggressive Players</a></li>
+    <li><a href="#calling-stations">Crushing Calling Stations</a></li>
+    <li><a href="#maniacs">Crushing Maniacs</a></li>
+    <li><a href="#cbet">C-Bet Strategies &amp; Sizing</a></li>
+    <li><a href="#floating">Floating &amp; Bluff-Raising</a></li>
+    <li><a href="#turn-river">Turn &amp; River Decision Trees</a></li>
+    <li><a href="#postflop-leads">Facing Postflop Leads</a></li>
+    <li><a href="#river-raises">Facing River Raises</a></li>
+    <li><a href="#multiway">Multi-Way Pot Strategy</a></li>
+    <li><a href="#thin-value">Thin Value Betting</a></li>
+    <li><a href="#bluffing">Bluffing &amp; Over-Bets</a></li>
+    <li><a href="#bet-sizing">Advanced Bet Sizing</a></li>
+    <li><a href="#image">Table Image &amp; Tells</a></li>
+    <li><a href="#game-selection">Game Selection &amp; Bankroll</a></li>
+  </ol>
+</nav>
+
+<!-- ============================================================ -->
+<section id="foundations">
+<h2>1. Core Philosophy &amp; Foundations</h2>
+
+<div class="box box-insight">
+  <span class="box-label">Key Insight — Why Small Stakes Players Struggle</span>
+  <p>Two forces crush small stakes players: the <strong>rake</strong> and <strong>playing only strong hands</strong>. If you win $10/hr but pay $12/hr in rake, you are a losing player. The rake at 1-2 is typically 3-4 big blinds per hand — so you must play sufficiently aggressively and exploitatively to overcome it. Playing only nut hands keeps you alive but never profitable at higher stakes.</p>
+</div>
+
+<p>The central skill Jonathan teaches is <strong>exploitative thinking</strong>: identify what your opponent does wrong, then do everything in your power to punish that specific mistake. You are not just playing your cards — you are playing your opponent's tendencies.</p>
+
+<div class="box box-definition">
+  <span class="box-label">Definition — Range Thinking</span>
+  <p>Your opponent does not hold one specific hand; they hold a <em>range</em> of possible hands, weighted by their position, action, and player type. Every decision you make should be evaluated against their entire range, not a single hand you "put them on." Tools like PokerStrategy.com Equilab let you model these ranges off-table.</p>
+</div>
+
+<h3>The Fundamental Goal</h3>
+<p>Your aim is to win money, not pots. These are different objectives. Winning a small pot with a big hand because you scared your opponent out is often worse than inducing a call from a worse hand. The question is always: <em>what play maximises EV against this opponent's range?</em></p>
+
+<div class="box box-definition">
+  <span class="box-label">Definition — EV (Expected Value)</span>
+  <p>The average amount you expect to profit (or lose) over many repetitions of the same decision. \(\text{EV} = P(\text{win}) \times \text{Profit} - P(\text{lose}) \times \text{Loss}\). A play is correct if its EV is positive, regardless of outcome on any single hand.</p>
+</div>
+
+<div class="box box-definition">
+  <span class="box-label">Definition — MDF (Minimum Defense Frequency)</span>
+  <p>The fraction of your range you must defend to prevent your opponent from profitably bluffing with any two cards:
+  \[ \text{MDF} = \frac{\text{Pot}}{\text{Pot} + \text{Bet}} \]
+  Against a pot-sized bet: MDF = 50%. Against a half-pot bet: MDF = 67%. If you fold more than \(1 - \text{MDF}\), your opponent can bluff you profitably.</p>
+</div>
+</section>
+
+<!-- ============================================================ -->
+<section id="preflop-ranges">
+<h2>2. Preflop Opening Ranges by Position</h2>
+
+<div class="box box-insight">
+  <span class="box-label">Key Insight — Position Dictates Range Width</span>
+  <p>The single biggest leak Jonathan observes is players using the same range from every position. From <strong>UTG</strong> (Under the Gun) you should open roughly 6-10% of hands. From the <strong>BTN</strong> (Button) when action folds to you and the blinds are weak, you can profitably open 50-60% of hands. This is not a minor adjustment — it is a complete change in strategy.</p>
+</div>
+
+<table>
+  <tr>
+    <th>Position</th>
+    <th>Approx. Open %</th>
+    <th>Hands to Open (examples)</th>
+    <th>Hands to Drop</th>
+  </tr>
+  <tr>
+    <td><strong>UTG</strong> (9-handed)</td>
+    <td>6–10%</td>
+    <td>AA–88, AKs–AJs, AKo–AQo, KQs</td>
+    <td>QJo, T9s, small pairs 22–66, ATo</td>
+  </tr>
+  <tr>
+    <td><strong>MP</strong> (Middle Position)</td>
+    <td>12–16%</td>
+    <td>Add: JTs, TT–77, ATs, KJs, QJs</td>
+    <td>Weak aces offsuit, low suited gappers</td>
+  </tr>
+  <tr>
+    <td><strong>HJ / CO</strong></td>
+    <td>18–25%</td>
+    <td>Add: A9s–A2s, KTs, QTs, 66–22, J9s</td>
+    <td>Off-suit dominated hands, very weak connectors</td>
+  </tr>
+  <tr>
+    <td><strong>BTN</strong> (vs. weak blinds)</td>
+    <td>45–60%</td>
+    <td>Any two suited cards with potential, most connectors, weak aces</td>
+    <td>Only the very worst off-suit garbage (72o, 83o)</td>
+  </tr>
+  <tr>
+    <td><strong>SB</strong> vs. fold-to-you</td>
+    <td>3-bet or fold</td>
+    <td>3-bet a linear value range + a few suited bluffs</td>
+    <td>Do not limp the SB — bad relative position kills profits</td>
+  </tr>
+</table>
+
+<div class="box box-trap">
+  <span class="box-label">Trap — Varying Pre-Flop Raise Sizes by Hand Strength</span>
+  <p>Never raise to different amounts pre-flop based on your hand. Make it the same size (typically 3 big blinds at 100bb depth, 3.5–4bb when playing deeper) regardless of whether you have aces or a button bluff steal. Pre-flop is the street you play the most — opponents will detect sizing tells very quickly. On the turn and river you can vary sizes wildly because sample sizes are too small for opponents to exploit.</p>
+</div>
+
+<h3>Standard Raise Size Formula</h3>
+<p>With 100bb effective stacks, a standard open of <strong>3 big blinds</strong> is recommended. This allows you to bet roughly 2/3 pot on each street and get all the money in by the river without over-committing preflop. When you add one limper, add 1bb to your sizing; for each additional limper, add another big blind.</p>
+
+<div class="box box-definition">
+  <span class="box-label">Definition — Pot-Size Re-Raise Formula</span>
+  <p>To calculate a pot-sized 3-bet: \(\text{3-bet size} = 3 \times \text{last bet} + \text{dead money}\). Example: opponent raises to 6bb, blinds are 3bb dead money total — \(3 \times 6 + 3 = 21\text{bb}\). A good 3-bet out of position is roughly this pot size; in position, slightly less (e.g., 2.5×) to encourage a call from a player who will be out of position.</p>
+</div>
+
+<div class="box box-example">
+  <span class="box-label">Worked Example — When Suited Hands Beat Off-Suit</span>
+  <p><strong>Setup:</strong> Button vs. weak BB. You look down at Q♠2♠ vs. Q♣7♦.</p>
+  <p><strong>Insight:</strong> Q2s is a significantly better open than Q7o from the button. The suited hand gains direct flush equity, flush-draw equity, and backdoor flush potential — all of which translate into real flop playability. Q7o flops a weak pair with terrible kicker too often, leaving you with reverse implied odds against a range that has you dominated. A suited 2-gapper beats an offsuit hand several "ranks" up.</p>
+  <p><strong>EV cost of the wrong play:</strong> Opening Q7o in spots where Q2s is profitable but Q7o is marginal means you enter more multi-street confrontations with a dominated, unplayable hand that bleeds chips through check-folds.</p>
+</div>
+
+<h3>Suited Connectors vs. Offsuit Big Cards</h3>
+<p>At 100bb depth, suited hands have dramatically more playability because they can make flushes and straight-flushes that generate implied odds. Hands like <strong>J3s</strong> from the button are legitimate opens against weak, passive blinds. Hands like <strong>KTo offsuit</strong> from early position are folds because they make dominated top pairs and have reverse implied odds.</p>
+</section>
+
+<!-- ============================================================ -->
+<section id="blinds">
+<h2>3. Blind Strategies (SB &amp; BB)</h2>
+
+<h3>Small Blind — 3-Bet or Fold</h3>
+
+<div class="box box-insight">
+  <span class="box-label">Key Insight — Two Reasons the SB Must Not Limp-Call</span>
+  <p><strong>1) The rake:</strong> You pay half a blind to enter the hand out of position. <strong>2) Relative position:</strong> When you flat call from the SB, the BB often calls too. On the flop you must act before seeing what the BB does — you have no information about the player directly behind you who just checked. This double disadvantage makes calling pre-flop raises from the SB deeply unprofitable with most hands.</p>
+</div>
+
+<p>The GTO strategy from the SB vs. a UTG raise is to <strong>3-bet a tight linear range or fold</strong> — there is no calling range. Vs. a BTN raise, you 3-bet a moderately strong range. The exceptions where calling is viable: when the BB player is especially bad at poker, in which case you may want to limp behind with small pairs, suited aces, and suited connectors that flop well and extract big implied odds multi-way.</p>
+
+<div class="box box-example">
+  <span class="box-label">Worked Example — SB vs. BTN Raise with 55</span>
+  <p><strong>Setup:</strong> 100bb effective. BTN raises to 3bb. SB has 5♦5♣. BB is a bad calling station.</p>
+  <p><strong>Decision:</strong> Call (flat), not 3-bet. With a small pair, you know immediately on the flop whether you flopped the nuts (a set) or have little value. If you call, the bad BB often comes along. When you flop a set (~11.8% of the time), the bad player behind you is going to pay you off. The implied odds justify flatting over 3-betting, which would price out worse calls and remove the multi-way dynamic you want.</p>
+  <p><strong>EV cost of 3-betting:</strong> You remove a bad player from the pot and reduce the pot size at the exact moment your hand needs a big pot to justify its pre-flop investment.</p>
+</div>
+
+<h3>Big Blind — Defend Wide, 3-Bet More</h3>
+
+<div class="box box-insight">
+  <span class="box-label">Key Insight — Most Players Call Too Wide and 3-Bet Too Rarely from the BB</span>
+  <p>The GTO BB vs. BTN open should include a <strong>large 3-betting range</strong> — not just premiums but suited hands like T7s, T6s, J8s, J7s. These hands have enough playability to play a 3-bet pot in position after the flop (you are last to act post-flop out of position but the BTN caller will face a 3-bet pot OOP). Meanwhile many hands people instinctively call with — AJo, QJo, JTo, A2o — are GTO <em>folds</em> vs. UTG because UTG's range is so strong they will dominate these hands constantly.</p>
+</div>
+
+<table>
+  <tr>
+    <th>Scenario</th>
+    <th>GTO Action</th>
+    <th>Key Hands That Change</th>
+  </tr>
+  <tr>
+    <td>BB vs. UTG raise</td>
+    <td>3-bet or fold. Narrow calling range with implied-odds hands</td>
+    <td>AJo, QJo, JTo = <strong>fold</strong>. Suited connectors, low pairs = call</td>
+  </tr>
+  <tr>
+    <td>BB vs. BTN raise</td>
+    <td>Call with medium range; 3-bet wide (value + bluffs)</td>
+    <td>Q2s can call; 76o folds; T7s, J8s often 3-bet</td>
+  </tr>
+  <tr>
+    <td>BB vs. SB limp</td>
+    <td>Raise aggressively (3–4bb) with most playable hands</td>
+    <td>SB limp range is weak — attack it; don't let them see flops cheaply</td>
+  </tr>
+</table>
+
+<p>When 3-betting from the BB, use a <strong>larger size</strong> because you are out of position. If they raise to 3bb from BTN, make it 13–14bb from the BB. A 9bb 3-bet gives them excellent odds to call — you want the caller to put in lots of chips OOP.</p>
+</section>
+
+<!-- ============================================================ -->
+<section id="facing-3bets">
+<h2>4. Facing 3-Bets &amp; 4-Bet Strategies</h2>
+
+<div class="box box-insight">
+  <span class="box-label">Key Insight — Call More In Position, Fold More Out of Position</span>
+  <p>Position dramatically changes how you respond to a 3-bet. When you are in position (e.g., BTN vs. SB 3-bet), you can call a much wider range profitably — you will get to act last on every post-flop street. When you are out of position (e.g., LJ vs. BTN 3-bet), you must fold a much larger portion of your range and 4-bet proportionally more often to compensate.</p>
+</div>
+
+<h3>4-Bet Ranges</h3>
+<p>When out of position, 4-bet a polarised range: your strongest value hands (AA, KK, AKs, QQ when strong) plus some bluffs. Good 4-bet bluffs are hands that:</p>
+<ul>
+  <li>Block aces (Ax hands) — reducing the chance opponent has AA or AK</li>
+  <li>Do not play well post-flop (so you don't mind folding if 5-bet)</li>
+  <li>Have some blocker value (Kx suited)</li>
+</ul>
+<p>Hands like <strong>A5s, A4s</strong> make excellent 4-bet bluffs from OOP: they block AA and AK (your opponent's likely 5-bet calling range) while being poor call hands post-flop in a 4-bet pot OOP.</p>
+
+<div class="box box-example">
+  <span class="box-label">Worked Example — JJ vs. TAG 3-Bet (Calling vs. 4-Betting)</span>
+  <p><strong>Setup:</strong> You raise MP with J♥J♦ to 6bb (100bb stack). A competent TAG on the BTN 3-bets to 18bb. His 3-bet range: AA-TT, AKs-AQs, AKo, some bluffs (A5s, KQs). Your position: out of position post-flop.</p>
+  <p><strong>Analysis:</strong> JJ has roughly 60% equity vs. his entire 3-bet range. If you 4-bet, he folds all his bluffs and many weaker value hands (TT, AQs sometimes) and continues only with hands that now have roughly 50% equity vs. JJ. You turn a 60% equity situation into a 50% equity situation by 4-betting. The correct play is to <strong>call</strong>, keep his wide range in, and play post-flop where you have significant equity against his bluffs and weaker pairs.</p>
+  <p><strong>EV cost of 4-betting:</strong> You make his range fold the exact hands you dominate and continue only with hands that have near-equal equity. You also inflate the pot in a spot where you must act first on every post-flop street. This costs several big blinds EV per occurrence.</p>
+</div>
+
+<div class="box box-trap">
+  <span class="box-label">Trap — 4-Betting AQ/JJ/TT to "Find Out Where You Are"</span>
+  <p>Many small-stakes players 4-bet jacks, tens, and ace-queen "to see where they stand." But this accomplishes the opposite: you force your opponent to play perfectly. They call with hands that have you in roughly a coin-flip, and fold hands you dominate. You gain no useful information because the 4-bet selects only for strong continuation. Call these hands in position; fold or 4-bet for value (not information) when OOP.</p>
+</div>
+
+<h3>Sizing Against a 3-Bet</h3>
+<p>A 4-bet should be roughly <strong>2.3–2.5× the 3-bet</strong> at 100bb. If they 3-bet to 18bb, your 4-bet should be around 42–45bb. Out of position, go a little larger (50bb) to remove their implied odds advantage. The goal is to get roughly 2.5-3 streets of value post-flop — not to jam pre-flop with hands that don't need to.</p>
+
+<p>As 3-bet sizing from your opponents increases, your calling range <strong>tightens dramatically</strong>. Every additional big blind they add to their 3-bet cost reduces your implied odds. Small pairs and suited connectors require roughly 10:1 implied odds to call a 3-bet — a very large 3-bet may make them unprofitable calls.</p>
+</section>
+
+<!-- ============================================================ -->
+<section id="limpers">
+<h2>5. Playing Against Limpers</h2>
+
+<h3>Two Types of Limpers</h3>
+
+<div class="box box-definition">
+  <span class="box-label">Definition — Tricky Limper vs. Straightforward Limper</span>
+  <p><strong>Tricky limper:</strong> Limps some premium hands (AA, KK) plus junk, intending to limp-reraise and trap. More common from early position. <strong>Straightforward limper:</strong> Raises all best hands, limps everything else. Their limping range contains no premiums — it is weak by construction. Against straightforward limpers, attack relentlessly. Against tricky limpers, be slightly more careful, especially from early position.</p>
+</div>
+
+<h3>Against One Straightforward Limper (In Position)</h3>
+<p>Raise a similar range to your standard open — or even wider because their limping range is weak. You should also <strong>limp behind</strong> with implied-odds hands (small pairs, suited aces, suited connectors, suited gappers) because these hands want to see flops cheaply and get paid when they hit. Do not raise with these — they need to see the flop.</p>
+
+<div class="box box-example">
+  <span class="box-label">Worked Example — Raising Over a Straightforward Limper</span>
+  <p><strong>Setup:</strong> 1-2 NL, 200 effective. UTG+1 limps (tight-passive straightforward player). Action folds to you on the BTN with A♦4♣.</p>
+  <p><strong>Opponent's range:</strong> Hands like 66, 55, 44, K9o, Q8o, J7o — the junky hands below his raising threshold. No premiums.</p>
+  <p><strong>Action:</strong> Raise to ~$11 (roughly 5.5× to account for the dead blind money). He folds a lot, or calls. If he calls, you play post-flop in position vs. a weak, capped range. A4o is a hand you would normally fold if it folded to you — but vs. a weak capped range in position, it is a profitable isolate raise even off-suit, because you get to apply position pressure. If he limp-reraises, fold cheaply.</p>
+  <p><strong>EV cost of limping behind:</strong> You give the weak player exactly what he wants — a cheap flop with a marginal hand against your marginal hand, out of position. By raising, you steal the pot frequently and deny him equity.</p>
+</div>
+
+<h3>Against One Tricky Limper (Early Position)</h3>
+<p>Do not automatically raise. Their range may contain aces. Instead: <strong>limp behind</strong> with suited aces, connectors, and pairs (hands that beat aces when they hit sets, straights, or flushes). Raise with offsuit big-card blockers like <strong>AJo, ATo, KJo</strong> — these block their premium hands and play well if called, but can be folded cheaply if they limp-reraise.</p>
+
+<div class="box box-insight">
+  <span class="box-label">Key Insight — Why Tricky Limpers Are Self-Defeating</span>
+  <p>A player who limps in, then limp-reraises to 30bb with AA, will typically win $10-15 (the raise plus blinds) when everyone folds. If they had simply open-raised to 6bb, continuation-bet 10bb on the flop, they would win 16bb vs. one caller — and sometimes much more against a dominated top pair. Limp-reraisers cap their own maximum win with their best hands, costing themselves enormous EV over time. Against them, you exploit by never giving them action without a hand that can beat them post-flop.</p>
+</div>
+
+<h3>Multiple Limpers</h3>
+<p>The critical question is what the <em>first</em> limper's strategy is. Subsequent limpers almost never have premiums (they would have raised over the first limper). With multiple weak limpers, you can iso-raise quite wide with hands that play well in position. A pot-sized raise or slightly larger is appropriate to generate meaningful fold equity and narrow the field.</p>
+</section>
+
+<!-- ============================================================ -->
+<section id="squeeze">
+<h2>6. Squeezing &amp; Over-Calling</h2>
+
+<div class="box box-definition">
+  <span class="box-label">Definition — Squeeze</span>
+  <p>A 3-bet made when there is a raise in front of you and at least one caller. The squeeze works because the caller has already demonstrated they cannot 4-bet (they would have 3-bet rather than called). They are "squeezed" between your re-raise and the original raiser. This generates significant fold equity.</p>
+</div>
+
+<h3>When to Squeeze</h3>
+<ul>
+  <li>More callers = more fold equity = squeeze wider</li>
+  <li>Squeeze against a tight initial raiser with a tight linear value range; against a loose raiser, squeeze polarised (value + suited bluffs)</li>
+  <li>Ideal squeeze bluffs: suited broadways, suited aces — these have post-flop playability if called</li>
+  <li>Do <em>not</em> squeeze with hands like KJo offsuit — too often dominated if called</li>
+</ul>
+
+<h3>Over-Calling (Calling a Raise Behind Another Caller)</h3>
+<p>The caller behind has already established that their range is capped (no premiums). Your main concern is the initial raiser's range. If the initial raiser is tight, fold dominated hands and call more implied-odds hands (pairs, suited connectors, suited aces). If the initial raiser is loose, your good big-card hands go up in value vs. their wide range, and you can call more liberally with hands like KJo, QTs.</p>
+
+<div class="box box-trap">
+  <span class="box-label">Trap — Calling Multi-Way with Off-Suit Unpaired High Cards</span>
+  <p>A hand like K5o in a raise-call-call pot is a disaster. You will hit top pair with a terrible kicker in a multi-way pot, or miss and bleed chips. Multi-way pots demand strong post-flop hands: suited, connected, or pairs. The EV of K5o in a 4-way pot is substantially negative even though you're "closing the action" and getting decent odds.</p>
+</div>
+</section>
+
+<!-- ============================================================ -->
+<section id="stack-depth">
+<h2>7. Stack Depth Adjustments</h2>
+
+<h3>Deep-Stacked Play (150–300bb)</h3>
+<p>As stacks grow, implied odds hands skyrocket in value. Small pairs, suited aces, and suited connectors are the chief beneficiaries — when a lot of money goes in post-flop and you have a set, straight, or flush, you win a massive pot. Conversely, big off-suit hands (AJo, KQo) become dangerous: they make top pair in a multi-street, deep-stacked pot where reverse implied odds crush them.</p>
+
+<ul>
+  <li>Raise <em>tighter</em> from early position as stacks deepen (positional disadvantage is more punishing)</li>
+  <li>Raise <em>looser</em> from late position as stacks deepen (positional advantage multiplies)</li>
+  <li>Defend blinds <em>tighter</em> as stacks deepen (OOP disadvantage compounds)</li>
+</ul>
+
+<div class="box box-example">
+  <span class="box-label">Worked Example — Aces OOP in a Deep Stack Pot</span>
+  <p><strong>Setup:</strong> 250bb effective at 2-5. You raise AA UTG to 20. Loose aggressive player calls BTN. Flop: 9♣8♦6♥.</p>
+  <p><strong>Problem:</strong> This is the worst board for your aces. He can have two-pair, set, or straight with many hands in his wide range. Even if you bet and he calls, the turn and river can easily get very ugly. With aces on a coordinated board deep-stacked, bet reasonably for value but be willing to slow down or fold to massive pressure on the turn/river against non-maniacs.</p>
+  <p><strong>The deep-stack lesson:</strong> Aces on 9-8-6 become a bluff-catcher — not a monster — against competent players in deep stacked pots. Never auto-commit your stack just because you have aces. Evaluate how your hand does against his <em>range</em> on this board with these depths.</p>
+</div>
+
+<h3>Shallow-Stacked Play (20–60bb)</h3>
+<p>Hand values invert from deep-stack play: big off-suit hands and pairs go <em>up</em> in value (ace high sometimes wins unimproved; top pair is often the effective nuts); suited connectors go <em>down</em> (implied odds do not compensate when there is little money behind). Play resembles tight tournament poker — push-fold zones emerge, and post-flop streets compress.</p>
+
+<div class="box box-insight">
+  <span class="box-label">Key Insight — Always Play the Effective Stack</span>
+  <p>If you have 200bb but your opponent has 30bb, you are playing 30bb poker. You cannot reach for more chips in the middle of a hand. Never try to "push around" a short stack — there is no tournament survival premium in a cash game. If a call is EV-positive, make it. If you need 40% equity and you have 42%, call — even if you lose, you made the right play and the math will work out over time.</p>
+</div>
+</section>
+
+<!-- ============================================================ -->
+<section id="player-types">
+<h2>8. The Four Player Types</h2>
+
+<div class="box box-definition">
+  <span class="box-label">Definition — The Player Type Grid</span>
+  <p>Players fall on two axes: <strong>Tight ↔ Loose</strong> (pre-flop range width) and <strong>Passive ↔ Aggressive</strong> (frequency and aggression of bets/raises). This creates four archetypes: Tight Passive (TP), Loose Passive (LP), Tight Aggressive (TAG), and Loose Aggressive (LAG). Most players are not purely one type — they fall somewhere on the spectrum. Your job is to identify their individual tendencies.</p>
+</div>
+
+<table>
+  <tr>
+    <th>Type</th>
+    <th>Pre-Flop</th>
+    <th>Post-Flop</th>
+    <th>Bluff Frequency</th>
+    <th>Key Tell</th>
+  </tr>
+  <tr>
+    <td><strong>Tight Passive (Nit)</strong></td>
+    <td>Very narrow: AA-99, AK-AQ, KQs</td>
+    <td>Check-call with medium hands; check-fold with bad; check-raise only with nuts</td>
+    <td>Essentially zero</td>
+    <td>Big bets/raises = very strong hand</td>
+  </tr>
+  <tr>
+    <td><strong>Loose Passive (Calling Station)</strong></td>
+    <td>Wide: limps A5o, T8o, anything</td>
+    <td>Calls everything down; rarely folds once in a hand</td>
+    <td>Almost zero</td>
+    <td>They call; they never raise as a bluff</td>
+  </tr>
+  <tr>
+    <td><strong>Tight Aggressive (TAG)</strong></td>
+    <td>Moderate: raises tight but aggressively</td>
+    <td>C-bets wide; folds if called and doesn't connect; may fold to turn/river pressure</td>
+    <td>Low-medium (mostly c-bets)</td>
+    <td>Turn/river bets are strong; c-bets on flop are wide</td>
+  </tr>
+  <tr>
+    <td><strong>Loose Aggressive (LAG / Maniac)</strong></td>
+    <td>Very wide: any two cards</td>
+    <td>Bets, raises, re-raises on any street with any range</td>
+    <td>High — bluffs frequently on all streets</td>
+    <td>Hard to read; call down with marginal hands</td>
+  </tr>
+</table>
+
+<p>The passive types (TP, LP) play straightforwardly and are the most profitable opponents. The aggressive types require more sophisticated responses. Maniacs are the most variance-inducing — expect large swings but also large profits if you play correctly.</p>
+</section>
+
+<!-- ============================================================ -->
+<section id="passive-crush">
+<h2>9. Crushing Passive Players (Nits &amp; Calling Stations)</h2>
+
+<h3>How Passive Players Think</h3>
+<p>Passive players see large hands and think "the nuts." A tight player who check-raises the turn with top pair genuinely believes it is the strongest possible holding. They do not account for your raising range. Their goal: play decent hands, hope for the nuts, avoid difficult decisions.</p>
+
+<h3>Exploitative Adjustments vs. Tight Passive Players</h3>
+<ul>
+  <li><strong>Raise their limps frequently</strong> in position — they limp to see cheap flops; deny them that</li>
+  <li><strong>C-bet almost every flop</strong> against them heads-up — they fold when they miss, and they miss often</li>
+  <li><strong>Bet scary turn cards</strong> they cannot have (overcards to their perceived range)</li>
+  <li><strong>Do not give them action when they want money in</strong> — their betting range is extremely strong</li>
+  <li><strong>Value bet thin</strong> on the river when you know they call with weak pairs and holdings</li>
+</ul>
+
+<div class="box box-example">
+  <span class="box-label">Worked Example — Bluffing a King Turn vs. Tight Passive</span>
+  <p><strong>Setup:</strong> 1-2 NL, 200bb effective. You raise BTN with A♦J♠ to 6. Tight passive player limps UTG, calls. Flop: 9♠4♥2♣. He checks, you bet 9, he calls. Turn: K♦.</p>
+  <p><strong>Opponent's range:</strong> He limped UTG and called a raise — his range is mostly pairs and draws. His hands with a king (KQ, KJ) he would likely have raised preflop. The king is excellent for your range (you could have AK, KQ, KJ easily) and terrible for his range.</p>
+  <p><strong>Action:</strong> Bet half pot (~$11). He almost certainly folds any pair below kings because he cannot beat a king. You pick up the pot. If he raises, fold — he has it.</p>
+  <p><strong>EV cost of checking:</strong> You give him a free showdown in a pot where you have the best "story." On scary-for-opponent turns, checking is burning EV against passive players.</p>
+</div>
+
+<div class="box box-example">
+  <span class="box-label">Worked Example — Folding Top Pair to a Tight Player's Aggression</span>
+  <p><strong>Setup:</strong> 1-2 NL, 200bb effective. You call a tight passive player's raise with K♥J♥ on the BTN. Flop: K♠T♥5♣. He bets 2/3 pot, you call. Turn: 2♦. He bets again.</p>
+  <p><strong>Analysis:</strong> His range for two streets of betting vs. a tight player: AA, KK (unlikely two, would have been raised pre), TT, AK, KQ, KJ, K9s. Against this range you have roughly 16% equity — you beat only KJ and K9s. You lose to everything else he bets. This is a fold. Top pair, second kicker is a strong hand by the hand chart but a clear fold when a tight player shows this level of aggression across two streets on a dry board.</p>
+  <p><strong>EV cost of calling:</strong> Calling two streets with 16% equity in a large pot is a significant leak. Against good opponents you are paying to find out you are beaten.</p>
+</div>
+
+<h3>Raise Their Limps — Pot-Size Formula</h3>
+<div class="formula-block">
+  Pot-size raise over limpers = 3 × (limp amount) + dead money<br>
+  Example: one limper at 2bb, blinds 3bb total dead = 3 × 2 + 3 = <strong>9bb</strong>
+</div>
+
+<p>In practice, raise to slightly less than pot (7-9bb) to encourage calls in position. The goal is not to commit your opponent but to charge them and play post-flop with initiative.</p>
+</section>
+
+<!-- ============================================================ -->
+<section id="tag-crush">
+<h2>10. Crushing Tight Aggressive Players</h2>
+
+<div class="box box-insight">
+  <span class="box-label">Key Insight — The TAG's Downfall Is the Turn</span>
+  <p>TAGs have been taught to c-bet the flop frequently. What most books did not teach them is to fire the turn and river as well. A good TAG c-bets with 65% of hands on the flop — but then plays very straightforward on the turn, betting primarily when they have made hands. This makes them extremely exploitable: float their c-bets, bet when they check the turn.</p>
+</div>
+
+<h3>Strategies vs. TAGs</h3>
+<ul>
+  <li><strong>Call their pre-flop raises with implied-odds hands</strong> — they have a strong range so you want to win a big pot when you make the nuts</li>
+  <li><strong>Float their flop c-bets</strong> with any playable hand (pair, draw, overcards) and bet when they check the turn</li>
+  <li><strong>Bluff scary turn and river cards</strong> that hit your range but not theirs (overcards to the flop, flush cards when you could have played a flush draw)</li>
+  <li><strong>Do not fear their c-bets</strong> — they are wide and weak</li>
+  <li><strong>Do fear their turn/river bets</strong> — these are strong</li>
+</ul>
+
+<div class="box box-example">
+  <span class="box-label">Worked Example — Floating and Turn-Raising a TAG</span>
+  <p><strong>Setup:</strong> 1-2 NL, 200bb. TAG opens CO to 6. You call BTN with 9♣8♣. Flop: K♦6♠5♦. He c-bets 9. You call (gutshot + backdoor flush draw + float).</p>
+  <p><strong>Calculation:</strong> TAG opened ~17.5% of hands from CO. On K-6-5, his hands with a pair or better are approximately 6% of total hands — meaning roughly 35% of his range has something, 65% has nothing. If he checks the turn, he almost certainly has nothing.</p>
+  <p><strong>Turn:</strong> A♦. He checks. You bet ~$17 (half pot). His hands with a king often check-raise the flop or he would have bet the turn. His range that check-calls this board and then checks again is very weak. He folds AK sometimes, certainly folds everything below that. Even if he has AK, the ace pairing him is bad — he might check to trap. But against most players, a turn bet on a scary overcard when they check wins this pot 60-70% of the time.</p>
+    <p><strong>Alternative:</strong> If he bets the turn, raise to ~$55. You represent two pair, a set (66, 55), or a flush draw completing. His top pair must now decide if it beats your range. Most TAGs fold top pair to a turn raise without the nuts. If called, give up the river unless you make your hand.</p>
+  <p><strong>EV cost of folding the flop c-bet:</strong> You give up a pot where 65% of your opponent's range is air. The fold is bleeding chips systematically every time you face a c-bet.</p>
+</div>
+
+<div class="box box-example">
+  <span class="box-label">Worked Example — Calling Down vs. TAG with Pocket Jacks</span>
+  <p><strong>Setup:</strong> 1-2 NL, 200bb. TAG 3-bets your raise from CO (you raised BTN). His 3-bet range roughly: QQ+, AKs-AQs, plus a few bluffs (A5s, KQs). You have J♦J♣. You call.</p>
+  <p><strong>Flop:</strong> T♠7♠3♣. You check. He c-bets. Against his full pre-flop range on this board, JJ has 63% equity — you demolish most of his hands. Call.</p>
+  <p><strong>Turn:</strong> Q♦. Goes check-check. Now he could have a queen, but QQ likely bets the flop for value. Check-check often = he checked back a medium-strength hand like TT (unlikely — he'd bet that for protection) or AK/AQ on a board where QQ connects but is not certain his c-bet gets called. Call any reasonable river bet — you induce him to bluff with AK/AJ.</p>
+  <p><strong>River:</strong> 5♥. You check. He bets. Analysis: He could have QQ, TT, 33, or a busted spade draw. Even removing bluffs, calling gets you 51% equity vs. his realistic range. Easy call. (He showed 9♠8♠ — a bluff with the busted flush draw.)</p>
+  <p><strong>Why not 4-bet JJ preflop?</strong> 4-betting forces him to fold all his dominated hands and continue only with QQ+ and AK — hands where JJ has roughly 50% equity. Calling keeps him in with his entire 3-bet range where JJ has 63% equity. The difference is substantial EV.</p>
+</div>
+</section>
+
+<!-- ============================================================ -->
+<section id="lag-crush">
+<h2>11. Crushing Loose Aggressive Players</h2>
+
+<div class="box box-insight">
+  <span class="box-label">Key Insight — The LAG Wins by Making You Overfold</span>
+  <p>LAGs do not win only by having the best hand — they win by making disciplined players fold too often. Their strategy is to make you uncomfortable with your marginal holdings until you capitulate. The counter-strategy is simple in theory, brutally difficult in execution: <strong>stop overfolding</strong>. When you have induced a bluff by showing weakness throughout the hand, do not fold at the river.</p>
+</div>
+
+<h3>Strategies vs. LAGs</h3>
+<ul>
+  <li><strong>Do not ram and jam premiums preflop</strong> — they will fold. When you 4-bet with aces against a LAG who knows you only 4-bet premiums, they fold and you win a tiny pot. Instead, call with aces and induce them to bluff post-flop.</li>
+  <li><strong>Call their flop c-bets widely</strong> — their c-bet range is so wide that their continuation bets are not strong</li>
+  <li><strong>Look weak, let them bluff</strong> — a LAG cannot resist an opportunity to bet when you check to them</li>
+  <li><strong>When you have a bluff, look strong</strong> — use aggressive lines (check-raise, turn-raise) because they will respect aggression</li>
+  <li><strong>Tend not to fold top pair or better</strong> — their wide range means you beat much of it</li>
+  <li><strong>Play tighter pre-flop vs. multiple LAGs on your left</strong> — wait for good hands and get all the money in</li>
+</ul>
+
+<div class="box box-example">
+  <span class="box-label">Worked Example — Check-Calling Down vs. a LAG</span>
+  <p><strong>Setup:</strong> 1-2 NL, 200bb. You raise 6♦6♠ to 6bb from the HJ. LAG calls BTN. Flop: J♦8♠5♣. You check (not c-betting — if raised, every turn card is bad for you; if called, you are in bad shape; checking lets him bluff his wide range into you).</p>
+  <p><strong>Key equity calculation:</strong> LAG called pre-flop with roughly this range: all pairs, all suited cards, all connected hands — maybe 40% of hands. On J-8-5, what has a pair or better? Roughly 35% of that range. The other 65% is complete air that still has to act. By checking, you keep his entire range in including the air. Even when a king or queen comes on the turn, your equity vs. his wide range stays around 50%. You are not in bad shape — you just see a scary card.</p>
+  <p><strong>Turn:</strong> Q♣. He bets $15. Call. <strong>River:</strong> 2♦. He bets $35. You need to be right only 27% of the time to break even. Against his pre-flop calling range (and knowing he bets his air too), you are easily right more than 27% of the time. Call. He shows A♠4♠ — pure air.</p>
+  <p><strong>EV cost of folding river:</strong> You correctly induce a bluff across three streets by showing weakness. Folding the river surrenders the entire pot to his nothing hand — this is exactly the mistake LAGs profit from.</p>
+</div>
+
+<div class="box box-example">
+  <span class="box-label">Worked Example — Slow-Playing vs. LAG to Induce Bluffs</span>
+  <p><strong>Setup:</strong> 1-2 NL, 200bb. LAG 3-bets you. You call with J♦T♦. Flop: J♠T♣7♦. You have top two pair. You check.</p>
+  <p><strong>Why check?</strong> If you bet and get raised, your two pair is in an ugly spot (he may have Q-9, 8-9, 7-7 straight draws or sets). More importantly, against a LAG who bets with his entire range, <em>checking</em> lets him do what he does best — bet into you. He c-bets, you call. Turn: A♦. He bets again. Call. River: 5♣. He goes all-in. You call. He had K♠Q♣ — the bluff missed. You win a massive pot by never giving him a reason to slow down.</p>
+  <p><strong>EV cost of raising the flop:</strong> You win a small pot when he folds his air (the majority of his range). You get re-raised by his draws in an ugly spot. Slow-playing captures maximum value against the wide range he will bluff with.</p>
+</div>
+</section>
+
+<!-- ============================================================ -->
+<section id="calling-stations">
+<h2>12. Crushing Calling Stations</h2>
+
+<div class="box box-insight">
+  <span class="box-label">Key Insight — Value Bet Relentlessly, Never Bluff</span>
+  <p>Against calling stations, bluffing is one of the worst plays in poker. They will call with ace-high, with third pair, with a gutshot draw — with almost anything. Bluffing them is simply donating money. The correct strategy is to value bet very thinly with any made hand that beats their wide calling range, and size bets so they call with their weakest holdings.</p>
+</div>
+
+<h3>Strategies vs. Calling Stations</h3>
+<ul>
+  <li><strong>Never bluff</strong> on any street unless the board is so scary they cannot call (extremely rare)</li>
+  <li><strong>Value bet as thin as middle pair or top pair, bad kicker</strong> on multiple streets</li>
+  <li><strong>Size down your value bets</strong> — smaller bets get called by a wider range. A half-pot bet gets called by weaker hands than a pot bet. You want them calling with their third pair, not folding it</li>
+  <li><strong>Set up river value bets</strong> by betting small on the flop and turn to keep them in</li>
+  <li><strong>Check-call the river</strong> if you can get them to "bluff" with their marginal hands</li>
+</ul>
+
+<div class="box box-example">
+  <span class="box-label">Worked Example — Three-Street Value vs. Calling Station</span>
+  <p><strong>Setup:</strong> 1-2 NL, 200bb. You raise 9♣8♦ to 6. Calling station calls from BB. Flop: 9♠8♦4♣. He checks.</p>
+  <p><strong>You bet $9.</strong> He can call with 9-x, 8-x, 4-x, any pair, any draw, any gutshot, ace-high — his calling range is vast. He calls.</p>
+  <p><strong>Turn:</strong> J♥. He checks. Beautiful card — it's very unlikely he has a jack (he didn't raise a bet with a jack). Any smaller pair in his range is still calling. Bet $17. He calls.</p>
+  <p><strong>River:</strong> 6♦. He checks. Now: can he call a river bet with a worse hand than two pair? He can call with pocket fives, call with A-4, call with 7-7. Bet $25 — smallish. He calls with A♦4♠. You win. You extracted value from a hand with virtually no value (a pair of 4s and an ace kicker).</p>
+  <p><strong>EV cost of checking the river:</strong> You surrendered a bet that would have been called by everything in his checking range. Against calling stations, leaving a bet on the table on the river is the biggest mistake you can make.</p>
+</div>
+
+<div class="box box-trap">
+  <span class="box-label">Trap — Betting Big to "Make Them Fold" vs. a Station</span>
+  <p>Some players, frustrated that a calling station called their half-pot bet, increase to a pot bet trying to scare them. This achieves the opposite: you now charge yourself more per call when they have the better hand, while not improving your fold equity because they call anyway. Against calling stations, bet small for value, not large for fear.</p>
+</div>
+</section>
+
+<!-- ============================================================ -->
+<section id="maniacs">
+<h2>13. Crushing Maniacs</h2>
+
+<div class="box box-definition">
+  <span class="box-label">Definition — Maniac</span>
+  <p>A maniac raises and re-raises with a much wider range than any optimal strategy; they attack weakness relentlessly across all streets. Unlike a skilled LAG who makes exploitative adjustments, a maniac does not slow down when the board does not connect — they simply keep firing. Against the worst maniacs, waiting for a made hand and check-calling down is nearly always correct.</p>
+</div>
+
+<h3>Strategies vs. Maniacs</h3>
+<ul>
+  <li><strong>Trap them</strong> — make a decent hand and check-call every street</li>
+  <li><strong>Never raise them out of a hand</strong> with a bluff or semi-bluff — they will re-raise or call, and you will not have fold equity</li>
+  <li><strong>Do not raise for value on the flop</strong> — let them stay in, they will bluff future streets</li>
+  <li><strong>Play a very polarised range against them:</strong> either you have a strong hand (call everything) or you have nothing (fold preflop)</li>
+  <li><strong>Calculate the math:</strong> vs. a maniac, top pair is effectively "the nuts" because their range is so wide</li>
+</ul>
+
+<div class="box box-example">
+  <span class="box-label">Worked Example — Check-Call All Three Streets vs. Maniac</span>
+  <p><strong>Setup:</strong> 1-2 NL, 200bb. Maniac 3-bets your J♠T♣ raise. You call. Flop: J♦8♣2♥. You check. He bets $50. You call.</p>
+  <p><strong>Why not raise for value?</strong> You have top pair, mediocre kicker. If you raise, he may re-raise with hands like Q-9 (straight draw) or 8-7 or just any two cards. Now you are playing a huge pot with one pair and no information. By calling, you keep his entire range in — and his range that bets this flop contains air, draws, and worse made hands.</p>
+  <p><strong>Turn:</strong> 5♦. You check. He bets $80. Call. His betting range still contains a huge portion of garbage.</p>
+  <p><strong>River:</strong> 5♣. You check. He goes all-in ($200). You need to be right 26% of the time. Against his pre-flop 3-bet range, on this board, with his propensity to blast: you beat AA, KK, QQ (surprisingly — he sometimes has these and is "bluffing"), A5, A8, K8, Q8, 9-7, 76, A6, A4, A3, A2... you beat the majority of hands he would move in here. Call. He shows A♦5♠ (rivered trip 5s... he got there 7% of the time, and it cost you nothing extra because you were calling anyway).</p>
+  <p><strong>EV cost of folding river:</strong> You need to be right 26% of the time. Against a maniac who shoves this river with his entire range, you are right far more than 26% of the time. Folding top pair to a maniac is one of the most -EV plays at the table.</p>
+</div>
+
+<div class="box box-trap">
+  <span class="box-label">Trap — Trying to Bluff a Maniac Out of a Pot</span>
+  <p>Attempting to re-raise a maniac's c-bet as a bluff is disastrous. They will simply 3-bet again. Their range is too wide to be scared of your raise — they may re-raise with absolutely nothing and put you in an impossible spot. Save aggression for good-range boards with strong made hands against maniacs.</p>
+</div>
+
+<h3>When Two Maniacs Are at War</h3>
+<p>If two maniacs are raising and 4-betting each other constantly, tighten up significantly. Only play hands in the top 4-5% of range. When it goes raise → 3-bet → action to you, pile in with QQ+, AK, and maybe JJ. Your equity against two maniacs' combined ranges with these hands is enormous and you extract maximum value.</p>
+</section>
+
+<!-- ============================================================ -->
+<section id="cbet">
+<h2>14. C-Bet Strategies &amp; Sizing</h2>
+
+<div class="box box-insight">
+  <span class="box-label">Key Insight — C-Bet Frequency Depends on Opponent Type</span>
+  <p>Against passive players: c-bet almost every flop heads-up. They fold too often, and when they do not fold, you have a read. Against TAGs: c-bet wide but be prepared to give up on turn without a hand. Against calling stations: c-bet only for value. Against LAGs: c-bet less; they check-raise too often. Against maniacs: c-bet selectively and call raises.</p>
+</div>
+
+<h3>C-Bet Sizing Principles</h3>
+<ul>
+  <li><strong>When bluffing:</strong> bet as small as possible to save money if called. Half-pot or less achieves the fold if they fold; when they call, you have risked less.</li>
+  <li><strong>When value betting:</strong> bet based on what your opponent will call with weaker hands. A calling station calls pot-sized bets — size up. A nit calls only marginal hands — size to what they call.</li>
+  <li><strong>In 3-bet pots:</strong> the pot is already big; you do not need as large a bet. A bet of 1/3 pot in a 3-bet pot is often optimal because SPR (Stack-to-Pot Ratio) is low and the remaining stack does not require aggressive sizing to get it in.</li>
+  <li><strong>Do NOT vary sizes by hand strength pre-flop</strong> — always the same. Post-flop, vary widely once per-hand sample sizes are too small for exploitation.</li>
+</ul>
+
+<div class="box box-definition">
+  <span class="box-label">Definition — SPR (Stack-to-Pot Ratio)</span>
+  <p>SPR = Effective Stack / Pot after the pre-flop action. An SPR of 1 means the stacks equal the pot — you are nearly committed. An SPR of 10 means you have 10× the pot in stacks — there are many streets of betting ahead. Low SPR = commit with top pair. High SPR = play more cautiously with one pair; implied odds hands go up in value.</p>
+  \[ \text{SPR} = \frac{\text{Effective Stack}}{\text{Pot after Pre-Flop}} \]
+</div>
+
+<div class="box box-example">
+  <span class="box-label">Worked Example — Getting All the Money In by the River</span>
+  <p><strong>Setup:</strong> 1-2 NL, 200bb. You raise AA to 6. One caller. Pot = 15bb. Flop: A♠7♦3♣ (top set). How do you get 200bb in by the river?</p>
+  <p>Flop: Bet 2/3 pot ($10). Pot becomes $35. Turn: Bet 2/3 pot ($23). Pot becomes $81. River: Bet 2/3 pot ($54). Total invested: $6 + $10 + $23 + $54 = $93 preflop + post. That is exactly the 100bb effective stack. With 2/3 pot bets on each street, you get all the money in by the river heads-up. This is why preflop raise sizing does not need to be large — the math works if you size post-flop correctly.</p>
+</div>
+
+<h3>Bet-for-Protection (When to "Protect")</h3>
+<p>Protection bets are value bets where you are not confident you will be called by worse hands but want to deny equity. Example: 9-8 on a 9-8-6 rainbow board — you bet not because you expect calls from worse, but because giving a free card risks your opponent making straights and flushes. A half-pot bet achieving this goal is correct even if you rarely get called by worse hands.</p>
+</section>
+
+<!-- ============================================================ -->
+<section id="floating">
+<h2>15. Floating &amp; Bluff-Raising</h2>
+
+<div class="box box-definition">
+  <span class="box-label">Definition — Floating</span>
+  <p>Calling a c-bet (or any bet) on the flop with a hand that has little immediate equity, with the <em>plan</em> of bluffing on a future street when your opponent shows weakness. Floating works best in position, heads-up, against opponents who have a high c-bet frequency but check-fold the turn often.</p>
+</div>
+
+<h3>When Floating Works</h3>
+<ul>
+  <li>Your opponent bets the flop and checks the turn frequently (TAG tendency)</li>
+  <li>You are in position with at least a backdoor draw or overcard</li>
+  <li>The turn card is scary for the raiser's range (overcard, flush completing)</li>
+  <li>You have hands that "make sense" when you bet — you can credibly represent a made hand</li>
+</ul>
+
+<div class="box box-example">
+  <span class="box-label">Worked Example — Float with 9♣8♣ vs. TAG C-Bet</span>
+  <p><strong>Setup:</strong> 1-2 NL, 200bb. TAG opens CO to 6. You call BTN with 9♣8♣. Flop: A♦6♥2♠. He c-bets $9.</p>
+  <p><strong>Your float:</strong> You have a backdoor gutshot to the wheel, the nine is a potential over-pair draw to a better board. More importantly, this board is excellent for your range (you called BTN — you could have 66, 22, A6s, A2s, any suited two-gapper). The TAG missed too — roughly 65% of his c-betting range has air on this flop. Call.</p>
+  <p><strong>Turn:</strong> K♠. He checks. Now you have a clear bluff opportunity. Bet $17. His range that was air on the flop is still air; a king hit one of the best cards for your perceived range (you could have KK, AK, KQ). He folds everything without an ace. You win the pot with 9-high.</p>
+  <p><strong>Against a TAG who bets the turn again?</strong> If he bets $20 on the turn, fold. You are getting 4:1 with a gutshot + air, but he has shown strength twice. He probably has an ace. The float failed — you lose the small flop call.</p>
+</div>
+
+<h3>Turn Check-Raises as Semi-Bluffs</h3>
+
+<div class="box box-insight">
+  <span class="box-label">Key Insight — Turn Check-Raises Look Far Stronger Than Flop Check-Raises</span>
+  <p>When you check-raise the flop, your opponent can dismiss it as a semi-bluff with a draw. When you check-call the flop and check-raise the turn, your opponent must put you on a very strong holding — two pair, set, or a made flush. Use this dynamic with your stronger draws on the turn, especially when the flush draw completes, to generate maximum fold equity and stack equity simultaneously.</p>
+</div>
+
+<div class="box box-example">
+  <span class="box-label">Worked Example — Turn Check-Raise with Flush Draw</span>
+  <p><strong>Setup:</strong> 1-2 NL, 200bb. TAG raises, you call BB with A♦J♦. Flop: K♦8♦5♣. You check, he c-bets $9, you call (nut flush draw + overcard).</p>
+  <p><strong>Turn:</strong> 4♦ (flush completes). You check. He bets $20. You raise to $55.</p>
+  <p><strong>Why raise the turn not the flop?</strong> On the flop, a check-raise with a flush draw is a common, recognisable play — he likely calls and then you need to make your flush. On the turn, after your check-call on the flop, you now represent a made flush, two pair, or set — and you already have the flush! If he calls, you are going to the river as a favourite. If he folds a hand like KQ (which he might), you win the pot immediately. You win either way.</p>
+</div>
+</section>
+
+<!-- ============================================================ -->
+<section id="turn-river">
+<h2>16. Turn &amp; River Decision Trees</h2>
+
+<h3>The Slow-Play Question</h3>
+
+<div class="box box-insight">
+  <span class="box-label">Key Insight — Slow Play Only When No Draw Can Catch Up</span>
+  <p>Slow playing (checking a strong hand to conceal its strength) is correct only when: (1) there are virtually no draws available on the board, and (2) your opponent can improve to a second-best hand that they will overplay. On coordinated boards where draws exist, always bet your strong hands — you do not want to give your opponent free equity, and you want to build the pot for streets ahead.</p>
+</div>
+
+<div class="box box-example">
+  <span class="box-label">Worked Example — Do Not Slow Play on a Draw-Heavy Board</span>
+  <p><strong>Setup:</strong> 1-2 NL, 200bb. You raise 8♠8♦ MP. BB calls. Flop: 9♣8♥5♦. BB checks, you have middle set.</p>
+  <p><strong>Why you must bet:</strong> Your opponent can have: 7-6 (open-ended straight draw), J-T (gutshot), 6-x (gutshot to 7), T-9 (gutshot to J), 9-x (pair), 5-x (pair), 8-x (set tie or third 8). If he has 7-6 and you check, he gets a free card. A 7 or 6 makes his straight and you don't know it. You then bet the turn, he raises, and you're in a massive pot drawing thin. By betting the flop, you either win the pot now or you get stacked by a draw — but you get value on every street where he has equity. The EV of betting dominates slow-playing on coordinated boards.</p>
+  <p><strong>EV cost of slow-playing:</strong> Every free card is approximately \(0.35 \times \text{Pot}\) in equity given away (rough estimate if they have a draw with ~35% equity). On a 40bb pot, that's ~14bb of EV given away for free.</p>
+</div>
+
+<h3>River Decision Framework</h3>
+
+<table>
+  <tr>
+    <th>Scenario</th>
+    <th>Correct Action</th>
+    <th>Reasoning</th>
+  </tr>
+  <tr>
+    <td>All draws missed on river, opponent check-calls flop and turn</td>
+    <td>Bet for value (medium-large)</td>
+    <td>Their range is full of busted draws; they fold most of it to pressure</td>
+  </tr>
+  <tr>
+    <td>Flush/straight draw completes, opponent has been betting</td>
+    <td>Fold marginal hands; call only strong holdings</td>
+    <td>Their range now heavily contains made draws; bluffs much less likely</td>
+  </tr>
+  <tr>
+    <td>Dry board (Q72 rainbow), opponent bets flop + turn + river</td>
+    <td>Overfold unless you beat a significant portion of their value range</td>
+    <td>No draws possible → they expected you to call; they are value-heavy</td>
+  </tr>
+  <tr>
+    <td>You have induced bluffs (check-called twice), all draws missed</td>
+    <td>Call river bet with marginal made hands</td>
+    <td>You have done nothing to discourage bluffing; their range has many busted draws</td>
+  </tr>
+  <tr>
+    <td>Bet for value, opponent raises river</td>
+    <td>Fold all but the nuts (95%+ of the time)</td>
+    <td>Almost no one in small stakes bluff-raises the river; they have it</td>
+  </tr>
+</table>
+
+<div class="box box-example">
+  <span class="box-label">Worked Example — Betting for Value with Fold Intention on River</span>
+  <p><strong>Setup:</strong> 1-2 NL, 200bb. You have 9♦9♣. Board runs out 9♠8♦5♣ 4♥ T♣. You have bet three streets for value. The ten of clubs completes an unlikely flush and a possible straight for 7-6.</p>
+  <p><strong>Bet $35 (small).</strong> You have three of a kind — still strong, but hands that can beat you (Q-J, 7-6, club flush) are all possible. Bet small to extract value from hands like A-9, J-T, 9-x that will call. If he calls, great. If he raises all-in? Fold. At small stakes, players do not raise the river as a bluff in this spot. A raise means Q-J, 7-6, or the flush. Your three of a kind cannot beat any of those. This is <strong>betting for value with the intention of folding to a raise</strong> — one of the highest-EV plays in small-stakes cash games.</p>
+</div>
+
+<h3>Call Frequency Calculation on River</h3>
+<div class="formula-block">
+  Equity needed to call river bet = Call / (Pot + Call)<br>
+  Example: Pot = 88, Bet = 44 → 44 / (88 + 44 + 44) = 44 / 176 = 25%
+</div>
+<p>If you believe you have better than a 25% chance of being ahead, call. Against a player who sometimes bluffs the river (and your line induced a bluff), this threshold is often easily met with top pair or better.</p>
+</section>
+
+<!-- ============================================================ -->
+<section id="postflop-leads">
+<h2>17. Facing Postflop Leads</h2>
+
+<div class="box box-definition">
+  <span class="box-label">Definition — Donk Bet (Lead)</span>
+  <p>A lead is when the out-of-position player bets into the pre-flop aggressor on the flop (or turn/river after a check-behind). From a GTO perspective, the OOP player should almost never lead on the flop — they should check their entire range. When opponents lead, it is an exploitable deviation that signals specific information about their hand type.</p>
+</div>
+
+<h3>Diagnosing the Lead</h3>
+
+<table>
+  <tr>
+    <th>Lead Type</th>
+    <th>Opponent's Likely Range</th>
+    <th>Your Response</th>
+  </tr>
+  <tr>
+    <td>Leads with premium made hands only (tight/passive)</td>
+    <td>Sets, two pair, top pair good kicker</td>
+    <td>Fold non-nut hands; call only with draws getting correct implied odds</td>
+  </tr>
+  <tr>
+    <td>Leads with marginal hands (will not fold to raise)</td>
+    <td>Top pair bad kicker, middle pair</td>
+    <td>Raise your strongest hands; call with marginal hands and draws</td>
+  </tr>
+  <tr>
+    <td>Leads with marginal hands and folds to a raise</td>
+    <td>Any one pair hand they want to "protect"</td>
+    <td>Raise everything — you win the pot immediately with any two cards</td>
+  </tr>
+  <tr>
+    <td>Leads with draws</td>
+    <td>Flush draws, straight draws, combo draws</td>
+    <td>Raise and keep betting on safe turn cards; they will fold by the river</td>
+  </tr>
+</table>
+
+<div class="box box-trap">
+  <span class="box-label">Trap — Paying Off Tight Players Who Lead Into You</span>
+  <p>The most expensive mistake vs. a tight passive player who leads the flop is to raise or call down without a strong hand. They lead because they have something very good. If a TP leads for 2/3 pot on a K-T-4 board and you have AQ, folding is correct. They are not leading this board with K9 or K8 — their leading range is almost always KK or better, or K-T two pair. Against a tight player who leads, your default is caution.</p>
+</div>
+</section>
+
+<!-- ============================================================ -->
+<section id="river-raises">
+<h2>18. Facing River Raises</h2>
+
+<div class="box box-insight">
+  <span class="box-label">Key Insight — River Raises Are Almost Always Value at Small Stakes</span>
+  <p>Jonathan reviewed many hundreds of hands from small stakes games. The finding: virtually no one bluff-raises the river in these games. When you bet the river and get raised, you are beaten more than 95% of the time. Unless you have specific, reliable information that a specific opponent raises the river as a bluff (tracked over many sessions), you should fold all but your absolute best hands.</p>
+</div>
+
+<h3>When River Raise Calls Are Justified</h3>
+<ul>
+  <li>You have a blocker to the nut hand (e.g., you hold the A♠ when three spades are on board — you block the nut flush)</li>
+  <li>You made a very small bet on the river that induces exploitative raises (2–10% pot induces aggression from many opponents)</li>
+  <li>You have confirmed over many sessions that this specific opponent raises rivers as a bluff</li>
+  <li>You have the effective nuts — even if he has "it," you beat all versions of "it"</li>
+</ul>
+
+<div class="box box-example">
+  <span class="box-label">Worked Example — Betting Small to Induce River Bluff</span>
+  <p><strong>Setup:</strong> 1-2 NL, 200bb. You have K♠K♦. Board: K♦T♥6♠ 3♥ 9♣. You bet small on flop and turn for value (betting for maximum thin value). River: you bet $8 into a $40 pot (20% pot). Opponent raises to $30.</p>
+  <p><strong>Analysis:</strong> A 20% pot bet invites exploitation. Opponents who raise this see your small bet as weakness or a blocking bet and raise with a wider range. This is one of the few river raise scenarios where you can call — your hand is strong (top set on a now-blank board), and your bet size specifically invited aggression. Call. He has T-9 (two pair), which he turned into a bluff-raise? In most cases he does have something, but your top set beats all of his likely semi-bluff holdings.</p>
+</div>
+</section>
+
+<!-- ============================================================ -->
+<section id="multiway">
+<h2>19. Multi-Way Pot Strategy</h2>
+
+<div class="box box-insight">
+  <span class="box-label">Key Insight — Multi-Way Pots Demand Stronger Hands</span>
+  <p>The more players in the pot, the stronger the hand you need to continue on any given street. In a heads-up pot you can profitably float with a pair + backdoor draw; in a 4-way pot you need at least top pair decent kicker to continue. Each additional player adds combos of made hands and draws that individually may beat you.</p>
+</div>
+
+<h3>When to Play Aggressively Multi-Way</h3>
+<ul>
+  <li>You have a very strong hand (top pair + top kicker, two pair, set, straight, flush)</li>
+  <li>You have a premium draw (flush draw + pair, straight flush draw) with enough equity to justify building the pot</li>
+  <li>All other players have checked to you — their checking ranges are capped, you can bet your entire range for value</li>
+  <li>The board is dangerous (coordinated) and you want to deny free equity to draws</li>
+</ul>
+
+<h3>When to Play Cautiously Multi-Way</h3>
+<ul>
+  <li>Facing aggression from multiple opponents — at least one of them has a strong hand</li>
+  <li>Your hand is marginal (middle pair, one pair weak kicker)</li>
+  <li>You cannot call a bet on this street and a raise on the next without getting committed</li>
+</ul>
+
+<div class="box box-example">
+  <span class="box-label">Worked Example — Checking Back Flop Multi-Way for Pot Control</span>
+  <p><strong>Setup:</strong> 1-2 NL, 200bb. You raise with 6♦6♥ to 7bb. Three players call. Flop: J♠8♣5♦. Three opponents check to you.</p>
+  <p><strong>Decision:</strong> Check. You have middle pair in a 4-way pot. If you bet and one of the three players calls, you are often already behind (any J, any 8, any 5). If one check-raises, you are folding. The EV of betting is slim. Check, and when the turn comes, you can re-evaluate. If all three players check the turn too, your sixes may actually be the best hand — then bet for value. By checking the flop, you keep the pot small with a marginal hand, preserve your stack, and get information on the turn for free.</p>
+</div>
+
+<h3>Responding to Being Checked to in Multi-Way Pots</h3>
+<p>When all opponents check to you as the pre-flop aggressor, most of their best hands have been bet or would have been bet. Their checking ranges are capped at roughly top pair, bad kicker, and worse. You can bet your <em>entire range</em> profitably — strong hands for value, marginal hands as protection/thin value, air as bluffs — because their range is too weak to respond with raises frequently.</p>
+</section>
+
+<!-- ============================================================ -->
+<section id="thin-value">
+<h2>20. Thin Value Betting</h2>
+
+<div class="box box-insight">
+  <span class="box-label">Key Insight — If You Win More Than 50% of the Time When Called, Bet</span>
+  <p>The decision to value bet on the river is simple in principle: if your opponent calls more often with worse hands than better hands, the bet is profitable. Against calling stations, middle pair is a value bet. Against a nit who only calls with better, middle pair is a check. The threshold is not "do I have a strong hand" but "do I beat more than half of the hands that will call my bet."</p>
+</div>
+
+<h3>Thin Value Bet Sizing</h3>
+<ul>
+  <li><strong>Out of position:</strong> bet 20-33% of pot. Small bets extract value from a wider calling range. You do not want to price out the weaker hands you are trying to get paid by.</li>
+  <li><strong>In position:</strong> bet 40-50% of pot. Slightly larger because your position gives you credibility and you can afford to lose some thin calls.</li>
+  <li><strong>Against call-happy opponents specifically:</strong> go larger — even pot-sized. They will call regardless, so maximise against their inelastic calling range.</li>
+</ul>
+
+<div class="box box-example">
+  <span class="box-label">Worked Example — Thin River Value with Middle Pair</span>
+  <p><strong>Setup:</strong> 1-2 NL, 200bb. Loose passive player raises BTN to 6. You call BB with 8♠7♦. Flop: 8♥3♦2♣. You check-call a $9 bet. Turn: 6♣. Goes check-check. River: A♠.</p>
+  <p><strong>Analysis:</strong> You have middle pair. He checked the turn — against a loose passive player this almost always means he does not have an 8 or better (he would have bet those). His range for calling pre-flop and check-calling the flop and checking the turn: 77, 55, 44 (underpairs below your 8), 3-x (third pair), 2-x, various missed draws.</p>
+  <p><strong>Bet $12 (small, about 1/4 pot).</strong> He can call with 77, 55, 44, 3-x — all of which you beat. You lose if he has an 8 with a better kicker or the ace hit him. But vs. the realistic calling range in this spot, you are ahead more than 50% of the time. Small bet gets called by the widest range. He calls and shows 5♦5♣ — you win.</p>
+  <p><strong>EV cost of checking the river:</strong> Against a loose-passive player who would have called a small bet with a worse hand, checking surrenders a profitable value bet. Over hundreds of such spots, this compounds into a significant leak.</p>
+</div>
+</section>
+
+<!-- ============================================================ -->
+<section id="bluffing">
+<h2>21. Bluffing &amp; Over-Bets</h2>
+
+<h3>The Core Bluffing Math</h3>
+<div class="formula-block">
+  Bluff EV = P(fold) × Pot − P(call) × Bet<br>
+  For a pot-sized bluff: bluff profits when opponent folds &gt; 50% of the time<br>
+  For a 2× pot over-bet: bluff profits when opponent folds &gt; 67% of the time
+</div>
+
+<div class="box box-insight">
+  <span class="box-label">Key Insight — Most Small Stakes Players Overfold, Making Bluffs Highly Profitable</span>
+  <p>Jonathan bluffed at extremely high frequency in his small-stakes live play review and succeeded the vast majority of the time. Most small-stakes players check-raise the flop and turn with their strong hands, then check-call with medium hands. By the river, if they have not shown strength, they are capped at one pair. Most players with one pair will fold a large river bet when three streets of action have occurred — they fear they are beaten.</p>
+</div>
+
+<h3>Ideal Bluffing Spots</h3>
+<ul>
+  <li><strong>Opponent is capped:</strong> they check-called flop, check-called turn (never raised). Their range is one pair or worse. They are vulnerable to a large river bet.</li>
+  <li><strong>All draws missed:</strong> On a board like 9-8-6 with two hearts where the heart flush misses on the river, your opponent's range contains many busted draws. Bet large.</li>
+  <li><strong>You have blockers:</strong> You hold the A♥ when a third heart completes the board — you block the nut flush, reducing the probability opponent has it. Your bluff is safer.</li>
+  <li><strong>You do not unblock their auto-folds:</strong> If you want them to be bluffing busted spade draws, do not hold a spade yourself — you want them to have that hand so they fold.</li>
+  <li><strong>You bet three streets with a story:</strong> A consistent, credible betting line on three streets is much harder to call than a random river bet.</li>
+</ul>
+
+<h3>Over-Bets as Bluffs</h3>
+<p>In small-stakes games, opponents almost never face 2x or 3x pot bets. When you over-bet the river, two things happen: (1) the bet is so unusual it signals either the nuts or a large bluff, and (2) their one-pair hands face pot odds that are genuinely difficult to call correctly (they need 67% equity vs. your range to call a 2x pot). Since most players cannot assess their equity vs. a bluff-including range, they often fold regardless — making the over-bet pure profit when they fold and still fine when they call with better.</p>
+
+<div class="box box-example">
+  <span class="box-label">Worked Example — River Over-Bet Bluff</span>
+  <p><strong>Setup:</strong> 1-2 NL, 200bb. You raise A♦K♣ from CO. BB (calling station tendency) calls. Flop: Q♠J♣4♥. He checks, you c-bet $9 (nut straight draw + two overcards). He calls. Turn: 2♦ (brick). He checks, you bet $20. He calls. River: 3♣ (another brick — you missed completely).</p>
+  <p><strong>His range for check-calling twice on Q-J-4-2-3:</strong> Mostly Qx hands (KQ, QT, Q9), sometimes Jx (KJ, JT), possibly a small pocket pair. He has committed ~$29bb to the pot. He is not folding to a small river bet — he is already invested.</p>
+  <p><strong>But a 2x pot over-bet?</strong> Bet $110 into a ~$60 pot. Now he needs 67% equity to call profitably. His QT, Q9 has roughly 60-70% equity if you bluff some of the time. But he doesn't know you're bluffing — he sees a hand that continuation-bet the flop, barreled the turn, and now is putting in a huge river bet. His Q9 is in a genuine spot of uncertainty. Many players fold. You win the pot with air.</p>
+  <p><strong>Risk:</strong> If he calls, you lose the over-bet. But the fold equity is enormous, and even calling wins less than a professional fold (he calls with QT and wins vs. your air, yes — but you make money over thousands of trials when opponents fold more than 67% of the time to your over-bet).</p>
+</div>
+
+<div class="box box-trap">
+  <span class="box-label">Trap — Bluffing Too Small</span>
+  <p>"My opponents always call me when I bluff." Jonathan's answer to this complaint: "What size are you betting?" Typically the answer is 1/3 pot. Of course they call — you are giving them 4:1 on their call. At small stakes, the combination of small bet sizes AND the psychological difficulty of folding pairs means your small bluffs will always fail. If you are going to bluff, size appropriately: half pot at minimum, often pot, and over-pot when maximum fold equity is needed.</p>
+</div>
+
+<h3>Triple-Barrel Bluffs</h3>
+<p>Do not give up on the river after two barrels just because you get called. If you check the river after betting the flop and turn, you are giving your opponent a free showdown with whatever they called you with — including hands you beat. If you fire a third barrel (river bet) on a card that is good for your range, many opponents who called the flop and turn with hands like second pair will still fold the river because they believe you finally made your hand.</p>
+</section>
+
+<!-- ============================================================ -->
+<section id="bet-sizing">
+<h2>22. Advanced Bet Sizing (Bonus Classes)</h2>
+
+<div class="box box-insight">
+  <span class="box-label">Key Insight — Bets Are Either Value or Bluff; "Information Bets" Are Mistakes</span>
+  <p>Every bet you make should have a clear purpose: extracting value from a worse hand, or bluffing a better hand into folding. "Betting to find out where I am" is a fallacy. If you bet and get raised, your opponent may be bluffing and you are now facing a dilemma. You gather no useful information cheaply — you either get a call (ambiguous) or a raise (can be bluff). At best, information bets are break-even; in practice they are losing because opponents will give you false information with their raises.</p>
+</div>
+
+<h3>Stack-Depth and Raise Size</h3>
+<ul>
+  <li><strong>100bb stacks:</strong> 3-bet = ~3x the raise; 4-bet = ~2.3-2.5x the 3-bet</li>
+  <li><strong>150-300bb stacks:</strong> 3-bet = 3-3.5x; standard open may be 4-5bb to account for deeper effective stacks</li>
+  <li><strong>3-bet pots post-flop:</strong> Bet smaller on the flop (1/3 to 1/2 pot) — SPR is already low, you do not need to bet large to commit stacks</li>
+  <li><strong>Out of position always warrants larger sizing</strong> — discourage calls vs. a player who will act last post-flop</li>
+</ul>
+
+<h3>Blocking Bets (Weak Player Trap)</h3>
+<p>Weak players make blocking bets: they check-call three streets and then lead the river for 1/3 pot, hoping to "control" the price they pay. This is a mistake by them but also an exploitable tell. Most blocking bets are made with one pair hands that can be bluff-raised off — the player is not committed and will fold to a raise. Until you are confident a player will fold their blocking bets, do not raise them. Once you confirm they fold, raise every blocking bet aggressively.</p>
+
+<div class="box box-insight">
+  <span class="box-label">Key Insight — Reverse Blocking Bets</span>
+  <p>Advanced players like Jonathan sometimes make small river bets with very strong hands specifically to induce opponents to bluff-raise. The opponent thinks "he's blocking with a weak hand, I'll raise him off it." They raise, Jonathan re-raises, and extracts maximum value. This requires knowing your opponent's tendencies well and is an advanced play, not a default strategy.</p>
+</div>
+</section>
+
+<!-- ============================================================ -->
+<section id="image">
+<h2>23. Table Image &amp; Tells</h2>
+
+<h3>Exploiting Your Own Image</h3>
+
+<div class="box box-insight">
+  <span class="box-label">Key Insight — Play the Opposite of What Opponents Expect</span>
+  <p>If opponents think you are a nit (old, conservative appearance, few hands played), they will fold to your bets. Therefore: bluff more, three-bet more, steal more. If opponents think you are a maniac (young, aggressive, involved in many pots), they will call you down. Therefore: tighten your value range, show up with strong hands when you bet, and eliminate marginal bluffs. Your image is a lever — pull it in the direction that maximises expected value.</p>
+</div>
+
+<table>
+  <tr>
+    <th>Your Perceived Image</th>
+    <th>What Opponents Do</th>
+    <th>Optimal Counter-Strategy</th>
+  </tr>
+  <tr>
+    <td>Tight/Nit (business suit, still stack)</td>
+    <td>Fold to your bets; don't 3-bet you</td>
+    <td>Bluff more; steal relentlessly; 3-bet wide; c-bet every flop</td>
+  </tr>
+  <tr>
+    <td>Loose/Maniac (young, active, many pots)</td>
+    <td>Call you down; look to pick off "bluffs"</td>
+    <td>Value bet thinly with real hands; eliminate bluffs; let them pay off your good hands</td>
+  </tr>
+  <tr>
+    <td>Unknown (new to table)</td>
+    <td>Default to typical reads</td>
+    <td>Play tight-aggressive initially, establish the image you want deliberately</td>
+  </tr>
+</table>
+
+<h3>Physical Tells (Live Poker)</h3>
+<p>All tells are player-specific — find the baseline first (how does this player act when not under pressure?). Tells only matter when they deviate from baseline. That said, some generalizations Jonathan observes:</p>
+
+<ul>
+  <li><strong>Heavy breathing:</strong> Usually a strong hand. The player is excited, anticipating a large win.</li>
+  <li><strong>Blinking rapidly:</strong> Usually a bluff or a weak hand. The player is nervous and wants the moment to pass.</li>
+  <li><strong>Staring at you without blinking:</strong> Usually strong — they don't care what expression you have because they're not folding.</li>
+  <li><strong>Staring you down aggressively:</strong> Usually weak — they are trying to intimidate you into folding.</li>
+  <li><strong>Engaged, upright body posture:</strong> Usually involved in the hand — they are anticipating action.</li>
+  <li><strong>Disengaged, looking away:</strong> Usually weak — they have little interest because they are close to folding.</li>
+</ul>
+
+<div class="box box-insight">
+  <span class="box-label">Key Insight — Online Tells Are Timing-Based</span>
+  <p>Online, the equivalent of physical tells is timing. When an opponent who has acted consistently fast suddenly takes 15 seconds before calling, alarm bells should go off. An abnormal betting size (they always open 3bb, today they open 4bb UTG) is a significant tell. Some players always tank with the nuts, some always tank when bluffing — you must build a sample on each opponent. Note these patterns and trust them when the pattern is clear and consistent.</p>
+</div>
+
+<h3>Intuition and Alarm Bells</h3>
+<p>Over many hours, you develop intuition about when a hand "feels wrong." A tight player uses an unusual bet size; a player suddenly acts out of turn. These deviations from normal behavior are almost always signs of strength in regular (non-maniac) players. When alarm bells go off, slow down, re-evaluate, and play more cautiously regardless of your hand strength.</p>
+</section>
+
+<!-- ============================================================ -->
+<section id="game-selection">
+<h2>24. Game Selection &amp; Bankroll Management</h2>
+
+<h3>Game Selection — The Most Underrated Skill</h3>
+
+<div class="box box-insight">
+  <span class="box-label">Key Insight — You Don't Have to Play</span>
+  <p>Walking into a casino does not obligate you to play. If the only running game has strong players and no clear fish, the most profitable decision is to leave. Jonathan literally drove to the Bellagio, assessed the table quality, and drove home three days in a row rather than play a negative-EV game. This discipline is what separates professional-level thinking from recreational play.</p>
+</div>
+
+<h3>Seat Selection</h3>
+<p>Money flows to the left at a poker table: the player on your left is in position on you most often and will win pots from you at a higher rate. Therefore:</p>
+<ul>
+  <li>Sit to the <strong>left</strong> of weak players — you have position on them and win their chips more efficiently</li>
+  <li>Sit to the <strong>right</strong> of aggressive players — this lets you see their action before committing</li>
+  <li>Always put your name on the table change list the moment you arrive, and accept or decline seat changes as they match your positional goals</li>
+</ul>
+
+<h3>Rake and Stakes Selection</h3>
+
+<div class="box box-insight">
+  <span class="box-label">Key Insight — 1-2 NL Is Barely Beatable Because of Rake</span>
+  <p>At 1-2 with a typical $5 rake per pot, you might pay $12/hr in rake. If you win 10bb/hr = $20/hr gross, you net only $8/hr. A mediocre winner at 2-5 paying the same $12/hr rake in a pot capped higher nets $38/hr. The economic argument for moving up is overwhelming. Play 1-2 only to build skill; target 2-5 as soon as you have 30 buy-ins ($15,000).</p>
+</div>
+
+<table>
+  <tr>
+    <th>Stakes</th>
+    <th>Rough Win Rate (Good Player)</th>
+    <th>Rake/Hr</th>
+    <th>Net/Hr</th>
+  </tr>
+  <tr>
+    <td>1-2 NL</td>
+    <td>$20 (10bb/hr)</td>
+    <td>~$12</td>
+    <td>~$8</td>
+  </tr>
+  <tr>
+    <td>2-5 NL</td>
+    <td>~$50 (10bb/hr)</td>
+    <td>~$12</td>
+    <td>~$38</td>
+  </tr>
+  <tr>
+    <td>5-10 NL</td>
+    <td>~$100 (10bb/hr)</td>
+    <td>~$12</td>
+    <td>~$88</td>
+  </tr>
+</table>
+
+<h3>Bankroll Requirements</h3>
+
+<table>
+  <tr>
+    <th>Situation</th>
+    <th>Minimum Bankroll</th>
+    <th>Notes</th>
+  </tr>
+  <tr>
+    <td>Recreational player with job income</td>
+    <td>15–20 buy-ins</td>
+    <td>Can reload from income if needed; 1,500bb at 1-2 = $3,000</td>
+  </tr>
+  <tr>
+    <td>Semi-professional (supplement income)</td>
+    <td>30 buy-ins</td>
+    <td>3,000bb = $6,000 at 1-2; $15,000 at 2-5</td>
+  </tr>
+  <tr>
+    <td>Full professional</td>
+    <td>50+ buy-ins</td>
+    <td>Plus 6 months living expenses set aside separately</td>
+  </tr>
+  <tr>
+    <td>Online (high variance, faster pace)</td>
+    <td>100 buy-ins minimum</td>
+    <td>10,000bb at 0.5-1 = $10,000 for 1-2 equivalent online</td>
+  </tr>
+</table>
+
+<p>Ten buy-in downswings are normal. Twenty buy-in downswings happen to world-class players. Without adequate bankroll, a normal downswing eliminates your ability to play — turning a temporary variance swing into a permanent bankroll destruction event. The bankroll is not money you are "not using" — it is insurance against the inevitable mathematical variance of poker.</p>
+
+<h3>Moving Up and Down</h3>
+<ul>
+  <li>Move up when you have the requisite bankroll for the next level <em>at that level's buy-in amount</em></li>
+  <li>Move down if your bankroll drops below the minimum for your current stakes</li>
+  <li>Do not let ego prevent moving down — protecting your bankroll IS protecting your ability to profit</li>
+  <li>Aim to reach 2-5 as quickly as responsibly possible — the rake argument is powerful</li>
+</ul>
+
+<h3>Record Keeping</h3>
+<p>Keep meticulous records. Live players use apps like Poker Journal (iOS). Online players have hand history tools. You cannot know if you are a winning player without accurate data — and the human memory systematically inflates wins and forgets losses. Accurate records also reveal which games, stakes, and time periods are most profitable, enabling rational game selection decisions.</p>
+
+<div class="box box-trap">
+  <span class="box-label">Trap — The "I Came Home With Money" Delusion</span>
+  <p>Players routinely believe they are winners because they remember sessions where they profited. Without records: you cannot know your true win rate; you cannot identify leaks; you cannot make rational stake decisions. Many players who believe they are "decent winners" have been losing for years when properly tracked. Track everything. Face the truth. Correct what the data reveals.</p>
+</div>
+
+<h3>Mental Game Principles</h3>
+<ul>
+  <li><strong>Only play when in optimal mental state</strong> — tired, frustrated, tilted, drunk, or distracted states cost far more EV than the hours invested can gain</li>
+  <li><strong>Think in Sklansky Bucks</strong> — if you got all-in as a 60% favourite and lost, you did not play badly; you lost a coin flip you were supposed to take</li>
+  <li><strong>Do not results-orient</strong> — bad beats and suckouts are the cost of building pots when ahead; they are evidence of correct play</li>
+  <li><strong>Pay attention constantly</strong> — most players zone out when not in hands; this is where reads are gathered and exploits are developed</li>
+  <li><strong>Study away from the table</strong> — you cannot learn exploitative thinking only by playing; study with equity calculators, hand histories, and training materials between sessions</li>
+</ul>
+</section>
+
+<hr>
+
+<div class="doc-footer">
+  <p>Source: Crushing Small Stakes Cash Games — Jonathan Little (PokerCoaching.com) &mdash; 12 core webinars + 45 preflop &amp; postflop modules</p>
+  <p style="margin-top:0.4rem;">Study material compiled for educational use. Content &copy; PokerCoaching.com / Jonathan Little.</p>
+</div>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,1018 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quick Reference — Crushing Small Stakes Cash Games</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Source+Serif+4:wght@400;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+    onload="renderMathInElement(document.body,{delimiters:[{left:'\\(',right:'\\)',display:false},{left:'\\[',right:'\\]',display:true}],throwOnError:false});"></script>
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Source Serif 4', Georgia, serif;
+      font-size: 0.92rem;
+      line-height: 1.6;
+      color: #000;
+      background: #fff;
+      padding: 24px 16px 48px;
+    }
+
+    .page {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    /* ── Back link ── */
+    .back-link {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: #525252;
+      text-decoration: none;
+      display: inline-block;
+      margin-bottom: 20px;
+    }
+    .back-link:hover { color: #000; }
+
+    /* ── Header ── */
+    .header {
+      border-top: 4px solid #000;
+      border-bottom: 2px solid #000;
+      padding: 18px 0 14px;
+      margin-bottom: 28px;
+    }
+    .header h1 {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 2rem;
+      font-weight: 900;
+      line-height: 1.15;
+    }
+    .header .meta {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: #525252;
+      margin-top: 6px;
+    }
+    .header .tag {
+      display: inline-block;
+      border: 1px solid #000;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.65rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      padding: 2px 7px;
+      margin-right: 6px;
+    }
+
+    /* ── Print notice ── */
+    .print-notice {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: #525252;
+      background: #f5f5f5;
+      border-left: 3px solid #525252;
+      padding: 8px 12px;
+      margin-bottom: 28px;
+    }
+    @media print {
+      .print-notice { display: none; }
+      body { padding: 10px; }
+      .no-print { display: none; }
+    }
+
+    /* ── Section headings ── */
+    h2 {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 1.3rem;
+      font-weight: 700;
+      border-bottom: 2px solid #000;
+      padding-bottom: 4px;
+      margin: 30px 0 14px;
+    }
+    h3 {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 1.05rem;
+      font-weight: 700;
+      margin: 18px 0 8px;
+    }
+
+    /* ── Two-column grid ── */
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+      margin-bottom: 10px;
+    }
+    .grid-3 {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 14px;
+      margin-bottom: 10px;
+    }
+    @media (max-width: 680px) {
+      .grid-2, .grid-3 { grid-template-columns: 1fr; }
+    }
+
+    /* ── Tables ── */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.85rem;
+      margin: 10px 0 18px;
+    }
+    th {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.68rem;
+      text-transform: uppercase;
+      letter-spacing: 0.09em;
+      background: #000;
+      color: #fff;
+      padding: 6px 8px;
+      text-align: left;
+    }
+    td {
+      border: 1px solid #E5E5E5;
+      padding: 5px 8px;
+      vertical-align: top;
+    }
+    tr:nth-child(even) td { background: #f9f9f9; }
+
+    /* ── Colored boxes ── */
+    .box {
+      border-left: 4px solid;
+      padding: 10px 12px;
+      margin: 10px 0;
+    }
+    .box-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.66rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      display: block;
+      margin-bottom: 4px;
+      font-weight: 600;
+    }
+    .box p, .box li { font-size: 0.88rem; line-height: 1.5; }
+    .box ul { padding-left: 1.2em; }
+
+    .box-definition { border-color: #2563EB; background: #EFF6FF; }
+    .box-definition .box-label { color: #2563EB; }
+
+    .box-insight { border-color: #7C3AED; background: #F5F3FF; }
+    .box-insight .box-label { color: #7C3AED; }
+
+    .box-example { border-color: #EA580C; background: #FFF7ED; }
+    .box-example .box-label { color: #EA580C; }
+
+    .box-trap { border-color: #DC2626; background: #FEF2F2; }
+    .box-trap .box-label { color: #DC2626; }
+
+    /* ── Formula display ── */
+    .formula-block {
+      background: #000;
+      color: #fff;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.8rem;
+      padding: 10px 14px;
+      margin: 8px 0;
+      letter-spacing: 0.04em;
+      white-space: pre;
+    }
+
+    /* ── Compact list ── */
+    ul.compact { padding-left: 1.3em; margin: 6px 0; }
+    ul.compact li { margin-bottom: 3px; font-size: 0.88rem; }
+
+    /* ── Position badges ── */
+    .pos {
+      display: inline-block;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.65rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      background: #000;
+      color: #fff;
+      padding: 1px 5px;
+      margin: 0 1px;
+    }
+    .pos-btn { background: #2563EB; }
+    .pos-late { background: #7C3AED; }
+    .pos-blind { background: #EA580C; }
+
+    /* ── Player-type cards ── */
+    .player-card {
+      border: 2px solid #000;
+      padding: 12px;
+    }
+    .player-card h4 {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      border-bottom: 1px solid #E5E5E5;
+      padding-bottom: 5px;
+      margin-bottom: 8px;
+    }
+    .player-card ul { padding-left: 1.2em; }
+    .player-card li { font-size: 0.83rem; line-height: 1.45; margin-bottom: 2px; }
+
+    /* ── Footer ── */
+    footer {
+      border-top: 2px solid #000;
+      margin-top: 36px;
+      padding-top: 12px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.66rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #525252;
+    }
+  </style>
+</head>
+<body>
+<div class="page">
+
+  <a href="index.html" class="back-link no-print">&#8592; Back to Crushing Small Stakes Cash Games</a>
+
+  <div class="header">
+    <h1>Crushing Small Stakes Cash Games</h1>
+    <div class="meta" style="margin-bottom:10px;">Jonathan Little &mdash; PokerCoaching.com</div>
+    <span class="tag">Quick Reference</span>
+    <span class="tag">Cheat Sheet</span>
+    <span class="tag">Cash Game</span>
+    <span class="tag">100bb Deep</span>
+  </div>
+
+  <div class="print-notice">Print tip: use Ctrl+P (or Cmd+P) and set margins to minimum for best results.</div>
+
+  <!-- ================================================
+       SECTION 1: CORE PRINCIPLES
+       ================================================ -->
+  <h2>1 &mdash; Core Principles</h2>
+
+  <div class="grid-2">
+    <div class="box box-insight">
+      <span class="box-label">The Winning Edge</span>
+      <ul class="compact">
+        <li>You profit when opponents make mistakes <em>you do not</em></li>
+        <li>Playing only strong hands = small winner, never big winner</li>
+        <li>You must identify and exploit specific opponent tendencies</li>
+        <li>Learn GTO baseline first, then deviate to exploit</li>
+      </ul>
+    </div>
+    <div class="box box-trap">
+      <span class="box-label">Trap &mdash; Nut-Peddling</span>
+      <ul class="compact">
+        <li>Tight-only play = rake eats your edge</li>
+        <li>Small stakes opponents: limp too much, skip river value bets, almost never bluff</li>
+        <li>These predictable errors are your profit source &mdash; actively exploit them</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="box box-definition">
+    <span class="box-label">Stack Depth Assumption</span>
+    <p>Course assumes <strong>100 big blind</strong> effective stacks, 8-handed with rake. If no rake (time rake / club), play looser ranges throughout. If 6-max online, treat as 8-max with UTG and UTG+1 having folded.</p>
+  </div>
+
+
+  <!-- ================================================
+       SECTION 2: PREFLOP RANGES BY POSITION
+       ================================================ -->
+  <h2>2 &mdash; Preflop Ranges by Position</h2>
+
+  <p style="font-size:0.82rem;margin-bottom:10px;color:#525252;font-family:'JetBrains Mono',monospace;text-transform:uppercase;letter-spacing:0.07em;">Raise-first-in (RFI) defaults &mdash; tighten vs. rake, loosen vs. weak blinds or absent rake.</p>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Position</th>
+        <th>RFI Freq.</th>
+        <th>Open Size</th>
+        <th>Key Hands to Include</th>
+        <th>Key Folds</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="pos">UTG</span></td>
+        <td>~6–8%</td>
+        <td>3 bb</td>
+        <td>AA–77, AKs–AJs, AKo–AQo, KQs, KJs</td>
+        <td>QJo, ATo, JTo, small pairs (optional)</td>
+      </tr>
+      <tr>
+        <td><span class="pos">UTG+1</span> / <span class="pos">MP</span></td>
+        <td>~9–11%</td>
+        <td>3 bb</td>
+        <td>Add: KQo, ATo, QJs, JTs, T9s, 76s–54s</td>
+        <td>Low offsuit combos, A4o and weaker</td>
+      </tr>
+      <tr>
+        <td><span class="pos">HJ</span></td>
+        <td>~14–16%</td>
+        <td>2.5–3 bb</td>
+        <td>Add: small suited aces (A2s–A5s), T9s, 65s, K9s</td>
+        <td>Offsuit junk, J7o and weaker</td>
+      </tr>
+      <tr>
+        <td><span class="pos pos-late">CO</span></td>
+        <td>~22–26%</td>
+        <td>2.5 bb</td>
+        <td>Add: suited connectors down to 54s, Kxs, Qxs, all pairs</td>
+        <td>Weak offsuit non-connectors</td>
+      </tr>
+      <tr>
+        <td><span class="pos pos-btn">BTN</span></td>
+        <td>~40–56%</td>
+        <td>2–2.5 bb</td>
+        <td>All suited hands with potential; most pairs; wide Broadway</td>
+        <td>Weakest offsuit non-connectors only</td>
+      </tr>
+      <tr>
+        <td><span class="pos pos-blind">SB</span></td>
+        <td>3-bet or fold</td>
+        <td>3-bet: ~10–13 bb vs 3 bb open</td>
+        <td>3-bet strong linear range + a few suited bluffs. Flat only if BB is weak: pairs, suited aces, suited connectors</td>
+        <td>AJo, QTo, most offsuit hands &mdash; fold or 3-bet</td>
+      </tr>
+      <tr>
+        <td><span class="pos pos-blind">BB</span></td>
+        <td>Defend wide vs late; tight vs early</td>
+        <td>3-bet: ~13–14 bb OOP</td>
+        <td>3-bet vs BTN: T7s, T6s, J8s, J7s plus best hands and Axs blockers. Flat: hands that flop well (suited, connected)</td>
+        <td>vs UTG: fold AJo, QJo, ATo, JTo &mdash; easily dominated</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="box box-insight">
+    <span class="box-label">Key Insight &mdash; BB 3-Bet Sizing OOP</span>
+    <p>When 3-betting out of position (e.g., BB vs BTN 3 bb open), size to roughly <strong>13–14 bb</strong>. Too small (9 bb) and villain calls or 4-bets every time. You are not trying to make them fold; you are making it expensive for them to continue with position.</p>
+  </div>
+
+  <div class="box box-trap">
+    <span class="box-label">Trap &mdash; SB Flatting</span>
+    <p>Calling from the SB vs a raiser is almost always wrong: you pay rake <em>and</em> have the worst relative position postflop (you act first on every postflop street). Default strategy: 3-bet or fold. Exception: BB is a bad player &mdash; then flat pairs, suited aces, suited connectors for multi-way implied odds.</p>
+  </div>
+
+
+  <!-- ================================================
+       SECTION 3: 3-BET AND 4-BET GUIDE
+       ================================================ -->
+  <h2>3 &mdash; 3-Bet &amp; 4-Bet Strategy</h2>
+
+  <h3>3-Bet Ranges</h3>
+  <table>
+    <thead>
+      <tr>
+        <th>Scenario</th>
+        <th>Value 3-Bets</th>
+        <th>Bluff 3-Bets</th>
+        <th>3-Bet Size</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>BB vs UTG raise</td>
+        <td>AA–QQ, AKs, AKo, AQs</td>
+        <td>Few Axs blockers (A5s–A2s), Kxs</td>
+        <td>13–14 bb (vs 3 bb open)</td>
+      </tr>
+      <tr>
+        <td>BB vs BTN raise</td>
+        <td>AA–JJ, AKs–AQs, AKo</td>
+        <td>T7s, T6s, J8s, J7s, 96s, 97s &mdash; suited connectors flop well and pressure BTN's wide range</td>
+        <td>13–14 bb (vs 3 bb open)</td>
+      </tr>
+      <tr>
+        <td>SB vs BTN raise</td>
+        <td>Strong linear: AA–TT, AKs–ATs, AKo–AQo, KQs</td>
+        <td>Minimal; a few Axs bluffs</td>
+        <td>10–13 bb (vs 2.5–3 bb open)</td>
+      </tr>
+      <tr>
+        <td>BTN vs CO raise (IP)</td>
+        <td>AA–JJ, AKs–AQs, AKo–AQo</td>
+        <td>A5s–A2s (blocker), KJo, K9s</td>
+        <td>~9 bb (vs 3 bb open) &mdash; smaller is fine in position</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>Facing a 3-Bet: 4-Bet or Fold (No Calling Range vs Early Position)</h3>
+  <div class="box box-definition">
+    <span class="box-label">Rule &mdash; No Cold Calling vs. Early-Position 3-Bets</span>
+    <p>When there is a raise <em>and</em> a 3-bet before action reaches you, <strong>4-bet or fold</strong>. Implied odds for pairs and suited connectors are crushed when 3-bet to 10 bb; you are getting at best 10-to-1 implied odds, which is not sufficient.</p>
+  </div>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Situation</th>
+        <th>4-Bet Value</th>
+        <th>Bluff / Marginal</th>
+        <th>4-Bet Size</th>
+        <th>Facing All-In Jam</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>BB vs LJ raise + HJ 3-bet</td>
+        <td>AA, KK, QQ, JJ, AKs, AQs</td>
+        <td>None &mdash; fold everything else</td>
+        <td>23–24 bb</td>
+        <td>Call AA–QQ, AKs only</td>
+      </tr>
+      <tr>
+        <td>BB vs CO/BTN raise + 3-bet</td>
+        <td>TT+, AKs–AJs, AQo</td>
+        <td>AJs, AQo, KJs (bluff &mdash; fold these to jam)</td>
+        <td>23–24 bb</td>
+        <td>Call AA–QQ, AKs, maybe JJ</td>
+      </tr>
+      <tr>
+        <td>BTN facing 4-bet (after your 3-bet)</td>
+        <td>5-bet AA–QQ, AKs/AKo</td>
+        <td>Call JJ, 99, 55, some suited connectors vs wide 4-bettor</td>
+        <td>&mdash;</td>
+        <td>Fold AQo, KJs unless villain is a maniac</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="box box-trap">
+    <span class="box-label">Trap &mdash; Calling 4-Bets Too Wide</span>
+    <p>In small stakes games, <strong>almost no one 4-bet bluffs</strong>. If you get 4-bet, assume a very strong range and overfold. Facing a 4-bet jam with AQo? <strong>Muck it immediately.</strong> If the player is aggressive and wide, then AQo can be a marginal call &mdash; but this player type is rare at small stakes.</p>
+  </div>
+
+
+  <!-- ================================================
+       SECTION 4: PLAYER TYPE EXPLOIT GUIDE
+       ================================================ -->
+  <h2>4 &mdash; Player Type Exploit Guide</h2>
+
+  <div class="grid-2">
+    <div class="player-card">
+      <h4>Tight Passive (Nit)</h4>
+      <ul>
+        <li><strong>Reads:</strong> Only raises premiums. Check-calls medium pairs. Check-folds trash. Rarely bluffs. Overplays top pair.</li>
+        <li><strong>Pre-flop:</strong> Raise their limps aggressively (3–4 bb). 3-bet them light when they open.</li>
+        <li><strong>Post-flop:</strong> Bet freely when they check &mdash; they'll fold. When they raise or lead, give full credit.</li>
+        <li><strong>Avoid:</strong> Bluffing multiple streets. They fold, then snap-call when they finally have something.</li>
+        <li><strong>Bonus:</strong> They overplay top pair &mdash; get full value with your sets and two-pairs.</li>
+      </ul>
+    </div>
+    <div class="player-card">
+      <h4>Loose Passive (Calling Station)</h4>
+      <ul>
+        <li><strong>Reads:</strong> Wide preflop range; check-calls frequently; rarely raises or bluffs river.</li>
+        <li><strong>Pre-flop:</strong> Raise their limps large; don't give cheap multi-way flops.</li>
+        <li><strong>Post-flop:</strong> Value-bet relentlessly &mdash; 3 streets with top pair. Use <em>larger</em> sizes since they call wide.</li>
+        <li><strong>Avoid:</strong> Bluffing at all. They will call you down with bottom pair. Never bluff them.</li>
+        <li><strong>Bonus:</strong> If they do raise, they almost always have it.</li>
+      </ul>
+    </div>
+    <div class="player-card">
+      <h4>Tight Aggressive (TAG / Reg)</h4>
+      <ul>
+        <li><strong>Reads:</strong> Balanced-ish ranges; c-bets frequently; will fold to aggression sometimes.</li>
+        <li><strong>Pre-flop:</strong> 3-bet a polarized range; steal often from late position.</li>
+        <li><strong>Post-flop:</strong> Float in position; raise c-bets with equity; bluff missed draws on turn/river.</li>
+        <li><strong>Avoid:</strong> Passive flatting OOP; letting them realize equity cheaply.</li>
+        <li><strong>Bonus:</strong> Check-raise on dry board = usually strong; respect it.</li>
+      </ul>
+    </div>
+    <div class="player-card">
+      <h4>Loose Aggressive (LAG / Maniac)</h4>
+      <ul>
+        <li><strong>Reads:</strong> Wide 3-bet range; frequent c-bets; will bluff river frequently.</li>
+        <li><strong>Pre-flop:</strong> Tighten 4-bet threshold; call wider vs their 3-bets with suited hands.</li>
+        <li><strong>Post-flop:</strong> Call down lighter on safe runouts; let them bluff off stacks.</li>
+        <li><strong>Avoid:</strong> Hero-folding big hands against them. Widen your calling range significantly.</li>
+        <li><strong>Bonus:</strong> When a maniac does something unusual or very large &mdash; that can still be strength.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="box box-insight">
+    <span class="box-label">Key Insight &mdash; Attacking Limps</span>
+    <p>When a player <strong>limps</strong>, their range is typically weak &mdash; their best hands are usually raises. Attack limps with a 3–4 bb raise. If the SB limps into you in the BB, raise aggressively (4 bb): they fold often, you collect the blinds for free without paying rake.</p>
+  </div>
+
+  <div class="box box-example">
+    <span class="box-label">Exploit Reference &mdash; Quick Lookup</span>
+    <table style="margin:4px 0 0;">
+      <thead>
+        <tr><th>Villain Tendency</th><th>Your Adjustment</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Never bluffs, only bets made hands</td><td>Fold marginal hands to bets; value-bet your good hands big</td></tr>
+        <tr><td>Calls down with anything (station)</td><td>Stop bluffing entirely; increase value-bet sizing; 3-street top pair</td></tr>
+        <tr><td>Overbluffs, fires big on river</td><td>Call down lighter; use check-call lines to trap with medium hands</td></tr>
+        <tr><td>Only raises with nuts post-flop</td><td>Fold everything below the nuts when they raise</td></tr>
+        <tr><td>Folds to aggression (weak-tight)</td><td>Fire multiple barrels; attack missed-draw boards; use overbets</td></tr>
+        <tr><td>Limps pre, leads flop after you raise</td><td>Often strong (sets, top pair) &mdash; tighten up or raise for info</td></tr>
+        <tr><td>Min-raises with strong hands (sizing tell)</td><td>Raise large to build pot &mdash; they're not folding. Do not slow-play.</td></tr>
+        <tr><td>Limp-reraises UTG</td><td>Fold marginal opens; only continue with premiums</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+
+  <!-- ================================================
+       SECTION 5: C-BET SIZING GUIDE
+       ================================================ -->
+  <h2>5 &mdash; C-Bet Sizing Guide</h2>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Situation</th>
+        <th>Size</th>
+        <th>Rationale</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Dry board (Q&hearts;7&spades;2&clubs;) &mdash; heads-up, in position</td>
+        <td>25–33% pot</td>
+        <td>No draws; thin range; small bet achieves same folds as big bet</td>
+      </tr>
+      <tr>
+        <td>Wet board (9&hearts;8&spades;5&clubs;) &mdash; heads-up, in position</td>
+        <td>50–75% pot</td>
+        <td>Charge draws; protect made hands; deny equity</td>
+      </tr>
+      <tr>
+        <td>Wet board &mdash; multiway (3+ players)</td>
+        <td>50–67% pot</td>
+        <td>Bet for protection; do not slow-play strong hands when multiple players can outdraw you</td>
+      </tr>
+      <tr>
+        <td>Dry board &mdash; multiway</td>
+        <td>25–40% pot or check</td>
+        <td>Fewer callers; small bet or check is sufficient</td>
+      </tr>
+      <tr>
+        <td>Thin value bet &mdash; out of position (middle pair, TPNK)</td>
+        <td>20–33% pot</td>
+        <td>Invites calls from worse; small enough that villain rarely raises with air</td>
+      </tr>
+      <tr>
+        <td>Thin value bet &mdash; in position (middle pair, TPNK)</td>
+        <td>~50% pot</td>
+        <td>Position allows larger sizing while still getting called by worse hands</td>
+      </tr>
+      <tr>
+        <td>Overbet bluff on river (villain range capped)</td>
+        <td>125–200% pot</td>
+        <td>Villain range capped at one pair; they rarely call big bets; break-even at 67% fold (2x pot)</td>
+      </tr>
+      <tr>
+        <td>Overbet value vs call-happy villain</td>
+        <td>125–200% pot</td>
+        <td>Non-believer calls wide &mdash; exploit by sizing up, not down</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="box box-trap">
+    <span class="box-label">Trap &mdash; Slow-Playing on Wet Boards</span>
+    <p>If you flop a set on 9-8-5 and check, every turn card is potentially a disaster (7, 6, T, flush cards). Bet to build the pot <em>and</em> charge draws. Slow-playing is only reasonable on truly dry boards where you cannot be outdrawn.</p>
+  </div>
+
+
+  <!-- ================================================
+       SECTION 6: POT ODDS QUICK TABLE
+       ================================================ -->
+  <h2>6 &mdash; Pot Odds Quick Table</h2>
+
+  <p style="font-size:0.84rem;margin-bottom:10px;">Break-even equity to call: \(\text{Equity needed} = \dfrac{\text{Call}}{\text{Pot after call}}\)</p>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Bet Size</th>
+        <th>Odds (call : pot)</th>
+        <th>Equity Needed</th>
+        <th>Common Situation</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>25% pot</td>
+        <td>1 : 5</td>
+        <td>~17%</td>
+        <td>Small c-bet on dry board; easy call with any pair or gutshot</td>
+      </tr>
+      <tr>
+        <td>33% pot</td>
+        <td>1 : 4</td>
+        <td>~20%</td>
+        <td>Classic small c-bet; backdoor draws marginal but close</td>
+      </tr>
+      <tr>
+        <td>50% pot</td>
+        <td>1 : 3</td>
+        <td>~25%</td>
+        <td>Standard bet; open-ender (17%) + pair can call; flush draw (19%) close</td>
+      </tr>
+      <tr>
+        <td>67% pot (2/3)</td>
+        <td>2 : 5</td>
+        <td>~29%</td>
+        <td>Flush draw close; needs extra equity (pair or overcard) to call comfortably</td>
+      </tr>
+      <tr>
+        <td>75% pot (3/4)</td>
+        <td>3 : 7</td>
+        <td>~30%</td>
+        <td>Flush draws barely break even; weak pairs should fold</td>
+      </tr>
+      <tr>
+        <td>100% pot</td>
+        <td>1 : 2</td>
+        <td>~33%</td>
+        <td>Pot-size bet; only strong draws or made hands continue</td>
+      </tr>
+      <tr>
+        <td>150% pot</td>
+        <td>3 : 5</td>
+        <td>~38%</td>
+        <td>Overbet; only very strong draws or strong made hands continue</td>
+      </tr>
+      <tr>
+        <td>200% pot (2x)</td>
+        <td>2 : 3</td>
+        <td>~40%</td>
+        <td>Large overbet; bluff break-even is 67% fold equity</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>Common Draw Equities</h3>
+  <table>
+    <thead>
+      <tr>
+        <th>Draw Type</th>
+        <th>Outs</th>
+        <th>Equity (2 cards)</th>
+        <th>Equity (1 card)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>Flush draw</td><td>9</td><td>~35%</td><td>~19%</td></tr>
+      <tr><td>Open-ended straight draw (OESD)</td><td>8</td><td>~32%</td><td>~17%</td></tr>
+      <tr><td>Flush draw + gutshot</td><td>12</td><td>~45%</td><td>~26%</td></tr>
+      <tr><td>Flush draw + pair</td><td>14</td><td>~51%</td><td>~30%</td></tr>
+      <tr><td>Gutshot</td><td>4</td><td>~17%</td><td>~9%</td></tr>
+      <tr><td>Two overcards</td><td>6</td><td>~24%</td><td>~13%</td></tr>
+      <tr><td>One overcard</td><td>3</td><td>~13%</td><td>~6.5%</td></tr>
+    </tbody>
+  </table>
+  <p style="font-size:0.8rem;font-family:'JetBrains Mono',monospace;color:#525252;margin-top:4px;">Rule of 4: Outs &times; 4 &asymp; equity with 2 cards left &nbsp;|&nbsp; Rule of 2: Outs &times; 2 &asymp; equity with 1 card left</p>
+
+
+  <!-- ================================================
+       SECTION 7: WHEN TO FLOAT / FOLD / RAISE
+       ================================================ -->
+  <h2>7 &mdash; When to Float / Fold / Raise</h2>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Scenario</th>
+        <th>Float (Call)</th>
+        <th>Fold</th>
+        <th>Raise</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Facing c-bet on dry board (Q72r)</td>
+        <td>Top pair, middle pair + backdoors, overcards + bdfd</td>
+        <td>Bottom pair (no backdoors), gutshot only vs large bet</td>
+        <td>Sets, 2-pair; bluff-raise occasionally with 0 equity + blockers</td>
+      </tr>
+      <tr>
+        <td>Facing c-bet on wet board (985)</td>
+        <td>Strong draws (flush, OESD), top pair, pair+draw</td>
+        <td>Naked bottom pair, gutshot only vs 75%+ bet OOP</td>
+        <td>Sets, 2-pair, combo draws (raise for value + protection)</td>
+      </tr>
+      <tr>
+        <td>Turn double barrel</td>
+        <td>Strong draws still live, top pair good kicker</td>
+        <td>Middle/bottom pair on coordinated board vs big bet</td>
+        <td>Completed draws for value; sets/2-pair for value</td>
+      </tr>
+      <tr>
+        <td>River bet (no draws on board)</td>
+        <td>Top pair or better (beats most of villain's value range)</td>
+        <td>Second pair, bluff-catchers vs passive opponents betting for value</td>
+        <td>Nut hands for value; bluffs blocking nuts + not unblocking folds</td>
+      </tr>
+      <tr>
+        <td>Passive villain bets flop + turn + river (dry board)</td>
+        <td>Top pair or better only</td>
+        <td>Second pair, middle pair &mdash; they almost never triple-barrel-bluff dry boards</td>
+        <td>Only the nuts</td>
+      </tr>
+      <tr>
+        <td>Maniac villain triple barrels</td>
+        <td>Top pair+, most strong draws</td>
+        <td>Very little &mdash; widen calling range significantly vs known aggressor</td>
+        <td>2-pair+, strong combo draws</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="box box-insight">
+    <span class="box-label">Key Insight &mdash; Capped Range = Prime Bluff Spot</span>
+    <p>When villain check-calls the flop <em>and</em> check-calls the turn, their range is <strong>capped at one pair</strong> on the river (they would have raised two-pair+ earlier). This is your prime bluff spot. They usually cannot call a large river bet. Finish your bluffs &mdash; don't give up on the river after betting flop and turn.</p>
+  </div>
+
+
+  <!-- ================================================
+       SECTION 8: THIN VALUE AND BLUFFING
+       ================================================ -->
+  <h2>8 &mdash; Thin Value &amp; Bluffing Rules</h2>
+
+  <div class="grid-2">
+    <div>
+      <h3>Thin Value Betting</h3>
+      <div class="box box-insight">
+        <span class="box-label">The 51% Rule</span>
+        <p>If your hand beats villain's calling range <strong>more than 50% of the time</strong>, a value bet is profitable. Don't wait for certainty. Accept that some thin value bets get called by better &mdash; that is normal and correct.</p>
+      </div>
+      <ul class="compact">
+        <li>OOP thin value: 20–33% pot</li>
+        <li>IP thin value: ~50% pot</li>
+        <li>vs call-happy villain: size <em>up</em>, not down</li>
+        <li>Top pair no kicker on checked-down river: bet</li>
+        <li>Middle pair when draws miss: bet in position</li>
+      </ul>
+    </div>
+    <div>
+      <h3>Bluffing</h3>
+      <div class="box box-insight">
+        <span class="box-label">Pot-Size River Bluff Math</span>
+        <p>A pot-size river bluff needs villain to fold <strong>50%+</strong>. A 2x pot overbet needs only <strong>67%</strong> fold. Passive small-stakes players fold one pair to large bets far more than 67% of the time.</p>
+      </div>
+      <ul class="compact">
+        <li>Bluff when opponent is capped (check-called twice)</li>
+        <li>Big bluffs work better than small bluffs vs weak players</li>
+        <li>Don't bet flop + turn then quit on river &mdash; finish the bluff</li>
+        <li>Best bluff hands: block nuts, don't unblock auto-folds</li>
+        <li>Ace of flush suit on river = strong bluff (blocks their flushes)</li>
+        <li>If your bluffs always get through, you are not bluffing enough</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="box box-example">
+    <span class="box-label">Worked Example &mdash; River Overbet Bluff</span>
+    <p><strong>Setup:</strong> You raise BTN (3 bb), BB calls. 100 bb effective.</p>
+    <p><strong>Board:</strong> K&spades; 8&hearts; 3&clubs; (you c-bet 50%, BB calls) &mdash; Turn 2&diams; (both check) &mdash; River 5&hearts;</p>
+    <p><strong>Analysis:</strong> BB check-called flop (capped at KX or worse), checked turn (no two-pair+ likely). River 5 is a blank. BB's range is likely top pair / second pair with no strong hand. You can overbet 150–200% pot here &mdash; villain folds KJ, K9, K8 most of the time. You only need 67% fold equity to break even with a 2x pot bet.</p>
+  </div>
+
+  <div class="box box-example">
+    <span class="box-label">Worked Example &mdash; Bluff Blocker Selection</span>
+    <p><strong>Board:</strong> J&spades; T&spades; 7&clubs; 6&diams; 2&hearts; (no flush possible)</p>
+    <p><strong>You hold:</strong> 8&clubs; 8&diams; (pocket eights)</p>
+    <p><strong>Analysis:</strong> Your eights block the 9-8 straight (a hand villain might value-bet). If villain has a J or T with no straight, they are unlikely to have 9-8 in their range (you block it). This makes a river bluff attractive &mdash; your hand has almost no showdown value, you block part of their continuing range, and you don't unblock their folding range (KQ, AJ, etc.).</p>
+  </div>
+
+
+  <!-- ================================================
+       SECTION 9: KEY FORMULAS
+       ================================================ -->
+  <h2>9 &mdash; Key Formulas</h2>
+
+  <div class="grid-2">
+    <div>
+      <h3>Pot Odds &amp; Equity</h3>
+      <div class="formula-block">Equity needed = Call / (Pot + Call)
+
+Rule of 4: Outs × 4 ≈ % (2 cards left)
+Rule of 2: Outs × 2 ≈ % (1 card left)
+
+MDF (Min Defense Freq):
+MDF = 1 − Bet / (Bet + Pot)
+[% of your range you must defend vs a bet]</div>
+    </div>
+    <div>
+      <h3>Bluff Break-Evens</h3>
+      <div class="formula-block">Bluff BE = Bet / (Bet + Pot)
+[need villain to fold this % of the time]
+
+1/3 pot bluff → need 25% fold
+1/2 pot bluff → need 33% fold
+Pot  bluff    → need 50% fold
+2x pot bluff  → need 67% fold</div>
+    </div>
+  </div>
+
+  <div class="grid-2" style="margin-top:10px;">
+    <div>
+      <h3>Preflop Sizing Reference</h3>
+      <div class="formula-block">Standard open: 2.5–3 bb (in position)
+               3–4 bb (out of position)
+
+3-bet OOP:  ~3× open + 1 unit
+3-bet IP:   ~2.5–3× open
+
+4-bet:      ~2.3–2.5× the 3-bet
+            (~23–24 bb vs 3-bet to 10 bb)
+
+vs limpers: base + 1 bb per limper</div>
+    </div>
+    <div>
+      <h3>SPR (Stack-to-Pot Ratio)</h3>
+      <div class="formula-block">SPR = Effective Stack / Pot
+
+SPR &lt; 3:   Commit with top pair+
+SPR 3–8:   Comfortable with 2-pair+
+SPR &gt; 8:   Need strong hand to stack off
+            (sets, straights, flushes)
+
+Pot raise = (3 × last bet) + dead money</div>
+    </div>
+  </div>
+
+
+  <!-- ================================================
+       SECTION 10: BIG FOLDS ON DRY BOARDS
+       ================================================ -->
+  <h2>10 &mdash; Making Big Folds (Dry Boards)</h2>
+
+  <div class="box box-definition">
+    <span class="box-label">Definition &mdash; Dry Board</span>
+    <p>A board with no flush draws and no straight draws (e.g., Q&hearts;7&spades;2&clubs;). When a <em>passive</em> opponent triple-barrels a dry board, they almost never bluff &mdash; they expect you to have a pair and they keep betting because they have value. Overfold your bluff-catchers.</p>
+  </div>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Situation</th>
+        <th>Action</th>
+        <th>Reasoning</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Passive villain bets flop + turn + river (Q72r)</td>
+        <td><strong>Fold</strong> second pair or worse</td>
+        <td>They know you'll call with a pair. If they still fire river, they have value. Overfold.</td>
+      </tr>
+      <tr>
+        <td>Same board, you hold top pair (Qx) no kicker</td>
+        <td>Likely <strong>call</strong></td>
+        <td>You beat some value bets (JJ, TT overpairs); cannot easily fold top pair</td>
+      </tr>
+      <tr>
+        <td>Villain check-calls twice then leads river</td>
+        <td><strong>Fold</strong> one-pair hands</td>
+        <td>Lead after two check-calls = turned/rivered strong hand; very rarely a bluff</td>
+      </tr>
+      <tr>
+        <td>Dry board vs a known maniac</td>
+        <td><strong>Call</strong> wider (top pair+)</td>
+        <td>Maniacs blast off with nothing; adjust threshold upward significantly</td>
+      </tr>
+      <tr>
+        <td>Draws miss on river, villain fires big</td>
+        <td>Context-dependent; tend to call vs aggressive players</td>
+        <td>Big river bet when draws miss can be a missed-draw bluff; factor in villain type</td>
+      </tr>
+    </tbody>
+  </table>
+
+
+  <!-- ================================================
+       SECTION 11: READS, TELLS, INTUITION
+       ================================================ -->
+  <h2>11 &mdash; Reads, Tells &amp; Intuition Triggers</h2>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Tell / Pattern</th>
+        <th>What It Likely Means</th>
+        <th>Adjustment</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Opens larger than normal (4 bb instead of 3 bb)</td>
+        <td>Premium hand; alarm bell</td>
+        <td>Play cautiously; fold marginal hands to their bets</td>
+      </tr>
+      <tr>
+        <td>Min-raise or tiny raise with strong hands</td>
+        <td>Strong hand; thinks it induces action</td>
+        <td>Raise large to build pot &mdash; they are not folding</td>
+      </tr>
+      <tr>
+        <td>Tanks then raises (live poker)</td>
+        <td>Usually strength; weak players do not fake-tank</td>
+        <td>Give credit; fold borderline holdings</td>
+      </tr>
+      <tr>
+        <td>Acts out of turn (live poker)</td>
+        <td>Excited / strong hand</td>
+        <td>Tighten up; do not bluff this street</td>
+      </tr>
+      <tr>
+        <td>Never bluffs three streets in observed history</td>
+        <td>Range weighted heavily to value</td>
+        <td>Large fold on triple barrel, even with top pair on dry board</td>
+      </tr>
+      <tr>
+        <td>Limp pre then donk-leads after you raise</td>
+        <td>Often strong (sets, top pair, two pair)</td>
+        <td>Tighten up; raise for information or fold thin holdings</td>
+      </tr>
+      <tr>
+        <td>Consistent bet sizing tells (same size = same hand strength)</td>
+        <td>Sizing reveals hand strength</td>
+        <td>Note: 1/3 pot = thin value or draw; pot = strong; overbet = rare and polarized</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="box box-insight">
+    <span class="box-label">Key Insight &mdash; Abnormal = Strong</span>
+    <p>In small stakes games, when a player does something unusual (odd sizing, unexpected timing, out-of-the-ordinary aggression), it is <strong>almost always a sign of strength</strong>. Unusual behaviors are rarely calculated deceptions at these stakes. Trust your alarm bells.</p>
+  </div>
+
+
+  <!-- ================================================
+       SECTION 12: QUICK DECISION CHECKLIST
+       ================================================ -->
+  <h2>12 &mdash; Quick Decision Checklist</h2>
+
+  <div class="grid-2">
+    <div>
+      <h3>Pre-Flop Checklist</h3>
+      <ol style="padding-left:1.3em;font-size:0.88rem;line-height:1.7;">
+        <li>What position am I in?</li>
+        <li>What does villain's action tell me about their range?</li>
+        <li>Am I in or out of position postflop?</li>
+        <li>Is villain too tight? Attack more, 3-bet wider.</li>
+        <li>Is villain too loose? Tighten up, play fewer bluffs.</li>
+        <li>Use correct size: larger OOP, smaller IP.</li>
+      </ol>
+    </div>
+    <div>
+      <h3>Post-Flop Checklist</h3>
+      <ol style="padding-left:1.3em;font-size:0.88rem;line-height:1.7;">
+        <li>What is villain's likely range given all prior action?</li>
+        <li>Is my hand ahead or behind most of that range?</li>
+        <li>Wet board = protect / bet; dry board = thinner sizes OK.</li>
+        <li>Passive villain = bet thin value; aggressive villain = call down.</li>
+        <li>Does their bet size reveal anything?</li>
+        <li>Is villain capped? If yes, bluff opportunity.</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="grid-3" style="margin-top:14px;">
+    <div class="box box-definition" style="margin:0;">
+      <span class="box-label">Value Bet?</span>
+      <p>Does my hand beat &gt;50% of villain's calling range? If yes, bet. Use smaller sizing OOP, larger IP or vs call-happy players.</p>
+    </div>
+    <div class="box box-insight" style="margin:0;">
+      <span class="box-label">Bluff?</span>
+      <p>Is villain capped? Does board texture favor my range? Do I block the nuts? Do I have fold equity? Big bets work better than small bets.</p>
+    </div>
+    <div class="box box-trap" style="margin:0;">
+      <span class="box-label">Fold?</span>
+      <p>Is villain passive and betting multiple streets on a dry board? Does my hand lose to most of their value range? Overfold vs passive opponents on dry boards.</p>
+    </div>
+  </div>
+
+
+  <footer>
+    <p>Source: Crushing Small Stakes Cash Games &mdash; Jonathan Little &mdash; PokerCoaching.com</p>
+    <p style="margin-top:4px;">Quick Reference Cheat Sheet &mdash; 100bb Cash Game &mdash; 8-handed default &mdash; assumes rake</p>
+  </footer>
+
+</div>
+</body>
+</html>

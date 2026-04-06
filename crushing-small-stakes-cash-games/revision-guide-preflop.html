@@ -1,0 +1,1037 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Preflop Strategy — Revision Guide | Crushing Small Stakes Cash Games</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Source+Serif+4:ital,wght@0,400;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+    onload="renderMathInElement(document.body,{delimiters:[{left:'\\(',right:'\\)',display:false},{left:'\\[',right:'\\]',display:true}],throwOnError:false});"></script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Source Serif 4', Georgia, serif;
+      font-size: 1rem;
+      line-height: 1.7;
+      color: #000000;
+      background: #ffffff;
+    }
+
+    .page-wrapper {
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 2rem 1.5rem 4rem;
+    }
+
+    /* Back link */
+    .back-link {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.72rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: #525252;
+      text-decoration: none;
+      display: inline-block;
+      margin-bottom: 2rem;
+    }
+    .back-link:hover { color: #000; }
+
+    /* Header */
+    .guide-header {
+      border-bottom: 4px solid #000;
+      padding-bottom: 1.5rem;
+      margin-bottom: 2.5rem;
+    }
+    .guide-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.72rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: #525252;
+      display: block;
+      margin-bottom: 0.5rem;
+    }
+    h1 {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 2.4rem;
+      font-weight: 900;
+      line-height: 1.15;
+      margin-bottom: 0.6rem;
+    }
+    .guide-meta {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem;
+      color: #525252;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+
+    /* Table of contents */
+    .toc {
+      border: 2px solid #000;
+      padding: 1.25rem 1.5rem;
+      margin-bottom: 2.5rem;
+    }
+    .toc-title {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      font-weight: 500;
+      margin-bottom: 0.75rem;
+      color: #525252;
+    }
+    .toc ol {
+      padding-left: 1.25rem;
+    }
+    .toc li {
+      margin-bottom: 0.2rem;
+    }
+    .toc a {
+      color: #2563EB;
+      text-decoration: none;
+      font-size: 0.95rem;
+    }
+    .toc a:hover { text-decoration: underline; }
+
+    /* Section headings */
+    h2 {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 1.7rem;
+      font-weight: 700;
+      line-height: 1.2;
+      margin-top: 3rem;
+      margin-bottom: 1rem;
+      padding-bottom: 0.4rem;
+      border-bottom: 2px solid #000;
+    }
+    h3 {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 1.2rem;
+      font-weight: 700;
+      line-height: 1.3;
+      margin-top: 2rem;
+      margin-bottom: 0.75rem;
+    }
+    h4 {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.82rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-top: 1.5rem;
+      margin-bottom: 0.5rem;
+      color: #525252;
+    }
+
+    p { margin-bottom: 1rem; }
+    p:last-child { margin-bottom: 0; }
+
+    strong { font-weight: 600; }
+    em { font-style: italic; }
+
+    ul, ol {
+      padding-left: 1.5rem;
+      margin-bottom: 1rem;
+    }
+    li { margin-bottom: 0.3rem; }
+
+    /* Colored boxes */
+    .box {
+      border-left: 4px solid;
+      padding: 1rem 1.25rem;
+      margin: 1.5rem 0;
+    }
+    .box p { margin-bottom: 0.6rem; }
+    .box p:last-child { margin-bottom: 0; }
+    .box ul, .box ol { margin-bottom: 0.6rem; }
+    .box ul:last-child, .box ol:last-child { margin-bottom: 0; }
+
+    .box-label {
+      display: block;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.7rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.13em;
+      margin-bottom: 0.6rem;
+    }
+
+    .box-definition {
+      border-color: #2563EB;
+      background: #eff6ff;
+    }
+    .box-definition .box-label { color: #2563EB; }
+
+    .box-insight {
+      border-color: #7C3AED;
+      background: #f5f3ff;
+    }
+    .box-insight .box-label { color: #7C3AED; }
+
+    .box-example {
+      border-color: #EA580C;
+      background: #fff7ed;
+    }
+    .box-example .box-label { color: #EA580C; }
+
+    .box-trap {
+      border-color: #DC2626;
+      background: #fef2f2;
+    }
+    .box-trap .box-label { color: #DC2626; }
+
+    /* Hand notation */
+    .hand { font-weight: 600; }
+    .pos {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.85em;
+      font-weight: 500;
+      background: #f3f4f6;
+      padding: 0 3px;
+    }
+
+    /* Correct/wrong callouts */
+    .verdict-correct {
+      color: #1a7a5e;
+      font-weight: 600;
+    }
+    .verdict-wrong {
+      color: #b91c1c;
+      font-weight: 600;
+    }
+
+    /* Range table */
+    .range-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1rem 0 1.5rem;
+      font-size: 0.9rem;
+    }
+    .range-table th {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      font-weight: 500;
+      border: 1px solid #000;
+      padding: 0.5rem 0.75rem;
+      background: #000;
+      color: #fff;
+      text-align: left;
+    }
+    .range-table td {
+      border: 1px solid #e5e5e5;
+      padding: 0.5rem 0.75rem;
+      vertical-align: top;
+    }
+    .range-table tr:nth-child(even) td { background: #f9f9f9; }
+
+    /* Separator */
+    hr {
+      border: none;
+      border-top: 1px solid #e5e5e5;
+      margin: 2rem 0;
+    }
+
+    /* Footer */
+    .guide-footer {
+      border-top: 2px solid #000;
+      padding-top: 1rem;
+      margin-top: 4rem;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: #525252;
+    }
+
+    @media (max-width: 600px) {
+      h1 { font-size: 1.8rem; }
+      h2 { font-size: 1.4rem; }
+      .page-wrapper { padding: 1.25rem 1rem 3rem; }
+      .range-table { font-size: 0.8rem; }
+    }
+  </style>
+</head>
+<body>
+<div class="page-wrapper">
+
+  <a class="back-link" href="index.html">← Back to Crushing Small Stakes Cash Games</a>
+
+  <header class="guide-header">
+    <span class="guide-label">Revision Guide &mdash; Preflop</span>
+    <h1>Preflop Strategy Deep-Dive</h1>
+    <div class="guide-meta">Crushing Small Stakes Cash Games &nbsp;|&nbsp; Jonathan Little &nbsp;|&nbsp; Comprehensive Reference</div>
+  </header>
+
+  <nav class="toc">
+    <div class="toc-title">Contents</div>
+    <ol>
+      <li><a href="#foundations">Foundations: Why Preflop Matters</a></li>
+      <li><a href="#positions">Position-Based Opening Ranges</a></li>
+      <li><a href="#bb-strategy">Big Blind Defense Strategy</a></li>
+      <li><a href="#sb-strategy">Small Blind Strategy</a></li>
+      <li><a href="#facing-3bets">Facing 3-Bets</a></li>
+      <li><a href="#4bet-strategy">4-Bet Strategies &amp; Facing 4-Bets</a></li>
+      <li><a href="#squeeze">Squeezing &amp; Overcalling (Raise + Call Situations)</a></li>
+      <li><a href="#limpers">Playing Against Limpers</a></li>
+      <li><a href="#posters">Playing Against Posters</a></li>
+      <li><a href="#splash">Splash-the-Pot Games</a></li>
+      <li><a href="#stack-depth">Stack Depth Adjustments</a></li>
+      <li><a href="#player-types">Exploiting Player Types Preflop</a></li>
+      <li><a href="#live-examples">Catalogued Live Play Examples</a></li>
+      <li><a href="#quick-rules">Master Rules Summary</a></li>
+    </ol>
+  </nav>
+
+  <!-- ============================= SECTION 1 ============================= -->
+  <h2 id="foundations">1. Foundations: Why Preflop Matters</h2>
+
+  <p>Preflop is the street played most often — opponents will see your preflop decisions in every single hand. This makes it the easiest street for them to profile you, and the easiest street on which <em>you</em> can gain structural advantages that compound postflop.</p>
+
+  <div class="box box-insight">
+    <span class="box-label">Core Principle</span>
+    <p>You make money when opponents make mistakes you do not make. Most small stakes cash game opponents are limping too much, not 3-betting enough, and playing postflop passively. Your preflop strategy must be calibrated to <strong>exploit those specific errors</strong>, not merely avoid your own mistakes.</p>
+  </div>
+
+  <div class="box box-definition">
+    <span class="box-label">Definition &mdash; Game Structure Assumptions</span>
+    <p>This course assumes: <strong>8-handed table</strong>, small blind and big blind only, rake taken from each pot, approximately <strong>100 big blind effective stacks</strong> as baseline. For 6-max: treat UTG and UTG+1 as having folded. For 10-handed: add one tighter UTG player. When rake is absent (time rake, club entry fee), play <em>looser</em> ranges throughout.</p>
+  </div>
+
+  <p>Playing only strong hands straightforwardly will make you a <em>small</em> winner at small stakes. To <strong>crush</strong> small stakes and build the skills to move up, you must:</p>
+  <ul>
+    <li>Know roughly what GTO looks like (use the PokerCoaching app charts as baseline)</li>
+    <li>Actively adjust away from GTO to exploit observed opponent errors</li>
+    <li>Never vary preflop raise sizes based on hand strength — always consistent sizing</li>
+  </ul>
+
+  <div class="box box-trap">
+    <span class="box-label">Trap &mdash; Varying Preflop Raise Size by Hand Strength</span>
+    <p>A critical leak at all levels: raising to 3bb with bluffs and 5bb with premium hands. Preflop is the street opponents observe most, so they will rapidly detect the pattern. Once detected, they exploit it relentlessly. Use the <strong>same raise size regardless of hand</strong> from each position. Your postflop play will determine outcomes, not your preflop sizing tells.</p>
+  </div>
+
+  <!-- ============================= SECTION 2 ============================= -->
+  <h2 id="positions">2. Position-Based Opening Ranges</h2>
+
+  <h3>The Positional Spectrum</h3>
+
+  <p>Opening ranges are determined <em>primarily by position</em>, and secondarily by the tendencies of players yet to act. The fundamental rule: <strong>play very few hands from early position, many hands from late position</strong>.</p>
+
+  <table class="range-table">
+    <thead>
+      <tr>
+        <th>Position</th>
+        <th>Approx. Open %</th>
+        <th>Key Notes</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="pos">UTG</span> (8-handed)</td>
+        <td>~8–10%</td>
+        <td>Pairs down to 77, AK/AQ/AJs/KQs, fold QJo, ATo, JTo</td>
+      </tr>
+      <tr>
+        <td><span class="pos">UTG+1</span></td>
+        <td>~10–12%</td>
+        <td>Slightly wider; small pairs still close folds</td>
+      </tr>
+      <tr>
+        <td><span class="pos">MP / HJ</span> (Lojack)</td>
+        <td>~14–18%</td>
+        <td>Add more suited connectors and suited aces</td>
+      </tr>
+      <tr>
+        <td><span class="pos">CO</span></td>
+        <td>~22–27%</td>
+        <td>Significant widening; most suited hands playable</td>
+      </tr>
+      <tr>
+        <td><span class="pos">BTN</span></td>
+        <td>~40–55%</td>
+        <td>Versus weak blinds, raise almost any hand with potential</td>
+      </tr>
+      <tr>
+        <td><span class="pos">SB</span></td>
+        <td>3-bet/fold only</td>
+        <td>No calling range vs. raises (see SB section)</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="box box-insight">
+    <span class="box-label">Key Insight &mdash; Why Such a Wide Button Range?</span>
+    <p>When everyone folds to you on the button and the blinds are weak, you have position on every postflop street, you can fold equity from two remaining opponents, and most hands have <em>some</em> potential. From the button versus tight blinds, raising 50%+ of hands is profitable. Going from 8% UTG to 50%+ on the button is not inconsistency — it is correct exploitation of positional advantage.</p>
+  </div>
+
+  <h3>Standard Raise Sizing</h3>
+
+  <p>At 100bb deep, a standard open raise should be approximately <strong>2.5 to 3 big blinds</strong>. In live games where limpers are common, add 1bb per limper. This sizing allows you to build pots correctly for 3-street value without committing too much preflop.</p>
+
+  <div class="box box-example">
+    <span class="box-label">Worked Example &mdash; Pocket 8s from MP, Standard Play</span>
+    <p><strong>Setup:</strong> 8-handed, 100bb effective, you are in MP with <span class="hand">88</span>, folds to you.</p>
+    <p><strong>Action:</strong> Raise to 3bb. Big blind calls. Pot = 6.5bb.</p>
+    <p><strong>Flop:</strong> 9&hearts; 8&spades; 5&clubs; (flopped middle set)</p>
+    <p><strong>Why bet immediately:</strong> The board has many draws (7-6, 6-4, J-10, 7-6, flush draws if running suits). Slow playing risks giving free cards that complete draws. If opponent has J-10, a queen costs you value. If he has 7-6, a turn straight destroys your implied odds. You want money in the pot now while you are a massive favorite.</p>
+    <p><strong>EV cost of slow play:</strong> Checking the flop often results in a check-check. Opponent with 10-9 folds on the turn when the pot is small. By betting 5bb into 6.5bb on the flop, you capture ~3–4bb in EV compared to checking. Over a session, this compounds enormously.</p>
+    <p><strong>Correct line:</strong> Bet flop (~65–75%), bet turn, bet river for value. Three streets of value.</p>
+  </div>
+
+  <h3>Suited vs. Offsuit Hands: A Critical Distinction</h3>
+
+  <div class="box box-insight">
+    <span class="box-label">Key Insight &mdash; Suited Always Outperforms Offsuit</span>
+    <p>Many players treat <span class="hand">Q7o</span> and <span class="hand">Q2s</span> as roughly equivalent. They are not. <span class="hand">Q2s</span> on the button is significantly better: it can make nut flushes, has backdoor flush equity, and retains equity on wet boards where <span class="hand">Q7o</span> is drawing dead. In general: prefer suited hands at every position, especially in multiway and single-raised pots where implied odds matter most.</p>
+  </div>
+
+  <!-- ============================= SECTION 3 ============================= -->
+  <h2 id="bb-strategy">3. Big Blind Defense Strategy</h2>
+
+  <p>The <span class="pos">BB</span> is the most studied position because it occurs every orbit. Most players at small stakes <strong>call too wide and 3-bet too infrequently</strong>. This section corrects both errors.</p>
+
+  <h3>BB vs. UTG Raise</h3>
+
+  <p>UTG's range is strong (around 10% of hands). When defending against a strong range, you must avoid dominated hands that lose big pots while only winning small ones.</p>
+
+  <div class="box box-definition">
+    <span class="box-label">Definition &mdash; Domination Danger</span>
+    <p>A hand is dominated when it shares a high card with the opponent and has a lower kicker. Example: <span class="hand">AJo</span> vs. <span class="hand">AK</span>. The dominated hand has only ~3 outs (to make two pair or trips) while giving all the action. Against UTG's strong range, hands like <span class="hand">AJo</span>, <span class="hand">QJo</span>, <span class="hand">AT</span>, <span class="hand">JT</span> should fold from the BB. These are not calling hands — they are dominated hands.</p>
+  </div>
+
+  <p><strong>What to call vs. UTG:</strong> Hands that flop <em>independently</em> of UTG's strength — suited connectors, suited aces, small/medium pairs. These hands make sets, straights, and flushes that beat UTG's strong made hands.</p>
+
+  <p><strong>What to 3-bet vs. UTG:</strong> Premium hands (AA–QQ, AK) plus selected bluffs with blockers: Ace-X offsuit blockers (<span class="hand">A5o</span>, <span class="hand">A4o</span>), king-X blockers, some suited connectors. When you 3-bet and get 4-bet, fold the bluffs. This keeps your 3-bet range balanced.</p>
+
+  <h3>BB vs. Button Raise — The 3-Betting Problem</h3>
+
+  <p>This is where the biggest leak lives. The button opens wide (40–55%+), meaning many hands in their range are weak. The BB has the widest possible defending range here. Yet most small stakes players <em>underfold</em> garbage and <em>under-3-bet</em> marginal suited hands.</p>
+
+  <div class="box box-insight">
+    <span class="box-label">Key Insight &mdash; 3-Bet the Suited Junk vs. Button</span>
+    <p>Hands like <span class="hand">T7s</span>, <span class="hand">T6s</span>, <span class="hand">J8s</span>, <span class="hand">J7s</span> should <strong>3-bet frequently</strong> from the BB vs. the button. Why? At 100bb deep, if you 3-bet and they call, you play a ~25bb pot out of position. These hands flop decently (pair, flush draw, straight draw), and their exact value is realised better in a 3-bet pot than by just calling and playing a bloated multiway pot. Most players only 3-bet premiums and miss all this value.</p>
+  </div>
+
+  <div class="box box-trap">
+    <span class="box-label">Trap &mdash; Folding Suited Low Cards, Calling Offsuit High Cards</span>
+    <p>A common backward error: folding <span class="hand">Q2s</span> from BB vs. BTN but calling <span class="hand">76o</span>. The suited hand has far more potential. GTO charts show <span class="hand">Q2s</span> calling vs. button while <span class="hand">76o</span> folds. Stop evaluating hands by face value; evaluate by what they make on the flop and how they realise equity.</p>
+  </div>
+
+  <h3>3-Bet Sizing from the BB</h3>
+
+  <p>When 3-betting out of position, use a pot-sized raise plus one additional unit. If button raises to 3bb: 3-bet to <strong>13–14bb</strong>. If you 3-bet to only 9bb, you give opponents correct odds to call and play in position against you, destroying your 3-bet's fold equity and giving away your out-of-position disadvantage cheaply.</p>
+
+  <div class="box box-example">
+    <span class="box-label">Worked Example &mdash; BB 3-Bet Size vs. Button</span>
+    <p><strong>Setup:</strong> 100bb effective. Button raises to 3bb. SB folds.</p>
+    <p><strong>You have <span class="hand">J8s</span> in the BB.</strong></p>
+    <p><strong>Wrong size:</strong> 3-bet to 9bb. Button faces 6bb to call into a pot of ~19bb — they are getting 3.2:1 and will call with almost their entire raising range. You are now out of position in a larger pot with a marginal hand.</p>
+    <p><strong>Correct size:</strong> 3-bet to 13bb. Button now faces 10bb to call into a pot of ~23bb — they are getting 2.3:1. Many marginal hands fold. When called, pot is 26bb and you have a defined range advantage.</p>
+    <p><strong>EV difference:</strong> The correct sizing induces folds from hands that have equity against you and defines opponent's range to stronger holdings. Against good opponents, a smaller 3-bet size is essentially donating EV.</p>
+  </div>
+
+  <h3>BB vs. SB Limp</h3>
+
+  <p>When the SB limps, their range is typically weak — they raise with good hands and limp with junk. <strong>Attack SB limps aggressively</strong> with a 3–4bb raise. Best case: they fold, you win the pot without a flop. When they do call, you have range advantage on every board.</p>
+
+  <p>The GTO response to SB limping: raise all premiums, raise many suited hands (as bluffs), raise blocker hands, and check behind with strong implied-odds hands like suited connectors and pairs that play well multiway.</p>
+
+  <div class="box box-trap">
+    <span class="box-label">Trap &mdash; Just Checking When SB Limps</span>
+    <p>If you always check when SB limps, you let them profitably limp any two cards. They see the flop for free with garbage that sometimes makes two pair or a straight. By raising with frequency, you charge them for the privilege and win many pots outright. Checking behind as a default is giving chips away.</p>
+  </div>
+
+  <!-- ============================= SECTION 4 ============================= -->
+  <h2 id="sb-strategy">4. Small Blind Strategy</h2>
+
+  <p>The <span class="pos">SB</span> is the worst position in poker. Two factors make calling raises nearly unplayable:</p>
+  <ol>
+    <li><strong>Rake:</strong> You pay rake on every called pot, destroying implied odds</li>
+    <li><strong>Relative position:</strong> When you call from SB, the BB often overcalls. Then postflop you must act before the BB, who automatically checked. You have to commit before seeing the BB's response.</li>
+  </ol>
+
+  <div class="box box-definition">
+    <span class="box-label">Definition &mdash; Relative Position</span>
+    <p>Relative position refers to your position relative to the players who checked automatically. When SB calls and the BB checks the flop, and the original raiser bets, the SB must act <em>before</em> knowing what the BB will do. This extra uncertainty costs real EV. In contrast, from the BB, you get to see what the SB does before you act.</p>
+  </div>
+
+  <h3>The 3-Bet or Fold Rule from SB</h3>
+
+  <p><strong>Against most raises: 3-bet or fold, no calling range.</strong> This is one of the most misunderstood rules in cash game poker. Most players think they can call from SB with pairs and suited connectors — but the rake + positional disadvantage makes calling deeply unprofitable at standard 100bb depths.</p>
+
+  <table class="range-table">
+    <thead>
+      <tr>
+        <th>Raiser Position</th>
+        <th>SB Action</th>
+        <th>Notes</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="pos">UTG</span> raises</td>
+        <td>3-bet only premiums + a few bluffs, fold everything else</td>
+        <td>Range is very tight — almost nothing 3-bets; fold 22–77 too</td>
+      </tr>
+      <tr>
+        <td><span class="pos">BTN</span> raises</td>
+        <td>3-bet a good strong linear range</td>
+        <td>Re-raise the best hands; fold or 3-bet, never flat</td>
+      </tr>
+      <tr>
+        <td>Any raiser when <span class="pos">BB</span> is bad</td>
+        <td>Can call pairs, suited aces, suited connectors</td>
+        <td>Only exception: implied odds hands that flop well multiway</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="box box-insight">
+    <span class="box-label">Key Insight &mdash; When SB Can Call</span>
+    <p>The main time to call rather than 3-bet or fold from the SB: <strong>when the BB is especially bad</strong>. If the BB is a calling station who sees flops with garbage, the multiway pot becomes profitable for strong implied-odds hands. The hands to call with: <strong>small/medium pairs</strong> (you know on the flop if you flopped a set), <strong>suited aces</strong>, <strong>suited connectors</strong>. These hands need multiway action to be profitable — one pair hands do not.</p>
+  </div>
+
+  <div class="box box-example">
+    <span class="box-label">Worked Example &mdash; SB Pocket 3s vs. BTN Raise</span>
+    <p><strong>Setup:</strong> 100bb, BTN raises to 3bb, you have <span class="hand">33</span> in SB. BB is a terrible calling station.</p>
+    <p><strong>GTO default:</strong> Fold or 3-bet (set-mining doesn't work heads-up at 100bb with rake).</p>
+    <p><strong>Exploitative adjustment:</strong> Call. The BB will call behind with garbage. You are now multiway with a hand that: (a) makes the nuts when it hits a set, (b) plays straightforwardly (either you hit a 3 or you don't), (c) extracts monster value from the BB calling station when you do hit.</p>
+    <p><strong>EV reasoning:</strong> You need roughly 10:1 implied odds to profitably set-mine. Calling 3bb into a 4.5bb pot, you are getting 1.5:1 pot odds. But with a calling-station BB behind you, effective implied odds are easily 12–15:1. Call is profitable. Against a tight BB, this call loses money.</p>
+    <p><strong>What Jonathan did in the live sessions:</strong> Called 3s from SB vs. button, BB called behind. Flopped the set, stacked the opponent.</p>
+  </div>
+
+  <!-- ============================= SECTION 5 ============================= -->
+  <h2 id="facing-3bets">5. Facing 3-Bets</h2>
+
+  <h3>The Position Rule for Facing 3-Bets</h3>
+
+  <p>The single clearest GTO pattern: <strong>call far more in position, 4-bet more out of position</strong>. When you are the out-of-position caller, you realise your equity poorly and are exploited by position every street. When you are in position, you can profitably call with a wide range of implied-odds hands.</p>
+
+  <div class="box box-example">
+    <span class="box-label">Worked Example &mdash; LJ vs. BTN 3-Bet (In Position)</span>
+    <p><strong>Setup:</strong> LJ raises to 3bb, BTN 3-bets to 9bb. LJ is out of position, must call 6bb into ~18bb pot.</p>
+    <p><strong>Calling range (LJ, out of position):</strong> Narrow. Strong pairs, strong suited broadways. Fold many marginal hands. 4-bet more for value (AA–QQ, AK) and some bluffs.</p>
+    <p><strong>Compare: BTN raises, SB 3-bets. BTN is in position.</strong> Calling range is substantially wider: suited connectors, low king-x suited, many suited hands that flop well.</p>
+    <p><strong>Key principle:</strong> You 4-bet proportionally more when out of position (to compensate for not being able to call profitably). You fold more marginal hands out of position. In position, calling is cheap and profitable — use it.</p>
+  </div>
+
+  <h3>Adjusting for Opponent Tendencies</h3>
+
+  <div class="box box-insight">
+    <span class="box-label">Key Insight &mdash; Small Stakes Players Under-3-Bet</span>
+    <p>Most small stakes players do not 3-bet enough. This means when you get 3-bet, the range is stronger than GTO would predict. The correct adjustment: <strong>overfold slightly to 3-bets</strong> compared to GTO. Fold the bottom of your GTO calling range. This is especially true for hands without implied odds — off-suit big cards, medium pairs without set-mining value.</p>
+  </div>
+
+  <h3>3-Bet Sizing Matters for Your Response</h3>
+
+  <p>As the 3-bet size increases, you need more equity to call, so fold more. As the 3-bet size decreases, you can defend wider.</p>
+
+  <div class="box box-example">
+    <span class="box-label">Worked Example &mdash; Small vs. Large 3-Bet Response</span>
+    <p><strong>Setup:</strong> You raise LJ to 3bb. Two scenarios:</p>
+    <p><strong>Scenario A:</strong> BTN 3-bets to 7bb (small). You call 4bb into a pot of ~15bb. You need ~27% equity out of position. Many hands qualify.</p>
+    <p><strong>Scenario B:</strong> BTN 3-bets to 10bb (standard). You call 7bb into a pot of ~20bb. You need ~35% equity out of position. Fold suited connectors and low suited hands — they don't hit often enough.</p>
+    <p><strong>EV cost of ignoring sizing:</strong> In Scenario B, calling with <span class="hand">65s</span> expecting a multiway pot that never materialises is a losing call. You need the extra implied odds from multiway action and you don't have them here. Calling loses approximately 1–2bb each time.</p>
+  </div>
+
+  <h3>Facing 3-Bets from Maniacs</h3>
+
+  <p>Against players who 3-bet very frequently, the adjustment is simple: <strong>do not fold what GTO says to call or 4-bet, and widen slightly</strong>. Hands like <span class="hand">AQo</span>, <span class="hand">AJo</span>, <span class="hand">KQo</span> — which might be folds against tight 3-bettors — are now clearly profitable calls or even 4-bets. Jonathan noted instances in live play where he deliberately defended wider against obvious maniacs.</p>
+
+  <!-- ============================= SECTION 6 ============================= -->
+  <h2 id="4bet-strategy">6. 4-Bet Strategies and Facing 4-Bets</h2>
+
+  <h3>When to 4-Bet as Bluff</h3>
+
+  <p>When you raise, someone 3-bets, and you consider 4-betting as a bluff, you are looking for specific conditions:</p>
+  <ul>
+    <li>Opponent's 3-bet is from out of position (they are more likely to fold to a 4-bet)</li>
+    <li>You hold a hand with good <em>blocker</em> value (ace in your hand blocks AA/AK combos)</li>
+    <li>The hand does not play well as a call (offsuit high cards like <span class="hand">A8o</span>, <span class="hand">K9o</span>)</li>
+    <li>You have fold equity based on opponent's tendencies</li>
+  </ul>
+
+  <div class="box box-example">
+    <span class="box-label">Worked Example &mdash; 4-Bet Bluff with A8s in Position</span>
+    <p><strong>Setup:</strong> You raise LJ, BTN 3-bets. You are in LJ, out of position.</p>
+    <p><strong>Hand: <span class="hand">A8s</span></strong></p>
+    <p><strong>Analysis:</strong> GTO says 4-bet this some portion of the time. Why? (1) The ace blocks AA and AK, reducing the combinations of hands that crush you. (2) If you just call, you are out of position playing a 20bb+ pot with a marginal hand. (3) If your 4-bet gets through, you win the 3-bet pot without a flop — excellent outcome.</p>
+    <p><strong>If 4-bet gets called or 5-bet jammed:</strong> Fold. You were using it as a bluff. The ace-blocker served its purpose — opponent is less likely to have the best hands.</p>
+    <p><strong>Jonathan's live example:</strong> He 4-bet bluffed with <span class="hand">A8s</span>, opponent tanked then folded. Got it through. "Once this guy starts tanking, I know he's going to jam — but he does not jam." Opponent likely held AQ or similar that had to fold to a 4-bet.</p>
+  </div>
+
+  <h3>4-Bet Sizing</h3>
+
+  <p>When 3-bet was to 10bb and you 4-bet, target approximately <strong>23–24bb</strong>. Larger than this and you commit yourself pot-odds-wise to calling a shove with any hand you 4-bet, including your bluffs — which is not what you want. At 23–24bb, if 5-bet shoved, you can fold the bluffs and call the value hands comfortably.</p>
+
+  <h3>Facing a 4-Bet: The Over-Defend Problem</h3>
+
+  <div class="box box-trap">
+    <span class="box-label">Trap &mdash; Calling 4-Bets Too Wide</span>
+    <p>"Defending against 4-bets too wide is a huge leak." In small stakes games, <strong>virtually no one 4-bet bluffs</strong>. When you get 4-bet, the range is almost always aces, kings, queens, AK. Calling with hands like <span class="hand">AQ</span>, 77, <span class="hand">KJs</span> when 4-bet is deeply unprofitable because (a) they are dominated, and (b) even when not dominated, you are playing a 50bb+ pot out of position with marginal equity. Jonathan said emphatically: if hijack raises, you 3-bet button with <span class="hand">AQo</span>, hijack 4-bets to 25bb — "Fold! Fold! Muck it immediately!"</p>
+  </div>
+
+  <div class="box box-example">
+    <span class="box-label">Worked Example &mdash; HJ Raises, BTN 3-Bets, HJ 4-Bets 25bb</span>
+    <p><strong>Setup:</strong> 100bb effective. HJ raises 3bb, you 3-bet BTN to 9bb, HJ 4-bets to 25bb.</p>
+    <p><strong>You hold: <span class="hand">AQo</span></strong></p>
+    <p><strong>GTO might say call sometimes.</strong> But in small stakes games where 4-bet bluffing is essentially absent, HJ's range is: AA, KK, QQ, JJ, AK, maybe AQs. Against that range, AQo is a massive dog (dominated by AK, flipping against JJ, behind KK/AA/QQ).</p>
+    <p><strong>Correct action: Fold.</strong></p>
+    <p><strong>EV of calling vs. folding:</strong> Against the realistic range, <span class="hand">AQo</span> has roughly 32% equity. You need to call 16bb into a pot of 41bb, requiring 39% equity to break even. <strong>You are approximately 7% short</strong> — a clear fold. Over many repetitions, calling here loses roughly 1–2bb each time.</p>
+  </div>
+
+  <h3>Calling Off vs. Shoves (All-In 4-Bets)</h3>
+
+  <p>When a shorter stack or an aggressive player simply jams over your 3-bet, the GTO calling range narrows further: <strong>AA, KK, QQ, AK — maybe JJ and AQs</strong> depending on opponent range. Jonathan noted: "If they raise 3, you make it 10, they make it all-in for 100, you just call pretty tightly."</p>
+
+  <!-- ============================= SECTION 7 ============================= -->
+  <h2 id="squeeze">7. Squeezing and Overcalling (Raise + Call Situations)</h2>
+
+  <h3>Playing Over a Raise + Call (The Squeeze Opportunity)</h3>
+
+  <p>When someone raises and someone else calls before the action reaches you, this creates a squeeze opportunity. Key insight: <strong>the caller's range is capped</strong>. Players who call rather than 3-bet generally do not have premium hands — they would have 3-bet aces, kings, queens. The caller's range is typically marginal hands (suited connectors, pairs, suited broadways).</p>
+
+  <div class="box box-insight">
+    <span class="box-label">Key Insight &mdash; Squeezing Mechanics</span>
+    <p>A squeeze 3-bet works especially well with hands that have strong blocking cards against the <em>raiser's</em> range (since the caller is already capped). Hands like <span class="hand">KJo</span>, <span class="hand">ATo</span> make good squeeze bluffs: they block the raiser's possible ace-high and king-high combos, they don't play well in multiway pots (so calling is bad), and if the squeeze gets through you win a 4–5bb pot without a flop.</p>
+  </div>
+
+  <h3>Cold Calling Over Raise + Call (Overcalling)</h3>
+
+  <p>When you are in late position and two players are already in (raise + call), you can profitably overcall with strong implied-odds hands. Your primary concern is the <em>raiser's</em> range — the caller is capped and not dangerous.</p>
+
+  <div class="box box-trap">
+    <span class="box-label">Trap &mdash; Overcalling with Junk in the BB</span>
+    <p>When it goes raise, call, and you are in the BB getting good pot odds — <strong>do not call with garbage offsuit hands like <span class="hand">96o</span>, <span class="hand">K5o</span></strong>. Good pot odds do not compensate for poor postflop playability. Multiway pots demand suited, connected hands. You will typically be out of position with middle pair bad kicker — a hand that cannot win a big pot and cannot fold profitably to aggression. The correct overcalling range from BB: suited connectors, suited aces, small pairs, and offsuit connected hands with at least some straight potential like <span class="hand">87o</span>.</p>
+  </div>
+
+  <h3>Adjusting to Opponent Types in Squeeze Situations</h3>
+
+  <table class="range-table">
+    <thead>
+      <tr>
+        <th>Raiser Type</th>
+        <th>Squeeze Frequency</th>
+        <th>Reasoning</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Tight aggressive (TAG)</td>
+        <td>Moderate; fewer bluffs</td>
+        <td>Their range is strong; bluff 3-bets fail more often</td>
+      </tr>
+      <tr>
+        <td>Nit (tight passive)</td>
+        <td>Low bluff rate; call with implied odds</td>
+        <td>Their strong range means AJo, KJo are dominated; call with sets/connectors</td>
+      </tr>
+      <tr>
+        <td>Loose aggressive (LAG)</td>
+        <td>Lower 3-bet, more calling</td>
+        <td>Wide range means your KJo and ATo are strong; don't 3-bet them to fold them</td>
+      </tr>
+      <tr>
+        <td>Calling station</td>
+        <td>3-bet linear range for value</td>
+        <td>They call 3-bets with junk; 3-bet ATs, AJs for value; fewer bluffs needed</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- ============================= SECTION 8 ============================= -->
+  <h2 id="limpers">8. Playing Against Limpers</h2>
+
+  <p>Limpers are common at small stakes. There are two fundamental types, and your response to each is meaningfully different.</p>
+
+  <h3>Type 1: Tricky Limpers</h3>
+
+  <p>Tricky limpers limp with some premium hands, intending to limp-3-bet (limp, you raise, they re-raise). Most common from <strong>early position</strong> — they need players behind to raise so the trap works. Late-position limpers are almost never tricky.</p>
+
+  <div class="box box-insight">
+    <span class="box-label">Key Insight &mdash; Tricky Limper Strategy</span>
+    <p>Against a tricky limper, split your range: <strong>limp behind with strong implied-odds hands</strong> (suited aces, suited connectors, pairs — hands that can beat AA/KK postflop). <strong>Raise with offsuit blockers</strong> (<span class="hand">AJo</span>, <span class="hand">ATo</span>, <span class="hand">KJo</span>) that (a) block their premium hands from existing, (b) don't flop well anyway, and (c) can fold easily if they limp-3-bet. The purpose: extract value from their junk range while getting away cheaply when they have aces.</p>
+  </div>
+
+  <div class="box box-example">
+    <span class="box-label">Worked Example &mdash; Tricky Limper from UTG, You Hold KTs on BTN</span>
+    <p><strong>Setup:</strong> UTG limps (known tricky player). Folds to you on BTN with <span class="hand">KTs</span>.</p>
+    <p><strong>Wrong play:</strong> Raise to 4bb. UTG limp-3-bets to 15bb. You now have <span class="hand">KTs</span> facing a re-raise from someone who likely has AA/KK. You must fold a hand that invested 4bb.</p>
+    <p><strong>Correct play:</strong> Limp behind. <span class="hand">KTs</span> flops well (flush draws, pair + draw, two pair). In multiway action against UTG's range, you have great implied odds. If you flop strong, the tricky limper's premium hand will pay you off. The limp costs 1bb — much cheaper exposure to the limp-3-bet trap.</p>
+    <p><strong>Compare: You hold AJo on BTN vs. same UTG tricky limper.</strong> Raise to 4bb here. AJo blocks UTG from holding AK and AA. If he limp-3-bets, you fold easily — <span class="hand">AJo</span> is crushed by AA/KK anyway. If he calls, you are likely ahead of his marginal hands.</p>
+  </div>
+
+  <h3>Type 2: Straightforward Limpers</h3>
+
+  <p>Straightforward limpers raise with good hands and limp with the rest. When they limp, they have <em>only</em> their marginal range. Attack aggressively.</p>
+
+  <div class="box box-insight">
+    <span class="box-label">Key Insight &mdash; Straightforward Limper Strategy</span>
+    <p>Raise with a similar range to what you'd open with, <strong>plus some additional hands</strong> since their limping range is weak. Key exception: limp behind with strong implied-odds hands (small pairs, suited aces, suited connectors) because their garbage range won't fold, and you want to see cheap flops and make the nuts for big payoffs. If a straightforward limper limp-3-bets you, get out of the way — they got you. They occasionally get tricky.</p>
+  </div>
+
+  <h3>Multiple Limpers</h3>
+
+  <p>When multiple players limp, the players <em>behind</em> the first limper are almost never trapping with aces (there's less incentive since fewer players can raise). So treat everyone after the first limper as straightforward. Your key question: what is the <em>first</em> limper's type?</p>
+
+  <div class="box box-example">
+    <span class="box-label">Worked Example &mdash; Raise Over Multiple Limpers with A4o</span>
+    <p><strong>Setup:</strong> Limp-limp-limp in front of you. You hold <span class="hand">A4o</span> in late position. Limpers appear to be straightforward passive players.</p>
+    <p><strong>Action:</strong> Jonathan raised to pot (~7bb) with <span class="hand">A4o</span>. All folded. Won the pot immediately.</p>
+    <p><strong>Why this works:</strong> Passive straightforward players limp-fold frequently. Raising with <span class="hand">A4o</span> here is a pure bluff — you win the 3bb in the pot plus the opportunity cost of them seeing a flop. Even if called, the hand has nut potential (nut flush if suited, two pair, trips) and the callers' ranges are capped.</p>
+    <p><strong>Sizing adjustment:</strong> Raise slightly bigger than normal over limps. If three players limp, raise to pot (~7bb instead of 3bb). More money already in the pot justifies a larger raise to maintain fold equity and to set up proper pot sizing postflop.</p>
+  </div>
+
+  <h3>When You Limp Behind and Then Face a Raise</h3>
+
+  <p>You limp behind (intending to see the flop cheaply), then someone behind you raises. Now it's a pot-odds and implied-odds decision. Rule: <strong>if the raise is large, you almost always fold</strong> because the implied odds are destroyed.</p>
+
+  <div class="box box-example">
+    <span class="box-label">Worked Example &mdash; Limped 66 on BTN, SB Raises to 18bb</span>
+    <p><strong>Setup:</strong> Limp-limp-limp-you limp with <span class="hand">66</span> on BTN. SB raises to 18bb. 100bb stacks.</p>
+    <p><strong>Required odds for set-mining:</strong> You need ~10:1 implied odds. Calling 17bb to potentially win 100bb total = ~5.9:1. <span class="verdict-wrong">Not enough.</span> Fold.</p>
+    <p><strong>Compare: SB raises to 6bb.</strong> Calling 5bb to potentially win 100bb total = ~20:1 implied odds. <span class="verdict-correct">More than enough.</span> Easy call — you had a purpose in limping (make a set) and the price is right.</p>
+  </div>
+
+  <!-- ============================= SECTION 9 ============================= -->
+  <h2 id="posters">9. Playing Against Posters</h2>
+
+  <div class="box box-definition">
+    <span class="box-label">Definition &mdash; Poster</span>
+    <p>A poster is a player who posts one big blind out of position to buy into the action immediately rather than waiting for the blind. Posters are playing with 100% of their hands, but their range is actually somewhat capped because they would often raise their best hands over any limpers already in the pot. Effective limping range for a poster: effectively all hands, but excluding the hands they'd raise with — so roughly the bottom 80–90% of hands.</p>
+  </div>
+
+  <h3>How to Exploit Posters</h3>
+
+  <p>When the poster checks before the action reaches you (they are out of position and checked without raising), their range is now especially weak. Raise wide — even wider than you would over a standard limper.</p>
+
+  <div class="box box-example">
+    <span class="box-label">Worked Example &mdash; Poster Checks, You Are on BTN</span>
+    <p><strong>Setup:</strong> CO posts 1bb out of position. Everyone folds to you on BTN. Poster checks (without even looking, presumably, or looked and didn't raise).</p>
+    <p><strong>What this means:</strong> Poster's range no longer contains the top hands. Best hands would have raised. They checked, so likely <span class="hand">73o</span>, <span class="hand">92o</span>-type garbage.</p>
+    <p><strong>Action:</strong> Raise to 4–5bb with essentially any two cards that have potential. Even hands you'd normally fold from BTN become raises here. If you are splashy and think they'll notice, maybe go 6bb to add more fold pressure.</p>
+    <p><strong>Jonathan's live example:</strong> Poster raised from SB. Jonathan 3-bet. Opponent called. Flop came out, Jonathan continued with aggression throughout. Jonathan commented: "Posters are usually a little bit loose, a little bit splashy." He called a river bet on a bluff-heavy board, opponent showed <span class="hand">JTo</span> (an airball) — confirming the poster's wide, weak range.</p>
+  </div>
+
+  <div class="box box-insight">
+    <span class="box-label">Key Insight &mdash; Post vs. Limp Distinction</span>
+    <p>Do not confuse a poster with a limper. A limper has 100% of hands but will raise their best hands over multiple players yet to act — so their limping range excludes AA/KK/QQ often. A poster has a different psychology: they are impatient, paying to gamble. Their range contains 7-2 offsuit. Their range effectively represents "I wanted to play so badly I paid out of turn." Adjust accordingly — attack posters harder than limpers.</p>
+  </div>
+
+  <!-- ============================= SECTION 10 ============================= -->
+  <h2 id="splash">10. Splash-the-Pot Games</h2>
+
+  <p>Some venues and online sites add dead money to the pot periodically (rake-back redistribution, bonuses, etc.). This fundamentally changes preflop incentives.</p>
+
+  <h3>Sizing and Range Adjustments</h3>
+
+  <div class="box box-definition">
+    <span class="box-label">Definition &mdash; Splash Pot as Dead Ante</span>
+    <p>When 5bb is added to the pot, treat it like a dead ante. The pot is larger, so fold equity increases, and pot odds on calls improve dramatically. The correct reference point: GTO charts at approximately <strong>80bb tournament depth</strong> (where antes exist). This means: wider ranges everywhere, especially from the BB; all suited hands typically defend; raise sizes must increase.</p>
+  </div>
+
+  <h3>Critical Sizing Rule for Splash Pots</h3>
+
+  <p>A standard preflop raise = 3x the last bet + any dead money in the pot. If there is 5bb extra: raise to 3bb (normal) + 5bb (extra money) = <strong>8bb</strong>. Many players raise to 3bb in this spot and wonder why they get four callers. They are giving away pot odds incorrectly.</p>
+
+  <div class="box box-trap">
+    <span class="box-label">Trap &mdash; Raising to Standard Size in Splash Pots</span>
+    <p>Jonathan observed this mistake repeatedly in his live sessions: players raise to 3bb with 5bb already in the pot, then complain when three players call. The correct sizing accounts for the extra dead money. Raise to 8bb. This maintains your fold equity and sets up correct postflop SPRs (Stack-to-Pot Ratios). Failing to adjust is gifting callers the correct odds to see flops and spike hands.</p>
+  </div>
+
+  <h3>When the Splash Amount is Massive</h3>
+
+  <p>If the splash pot is 50–100bb in a small-stakes game (casino promotion), the dynamics change drastically. Jonathan's recommendation: with premium hands, consider just jamming preflop (AA, KK, QQ, AKs, maybe AXs). With non-premiums, make a small raise to something like $15 at a 1-2 game (small fraction of 100bb stack), see the flop, and play from there. The reason: you don't want to rip in 100bb with A9o even with 50bb extra in the pot.</p>
+
+  <!-- ============================= SECTION 11 ============================= -->
+  <h2 id="stack-depth">11. Stack Depth Adjustments</h2>
+
+  <h3>Always Play the Effective Stack</h3>
+
+  <div class="box box-definition">
+    <span class="box-label">Definition &mdash; Effective Stack</span>
+    <p>The effective stack is the smaller of the two relevant stacks in a hand. If you have 100bb and your opponent has 50bb, you are playing 50bb poker. There is no advantage to having more chips than needed — you cannot reach into your stack for extra leverage that your opponent cannot match. This is not tournaments where survival matters. In cash games, if a call is profitable, make it. Always track every player's stack depth.</p>
+  </div>
+
+  <h3>Deep Stack Adjustments (150bb+)</h3>
+
+  <p>As stacks get deeper, <strong>implied odds hands go up in value, big offsuit cards go down in value</strong>.</p>
+
+  <table class="range-table">
+    <thead>
+      <tr>
+        <th>Hand Category</th>
+        <th>Deep Stack Effect</th>
+        <th>Reason</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Suited aces, suited connectors</td>
+        <td>Up in value</td>
+        <td>Large multiway pots pay off nut flushes and straights enormously</td>
+      </tr>
+      <tr>
+        <td>Small/medium pairs</td>
+        <td>Up in value</td>
+        <td>Set value triples when stacks are 200bb+ deep</td>
+      </tr>
+      <tr>
+        <td>AJo, AQo, KQo</td>
+        <td>Down in value</td>
+        <td>Make top pair/TPTK but can't stack opponents; get dominated in big pots</td>
+      </tr>
+      <tr>
+        <td>Offsuit big cards (KTo, QJo)</td>
+        <td>Down significantly</td>
+        <td>Reverse implied odds: big pots usually mean they are dominated</td>
+      </tr>
+      <tr>
+        <td>Position advantage</td>
+        <td>Increases dramatically</td>
+        <td>More postflop streets = more leveraging of position</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="box box-example">
+    <span class="box-label">Worked Example &mdash; Deep Stack Preflop Decision with 99</span>
+    <p><strong>Setup:</strong> 200bb effective, you are BTN with <span class="hand">99</span>. LJ raises, you 3-bet, LJ calls. Pot is ~40bb.</p>
+    <p><strong>Jonathan's live example:</strong> "Notice we are playing 200bb deep, roughly. Maybe we're supposed to call. I am going to call. This is a spot where if we 3-bet, we will get 4-bet sometimes. This guy is clearly starting to get after it a bit. I don't really want to have to play for all the money with the nines."</p>
+    <p><strong>Deep stack reasoning:</strong> At 200bb, pocket nines in a 4-bet pot is a disaster — against a quality opponent who 4-bets, your equity is often 30–40% and you are committing 200bb on it. Better to call the 3-bet and play a positional game, or even flat the original raise and see a flop cheaply with the excellent implied odds of flopping a set.</p>
+  </div>
+
+  <div class="box box-trap">
+    <span class="box-label">Trap &mdash; 8-5 Suited as an "Implied Odds" Hand Deep</span>
+    <p>Not all suited connected hands are equal deep. <span class="hand">85s</span> makes bad flushes (not the nut flush) and bad straights (where you hold the low end). Deep stacked, you want to make <em>nut</em> hands that extract maximum stacks. <span class="hand">T9s</span> and <span class="hand">87s</span> make better straights and stronger flushes. Do not overplay low suited connectors just because you are deep — they have reverse implied odds when they do hit marginal straights and non-nut flushes.</p>
+  </div>
+
+  <h3>Shallow Stack Adjustments (20–60bb)</h3>
+
+  <p>When effective stacks are short, the dynamics reverse: big cards go up in value, suited connectors go down.</p>
+
+  <div class="box box-insight">
+    <span class="box-label">Key Insight &mdash; Shallow Stack Logic</span>
+    <p>At 25bb, if you call a raise with <span class="hand">87s</span> and hit a straight draw, you often cannot extract enough money to justify the implied odds call. Meanwhile, <span class="hand">AJo</span> (mediocre deep) becomes very strong shallow: it wins many pots unimproved (ace high often good), and when it makes top pair, it is usually the best hand. GTO tournament charts (25–30bb depth) are the correct reference. Tighten those slightly since there is no ante and there is a rake.</p>
+  </div>
+
+  <div class="box box-example">
+    <span class="box-label">Worked Example &mdash; Shoving Over a Raise When Short</span>
+    <p><strong>Setup:</strong> CO raises to 3bb with a 20bb effective stack. You are on BTN with 100bb. <span class="hand">T9s</span>.</p>
+    <p><strong>Option A: Jam.  Option B: Call. Option C: 3-bet to 10bb.</strong></p>
+    <p><strong>Analysis:</strong> If you jam, you put CO in for 17bb more into a pot of ~24bb — they are getting just over 1.4:1 and may or may not call with their marginal raises. Jonathan's finding: "Most people raise too wide and do not call off anywhere near accurately." Many opponents fold to the shove even with decent hands, giving you the pot.</p>
+    <p><strong>But: consider the BB behind you.</strong> If BB has 100bb, jamming exposes you to a call from BB with a premium hand for the full 100bb — a disaster. Better option: 3-bet to 10–11bb, which kills CO's implied odds while letting you escape if BB 4-bets huge. Do not jam for 100bb over a 20bb opponent when a 100bb player is still to act.</p>
+  </div>
+
+  <div class="box box-trap">
+    <span class="box-label">Trap &mdash; Not Knowing Stack Depths</span>
+    <p>Jonathan explicitly admitted to errors in his live sessions due to not noticing shallow stacks: "There were a few times where I actually did not correctly pay attention to stack depths, and that will result in you screwing up." His remedy: get up every 20 minutes and walk around the table, visually confirming every player's stack. Online: glance at stack displays before every decision. Stack depth changes the correct action completely — treating a 25bb opponent as 100bb leads to systematic errors.</p>
+  </div>
+
+  <!-- ============================= SECTION 12 ============================= -->
+  <h2 id="player-types">12. Exploiting Player Types Preflop</h2>
+
+  <h3>Against Tight Passive Players (Nits)</h3>
+
+  <p>Tight passive players raise only their best hands (~top 8–10%) and limp or fold everything else. When they raise, they almost always have a strong range.</p>
+
+  <div class="box box-insight">
+    <span class="box-label">Key Insight &mdash; Playing Against the Nit's Range</span>
+    <p>Against a nit's raise, <strong>fold unsuited big cards</strong> that are dominated (<span class="hand">KJo</span>, <span class="hand">QJo</span>) and <strong>call with implied odds hands</strong> (small pairs, suited connectors, suited aces). When a nit makes top pair, they overvalue it — so hitting a set against AA/KK pays off enormously. Do not bluff 3-bet against nits: their range rarely folds. If they 3-bet you, give them massive credit.</p>
+  </div>
+
+  <div class="box box-example">
+    <span class="box-label">Worked Example &mdash; KJs in BB vs. Nit's Raise</span>
+    <p><strong>Setup:</strong> Known tight-passive player (UTG) raises. You have <span class="hand">KJs</span> in BB. Nit's range: AA, KK, QQ, JJ, TT, AK, AQ, AJs, KQs.</p>
+    <p><strong>Equity calculation:</strong> KJs vs. that range = approximately 35–38% equity. You need ~33% to call a standard raise. Marginal call, but the implied odds from his tendency to overplay top pair push it positive.</p>
+    <p><strong>Flop: K-10-5.</strong> He bets large. His betting range on this flop = AA, KK, AK, KQ, KJ, KT, TT, 55. Against that range, your KJs is crushed (wins maybe 20% of the time). <strong>Fold on the turn when he bets again.</strong></p>
+    <p><strong>EV cost of calling twice:</strong> Calling turn and river loses approximately 15–20bb more than folding the turn. Against a nit who only bets for value, letting go with top pair second kicker is the correct play.</p>
+  </div>
+
+  <h3>Against Loose Aggressive Players (LAGs)</h3>
+
+  <p>LAGs raise too wide and barrel too frequently. Against them:</p>
+  <ul>
+    <li>Expand your calling range — their range is weak, so your hands have better relative equity</li>
+    <li>Call with more offsuit big cards (KTo, QJo) that would fold vs. UTG</li>
+    <li>Do not 3-bet as many of these hands; calling keeps them in with their wide range</li>
+    <li>Let them bluff — check-call often rather than check-raise</li>
+    <li>Set them up and do not fold</li>
+  </ul>
+
+  <div class="box box-insight">
+    <span class="box-label">Key Insight &mdash; The LAG Trap Problem</span>
+    <p>Against a LAG, 3-betting <span class="hand">KJo</span> is often worse than calling. If you 3-bet and they 4-bet (which they will sometimes), you must fold. If you call, you play a pot where your KJo is ahead of much of their wide range. The principle: as opponent range widens, more hands become better as calls than 3-bet bluffs. Reserve 3-bet bluffs for pure blockers (<span class="hand">A8o</span>) that you cannot profitably call anyway.</p>
+  </div>
+
+  <h3>Against Calling Stations</h3>
+
+  <p>Calling stations call too much and fold too little. Adjust preflop accordingly:</p>
+  <ul>
+    <li>3-bet with a <strong>linear value range</strong> — more premiums, fewer bluffs</li>
+    <li>3-bet <span class="hand">ATs</span>, <span class="hand">AJs</span>, <span class="hand">KQ</span> for value (they will call with garbage)</li>
+    <li>Do not 3-bet bluff with random hands — they will not fold</li>
+    <li>Call (do not 3-bet) with implied odds hands; they will pay off your nuts</li>
+  </ul>
+
+  <h3>Against Tight Aggressive Players (TAGs)</h3>
+
+  <p>TAGs are the most dangerous players. They have good preflop ranges and apply pressure postflop. Against a TAG:</p>
+  <ul>
+    <li>Call their raises with suited hands and pairs — you want to hit big and get stacks in</li>
+    <li>Do not get into 3-bet wars without premium holdings</li>
+    <li>Make plays on scary boards where their continuation range is weak</li>
+    <li>Float (call with plan to bet later) on flops where their c-bet range has many weak hands</li>
+  </ul>
+
+  <div class="box box-example">
+    <span class="box-label">Worked Example &mdash; 98s vs. TAG on Button</span>
+    <p><strong>Setup:</strong> TAG opens LJ to 3bb. You are BTN with <span class="hand">98s</span>, 100bb effective. TAG has a 17% opening range.</p>
+    <p><strong>Call or 3-bet?</strong> Both are fine. Jonathan called. Reason: the TAG will check-fold the flop often. If you 3-bet, you bloat the pot and play a 3-bet game where the TAG has a better range. If you call, you get to see the flop cheaply with a hand that makes straights and flushes.</p>
+    <p><strong>Flop: A-6-3 (no suit help).</strong> TAG bets. You hold a gutshot and backdoor flush draw. Float (call). Approximately 65% of TAG's range misses this flop — only about 35% continues with a pair or better.</p>
+    <p><strong>Turn: Q (no help).</strong> TAG bets again. This changes things — the second barrel represents strength. Now 80%+ of his betting range has you beat. However, consider raising as a bluff: if TAG bets turn and you raise, you represent a set of aces, a set of sixes, or a flopped two pair — a very strong range. Many TAGs will fold hands like AJ here. Jonathan raised: "I can get them because now he has 6% of hands betting the turn. If we raise, let's say we make him fold everything that's not a set or better — now he's down to 1.8% — he's folding 75–80% of the time."</p>
+    <p><strong>Result:</strong> Opponent folded AK. Jonathan won the pot with 9-high.</p>
+  </div>
+
+  <!-- ============================= SECTION 13 ============================= -->
+  <h2 id="live-examples">13. Catalogued Live Play Examples</h2>
+
+  <p>The following examples are extracted directly from Jonathan's live small stakes cash game sessions, presented with full context.</p>
+
+  <hr>
+
+  <h3>Example A: 3-Bet Bluff from SB with 96s vs. BTN Raise</h3>
+  <div class="box box-example">
+    <span class="box-label">Live Example A</span>
+    <p><strong>Position:</strong> SB. Villain: BTN. Effective stack: ~100bb.</p>
+    <p><strong>Hand: <span class="hand">96s</span></strong></p>
+    <p><strong>Action:</strong> BTN raises. Jonathan 3-bets from SB with 96s. BTN calls. Flop comes three-flush board with Ace and King.</p>
+    <p><strong>Jonathan's assessment:</strong> "Probably not the ideal table to be too insane on in reality, but yeah, whatever." Post-flop was very difficult — the ace-king board removes suited aces and suited kings from Jonathan's 3-bet range, making it hard to represent a flush. He ultimately folded on the flop. <span class="verdict-wrong">This was identified as a marginal 3-bet bluff.</span></p>
+    <p><strong>Lesson:</strong> 3-betting low suited connectors from SB only works when the board doesn't specifically remove your representing range. On AK-high three-flush boards, the 3-bettor typically does not have many flushes because most 3-bet bluffs contain suited aces and suited kings. This makes postflop difficult. Better 3-bet bluff candidates: hands that don't block your own best hands.</p>
+  </div>
+
+  <hr>
+
+  <h3>Example B: 3-Bet Eights from SB, Opponent Shows JJ</h3>
+  <div class="box box-example">
+    <span class="box-label">Live Example B</span>
+    <p><strong>Position:</strong> SB. Villain: late position. Effective stack: 100bb.</p>
+    <p><strong>Hand: <span class="hand">88</span></strong></p>
+    <p><strong>Action:</strong> Late position raises. Jonathan 3-bets with 88 from SB. Opponent 4-bets. Jonathan calls.</p>
+    <p><strong>Jonathan's commentary:</strong> "When you 3-bet 100% of your range from the SB against late position raisers, he shows us the jacks. That's fine. He could easily have AK, AQ, 7s, maybe who knows. I'm fine with that." He accepted the bad run-out as variance.</p>
+    <p><strong>Lesson:</strong> Committing to the SB 3-bet/fold strategy means sometimes 3-betting into strong hands. This is correct. The mistake would be <em>not</em> 3-betting and instead calling — which loses more EV over time. Accept that 3-bets will sometimes run into premium hands; the strategy is still superior to calling from SB.</p>
+  </div>
+
+  <hr>
+
+  <h3>Example C: 4-Bet Bluff with A8s, Opponent Tanks Then Folds</h3>
+  <div class="box box-example">
+    <span class="box-label">Live Example C</span>
+    <p><strong>Position:</strong> LJ. Villain: raised, then re-raised (3-bet) from out of position. Effective stack: 100bb.</p>
+    <p><strong>Hand: <span class="hand">A8s</span></strong></p>
+    <p><strong>Action:</strong> Jonathan raised, opponent 3-bet from out of position. Jonathan 4-bet. Opponent tanked for a long time then folded.</p>
+    <p><strong>Jonathan's commentary:</strong> "I think this is a fine 4-bet bluff. I realize this may seem a little optimistic. I do know people aren't 3-betting a ton from out of position, but I think we should try it when we have pretty good candidates that don't really want to call. Once this guy starts tanking, I mean, I know he's going to jam — but he does not jam."</p>
+    <p><strong>Key detail:</strong> The same opponent 3-bet Jonathan again soon after. This time Jonathan decided not to 4-bet bluff: "Well this guy 3-bets me again. I don't think we want to 4-bet this hand. I think I'd rather do it again with, like, the Ace-10."</p>
+    <p><strong>Lesson:</strong> Timing 4-bet bluffs requires tracking opponent behavior. After successfully bluffing someone once, they may be more likely to adjust. Vary your 4-bet bluff candidates. Ace-blocker hands (<span class="hand">A8s</span>, <span class="hand">A5o</span>) are the best 4-bet bluffs because they block the aces combos that would call you.</p>
+  </div>
+
+  <hr>
+
+  <h3>Example D: Squeeze with KQs Over Raise + Call, Opponent 4-Bets All-In</h3>
+  <div class="box box-example">
+    <span class="box-label">Live Example D</span>
+    <p><strong>Position:</strong> Late position. Setup: someone raised, someone cold-called, Jonathan 3-bet squeezed with <span class="hand">KQs</span>. Original raiser went all-in.</p>
+    <p><strong>Jonathan's commentary:</strong> "If this guy jams, I mean, I don't really see how I can fold but this is certainly not a great spot. We definitely beat some hands here."</p>
+    <p><strong>Outcome:</strong> Called off. Lost.</p>
+    <p><strong>Lesson:</strong> Squeezing with <span class="hand">KQs</span> is an appropriate play — it blocks the raiser from having AK and KK, and extracts fold equity from the capped caller. However, when the squeeze gets jammed on, KQs is in bad shape. This is acceptable variance: the squeeze was correct, the jam was a bad-beat scenario (cooler), not a strategy error. "Kind of saw this one coming but whatever — he got a call, fair flip."</p>
+  </div>
+
+  <hr>
+
+  <h3>Example E: BTN vs. Large 3-Bet from Out-of-Position Player, Folding A8s</h3>
+  <div class="box box-example">
+    <span class="box-label">Live Example E</span>
+    <p><strong>Position:</strong> Raised from a late position. Villain 3-bet from out of position with a notably large size. No small blind money in the pot.</p>
+    <p><strong>Hand: <span class="hand">A8s</span></strong></p>
+    <p><strong>Action:</strong> Jonathan folded.</p>
+    <p><strong>Jonathan's commentary:</strong> "He uses kind of a big 3-bet size. There's no small blind in the pot, so I think we're just going to fold this one. Not a great spot, I don't think. If you find that this player is 3-betting a ton, I definitely think we should get in there and battle a little bit hard with hands like A8 suited, but with no reads, I think it's perfectly fine to just fold initially."</p>
+    <p><strong>Lesson:</strong> Against unknown opponents who use large 3-bet sizes and are out of position (indicating a strong linear range), even decent hands like <span class="hand">A8s</span> can fold. The combination of (a) unknown player, (b) large sizing, (c) out of position (stronger range) makes this a correct fold. If you later discover they 3-bet wide, adjust to calling or 4-betting.</p>
+  </div>
+
+  <hr>
+
+  <h3>Example F: Playing Pocket 3s from SB as Call vs. BTN Raise (BB is Bad)</h3>
+  <div class="box box-example">
+    <span class="box-label">Live Example F</span>
+    <p><strong>Position:</strong> SB. BTN raises. BB is a known calling station. <span class="hand">33</span>.</p>
+    <p><strong>Action:</strong> Jonathan called from SB (deviation from the standard 3-bet/fold rule).</p>
+    <p><strong>Jonathan's commentary:</strong> "I'm fine calling in small blind. I know you often do want to just 3-bet from the small blind with whatever you're going to play, but I'm fine with calling there." He then flopped a set multi-way, kept getting called, jammed the river, and stacked the opponent.</p>
+    <p><strong>Lesson:</strong> The 3-bet/fold rule from SB is the <em>default</em>, not an ironclad law. When the BB is especially bad and will call wide, multiway pot implied odds become favorable for set-mining hands. Small pairs are the best candidates because they have clear equity signals postflop (set or no set), unlike suited connectors which have ambiguous equity in multiway pots.</p>
+  </div>
+
+  <hr>
+
+  <h3>Example G: Raising A4o Over 3 Limpers, All Fold</h3>
+  <div class="box box-example">
+    <span class="box-label">Live Example G</span>
+    <p><strong>Position:</strong> Late position. Three straightforward limpers in front. <span class="hand">A4o</span>.</p>
+    <p><strong>Action:</strong> Raised to pot size (~7bb). All three limpers folded.</p>
+    <p><strong>Jonathan's commentary:</strong> "There were plenty of spots in the games where it went limp, limp, limp, and it was on me, and I had some junky hand — maybe I could limp with it — but raising could be good. And I would make it something like a pot-sized raise with something like ace-four offsuit, and they would all fold, and I'd win the pot. That's fantastic."</p>
+    <p><strong>Lesson:</strong> Bluffing over limpers is valid. A4o makes a good overlimp bluff because: (a) the ace removes premium hands from opponents' limping ranges, (b) if called, an ace-high flop gives you top pair with a decent blocker to many strong hands, (c) if folded to, you win 3bb in the pot. Against straightforward limpers who limp-fold frequently, this play has significant positive EV.</p>
+  </div>
+
+  <hr>
+
+  <h3>Example H: 10-9s vs. Short Stack Raise — Stack Depth Error</h3>
+  <div class="box box-example">
+    <span class="box-label">Live Example H</span>
+    <p><strong>Position:</strong> Position on a raise. <span class="hand">T9s</span>. Raiser had a short stack (insufficient chips for a 3-bet that makes sense).</p>
+    <p><strong>Action:</strong> Jonathan 3-bet to an amount. Immediately realized the opponent had almost no chips left. "Oh, I'm sorry — I didn't realize this guy was short. That was an error. I probably should have just jammed."</p>
+    <p><strong>Lesson:</strong> Against a 20bb stack who raises, either jam (to isolate) or fold. Making a normal 3-bet (e.g., 9bb) when opponent only has 20bb total leaves them priced in to call the rest off — you gave away the initiative without gaining fold equity. Always check stacks before deciding your sizing or action.</p>
+  </div>
+
+  <!-- ============================= SECTION 14 ============================= -->
+  <h2 id="quick-rules">14. Master Rules Summary</h2>
+
+  <div class="box box-insight">
+    <span class="box-label">Master Rules — Preflop</span>
+    <ul>
+      <li><strong>Play very tight from early position, very loose from the button.</strong> Going from ~8% UTG to 50%+ BTN is correct, not inconsistent.</li>
+      <li><strong>Never vary raise sizes by hand strength.</strong> Always use consistent sizing from each position. Consistency is a fundamental building block of an unexploitable strategy.</li>
+      <li><strong>Suited hands > offsuit hands.</strong> Q2s on the button beats Q7o in every important dimension.</li>
+      <li><strong>BB vs. BTN: 3-bet the suited junk.</strong> Hands like J8s, T7s, T6s should 3-bet frequently vs. button. Most players under-3-bet here — this is a free money exploit.</li>
+      <li><strong>SB: 3-bet or fold (almost always).</strong> Rake + relative position make calling from SB deeply unprofitable. Exception: multiway pots with calling-station BB, using pairs/suited aces/suited connectors.</li>
+      <li><strong>Overfold to 3-bets slightly in small stakes games.</strong> Opponents under-3-bet, so when they do, their range is stronger than GTO predicts. Fold the bottom of GTO calling range.</li>
+      <li><strong>Facing 4-bets: fold almost everything except AA, KK, QQ, AK.</strong> Small stakes players almost never 4-bet bluff. AQo vs. a 4-bet is a clear fold.</li>
+      <li><strong>Identify limper type before acting.</strong> Tricky limper → limp implied-odds hands, raise blockers. Straightforward limper → raise wide, limp implied-odds hands.</li>
+      <li><strong>Attack posters aggressively.</strong> Their range contains 100% of hands before they check, then is capped to the bottom 80% after they check without raising.</li>
+      <li><strong>In splash pot games, use larger raise sizes.</strong> Formula: normal 3bb + extra dead money = your raise size.</li>
+      <li><strong>Deep: implied odds hands up, offsuit big cards down.</strong> Call with pairs and suited connectors; be cautious with AJo–AQo in big pots.</li>
+      <li><strong>Shallow: big cards up, suited connectors down.</strong> Reference 25–30bb tournament charts. Jam profitably wide over raises when effective stacks justify it.</li>
+      <li><strong>Always know every player's exact stack before acting.</strong> Stack depth changes the correct action completely.</li>
+      <li><strong>Study the GTO charts, then adjust to exploit opponents.</strong> You cannot adjust if you do not know the baseline. Master the charts; then get exploitative.</li>
+    </ul>
+  </div>
+
+  <div class="box box-trap">
+    <span class="box-label">The Single Most Common Small Stakes Preflop Error</span>
+    <p>Playing the same range from all positions. Under the gun at a full ring table, players routinely open hands like <span class="hand">QJo</span>, <span class="hand">T8s</span>, <span class="hand">87o</span> — hands that are correct opens on the button but are significant leaks under the gun. Simultaneously, on the button, many players use the same tight range they use from early position and leave enormous amounts of money on the table by not stealing enough. The solution: be a completely different player from UTG vs. BTN. Same player, different strategy, depending entirely on position.</p>
+  </div>
+
+  <footer class="guide-footer">
+    <p>Source: Crushing Small Stakes Cash Games &mdash; Jonathan Little &mdash; PokerCoaching.com</p>
+    <p>Course materials: Preflop Instruction module + Parts 1&ndash;4 webinar series</p>
+  </footer>
+
+</div>
+</body>
+</html>
