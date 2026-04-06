@@ -55,6 +55,8 @@ header .subtitle { font-family:'JetBrains Mono',monospace; font-size:0.75rem; te
 .btn-primary { background:var(--accent); color:var(--bg); }
 .btn-primary:hover { background:#333; }
 .hotkey { font-size:0.65rem; opacity:0.6; margin-left:0.3rem; }
+.hotkeys { font-family:'JetBrains Mono',monospace; font-size:0.75rem; color:var(--text-dim); text-align:center; margin-bottom:1.5rem; }
+.hotkeys kbd { background:var(--surface2); padding:0.1em 0.4em; border:1px solid var(--border-light); }
 
 /* ── Results ── */
 .results { text-align:center; display:none; }
@@ -78,6 +80,8 @@ header .subtitle { font-family:'JetBrains Mono',monospace; font-size:0.75rem; te
   <div class="subtitle" style="margin-top:0.3rem;">20 Questions &middot; Hotkeys: 1-4 answer, Space next, R restart, H hint</div>
 </header>
 <hr class="divider">
+
+<div class="hotkeys" style="display:none"><kbd>1</kbd>-<kbd>4</kbd> answer &nbsp; <kbd>Space</kbd> next &nbsp; <kbd>R</kbd> restart &nbsp; <kbd>H</kbd> toggle hotkey help</div>
 
 <div id="quiz-area">
   <div class="progress-text" id="progress-text">Question 1 of 20</div>
@@ -375,7 +379,7 @@ document.addEventListener('keydown', (e) => {
   if (e.key >= '1' && e.key <= '4') { const idx = parseInt(e.key)-1; const opts = document.querySelectorAll('.option'); if (idx < opts.length) answer(idx); }
   if (e.key === ' ' || e.key === 'Enter') { e.preventDefault(); if (answered) nextQuestion(); }
   if (e.key === 'r' || e.key === 'R') restart();
-  if (e.key === 'h' || e.key === 'H') showHint();
+  if (e.key === 'h' || e.key === 'H') { const hk = document.querySelector('.hotkeys'); hk.style.display = hk.style.display === 'none' ? 'block' : 'none'; }
   if (e.key === 'm' || e.key === 'M') { if (document.getElementById('results').style.display !== 'none') reviewMissed(); }
 });
 
