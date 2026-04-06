@@ -10,7 +10,7 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
-  onload="renderMathInElement(document.body,{delimiters:[{left:'\\[',right:'\\]',display:true},{left:'\\(',right:'\\)',display:false}]});"></script>
+  onload="renderMathInElement(document.body,{delimiters:[{left:'\\(',right:'\\)',display:false},{left:'\\[',right:'\\]',display:true}],throwOnError:false});"></script>
 <style>
 :root {
   --bg: #FFFFFF; --surface: #FFFFFF; --surface2: #F5F5F5; --accent: #000000;
@@ -265,7 +265,7 @@ pre.tree { font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; backgro
   \[\text{Implied Odds} = \frac{\text{Remaining Stacks} + \text{Current Pot}}{\text{Amount to Call}} = \frac{195 + 9}{6} = \frac{204}{6} = 34:1\]
   <p><strong>Threshold for pairs:</strong> 10:1 required. You have 34:1. Calling $6 with 55 is a very profitable call.</p>
   <p><strong>Why the math works:</strong> You flop a set approximately 1 in 8.5 times (12%). When you miss, you lose $6. When you hit, you want to win the remaining $195. Expected value of calling:</p>
-  \[\text{EV} = 0.12 \times \text{(Amount Won when set hits)} - 0.88 \times \$6\]
+  \[\text{EV} = 0.12 \times \text{(Amount Won when set hits)} - 0.88 \times 6\]
   <p>If you win the full $195 stack when you hit a set: EV = 0.12 x $195 - 0.88 x $6 = $23.40 - $5.28 = <strong>+$18.12</strong> per call. Even if you only win 50% of the remaining stack when you hit (you never guarantee full stack extraction): 0.12 x $97.50 - $5.28 = $11.70 - $5.28 = <strong>+$6.42</strong> per call. Still highly profitable.</p>
   <p><strong>EV cost of folding:</strong> Folding 55 here costs you $6.42-$18.12 in expectation every time this spot arises. Over a session where this spot occurs 10 times, that is $64-$181 left on the table. Set-mining is free money against passive opponents who pay off sets.</p>
   <p><strong>Contrast with 76s (suited connector, 20:1 required):</strong> Same situation, but you hold \(7\diamondsuit 6\diamondsuit\). Implied odds are still 34:1, exceeding the 20:1 threshold. However, 76s hits "nutted hands" (straights and flushes) less often than pairs hit sets. The required 20:1 accounts for this lower hit rate. At 34:1 you still call 76s in position comfortably -- but if the effective stack were only $120 (IO = 21.5:1), 76s becomes borderline while 55 remains a clear call (21.5 > 10).</p>

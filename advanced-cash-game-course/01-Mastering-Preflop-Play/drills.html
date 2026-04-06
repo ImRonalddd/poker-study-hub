@@ -9,7 +9,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Source+Serif+4:wght@300;400;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body,{delimiters:[{left:'\\(',right:'\\)',display:false}],throwOnError:false});"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body,{delimiters:[{left:'\\(',right:'\\)',display:false},{left:'\\[',right:'\\]',display:true}],throwOnError:false});"></script>
 <style>
 :root{--bg:#FFFFFF;--surface:#FFFFFF;--surface2:#F5F5F5;--accent:#000000;--text:#000000;--text-dim:#525252;--correct:#1a7a5e;--wrong:#b91c1c;--orange:#8B6914;--border:#000000;--border-light:#E5E5E5}
 *{margin:0;padding:0;box-sizing:border-box}
@@ -152,7 +152,7 @@ function restart(){questions=[...ALL_QUESTIONS];init()}
 
 function updateStats(){
 const pct=questions.length?Math.round(answered/questions.length*100):0;
-document.getElementById('stats').textContent=`\({answered} / \){questions.length} -- ${questions.length?Math.round(correct/Math.max(answered,1)*100):0}% correct`;
+document.getElementById('stats').textContent=`${answered} / ${questions.length} -- ${questions.length?Math.round(correct/Math.max(answered,1)*100):0}% correct`;
 document.getElementById('progress').style.width=`${pct}%`;
 }
 
@@ -161,7 +161,7 @@ const area=document.getElementById('question-area');
 if(current>=questions.length){showFinal();return}
 const q=questions[current];
 const state=questionState[current];
-let html=`<div class="q-header">Question \({current+1} of \){questions.length} <span class="q-type">\({q.type==='mc'?'Multiple Choice':q.type==='tf'?'True / False':'Fill in Blank'}</span> <span class="q-type">\){q.topic}</span></div>`;
+let html=`<div class="q-header">Question ${current+1} of ${questions.length} <span class="q-type">${q.type==='mc'?'Multiple Choice':q.type==='tf'?'True / False':'Fill in Blank'}</span> <span class="q-type">${q.topic}</span></div>`;
 if(q.context)html+=`<div class="q-context">${q.context}</div>`;
 html+=`<div class="q-text">${q.q}</div>`;
 
@@ -175,7 +175,7 @@ if(i===q.correct)cls+=' reveal-correct';
 if(state.userAnswer===i&&i!==q.correct)cls+=' selected-wrong';
 if(state.userAnswer===i&&i===q.correct)cls+=' selected-correct';
 }
-html+=`<div class="\({cls}" onclick="answerMC(\){i})"><span class="key">\({i+1}</span><span>\){opt}</span></div>`;
+html+=`<div class="${cls}" onclick="answerMC(${i})"><span class="key">${i+1}</span><span>${opt}</span></div>`;
 });
 html+=`</div>`;
 }else if(q.type==='tf'){
@@ -188,7 +188,7 @@ if(val===q.correct)cls+=' reveal-correct';
 if(state.userAnswer===val&&val!==q.correct)cls+=' selected-wrong';
 if(state.userAnswer===val&&val===q.correct)cls+=' selected-correct';
 }
-html+=`<div class="\({cls}" onclick="answerTF(\){val})"><span class="key">\({i+1}</span><span>\){val?'True':'False'}</span></div>`;
+html+=`<div class="${cls}" onclick="answerTF(${val})"><span class="key">${i+1}</span><span>${val?'True':'False'}</span></div>`;
 });
 html+=`</div>`;
 }else if(q.type==='fib'){
@@ -196,12 +196,12 @@ if(!state.answered){
 html+=`<div><input type="text" class="fib-input" id="fib-input" placeholder="Type your answer..." onkeydown="if(event.key==='Enter')answerFIB()"><button class="fib-submit" onclick="answerFIB()">Submit</button></div>`;
 }else{
 const isCorrect=state.correct;
-html+=`<div style="margin-bottom:.5rem"><span style="font-family:'JetBrains Mono',monospace;padding:.3rem .6rem;background:\({isCorrect?'#f0fdf4':'#fef2f2'};border:1px solid \){isCorrect?'var(--correct)':'var(--wrong)'}">Your answer: ${state.userAnswer}</span></div>`;
+html+=`<div style="margin-bottom:.5rem"><span style="font-family:'JetBrains Mono',monospace;padding:.3rem .6rem;background:${isCorrect?'#f0fdf4':'#fef2f2'};border:1px solid ${isCorrect?'var(--correct)':'var(--wrong)'}">Your answer: ${state.userAnswer}</span></div>`;
 html+=`<div style="font-family:'JetBrains Mono',monospace;color:var(--correct)">Accepted: ${q.answer.join(', ')}</div>`;
 }
 }
 
-html+=`<div class="explanation \({state.answered?'show':''}" id="explanation">\){q.explain}</div>`;
+html+=`<div class="explanation ${state.answered?'show':''}" id="explanation">${q.explain}</div>`;
 html+=`<div style="display:flex;gap:.5rem;margin-top:1rem">`;
 html+=`<button class="nav-btn" onclick="prev()" ${current===0?'disabled':''}>Prev</button>`;
 html+=`<button class="nav-btn" onclick="next()" id="next-btn">${current===questions.length-1?'Finish':'Next (Space)'}</button>`;
@@ -266,7 +266,7 @@ const pct=Math.round(correct/questions.length*100);
 let cls='ok';
 if(pct>=80)cls='good';
 else if(pct<50)cls='bad';
-let html=`<div class="final-score"><h2>Session Complete</h2><div class="pct \({cls}">\){pct}%</div><p>\({correct} correct out of \){questions.length}</p><div style="margin-top:1.5rem"><button class="nav-btn" onclick="shuffleAndRestart()">Shuffle & Retry (R)</button> <button class="nav-btn" onclick="showReview()">Review Missed (H)</button></div></div>`;
+let html=`<div class="final-score"><h2>Session Complete</h2><div class="pct ${cls}">${pct}%</div><p>${correct} correct out of ${questions.length}</p><div style="margin-top:1.5rem"><button class="nav-btn" onclick="shuffleAndRestart()">Shuffle & Retry (R)</button> <button class="nav-btn" onclick="showReview()">Review Missed (H)</button></div></div>`;
 document.getElementById('question-area').innerHTML=html;
 }
 
@@ -283,7 +283,7 @@ let correctAnswer='';
 if(q.type==='mc')correctAnswer=q.options[q.correct];
 else if(q.type==='tf')correctAnswer=q.correct?'True':'False';
 else correctAnswer=q.answer[0];
-html+=`<div class="review-item"><div class="q">\({q.q}</div><div class="a">Your answer: <strong>\){q.type==='mc'?q.options[state.userAnswer]:state.userAnswer}</strong> -- Correct: <strong>\({correctAnswer}</strong></div><div class="a" style="margin-top:.3rem;font-size:.85rem">\){q.explain}</div></div>`;
+html+=`<div class="review-item"><div class="q">${q.q}</div><div class="a">Your answer: <strong>${q.type==='mc'?q.options[state.userAnswer]:state.userAnswer}</strong> -- Correct: <strong>${correctAnswer}</strong></div><div class="a" style="margin-top:.3rem;font-size:.85rem">${q.explain}</div></div>`;
 });
 html+=`<button class="nav-btn" onclick="retryMissed()" style="margin-top:1rem">Retry Missed Only</button> <button class="nav-btn" onclick="shuffleAndRestart()">Full Shuffle</button></div>`;
 document.getElementById('question-area').innerHTML=html;
