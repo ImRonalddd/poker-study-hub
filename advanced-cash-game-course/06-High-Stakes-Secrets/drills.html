@@ -9,7 +9,7 @@
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;1,400;1,600&family=Source+Serif+4:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body,{delimiters:[{left:'\\(',right:'\\)',display:false},{left:'$$',right:'$$',display:true}],throwOnError:false})"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body,{delimiters:[{left:'\\(',right:'\\)',display:false}],throwOnError:false})"></script>
 <style>
 :root {
   --bg: #FFFFFF; --surface: #FFFFFF; --surface2: #F5F5F5;
@@ -260,10 +260,10 @@ function init(qs) {
 
 function render() {
   const q = questions[current];
-  document.getElementById('qNum').textContent = `Question ${current + 1} of ${questions.length}`;
+  document.getElementById('qNum').textContent = `Question \({current + 1} of \){questions.length}`;
   document.getElementById('qText').textContent = q.q;
   document.getElementById('progFill').style.width = ((current / questions.length) * 100) + '%';
-  document.getElementById('status').textContent = `Score: ${score} / ${current}`;
+  document.getElementById('status').textContent = `Score: \({score} / \){current}`;
   const opts = document.getElementById('opts');
   opts.innerHTML = '';
   q.opts.forEach((o, i) => {
@@ -294,7 +294,7 @@ function answer(idx) {
   const expl = document.getElementById('expl');
   expl.textContent = q.expl;
   expl.classList.add('show');
-  document.getElementById('status').textContent = `Score: ${score} / ${current + 1}`;
+  document.getElementById('status').textContent = `Score: \({score} / \){current + 1}`;
   document.getElementById('nextBtn').disabled = false;
 }
 

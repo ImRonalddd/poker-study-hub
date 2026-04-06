@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Revision Guide &mdash; Master PLO Cash Games</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;0,900;1,400&family=Source+Serif+4:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body,{delimiters:[{left:'\\(',right:'\\)',display:false},{left:'\\[',right:'\\]',display:true}]})"></script>
+<style>
+:root{--bg:#FFFFFF;--text:#000000;--text-dim:#525252;--border-light:#E5E5E5;--blue:#2563EB;--purple:#7C3AED;--orange:#EA580C;--red:#DC2626}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;border-radius:0!important}
+body{font-family:'Source Serif 4',Georgia,serif;background:var(--bg);color:var(--text);line-height:1.8;-webkit-font-smoothing:antialiased}
+
+.topnav{position:sticky;top:0;z-index:100;background:var(--bg);border-bottom:1px solid var(--border-light);padding:0.6rem 2rem;display:flex;align-items:center;gap:1.5rem;flex-wrap:wrap}
+.topnav a{font-family:'JetBrains Mono',monospace;font-size:0.7rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--text-dim);text-decoration:none;transition:color 0.1s}
+.topnav a:hover{color:var(--text)}
+.topnav .title{font-weight:700;color:var(--text)}
+
+.container{max-width:820px;margin:0 auto;padding:3rem 2rem 6rem}
+
+h1{font-family:'Playfair Display',serif;font-size:2.4rem;font-weight:900;letter-spacing:-0.02em;margin-bottom:0.3rem}
+.subtitle{font-family:'JetBrains Mono',monospace;font-size:0.75rem;text-transform:uppercase;letter-spacing:0.12em;color:var(--text-dim);margin-bottom:2.5rem}
+h2{font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:700;margin:3rem 0 1rem;padding-bottom:0.4rem;border-bottom:4px solid var(--text)}
+h3{font-family:'Playfair Display',serif;font-size:1.15rem;font-weight:600;margin:2rem 0 0.8rem}
+h4{font-family:'JetBrains Mono',monospace;font-size:0.8rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;margin:1.5rem 0 0.6rem}
+
+p{margin-bottom:1rem}
+ul,ol{margin:0 0 1rem 1.5rem}
+li{margin-bottom:0.4rem}
+code{font-family:'JetBrains Mono',monospace;font-size:0.85em;background:#F5F5F5;padding:0.1em 0.4em}
+table{width:100%;border-collapse:collapse;margin:1rem 0}
+th{text-align:left;padding:0.5rem;font-family:'JetBrains Mono',monospace;font-size:0.7rem;text-transform:uppercase;letter-spacing:0.06em;border-bottom:3px solid var(--text)}
+td{padding:0.5rem;border-bottom:1px solid var(--border-light);vertical-align:top}
+
+.box{padding:1rem 1.2rem;margin:1.2rem 0;border-left:4px solid}
+.box-blue{border-color:var(--blue);background:#f0f5ff}
+.box-purple{border-color:var(--purple);background:#f5f0ff}
+.box-orange{border-color:var(--orange);background:#fff7f0}
+.box-red{border-color:var(--red);background:#fff0f0}
+.box-label{font-family:'JetBrains Mono',monospace;font-size:0.65rem;text-transform:uppercase;letter-spacing:0.1em;font-weight:700;margin-bottom:0.5rem;display:block}
+
+.example{border:1px solid var(--border-light);padding:1.2rem 1.5rem;margin:1.2rem 0}
+.example-header{font-family:'JetBrains Mono',monospace;font-size:0.7rem;text-transform:uppercase;letter-spacing:0.1em;font-weight:700;color:var(--orange);margin-bottom:0.8rem;display:flex;align-items:center;gap:0.5rem}
+
+@media(max-width:600px){h1{font-size:1.8rem}h2{font-size:1.3rem}.container{padding:2rem 1.2rem}.topnav{padding:0.5rem 1rem}}
+</style>
+</head>
+<body>
+
+<nav class="topnav">
+  <a href="index.html">&larr; Hub</a>
+  <span class="title">Revision Guide</span>
+  <a href="crash-course.html">Crash Course</a>
+  <a href="drills.html">Drills</a>
+  <a href="quick-reference.html">Quick Ref</a>
+</nav>
+
+<div class="container">
+
+<h1>Comprehensive Revision Guide</h1>
+<div class="subtitle">Master PLO Cash Games &mdash; Adam Hendrix &mdash; Deep Reference</div>
+
+<!-- ============================================ -->
+<h2>Part I: PLO Hand Evaluation</h2>
+
+<h3>The Four Pillars of PLO Hand Quality</h3>
+
+<div class="box box-blue">
+<span class="box-label">Definition: Hand Quality Factors</span>
+Every PLO starting hand is evaluated on four axes: <strong>Suitedness</strong> (double-suited > single > tri-suit > rainbow > monotone), <strong>Connectivity</strong> (consecutive ranks, no gaps), <strong>High Cards</strong> (A, K, Q, J increase value), and <strong>Pair Quality</strong> (high pairs better, but need side card support).
+</div>
+
+<h4>Suitedness Deep Dive</h4>
+
+<p>
+Double-suited hands have substantially higher EV than their single-suited equivalents. The solver treats double-suited as almost always an open from any position. The reasoning flows through the entire game tree: you can make flushes in two suits, you have more bluffing equity on flush-completing boards, and you have more nut potential.
+</p>
+
+<div class="example">
+<div class="example-header">Example: The Fine Line</div>
+<p><strong>Situation:</strong> Button, 100bb deep, 6-max cash game, 5% rake. Folded to you.</p>
+<p><strong>Hand:</strong> <code>K&diams; 2&spades; 6&hearts; 8&spades;</code> &mdash; the ONLY combo of K-2-6-8 that opens on the button.</p>
+<p><strong>Why this specific combo?</strong></p>
+<ul>
+  <li>The deuce of spades unblocks the 8-high and 6-high flush draws opponents could have</li>
+  <li>Opponents with A2 of spades (in calling range) are more likely to call than A8 or A6 (which get 3-bet more)</li>
+  <li>The 8-6 creates straight flush possibilities that disappear if the K is suited with the 6 or 8 instead</li>
+  <li>If K6 or K8 were the suited combo, the deuce-x suits don't make enough straights to compensate</li>
+</ul>
+<p><strong>EV cost of playing the wrong combo:</strong> The K8 suited or K6 suited version is a fold from the button &mdash; switching which card holds the suit moves the hand from "marginal open" to "clear fold."</p>
+</div>
+
+<h4>Tri-Suit and Monotone Problems</h4>
+
+<p>
+Having three cards of one suit hurts in two compounding ways:
+</p>
+<ol>
+  <li><strong>Flush probability drops:</strong> With 3 spades in hand, only 10 spades remain in the deck vs 11 with 2 spades. Since you need exactly 2 from your hand, the third spade is dead weight.</li>
+  <li><strong>Bluffing card removed:</strong> If you have 3 spades, you cannot use the "extra" spade to bluff on spade boards &mdash; you're already using 2 for the flush or none at all. With 2 spades plus a heart, you can bluff on heart boards with your heart card.</li>
+</ol>
+
+<div class="example">
+<div class="example-header">Example: Three Spades Destroys a Hand</div>
+<p><strong>Situation:</strong> Lojack, 100bb, 6-max.</p>
+<p><strong>Hand A:</strong> <code>A&spades; K&spades; Q&hearts; 8&spades;</code> &mdash; three spades. This is a FOLD from the Lojack.</p>
+<p><strong>Hand B:</strong> <code>A&spades; K&diams; Q&hearts; 8&spades;</code> &mdash; Ace-8 suited spades, single suit. This is a pure OPEN.</p>
+<p><strong>Why:</strong> Hand A has AK suited, which seems great, but the third spade (8s) removes the Q-high blocker bluffing card on heart boards and reduces flush equity. Hand B has the king of diamonds available to bluff on diamond boards, and the AQ combo on hearts for bluffing. The seemingly minor suit change flips the decision entirely.</p>
+</div>
+
+<h3>Pair Evaluation</h3>
+
+<h4>Aces</h4>
+<p>
+Aces are the backbone of PLO 3-bet ranges. However, they are NOT the auto-stack-off hands they are in NLHE. Key points:
+</p>
+<ul>
+  <li>AA with a suit is almost always a 3-bet (99%+ of the time)</li>
+  <li>Double-suited aces: always 3-bet, never flat</li>
+  <li>Rainbow disconnected aces (AA72 rainbow): can flat as a trap, especially vs loose players who might squeeze</li>
+  <li>Trip aces (AAA-X): flat from position, rarely 3-bet &mdash; the third ace kills set equity and playability</li>
+  <li>Aces gain value as SPR decreases &mdash; at 50bb, bad aces become 3-bets that were flats at 100bb</li>
+</ul>
+
+<div class="box box-red">
+<span class="box-label">Multiway Aces Warning</span>
+In multiway pots (3+ players), some aces should be FOLDED. When facing a 4-bet and a cold call at 100bb, trip aces and rainbow disconnected aces like AA82 are folds. Your equity plummets multiway, and the non-ace opponents often have hands that dominate your side cards (like TTJQ blocking your straight outs and covering your top pair).
+</div>
+
+<h4>Kings</h4>
+<p>
+Kings are where many NLHE players bleed money transitioning to PLO:
+</p>
+<ul>
+  <li><code>KK-9-8</code> suited: good 3-bet candidate &mdash; connected, suited side cards</li>
+  <li><code>KK-7-2</code> rainbow: fold from most positions. The 7-2 is completely disconnected and you have no suit</li>
+  <li><code>KK-Q-6</code> single suit: flat most of the time. The Q-6 disconnected, single suit doesn't support 3-betting</li>
+  <li>At 50bb: Kings start 3-betting ~30% more often because SPR is lower and big pairs gain value</li>
+</ul>
+
+<div class="example">
+<div class="example-header">Example: King King Queen Six &mdash; From the Saliba Sessions</div>
+<p><strong>Situation:</strong> Small blind, 65bb effective. Cutoff opens to less than pot. You hold <code>K&diams; K&clubs; Q&spades; 6&diams;</code>.</p>
+<p><strong>Justin's play:</strong> 3-bet.</p>
+<p><strong>Adam's analysis:</strong> This is a clear flat, not a 3-bet. The comparison to NLHE: it's like 3-betting A6 offsuit from the SB vs cutoff against a player with 0% fold to 3-bet. PLO opponents don't fold to 3-bets. You're bloating the pot out of position with a hand that doesn't play well post-flop. The Q-6 is disconnected, the single flush draw isn't strong enough. You'd need KK-T-9 suited to 3-bet from this spot.</p>
+<p><strong>Post-flop consequence:</strong> After 3-betting, flop comes low disconnected. You have overpair but no redraws, no flush draw. SPR is ~2. You're stuck with a hand that can only beat bluffs and underpairs, but can't improve. Every turn card is a disaster: flush-completing, straight-completing, or overcard.</p>
+</div>
+
+<!-- ============================================ -->
+<h2>Part II: Position-Based RFI Strategy</h2>
+
+<h3>Lojack (Tightest ~20%)</h3>
+
+<p>The bottom of the Lojack opening range at 100bb 6-max with standard rake:</p>
+
+<table>
+<thead><tr><th>Hand</th><th>Open %</th><th>Why It's Borderline</th></tr></thead>
+<tbody>
+<tr><td><code>K9Q9</code> with a suit</td><td>85%</td><td>Pair + connectivity. Missing suit drops to fold.</td></tr>
+<tr><td><code>AKT7</code> 3 spades</td><td>50%</td><td>AK + T7 connected, but 3 suited cards hurt. AT suited version: always open.</td></tr>
+<tr><td><code>Q6T5</code> double-suited</td><td>50%</td><td>Q-T gap, 6-5 connected. Moving to QT89 makes it pure open.</td></tr>
+<tr><td><code>JT87</code> 3 hearts</td><td>65%</td><td>Amazing connectivity but 3 hearts destroy it. JT89 3 hearts: always open (more connected).</td></tr>
+<tr><td><code>KK76</code> rainbow</td><td>~25%</td><td>The worst kings you can open. KK72 rainbow: never open. KK76 rainbow just barely makes it due to 7-6 connectivity.</td></tr>
+<tr><td><code>8554</code> double-suited</td><td>25%</td><td>Low pairs, low connectivity, but double-suited saves it.</td></tr>
+<tr><td><code>2233</code> double-suited</td><td>Open</td><td>Connectivity (2-3 connected) + double-suited. Single-suited version: fold.</td></tr>
+<tr><td><code>2234</code> single-suited</td><td>Fold</td><td>Despite more straights than 2233, losing the second suit kills it.</td></tr>
+</tbody>
+</table>
+
+<h3>Button (Widest ~50%)</h3>
+
+<p>Key button dynamics:</p>
+<ul>
+  <li>All Lojack borderline hands are pure opens</li>
+  <li>Suits matter less &mdash; high cards matter more. You're blocking 3-bets from the blinds and seeing flops cheaply.</li>
+  <li><code>AKQX</code> combinations: open every single one regardless of suits on the button</li>
+  <li>Low pairs with double-suit still open (<code>993-2</code> double-suited)</li>
+  <li>But <code>2234</code> single-suited is STILL a fold even on the button</li>
+</ul>
+
+<h3>Big Blind Defense</h3>
+
+<p>Defense rates shift dramatically based on who opened:</p>
+
+<table>
+<thead><tr><th>Opener</th><th>BB Call %</th><th>BB 3-Bet %</th><th>BB Fold %</th></tr></thead>
+<tbody>
+<tr><td>Button</td><td>48.4%</td><td>9.4%</td><td>42.2%</td></tr>
+<tr><td>Lojack</td><td>36.4%</td><td>3.4%</td><td>60.2%</td></tr>
+</tbody>
+</table>
+
+<p>The 12% drop in calling and 6% drop in 3-betting vs lojack reflects the tighter range you're facing. Your lower flush draws become less valuable, your marginal hands interact worse with a tighter range.</p>
+
+<!-- ============================================ -->
+<h2>Part III: 3-Betting In Depth</h2>
+
+<h3>The 14% Fold Stat</h3>
+
+<p>
+When cutoff opens and button 3-bets, the cutoff folds only about 14%. This single statistic should reshape how you think about PLO 3-bets:
+</p>
+
+<div class="box box-purple">
+<span class="box-label">Strategic Implication</span>
+Your 3-bet bluffs are NOT trying to win the pot preflop. They are hands that (1) play well in inflated pots, (2) have good equity vs the calling range, (3) can represent both high and low boards post-flop, and (4) unblock opponent's folding hands.
+</div>
+
+<h3>The Non-Ace 3-Bet Bluffs</h3>
+
+<div class="example">
+<div class="example-header">Example: Why T987 Double-Suited 3-Bets</div>
+<p><strong>Situation:</strong> Hijack opens, you're on the button with <code>T&spades; 9&hearts; 8&spades; 7&hearts;</code>.</p>
+<p><strong>Action:</strong> 3-bet (pot).</p>
+<p><strong>Why this works:</strong></p>
+<ul>
+  <li>Unblocks their raise-folds like <code>KQJ9</code> single-suited, <code>AK52</code></li>
+  <li>Vs a 4-bet (almost always aces): equity is ~35-38%. You can profitably call.</li>
+  <li>Post-flop: represents both ace-high boards (you can bluff authoritatively since opponents overfold on A-high boards vs 3-bets) and low connected boards (you have actual equity)</li>
+  <li>The double suit gives you flush draw potential in two suits, making you hard to play against on any board</li>
+</ul>
+<p><strong>Contrast:</strong> <code>AK52</code> single-suited would be a terrible 3-bet here. AK interacts with the opponent's strong calling range. If they call with A-Q-J-T type hands, your ace and king are partially dead.</p>
+</div>
+
+<h3>Aces as 3-Bet Traps</h3>
+
+<p>About 1/5 of aces fall into the flat-calling range rather than the 3-bet range. These are:</p>
+<ul>
+  <li>Rainbow disconnected: <code>AA-7-2</code> rainbow, <code>AA-K-3</code> rainbow</li>
+  <li>Trip aces: <code>AAA-X</code> (always flat from all positions)</li>
+  <li>Three of one suit: <code>AA-X-X</code> with 3 same suit</li>
+</ul>
+
+<p>The reason for flatting: these hands need post-flop playability. At 100bb with SPR ~4:1 after a 3-bet, you need to navigate flops, turns, and rivers. Rainbow disconnected aces can only flop top set &mdash; they have no flush draw backup, no straight potential. Flatting keeps the pot smaller and lets you realize equity through seeing more cards.</p>
+
+<div class="box box-orange">
+<span class="box-label">Trap Aces vs Squeeze</span>
+When you flat aces and someone squeezes behind, you get to pile in money with a trapping hand. This is especially valuable in PLO where squeeze ranges are tighter (weighted toward premium) and your aces push decent equity even when they're "bad" aces.
+</div>
+
+<!-- ============================================ -->
+<h2>Part IV: Facing 4-Bets</h2>
+
+<h3>The Surprising Folds</h3>
+
+<p>
+When you 3-bet from the hijack and the lojack 4-bets at 100bb:
+</p>
+
+<div class="example">
+<div class="example-header">Example: Folding Double-Suited Premium to a 4-Bet</div>
+<p><strong>Situation:</strong> You 3-bet <code>A&spades; Q&hearts; Q&diams; 2&spades;</code> double-suited from hijack. Lojack 4-bets (almost always aces).</p>
+<p><strong>Action:</strong> FOLD. This is a painful but correct 3-bet-fold.</p>
+<p><strong>Why:</strong></p>
+<ul>
+  <li>Your ace is dominated (they have aces). Your queen pair needs to flop a set &mdash; but even set of queens can be behind.</li>
+  <li>The deuce dangler provides nothing. Your flush draws are ace-high and queen-high, but the ace-high is dead vs their aces.</li>
+  <li>Equity vs AA range: roughly 28-30%. Pot odds aren't there at 100bb.</li>
+</ul>
+<p><strong>Better call:</strong> <code>8&spades; 6&hearts; 5&spades; 4&hearts;</code>. This hand has ~35% equity vs aces because all 8 of its outs (making straights and two-pair) are completely clean. No card in this hand interacts with aces, kings, or queens.</p>
+</div>
+
+<h3>The Clean Outs Principle</h3>
+
+<div class="box box-blue">
+<span class="box-label">Definition: Clean Outs</span>
+An out is "clean" when it improves your hand without improving the opponent's hand. In PLO vs a 4-bet range of mostly aces, a hand like <code>8-6-5-4</code> has clean outs because the 3, 7, 9 for straights don't help AA-X-X. But <code>A-J-J-2</code> has "dirty" outs &mdash; the ace is dead, and the jacks might make a set that still loses to a higher set or straight.
+</div>
+
+<p>When evaluating 4-bet calls, use this hierarchy:</p>
+<ol>
+  <li><strong>Best calls:</strong> Low-medium connected rundowns &mdash; <code>8654</code>, <code>7654</code>, <code>5544</code>, <code>T987</code>. Maximum clean outs, minimum interaction.</li>
+  <li><strong>Medium calls:</strong> Aces with playability &mdash; <code>AA52</code> suited (can navigate low flops), <code>AAKK</code> rainbow (set potential).</li>
+  <li><strong>Worst calls (fold):</strong> Double-suited ace-X with high pairs &mdash; <code>AQJX</code>, <code>AJJX</code>. Looks pretty, plays terribly.</li>
+</ol>
+
+<h3>50bb vs 100bb 4-Bet Dynamics</h3>
+
+<p>At 50bb, the math changes dramatically:</p>
+<ul>
+  <li>You fold only ~20% vs 4-bet (compared to ~42% at 100bb)</li>
+  <li>Hands like <code>AQJ2</code> double-suited become calls because pot odds are much better</li>
+  <li>Kings become 3-bet candidates ~30% more often because you can get the money in preflop where KK has closer equity</li>
+  <li>Your 3-bet from big blind is only 22bb (vs 25bb at 100bb), so the pot odds when facing a 4-bet are even better</li>
+</ul>
+
+<!-- ============================================ -->
+<h2>Part V: Post-Flop Play</h2>
+
+<h3>SPR Framework</h3>
+
+<table>
+<thead><tr><th>SPR</th><th>Strategy</th><th>Example</th></tr></thead>
+<tbody>
+<tr><td>&lt; 2</td><td>Get money in with any strong hand (overpair+). No need for redraws.</td><td>3-bet pot, 150 in pot, 250 behind. You have KK on J-7-3. Just pot and go with it.</td></tr>
+<tr><td>2-4</td><td>Need top pair + draws or overpair. Can bet-fold on bad turns.</td><td>3-bet pot, SPR 3. You have AA on T-8-2 with flush draw. Pot flop, evaluate turn.</td></tr>
+<tr><td>4-8</td><td>Need strong draws or made hands with redraws. Position becomes critical.</td><td>Single-raised pot, SPR 6. Bottom set on J-T-7 with flush draw. Be cautious &mdash; turns change everything.</td></tr>
+<tr><td>&gt; 8</td><td>Speculative. Play for nutted hands. Position advantage is massive.</td><td>Limped pot, infinite SPR. Even top set plays carefully because there's so much money behind.</td></tr>
+</tbody>
+</table>
+
+<h3>C-Betting by Board Texture</h3>
+
+<div class="example">
+<div class="example-header">Example: Ace-High Boards as 3-Bettor OOP</div>
+<p><strong>Situation:</strong> You 3-bet from SB with <code>A&hearts; K&spades; 7&hearts; 7&diams;</code>. Button calls. Flop: <code>A&clubs; 5&diams; 3&spades;</code>.</p>
+<p><strong>SPR:</strong> ~3.5 (pot ~$50 in a 1-2 game, ~$175 behind).</p>
+<p><strong>Action:</strong> Bet 30% pot. Always. Don't even think about your specific hand.</p>
+<p><strong>Why universal small bet works:</strong></p>
+<ul>
+  <li>As the 3-bettor, you have the range advantage on ace-high boards (you have all the aces, they flatted)</li>
+  <li>Opponents under-check-raise these boards because they fear pocket aces in your range</li>
+  <li>The small bet cleans up equity cheaply &mdash; their queen-jack draws, backdoor hands have to pay something</li>
+  <li>Even with a hand as ugly as AK72, you bet because the strategy is range-based, not hand-based</li>
+</ul>
+<p><strong>When to deviate:</strong> Connected ace-high boards like A-T-9 &mdash; here you can find checks because the button's flatting range connects heavily with T-9 type hands.</p>
+</div>
+
+<h3>The Check-Back Exploitation</h3>
+
+<div class="example">
+<div class="example-header">Example: Potting Turn After Flop Check-Check</div>
+<p><strong>Situation:</strong> You open button, BB defends. Flop: <code>Q&clubs; 8&hearts; 5&diams;</code>. Check, check. Turn: <code>3&spades;</code>.</p>
+<p><strong>Your hand:</strong> <code>K&spades; 9&hearts; 9&clubs; 7&diams;</code> (two pair outs, no flush draw).</p>
+<p><strong>BB's capped range:</strong> By checking flop, BB almost never has: sets (they stab those), top two pair (they bet), nut flush draws (they semi-bluff). They likely have: middle pair, weak top pair, gutshots, air.</p>
+<p><strong>Action:</strong> Pot the turn. Population tendency is that PLO players always stab their strong hands on the flop in single-raised pots. When they check, they're showing weakness. You can pot the turn with a wide range because their calling range is weak.</p>
+<p><strong>EV gain:</strong> You force folds from hands with 30-40% equity (their middle pairs, gutshots). Even if called, you have two pair outs and position for the river.</p>
+</div>
+
+<h3>Position and Turn Play</h3>
+
+<div class="example">
+<div class="example-header">Example: Calling Flop In Position With a Wrap</div>
+<p><strong>Situation:</strong> From the Saliba sessions. You defend button with <code>T&spades; 9&hearts; 8&diams; 6&spades;</code>. 3-bettor pots flop on <code>J&clubs; 7&clubs; 4&hearts;</code>. Villain has ~550 behind into a ~400 pot.</p>
+<p><strong>Your equity:</strong> Wrap (T-9-8 around the J-7 giving 5-6-8-T straight outs) plus top pair. ~45-50% vs overpairs with draws.</p>
+<p><strong>Wrong play:</strong> Raise all-in. Feels right because you have equity, but:</p>
+<ul>
+  <li>On club turns, villain's nut flush draw gets there and you fold &mdash; huge EV save</li>
+  <li>On brick turns, villain pots again with overpairs &mdash; you call and stack them</li>
+  <li>On 6 or other pairing turns, you can fold cheaply with just straight draws</li>
+  <li>You can even bluff on club turns if you have position</li>
+</ul>
+<p><strong>Correct play:</strong> Call. Use position. Evaluate turns. The lazy all-in removes all future decision-making &mdash; and in PLO, your edge comes from making better decisions on later streets.</p>
+</div>
+
+<!-- ============================================ -->
+<h2>Part VI: River Play and Blocker Analysis</h2>
+
+<h3>Bet Yourself, Don't Check-Raise</h3>
+
+<div class="example">
+<div class="example-header">Example: The Full House River Mistake</div>
+<p><strong>Situation:</strong> From Saliba Session 1. Limped pot. You check-raise turn with a full house (55 on a J-J-5-4 board). River: blank. You check, hoping for a check-raise.</p>
+<p><strong>Problem:</strong></p>
+<ul>
+  <li>Who bluffs a double check-raise in a limped pot? Almost nobody.</li>
+  <li>Villain can have kings with flush draw that just checks back</li>
+  <li>Villain with a 4 or J often just checks &mdash; they don't expect to get paid</li>
+  <li>Mental model: in limped pots, people don't fight hard. They haven't invested much and won't battle.</li>
+</ul>
+<p><strong>Correct play:</strong> Bet yourself, ~65-75% pot. If they raise, you have an easy fold (are they really bluffing you here?). Betting gives you two good outcomes: called by worse, or raised allowing a cheap fold vs quads/bigger house.</p>
+</div>
+
+<h3>Blocker-Based River Decisions</h3>
+
+<div class="example">
+<div class="example-header">Example: Jack-High Flush on a 4-Heart Board</div>
+<p><strong>Situation:</strong> From Episode 8. Flop check-check, turn bet-call on flush board, river 4th heart. Villain bets 75% pot with <code>J&clubs; 9&hearts; 9&diams; 2&clubs;</code> holding the Jack-high flush.</p>
+<p><strong>Your decision framework (as the one facing the bet):</strong></p>
+<ul>
+  <li>Your flush is a pure bluff-catcher. They never bet a worse flush for this size.</li>
+  <li><strong>Key question:</strong> Do you block full houses? If you hold a Queen or Ten (pairing cards from the board), your jack-high flush becomes a call &mdash; fewer combos of boats in their range.</li>
+  <li>If you DON'T block boats: lean toward folding against population.</li>
+  <li>4th flush card meta: bluffing is harder because you're "supposed to" have fewer flushes, so bets are more credible. But the caller on the turn is weighted toward flushes too.</li>
+</ul>
+<p><strong>Population read:</strong> People underbluff these river spots. Against tight or unknown players, fold without blockers. Against known aggressors, pay off.</p>
+</div>
+
+<!-- ============================================ -->
+<h2>Part VII: Exploit-Based Adjustments</h2>
+
+<h3>Preflop Exploits</h3>
+
+<table>
+<thead><tr><th>Opponent Tendency</th><th>Your Adjustment</th></tr></thead>
+<tbody>
+<tr><td>Table playing too tight, folding too much</td><td>Open all your mixes as pure opens. Add the next tier of hands to your opening range.</td></tr>
+<tr><td>Player on your left 3-bets too much</td><td>Cut bottom opens, tighten up. Fight back with more 4-bets.</td></tr>
+<tr><td>Blinds under-defending</td><td>Open smaller (2.5x instead of pot). Same fold equity, less risk.</td></tr>
+<tr><td>BB never 3-bet bluffs</td><td>When BB does 3-bet, it's almost always aces. Fold marginal hands like KQJ8 single-suited.</td></tr>
+<tr><td>Opponent never folds to 3-bet</td><td>Remove bluffs from your 3-bet range. Move middling value hands (like good kings) to 3-bets since they get called by worse. Move weak bluff hands to flats or folds.</td></tr>
+<tr><td>Opponent over-squeezes (50bb)</td><td>Jam back with AKK and connected kings double-suited. At 50bb, kings push enough equity.</td></tr>
+</tbody>
+</table>
+
+<h3>Post-Flop Exploits</h3>
+
+<div class="example">
+<div class="example-header">Example: Raising Lazy Small Turn Bets</div>
+<p><strong>Situation:</strong> From Episode 8. You 3-bet pre, flop goes check-check on A-Q-5. Turn brings a low card. Villain bets half pot.</p>
+<p><strong>Read:</strong> When someone bets small on the turn after check-check, they usually have marginal hands &mdash; Queen-X, underpairs, missed draws trying to "find out where they are." They don't expect to be raised.</p>
+<p><strong>Exploit:</strong> Raise to ~2.5x their bet with thin value (like A-T-5-5) or bluffs with blockers. They almost never 3-bet the turn in these spots, so your raise is essentially unchallenged. If they fold, you win immediately. If they call, you have position for the river.</p>
+<p><strong>Analogy to NLHE:</strong> When someone bets 30% pot on a turn deuce after check-check on 4-5-8 board, they're not repping anything. Raising them is printing money because they play the spot lazily.</p>
+</div>
+
+<div class="example">
+<div class="example-header">Example: Small Block-Bet Bluffs on the River</div>
+<p><strong>Situation:</strong> From Episode 8. River completes no draws, board is checked to you. You have fourth pair or air.</p>
+<p><strong>Exploit:</strong> Bet 25-30% pot as a bluff. Population hates calling when they think they're wrong. They're conditioned to see small bets as "value fishing" &mdash; but even if they know it could be a bluff, the small size makes it easy to fold their weak pairs.</p>
+<p><strong>Math:</strong> A 30% pot bet needs to work only 23% of the time to break even. Against a population that folds 40-50% of their range to river bets, this is printing money.</p>
+</div>
+
+<!-- ============================================ -->
+<h2>Part VIII: Transitioning from NLHE to PLO</h2>
+
+<h3>Mindset Shifts Required</h3>
+
+<ol>
+  <li><strong>"I have a strong hand" &#8594; "How does my hand play across 5 cards?"</strong> Top pair means nothing in PLO if you have no redraws. A wrap with a flush draw is often better than top set with no backup.</li>
+  <li><strong>"I'll bluff them off it" &#8594; "They're calling."</strong> PLO players call. A lot. Your "bluff" with AK72 that would fold out NLHE opponents will get snapped off by 7654 double-suited that has 40% equity against you.</li>
+  <li><strong>"Set over set is a cooler" &#8594; "Set over set is routine."</strong> With 4 cards, people hold more pairs. Bottom set is dangerous, especially multiway. Fold bottom set to big aggression when multiple players are in the pot.</li>
+  <li><strong>"Pot odds" &#8594; "SPR + implied odds + reverse implied odds."</strong> In PLO, think about the full picture. A call might have good immediate odds but terrible reverse implied odds if your flush or straight will be second-best when it hits.</li>
+  <li><strong>"Check-raise for value" &#8594; "Bet yourself."</strong> PLO opponents check back too much thin value. The check-raise is far less profitable than in NLHE because the betting range is so strong when they do bet.</li>
+</ol>
+
+<div class="box box-purple">
+<span class="box-label">Adam's Core Message</span>
+PLO is in its early No Limit days. Most players have not studied preflop ranges, play too loose, make up their own rules. If you learn fundamental ranges and play disciplined preflop, you are already beating most games. The EV is right there in the preflop game tree &mdash; you don't need to be a post-flop genius to win. Start simple, stay disciplined, and the money will come.
+</div>
+
+</div>
+</body>
+</html>

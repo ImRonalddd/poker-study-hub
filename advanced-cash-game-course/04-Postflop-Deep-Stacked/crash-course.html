@@ -10,7 +10,7 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
-  onload="renderMathInElement(document.body,{delimiters:[{left:'\\(',right:'\\)',display:false},{left:'$$',right:'$$',display:true}],throwOnError:false});"></script>
+  onload="renderMathInElement(document.body,{delimiters:[{left:'\\(',right:'\\)',display:false}],throwOnError:false});"></script>
 <style>
 :root {
   --bg: #FFFFFF;
@@ -225,6 +225,14 @@ hr {
 
 <p><strong>200bb deep (cash game):</strong> K9 becomes a marginal hand. If you check-raise and get called or re-raised, you're in a miserably bad scenario where you'll be beat a large chunk of the time. Your opponent could also be sticking around with draws, putting you in a rough situation. <strong>The correct play is to check and call.</strong></p>
 
+<div class="box box-example">
+  <span class="box-label">Full Situation: K9 on K-7-2 -- BTN vs BB, 200bb Deep, 5/10 NL</span>
+  <p><strong>Setup:</strong> You raise to 30 from the button. Big blind calls. Pot: 65. Stacks: 2,000 effective (200bb). Flop: K-7-2 rainbow. BB checks.</p>
+  <p><strong>Tempting play (WRONG at 200bb):</strong> You check-raise with K9 "for protection." Big blind calls or 3-bets. Now you're 200bb deep with top pair, medium kicker, facing significant action. If BB has K7, K2, 77, 22 -- you're drawing to very few outs. Even if you're currently ahead, the pot is now 400+ with 1,900+ behind. You have no comfortable line: call and face 2 more streets OOP from position? 4-bet jam? You've turned a marginal spot into a disaster.</p>
+  <p><strong>Correct play:</strong> Check back with K9. BB will bet their draws, their weak kings, and their air on future streets. You call flop, call turn on blank, then decide river. You've realized your equity cheaply and avoided a bloated pot where you might be dominated.</p>
+  <p><strong>EV cost of check-raising vs check-calling:</strong> Against a competent opponent, check-raising K9 at 200bb is estimated to cost 8-15bb vs. the check-call line, because you build pots you lose and fold equity you had no business denying.</p>
+</div>
+
 <div class="box box-insight">
   <span class="box-label">Key Insight</span>
   <p>Even KQ on K-7-2 at 200bb deep cannot happily check-raise. If you get a lot of action, your opponent could easily have all the sets, K7 suited, K2 suited. As you get deeper, you play far more cautiously with medium-strength hands.</p>
@@ -286,6 +294,15 @@ hr {
 <p>You raise on the button, big blind calls. King-jack-seven flop, you c-bet. Turn five of diamonds, you bet pot. River eight of diamonds, opponent checks.</p>
 
 <p>If you were shallower, you could reasonably value bet here. But at 250bb deep, if you bet and get raised, it's horrible -- the opponent can blast you with a gigantic check-raise. <strong>You absolutely cannot value bet this river</strong> unless your opponent is a straightforward calling station.</p>
+
+<div class="box box-example">
+  <span class="box-label">Full Situation: KQ Hearts, BTN vs BB, 250bb, K-J-7 Board</span>
+  <p><strong>Setup:</strong> 5/10 NL, 250bb effective (2,500 behind). You raise K-Q of hearts from button to 30, BB calls. Pot: 65. Flop: K-J-7 (two diamonds). You c-bet 40 (small, IP). BB calls. Pot: 145. Turn: 5 of diamonds (flush completes for some). You bet pot (145). BB calls. Pot: 435. River: 8 of diamonds. BB checks.</p>
+  <p><strong>Situation:</strong> You have top pair, second kicker with a back-door flush draw that didn't fill. You won a pot-sized bet on the turn. Your hand is almost certainly good against BB's checking range. But at 250bb with 2,355 behind and a 435 pot, should you bet?</p>
+  <p><strong>The trap:</strong> Betting 250-300 for value. If BB check-raises to 900+, you're getting 2:1 on a call to a pot that could be 2,500+. Your KQ might be good only 25-30% of the time vs. a check-raise range of flushes, two pairs, sets. Expected value of calling that check-raise is -EV. Expected value of folding gives up your whole pot-sized turn investment.</p>
+  <p><strong>Correct play:</strong> Check back. You win the pot at showdown vs. BB's bluffs and weak pairs. You do not give a competent OOP player the chance to check-raise you off a winner.</p>
+  <p><strong>EV difference:</strong> Vs a player who check-raises rivers 15% (with the range described), check-back is approximately 30-50bb better than thin value-betting at 250bb.</p>
+</div>
 
 <div class="box box-trap">
   <span class="box-label">Common Trap -- Thin Value Betting Deep-Stacked</span>
@@ -505,7 +522,7 @@ hr {
 
 <h3>3-Bet Sizing from OOP</h3>
 
-<p>When deep-stacked and out of position, 3-bet to a <strong>larger size</strong>. At \$5/\$10 with 200bb, 3-bet to \$150 instead of \$90. This discourages your opponent from giving you action and maintains your equity advantage. Only 3-bet with strong, suited hands.</p>
+<p>When deep-stacked and out of position, 3-bet to a <strong>larger size</strong>. At 5/10 NL with 200bb, 3-bet to 150 instead of 90 (about 15x vs 9x the 10 big blind). This discourages your opponent from giving you action and maintains your equity advantage. Only 3-bet with strong, suited hands.</p>
 
 <h3>The Power of High-Equity Turn Bets</h3>
 

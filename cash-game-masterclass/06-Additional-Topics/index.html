@@ -3,89 +3,298 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Chapter 6: Additional Topics — Study Hub</title>
+<title>Chapter 6: Additional Topics &mdash; Study Hub</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;1,400;1,600&family=Source+Serif+4:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;0,900;1,400&family=Source+Serif+4:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
 <style>
 :root {
-  --bg: #FFFFFF; --surface: #FFFFFF; --surface2: #F5F5F5;
-  --accent: #000000; --text: #000000; --text-dim: #525252;
-  --correct: #1a7a5e; --wrong: #b91c1c; --orange: #8B6914;
-  --border: #000000; --border-light: #E5E5E5;
+  --bg: #FFFFFF;
+  --text: #000000;
+  --text-dim: #525252;
+  --border: #000000;
+  --border-light: #E5E5E5;
 }
-*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; border-radius:0!important; }
-body { font-family:'Source Serif 4','Georgia',serif; background:var(--bg); color:var(--text); line-height:1.6; }
-.container { max-width:700px; margin:0 auto; padding:0 2rem 4rem; }
-header { padding:4rem 0 2rem; text-align:center; }
-header h1 { font-family:'Playfair Display',serif; font-weight:800; font-size:2.8rem; letter-spacing:-0.02em; line-height:1.15; margin-bottom:0.5rem; }
-header .subtitle { font-family:'JetBrains Mono',monospace; font-size:0.75rem; font-weight:500; text-transform:uppercase; letter-spacing:0.15em; color:var(--text-dim); }
-header .desc { margin-top:1rem; font-size:1.05rem; color:var(--text-dim); max-width:550px; margin-left:auto; margin-right:auto; }
-.divider { border:none; border-top:4px solid var(--accent); margin:0 0 2.5rem; }
-.nav-back { font-family:'JetBrains Mono',monospace; font-size:0.8rem; display:inline-block; margin-bottom:1rem; color:var(--text-dim); text-decoration:none; border-bottom:1px solid var(--border-light); }
-.nav-back:hover { color:var(--text); border-color:var(--accent); }
 
-.card-grid { display:flex; flex-direction:column; gap:1.2rem; margin-bottom:2.5rem; }
-.card { border:2px solid var(--border-light); padding:1.5rem; text-decoration:none; color:var(--text); display:block; transition:border-color 0.15s, background 0.15s; }
-.card:hover { border-color:var(--accent); background:var(--surface2); }
-.card-label { font-family:'JetBrains Mono',monospace; font-size:0.7rem; text-transform:uppercase; letter-spacing:0.12em; color:var(--text-dim); margin-bottom:0.3rem; }
-.card-title { font-family:'Playfair Display',serif; font-weight:700; font-size:1.4rem; margin-bottom:0.4rem; }
-.card-desc { font-size:0.95rem; color:var(--text-dim); }
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; border-radius: 0 !important; }
 
-h2 { font-family:'Playfair Display',serif; font-weight:700; font-size:1.5rem; margin:2rem 0 1rem; }
-.lesson-list { list-style:none; padding:0; }
-.lesson-list li { padding:0.6rem 0; border-bottom:1px solid var(--border-light); font-size:1rem; display:flex; gap:0.8rem; align-items:baseline; }
-.lesson-list li:last-child { border-bottom:none; }
-.lesson-num { font-family:'JetBrains Mono',monospace; font-size:0.8rem; font-weight:600; color:var(--text-dim); min-width:2rem; }
+body {
+  font-family: 'Source Serif 4', Georgia, serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+}
+
+.container { max-width: 900px; margin: 0 auto; padding: 4rem 2rem 6rem; }
+
+.header { text-align: center; margin-bottom: 3rem; }
+.header h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: 3rem;
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  margin-bottom: 0.3rem;
+}
+.header .instructor {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--text-dim);
+  margin-bottom: 1rem;
+}
+.header .description {
+  font-size: 1.05rem;
+  color: var(--text-dim);
+  max-width: 640px;
+  margin: 0 auto;
+  line-height: 1.8;
+}
+
+.back-link {
+  display: inline-block;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text-dim);
+  text-decoration: none;
+  margin-bottom: 2rem;
+  transition: color 0.1s;
+}
+.back-link:hover { color: var(--text); }
+
+.stats-bar {
+  display: flex;
+  justify-content: center;
+  gap: 3rem;
+  padding: 1.5rem 0;
+  border-top: 4px solid var(--text);
+  border-bottom: 1px solid var(--border-light);
+  margin-bottom: 3rem;
+}
+.stat { text-align: center; }
+.stat-number {
+  font-family: 'Playfair Display', serif;
+  font-size: 2rem;
+  font-weight: 700;
+  display: block;
+}
+.stat-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--text-dim);
+}
+
+.materials { display: flex; flex-direction: column; gap: 1.5rem; margin-bottom: 3rem; }
+
+.material-card {
+  border: 2px solid var(--text);
+  padding: 2rem 2.5rem;
+  text-decoration: none;
+  color: var(--text);
+  display: block;
+  transition: background 0.1s, color 0.1s;
+  position: relative;
+}
+.material-card:hover { background: var(--text); color: var(--bg); }
+.material-card:hover .material-desc,
+.material-card:hover .material-meta { color: rgba(255,255,255,0.7); }
+.material-card:hover .material-tag { border-color: rgba(255,255,255,0.3); color: rgba(255,255,255,0.7); background: rgba(255,255,255,0.08); }
+
+.material-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 0.3rem;
+}
+.material-meta {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 0.8rem;
+}
+.material-desc { color: var(--text-dim); line-height: 1.6; margin-bottom: 0.8rem; }
+.material-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+.material-tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.6rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 0.25rem 0.6rem;
+  border: 1px solid var(--border-light);
+  color: var(--text-dim);
+}
+.material-arrow {
+  position: absolute;
+  right: 2rem;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1.4rem;
+  opacity: 0;
+  transition: opacity 0.1s;
+}
+.material-card:hover .material-arrow { opacity: 1; }
+
+.topics-section {
+  border: 1px solid var(--border-light);
+  padding: 2rem;
+  margin-bottom: 3rem;
+}
+.topics-section h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.3rem;
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 4px solid var(--text);
+}
+.lesson-list { list-style: none; }
+.lesson-list li {
+  padding: 0.6rem 0;
+  border-bottom: 1px solid var(--border-light);
+  display: flex;
+  align-items: baseline;
+  gap: 1rem;
+}
+.lesson-list li:last-child { border-bottom: none; }
+.ep-num {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: var(--text-dim);
+  flex-shrink: 0;
+  width: 2.5rem;
+}
+.ep-title { font-weight: 500; font-size: 0.95rem; }
+
+.footer {
+  text-align: center;
+  margin-top: 3rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--border-light);
+}
+.footer p {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+@media (max-width: 600px) {
+  .header h1 { font-size: 2rem; }
+  .stats-bar { gap: 1.5rem; }
+  .stat-number { font-size: 1.5rem; }
+  .material-card { padding: 1.5rem; }
+  .material-title { font-size: 1.2rem; }
+  .material-arrow { display: none; }
+}
 </style>
 </head>
 <body>
 <div class="container">
-<a href="../index.html" class="nav-back">&larr; All Chapters</a>
-<header>
-  <div class="subtitle">Cash Game Masterclass &middot; Chapter 6</div>
-  <h1>Additional Topics</h1>
-  <div class="desc">Non-standard cash game formats: shorthanded, heads-up, straddles, short-stacked play, and three-blind games. For every new format, ask: "What has changed?"</div>
-</header>
-<hr class="divider">
 
-<div class="card-grid">
-  <a href="revision-guide.html" class="card">
-    <div class="card-label">Study Material</div>
-    <div class="card-title">Revision Guide</div>
-    <div class="card-desc">Complete notes covering all 6 lessons. Range adjustments, strategy changes, and exploitative tips for every format.</div>
-  </a>
-  <a href="crash-course.html" class="card">
-    <div class="card-label">Quick Reference</div>
-    <div class="card-title">Crash Course</div>
-    <div class="card-desc">Visual summary with key tables, strategy boxes, and the universal framework for adapting to any format. 12 min read.</div>
-  </a>
-  <a href="drills.html" class="card">
-    <div class="card-label">Practice</div>
-    <div class="card-title">Interactive Drills</div>
-    <div class="card-desc">20 questions testing your knowledge of format adjustments, range changes, and strategic concepts. Keyboard shortcuts supported.</div>
-  </a>
-</div>
+  <a href="../index.html" class="back-link">&larr; Back to Cash Game Masterclass</a>
 
-<h2>Lessons in This Chapter</h2>
-<ul class="lesson-list">
-  <li><span class="lesson-num">6.1</span> Shorthanded Play (4-Handed)</li>
-  <li><span class="lesson-num">6.2</span> Heads-Up Play</li>
-  <li><span class="lesson-num">6.3</span> Playing with a Straddle</li>
-  <li><span class="lesson-num">6.4</span> Playing with a Mississippi Straddle</li>
-  <li><span class="lesson-num">6.5</span> Short-Stacked Cash Games</li>
-  <li><span class="lesson-num">6.6</span> Three-Blind Games</li>
-</ul>
+  <div class="header">
+    <h1>Chapter 6: Additional Topics</h1>
+    <div class="instructor">Cash Game Masterclass &mdash; Jonathan Little</div>
+    <p class="description">
+      Non-standard cash game formats: shorthanded, heads-up, straddles, short-stacked play,
+      and three-blind games. For every new format, ask: &ldquo;What has changed?&rdquo;
+    </p>
+  </div>
 
-<h2>Key Takeaways</h2>
-<ul style="padding-left:1.5rem;">
-  <li><strong>Shorthanded:</strong> Ranges widen only slightly (~4-5%). Not a radically different game.</li>
-  <li><strong>Heads-up:</strong> Dramatically different. Raise 81% on button, play 75% from BB. Mixed strategies matter.</li>
-  <li><strong>UTG Straddle:</strong> Never straddle yourself. Trap wild straddlers with premium hands.</li>
-  <li><strong>Mississippi Straddle:</strong> Blinds get crushed. Fold a lot from the blinds.</li>
-  <li><strong>Short-stacked:</strong> Use tournament charts as a base, play tighter due to rake. Blockers > suited connectors.</li>
-  <li><strong>Three-blind:</strong> Small and middle blind must 3-bet or fold. Effective stack is halved.</li>
-</ul>
+  <div class="stats-bar">
+    <div class="stat">
+      <span class="stat-number">6</span>
+      <span class="stat-label">Lessons</span>
+    </div>
+    <div class="stat">
+      <span class="stat-number">3</span>
+      <span class="stat-label">Materials</span>
+    </div>
+    <div class="stat">
+      <span class="stat-number">20</span>
+      <span class="stat-label">Drill Questions</span>
+    </div>
+    <div class="stat">
+      <span class="stat-number">Formats</span>
+      <span class="stat-label">Focus</span>
+    </div>
+  </div>
+
+  <div class="materials">
+
+    <a href="crash-course.html" class="material-card">
+      <div class="material-title">Crash Course</div>
+      <div class="material-meta">Visual summary &mdash; ~12 min read</div>
+      <div class="material-desc">
+        Visual summary with key tables, strategy boxes, and the universal framework for adapting
+        to any format. Covers all six lessons with quick decision rules for each format.
+      </div>
+      <div class="material-tags">
+        <span class="material-tag">Format Adjustments</span>
+        <span class="material-tag">Shorthanded</span>
+        <span class="material-tag">Heads-Up</span>
+        <span class="material-tag">Straddles</span>
+      </div>
+      <span class="material-arrow">&rarr;</span>
+    </a>
+
+    <a href="revision-guide.html" class="material-card">
+      <div class="material-title">Revision Guide</div>
+      <div class="material-meta">Complete notes &mdash; all 6 lessons</div>
+      <div class="material-desc">
+        Complete notes covering all 6 lessons. Range adjustments, strategy changes, and
+        exploitative tips for every format.
+      </div>
+      <div class="material-tags">
+        <span class="material-tag">Range Adjustments</span>
+        <span class="material-tag">Strategy Changes</span>
+        <span class="material-tag">Exploitative Tips</span>
+      </div>
+      <span class="material-arrow">&rarr;</span>
+    </a>
+
+    <a href="drills.html" class="material-card">
+      <div class="material-title">Interactive Drills</div>
+      <div class="material-meta">20 scenario-based questions</div>
+      <div class="material-desc">
+        20 questions testing your knowledge of format adjustments, range changes, and strategic
+        concepts across all non-standard formats. Keyboard shortcuts supported.
+      </div>
+      <div class="material-tags">
+        <span class="material-tag">Format Adjustments</span>
+        <span class="material-tag">Range Changes</span>
+        <span class="material-tag">Strategic Concepts</span>
+      </div>
+      <span class="material-arrow">&rarr;</span>
+    </a>
+
+  </div>
+
+  <div class="topics-section">
+    <h2>Lessons in This Chapter</h2>
+    <ul class="lesson-list">
+      <li><span class="ep-num">6.1</span><span class="ep-title">Shorthanded Play (4-Handed)</span></li>
+      <li><span class="ep-num">6.2</span><span class="ep-title">Heads-Up Play</span></li>
+      <li><span class="ep-num">6.3</span><span class="ep-title">Playing with a Straddle</span></li>
+      <li><span class="ep-num">6.4</span><span class="ep-title">Playing with a Mississippi Straddle</span></li>
+      <li><span class="ep-num">6.5</span><span class="ep-title">Short-Stacked Cash Games</span></li>
+      <li><span class="ep-num">6.6</span><span class="ep-title">Three-Blind Games</span></li>
+    </ul>
+  </div>
+
+  <div class="footer">
+    <p>Study materials generated from PokerCoaching.com course transcripts</p>
+  </div>
+
 </div>
 </body>
 </html>

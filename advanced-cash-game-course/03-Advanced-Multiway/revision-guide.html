@@ -9,7 +9,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Source+Serif+4:wght@300;400;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body,{delimiters:[{left:'\\(',right:'\\)',display:false},{left:'$$',right:'$$',display:true}],throwOnError:false});"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body,{delimiters:[{left:'\\(',right:'\\)',display:false}],throwOnError:false});"></script>
 <style>
 :root{--bg:#FFFFFF;--surface:#FFFFFF;--surface2:#F5F5F5;--accent:#000000;--text:#000000;--text-dim:#525252;--correct:#1a7a5e;--wrong:#b91c1c;--orange:#8B6914;--border:#000000;--border-light:#E5E5E5;--blue:#1e40af;--blue-bg:#eff6ff;--purple:#6b21a8;--purple-bg:#faf5ff;--orange-bg:#fffbeb;--red:#991b1b;--red-bg:#fef2f2}
 *{margin:0;padding:0;box-sizing:border-box}
@@ -162,18 +162,22 @@ Default multiway bet size: <strong>~30% pot</strong>. You are using small sizes 
 <p><strong>Board type:</strong> Medium-connected boards where button/caller has similar nut/range holdings.</p>
 
 <div class="box box-orange">
-<div class="box-label">Example: T-7-5 Two-Tone</div>
-Cutoff vs button + BB. Equity distribution: cutoff 37%, button 39%, BB 24%. Button has essentially the same nuts as cutoff &rarr; no nut advantage, no range advantage &rarr; check 100%.
+<div class="box-label">Example: T-7-5 Two-Tone (5-10 NL, Aria -- Cutoff vs BTN + BB)</div>
+Cutoff raises to 30, button calls, BB calls. Pot ~95. Flop: T-7-5 two spades.<br>
+Equity: cutoff 37%, button 39%, BB 24%. Button and cutoff have essentially the same nuts (sets of T, 7, 5; straight draws; flush draws). The cutoff is <em>out of position</em> with no nut or range advantage. GTO: check 100% of range. Even with a hand like K-J suited, check.<br>
+<strong>Why?</strong> Betting OOP without an advantage costs you money -- weaker hands get raised off their equity and stronger hands lose value by not being checked for range protection.
 </div>
 
-<p><strong>On the turn after checking flop:</strong> If an overcard comes (e.g., Queen), you regain nut advantage and can bet frequently with Queens, flush draws, tens, strong draws. NOT pure trash -- always equity-driven bluffs.</p>
+<p><strong>On the turn after checking flop:</strong> If an overcard comes (e.g., Queen on T-7-5), the cutoff regains nut and range advantage -- their range contains AK, KQ, KJ, QJ, AQ all of which improved. Now bet frequently: Queens, flush draws (front and backdoor), tens, strong draws. NOT pure trash -- always equity-driven. Hands like K-6 offsuit (no draw) still check. KJ suited with a club (backdoor flush draw) bets.  River strategy: only bet with nut/king-high flushes (overbet 130%) or sets/overpairs (60% pot); KJ with no spade checks even facing a checked river.</p>
 
 <h3>When to Bet Frequently (~58%)</h3>
 <p><strong>Board type:</strong> High-card boards where you have all premium hands and opponents 3-bet most of theirs.</p>
 
 <div class="box box-orange">
-<div class="box-label">Example: K-Q-5</div>
-Cutoff vs button + BB. You have KK, QQ, AK, KQ -- opponents 3-bet these preflop. Clear nut + range advantage. Bet ~58% of range, still using mostly small sizes.
+<div class="box-label">Example: K-Q-5 (2-5 NL, Cutoff vs BTN + BB)</div>
+Cutoff raises to 15, button + BB call. Pot ~45. Flop K-Q-5.<br>
+Cutoff has: KK, QQ, AK, KQ, AQ, AJ (all the premium hands). Opponents 3-bet KK, QQ, AK preflop -- so they lack these. Clear nut advantage + range advantage for cutoff. Equity: CO 40%, BTN 35%, BB 25%.<br>
+GTO: bet ~58% of range, mostly 30% pot size. Bet: K-x hands, straight draws (AJ, AT, JT), small pairs for protection (66, 44 for equity denial), backdoor flush draws with overcards. Check: underpairs (JJ, TT), Q-x without draws, total trash, and slow-played strong hands (some KK/QQ) to protect checking range.
 </div>
 
 <h3>Heads-Up vs Multiway Comparison (K-Q-5)</h3>
@@ -198,19 +202,25 @@ Cutoff vs button + BB. You have KK, QQ, AK, KQ -- opponents 3-bet these preflop.
 </table>
 
 <h4>Example: 8-7-6 (Check, Check to Button)</h4>
+<p><strong>Setup:</strong> LJ raises, you call on button, BB calls. Pot ~95. Flop 8-7-6. BB checks, LJ checks (LJ should check entire range -- they have no nut or range advantage on this connected board). Action to you.</p>
 <ul>
-<li>PFR checks everything &rarr; uncapped</li>
-<li>Button bets 60% at 30% pot</li>
-<li><strong>Bet:</strong> 10x, 9x, 7x, overcards (KJ, AJ, QJ, KQ, AQ)</li>
-<li><strong>Check back:</strong> QQ, JJ (almost always good, don't want raise), 76s (protect checking range), sets sometimes</li>
+<li>PFR checks entire range &rarr; their range is <em>uncapped</em> (they have nuts in it: sets of 8, 7, 6; straight draws with 9x, 5x) &rarr; you don't have a nut advantage</li>
+<li>Button bets 60% of the time at 30% pot (range advantage only)</li>
+<li><strong>Bet:</strong> 10x (overcards + straight draw), 9x (open-ender), 7x (pairs needing protection), overcards (KJ, AJ, QJ, KQ, AQ offsuit almost always -- they can make better hands fold some of the range)</li>
+<li><strong>Check back:</strong> QQ/JJ (almost always good, comfortable calling turn + river bets, but betting and getting raised is miserable), 76s (protect checking range with strong hands), sets of 7s/6s occasionally, ace-high/king-high/underpairs (need strong hands to protect these weak hands in your check range)</li>
 </ul>
+<div class="box box-purple">
+<div class="box-label">Why QQ Checks on 8-7-6</div>
+QQ on 8-7-6 is almost certainly the best hand. But if you bet and get check-raised, you're in a nightmare -- you can't comfortably call with multiple draws out there. Instead, check it back: your opponents will bet/bluff draws into you on the turn, and you can call them down profitably. This also means your checking range (which contains lots of ace-high and underpairs) is protected.
+</div>
 
-<h4>Example: A-T-5 (Check, Check to Button after LJ Bets Frequently)</h4>
+<h4>Example: A-T-5 (Check, Check to Button after LJ Would Normally Bet)</h4>
+<p><strong>Setup:</strong> Lojack raises, you call on button with 6-5 suited, BB calls. Pot ~95. Flop A-T-5. BB checks, LJ checks. On this board LJ would normally bet their strong portion -- AK, AT, sets. So their check signals a weak, capped range.</p>
 <ul>
-<li>Lojack would bet strong hands &rarr; their check = bottom of range</li>
-<li>Button gains nut advantage &rarr; Bet bigger: 70% pot</li>
-<li><strong>Bet:</strong> Bottom pair + backdoor draws, JT/QT/T9 (middle pair), pocket 4s (protection)</li>
-<li><strong>Check back:</strong> Ace-x (no draw), 9x, underpairs -- hands good enough to call turn/river</li>
+<li>Lojack checks = bottom of range (weak, capped) &rarr; you gain the nut advantage &rarr; bet bigger: 70% pot when you do bet</li>
+<li>You only bet ~45% frequency (less than 8-7-6 scenario, because you have less range advantage but a nut advantage)</li>
+<li><strong>Bet big (70% pot):</strong> Bottom pair + backdoor draws (the 6-5 suited with pair of 5s and flush draw), JT/QT/T9 (middle pair with equity, need protection), pocket 4s (almost always good vs. LJ's weak range, getting equity denial vs. LJ's overcards like Q-J), nuts like 10s/5s when you have them</li>
+<li><strong>Check back:</strong> Ace-x without draws (A-Q, A-J, A-9 -- likely good, can call turn + river bets; also protects your check range so opponents don't blast you off your ace-highs), 9x, underpairs that can comfortably call two streets</li>
 </ul>
 
 <h3>Flush Turn Caution</h3>
@@ -227,25 +237,36 @@ When the flush completes on the turn: sets should check some of the time, top pa
 <p><strong>Driving Factor:</strong> Nut Advantage. "Big" multiway = 50-70% pot (not overbets).</p>
 
 <h4>Board 1: A-T-5 (Cutoff vs Small Blind + Big Blind)</h4>
+<p><strong>Setup:</strong> 5-10 NL. Cutoff raises, SB and BB call. Pot ~95. Flop A-T-5 rainbow.</p>
 <ul>
-<li>Cutoff has: AA, TT, 55, AT, A5s, AK, AQ, AJ</li>
-<li>Opponents 3-bet these preflop &rarr; they lack them</li>
-<li>Equity: 39% vs 32% vs 29% -- gigantic nut advantage</li>
-<li><strong>Big (70% pot):</strong> AK, AQ, AJ, AT, sets, K5, 65, 54, low pairs (protection), KQ/KJ/QJ (blocker bluffs)</li>
-<li><strong>Small (30% pot):</strong> Top set (AA), A9/A8 (medium Ax), Q10/J10 (middle pair)</li>
+<li>Cutoff has: AA, TT, 55, AT, A5s, AK, AQ, AJ -- opponents 3-bet most of these preflop, so they lack them</li>
+<li>Equity: CO 39% vs SB 32% vs BB 29% -- <em>gigantic</em> nut advantage (red line far above opponents in top range region)</li>
+<li><strong>Big (70% pot):</strong> AK, AQ, AJ, AT (strong but vulnerable -- can be outdrawn by flush cards or running straights), sets of T and 5 (need protection), K5/65/54 (two-pair draws/protection), low pairs 4s/3s (value+protection vs overcards), KQ/KJ/QJ (blocker bluffs -- block opponent's Ax they'd fold)</li>
+<li><strong>Small (30% pot):</strong> Top set AA (almost never outdrawn, can bet small and still get value), A9/A8 (medium Ax, don't need protection as urgently), QT/JT (middle pair with reasonable equity)</li>
+<li><strong>Check:</strong> KK/QQ/JJ (good hands but won't improve; check to protect range), K-high without draws, A-x weak like A3 suited (checking protects range, can call turn bets)</li>
 <li>Bet 60% of range overall</li>
 </ul>
+<div class="box box-purple">
+<div class="box-label">Why AA Bets Small on AT5</div>
+AA (top set) is virtually impossible to outrun in a typical multiway pot. It doesn't need protection. By betting small, it extracts value from Ax hands and builds the pot. AK, however, can lose to running flush cards or get counterfeited. AK bets big to charge opponents and deny equity.
+</div>
 
 <h4>Board 2: 8-3-2 (UTG+1 vs Small Blind + Big Blind)</h4>
+<p><strong>Setup:</strong> EP raises, SB and BB call. Pot ~95. Flop 8-3-2 rainbow.</p>
 <ul>
-<li>EP range has ALL overpairs (AA-88), plus A8s, K8s</li>
-<li>Bet 70% pot with entire betting range (60% of hands)</li>
-<li><strong>Bet:</strong> All overpairs, K8+, A3, pocket 5s, overcards with backdoor flush draws, gutshots</li>
-<li><strong>Check:</strong> A9/K9 without backdoor draws, pure overcards without draws</li>
+<li>EP range has ALL overpairs (AA-88) plus A8s, K8s -- SB/BB don't have 8-high sets either (no one calls raises with 82s, 83s)</li>
+<li>Effective nut advantage: opponent's best hands (like 8-7 suited) still lose to every overpair in EP's range</li>
+<li>Bet 70% pot with entire betting range (60% of hands). This is the "put them in miserable spots" strategy</li>
+<li><strong>Bet big:</strong> All overpairs (AA-99), K8+, A3 (two pair), pocket 5s (protection), overcards with backdoor flush draws (AJ of clubs on a board with two clubs), gutshots (4-5 for wheel draw)</li>
+<li><strong>Check:</strong> A9/K9 without backdoor draws, pure overcards without any equity hook</li>
 </ul>
+<div class="box box-orange">
+<div class="box-label">The Opponent's Nightmare</div>
+Give opponent 8-7 suited (one of their best hands on 8-3-2). Your value range: AA, KK, QQ, JJ, TT, 99 all crush 8-7. Even A-3 has two pair. By betting 70% pot immediately, opponent faces a fold-or-stack decision with essentially their entire range in a losing position.
+</div>
 
 <h4>Turn Play After Big Flop Bet</h4>
-<p>When overcards hit the turn (K, Q, A) that favor your range: keep betting big. Your range improves dramatically while opponent's stagnates.</p>
+<p>When a queen, king, or ace hits the turn on 8-3-2: keep betting big. Your range now contains QQ/KK/AA that "improved" (not really, they were already ahead) plus a queen as effective nuts. Opponent's best hand (8-x) stagnated. Even queens (a near-air hand before) now become the "nuts" in this context -- you're happy loading more money in with them.</p>
 
 <hr>
 
@@ -266,9 +287,15 @@ Fold WAY more multiway than you do heads-up.
 </table>
 
 <h4>Example: J-8-5 (Big Blind Facing Cutoff Bet)</h4>
+<p><strong>Setup:</strong> 5-10 NL. Cutoff raises, SB calls, you defend BB with Q-8 of spades. Pot ~95. Flop J-8-5. Both check to cutoff who bets 15.</p>
 
-<p><strong>Small blind folds:</strong> Fold 32%, call 57%, raise 11%</p>
-<p><strong>Small blind calls:</strong> Fold 55% (up from 32%), call 32%, raise 13%. Now folding pocket 7s, pocket 5s, Ax no draw, marginal gutshots. Raising more value-heavy.</p>
+<p><strong>If small blind folds (now heads-up, closing action):</strong> Fold 32%, call 57%, raise 11%. You stick around with all jacks (top pair), good pairs + draws, backdoor flush/straight draws. You raise: sets (88, 55), two pair, strong top pairs with draws (QJ), gut shots (Q9, 107), open-enders (97, 76). You fold: Ax without backdoor draws, king-high no draw, total trash.</p>
+<p><strong>If small blind calls (now 3-way, NOT closing action):</strong> Fold 55% (up from 32%), call 32%, raise 13%. Dramatic tightening. Now folding: pocket 7s, pocket 5s (good hands heads-up!), Ax without flush/straight draw, marginal gut shots like 10-6. Raising becomes more value-heavy: Q-J always, J-9/J-8, sets. You can no longer loosely call with "ok" hands because the SB calling squeezes your equity realization badly.</p>
+
+<div class="box box-red">
+<div class="box-label">The Key Shift</div>
+Going from "bet to you" to "bet + call to you" roughly doubles your fold frequency (32% to 55%). This is not exploitable tightening -- it's correct. The extra player compresses your equity realization and creates squeeze risk behind you.
+</div>
 
 <h4>Closing the Action Matters</h4>
 <ul>
@@ -281,25 +308,58 @@ Fold WAY more multiway than you do heads-up.
 <!-- EXAMPLES -->
 <h2 id="examples"><span class="section-num">6.</span> Key Hand Examples</h2>
 
-<h4>1. Pocket Jacks -- T-6-5 Multiway</h4>
-<p><strong>Flop:</strong> Check (multiway, check this board every time). <strong>Turn: King.</strong> Now we have nut + range advantage. Bet medium for value + protection. <strong>Lesson:</strong> The turn king gave us an advantage we didn't have on the flop.</p>
+<h4>1. Pocket Jacks -- T-6-5 Multiway (Bet Frequency Example)</h4>
+<div class="box box-orange">
+<div class="box-label">Full Situation</div>
+<strong>Game:</strong> 5-10 NL cash game. You raise JJ from the cutoff to 30. Button calls, big blind calls. Pot: ~95. Stack depths: 200BB effective.<br>
+<strong>Flop:</strong> T-6-5 rainbow. Big blind checks, you check (GTO: check entire range on this board -- CO 37% equity, BTN 39%, BB 24%; no nut or range advantage vs BTN). Button checks behind. Pot still 95.<br>
+<strong>Turn: King.</strong> Big blind checks. Now you bet ~50% pot (~47).<br>
+<strong>Why?</strong> The king dramatically shifts the equity graph. Your preflop raising range includes AK, KQ, KJ, KT -- all checked the flop and improved. The button and big blind 3-bet KK preflop, so you now have a massive nut advantage on this turn card. JJ is still likely the best hand and needs protection vs two opponents who could have straight draws, overcards.<br>
+<strong>River:</strong> If you don't improve, check back. JJ is unlikely to extract value from worse and you don't want to bloat the pot unnecessarily.<br>
+<strong>EV of mistake:</strong> Betting the flop instead of checking costs ~0.3-0.5bb per occurrence -- you bet into opponents with equal or better range equity, letting them fold better than they should.
+</div>
 
 <h4>2. King-Queen -- K-7-6 Facing Bet + Raise</h4>
 <div class="box box-red">
-<div class="box-label">Fold Immediately</div>
-Top pair facing a bet + raise multiway is a clear fold. Opponents have sets, two pair, and strong draws.
+<div class="box-label">Fold Immediately -- Full Situation</div>
+<strong>Game:</strong> 5-10 NL. Cutoff raises, you call with KQ on the button, big blind calls. Pot: ~95.<br>
+<strong>Flop:</strong> K-7-6 with two diamonds. Big blind checks, cutoff bets small (15), big blind raises to 65, action on you with KQ (top pair, second kicker).<br>
+<strong>Why fold?</strong> The big blind is raising into a bettor and a caller on K-7-6. Their raising range here is nearly exclusively: sets of Kings, sets of 7s, sets of 6s, K7 suited (two pair), K6 suited (two pair), and strong draws like 8-9d (open-ender with flush draw). Your KQ is beaten by most of this range and nearly every turn card is bad -- any diamond completes a flush, any 5/8/9/T completes a straight, any 7 or 6 makes two pair worse for you.<br>
+<strong>EV of mistake (calling):</strong> You're roughly a 30-35% equity underdog with 130+ behind, facing two opponents. Expected loss vs. clean fold: approximately 40-60bb EV difference. Jonathan's words: "I don't even think this is a close spot."
 </div>
 
-<h4>3. Kings -- K-K-6 Top Set Multiway</h4>
-<p><strong>Flop:</strong> Bet small (30% pot). <strong>Turn 6:</strong> Check! We block all Kx and the board paired. No one can pay us off. Let them bluff. <strong>Lesson:</strong> With the super nuts, don't blast every street.</p>
+<h4>3. Kings -- K-K-6 Top Set Multiway (Trap the Trap)</h4>
+<div class="box box-orange">
+<div class="box-label">Full Situation</div>
+<strong>Game:</strong> 5-10 NL. You raise KK, button calls, big blind calls. Pot: ~95.<br>
+<strong>Flop:</strong> K-K-6. You have top set (trip kings with the board pairing). Bet small, ~30 into 95. Both opponents call. Pot: ~185.<br>
+<strong>Turn: 6</strong> -- you now have kings full of sixes (KKK66). Check.<br>
+<strong>Why check the turn with the nuts?</strong> You block all Kx hands -- opponents cannot have kings in their range. The board paired again (6), so draws aren't betting. If you bet, the only hands that call are sets of 6s (now a worse full house) -- a tiny fraction of the range. By checking, opponents with draws think you're weak; a button with the 5d may bet as a bluff; someone with a six may try to value-bet thinking it's good.<br>
+<strong>Result from transcript:</strong> Button bets 50, big blind calls. You call. River: 5 diamonds. You check. Button bets 140, big blind jams. You call off -- they showed A7 diamonds (a flush) and a 5-high flush. You win a massive pot by inducing two bets you would never have gotten by blasting every street.<br>
+<strong>EV of mistake (betting turn):</strong> By betting the turn, you get only a fraction of value -- opponents fold draws and you lose 2 streets of action. Checking gains 1-2 extra big bets from multiple opponents.
+</div>
 
 <h4>4. Pocket Queens -- J-7-5 Check-Raise Gone Wrong</h4>
-<p><strong>Flop:</strong> Check-raise (almost always good but vulnerable). Both call (alarm bells!). <strong>Turn: A-spades (flush completes).</strong> Even with Q-spade for flush draw -- fold. <strong>Lesson:</strong> When both opponents call a check-raise and the flush comes in, your overpair + flush draw is worthless.</p>
+<div class="box box-red">
+<div class="box-label">When to Abandon Ship -- Full Situation</div>
+<strong>Game:</strong> 5-10 NL. You raise QQ, get two callers. Pot: ~95.<br>
+<strong>Flop:</strong> J-7-5. Both check to you, opponent bets small, another calls, you check-raise to ~3x (this is correct: QQ is almost always good but vulnerable; check-raising for protection and value). <strong>Both opponents call the check-raise.</strong> Alarm bells.<br>
+<strong>Why alarm bells?</strong> When both call a check-raise on J-7-5, their ranges are: sets (JJ, 77, 55), two pair (J7, J5, 75), strong straight draws with equity (T8, 86), strong jacks (QJ, KJ). Almost nobody calls a check-raise multiway as a pure bluff.<br>
+<strong>Turn: A-spades (flush completes).</strong> Even with Q-spades giving you a flush draw: <strong>fold to any bet.</strong><br>
+<strong>Why?</strong> Your Q-high flush draw loses to every flush already made. Opponents who called a check-raise on J-7-5 and then see a flush complete will often have the flush (they had suited connectors, suited aces). You're a significant underdog drawing to a queen-high flush that may itself be second-best. Pot odds of 165 to win 1,050 look tempting but you're drawing dead or nearly dead much of the time.<br>
+<strong>Transcript confirms:</strong> They showed king-high flush and 5-high flush. The player was drawing completely dead.
+</div>
 
 <h4>5. Ace-Four Suited -- River Blocker Decisions</h4>
 <div class="box box-purple">
-<div class="box-label">Blocker Logic</div>
-Holding the Ace of the flush suit blocks opponent's auto-folds (busted Ax flush draws). Do NOT bluff. Prefer bluffing with hands that DON'T block opponent's folding range.
+<div class="box-label">Blocker Logic -- Full Situation</div>
+<strong>Game:</strong> Live cash. You raise A4s, cutoff and big blind call. Pot: ~95. You have the nut flush draw.<br>
+<strong>Flop:</strong> Check-raise with the nut flush draw (good: high equity, can barrel turns). Get called.<br>
+<strong>Turn:</strong> Brick. You barrel again with your strong draw. Get called.<br>
+<strong>River:</strong> Flush misses (9 clubs hits). Pot is large. Should you jam?<br>
+<strong>Answer: No.</strong> The A-spades in your hand blocks the hands that would auto-fold to your river bluff -- specifically, opponent's busted A-spade flush draws. Those are exactly the hands (AK of spades, AQ of spades, A9 of spades) that would fold to any river bet. By holding the ace of spades, you prevent them from having those folding hands, meaning your bluff has terrible fold equity.<br>
+<strong>When to bluff instead:</strong> Bluff with AK <em>without</em> the spade, or with hands like J-T with no spade blocker -- hands that don't block the opponent's busted draws they'd fold.<br>
+<strong>EV insight:</strong> A blocker bluff with Ax-spades on a spade-miss board can be 0.3-0.5bb worse per attempt than simply checking, because you're eliminating the most likely folding hands from your opponent's range.
 </div>
 
 <hr>

@@ -9,7 +9,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Source+Serif+4:wght@300;400;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body,{delimiters:[{left:'\\(',right:'\\)',display:false},{left:'$$',right:'$$',display:true}],throwOnError:false});"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body,{delimiters:[{left:'\\(',right:'\\)',display:false}],throwOnError:false});"></script>
 <style>
 :root{--bg:#FFFFFF;--surface:#FFFFFF;--surface2:#F5F5F5;--accent:#000000;--text:#000000;--text-dim:#525252;--correct:#1a7a5e;--wrong:#b91c1c;--orange:#8B6914;--border:#000000;--border-light:#E5E5E5;--blue:#1e40af;--blue-bg:#eff6ff;--purple:#6b21a8;--purple-bg:#faf5ff;--orange-bg:#fffbeb;--red:#991b1b;--red-bg:#fef2f2}
 *{margin:0;padding:0;box-sizing:border-box}
@@ -92,27 +92,37 @@ Lessons 1-5 covering deep-stack postflop strategy (200bb+).
 
 <h3>Stack-Off Threshold</h3>
 <div class="box box-orange">
-<div class="box-label">Example</div>
-<strong>20bb deep:</strong> K9 on K-7-2 is a premium hand -- check-raise aggressively, happy to get it in.<br>
-<strong>200bb deep:</strong> K9 on K-7-2 is marginal -- cannot check-raise; must check-call.<br>
-Even KQ on K-7-2 at 200bb cannot withstand heavy action.
+<div class="box-label">Example — K9 at 20bb vs 200bb</div>
+<p><strong>Situation:</strong> Button raises to 2.5bb, you call in the big blind with K&#9829;9&#9827;. Flop: K&#9830;7&#9824;2&#9827; (rainbow). Opponent c-bets 25% pot (small).</p>
+<p><strong>20bb deep:</strong> K9 is one of your best hands. You check-raise aggressively and are happy to get it in. If beaten by a set or K7s, you lose 20bb. That is acceptable variance.</p>
+<p><strong>200bb deep:</strong> K9 becomes marginal. If you check-raise and get called or re-raised, you now face a pot that may require committing 200bb. Your opponent's continuing range is weighted toward sets (77, KK, 22), K7s, K2s — hands that crush you. Even calling a 3-bet with K9 at this depth means stacking off as a 70%+ underdog. The correct play is check-call and re-evaluate every street.</p>
+<p><strong>EV cost of check-raising:</strong> Against a good opponent who only continues with hands that beat you, check-raising K9 at 200bb costs approximately 30-40bb in EV compared to check-calling, because you will frequently get it in drawing to 3-5 outs.</p>
+<br>
+<strong>Even KQ on K-7-2 at 200bb cannot withstand heavy action.</strong> If you check-raise KQ and get 3-bet, you need roughly 33% equity to call profitably — but against sets, two pair, and aggressive check-raise ranges, KQ may only have 20-25% equity.
 </div>
 
 <h3>Key Adjustments at 200bb vs 100bb</h3>
 <table>
-<tr><th>Adjustment</th><th>Reason</th></tr>
-<tr><td>Check more often (especially OOP)</td><td>Re-raising and getting action when deep is dangerous</td></tr>
-<tr><td>Bet more polarized</td><td>When you do bet, use bigger sizes with strong hands and bluffs</td></tr>
-<tr><td>Check-raise far less often</td><td>17% raise rate at 100bb drops to near-zero at 200bb on dynamic boards</td></tr>
-<tr><td>Medium-strength hands check more</td><td>Hands like bottom pair, weak top pair check instead of betting</td></tr>
+<tr><th>Adjustment</th><th>Reason</th><th>Concrete Evidence</th></tr>
+<tr><td>Check more often (especially OOP)</td><td>Re-raising and getting action when deep is dangerous</td><td>Button vs BB on T-8-6: checking rises from ~30% at 100bb to 50%+ at 200bb</td></tr>
+<tr><td>Bet more polarized</td><td>When you do bet, use bigger sizes with strong hands and bluffs</td><td>Q6, J6 check almost always at 200bb (they were betting 50% of the time at 100bb)</td></tr>
+<tr><td>Check-raise far less often</td><td>Opponent range when they continue is sets + high equity draws</td><td>LJ facing BTN 33% bet on T-6-4: 17% raise rate at 100bb drops to near-zero at 200bb</td></tr>
+<tr><td>Medium-strength hands check more</td><td>Stack-off threshold rises; medium hands cannot tolerate reraising</td><td>JJ, KK on T-6-4 at 200bb: check-calling not check-raising, even though they'd check-raise at 100bb</td></tr>
 </table>
 
 <h3>Cost of Reopening the Action (River)</h3>
+<div class="box box-orange">
+<div class="box-label">Example — KQ Hearts, 250bb Deep, River Decision</div>
+<p><strong>Situation:</strong> You raise K&#9829;Q&#9829; on the button, big blind calls. Pot: ~6bb. Flop: K&#9827;J&#9830;7&#9824;. You c-bet (opponent calls). Turn: 5&#9830; (dynamic). You bet pot — opponent calls. River: 8&#9830; (completes a flush draw). Opponent checks.</p>
+<p><strong>At 100bb:</strong> You could reasonably bet 50-60% pot for value with top pair top kicker. Even if check-raised, your pot odds are favorable.</p>
+<p><strong>At 250bb:</strong> If you bet and get check-raised, your opponent can size 3x-4x pot, giving you terrible pot odds. The EV of checking back is positive (you realize 100% of your equity). The EV of betting and facing a check-raise-fold scenario is: you lose the bet AND your share of the pot. Correct play is check back.</p>
+<p><strong>Exception:</strong> Against straightforward calling stations who will never check-raise bluff, you can bet. But against competent aggressive players, checking is mandatory.</p>
+</div>
 <ul>
-<li>When IP checks back the river: realizes 100% of equity</li>
-<li>When IP bets the river: risks a check-raise that forces a fold (loses equity)</li>
-<li><strong>Deeper stacks = higher cost</strong> because OOP can check-raise huge, giving IP worse odds</li>
-<li>Exploitative adjustment: look for opponents who value bet too thinly on the river and punish them with big check-raises</li>
+<li>When IP checks back the river: realizes <strong>100% of equity</strong> every time</li>
+<li>When IP bets the river: risks a check-raise that forces a fold, losing equity AND the chips bet</li>
+<li><strong>Deeper stacks = higher cost</strong> because OOP can check-raise enormous amounts (3x-4x pot), giving IP terrible odds even with good hands</li>
+<li><strong>Exploitative adjustment:</strong> look for opponents who value bet too thinly on the river and punish them with massive check-raises using hands with excellent blockers</li>
 </ul>
 
 <hr>
@@ -132,25 +142,45 @@ Use this line when all three conditions are met:<br>
 </div>
 
 <h3>Which Hands to Bet on the Turn</h3>
+
+<div class="box box-orange">
+<div class="box-label">Full Situation — BTN vs BB, J-7-6-5 Board, 200bb Deep</div>
+<p><strong>Setup:</strong> Button raises to 2.5bb, big blind calls. Pot ~5.5bb. Flop: J&#9827;7&#9830;6&#9824;. Button c-bets 4bb (small), big blind calls. Turn: 5&#9830;. Pot ~13.5bb. Big blind checks.</p>
+<p><strong>The counterintuitive answer:</strong> J&#9829;9&#9827; and J&#9830;8&#9824; bet almost every time. K&#9827;J&#9830; and Q&#9830;J&#9824; (better current hands) check almost always. The reason: J9 and J8 have open-ended straight draws to the nuts (an 8 or a 9 makes the stone cold nuts). KJ and QJ cannot make a straight on this board. At 200bb, improvement potential to the nuts matters more than current hand strength.</p>
+<p><strong>6x hands also bet almost always</strong> — when you have a six and the board shows J-7-6-5, your pair of sixes is almost always good. With sets and 9-8 straight draws in your betting range, your opponent cannot raise you effectively. You also fold out opponent's hands with equity (A7, A-overcard type hands fold to a sizeable bet).</p>
+<p><strong>After the turn bet, on a blank river (no improvement):</strong> J9 and 6x check back. This is the bet-bet-check line — you already pushed equity on the turn.</p>
+</div>
+
 <table>
-<tr><th>Criteria</th><th>Examples on J-7-6-5</th></tr>
-<tr><td>Hands that can improve to the nuts</td><td>J9, J8 (straight draw), K8, Q8 (gutshot)</td></tr>
-<tr><td>Pairs with nut draw potential</td><td>6x hands (pair + potential improvement)</td></tr>
-<tr><td>Flush draws</td><td>Various suited hands</td></tr>
-<tr><td><strong>NOT</strong> top pair with no draw potential</td><td>KJ, QJ (cannot improve to a straight -- check these)</td></tr>
+<tr><th>Hand</th><th>Action on Turn (J-7-6-5)</th><th>Reason</th></tr>
+<tr><td>J9, J8</td><td><strong>Bet almost always</strong></td><td>Open-ended straight draw to the nuts; pair + huge equity</td></tr>
+<tr><td>K8, Q8</td><td><strong>Bet</strong></td><td>Gutshot straight draw to nuts (any 9); nut potential</td></tr>
+<tr><td>6x (any six)</td><td><strong>Bet almost always</strong></td><td>Pair almost always good; folds equity; protected by sets in range</td></tr>
+<tr><td>Flush draws</td><td><strong>Bet</strong></td><td>Nut draw potential; push equity vs drawing-dead hands</td></tr>
+<tr><td>KJ, QJ, AJ</td><td><strong>Check</strong></td><td>Better made hand but zero path to the nuts; must check-call</td></tr>
+<tr><td>QT (no draw)</td><td><strong>Check</strong></td><td>No straight draw, no nut potential on this board</td></tr>
 </table>
 
 <div class="box box-purple">
 <div class="box-label">Key Insight</div>
-<strong>J9 and J8</strong> bet almost always (can make a straight). <strong>KJ and QJ</strong> do NOT bet (better hands but cannot improve to a straight). This is the opposite of what most players expect -- it's about <em>improvement potential</em>, not current hand strength.
+<strong>J9 and J8</strong> bet almost always (can make a straight). <strong>KJ and QJ</strong> do NOT bet (better hands but cannot improve to a straight). This is the opposite of what most players expect — it is about <em>improvement potential</em>, not current hand strength. Deep-stacked, the ability to make the nuts on later streets generates more EV than raw current equity.
 </div>
 
 <h3>Turn Betting with Third Flush Card</h3>
+
+<div class="box box-orange">
+<div class="box-label">Full Situation — LJ vs BTN, K-7-4 with Third Spade Turn, 200bb Deep</div>
+<p><strong>Setup:</strong> Lojack raises, button calls. Flop: K&#9824;7&#9830;4&#9824; (two spades). Lojack c-bets small, button calls. Turn: 10&#9824; (third spade). Lojack checks. What should the button bet?</p>
+<p><strong>Do NOT bet K&#9827;J&#9830;:</strong> Despite having ~60% equity (top pair good kicker), KJ cannot make a flush — the king is on the board, which means KJ holds no spades. If a fourth spade comes on the river, KJ has nothing to do. Betting KJ invites a check-raise from hands like A&#9824;x&#9824; (nut flush draws) that have the button in terrible shape.</p>
+<p><strong>DO bet A&#9827;J&#9824;, A&#9830;Q&#9824;:</strong> Any hand with the ace of spades can make the nut flush on the river. At 200bb, making the nut flush generates enormous implied odds — you can stack the opponent. Even with only 40% current equity, these hands have nut potential and should bet.</p>
+<p><strong>EV impact:</strong> Betting KJ on this texture risks 15-25bb in EV from check-raise scenarios. Checking KJ costs zero and allows clean river decisions. Betting AJ suited spades with nut potential is the higher-EV play despite lower current equity.</p>
+</div>
+
 <ul>
-<li>On K-7-4 with turn bringing a third spade:</li>
-<li><strong>Do NOT bet</strong> KJ, K9, K8 (cannot improve to flush, king is on board)</li>
-<li><strong>DO bet</strong> AJ, AQ with a spade (can improve to nut flush)</li>
-<li>Even with 60% equity, KJ checks because it has no path to the nuts</li>
+<li>On K-7-4 with turn bringing a third spade: check frequency rises dramatically for IP player</li>
+<li><strong>Do NOT bet</strong> KJ, K9, K8 — cannot improve to flush (king on board makes flush impossible)</li>
+<li><strong>DO bet</strong> AJ, AQ with a spade — can improve to nut flush with massive 200bb implied odds</li>
+<li>Even with 60% equity, KJ checks because it has no path to the nuts on dangerous run-outs</li>
 </ul>
 
 <hr>
@@ -170,8 +200,12 @@ Use this line when all three conditions are met:<br>
 
 <h3>Over-Realizing Equity (Quantified)</h3>
 <div class="box box-orange">
-<div class="box-label">Example</div>
-BB check-raises on 9-7-3, LJ calls. After check-raise + call: BB has 46% equity but realizes 49.9% of pot. On a 6 turn (great for BB): BB has 55% equity but realizes <strong>70%</strong> of pot -- because BB has straights and two pairs that the opponent cannot have.
+<div class="box-label">Full Situation — BB Check-Raise on 9-7-3, LJ Calls, 200bb Deep</div>
+<p><strong>Setup:</strong> Lojack raises, big blind calls. Flop: 9&#9827;7&#9830;3&#9824;. Big blind checks, lojack bets 33% pot. Big blind check-raises with: very strong made hands (97s, two pairs), nut straight draws (T8 for nut gutshot), open-ended straight draws (86s, 65, 54, 64), and ace-high/king-high flush draws.</p>
+<p><strong>After check-raise + call:</strong> BB has only 46% equity — yet realizes 49.9% of the pot (117 chips out of a 235-chip pot). This 3.9% over-realization comes from the nut advantage BB will have on certain turns.</p>
+<p><strong>Turn: 6 of hearts.</strong> BB now has straights (T8, 98 type) and two pairs that the lojack literally cannot have (lojack would have folded middle cards preflop). On this 6 turn, BB has 55% equity but realizes 70% of the pot — a 15% over-realization. BB bets 150% pot or overbet with essentially their entire range.</p>
+<p><strong>Why 70% of pot?</strong> Because when BB bets huge and forces lojack to fold hands with 20-30% equity, BB extracts well above "fair value." The nut advantage means every bet and bluff is more profitable.</p>
+<p><strong>Turn: flush card (spades/hearts).</strong> BB's over-realization disappears. Lojack also has flush draws and now both have nut hands. BB's nut advantage is gone, so the pot shrinks toward EV parity. BB must dramatically reduce betting on flush cards.</p>
 </div>
 
 <h3>Turn Bet Sizing When You Have Nut Advantage</h3>
@@ -183,17 +217,28 @@ BB check-raises on 9-7-3, LJ calls. After check-raise + call: BB has 46% equity 
 </table>
 
 <h3>River All-In When Deep-Stacked</h3>
+
+<div class="box box-orange">
+<div class="box-label">Full Situation — BTN vs BB on J-7-6 Board, 9 River, 200bb Deep</div>
+<p><strong>Setup:</strong> Button raises, big blind calls. Flop: J&#9827;7&#9830;6&#9824;. Button c-bets (big blind calls). Turn: K (great for button — button has many KJ, KQ type hands, big blind does not). Button bets big again with nut advantage — big blind calls. River: 9. Big blind checks.</p>
+<p><strong>Button's range includes:</strong> Q10 (nuts — made the straight), 10-8 (made the straight), sets (JJ, 77, 66), and various bluffs. Big blind's range, after calling the big turn bet, is predominantly flush draws and some pairs — almost no straights (button raised preflop, so button has QT more naturally).</p>
+<p><strong>Correct action:</strong> Shove all-in with 30% of your range — strong hands (straights, sets) AND bluffs (busted draws, queen-high, ace-high that missed). Even hands like Q8 suited and low Qx are profitable shoves because you have such a massive nut advantage. Big blind must fold 81% of the time — even with sets and two pair it is a marginal call against a balanced shoving range.</p>
+<p><strong>EV of shoving vs checking with straights:</strong> Checking a straight when you have nut advantage is leaving enormous value on the table. If the pot is 400bb and you shove 400bb more (1x pot) and get called ~19% of the time by hands worse than a straight, the EV gain over checking is substantial.</p>
+<p><strong>Key question opponents face:</strong> They are facing a 4x-pot all-in with top pair or a set in a spot where the board is J-7-6-K-9. Do they hero-call? Most live players cannot find the call, even when it is correct.</p>
+</div>
+
 <ul>
-<li>When you have nut advantage on the river: shove all-in (even 4x pot)</li>
+<li>When you have nut advantage on the river: shove all-in (even 4x pot relative to remaining stack)</li>
 <li>Opponent must fold ~81% of the time</li>
-<li>Your bluffs: busted draws, ace-high, queen-high -- hands people don't shove</li>
-<li>Exploitatively: opponents fold even MORE than they should because they can't find hero calls</li>
+<li>Your bluffs: busted draws, ace-high, queen-high — hands people do not naturally shove</li>
+<li>Exploitatively: opponents fold even MORE than they should because they cannot hero-call one pair on scary boards</li>
 </ul>
 
 <h3>When the Current Nuts Changes (Bad Cards)</h3>
 <div class="box box-red">
-<div class="box-label">Warning</div>
-If a card comes that gives <strong>opponent</strong> the nut advantage: stop betting. Checking increases from 24% to 54%. No more giant bets. Busted flush draws literally never bluff bad rivers.
+<div class="box-label">Warning — Losing Nut Advantage on the River</div>
+<p><strong>Situation:</strong> You check-raised BB on 9-7-3 with a spade flush draw. You bet the turn aggressively. River is the king of hearts — now opponent can have many king-high flushes and other nut-eligible hands you don't have.</p>
+<p><strong>Correct adjustment:</strong> Checking frequency jumps from 24% to 54%. No more giant bets. Even busted flush draws (like A2 of spades) <em>never bluff this river</em> — because A2 of spades blocks your opponent's A&#9824;-high busted flush draw, which is exactly the hand that would fold to a bluff. By holding A2 spades, you remove a hand from opponent's range that would be auto-folding. You are better off checking and folding to a bet.</p>
 </div>
 
 <hr>
@@ -210,10 +255,19 @@ If a card comes that gives <strong>opponent</strong> the nut advantage: stop bet
 </ul>
 
 <h3>Out-of-Position Adjustments (as Preflop Raiser)</h3>
+
+<div class="box box-orange">
+<div class="box-label">Full Situation — LJ vs BTN, A-8-3 Two Hearts, 200bb Deep</div>
+<p><strong>Setup:</strong> Lojack raises, button calls. Pot ~5.5bb. Flop: A&#9829;8&#9827;3&#9830; (two hearts). Lojack acts first. At 100bb, lojack is happy to c-bet with AK, AQ, and even polarized bluffs. At 200bb, lojack checks 91% of the time.</p>
+<p><strong>Why check 91% at 200bb?</strong> Consider A&#9827;K&#9824; — the best hand in lojack's range. On A-8-3, AK is top pair top kicker, but is it the nuts? No. By the river, opponent's A8s can make two pair, A3s can make two pair, and any two hearts can make a flush. At 200bb deep, these made-hand improvements mean AK is frequently NOT the best hand by the river.</p>
+<p><strong>What happens if lojack bets?</strong> Button can raise the flop, bet the turn, and blast the river — 3 streets of pressure over 200bb. AK will be in a miserable spot on many turns (any heart, any 8 or 3). By checking, lojack protects their range and avoids committing early with hands that will not be the nuts.</p>
+<p><strong>Also critical:</strong> By checking 91%, lojack's checking range is protected by strong hands (AK, AQ, sets). Button cannot blast freely knowing lojack has strong hands in their checks.</p>
+</div>
+
 <table>
 <tr><th>Stack Depth</th><th>C-Bet Frequency (LJ vs BTN, A-8-3 two hearts)</th><th>Notes</th></tr>
-<tr><td>100bb</td><td>Bet a decent amount</td><td>AK, AQ happy to build pot</td></tr>
-<tr><td>200bb</td><td>Check <strong>91%</strong> of the time</td><td>Even AK not the nuts by river; flush draws threaten</td></tr>
+<tr><td>100bb</td><td>Bet ~60% of the time</td><td>AK, AQ happy to build pot; can stack off on favorable turns</td></tr>
+<tr><td>200bb</td><td>Check <strong>91%</strong> of the time</td><td>Even AK not the nuts by river; flush draws threaten; opponent range too dangerous</td></tr>
 </table>
 
 <h3>Board Texture Matters</h3>
@@ -233,8 +287,11 @@ If a card comes that gives <strong>opponent</strong> the nut advantage: stop bet
 </table>
 
 <div class="box box-orange">
-<div class="box-label">Equity vs EV</div>
-SB 3-bets, BTN calls, flop J-9-5, SB check-calls. OOP equity across all turns: 53.5%. OOP expected value (actual realization): <strong>43.6%</strong>. Equity gap: ~10%. Even with a strong, protected range, OOP under-realizes by 10%.
+<div class="box-label">Full Situation — SB 3-Bets vs BTN, J-9-5 Flop, 200bb Deep</div>
+<p><strong>Setup:</strong> Button raises, small blind 3-bets, button calls. Pot: ~18bb (3-bet pot). Flop: J&#9827;9&#9830;5&#9824;. Small blind checks, button bets 33% pot (~6bb), small blind calls. SB's equity across all possible turns: 53.5%.</p>
+<p><strong>What SB actually realizes:</strong> Only 43.6% of the pot — a 9.9% under-realization gap. With 53.5% equity, SB "should" be entitled to 53.5% of every pot. But position allows BTN to extract more than their fair share.</p>
+<p><strong>Where the gap comes from:</strong> Turn: 4&#9830; (4 of diamonds). Button pots it (~30bb into a 30bb pot). Now SB must fold: pocket nines (had set equity), gut shots (drawing), pocket tens (a pair below top pair with no draw). These are all hands with real equity that SB is forced to fold. Every fold by SB with equity represents EV transferred to BTN.</p>
+<p><strong>River: 2&#9827;.</strong> BTN checks the 4 of diamonds turn? No — let's say BTN pots the turn and SB calls with a flush draw. River 2 of clubs. BTN shoves all-in. SB must fold overpairs and top pairs a significant chunk of the time. Result: SB realizes only 48.9% of equity going to the river, still below the 53.5% baseline — all because BTN controls the last bet.</p>
 </div>
 
 <h3>Turn Bluffing Adjustments by Stack Depth</h3>
@@ -252,7 +309,7 @@ SB 3-bets, BTN calls, flop J-9-5, SB check-calls. OOP equity across all turns: 5
 
 <h3>3-Bet Sizing Adjustment</h3>
 <ul>
-<li>From OOP when deep: 3-bet to a <strong>larger</strong> size (e.g., $150 instead of $90 at 5/10)</li>
+<li>From OOP when deep: 3-bet to a <strong>larger</strong> size (e.g., 150 instead of 90 at 5/10 NL)</li>
 <li>Discourages opponents from giving you action</li>
 <li>Only 3-bet with strong, suited hands</li>
 </ul>

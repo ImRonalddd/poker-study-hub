@@ -9,7 +9,7 @@
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;1,400;1,600&family=Source+Serif+4:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'\(',right:'\)',display:false}]})"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body,{delimiters:[{left:'\(',right:'\)',display:false},{left:'\[',right:'\]',display:true}]})"></script>
 <style>
 :root {
   --bg: #FFFFFF; --surface: #FFFFFF; --surface2: #F5F5F5;
@@ -159,7 +159,7 @@ When your opponent overbets the turn (100%+ pot), <strong>never raise from a GTO
 </div>
 
 <h3>Minimum Defense Frequency</h3>
-$$\text{MDF} = 1 - \frac{\text{Bet Size}}{\text{Bet} + \text{Pot}}$$
+\[\text{MDF} = 1 - \frac{\text{Bet Size}}{\text{Bet} + \text{Pot}}\]
 
 <table>
 <tr><th>Bet Size</th><th>MDF (must defend)</th></tr>
@@ -240,8 +240,20 @@ When your opponent would have bet a card on the flop but didn't, and that card a
 </ul>
 
 <div class="box box-orange">
-<div class="box-title">Example</div>
-<strong>9-7-5 flop, check-check, 8 turn, BB probes 25% pot</strong>: You should raise with straights (J-T, 6-x) and bluff with tens (open-enders). Even though the board looks scary, opponent's small bet means they have a wide range. You must punish that with raises.
+<div class="box-title">Example: Raising a Turn Probe on a Completed Board</div>
+<p><strong>Setup:</strong> $2/$5 cash game, 6-max, 100bb effective ($500). UTG opens to $15. You call on the Button with \(J\heartsuit T\heartsuit\). Big Blind calls. Pot: $47.</p>
+<p><strong>Flop:</strong> \(9\clubsuit 7\diamondsuit 5\spadesuit\). BB checks, UTG checks, you check back. Pot: $47.</p>
+<p><strong>Turn:</strong> \(8\heartsuit\). BB probes $12 (~25% pot). UTG folds.</p>
+<p><strong>Action:</strong> You hold JT — a flopped open-ended straight draw that just got there (J-T on 9-7-5-8 = nut straight). <strong>Raise to $40.</strong></p>
+<p><strong>Why raising is correct:</strong></p>
+<ul>
+  <li>The 8 is the best possible card for you. The BB probed small, advertising a wide range — pairs, weak draws, two-pair-type hands.</li>
+  <li>BB literally cannot have 8-x (they would have bet the flop with a pair + OESD). Your straight is essentially the nuts here.</li>
+  <li>Calling lets BB see a free river and possibly check back, losing value from all the pairs in their range.</li>
+  <li>Raising charges pair hands max. If they fold: fine, you win $59. If they call: pot grows to ~$127, and you can pot or jam the river (~$400 left, 3x pot) for maximum value.</li>
+</ul>
+<p><strong>EV of raise vs call:</strong> If BB folds to raise 55% of the time: EV(raise $40) = 0.55 × $59 + 0.45 × (future value on river) = $32.45 + ~$30 future = ~$62. EV(call) = $47 pot × river realized value = ~$45 expected. <strong>Raising wins ~$17 more.</strong></p>
+<p><strong>Bluff-raise candidates in the same spot (with 10-x, 6-x draws):</strong> A raise with \(T\clubsuit 6\clubsuit\) (flopped OESD, turn gives open-ender to gutshot only) works because: BB's small probe announces weakness, you represent the same straights, and if they fold you show a profit immediately. You pick up the pot 55%+ of the time and have 9 outs when called.</p>
 </div>
 
 <!-- ═══════════════════════════════════════ -->

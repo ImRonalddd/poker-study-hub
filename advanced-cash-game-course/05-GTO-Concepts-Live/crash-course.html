@@ -10,7 +10,7 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
-  onload="renderMathInElement(document.body,{delimiters:[{left:'\\(',right:'\\)',display:false},{left:'$$',right:'$$',display:true}]);"></script>
+  onload="renderMathInElement(document.body,{delimiters:[{left:'\\(',right:'\\)',display:false}]);"></script>
 <style>
 :root {
   --bg: #FFFFFF;
@@ -195,6 +195,8 @@ th {
 <div class="box box-example">
   <div class="box-label">Example: A-K-5 Board (HJ vs BB, 100 BB deep)</div>
   <p>Facing a 65% pot c-bet as the BB: <strong>KJ with backdoor hearts</strong> is a clear continue worth +0.67 BB. <strong>KJ with no backdoor</strong> is a marginal fold. Same "hand," completely different decision based on backdoor potential.</p>
+  <p>Why the difference? On any heart turn, K\u2665J\u2665 picks up a nut flush draw and has an easy continue with clean equity realization all the way to the river. K\u2660J\u2663 on a King turn makes top pair but villain barreling AQ, AJ, AT will dominate; on a Jack turn, villain has AQ for straights; there is no "safe" turn card. The backdoor transforms equity realization from "uncertain" to "clean" on many runouts, which accounts for the full big blind difference.</p>
+  <p><strong>Ace-Queen offsuit:</strong> A\u2660Q\u2660 with no backdoor is a marginal fold on the flop at 65% pot. A\u2665Q\u2665 with backdoor hearts is a clear call. AQo is already folding because when you improve (make two pair with a Queen), villain holds AK which makes trips -- your outs are dirty. The spade backdoor is the key variable that makes A\u2665Q\u2665 a clear continue.</p>
 </div>
 
 <h3>Bet Sizing Precision Matters</h3>
@@ -215,6 +217,7 @@ th {
 <div class="box box-insight">
   <div class="box-label">Insight</div>
   <p>Against a <strong>tight range</strong> (HJ open), you must fold more on the flop because their nut advantage is higher and their turn barreling frequency is much higher. Against a <strong>wide range</strong> (BTN open), you can continue more top-pair type hands because their range has more air and the nut advantage is diluted.</p>
+  <p><strong>Concrete numbers:</strong> On A\u2663K\u26605\u2665, HJ range has 58.8% equity vs your BB range. BTN range has only 55.7% equity. That 3% swing in raw equity translates to dramatically higher turn and river barrel frequencies from HJ -- they have so many nutted combos (AK, AA, KK, sets) that they can punish you relentlessly. Queen-7 offsuit, which is a comfortable call facing a BTN c-bet, is a fold facing HJ aggression precisely because HJ will barrel turns and rivers at much higher frequency with strong holdings.</p>
 </div>
 
 <h3>Double Flush Draw Boards</h3>
@@ -222,6 +225,14 @@ th {
 <p>Common mistake: "It's double flush draw -- they have lots of draws, so I should call more." Wrong framing.</p>
 
 <p>Correct thinking: "On double flush draw boards, I have <em>so many</em> clean continues (suited aces, suited connectors with flush draws, nut-draw combos) that I can afford to fold marginal top pair without backdoors." Queens pocket on K-J-8 with two flush draws? Pure fold -- you have plenty of better continues.</p>
+
+<div class="box box-example">
+  <div class="box-label">Example: Double Flush Draw Board -- K\u2665J\u26602\u26633\u2663 (HJ vs BB, Turn)</div>
+  <p><strong>Situation:</strong> HJ opens, you call from the BB. Flop K\u2665J\u2663 is heads-up. Turn 2\u26633\u2663 creates double flush draw. Villain bets again.</p>
+  <p><strong>What you have plenty of:</strong> A\u2663Q (nut flush draw + top pair type equity), A\u2665x (heart flush draw + backdoor potential), J\u2663x (second flush draw), K\u2663x (top pair + flush draw), suited connector hands with clubs. All of these are clean continues with nut potential.</p>
+  <p><strong>What you can fold:</strong> Q\u2660Q\u2660 (no flush draw, no backdoor, just an overpair). Top pair without any flush draw involvement. This feels wrong -- "I have an overpair!" -- but your range has so many cleaner continues that QQ without a club or heart is actually near the bottom of your continuing range. The solver confirms pure fold for Q\u2660Q\u2660 at close to 90% frequency.</p>
+  <p><strong>Why this matters:</strong> If you call QQ here and fold your suited connectors with flush draws, you end up with a range that is strong in showdown value but terrible at making the nuts. That is exactly backwards for deep-stack cash where making the nuts is the primary goal.</p>
+</div>
 
 <h3>Blocking Bluffs vs Blocking Value</h3>
 

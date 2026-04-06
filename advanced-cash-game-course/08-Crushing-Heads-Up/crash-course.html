@@ -9,7 +9,7 @@
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;1,400;1,600&family=Source+Serif+4:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body,{delimiters:[{left:'\\(',right:'\\)',display:false},{left:'$$',right:'$$',display:true}]})"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body,{delimiters:[{left:'\\(',right:'\\)',display:false}]})"></script>
 <style>
 :root {
   --bg: #FFFFFF; --surface: #FFFFFF; --surface2: #F5F5F5;
@@ -115,6 +115,14 @@ code { font-family:'JetBrains Mono',monospace; font-size:0.88em; background:var(
 <h3>Frequency Is Lower Than You Think</h3>
 <p>In most 6-max setups, you c-bet range on many textures. In HUNL, even on boards that "look good" for the button, your c-bet frequency is often 60-75%. A flop like <code>K-4-2</code> two-tone might feel like an auto-bet, but you should be checking roughly 25% of your range.</p>
 
+<div class="box box-orange">
+  <span class="label">Full Situation: A-9-3 Rainbow -- HUNL BTN, 100bb</span>
+  <p><strong>Setup:</strong> HUNL 100bb. You are the button (preflop raiser). You raise to 2.5bb, BB calls. Pot: 5bb. Flop: A-9-3 rainbow. BB checks.</p>
+  <p><strong>Why not auto-bet?</strong> In HUNL, BB defends very wide preflop and has all Ax hands. When the board comes A-9-3, BB's range is full of Ax that they'll call with (A-2 through A-K). You have no nut advantage -- they have just as many aces as you. Betting high frequency with your entire range into a BB with tons of Ax = you build a pot you can't extract value from.</p>
+  <p><strong>Correct strategy:</strong> Check back roughly 30-40% of your range. Bet with hands that: (1) have backdoor draws (e.g., 8-7 of spades on a rainbow board -- misses out on flush but has straight potential), (2) have weak Ax that benefit from a small bet and want to see a cheap turn, or (3) have no showdown value at all. Check back: medium pairs (TT-QQ), strong aces (A-K, A-Q), and some air.</p>
+  <p><strong>EV of mistake (betting 80%+):</strong> You make yourself exploitable. BB check-raises your medium pairs off their equity, and you can't respond because your check range is all weak air. Estimated leak: 2-4bb per 100 hands vs a competent opponent who check-raises aggressively.</p>
+</div>
+
 <h3>Board Texture Determines Everything</h3>
 
 <table>
@@ -170,6 +178,15 @@ code { font-family:'JetBrains Mono',monospace; font-size:0.88em; background:var(
 <div class="box box-red">
   <span class="label">Critical Concept: Push Equity, Not Hand Strength</span>
   At deep stacks, the hand that should bet isn't necessarily the "best" hand. <code>K-8s</code> with a gut-shot bets the turn because it has added equity. <code>K-Jo</code> with no draw checks back because it doesn't benefit from building the pot -- it just creates ugly river spots.
+</div>
+
+<div class="box box-orange">
+  <span class="label">Full Situation: Turn Barrel Decision -- HUNL, K-Q-5-8, 100bb</span>
+  <p><strong>Setup:</strong> HUNL, 100bb. You (BTN) raise J-T offsuit to 2.5bb, BB 3-bets to 9bb, you call. Pot: 18bb. Flop: K-Q-5 rainbow. BB c-bets 6bb (33%), you call with a gut-shot (J-T needs an Ace or 9 -- actually an open-ender: A or 9 gives a straight). Pot: 30bb. Turn: 8. BB checks.</p>
+  <p><strong>Your hand:</strong> J-T with an open-ended straight draw (9 makes the straight, A also makes it, and you have two overcards). This is a high-equity hand with equity and draws. Should you bet?</p>
+  <p><strong>Correct:</strong> Bet, approximately 40-50% pot (12-15bb). You push equity -- BB must fold hands like Q-J, A-9 offsuit that have real equity vs you. If called, you can continue if you hit the straight. If you miss the river, you likely check back.</p>
+  <p><strong>Compare to K-J offsuit (same board):</strong> K-J has top pair, better kicker than most of BB's kings. It's a stronger hand than J-T right now. But it has NO path to the straight -- you can never improve to nuts. Correct play: check K-J, bet J-T. This is the deep-stack nut-potential principle applied in HUNL.</p>
+  <p><strong>EV of wrong play (betting K-J, checking J-T):</strong> You bet K-J and face a check-raise from BB's sets and two pairs -- now you're in a tough spot with top pair. You check J-T and BB bluffs the river -- now you missed 12bb of equity denial. Estimated cost vs correct ordering: 4-8bb in this situation.</p>
 </div>
 
 <h3>Controlling Frequencies</h3>
@@ -296,6 +313,15 @@ code { font-family:'JetBrains Mono',monospace; font-size:0.88em; background:var(
 <div class="box box-red">
   <span class="label">Critical Rule</span>
   If your opponent under-bluffs by 5%, the adjustment is NOT to under-call by 5%. The adjustment is to <strong>literally never call a bluff catcher</strong> -- every single one becomes a losing call. Conversely, if they over-bluff by 5%, call <strong>every single bluff catcher</strong>.
+</div>
+
+<div class="box box-orange">
+  <span class="label">Full Situation: Exploiting a "Can't Bluff After Checking" Player -- HUNL River</span>
+  <p><strong>Setup:</strong> You have played 40 hands against your opponent online. Pattern you've observed: every time they check the turn, they never bet the river. They have never once bluffed after a check-turn sequence. This is the "can't bluff after checking" tell Jaffe describes.</p>
+  <p><strong>Current hand:</strong> HUNL, 100bb. They 3-bet you from BB, you call on BTN. Flop: J-9-4 two-tone. They c-bet small, you call. Turn: 2 offsuit (blank). They check. River: K. They bet 75% pot.</p>
+  <p><strong>What their bet means:</strong> This opponent NEVER bluffs after checking the turn. Therefore their river range is 100% value: two pair, sets, KJ, K9 (top pair that improved). They would never bluff-bet K-Q, A-J, or any hand they can't get called by worse.</p>
+  <p><strong>Correct play:</strong> Fold absolutely everything except the very top of your range. If you're holding J-T (top pair, medium kicker), it's a fold. If you're holding 9-9 (middle set), it's a call. Even QQ or KQ becomes a marginal call. Every bluff catcher folds.</p>
+  <p><strong>EV of ignoring the tell:</strong> If you call with J-T (which would normally be borderline), and opponent is 100% value here, you're losing every call except those times you beat the bottom of their value range. Expected loss vs fold: approximately 50bb per call you make with a non-nut hand.</p>
 </div>
 
 <h3>Offsuit Combos Are What Swing Frequencies</h3>

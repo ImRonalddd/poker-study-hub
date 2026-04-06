@@ -9,7 +9,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Source+Serif+4:wght@300;400;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body,{delimiters:[{left:'\\(',right:'\\)',display:false},{left:'$$',right:'$$',display:true}],throwOnError:false});"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body,{delimiters:[{left:'\\(',right:'\\)',display:false}],throwOnError:false});"></script>
 <style>
 :root{--bg:#FFFFFF;--surface:#FFFFFF;--surface2:#F5F5F5;--accent:#000000;--text:#000000;--text-dim:#525252;--correct:#1a7a5e;--wrong:#b91c1c;--orange:#8B6914;--border:#000000;--border-light:#E5E5E5;--blue:#1e40af;--blue-bg:#eff6ff;--purple:#6b21a8;--purple-bg:#faf5ff;--orange-bg:#fffbeb;--red:#991b1b;--red-bg:#fef2f2}
 *{margin:0;padding:0;box-sizing:border-box}
@@ -152,15 +152,23 @@ How well does the board connect with your opponent's continuing range?
 
 <h3>When to Bet Very Small (~20% pot)</h3>
 <ul>
-<li><strong>Monotone flops</strong> (three of same suit): Both players have nut flushes, range advantage without nut advantage</li>
-<li><strong>Paired flops</strong> (e.g., 8-6-6): You lack trips, opponent has them; you have overpairs</li>
-<li><strong>Uncoordinated low boards</strong> (K-6-2): Big range advantage, no nut advantage</li>
-<li><strong>Boards with straight already there</strong> (7-5-4): Opponent has the made hands</li>
+<li><strong>Monotone flops</strong> (e.g., J-8-3 all hearts, CO vs BB): Both players have flush combos in their range -- you have AKhh, QThh; BB has A5hh, 97hh. Neither has a clear nut advantage. Bet 20% pot with almost your entire range. The small bet denies equity from BB's non-flush hands while keeping the pot manageable when they do have a flush.</li>
+<li><strong>Paired flops</strong> (e.g., 8-6-6, UTG vs BB): You don't have 6x hands in your UTG range, but BB does (65s, 67s, A6s). BB has the nut advantage with trips. However, you have overpairs (AA-99) that beat most of BB's range. Bet 20% pot to extract thin value from BB's random pairs and overcards without getting punished by trips.</li>
+<li><strong>Uncoordinated low boards</strong> (K-6-2 rainbow, HJ vs BB): You have a massive range advantage (all Kings, overpairs), but BB can have 62s, K6s for two pair. Bet small because BB's range barely connects -- most of their hands are total air that fold to any size.</li>
+<li><strong>Boards with straight already made</strong> (7-5-4, CO vs BB): BB's calling range includes 86s, 63s, 83s for straights. You can't bet big because the nut hands are in BB's range.</li>
 </ul>
+
+<div class="box box-orange">
+<div class="box-label">Full Situation: K-8-3 Monotone Hearts -- CO vs BB, 100bb</div>
+<p><strong>Setup:</strong> 2-5 NL live, 100bb. CO raises to 15. BB calls. Pot: ~32. Flop: K&#9829;8&#9829;3&#9829; (monotone hearts). BB checks.</p>
+<p><strong>Opponent's range (BB vs CO):</strong> BB called CO's raise with a range that includes every suited heart combination -- A5hh, 97hh, T7hh, J9hh, and also K9hh, K7hh for two pair + flush. You (CO) also have AKhh, QThh, JThh. Neither player has a significant nut advantage -- you both have the ace-high flush equally (or close).</p>
+<p><strong>Correct play: Bet 20% pot (~6) with essentially your entire range.</strong> Why not pot it? Because BB also has nutted flushes (A2hh, A5hh, KQhh). If you bet 32 (pot) and BB raises, you're lost -- your QThh and KJs hands are in terrible shape. The 20% bet (~6) achieves: (1) denies 3-4 outs of equity from BB's non-heart hands (pair of 8s, pair of 3s), (2) is impossible to profitably raise without the absolute nuts, so BB just calls with their entire range, (3) builds the pot cheaply when you have the best flush.</p>
+<p><strong>EV of potting instead:</strong> If you bet 32 and BB calls, the pot is ~96 on the turn. Your non-flush hands (AA without hearts, KJo) are now in danger every turn and river. Against a good player, potting costs ~5-7bb in EV per occurrence on monotone boards because you're playing into BB's nut advantage spots. The tiny bet extracts nearly identical value from worse hands while minimizing risk.</p>
+</div>
 
 <div class="box box-purple">
 <div class="box-label">Key Insight</div>
-As you bet smaller, you can bet MORE OFTEN.
+As you bet smaller, you can bet MORE OFTEN. A 20% pot bet needs to work only 17% of the time to break even as a bluff (20/120 = 17%). This means you can include many more bluffs and marginal hands in your betting range. Conversely, a 100% pot bet needs 50% fold equity to break even -- far more restrictive.
 </div>
 
 <h3>When to Bet Very Large (66%+ pot, often overbets)</h3>
@@ -169,6 +177,15 @@ As you bet smaller, you can bet MORE OFTEN.
 <li><strong>High boards with draw potential</strong> (A-K-4, A-Q-3): You have overcards + draws</li>
 <li><strong>Boards heavily favoring your range</strong> (A-K-J from LJ): Massive nut advantage</li>
 </ul>
+
+<div class="box box-orange">
+<div class="box-label">Full Situation: 8-3-2 Rainbow -- LJ vs BB, 100bb, Overbet Correct</div>
+<p><strong>Setup:</strong> 2-5 NL live, 100bb. LJ raises to 15. BB calls. Pot: ~32. Flop: 8&#9824;3&#9829;2&#9827; (rainbow -- no flush draw). BB checks.</p>
+<p><strong>LJ's range:</strong> AA, KK, QQ, JJ, TT, 99 (all overpairs), A8s, K8s (some 8x), AK, AQ (overcards). No 33 or 22 (LJ doesn't raise deuce-trey from LJ). Effective nuts = any overpair. No straight is possible on this board. No flush draw is possible.</p>
+<p><strong>BB's best hands:</strong> 88 (set -- but BB must have called with a hand that includes 88), 32s (two pair), 82s. These hands definitely exist but are rare. Most of BB's range is Ax, Kx, pairs above 9 that are now simply second-best against LJ's overpairs.</p>
+<p><strong>Correct play: Overbet 100%+ pot (~32-40).</strong> Since LJ holds all overpairs and BB cannot have many either (3-bet with QQ+, fold JJ/TT often), LJ has a massive nut advantage. The overbet forces BB into an impossible situation: call with what? 9-9 and they're drawing to 2 outs vs AA/KK. K-high? Already losing. A-8? Already losing to overpairs. Only BB's rare sets (unlikely at 100bb since 88 calling LJ is rare) can continue comfortably.</p>
+<p><strong>EV of 33% bet instead:</strong> Betting 33% (~10) lets BB profitably call with all pairs, all A-highs, all Kx. They realize equity cheaply. On the turn, your advantage shrinks. By overbetting, you charge 32+ to draw and make the entire calling range -EV for BB. The EV swing of overbetting vs small-betting on 8-3-2 is approximately 8-12bb/100 hands.</p>
+</div>
 
 <div class="box box-purple">
 <div class="box-label">Key Insight</div>
@@ -201,6 +218,15 @@ When there's NO straight/flush available but draws exist &rarr; big sizes.
 <tr><td>10-9-7</td><td>Dynamic</td><td>BIG</td><td>Nuts will change on many turns</td></tr>
 <tr><td>10-7-7</td><td>Paired/Static</td><td>SMALL</td><td>Trips likely stays nuts; keep opponent in with thin hands</td></tr>
 </table>
+
+<div class="box box-orange">
+<div class="box-label">Full Situation: Check-Raise Sizing on 10-9-7 vs 10-7-7 -- BTN vs BB, 100bb</div>
+<p><strong>Setup A (dynamic board 10-9-7):</strong> BTN raises 2.5bb, BB calls. Pot ~5.5bb. Flop: T&#9824;9&#9829;7&#9827; (two-tone). BB checks. BTN bets 2bb (small, ~36% pot). BB check-raises.</p>
+<p><strong>BB's check-raise range:</strong> Sets (TT, 99, 77), two pair (T9, T7, 97), open-ended straight draws (J8, Q8, 86, 65, 64), combo draws (J8 with flush draw). The nuts will CHANGE on many turns (8, 6, Q, J all change who has the best hand). BB wants a large raise because: (a) the big raise denies equity from BTN's draws, (b) it builds the pot for turns where BB will be the nuts, (c) BTN faces a fold-or-stack situation with marginal hands. Raise to ~18bb (9x the bet) -- a very large raise relative to the 2bb bet. BTN either folds middle-equity hands or commits to a profitable spot.</p>
+<p><strong>Setup B (static board 10-7-7):</strong> Same preflop. Flop: T&#9824;7&#9829;7&#9827;. BB checks. BTN bets 2bb. BB check-raises with 77 (quads), T7s (full house), 99/88/66 (trips + overpair -- rare but possible). Nuts are unlikely to change (7x stays as quads or full house through most runouts).</p>
+<p><strong>BB's check-raise should be SMALL (to ~10-12bb).</strong> Why? The value threshold is very high (trips+), and BB wants BTN to stay in with hands BB crushes: pocket Jacks, pocket Queens, Tx hands. If BB raises huge, BTN folds all the bluff-catchers that have value as thin calls against BB's strong range. The small raise keeps BTN in with hands BB dominates.</p>
+<p><strong>EV cost of wrong sizing:</strong> Large raise on 10-7-7 folds out BTN's JJ and QQ (10-15% call instead of 40%+) -- BB loses 1-2bb per occurrence. Small raise on 10-9-7 fails to deny equity from BTN's drawing hands -- BTN calls with J-8 getting great odds and occasionally stacks BB.</p>
+</div>
 
 <hr>
 
@@ -297,6 +323,14 @@ When there's NO straight/flush available but draws exist &rarr; big sizes.
 <li><strong>EV cost of capping at 150%:</strong> Lost 77bb/100 in one example; the nuts gains 616bb/100 by jamming</li>
 <li><strong>All-in for 4x+ pot</strong> is correct in many deep-stacked spots</li>
 </ul>
+
+<div class="box box-orange">
+<div class="box-label">Full Situation: River Overbet -- K-7-4 Two Hearts, Turn Jack, River 2 (Blank) -- LJ vs BB, 200bb</div>
+<p><strong>Setup:</strong> 5-10 NL live, 200bb. LJ raises to 25. BB calls. Pot: ~52. Flop: K&#9829;7&#9830;4&#9829; (two hearts). BB checks, LJ bets 33 (~63%), BB calls. Turn: J&#9829; (third heart). BB checks. LJ overbets 100 into ~118 (85% pot). BB calls. River: 2&#9824; (complete brick). Pot: ~318. BB has ~140 behind. BB checks.</p>
+<p><strong>Analysis:</strong> The river is a blank -- draws missed, nuts unchanged. LJ still has all the straights (if any existed), top pair, and flush-blockers. The relevant question: does LJ's turn overbet/call range have enough nut hands (made hearts, sets, two pair on K-7-4) to justify a river jam?</p>
+<p><strong>Jam all-in (~140 into ~318 = ~44% pot):</strong> Yes. When you bet the flop and turn with a polarized range (strong hands + bluffs), by the river your bluffs are the hands without equity -- K-5s (no heart), Q-9s (no heart). Your value is all the hearts made, plus K-J two pair, J-7 two pair, K-K sets. BB calling two streets cannot have draws anymore (they would fold many draws on the turn given the flush card). BB's range is condensed to strong made hands -- and even their strong hands (KQ, KJ) lose to your made flushes and sets. Jamming the river extracts maximum value. Capping at 70% pot loses approximately 1.2 big blinds per occurrence in EV because BB gets cheap equity realization with their bluff-catching hands.</p>
+<p><strong>Bluff selection on the river:</strong> Include K&#9827;Q&#9830; (KQ without a heart, no made flush, but strong blocker) and A&#9827;5&#9830; (no flush made, but A blocks opponent's nut flushes). These jam alongside your value hands. Hands with a heart that missed (Q&#9829;8&#9824;) are now made flushes -- they are your value, not your bluffs.</p>
+</div>
 
 <div class="box box-red">
 <div class="box-label">Warning</div>

@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Crash Course &mdash; Master PLO Cash Games</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;0,900;1,400&family=Source+Serif+4:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #FFFFFF; --text: #000000; --text-dim: #525252;
+  --border-light: #E5E5E5;
+  --blue: #2563EB; --purple: #7C3AED; --orange: #EA580C; --red: #DC2626;
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;border-radius:0!important}
+body{font-family:'Source Serif 4',Georgia,serif;background:var(--bg);color:var(--text);line-height:1.8;-webkit-font-smoothing:antialiased}
+
+/* Sticky nav */
+.topnav{position:sticky;top:0;z-index:100;background:var(--bg);border-bottom:1px solid var(--border-light);padding:0.6rem 2rem;display:flex;align-items:center;gap:1.5rem}
+.topnav a{font-family:'JetBrains Mono',monospace;font-size:0.7rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--text-dim);text-decoration:none;transition:color 0.1s}
+.topnav a:hover{color:var(--text)}
+.topnav .title{font-weight:700;color:var(--text)}
+
+.container{max-width:780px;margin:0 auto;padding:3rem 2rem 6rem}
+
+h1{font-family:'Playfair Display',serif;font-size:2.6rem;font-weight:900;letter-spacing:-0.02em;margin-bottom:0.3rem}
+.subtitle{font-family:'JetBrains Mono',monospace;font-size:0.75rem;text-transform:uppercase;letter-spacing:0.12em;color:var(--text-dim);margin-bottom:2.5rem}
+
+h2{font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:700;margin:3rem 0 1rem;padding-bottom:0.4rem;border-bottom:4px solid var(--text)}
+h3{font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:600;margin:2rem 0 0.8rem}
+
+p{margin-bottom:1rem}
+ul,ol{margin:0 0 1rem 1.5rem}
+li{margin-bottom:0.4rem}
+code{font-family:'JetBrains Mono',monospace;font-size:0.85em;background:#F5F5F5;padding:0.1em 0.4em}
+
+.box{padding:1rem 1.2rem;margin:1.2rem 0;border-left:4px solid}
+.box-blue{border-color:var(--blue);background:#f0f5ff}
+.box-purple{border-color:var(--purple);background:#f5f0ff}
+.box-orange{border-color:var(--orange);background:#fff7f0}
+.box-red{border-color:var(--red);background:#fff0f0}
+.box-label{font-family:'JetBrains Mono',monospace;font-size:0.65rem;text-transform:uppercase;letter-spacing:0.1em;font-weight:700;margin-bottom:0.5rem;display:block}
+
+.stat-inline{font-family:'JetBrains Mono',monospace;font-size:0.85em;font-weight:600}
+
+@media(max-width:600px){h1{font-size:1.8rem}h2{font-size:1.3rem}.container{padding:2rem 1.2rem}}
+</style>
+</head>
+<body>
+
+<nav class="topnav">
+  <a href="index.html">&larr; Hub</a>
+  <span class="title">Crash Course</span>
+  <a href="revision-guide.html">Revision Guide</a>
+  <a href="drills.html">Drills</a>
+  <a href="quick-reference.html">Quick Ref</a>
+</nav>
+
+<div class="container">
+
+<h1>Master PLO Cash Games</h1>
+<div class="subtitle">Crash Course &mdash; 15-20 min read &mdash; Adam Hendrix</div>
+
+<p>
+This crash course distills the entire 8-episode PLO series into a topic-organized overview. Adam Hendrix is a PLO cash and tournament specialist with nearly $6 million in live earnings. His approach emphasizes learning GTO baselines first, then exploiting opponents once you understand what "correct" looks like.
+</p>
+
+<div class="box box-purple">
+<span class="box-label">Core Philosophy</span>
+Learn fundamental GTO ranges, stick to them, simplify the game. Once you understand the baseline for every position, you can actually exploit &mdash; because you know what "opening wider" or "3-betting tighter" actually means in concrete terms.
+</div>
+
+<!-- ============================================ -->
+<h2>1. Hand Evaluation in PLO</h2>
+
+<p>
+In PLO you get four cards, but you must use exactly two from your hand plus three from the board. This creates fundamentally different hand evaluation compared to No-Limit Hold'em.
+</p>
+
+<h3>What Makes a Good PLO Hand</h3>
+<ul>
+  <li><strong>Suitedness:</strong> Double-suited is king. Every double-suited hand goes up in value substantially. Single-suited is acceptable. Three cards of the same suit (tri-suit) actually hurts you &mdash; reduces flush probability and removes a bluffing card.</li>
+  <li><strong>Connectivity:</strong> Cards that work together to make straights. <code>J-T-9-8</code> is great; <code>J-7-3-A</code> is disconnected garbage. Gaps reduce value.</li>
+  <li><strong>High cards:</strong> Ace, King, Queen, Jack. Higher cards make higher pairs, higher flushes, and higher straights.</li>
+  <li><strong>Pairs:</strong> Aces are strong. High pairs (KK, QQ) need good side cards. Low pairs (22-55) are dangerous &mdash; bottom set loses to bigger sets frequently in multiway pots.</li>
+</ul>
+
+<div class="box box-red">
+<span class="box-label">Trap Hands to Avoid</span>
+<ul style="margin-bottom:0">
+  <li><strong>Rainbow hands</strong> (no suits) &mdash; you will never make a flush</li>
+  <li><strong>Monotone hands</strong> (four of one suit) &mdash; having 4 spades means you can only use 2, and you block your own flush outs</li>
+  <li><strong>Disconnected low cards</strong> &mdash; <code>2-7-J-A</code> makes almost no straights</li>
+  <li><strong>Trips/Quads in hand</strong> &mdash; trip aces is borderline playable with a suit; anything else is terrible</li>
+  <li><strong>Deuce through five danglers</strong> &mdash; cards like 2, 3, 4, 5 that don't connect to anything. <code>K-T-5-2</code> is far worse than <code>K-T-8-7</code></li>
+</ul>
+</div>
+
+<h3>The Suit Hierarchy Insight</h3>
+<p>
+Which card your suit is on matters enormously. Having the <strong>Ace-Nine suited</strong> is often better for 3-betting than <strong>Ace-King suited</strong>. Why? When you have AK suited and make a flush, the opponent cannot have the 2nd-nut flush &mdash; so they fold more often and you get less value. With A9 suited, the King and Queen of that suit are still available for opponents to hold and pay you off with.
+</p>
+
+<div class="box box-purple">
+<span class="box-label">Suit Principle</span>
+When deciding between 3-bet and call: if your ace is suited with a lower card (ace-nine, ace-seven), lean toward 3-betting. If your ace is suited with the king, lean toward calling &mdash; you get more post-flop value by seeing flops than by bloating pots where you won't get paid on flush boards.
+</div>
+
+<!-- ============================================ -->
+<h2>2. Preflop RFI (Raise First In)</h2>
+
+<p>
+In a standard 6-max cash game with 5% rake and 100bb effective stacks:
+</p>
+
+<ul>
+  <li><strong>Lojack:</strong> ~20% of hands. Tightest position. Your bottom opens are hands like <code>K9Q9</code> with a suit (85% open) down to <code>8554</code> double-suited (25% open).</li>
+  <li><strong>Hijack/Cutoff:</strong> Progressively looser. All Lojack mixes become pure opens.</li>
+  <li><strong>Button:</strong> ~50% VPIP. Massively wider. You're opening hands like <code>T573</code> double-suited, <code>J866</code>, even <code>7643</code> double-suited.</li>
+  <li><strong>Small Blind:</strong> Very tight. Primary strategy is 3-bet or fold, very little cold calling. In cash games with rake, flatting from SB leaks money.</li>
+  <li><strong>Big Blind:</strong> Defend ~48% vs button open, ~36% vs lojack open. 3-bet ~9% vs button, ~3% vs lojack.</li>
+</ul>
+
+<div class="box box-blue">
+<span class="box-label">Key Concept: Rake Dependency</span>
+PLO preflop ranges are extremely rake-dependent. In high-rake games, tighten up substantially. In no-rake-preflop environments (like some live games or tournaments), you can open wider. If the house takes $10 pre from a $15 pot win, it destroys your winrate on marginal opens.
+</div>
+
+<h3>Open Sizing</h3>
+<p>
+In non-ante cash games, the standard open is <strong>pot</strong> (3.5bb). Smaller opens (2.5bb) can be used exploitatively when blinds are under-defending &mdash; saves you money when they don't adjust.
+</p>
+
+<!-- ============================================ -->
+<h2>3. 3-Betting Strategy</h2>
+
+<p>
+The single most important fact about PLO 3-betting: <strong>people barely fold</strong>. When the cutoff opens and the button 3-bets, the cutoff folds only about 14% of the time. This is radically different from NLHE.
+</p>
+
+<div class="box box-red">
+<span class="box-label">Critical Mindset Shift from NLHE</span>
+Do not enter PLO thinking you will "blow people off pots" with 3-bets. Expect to get called or 4-bet almost always. Your 3-bets need to be hands that play well post-flop, not pure bluffs.
+</div>
+
+<h3>3-Bet Value Range</h3>
+<ul>
+  <li><strong>Aces:</strong> ~84-94% of your 3-bet range. Almost all aces 3-bet when suited. Rainbow disconnected aces (AA72 rainbow) can be flatted as traps.</li>
+  <li><strong>Good Kings:</strong> Double-suited connected kings like <code>KK-T-9</code>. Disconnected rainbow kings fold or flat.</li>
+  <li><strong>Premium Broadways:</strong> <code>AKQJ</code> double-suited always 3-bets.</li>
+</ul>
+
+<h3>3-Bet Bluff Range</h3>
+<ul>
+  <li><strong>Middling double-suited rundowns:</strong> <code>T-9-8-7</code>, <code>8-7-6-5</code>, <code>K-6-7-5</code> double-suited. These unblock opponent's raise-folds (like KQJ9), play well vs 4-bets, and can represent both high and low boards post-flop.</li>
+  <li><strong>Low ace hands:</strong> <code>A-4-T-8</code>, <code>A-5-6-7</code> &mdash; slightly disconnected, but generate folds from better hands and have decent equity when called.</li>
+</ul>
+
+<div class="box box-orange">
+<span class="box-label">Position Matters for 3-Bet Ranges</span>
+<strong>Lojack vs Hijack</strong> (tightest): 3-bets are ~93% aces. Very few non-ace 3-bets.<br>
+<strong>Button vs Cutoff</strong> (wider): More middling double-suited hands enter the 3-bet range. The ace-based bluffs become more common. Total 3-bet frequency rises to ~8%.
+</div>
+
+<!-- ============================================ -->
+<h2>4. Facing 3-Bets and 4-Bets</h2>
+
+<h3>Facing a 3-Bet</h3>
+<p>
+You fold very little in PLO when facing a 3-bet (~14% at most). The hands you fold are those that interact badly with the 3-bettor's value range: <code>AK-X-X</code> with disconnected low cards, hands where your ace and king duplicate their likely holdings.
+</p>
+
+<div class="box box-purple">
+<span class="box-label">The Interaction Principle</span>
+The less your hand interacts with the opponent's value range, the better it performs as a call. <code>8-7-6-5</code> has almost zero interaction with a range of AA and AK hands &mdash; all your outs are clean. <code>A-K-J-2</code> interacts heavily &mdash; your ace and king are dead cards.
+</div>
+
+<h3>Facing a 4-Bet (100bb deep)</h3>
+<p>
+When you 3-bet and face a 4-bet at the tightest positions (LJ vs HJ):
+</p>
+<ul>
+  <li><strong>Jam:</strong> Connected aces, double-suited aces. ~94% of your jamming range is aces.</li>
+  <li><strong>Call:</strong> Lower aces (for post-flop playability), and your 3-bet bluffs like <code>8-6-5-4</code>, <code>5-5-4-4</code>, <code>K-5-6-4</code>. These middling connected hands have the best equity vs a 4-bet range of mostly aces.</li>
+  <li><strong>Fold:</strong> Double-suited ace-X hands with pairs that interact badly. <code>AQ-Q-2</code> double-suited, <code>AJ-J-2</code> double-suited &mdash; surprising folds, but the equity vs aces is terrible when your high cards duplicate the 4-bettor's range.</li>
+</ul>
+
+<div class="box box-orange">
+<span class="box-label">Surprising 4-Bet Fold Example</span>
+<code>A-J-J-2</code> double-suited is a 3-bet fold vs a 4-bet in the LJ vs HJ scenario. Even though it looks premium, the jacks interact with the 4-bettor's range, and your pair needs to flop a set while your ace is dominated. Meanwhile, <code>8-6-5-4</code> double-suited is a profitable call because all its outs are clean.
+</div>
+
+<h3>Stack Depth Effects</h3>
+<p>
+At <strong>50bb</strong> vs 100bb: Button opens ~15% less. You fold more marginal flats but 3-bet about the same. Speculative hands (low pairs, middling single-suited) get cut from flatting ranges. When 4-bet, you fold ~20% instead of ~42% because pot odds are much better. Kings start 3-betting ~30% more often.
+</p>
+
+<!-- ============================================ -->
+<h2>5. Post-Flop Heuristics</h2>
+
+<p>
+Adam's approach to post-flop play is built around a few powerful simplifications:
+</p>
+
+<h3>C-Betting Framework</h3>
+<ul>
+  <li><strong>Paired boards, monotone boards, disconnected boards:</strong> Use a small bet size (~30% pot). You have range advantage on these textures.</li>
+  <li><strong>Connected boards:</strong> Size up (50-65% pot). More draws available, more equity to deny.</li>
+  <li><strong>3-bet pots with low SPR:</strong> Just pot. You're trying to get stacks in.</li>
+  <li><strong>Ace-high and King-high boards:</strong> As the 3-bettor out of position, almost always bet. Opponents under-attack these boards.</li>
+</ul>
+
+<div class="box box-blue">
+<span class="box-label">SPR (Stack-to-Pot Ratio) is Everything</span>
+Always ask: "What is my SPR?" Sub-3 SPR with a strong hand &mdash; pile money in. SPR of 5+ &mdash; play more carefully, use position, evaluate turns. PLO is a 5-card game; don't commit all your chips on the flop when there are two streets of dynamic board changes ahead.
+</div>
+
+<h3>Position Play</h3>
+<ul>
+  <li><strong>In position vs a flop bet:</strong> Prefer calling over raising when flush draws are present. You get clarity on turns, can fold cheaply on bad cards, and stack them on good ones.</li>
+  <li><strong>Out of position after check-check:</strong> Consider potting the turn. Opponents cap their range by checking back flop &mdash; they rarely check back sets or nut hands.</li>
+  <li><strong>River:</strong> Bet yourself rather than going for check-raises. PLO opponents check back far too much thin value. The check-raise is often obsolete against players who won't thin-value-bet.</li>
+</ul>
+
+<div class="box box-red">
+<span class="box-label">Do Not Check-Raise Rivers</span>
+In PLO, when opponents bet the river, they usually have it. The population dramatically under-bluffs river spots. If you have a strong hand on the river, bet it yourself. If they raise your bet, you can fold &mdash; that's actually a feature, not a bug. The check-raise is a no-limit instinct that costs PLO players money.
+</div>
+
+<!-- ============================================ -->
+<h2>6. Exploiting Population Tendencies</h2>
+
+<h3>Common Mistakes in the PLO Player Pool</h3>
+<ul>
+  <li><strong>Playing too loose preflop:</strong> The number one leak. If your table is loose, tighten up &mdash; play the opposite of the table.</li>
+  <li><strong>Under-3-betting from the big blind:</strong> People almost never 3-bet bluff from the BB in PLO. When you face a BB 3-bet, it's almost always aces or premium. Adjust by folding more marginal hands vs BB 3-bets.</li>
+  <li><strong>Always potting flop in low-SPR spots:</strong> Players bet pot on every flop regardless of SPR. A smaller size (~30-50%) often extracts more value because it keeps opponents in with drawing hands, and you get information on turns.</li>
+  <li><strong>Not folding to aggression:</strong> When opponents in PLO show aggression (pot-size bets, raises), they usually have it. The population under-bluffs dramatically. Finding big folds is one of the most undervalued skills.</li>
+  <li><strong>Sizing tells:</strong> When opponents bet unusual amounts (like 85% pot on the river instead of pot or half-pot), it's often a "give them a discount" mentality with the nuts. Small block-bets as bluffs are massively underused by the population.</li>
+</ul>
+
+<div class="box box-purple">
+<span class="box-label">The Power of the Muck</span>
+Folding is one of the most undervalued tools in PLO. The solver doesn't account for the fact that you're human and will compound preflop mistakes with postflop mistakes. If you play too loose, you'll end up in weird spots with weak hands, guess wrong, and lose fast. Simplify by folding more marginal hands preflop.
+</div>
+
+<!-- ============================================ -->
+<h2>7. Key Differences: NLHE vs PLO</h2>
+
+<table style="width:100%;border-collapse:collapse;margin:1rem 0">
+<thead>
+<tr style="border-bottom:4px solid var(--text)">
+<th style="text-align:left;padding:0.5rem;font-family:'JetBrains Mono',monospace;font-size:0.75rem;text-transform:uppercase">Aspect</th>
+<th style="text-align:left;padding:0.5rem;font-family:'JetBrains Mono',monospace;font-size:0.75rem;text-transform:uppercase">NLHE</th>
+<th style="text-align:left;padding:0.5rem;font-family:'JetBrains Mono',monospace;font-size:0.75rem;text-transform:uppercase">PLO</th>
+</tr>
+</thead>
+<tbody>
+<tr style="border-bottom:1px solid var(--border-light)">
+<td style="padding:0.5rem">Equity edge preflop</td>
+<td style="padding:0.5rem">AA vs KK: ~80-20</td>
+<td style="padding:0.5rem">AA vs KK: ~60-40</td>
+</tr>
+<tr style="border-bottom:1px solid var(--border-light)">
+<td style="padding:0.5rem">Fold to 3-bet</td>
+<td style="padding:0.5rem">Often 40-60%</td>
+<td style="padding:0.5rem">Only ~14%</td>
+</tr>
+<tr style="border-bottom:1px solid var(--border-light)">
+<td style="padding:0.5rem">Set over set</td>
+<td style="padding:0.5rem">Rare</td>
+<td style="padding:0.5rem">Common (4-card hands)</td>
+</tr>
+<tr style="border-bottom:1px solid var(--border-light)">
+<td style="padding:0.5rem">Nut importance</td>
+<td style="padding:0.5rem">Top pair often good</td>
+<td style="padding:0.5rem">Need nuts or nut draws</td>
+</tr>
+<tr style="border-bottom:1px solid var(--border-light)">
+<td style="padding:0.5rem">Bet sizing</td>
+<td style="padding:0.5rem">Variable (25%-150%)</td>
+<td style="padding:0.5rem">Usually pot or small (30%)</td>
+</tr>
+<tr style="border-bottom:1px solid var(--border-light)">
+<td style="padding:0.5rem">Bluffing preflop</td>
+<td style="padding:0.5rem">Very effective</td>
+<td style="padding:0.5rem">Nearly useless (people call)</td>
+</tr>
+<tr>
+<td style="padding:0.5rem">Board card impact</td>
+<td style="padding:0.5rem">Moderate</td>
+<td style="padding:0.5rem">Massive &mdash; every turn changes everything</td>
+</tr>
+</tbody>
+</table>
+
+<!-- ============================================ -->
+<h2>8. Where EV Comes From</h2>
+
+<p>
+The final analysis episodes reveal where real money is made and lost in PLO:
+</p>
+
+<ul>
+  <li><strong>Preflop discipline:</strong> Simply playing correct ranges is a proven, immediate source of profit. Most opponents play too loose, especially with low cards and disconnected hands.</li>
+  <li><strong>Exploiting check-back tendencies:</strong> When opponents check back the flop, their range is capped. Pot the turn aggressively &mdash; they cannot have sets or nut hands most of the time.</li>
+  <li><strong>Turn raises vs small bets:</strong> When opponents make lazy half-pot or smaller bets on the turn after check-check, they're repping nothing. You can raise with thin value or bluffs and print money because nobody expects to get raised in these spots.</li>
+  <li><strong>Blocker-based decisions:</strong> On the river, the question is not "do I have a flush?" but "do I block their boats?" If you hold a 10 or Queen that blocks full houses, your Jack-high flush becomes a call. If you don't block boats, fold.</li>
+  <li><strong>Small block bets as bluffs:</strong> Putting out a 25-30% pot bet on the river as a bluff is massively underutilized. Population hates paying when they think they're wrong, and these bets only need to work occasionally to be profitable.</li>
+</ul>
+
+<div class="box box-purple">
+<span class="box-label">The Meta Takeaway</span>
+PLO is still in its "early No Limit days" &mdash; most players have not studied preflop ranges, make up their own rules, and play too many hands. If you simply learn fundamental ranges, fold when you should, and avoid compounding mistakes, you will be a winning player. The edge is there for the taking.
+</div>
+
+</div>
+</body>
+</html>

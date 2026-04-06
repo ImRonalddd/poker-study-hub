@@ -95,7 +95,25 @@ pre.tree { font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; backgro
 
 <div class="box box-purple">
   <span class="box-label">Key Insight</span>
-  <p>Hand types are <em>relative to the board and situation</em>. Pocket tens is premium on T-7-2 but marginal on K-J-4. Ace-high is marginal on Q-7-2 but junk on Q-9-7.</p>
+  <p>Hand types are <em>relative to the board and situation</em>, not fixed properties of your cards:</p>
+  <ul>
+    <li><strong>Pocket Tens on T-7-2 rainbow:</strong> Premium made hand -- you have top set, the best possible hand. You are happy getting lots of money in. Bet for value and never fold to a raise.</li>
+    <li><strong>Pocket Tens on K-J-4 rainbow:</strong> Marginal made hand -- you have an underpair to two overcards. Any King or Jack in opponent's range beats you. Check-call to keep the pot small; fold to heavy aggression.</li>
+    <li><strong>Ace-high (AQ) on Q-7-2:</strong> Marginal made hand -- you have top pair top kicker, which is strong but vulnerable to sets, two pair, and straight draws on later streets. Bet for value but don't go crazy.</li>
+    <li><strong>Ace-high (AQ) on Q-9-7 two-tone:</strong> This is closer to junk territory -- the board is highly coordinated, your opponent's calling range (suited connectors, pocket pairs) smashes this board with sets, straights, and flush draws. Even top pair top kicker is only marginally ahead of their range.</li>
+  </ul>
+</div>
+
+<div class="box box-orange">
+  <span class="box-label">Full Hand Classification Example: J-8-5 rainbow (LoJack raises to 3bb, BB calls, 100bb deep, pot ~6.5bb)</span>
+  <p>Walk through the LoJack's entire range against the BB caller:</p>
+  <ul>
+    <li><strong>Premium made hands</strong> (bet, do not fold to raise): Good jacks and better -- JJ (top set), 88, 55 (sets), J9s, JTs, AJ (top pair top kicker). About 51 combos (26% of range). These hands are happy getting stacks in.</li>
+    <li><strong>Draws</strong> (bet, fold weak to raise): QTs (gut shot), 76s (open-ended straight draw), T9s (open-ended), plus backdoor flush draw hands like A3s, A6s, K8s, K9s. About 36 combos. At 36/51 = 1.4:1 draws to premiums -- well under the 2:1 maximum allowed.</li>
+    <li><strong>Marginal made hands</strong> (check-call): TT, 99 (underpairs below the jack), AQ (good ace-high, wins at showdown often), weaker jacks like JT (checking). About 45 combos. These want a small or medium pot.</li>
+    <li><strong>Junk</strong> (check-fold): K9 of clubs (no flush draw), offsuit overcards with no draw to speak of. About 11 combos. These fold to any bet unless they can bluff profitably.</li>
+  </ul>
+  <p><strong>Result:</strong> Betting ~60% of range, checking ~40%. GTO solver reaches essentially the same split. The ratios hold.</p>
 </div>
 
 <!-- ============================================================ -->
@@ -117,6 +135,20 @@ pre.tree { font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; backgro
   <li><strong>Moderate:</strong> Queen-high, Jack-high uncoordinated &rarr; 52-60%</li>
   <li><strong>Worst for PFR:</strong> Low-middle connected (T-8-5, 8-6-5, 6-5-4) &rarr; 48-52%</li>
 </ul>
+
+<div class="box box-orange">
+  <span class="box-label">Range Advantage Benchmark: LoJack vs BB on A-J-5 two spades (100bb, pot ~6.5bb)</span>
+  <p><strong>Situation:</strong> LoJack (UTG 6-handed) raises to 3bb, BB calls. Flop A-J-5 with two spades. LoJack acts first after BB checks.</p>
+  <p><strong>LoJack range advantage: ~62%.</strong> Strong advantage. The LoJack's opening range is full of big pairs and big aces (AA, KK, QQ, AK, AQ, AJ, AT) that smash this board. The BB's flatting range is wide -- it includes many junk hands (T9s, 97s, K8o) that completely miss A-J-5.</p>
+  <p><strong>What this means:</strong> LoJack bets roughly 50% of range (premiums + draws; not everything because the BB does have some good hands too). GTO does the same. Medium sizing works -- the BB still connects with aces, jacks, and fives, so it's not a pure low-connectivity board.</p>
+</div>
+
+<div class="box box-orange">
+  <span class="box-label">Range Advantage Benchmark: LoJack vs BB on T-8-6 rainbow (100bb, pot ~6.5bb)</span>
+  <p><strong>Situation:</strong> LoJack raises, BB calls. Flop T-8-6 rainbow.</p>
+  <p><strong>LoJack range advantage: ~53%.</strong> Weak-to-moderate. The BB's calling range contains all the suited connectors and middle pairs (T9s, 98s, 87s, 76s, 65s, 88, 66) that directly hit this board. The LoJack has lots of A-K, A-Q, K-J type hands that are completely unconnected.</p>
+  <p><strong>What this means:</strong> LoJack bets only very polarized -- good top pairs (T9 with gut shot), sets (TT, 88, 66), and some over pairs (QQ, JJ). Checks roughly 70% of the time. GTO confirms: check everything when LoJack is OOP against the Button on this board (0% c-bet frequency). The board hits the caller's range far too well to bet most hands.</p>
+</div>
 
 <!-- ============================================================ -->
 <h2 id="nut-advantage">3. Nut Advantage &amp; Range Connectivity</h2>
@@ -192,12 +224,18 @@ pre.tree { font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; backgro
 </ol>
 
 <div class="box box-orange">
-  <span class="box-label">Examples</span>
-  <ul>
-    <li>A-K-J (UTG vs BB): Bet BIG -- nut advantage + high connectivity</li>
-    <li>J-6-2 (UTG vs BB): Bet SMALL -- nut advantage but low connectivity</li>
-    <li>J-6-6 (UTG vs BB): Bet SMALL -- range advantage but NO nut advantage (BB has sixes)</li>
-  </ul>
+  <span class="box-label">Example 1: A-K-J rainbow (UTG raises to 3bb, BB calls, 100bb deep, pot ~6.5bb)</span>
+  <p><strong>Bet BIG (50-75% pot).</strong> UTG has a massive nut advantage: AK (top two pair), AA/KK/JJ (sets), AQ/KQ (Broadway straight draws). The BB would have 3-bet AK and most big pairs preflop, so BB's range is heavily capped -- they mostly have weaker aces, kings, jacks, and QT for a straight draw. Despite being capped, BB's range still connects well with this board: if they have an ace, king, or jack, they are not folding. High connectivity (opponent has many clear calling hands) + nut advantage = bet BIG. A 60-75% pot c-bet extracts full value from BB's calling range. The EV cost of betting small here is meaningful because you leave chips on the table from the many hands BB will call with.</p>
+</div>
+
+<div class="box box-orange">
+  <span class="box-label">Example 2: J-6-2 rainbow (UTG raises to 3bb, BB calls, 100bb deep, pot ~6.5bb)</span>
+  <p><strong>Bet SMALL (25-33% pot).</strong> UTG has nut advantage (overpairs AA-QQ, sets of JJ/66/22) but BB's range connects poorly with this board. BB's continuing range is dominated by king-high, queen-high, backdoor draws (K9s, T8s, Q7s, A4s) -- these are hands that have no clear pair and should barely continue. If UTG bets big (say 60% pot), the BB folds these weak hands immediately, and UTG only gets called by the few Jacks and better in BB's range. A small bet (25% pot) forces BB's entire continuing range to call -- including all their weak overcards and backdoor draws. This maximizes the number of hands paying you off while still extracting value. EV cost of betting big: you over-fold BB's marginal hands instead of charging them to stay.</p>
+</div>
+
+<div class="box box-orange">
+  <span class="box-label">Example 3: J-6-6 rainbow (UTG raises to 3bb, BB calls, 100bb deep, pot ~6.5bb)</span>
+  <p><strong>Bet SMALL (25-33% pot).</strong> This is the key distinction: you can have the range advantage (more overall equity) without the nut advantage. UTG's UTG opening range never includes a 6 (you fold A6o, 65s is marginal). The BB's flatting range absolutely does include sixes -- hands like A6s, 65s, 67s, 76s that called preflop. So when the board comes J-6-6, the effective nuts (trips) belong entirely to the BB. If UTG bets big, the BB check-raises with trips and UTG must fold their entire range of overpairs and good jacks -- a catastrophic outcome. Betting small limits the damage when BB has trips, while still extracting value from BB's overcards and backdoor draws. If UTG bets big (60% pot) and gets check-raised, they lose a large bet every time BB has a six. Betting small reduces this EV leak dramatically.</p>
 </div>
 
 <!-- ============================================================ -->
@@ -222,6 +260,25 @@ pre.tree { font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; backgro
     <li>Smaller facing bet &rarr; defend wider / raise more</li>
     <li>Larger facing bet &rarr; defend tighter / raise less</li>
   </ul>
+</div>
+
+<div class="box box-orange">
+  <span class="box-label">Example: Facing a Bet OOP on A-K-Q rainbow (UTG raises, you call BB, 100bb deep, pot ~6.5bb)</span>
+  <p><strong>Situation:</strong> You call UTG's raise from the BB. Flop A-K-Q rainbow. You check, UTG bets 25% pot (~1.6bb into ~6.5bb pot).</p>
+  <p><strong>MDF calculation:</strong> \(1 - \frac{1.6}{1.6 + 6.5} = 80\%\). Math says defend 80% of your range. But this is exactly wrong from OOP.</p>
+  <p><strong>Reality:</strong> You are at a massive range, nut, and positional disadvantage on A-K-Q. UTG has AK, AA, KK, QQ, AQ -- you essentially have none of these (you'd have 3-bet them). Your actual defense frequency should be roughly 50% or less, folding hands like Q9o, J8s, and random underpairs. Defending 80% here bleeds money every time. The EV cost of calling too wide OOP against big range disadvantage is severe -- you bleed money through 3 streets of aggression with hands that never improve enough.</p>
+</div>
+
+<div class="box box-orange">
+  <span class="box-label">Example: Facing a Bet OOP on 7-5-4 rainbow (BB vs UTG, 100bb deep)</span>
+  <p><strong>Situation:</strong> You check, UTG c-bets. You called from the BB with hands like 98s, 86s, 65s, A6s.</p>
+  <p><strong>You have the nut advantage</strong> on this board -- UTG's UTG opening range never includes 76s, 65s, 54s. Your range does. This means you check-raise aggressively with your two pairs and sets. Check-raise sizing: use a smaller raise (e.g. raise to 3x their bet, not 5x) because UTG's range on this board is mostly ace-highs and overcards that fold to any raise. Cheap bluffs are better when opponent folds to anything. With your best made hands (two pair, set), you're raising for value and protection, charging their draws maximally.</p>
+</div>
+
+<div class="box box-orange">
+  <span class="box-label">Example: Facing a Bet OOP on K-J-4 two spades (BB vs MP, 100bb deep)</span>
+  <p><strong>Situation:</strong> MP raises, you call BB. Flop K-J-4 two spades. You check, MP bets two-thirds pot (~4.3bb into ~6.5bb). You hold K-4s (two pair).</p>
+  <p><strong>You have the nut advantage</strong> on this board as the BB caller (you have K4s; MP never raises K4s from MP). Check-raise big -- to at least 70% pot total (e.g. raise from their ~4.3bb bet to ~16-18bb). Why large? Because MP's range connects well with K-J-4: they have kings, jacks, and flush draws that are not folding to a small raise. Raising large charges them maximally. If you raise small, you only get action from the hands that beat you (sets, better two pairs). Raising large extracts from their pairs and draws that must call.</p>
 </div>
 
 <!-- ============================================================ -->
@@ -284,12 +341,26 @@ pre.tree { font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; backgro
   <li>On middle-connected boards: check ~50%</li>
 </ul>
 
+<div class="box box-orange">
+  <span class="box-label">Example: 3-Bet Pot as Aggressor on A-9-3 rainbow (BTN 3-bets, BB calls, 100bb deep)</span>
+  <p><strong>Situation:</strong> BTN raises to 3bb, BB 3-bets to 10bb, BTN calls. Pot ~20bb, effective stacks ~90bb behind. SPR ~4.5. BB checks the flop to the BTN.</p>
+  <p><strong>BTN's range:</strong> QQ, JJ, TT, AKs, AQs, KQs, and a few bluffs (A5s, A4s). BB's 3-bet range: AA, KK, QQ, AK, AQ, and some bluffs.</p>
+  <p><strong>On A-9-3:</strong> BTN has strong range advantage (aces, kings, and queens are all live in BTN's range). Bet small -- 25-30% of the pot (~5-6bb). The SPR of 4.5 means stacks will be committed anyway; no need to bet large. BTN bets almost 100% of range at this small size, including overpairs, gut shots, and even backdoor draws. The low SPR means every bet is meaningful relative to the pot.</p>
+  <p><strong>Why small?</strong> The remaining 90bb stack vs 20bb pot -- a small bet now still builds the pot efficiently toward all-in by the river. Betting large wastes size.</p>
+</div>
+
 <h3>As 3-Bet Caller</h3>
 <ul>
   <li><strong>When checked to (IP):</strong> Bet very polarized, small size. Opponent's checking range is well-protected with traps.</li>
   <li><strong>Facing a bet (IP):</strong> Use bet response flowchart. Mostly call. Raise &lt;7% of the time.</li>
   <li><strong>Facing a bet (OOP):</strong> More raising than IP. Check-raise with vulnerable hands.</li>
 </ul>
+
+<div class="box box-orange">
+  <span class="box-label">Example: 3-Bet Pot as Caller (IP) on K-7-2 rainbow (BTN calls BB's 3-bet, 100bb deep)</span>
+  <p><strong>Situation:</strong> BB 3-bets to 10bb, BTN calls. Pot ~20bb, stacks ~90bb. SPR ~4.5. BB c-bets 25% pot (~5bb). BTN holds QQ.</p>
+  <p><strong>QQ facing a c-bet on K-7-2:</strong> This is a marginal-to-premium hand. BB's 3-bet range has AA, KK, and AK that all have you beaten or nearly so on K-7-2. However, BB also has AQ, JJ, TT in range that you beat. QQ's action: CALL. Do not raise -- you only get action from better hands (AA, KK, AK). Do not fold -- you have a strong overpair that beats a meaningful part of BB's range. IP, just call and realize equity on turn and river. Raising frequency with QQ here: less than 7% of the time.</p>
+</div>
 
 <!-- ============================================================ -->
 <h2 id="4bet-pots">11. 4-Bet Pots</h2>
@@ -320,6 +391,14 @@ pre.tree { font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; backgro
   <li>Some surprising folds are correct (e.g., AJ on KJ3 vs tight 4-bet range)</li>
 </ul>
 
+<div class="box box-orange">
+  <span class="box-label">Example: 4-Bet Pot -- K-J-3 rainbow (LoJack 4-bets, CO calls, 100bb deep)</span>
+  <p><strong>Situation:</strong> LoJack opens to 3bb, CO 3-bets to 10bb, LoJack 4-bets to 28bb, CO calls. Pot ~57bb, effective stacks ~72bb. SPR ~1.3. LoJack's range: AA, KK, AKs, plus a few bluffs. CO's calling range: QQ, JJ, AQs, ATs, A5s.</p>
+  <p><strong>On K-J-3:</strong> LoJack c-bets 25% pot (~14bb). CO holds QQ.</p>
+  <p><strong>FOLD QQ.</strong> The entire LoJack range crushes QQ on K-J-3. Against AA: drawing dead essentially. Against KK: two outs. Against AKs: about 20% equity. Against AK offsuit bluffs: these bluff hands still have overcards and pairs. Even the "bluff" portion of LoJack's range has significant equity against QQ on KJ3. This is the counter-intuitive correct fold: QQ looks like a big hand but is a clear fold facing a 4-bettor's c-bet on a king-high board. The EV cost of calling: you are a massive underdog to the value portion of their range.</p>
+  <p><strong>Compare:</strong> On a board like 7-4-2, QQ would be a strong call because LoJack's AA and KK lose some value and you have an overpair to everything. Board texture changes the calculation entirely.</p>
+</div>
+
 <!-- ============================================================ -->
 <h2 id="multiway">12. Multi-Way Pots</h2>
 <div class="topic-tag">Lessons: multi-way-on-the-flop, multi-way-on-the-flop-examples</div>
@@ -342,12 +421,31 @@ pre.tree { font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; backgro
   <li>If bet + raise happens, fold everything below two pair</li>
 </ul>
 
+<div class="box box-orange">
+  <span class="box-label">Example: Multi-way Coordinated Board -- T-9-7 rainbow, 5-way pot (UTG raises, 4 callers, 100bb deep)</span>
+  <p><strong>Situation:</strong> UTG opens to 3bb, BTN, SB, and BB all call, plus CO. Pot ~15bb, 5 players see the flop T-9-7.</p>
+  <p><strong>UTG holds pocket Aces.</strong> In a heads-up pot, AA on T-9-7 would be a check-call at worst; many players would check-raise. In this 5-way pot: <strong>check and call a reasonable bet only.</strong> AA has become a marginal made hand. The reason: in a 5-way pot, the probability that at least one player has T9, 98, 87, 76, TT, 99, 77, or a flush draw is extremely high. If UTG bets and someone raises and another calls, UTG is drawing to 2 outs (they need an ace to win). Folding aces might even be correct at this point. The EV cost of betting: you often get raised, putting you in a terrible spot with what feels like a strong hand.</p>
+  <p><strong>The decision framework:</strong> Would you rather play a medium pot with 60% equity (check-call) or a large pot with 40% equity (bet, get raised, be committed)? Always prefer a smaller pot with better equity.</p>
+</div>
+
+<div class="box box-red">
+  <span class="box-label">Multi-way Reverse Implied Odds: 7-6 on T-9-7, 4-way pot</span>
+  <p><strong>Situation:</strong> 4 players see the flop T-9-7. You hold 7-6. Someone bets.</p>
+  <p><strong>FOLD.</strong> 7-6 gives you bottom pair (pair of 7s) and a gut shot to the 8 (making 8-7-6-something isn't even the nuts -- J-high straight exists). Even if you hit the 8, someone may have a jack for the higher straight. Your pair is the bottom pair on the board. Against 3 other players, at least one will usually have a ten, nine, or better. This hand has massive reverse implied odds: the times you "hit" your draw you're still often second-best, and the times you hit your pair you're even worse off. In a heads-up pot, 7-6 here might check-call. Multi-way, it is a clear fold to any bet.</p>
+</div>
+
 <h3>Uncoordinated Boards (K-7-3, A-8-2)</h3>
 <ul>
   <li>Can bet somewhat more (especially 3-way)</li>
   <li>Top pair top kicker is reasonable to bet</li>
   <li>Still check marginal hands and protect checking range</li>
 </ul>
+
+<div class="box box-orange">
+  <span class="box-label">Example: Multi-way Uncoordinated Board -- K-7-3 rainbow, 3-way pot (UTG raises, BTN and BB call)</span>
+  <p><strong>Situation:</strong> UTG raises to 3bb, BTN and BB call. Pot ~9bb, 3 players see K-7-3.</p>
+  <p><strong>UTG holds Ace-King (top pair top kicker).</strong> In heads-up play on K-7-3, UTG c-bets nearly 100% of range. 3-way, UTG should still c-bet AK for value -- top pair top kicker is strong enough -- but at a smaller size than usual (33% pot rather than 50%). Check hands like KQ (top pair weaker kicker) and K9 -- these are now marginal multi-way. If BTN or BB raises, AK can call, but KQ or K9 cannot comfortably continue against two opponents. Protect checking range by including some stronger kings occasionally.</p>
+</div>
 
 <!-- ============================================================ -->
 <h2 id="limped">13. Limped Pots</h2>
@@ -369,7 +467,7 @@ pre.tree { font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; backgro
 <div class="box box-red">
   <span class="box-label">Top 8 Flop Mistakes</span>
   <ol>
-    <li><strong>Betting marginal hands then not folding to a raise</strong> -- The #1 leak. K9 on Q-9-7 should check, not bet-call a raise.</li>
+    <li><strong>Betting marginal hands then not folding to a raise</strong> -- The #1 leak. Example: You hold K9 on a Q-9-7 two-tone board. K9 gives you middle pair with a decent kicker -- a textbook marginal made hand. If you bet and get raised, you're in a terrible spot: you can't fold after putting money in, but you're usually behind sets (99, 77), two pair (Q9, Q7, 97), and strong draws (JT, T8). The correct play is to check and call a reasonable bet, keeping the pot small. Betting and then calling a raise is the worst of both worlds.</li>
     <li><strong>C-betting 100% from OOP</strong> -- On low-connected boards OOP, the GTO strategy is to check EVERYTHING.</li>
     <li><strong>Not protecting checking range</strong> -- If you only check garbage OOP, opponents will barrel you off every hand.</li>
     <li><strong>Raising marginal hands facing a bet</strong> -- Fold junk, call marginals, raise/call premiums+draws.</li>

@@ -9,7 +9,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Source+Serif+4:wght@300;400;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body,{delimiters:[{left:'\\(',right:'\\)',display:false},{left:'$$',right:'$$',display:true}],throwOnError:false});"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body,{delimiters:[{left:'\\(',right:'\\)',display:false}],throwOnError:false});"></script>
 <style>
 :root{--bg:#FFFFFF;--surface:#FFFFFF;--surface2:#F5F5F5;--accent:#000000;--text:#000000;--text-dim:#525252;--correct:#1a7a5e;--wrong:#b91c1c;--orange:#8B6914;--border:#000000;--border-light:#E5E5E5;--blue:#1e40af;--blue-bg:#eff6ff;--purple:#6b21a8;--purple-bg:#faf5ff;--orange-bg:#fffbeb;--red:#991b1b;--red-bg:#fef2f2}
 *{margin:0;padding:0;box-sizing:border-box}
@@ -122,8 +122,12 @@ strong{font-weight:700}
 <p>From every position except SB in no-rake games: if you're first in, you <strong>raise or fold</strong>. There are zero limps in GTO play. With rake, even the SB is raise-or-fold.</p>
 
 <div class="box box-orange">
-<div class="box-label">Example</div>
-<strong>UTG, 8-max, 100bb:</strong> You look down at <span class="hand">9-8 suited</span>. Many players think this is playable, but it is a clear fold. 9-8s makes the bad end of straights (Q-J-T means AK crushes you) and pairs badly. RFI range from UTG is about 11% -- only premium pairs, suited broadways, suited aces, and select connectors like <span class="hand">T9s</span>, <span class="hand">76s</span>, <span class="hand">65s</span>.
+<div class="box-label">Example: UTG RFI — 98s vs 65s</div>
+<strong>Situation:</strong> 8-max live cash game, 100bb effective stacks, no rake. You are UTG (first to act). Action folds to you. You look down at <span class="hand">9-8 suited</span>.<br><br>
+<strong>Correct play: Fold.</strong><br><br>
+<strong>Why 98s is unplayable from UTG:</strong> The UTG RFI range is about 11% of hands. You have 7 players left to act who can wake up with premiums. More importantly, 98s has a reverse-implied-odds problem at depth: on a board like Q-J-T (a perfectly reasonable board for a UTG raiser to have hit), your opponent can hold AK for the nut straight while you hold the second-best straight — and you lose your stack. This "top end vs. bottom end" straight problem makes 98s dangerous in any contested pot.<br><br>
+<strong>Contrast with 65s:</strong> 65s is playable from UTG in many scenarios. When 65s makes the low straight (A-2-3-4-5, the wheel), it actually has the nut-nut scenario against A5s, which makes the identical wheel but is a flush draw counterpart. When 65s makes a straight on a 4-3-2 board, even AK (which has a gutshot) is drawing nearly dead. The hands that beat you (67 for a higher straight) are not in opponents' early-position ranges.<br><br>
+<strong>EV cost of the mistake:</strong> Raising 98s from UTG in an 8-max game costs roughly 0.05–0.10bb per hand in EV from a combination of: bloating pots OOP against ranges that dominate you, paying rake on limped/contested pots, and losing stack in reverse-implied-odds spots. Over a long session this compounds significantly.
 </div>
 
 <h3>Position-Based RFI Ranges</h3>
@@ -187,8 +191,13 @@ strong{font-weight:700}
 </ul>
 
 <div class="box box-orange">
-<div class="box-label">Example</div>
-<strong>BTN vs UTG raise, 8-max, 100bb:</strong> You hold <span class="hand">JJ</span>. Many players auto-3-bet here. But GTO says <em>mostly call</em>. Jacks play well post-flop in position but hate getting 4-bet. Same for <span class="hand">QQ</span> and even <span class="hand">KK</span> at 200bb deep.
+<div class="box-label">Example: BTN vs UTG Raise — JJ Decision</div>
+<strong>Situation:</strong> 8-max live cash, 100bb effective. UTG opens to 3bb, folds to you on the BTN. You hold <span class="hand">J♠ J♣</span>. The SB and BB are unknowns.<br><br>
+<strong>Correct play: Call the 3bb open. Do NOT 3-bet.</strong><br><br>
+<strong>Why calling is correct:</strong> JJ is a strong hand but faces a core problem against a 3-bet: UTG's range is about 11% (AA-TT, AKs-ATs, KQs, etc.), which contains many hands that either crush JJ (AA, KK, QQ) or have significant equity (AK). If you 3-bet to 10bb and get 4-bet to 28bb, you now face a terrible spot — calling 28bb with JJ against a range of QQ+ and AK gives you roughly 43% equity while putting in 28% of your 100bb stack preflop. Instead, by calling the 3bb open, you put in only 3% of your stack with a hand that has ~50%+ equity against UTG's full range.<br><br>
+<strong>Post-flop advantage:</strong> In position on the BTN, JJ plays extremely well. On a 9-high or T-high board, you have an overpair and can value-bet three streets in position against UTG's c-bet range. On an A or K high board, you can fold cheaply to continued aggression.<br><br>
+<strong>The same logic applies to QQ (mostly call at 100bb) and even KK at 200bb deep</strong> — deeper stacks mean getting 4-bet with KK and facing a 5-bet all-in is catastrophic. At 200bb, KK wants to see a flop rather than bloat a pot against a range containing AA.<br><br>
+<strong>EV cost of auto-3-betting JJ:</strong> Against a UTG range that 4-bets ~10% of the time, 3-betting JJ loses approximately 3–5bb per occurrence compared to calling. Over a session with 5–6 such spots, this is a meaningful leak.
 </div>
 
 <h4>Out of Position (OOP)</h4>
@@ -237,8 +246,18 @@ strong{font-weight:700}
 </ul>
 
 <div class="box box-orange">
-<div class="box-label">Example</div>
-<strong>UTG raise, HJ 3-bets, you're UTG:</strong> You hold <span class="hand">KQ suited</span>. You might think this is a slam-dunk continue. But against the HJ's tight 3-betting range (AA, KK, AK, plus blockers), KQs is crushed. <em>Fold.</em> This applies to AQo, KJs, QJs -- all fold vs EP 3-bets.
+<div class="box-label">Example: UTG vs HJ 3-Bet — KQs Is a Fold</div>
+<strong>Situation:</strong> 8-max live cash, 100bb effective. You open to 3bb from UTG, the HJ 3-bets to 10bb. Action folds back to you. You hold <span class="hand">K♥ Q♥</span>.<br><br>
+<strong>Correct play: Fold.</strong><br><br>
+<strong>Why KQs folds:</strong> The HJ's 3-betting range against a UTG open is extremely narrow — roughly: AA, KK, QQ, AK (value), plus a few Ax suited blockers (A5s, A4s) and possibly 65s as bluffs. Against this range, KQs is in terrible shape:<br>
+&bull; Against AA: ~30% equity<br>
+&bull; Against KK: ~27% equity (dominated)<br>
+&bull; Against AK: ~27% equity (crushed on K-high boards)<br>
+&bull; Against QQ: ~27% equity (dominated)<br>
+Average equity vs the full 3-bet range: roughly 37–40%, but you are OOP for the entire hand and must put in 7 more big blinds to continue.<br><br>
+<strong>The domination problem:</strong> Even when KQs "hits," it often doesn't win. Flop K-7-2: great for KQs, right? But AK (in HJ's range) has you crushed. Flop Q-8-3: again, AK has you dominated if opponent continuation bets. The hand has a high frequency of "second-best hand" scenarios.<br><br>
+<strong>The same applies to AQo, KJs, QJs:</strong> These are all hands that look strong but are dominated by or heavily behind the 3-bettor's value range when raised from EP. The correct response is folding all of them.<br><br>
+<strong>EV cost of calling:</strong> Calling KQs vs a tight 3-bet range costs approximately 2–4bb per occurrence. At 100bb, calling 7bb more to win 13bb with ~37% equity and OOP disadvantage is a losing proposition in expected value.
 </div>
 
 <h4>What 4-Bets</h4>
@@ -279,6 +298,17 @@ strong{font-weight:700}
 <strong>Why do low suited connectors call 4-bets but high suited hands fold?</strong> High suited hands (KJs, QTs, KQs) are heavily dominated by the 4-bettor's value range. Low suited connectors (65s, 76s) are "live" -- they don't interact with the 4-bettor's range at all. If you flop a straight or flush with 65s, it's almost always good. If you flop top pair with KJs against a 4-bet range, you're often crushed.
 </div>
 
+<div class="box box-orange">
+<div class="box-label">Example: vs Non-All-In 4-Bet — AKo at 200bb</div>
+<strong>Situation:</strong> 8-max live cash, 200bb effective. You 3-bet from HJ to 10bb over a UTG 3bb open. UTG 4-bets to 24bb (non-all-in). You hold <span class="hand">A♠ K♣</span>.<br><br>
+<strong>Correct play at 200bb: Fold AKo. Call AKs.</strong><br><br>
+<strong>Why AKo folds at 200bb but calls at 100bb:</strong><br>
+At 100bb: The pot is 24bb if you fold, you've invested 10bb. Calling 14bb more to win 49.5bb (the 4-bettor's 24bb + your 10bb + UTG's 3bb + antes) gives you roughly 3.5:1 odds. With ~43% equity against a 4-bet range of AA/KK/QQ/AK, this is a borderline but acceptable call. Additionally, at 100bb, you can jam over the 4-bet with AK+KK and get called by worse (QQ).<br><br>
+At 200bb: The SPR (stack-to-pot ratio) after calling is enormous. If you call 14bb into a 49.5bb pot, the remaining stacks are ~176bb vs ~176bb with a pot of 49.5bb — SPR of roughly 3.5. Now every postflop decision is high leverage. AKo's problem: it makes TPTK but has no flush outs. On a board like K-7-3, you bet and opponent raises — they almost certainly have you beat (sets or KK). On an A-4-2, they have you beat with AK (ties) or better. The hand frequently makes the second-best hand at deep stacks.<br><br>
+<strong>If you 4-bet with AKo and face a 5-bet:</strong> Now you've invested 52bb into a pot and face a shove of 200bb. Against a 5-bet range of AA/KK (and very few bluffs at 200bb), you're approximately 30% equity. Calling is a disaster. Folding after 4-betting is exploitable. The correct solution is to not 4-bet AKo in the first place at 200bb.<br><br>
+<strong>AKs is different:</strong> At 200bb, AKs calls the 4-bet because nut flush equity is a game-changer. On a monotone board where both players are committed, AKs can win the entire stack. It also blocks AA (one fewer combo) and sets up premium bluffing situations.
+</div>
+
 <h3>vs All-In 4-Bet / 5-Bet / 6-Bet</h3>
 
 <div class="key-rule">RULE: vs 4-bet all-in -- tight ranges: QQ+ and AKs. Wide ranges: TT+ and AK.<br>
@@ -309,8 +339,17 @@ RULE: vs 6-bet all-in (200bb) -- AA, KK, AKs only.</div>
 </ul>
 
 <div class="box box-orange">
-<div class="box-label">Example</div>
-<strong>BB vs CO raise + BTN call, 8-max, 100bb:</strong> You hold <span class="hand">A6 offsuit</span>. GTO says fold. Even closing the action with good odds, offsuit aces are dominated multiway. Instead, call with <span class="hand">A6 suited</span> (flush potential), or better yet, <span class="hand">76s</span> or <span class="hand">55</span>. The suited/offsuit distinction is enormous in multiway pots.
+<div class="box-label">Example: BB vs CO Raise + BTN Call — The Suited/Offsuit Divide</div>
+<strong>Situation:</strong> 8-max live cash, 100bb. CO opens to 3bb, BTN calls 3bb, SB folds. You are in the BB with <span class="hand">A♦ 6♣</span> (offsuit). The pot is 7.5bb and you need to call 2bb more to close the action.<br><br>
+<strong>Correct play: Fold A6o. Call if suited (A6s). Better yet, call 76s or 55.</strong><br><br>
+<strong>Why A6o folds despite getting 3.75:1 pot odds:</strong> In multiway pots, you need to make the best hand — not just a good hand. A6o's main source of value is hitting an ace for top pair, but in a 3-way pot:<br>
+&bull; The CO (who opened) has many strong aces (AQ, AJ, AT, AK) that beat your kicker<br>
+&bull; The BTN (who called) also has many middle aces<br>
+&bull; When you flop A-high and bet or call down, you often find yourself losing to a better kicker<br>
+This is called "kicker domination" — you have equity but negative expected value because you lose the most in the biggest pots.<br><br>
+<strong>Why A6 suited is much better:</strong> A6s adds flush equity that is virtually never dominated. If you make a flush, it's almost always the best flush (since you hold the Ace). Flush draws also give you good fold equity when you semi-bluff. The suited version is worth approximately 3–4bb more in expected value per 100bb in multiway pots.<br><br>
+<strong>Why 76s and 55 are even better:</strong> 76s makes nut straights (not the bottom end), has flush potential, and its equity doesn't interact with opponents' ranges the way A6o does. 55 can flop a set (~12% chance) which is a disguised monster — opponents won't put you on a set on low boards, and you can stack someone with an overpair or two pair.<br><br>
+<strong>The universal multiway rule:</strong> Offsuit aces, offsuit broadways — fold. Suited aces, low suited connectors, pairs — play. This distinction accounts for the majority of preflop EV leaks in multiway cash game pots.
 </div>
 
 <div class="key-rule">THE MULTIWAY RULE: Offsuit hands are bad. Suited aces and low suited connectors are good. Pairs are great. This applies to every multiway preflop scenario.</div>
@@ -384,10 +423,13 @@ RULE: vs 6-bet all-in (200bb) -- AA, KK, AKs only.</div>
 <h3>Exploitative Adjustments</h3>
 
 <div class="box box-orange">
-<div class="box-label">Example</div>
-<strong>If opponents don't 3-bet enough:</strong> Raise wider from all positions, especially CO and BTN. Add suited connectors, small pairs, more suited aces.<br><br>
-<strong>If opponents don't 4-bet enough:</strong> 3-bet wider as a bluff. Your marginal 3-bets become profitable because they won't get re-raised.<br><br>
-<strong>If opponents are super loose/passive post-flop:</strong> Call with more suited aces and suited connectors (you'll get paid when you make flushes and straights). Low suited connectors > offsuit broadways.
+<div class="box-label">Example: Exploiting Passive Players</div>
+<strong>Scenario A — Opponent rarely 3-bets:</strong><br>
+You are on the BTN in a live 8-max game. The typical player in this pool open-raises from UTG and folds to 3-bets more than 80% of the time. They also rarely re-raise pre-flop from the blinds. GTO BTN RFI is 40–44%. Against this player pool, you can expand to 50%+ by adding: all suited connectors down to 54s, all suited aces, all small pairs, and K7o+. The reason: hands that rely on fold equity (your raise stealing the blinds) become more profitable because opponents yield too much preflop. The EV of each additional BTN raise goes up by ~0.1–0.3bb when opponents concede blinds at a higher rate.<br><br>
+<strong>Scenario B — Opponent 3-bets but never 4-bets:</strong><br>
+Your CO opens 3bb, BB 3-bets to 9bb. You call. Opponent C-bets flop. You call. Opponent checks turn. Now what? Against opponents who never 4-bet and rarely continuation bet multiple streets, your 3-bet bluffs with A5s, 65s become pure profit. You 3-bet to 9bb, they fold ~60% of the time (pure profit), and when they call and fire one street, you still have implied odds and fold equity on later streets. Add hands like K9s, KTs, A4s–A2s to your 3-bet bluffing range when you know they won't 4-bet.<br><br>
+<strong>Scenario C — Loose/passive post-flop opponents:</strong><br>
+You call a CO raise from the BTN with 65s (100bb). Flop comes 8-7-2 rainbow. You have an open-ended straight draw. A passive opponent will check-call with top pair and bet-fold draws. Against this player, you can bluff all your draws aggressively because they over-fold to second barrels. Hands like 65s, 76s, A4s gain the most value in these pools — call more of them preflop than GTO suggests.
 </div>
 
 <!-- SECTION 10 -->

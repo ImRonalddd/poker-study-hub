@@ -3,223 +3,306 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Chapter 8: Crushing Heads Up No Limit Hold'em</title>
+<title>Chapter 8: Crushing Heads Up No Limit Hold'em &mdash; Study Hub</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;1,400;1,600&family=Source+Serif+4:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;0,900;1,400&family=Source+Serif+4:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
 <style>
 :root {
-  --bg: #FFFFFF; --surface: #FFFFFF; --surface2: #F5F5F5;
-  --accent: #000000; --text: #000000; --text-dim: #525252;
-  --correct: #1a7a5e; --wrong: #b91c1c; --orange: #8B6914;
-  --border: #000000; --border-light: #E5E5E5;
-}
-*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; border-radius:0 !important; }
-body { font-family:'Source Serif 4','Georgia',serif; background:var(--bg); color:var(--text); line-height:1.6; -webkit-font-smoothing:antialiased; }
-
-body::before {
-  content:''; position:fixed; inset:0; z-index:-1; opacity:0.02;
-  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23n)'/%3E%3C/svg%3E");
-  background-size:400px 400px; pointer-events:none;
+  --bg: #FFFFFF;
+  --text: #000000;
+  --text-dim: #525252;
+  --border: #000000;
+  --border-light: #E5E5E5;
 }
 
-.container { max-width:720px; margin:0 auto; padding:0 1.5rem 4rem; }
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; border-radius: 0 !important; }
 
-header { padding:5rem 0 2.5rem; text-align:center; }
-header .chapter-label {
-  font-family:'JetBrains Mono',monospace; font-size:0.7rem; font-weight:600;
-  text-transform:uppercase; letter-spacing:0.2em; color:var(--text-dim); margin-bottom:0.75rem; display:block;
-}
-header h1 {
-  font-family:'Playfair Display',serif; font-weight:800; font-size:3rem;
-  letter-spacing:-0.02em; line-height:1.1; margin-bottom:0.75rem;
-}
-header .desc {
-  font-size:1.05rem; color:var(--text-dim); max-width:540px; margin:0 auto; line-height:1.65;
+body {
+  font-family: 'Source Serif 4', Georgia, serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
 }
 
-.divider { border:none; border-top:4px solid var(--accent); margin:0; }
-.divider-thin { border:none; border-top:1px solid var(--border-light); margin:0; }
+.container { max-width: 900px; margin: 0 auto; padding: 4rem 2rem 6rem; }
 
-.stats { display:flex; justify-content:center; gap:3rem; padding:2rem 0; }
-.stat { text-align:center; }
-.stat-num { font-family:'Playfair Display',serif; font-weight:700; font-size:2.2rem; line-height:1; display:block; }
-.stat-label { font-family:'JetBrains Mono',monospace; font-size:0.6rem; text-transform:uppercase; letter-spacing:0.15em; color:var(--text-dim); margin-top:0.3rem; display:block; }
-
-.cards { padding:2.5rem 0; display:flex; flex-direction:column; gap:1rem; }
-.cards h2 {
-  font-family:'Playfair Display',serif; font-weight:700; font-size:1.5rem;
-  margin-bottom:0.5rem; text-align:center;
+.header { text-align: center; margin-bottom: 3rem; }
+.header h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: 3rem;
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  margin-bottom: 0.3rem;
+}
+.header .instructor {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--text-dim);
+  margin-bottom: 1rem;
+}
+.header .description {
+  font-size: 1.05rem;
+  color: var(--text-dim);
+  max-width: 640px;
+  margin: 0 auto;
+  line-height: 1.8;
 }
 
-.card {
-  display:grid; grid-template-columns:auto 1fr auto; gap:1.25rem; align-items:center;
-  border:1px solid var(--border); padding:1.5rem 1.75rem;
-  text-decoration:none; color:var(--text); transition:background 0.1s, color 0.1s;
+.back-link {
+  display: inline-block;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text-dim);
+  text-decoration: none;
+  margin-bottom: 2rem;
+  transition: color 0.1s;
 }
-.card:hover { background:var(--accent); color:#fff; }
-.card:hover .card-num { border-color:#fff; color:#fff; }
-.card:hover .card-desc { color:rgba(255,255,255,0.7); }
-.card:hover .card-arrow { color:#fff; }
-.card:hover .card-tag { color:rgba(255,255,255,0.7); border-color:rgba(255,255,255,0.3); }
+.back-link:hover { color: var(--text); }
 
-.card-num {
-  font-family:'JetBrains Mono',monospace; font-weight:700; font-size:0.75rem;
-  border:1px solid var(--border); width:2.25rem; height:2.25rem;
-  display:flex; align-items:center; justify-content:center; flex-shrink:0;
-  transition:border-color 0.1s, color 0.1s;
+.stats-bar {
+  display: flex;
+  justify-content: center;
+  gap: 3rem;
+  padding: 1.5rem 0;
+  border-top: 4px solid var(--text);
+  border-bottom: 1px solid var(--border-light);
+  margin-bottom: 3rem;
+}
+.stat { text-align: center; }
+.stat-number {
+  font-family: 'Playfair Display', serif;
+  font-size: 2rem;
+  font-weight: 700;
+  display: block;
+}
+.stat-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--text-dim);
 }
 
-.card-body { min-width:0; }
-.card-title { font-family:'Playfair Display',serif; font-weight:700; font-size:1.15rem; margin-bottom:0.2rem; line-height:1.3; }
-.card-desc { font-size:0.88rem; color:var(--text-dim); line-height:1.5; transition:color 0.1s; }
-.card-tag {
-  font-family:'JetBrains Mono',monospace; font-size:0.6rem; text-transform:uppercase;
-  letter-spacing:0.1em; color:var(--text-dim); border:1px solid var(--border-light);
-  padding:0.25em 0.6em; white-space:nowrap; transition:color 0.1s, border-color 0.1s;
-}
+.materials { display: flex; flex-direction: column; gap: 1.5rem; margin-bottom: 3rem; }
 
-.card-arrow { font-size:1.2rem; color:var(--text-dim); transition:color 0.1s; }
-
-/* Instructor */
-.instructor { padding:2rem 0; }
-.instructor-inner { display:flex; gap:1.5rem; align-items:flex-start; }
-.instructor-icon {
-  width:3.5rem; height:3.5rem; background:var(--accent); color:#fff;
-  font-family:'Playfair Display',serif; font-weight:700; font-size:1.4rem;
-  display:flex; align-items:center; justify-content:center; flex-shrink:0;
+.material-card {
+  border: 2px solid var(--text);
+  padding: 2rem 2.5rem;
+  text-decoration: none;
+  color: var(--text);
+  display: block;
+  transition: background 0.1s, color 0.1s;
+  position: relative;
 }
-.instructor-body { min-width:0; }
-.instructor-name { font-family:'Playfair Display',serif; font-weight:700; font-size:1.1rem; margin-bottom:0.15rem; }
-.instructor-role { font-family:'JetBrains Mono',monospace; font-size:0.7rem; text-transform:uppercase; letter-spacing:0.1em; color:var(--text-dim); margin-bottom:0.4rem; display:block; }
-.instructor-desc { font-size:0.92rem; color:var(--text-dim); line-height:1.55; }
+.material-card:hover { background: var(--text); color: var(--bg); }
+.material-card:hover .material-desc,
+.material-card:hover .material-meta { color: rgba(255,255,255,0.7); }
+.material-card:hover .material-tag { border-color: rgba(255,255,255,0.3); color: rgba(255,255,255,0.7); background: rgba(255,255,255,0.08); }
 
-/* Topics */
-.topics { padding:2rem 0; }
-.topics h2 {
-  font-family:'Playfair Display',serif; font-weight:700; font-size:1.5rem;
-  margin-bottom:1rem; text-align:center;
+.material-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 0.3rem;
 }
-.topic-grid { display:flex; flex-wrap:wrap; gap:0.5rem; justify-content:center; }
+.material-meta {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 0.8rem;
+}
+.material-desc { color: var(--text-dim); line-height: 1.6; margin-bottom: 0.8rem; }
+.material-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+.material-tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.6rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 0.25rem 0.6rem;
+  border: 1px solid var(--border-light);
+  color: var(--text-dim);
+}
+.material-arrow {
+  position: absolute;
+  right: 2rem;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1.4rem;
+  opacity: 0;
+  transition: opacity 0.1s;
+}
+.material-card:hover .material-arrow { opacity: 1; }
+
+.topics-section {
+  border: 1px solid var(--border-light);
+  padding: 2rem;
+  margin-bottom: 3rem;
+}
+.topics-section h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.3rem;
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 4px solid var(--text);
+}
+.topic-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
 .topic-pill {
-  font-family:'JetBrains Mono',monospace; font-size:0.65rem; text-transform:uppercase;
-  letter-spacing:0.08em; padding:0.35em 0.85em; border:1px solid var(--border);
-  color:var(--text-dim); white-space:nowrap;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 0.3rem 0.7rem;
+  border: 1px solid var(--border-light);
+  color: var(--text-dim);
 }
 
-footer { padding:2rem 0; text-align:center; }
-footer a {
-  font-family:'JetBrains Mono',monospace; font-size:0.7rem; text-transform:uppercase;
-  letter-spacing:0.1em; color:var(--text-dim); text-decoration:none;
-  border-bottom:1px solid var(--border-light);
+.footer {
+  text-align: center;
+  margin-top: 3rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--border-light);
 }
-footer a:hover { color:var(--text); border-color:var(--accent); }
+.footer p {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+@media (max-width: 600px) {
+  .header h1 { font-size: 2rem; }
+  .stats-bar { gap: 1.5rem; }
+  .stat-number { font-size: 1.5rem; }
+  .material-card { padding: 1.5rem; }
+  .material-title { font-size: 1.2rem; }
+  .material-arrow { display: none; }
+}
 </style>
 </head>
 <body>
 <div class="container">
 
-<header>
-  <span class="chapter-label">Advanced Cash Game Course &middot; Chapter 8</span>
-  <h1>Crushing Heads Up<br>No Limit Hold'em</h1>
-  <p class="desc">Master the purest form of poker -- from 100bb fundamentals through deep-stack warfare. Jon Jaffe's HUNL framework built on simplicity, frequency control, and ruthless exploitation.</p>
-</header>
+  <a href="../index.html" class="back-link">&larr; Back to Advanced Cash Game Course</a>
 
-<hr class="divider">
-
-<div class="stats">
-  <div class="stat">
-    <span class="stat-num">11</span>
-    <span class="stat-label">Lessons</span>
+  <div class="header">
+    <h1>Chapter 8: Crushing Heads Up NL</h1>
+    <div class="instructor">Advanced Cash Game Course &mdash; Instructor: Jon Jaffe</div>
+    <p class="description">
+      Master the purest form of poker &mdash; from 100bb fundamentals through deep-stack warfare.
+      Jon Jaffe&rsquo;s HUNL framework built on simplicity, frequency control, and ruthless
+      exploitation. Includes live play-and-explain sessions and Rampage vs Polk match review.
+    </p>
   </div>
-  <div class="stat">
-    <span class="stat-num">3</span>
-    <span class="stat-label">Study Materials</span>
-  </div>
-  <div class="stat">
-    <span class="stat-num">22</span>
-    <span class="stat-label">Drill Questions</span>
-  </div>
-</div>
 
-<hr class="divider-thin">
-
-<div class="cards">
-  <h2>Study Materials</h2>
-
-  <a class="card" href="revision-guide.html">
-    <div class="card-num">01</div>
-    <div class="card-body">
-      <div class="card-title">Revision Guide</div>
-      <div class="card-desc">Complete chapter notes -- every concept from all 11 lessons organized by topic with key quotes and heuristics</div>
+  <div class="stats-bar">
+    <div class="stat">
+      <span class="stat-number">11</span>
+      <span class="stat-label">Lessons</span>
     </div>
-    <span class="card-tag">Reference</span>
-  </a>
-
-  <a class="card" href="crash-course.html">
-    <div class="card-num">02</div>
-    <div class="card-body">
-      <div class="card-title">Crash Course</div>
-      <div class="card-desc">Visual summary of HUNL strategy -- c-betting, turn play, river ranges, deep-stack adjustments, and exploitative reads</div>
+    <div class="stat">
+      <span class="stat-number">3</span>
+      <span class="stat-label">Materials</span>
     </div>
-    <span class="card-tag">Learn</span>
-  </a>
-
-  <a class="card" href="drills.html">
-    <div class="card-num">03</div>
-    <div class="card-body">
-      <div class="card-title">Drills</div>
-      <div class="card-desc">22 scenario-based questions testing HUNL concepts -- shuffle mode with review-missed feature</div>
+    <div class="stat">
+      <span class="stat-number">22</span>
+      <span class="stat-label">Drill Questions</span>
     </div>
-    <span class="card-tag">Practice</span>
-  </a>
-</div>
-
-<hr class="divider-thin">
-
-<div class="instructor">
-  <h2 style="font-family:'Playfair Display',serif; font-weight:700; font-size:1.5rem; margin-bottom:1rem; text-align:center;">Instructor</h2>
-  <div class="instructor-inner">
-    <div class="instructor-icon">JJ</div>
-    <div class="instructor-body">
-      <div class="instructor-name">Jon Jaffe</div>
-      <span class="instructor-role">HUNL Specialist &amp; High Stakes Cash Pro</span>
-      <div class="instructor-desc">One of the most accomplished heads-up players in poker history. Known for his exploitative approach, timing-based reads, and ability to profile opponents within 20 hands. Co-analyzed with Justin Saliba and reviewed Rampage Poker's match vs Doug Polk.</div>
+    <div class="stat">
+      <span class="stat-number">Heads-Up</span>
+      <span class="stat-label">Format</span>
     </div>
   </div>
-</div>
 
-<hr class="divider-thin">
+  <div class="materials">
 
-<div class="topics">
-  <h2>Key Topics Covered</h2>
-  <div class="topic-grid">
-    <span class="topic-pill">C-Bet Frequency</span>
-    <span class="topic-pill">Turn Probes</span>
-    <span class="topic-pill">Delayed C-Bets</span>
-    <span class="topic-pill">River Bluff Control</span>
-    <span class="topic-pill">Check-Back Monster</span>
-    <span class="topic-pill">Deep Stack Play</span>
-    <span class="topic-pill">3-Bet Pots</span>
-    <span class="topic-pill">Monotone Boards</span>
-    <span class="topic-pill">Opponent Profiling</span>
-    <span class="topic-pill">Timing Tells</span>
-    <span class="topic-pill">Bet-Check-Bet Read</span>
-    <span class="topic-pill">Extreme Exploits</span>
-    <span class="topic-pill">Push Equity</span>
-    <span class="topic-pill">Side Card Heuristic</span>
-    <span class="topic-pill">Board Dynamics</span>
-    <span class="topic-pill">Limp Strategy</span>
-    <span class="topic-pill">SPR Management</span>
-    <span class="topic-pill">Mental Game</span>
+    <a href="revision-guide.html" class="material-card">
+      <div class="material-title">Revision Guide</div>
+      <div class="material-meta">Complete chapter notes &mdash; all 11 lessons</div>
+      <div class="material-desc">
+        Complete chapter notes &mdash; every concept from all 11 lessons organized by topic
+        with key quotes and heuristics.
+      </div>
+      <div class="material-tags">
+        <span class="material-tag">All 11 Lessons</span>
+        <span class="material-tag">Key Quotes</span>
+        <span class="material-tag">Heuristics</span>
+      </div>
+      <span class="material-arrow">&rarr;</span>
+    </a>
+
+    <a href="crash-course.html" class="material-card">
+      <div class="material-title">Crash Course</div>
+      <div class="material-meta">Visual summary &mdash; HUNL strategy</div>
+      <div class="material-desc">
+        Visual summary of HUNL strategy &mdash; c-betting, turn play, river ranges,
+        deep-stack adjustments, and exploitative reads.
+      </div>
+      <div class="material-tags">
+        <span class="material-tag">C-Betting HUNL</span>
+        <span class="material-tag">Turn Play</span>
+        <span class="material-tag">River Ranges</span>
+        <span class="material-tag">Exploitative Reads</span>
+      </div>
+      <span class="material-arrow">&rarr;</span>
+    </a>
+
+    <a href="drills.html" class="material-card">
+      <div class="material-title">Interactive Drills</div>
+      <div class="material-meta">22 scenario-based questions &mdash; shuffle with review-missed</div>
+      <div class="material-desc">
+        22 scenario-based questions testing HUNL concepts &mdash; shuffle mode with
+        review-missed feature.
+      </div>
+      <div class="material-tags">
+        <span class="material-tag">HUNL Scenarios</span>
+        <span class="material-tag">Frequency Control</span>
+        <span class="material-tag">Exploitation</span>
+      </div>
+      <span class="material-arrow">&rarr;</span>
+    </a>
+
   </div>
-</div>
 
-<hr class="divider-thin">
+  <div class="topics-section">
+    <h2>Key Topics Covered</h2>
+    <div class="topic-grid">
+      <span class="topic-pill">C-Bet Frequency</span>
+      <span class="topic-pill">Turn Probes</span>
+      <span class="topic-pill">Delayed C-Bets</span>
+      <span class="topic-pill">River Bluff Control</span>
+      <span class="topic-pill">Check-Back Monster</span>
+      <span class="topic-pill">Deep Stack Play</span>
+      <span class="topic-pill">3-Bet Pots</span>
+      <span class="topic-pill">Monotone Boards</span>
+      <span class="topic-pill">Opponent Profiling</span>
+      <span class="topic-pill">Timing Tells</span>
+      <span class="topic-pill">Bet-Check-Bet Read</span>
+      <span class="topic-pill">Extreme Exploits</span>
+      <span class="topic-pill">Push Equity</span>
+      <span class="topic-pill">Side Card Heuristic</span>
+      <span class="topic-pill">Board Dynamics</span>
+      <span class="topic-pill">Limp Strategy</span>
+      <span class="topic-pill">SPR Management</span>
+      <span class="topic-pill">Mental Game</span>
+    </div>
+  </div>
 
-<footer>
-  <a href="../hub/index.html">&larr; Back to Course Hub</a>
-</footer>
+  <div class="footer">
+    <p>Study materials generated from PokerCoaching.com course transcripts</p>
+  </div>
 
 </div>
 </body>

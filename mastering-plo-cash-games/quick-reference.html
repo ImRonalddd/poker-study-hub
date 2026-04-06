@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quick Reference &mdash; Master PLO Cash Games</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;0,900;1,400&family=Source+Serif+4:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#FFFFFF;--text:#000000;--text-dim:#525252;--border-light:#E5E5E5;--blue:#2563EB;--purple:#7C3AED;--orange:#EA580C;--red:#DC2626}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;border-radius:0!important}
+body{font-family:'Source Serif 4',Georgia,serif;background:var(--bg);color:var(--text);line-height:1.7;-webkit-font-smoothing:antialiased}
+
+.topnav{position:sticky;top:0;z-index:100;background:var(--bg);border-bottom:1px solid var(--border-light);padding:0.6rem 2rem;display:flex;align-items:center;gap:1.5rem;flex-wrap:wrap}
+.topnav a{font-family:'JetBrains Mono',monospace;font-size:0.7rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--text-dim);text-decoration:none;transition:color 0.1s}
+.topnav a:hover{color:var(--text)}
+.topnav .title{font-weight:700;color:var(--text)}
+
+.container{max-width:820px;margin:0 auto;padding:3rem 2rem 6rem}
+h1{font-family:'Playfair Display',serif;font-size:2.4rem;font-weight:900;letter-spacing:-0.02em;margin-bottom:0.3rem}
+.subtitle{font-family:'JetBrains Mono',monospace;font-size:0.75rem;text-transform:uppercase;letter-spacing:0.12em;color:var(--text-dim);margin-bottom:2.5rem}
+h2{font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:700;margin:2.5rem 0 1rem;padding-bottom:0.4rem;border-bottom:4px solid var(--text)}
+h3{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:600;margin:1.5rem 0 0.6rem}
+
+p{margin-bottom:0.8rem}
+ul{margin:0 0 1rem 1.5rem}
+li{margin-bottom:0.3rem}
+code{font-family:'JetBrains Mono',monospace;font-size:0.85em;background:#F5F5F5;padding:0.1em 0.4em}
+
+table{width:100%;border-collapse:collapse;margin:1rem 0}
+th{text-align:left;padding:0.5rem 0.6rem;font-family:'JetBrains Mono',monospace;font-size:0.7rem;text-transform:uppercase;letter-spacing:0.06em;border-bottom:3px solid var(--text);white-space:nowrap}
+td{padding:0.4rem 0.6rem;border-bottom:1px solid var(--border-light);vertical-align:top;font-size:0.95rem}
+
+.box{padding:0.8rem 1rem;margin:1rem 0;border-left:4px solid}
+.box-blue{border-color:var(--blue);background:#f0f5ff}
+.box-purple{border-color:var(--purple);background:#f5f0ff}
+.box-orange{border-color:var(--orange);background:#fff7f0}
+.box-red{border-color:var(--red);background:#fff0f0}
+.box-label{font-family:'JetBrains Mono',monospace;font-size:0.6rem;text-transform:uppercase;letter-spacing:0.1em;font-weight:700;margin-bottom:0.4rem;display:block}
+
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin:1rem 0}
+.grid2 .card{border:1px solid var(--border-light);padding:1rem}
+.card-title{font-family:'JetBrains Mono',monospace;font-size:0.7rem;text-transform:uppercase;letter-spacing:0.08em;font-weight:700;margin-bottom:0.5rem}
+
+.tier{margin-bottom:1.5rem}
+.tier-label{font-family:'JetBrains Mono',monospace;font-size:0.7rem;text-transform:uppercase;letter-spacing:0.1em;font-weight:700;padding:0.3rem 0.6rem;display:inline-block;margin-bottom:0.5rem}
+.tier-1 .tier-label{background:var(--text);color:var(--bg)}
+.tier-2 .tier-label{background:#525252;color:var(--bg)}
+.tier-3 .tier-label{background:#a3a3a3;color:var(--bg)}
+.tier-4 .tier-label{background:#e5e5e5;color:var(--text)}
+
+@media print{
+  .topnav{display:none}
+  .container{padding:1rem}
+  body{font-size:11pt;line-height:1.5}
+  h1{font-size:18pt}
+  h2{font-size:14pt;margin:1.5rem 0 0.5rem}
+  .box{page-break-inside:avoid}
+  table{font-size:9pt}
+}
+@media(max-width:600px){h1{font-size:1.8rem}.grid2{grid-template-columns:1fr}.container{padding:2rem 1.2rem}}
+</style>
+</head>
+<body>
+
+<nav class="topnav">
+  <a href="index.html">&larr; Hub</a>
+  <span class="title">Quick Reference</span>
+  <a href="crash-course.html">Crash Course</a>
+  <a href="revision-guide.html">Revision Guide</a>
+  <a href="drills.html">Drills</a>
+</nav>
+
+<div class="container">
+
+<h1>PLO Quick Reference</h1>
+<div class="subtitle">Printable Cheat Sheet &mdash; Adam Hendrix &mdash; Master PLO Cash Games</div>
+
+<!-- ============================================ -->
+<h2>Starting Hand Categories</h2>
+
+<div class="tier tier-1">
+<span class="tier-label">Tier 1 &mdash; Premium (Always Play)</span>
+<ul>
+  <li><strong>Aces suited:</strong> <code>AA-X-X</code> with at least one suit. Double-suited = always 3-bet.</li>
+  <li><strong>Premium Broadway ds:</strong> <code>AKQJ</code>, <code>AKQT</code>, <code>AKJT</code> double-suited.</li>
+  <li><strong>Big rundowns ds:</strong> <code>KQJT</code>, <code>QJT9</code>, <code>JT98</code> double-suited.</li>
+  <li><strong>Kings connected ds:</strong> <code>KKT9</code>, <code>KKJ9</code>, <code>KK98</code> double-suited.</li>
+</ul>
+</div>
+
+<div class="tier tier-2">
+<span class="tier-label">Tier 2 &mdash; Strong (Open from Most Positions)</span>
+<ul>
+  <li><strong>Aces disconnected:</strong> <code>AA72</code> with a suit. Rainbow disconnected = flat, not 3-bet.</li>
+  <li><strong>Single-suited Broadway:</strong> <code>AKQX</code>, <code>AKJX</code> with one suit (ace-high preferred).</li>
+  <li><strong>Medium rundowns ds:</strong> <code>T987</code>, <code>9876</code>, <code>8765</code> double-suited.</li>
+  <li><strong>Connected pairs:</strong> <code>QQT9</code>, <code>JJT9</code>, <code>TT98</code> with suits.</li>
+  <li><strong>Ace-wheel ds:</strong> <code>A234</code>, <code>A345</code>, <code>A456</code> double-suited.</li>
+</ul>
+</div>
+
+<div class="tier tier-3">
+<span class="tier-label">Tier 3 &mdash; Playable (Position-Dependent)</span>
+<ul>
+  <li><strong>Medium rundowns single:</strong> <code>T987</code>, <code>9876</code> single-suited. Open from CO/BTN.</li>
+  <li><strong>Gapped connectors ds:</strong> <code>QT87</code>, <code>J986</code>, <code>K675</code> double-suited.</li>
+  <li><strong>Ace-X single suit:</strong> <code>AT93</code>, <code>AQ65</code> with ace-suited. Position matters.</li>
+  <li><strong>Low pairs ds:</strong> <code>8855</code>, <code>7744</code> double-suited. BTN only at 100bb.</li>
+  <li><strong>Kings marginal:</strong> <code>KK76</code> rainbow (25% open LJ), <code>KKQ6</code> single suit (flat).</li>
+</ul>
+</div>
+
+<div class="tier tier-4">
+<span class="tier-label">Tier 4 &mdash; Unplayable (Fold)</span>
+<ul>
+  <li>Rainbow disconnected: <code>A-J-7-2</code>, <code>K-T-5-2</code>, <code>Q-8-3-A</code> rainbow</li>
+  <li>Monotone (4 of one suit): <code>A-K-8-3</code> all spades</li>
+  <li>Trips (except AAA with suit): <code>TTT-X</code>, <code>888-X</code>, <code>555-X</code></li>
+  <li>Low disconnected pairs: <code>22-7-K</code>, <code>33-J-8</code> single/no suit</li>
+  <li>Danglers 2-5: <code>KT-5-2</code>, <code>QJ-4-2</code> without double-suit rescue</li>
+</ul>
+</div>
+
+<!-- ============================================ -->
+<h2>Position-Based Opening Ranges</h2>
+
+<table>
+<thead>
+<tr><th>Position</th><th>Open %</th><th>Key Notes</th></tr>
+</thead>
+<tbody>
+<tr><td><strong>Lojack</strong></td><td>~20%</td><td>Tightest. Only Tier 1-2 + top Tier 3 ds. Bottom opens are mixes (50-85%).</td></tr>
+<tr><td><strong>Hijack</strong></td><td>~25%</td><td>All LJ mixes become pure opens. Add more single-suited connectors.</td></tr>
+<tr><td><strong>Cutoff</strong></td><td>~30%</td><td>Full Tier 3 enters. Medium rundowns single-suited open.</td></tr>
+<tr><td><strong>Button</strong></td><td>~50%</td><td>Massively wide. All AKQX regardless of suit. Low pairs ds. Suits matter less.</td></tr>
+<tr><td><strong>Small Blind</strong></td><td>3-bet or fold</td><td>~2-5% calling. Rest is fold (~80%) or 3-bet (~15%). Virtually no flats in cash.</td></tr>
+<tr><td><strong>Big Blind</strong></td><td>Defend ~42-58%</td><td>Depends on opener. Vs BTN: 48% call + 9% 3-bet. Vs LJ: 36% call + 3% 3-bet.</td></tr>
+</tbody>
+</table>
+
+<!-- ============================================ -->
+<h2>3-Bet Ranges</h2>
+
+<div class="grid2">
+<div class="card">
+  <div class="card-title">3-Bet Value</div>
+  <ul>
+    <li>Aces suited (any suit config): ~85-94% of 3-bet range</li>
+    <li>Aces double-suited: always</li>
+    <li>Good kings ds: <code>KKT9</code>, <code>KKJ8</code> ds</li>
+    <li>AKQJ type ds: always</li>
+    <li>AQQ ds: solver likes as 3-bet</li>
+  </ul>
+</div>
+<div class="card">
+  <div class="card-title">3-Bet Bluffs</div>
+  <ul>
+    <li>Middling rundowns ds: <code>T987</code>, <code>8765</code>, <code>K675</code> ds</li>
+    <li>Ace-low suited: <code>A4T8</code>, <code>A567</code></li>
+    <li>Low double-suited: <code>5678</code> ds, <code>6789</code> ds</li>
+    <li>Principle: unblock raise-folds, play well vs 4-bet</li>
+  </ul>
+</div>
+</div>
+
+<div class="box box-purple">
+<span class="box-label">3-Bet Trap Range (Flat Instead)</span>
+Rainbow disconnected aces, trip aces, 3-suited aces. Also: AKK (flat &mdash; terrible vs 4-bet aces), bad kings like KK62 rainbow.
+</div>
+
+<!-- ============================================ -->
+<h2>Facing 4-Bets (100bb)</h2>
+
+<table>
+<thead>
+<tr><th>Action</th><th>Hands</th><th>Why</th></tr>
+</thead>
+<tbody>
+<tr><td><strong>Jam</strong></td><td>Connected aces, ds aces, strong aces</td><td>Push equity, deny realization</td></tr>
+<tr><td><strong>Call</strong></td><td><code>8654</code> ds, <code>5544</code>, <code>T987</code> ds, <code>K564</code></td><td>Clean outs, no interaction with aces</td></tr>
+<tr><td><strong>Fold</strong></td><td><code>AQQ2</code> ds, <code>AJJ2</code> ds, <code>AK-deuce-X</code> high</td><td>Dirty outs, interacts with 4-bet range</td></tr>
+</tbody>
+</table>
+
+<div class="box box-red">
+<span class="box-label">Remember</span>
+Your 3-bet bluffs (connected rundowns) become your BEST 4-bet calls. Your "value" 3-bets (AQQ, AJJ) become your FOLDS. This is counter-intuitive but critical.
+</div>
+
+<!-- ============================================ -->
+<h2>Suit Value Hierarchy</h2>
+
+<table>
+<thead>
+<tr><th>Config</th><th>Value</th><th>Notes</th></tr>
+</thead>
+<tbody>
+<tr><td>Double-suited</td><td>Best</td><td>Can change fold to open across positions</td></tr>
+<tr><td>Single-suited (ace-high)</td><td>Very good</td><td>Ace-nut flush is the money maker</td></tr>
+<tr><td>Single-suited (non-ace)</td><td>Good</td><td>King/Queen high flush: value but 2nd-best risk</td></tr>
+<tr><td>Tri-suit (3 of one suit)</td><td>Bad</td><td>Reduces flush odds, removes bluffing card</td></tr>
+<tr><td>Rainbow</td><td>Worst</td><td>No flush potential. Only open with premium connectivity.</td></tr>
+<tr><td>Monotone (4 of suit)</td><td>Unplayable</td><td>You block your own flush. Worst possible suit config.</td></tr>
+</tbody>
+</table>
+
+<div class="box box-orange">
+<span class="box-label">Key Suit Insight</span>
+<strong>Ace-Nine suited &gt; Ace-King suited for 3-betting.</strong> With AK suited, opponents can't hold the 2nd nut flush &mdash; you get less value. With A9 suited, the K and Q of that suit are out there for opponents to pay you off with.
+</div>
+
+<!-- ============================================ -->
+<h2>SPR Decision Framework</h2>
+
+<table>
+<thead>
+<tr><th>SPR</th><th>Hand Strength Needed</th><th>Action</th></tr>
+</thead>
+<tbody>
+<tr><td>&lt; 2</td><td>Overpair or better</td><td>Pot and go with it. No need for redraws.</td></tr>
+<tr><td>2-4</td><td>Top pair + draws, or overpair</td><td>Bet-evaluate. Can bet-fold bad turns.</td></tr>
+<tr><td>4-8</td><td>Draws + made hand, or set with redraws</td><td>Position-dependent. Use IP advantage.</td></tr>
+<tr><td>&gt; 8</td><td>Nutted potential only</td><td>Speculative. Play for sets, nut flushes, wraps.</td></tr>
+</tbody>
+</table>
+
+<!-- ============================================ -->
+<h2>C-Bet Sizing Guide</h2>
+
+<table>
+<thead>
+<tr><th>Board Texture</th><th>Size</th><th>Frequency</th></tr>
+</thead>
+<tbody>
+<tr><td>Ace-high disconnected (A-5-3)</td><td>~30% pot</td><td>Range bet (100%)</td></tr>
+<tr><td>King-high disconnected (K-7-2)</td><td>~30% pot</td><td>Range bet as 3-bettor OOP</td></tr>
+<tr><td>Paired boards (J-J-5)</td><td>~30% pot</td><td>Range bet</td></tr>
+<tr><td>Monotone boards</td><td>~30% pot</td><td>Range bet</td></tr>
+<tr><td>Connected mid (T-8-6)</td><td>50-65% pot</td><td>Selective</td></tr>
+<tr><td>Connected high (Q-J-T)</td><td>50-65% pot</td><td>IP has range advantage. Check more OOP.</td></tr>
+<tr><td>3-bet pot, low SPR (&lt;3)</td><td>Pot</td><td>Get money in</td></tr>
+</tbody>
+</table>
+
+<!-- ============================================ -->
+<h2>Key Differences: NLHE vs PLO</h2>
+
+<table>
+<thead>
+<tr><th>Factor</th><th>NLHE</th><th>PLO</th></tr>
+</thead>
+<tbody>
+<tr><td>AA vs KK equity</td><td>~80-20</td><td>~60-40</td></tr>
+<tr><td>Worst hand vs AA</td><td>~7%</td><td>~27%</td></tr>
+<tr><td>Fold to 3-bet</td><td>40-60%</td><td>~14%</td></tr>
+<tr><td>Open sizing</td><td>2-3x</td><td>Pot (3.5x)</td></tr>
+<tr><td>Set frequency</td><td>~12% (1 pair)</td><td>~20%+ (2 pairs possible)</td></tr>
+<tr><td>Nut importance</td><td>Top pair often good</td><td>Need nuts/nut draws to stack off</td></tr>
+<tr><td>3-bet bluffing</td><td>Highly effective</td><td>Barely works (people call)</td></tr>
+<tr><td>River check-raise</td><td>Common, profitable</td><td>Usually wrong (people check back too much)</td></tr>
+<tr><td>Position value</td><td>Important</td><td>CRITICAL (turns change everything)</td></tr>
+<tr><td>Rake sensitivity</td><td>Moderate</td><td>Extreme (determines entire strategy)</td></tr>
+</tbody>
+</table>
+
+<!-- ============================================ -->
+<h2>Essential Heuristics</h2>
+
+<div class="box box-blue">
+<span class="box-label">Preflop</span>
+<ul style="margin-bottom:0">
+  <li>If double-suited, almost always open (from reasonable position)</li>
+  <li>If rainbow, need premium connectivity to open</li>
+  <li>3 of one suit = downgrade one full tier</li>
+  <li>Deuce-through-five danglers = usually fold unless rest of hand is premium</li>
+  <li>Small blind = 3-bet or fold. No flatting in cash games.</li>
+  <li>Open pot-size in cash (3.5bb). Smaller only as specific exploit.</li>
+</ul>
+</div>
+
+<div class="box box-purple">
+<span class="box-label">Post-Flop</span>
+<ul style="margin-bottom:0">
+  <li>Always ask: "What is my SPR?" before deciding action</li>
+  <li>After flop check-check, pot the turn &mdash; they're capped</li>
+  <li>Bet yourself on the river, don't check-raise</li>
+  <li>In position vs a flop bet: prefer calling to raising when draws are out</li>
+  <li>Pair in hand + no other outs = fold to big aggression</li>
+  <li>Ace-high/King-high boards as 3-bettor OOP = always small bet</li>
+</ul>
+</div>
+
+<div class="box box-orange">
+<span class="box-label">Exploits</span>
+<ul style="margin-bottom:0">
+  <li>BB 3-bets are almost always premium &mdash; fold interacting hands</li>
+  <li>When opponents bet small on turn after check-check, consider raising</li>
+  <li>Small river block-bets (25-30% pot) as bluffs are massively under-exploited</li>
+  <li>Table too loose: tighten up. Table too tight: add marginal opens.</li>
+  <li>People don't find enough bluffs &mdash; big folds are profitable</li>
+</ul>
+</div>
+
+<div class="box box-red">
+<span class="box-label">Traps to Avoid</span>
+<ul style="margin-bottom:0">
+  <li>Overvaluing kings from NLHE &mdash; KK is NOT a premium in PLO without side cards</li>
+  <li>3-betting to "blow people off" &mdash; they're calling</li>
+  <li>Calling 4-bets with AQQ or AJJ ds &mdash; pretty but terrible vs aces</li>
+  <li>Bottom set multiway &mdash; very dangerous in PLO</li>
+  <li>Low flush draws multiway &mdash; when you hit, you lose to higher flushes</li>
+  <li>Compounding preflop mistakes into postflop disasters</li>
+</ul>
+</div>
+
+</div>
+</body>
+</html>

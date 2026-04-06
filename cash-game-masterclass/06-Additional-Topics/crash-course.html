@@ -227,8 +227,29 @@ th { background:var(--surface2); font-family:'JetBrains Mono',monospace; font-si
 <h3>At 20bb</h3>
 <p>Use <strong>shove-or-fold</strong> strategy extensively. Against serial limpers who fold to all-ins, shove wide — gaining 10-40% of your stack when everyone folds is massive. High cards (AT offsuit) beat suited connectors (T7s) at this depth.</p>
 
+<div class="box box-orange">
+  <div class="box-title">Example: 20bb Shove with A9o vs Serial Limpers</div>
+  <p><strong>Setup:</strong> $1/$2 cash game, effective stack $40 (20bb). Four players limp to you on the Button. Pot: $10. You hold \(A\diamondsuit 9\clubsuit\).</p>
+  <p><strong>Action: Shove all-in for $40.</strong></p>
+  <p><strong>Why A9o beats T7s here:</strong> At 20bb, you don't have the stack depth to realize implied odds post-flop. Suited connectors need deep stacks to profit from flopped draws. A9o wins outright if everyone folds (which happens ~65-70% vs typical limpers). When called, A9o has 30-35% equity against a reasonable calling range (any pair, any Ax).</p>
+  \[\text{EV (shove)} = 0.67 \times \$10 + 0.33 \times \left(0.33 \times \$90 - 0.67 \times \$40\right)\]
+  \[= \$6.70 + 0.33 \times (\$29.70 - \$26.80) = \$6.70 + \$0.96 = +\$7.66\]
+  <p>You gain +$7.66 on a $40 investment — a 19% return in one hand. Compare this to limping/folding: EV = $0.</p>
+  <p><strong>EV cost of folding:</strong> You give up +$7.66 every time you encounter this spot. Over a 4-hour session with 3 such spots per hour = 12 missed opportunities × $7.66 = <strong>$92 of missed profit per session</strong>.</p>
+</div>
+
 <h3>At 40bb</h3>
 <p>Mix of raise/call/shove/fold. 3-bet non-all-in with best hands + blocker bluffs. If rake is big, use 3-bet-or-fold from the small blind (no calling range).</p>
+
+<div class="box box-orange">
+  <div class="box-title">Example: 40bb JJ in a 3-Bet Pot — Shove vs Call</div>
+  <p><strong>Setup:</strong> $2/$5 cash game, your stack $200 (40bb). CO opens to $15. You 3-bet to $45 from the Button with \(J\heartsuit J\clubsuit\). CO 4-bets to $120.</p>
+  <p><strong>Decision: Call the $120 (leaving $80 behind) or shove $200?</strong></p>
+  <p><strong>Calling is correct</strong> at this stack depth. CO's 4-bet range at 40bb is very tight: AA, KK, QQ, AK (and maybe AQs). Against that range, JJ has only ~38% equity vs {QQ+, AK} and ~30% vs {KK+, AKs}.</p>
+  \[\text{EV (shove to \$200)} = 0.38 \times \$400 - 0.62 \times \$200 = \$152 - \$124 = +\$28\]
+  \[\text{EV (call \$120, jam flop)} = \text{Similar but preserves fold equity on non-A/K/Q flops}\]
+  <p>Calling gives you additional information on the flop. If an ace or king flops, you can sometimes fold the remaining $80 — an option the shove destroys. Against tight 4-bettors, flatting with $80 behind and folding AK flops saves ~$30 in EV compared to blind shoving.</p>
+</div>
 
 <!-- ═══════════════════════════════════════════ -->
 <h2 id="threeblind">6. Three-Blind Games</h2>
@@ -250,6 +271,21 @@ th { background:var(--surface2); font-family:'JetBrains Mono',monospace; font-si
 <div class="box box-red">
   <div class="box-title">Common Trap</div>
   "It's just a little bit more" is what the middle blind thinks when calling. It's NOT. You're not closing the action, you're out of position, and you'll under-realize your equity drastically.
+</div>
+
+<div class="box box-orange">
+  <div class="box-title">Example: Middle Blind Calling Trap with 9&#9829;8&#9829;</div>
+  <p><strong>Setup:</strong> $1/$2/$4 three-blind game, 100bb effective ($400). UTG raises to $14. Folds to Middle Blind (you hold \(9\heartsuit 8\heartsuit\), $4 already in). Big Blind still to act behind.</p>
+  <p><strong>"It's only $10 more to call into a $20 pot — I have 5:1 pot odds!"</strong> This thinking is wrong for three reasons:</p>
+  <ol>
+    <li><strong>The BB is still to act.</strong> BB can 3-bet, and you'll be in a squeeze with a marginal hand facing $40+ OOP. Your $14 investment is now burning.</li>
+    <li><strong>Equity realization is terrible.</strong> 98s flops a pair or better ~32% of the time. But multiway OOP against a raiser, you can't bet, can't bluff, can't protect. You realize maybe 60% of your theoretical equity.</li>
+    <li><strong>EV comparison:</strong></li>
+  </ol>
+  \[\text{EV (call)} \approx 0.60 \times \text{(theoretical equity value)} - \text{(positional tax)}\]
+  <p>Against UTG's range (top 15%) with 98s, you have ~37% equity 3-way. But you realize maybe 22% of that equity OOP multiway. Required equity to profit: 14 / (14+20) = 41%. You don't meet it.</p>
+  \[\text{EV (fold)} = \$0 \quad \text{vs} \quad \text{EV (call)} \approx -\$2.50\]
+  <p><strong>Over 10 sessions:</strong> Calling 98s in the middle blind 5 times per session × (-$2.50) × 10 sessions = <strong>$125 of unnecessary losses</strong> from one leak. 3-bet or fold instead — 3-betting takes the initiative and folds out the BB; folding costs nothing.</p>
 </div>
 
 <h3>Other Positions</h3>
@@ -283,8 +319,8 @@ th { background:var(--surface2); font-family:'JetBrains Mono',monospace; font-si
 document.addEventListener("DOMContentLoaded", function() {
   renderMathInElement(document.body, {
     delimiters: [
-      {left: "$$", right: "$$", display: true},
-      {left: "\(", right: "\)", display: false}
+      {left: "\\[", right: "\\]", display: true},
+      {left: "\\(", right: "\\)", display: false}
     ]
   });
 });

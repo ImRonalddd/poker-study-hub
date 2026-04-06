@@ -3,119 +3,297 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Chapter 7: Hand Reviews — Study Hub</title>
+<title>Chapter 7: Hand Reviews &mdash; Study Hub</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;1,400;1,600&family=Source+Serif+4:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;0,900;1,400&family=Source+Serif+4:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
 <style>
 :root {
-  --bg: #FFFFFF; --surface: #FFFFFF; --surface2: #F5F5F5;
-  --accent: #000000; --text: #000000; --text-dim: #525252;
-  --correct: #1a7a5e; --wrong: #b91c1c; --orange: #8B6914;
-  --border: #000000; --border-light: #E5E5E5;
+  --bg: #FFFFFF;
+  --text: #000000;
+  --text-dim: #525252;
+  --border: #000000;
+  --border-light: #E5E5E5;
 }
-*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; border-radius:0!important; }
-body { font-family:'Source Serif 4','Georgia',serif; background:var(--bg); color:var(--text); line-height:1.6; }
-.container { max-width:700px; margin:0 auto; padding:0 2rem 4rem; }
-header { padding:4rem 0 2rem; text-align:center; }
-header h1 { font-family:'Playfair Display',serif; font-weight:800; font-size:2.8rem; letter-spacing:-0.02em; line-height:1.15; margin-bottom:0.5rem; }
-header .subtitle { font-family:'JetBrains Mono',monospace; font-size:0.75rem; font-weight:500; text-transform:uppercase; letter-spacing:0.15em; color:var(--text-dim); }
-header .desc { margin-top:1rem; font-size:1.05rem; color:var(--text-dim); max-width:550px; margin-left:auto; margin-right:auto; }
-.divider { border:none; border-top:4px solid var(--accent); margin:0 0 2.5rem; }
-.nav-back { font-family:'JetBrains Mono',monospace; font-size:0.8rem; display:inline-block; margin-bottom:1rem; color:var(--text-dim); text-decoration:none; border-bottom:1px solid var(--border-light); }
-.nav-back:hover { color:var(--text); border-color:var(--accent); }
 
-.card-grid { display:flex; flex-direction:column; gap:1.2rem; margin-bottom:2.5rem; }
-.card { border:2px solid var(--border-light); padding:1.5rem; text-decoration:none; color:var(--text); display:block; transition:border-color 0.15s, background 0.15s; }
-.card:hover { border-color:var(--accent); background:var(--surface2); }
-.card-label { font-family:'JetBrains Mono',monospace; font-size:0.7rem; text-transform:uppercase; letter-spacing:0.12em; color:var(--text-dim); margin-bottom:0.3rem; }
-.card-title { font-family:'Playfair Display',serif; font-weight:700; font-size:1.4rem; margin-bottom:0.4rem; }
-.card-desc { font-size:0.95rem; color:var(--text-dim); }
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; border-radius: 0 !important; }
 
-h2 { font-family:'Playfair Display',serif; font-weight:700; font-size:1.5rem; margin:2rem 0 1rem; }
-.lesson-list { list-style:none; padding:0; }
-.lesson-list li { padding:0.6rem 0; border-bottom:1px solid var(--border-light); font-size:1rem; display:flex; gap:0.8rem; align-items:baseline; }
-.lesson-list li:last-child { border-bottom:none; }
-.lesson-num { font-family:'JetBrains Mono',monospace; font-size:0.8rem; font-weight:600; color:var(--text-dim); min-width:2rem; }
+body {
+  font-family: 'Source Serif 4', Georgia, serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+}
 
-.theme-grid { display:grid; grid-template-columns: 1fr 1fr; gap:1rem; margin:1rem 0 2rem; }
-.theme { padding:1rem; border:1px solid var(--border-light); background:var(--surface2); }
-.theme-title { font-family:'JetBrains Mono',monospace; font-size:0.75rem; text-transform:uppercase; letter-spacing:0.08em; font-weight:600; margin-bottom:0.3rem; }
-.theme-text { font-size:0.9rem; color:var(--text-dim); }
-@media (max-width: 550px) { .theme-grid { grid-template-columns: 1fr; } }
+.container { max-width: 900px; margin: 0 auto; padding: 4rem 2rem 6rem; }
+
+.header { text-align: center; margin-bottom: 3rem; }
+.header h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: 3rem;
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  margin-bottom: 0.3rem;
+}
+.header .instructor {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--text-dim);
+  margin-bottom: 1rem;
+}
+.header .description {
+  font-size: 1.05rem;
+  color: var(--text-dim);
+  max-width: 640px;
+  margin: 0 auto;
+  line-height: 1.8;
+}
+
+.back-link {
+  display: inline-block;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text-dim);
+  text-decoration: none;
+  margin-bottom: 2rem;
+  transition: color 0.1s;
+}
+.back-link:hover { color: var(--text); }
+
+.stats-bar {
+  display: flex;
+  justify-content: center;
+  gap: 3rem;
+  padding: 1.5rem 0;
+  border-top: 4px solid var(--text);
+  border-bottom: 1px solid var(--border-light);
+  margin-bottom: 3rem;
+}
+.stat { text-align: center; }
+.stat-number {
+  font-family: 'Playfair Display', serif;
+  font-size: 2rem;
+  font-weight: 700;
+  display: block;
+}
+.stat-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--text-dim);
+}
+
+.materials { display: flex; flex-direction: column; gap: 1.5rem; margin-bottom: 3rem; }
+
+.material-card {
+  border: 2px solid var(--text);
+  padding: 2rem 2.5rem;
+  text-decoration: none;
+  color: var(--text);
+  display: block;
+  transition: background 0.1s, color 0.1s;
+  position: relative;
+}
+.material-card:hover { background: var(--text); color: var(--bg); }
+.material-card:hover .material-desc,
+.material-card:hover .material-meta { color: rgba(255,255,255,0.7); }
+.material-card:hover .material-tag { border-color: rgba(255,255,255,0.3); color: rgba(255,255,255,0.7); background: rgba(255,255,255,0.08); }
+
+.material-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 0.3rem;
+}
+.material-meta {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 0.8rem;
+}
+.material-desc { color: var(--text-dim); line-height: 1.6; margin-bottom: 0.8rem; }
+.material-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+.material-tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.6rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 0.25rem 0.6rem;
+  border: 1px solid var(--border-light);
+  color: var(--text-dim);
+}
+.material-arrow {
+  position: absolute;
+  right: 2rem;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1.4rem;
+  opacity: 0;
+  transition: opacity 0.1s;
+}
+.material-card:hover .material-arrow { opacity: 1; }
+
+.topics-section {
+  border: 1px solid var(--border-light);
+  padding: 2rem;
+  margin-bottom: 3rem;
+}
+.topics-section h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.3rem;
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 4px solid var(--text);
+}
+.lesson-list { list-style: none; }
+.lesson-list li {
+  padding: 0.6rem 0;
+  border-bottom: 1px solid var(--border-light);
+  display: flex;
+  align-items: baseline;
+  gap: 1rem;
+}
+.lesson-list li:last-child { border-bottom: none; }
+.ep-num {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: var(--text-dim);
+  flex-shrink: 0;
+  width: 2.5rem;
+}
+.ep-title { font-weight: 500; font-size: 0.95rem; }
+
+.footer {
+  text-align: center;
+  margin-top: 3rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--border-light);
+}
+.footer p {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+@media (max-width: 600px) {
+  .header h1 { font-size: 2rem; }
+  .stats-bar { gap: 1.5rem; }
+  .stat-number { font-size: 1.5rem; }
+  .material-card { padding: 1.5rem; }
+  .material-title { font-size: 1.2rem; }
+  .material-arrow { display: none; }
+}
 </style>
 </head>
 <body>
 <div class="container">
-<a href="../index.html" class="nav-back">&larr; All Chapters</a>
-<header>
-  <div class="subtitle">Cash Game Masterclass &middot; Chapter 7</div>
-  <h1>Hand Reviews</h1>
-  <div class="desc">Jonathan Little reviews real hands from a student crushing small stakes cash games. Each hand teaches specific, actionable principles about bet sizing, reads, and decision-making.</div>
-</header>
-<hr class="divider">
 
-<div class="card-grid">
-  <a href="revision-guide.html" class="card">
-    <div class="card-label">Study Material</div>
-    <div class="card-title">Revision Guide</div>
-    <div class="card-desc">Detailed breakdown of all 4 review sessions. Key hands, common mistakes, and universal principles extracted from 20+ hands.</div>
-  </a>
-  <a href="crash-course.html" class="card">
-    <div class="card-label">Quick Reference</div>
-    <div class="card-title">Crash Course</div>
-    <div class="card-desc">The 7 recurring themes across all reviews: bet sizing, reading opponents, pot odds, check-raising, folding strong hands, and more. 15 min read.</div>
-  </a>
-  <a href="drills.html" class="card">
-    <div class="card-label">Practice</div>
-    <div class="card-title">Decision Drills</div>
-    <div class="card-desc">18 hand scenarios testing your decision-making at each critical point. Each question presents the situation and asks for the correct play.</div>
-  </a>
-</div>
+  <a href="../index.html" class="back-link">&larr; Back to Cash Game Masterclass</a>
 
-<h2>Sessions</h2>
-<ul class="lesson-list">
-  <li><span class="lesson-num">7.1</span> Hand Review #1 — A7s nut flush, AQs 3-bet pot, 55 set mining, straddle with AA</li>
-  <li><span class="lesson-num">7.2</span> Hand Review #2 — Q7s two pair, AJs facing 3-bet, leading vs. donk betting</li>
-  <li><span class="lesson-num">7.3</span> Hand Review #3 — AJ vs. laggy player, A8s trips, Q3s min-click, QQ vs. 4-bet</li>
-  <li><span class="lesson-num">7.4</span> Hand Review #4 — QQ vs. straddle donk, AK flush draw, 86c triple barrel, bet sizing mastery</li>
-</ul>
+  <div class="header">
+    <h1>Chapter 7: Hand Reviews</h1>
+    <div class="instructor">Cash Game Masterclass &mdash; Jonathan Little</div>
+    <p class="description">
+      Jonathan Little reviews real hands from a student crushing small stakes cash games.
+      Each hand teaches specific, actionable principles about bet sizing, reads, and decision-making.
+    </p>
+  </div>
 
-<h2>Recurring Themes</h2>
-<div class="theme-grid">
-  <div class="theme">
-    <div class="theme-title">Bet Sizing</div>
-    <div class="theme-text">Always ask: "What am I trying to get called by, and how much will that hand call?"</div>
+  <div class="stats-bar">
+    <div class="stat">
+      <span class="stat-number">4</span>
+      <span class="stat-label">Sessions</span>
+    </div>
+    <div class="stat">
+      <span class="stat-number">3</span>
+      <span class="stat-label">Materials</span>
+    </div>
+    <div class="stat">
+      <span class="stat-number">18</span>
+      <span class="stat-label">Drill Questions</span>
+    </div>
+    <div class="stat">
+      <span class="stat-number">Applied</span>
+      <span class="stat-label">Level</span>
+    </div>
   </div>
-  <div class="theme">
-    <div class="theme-title">Give Room to Blunder</div>
-    <div class="theme-text">Against tilting/loose opponents, bet small to induce mistakes rather than betting big for "protection."</div>
+
+  <div class="materials">
+
+    <a href="crash-course.html" class="material-card">
+      <div class="material-title">Crash Course</div>
+      <div class="material-meta">7 recurring themes &mdash; ~15 min read</div>
+      <div class="material-desc">
+        The 7 recurring themes across all reviews: bet sizing, reading opponents, pot odds,
+        check-raising, folding strong hands, the gift economy, and tagging opponents.
+      </div>
+      <div class="material-tags">
+        <span class="material-tag">Bet Sizing</span>
+        <span class="material-tag">Reading Opponents</span>
+        <span class="material-tag">Check-Raising</span>
+        <span class="material-tag">Pot Odds</span>
+      </div>
+      <span class="material-arrow">&rarr;</span>
+    </a>
+
+    <a href="revision-guide.html" class="material-card">
+      <div class="material-title">Revision Guide</div>
+      <div class="material-meta">All 4 review sessions &mdash; detailed breakdown</div>
+      <div class="material-desc">
+        Detailed breakdown of all 4 review sessions. Key hands, common mistakes, and universal
+        principles extracted from 20+ hands.
+      </div>
+      <div class="material-tags">
+        <span class="material-tag">All Sessions</span>
+        <span class="material-tag">Key Hands</span>
+        <span class="material-tag">Common Mistakes</span>
+        <span class="material-tag">Principles</span>
+      </div>
+      <span class="material-arrow">&rarr;</span>
+    </a>
+
+    <a href="drills.html" class="material-card">
+      <div class="material-title">Decision Drills</div>
+      <div class="material-meta">18 hand scenarios</div>
+      <div class="material-desc">
+        18 hand scenarios testing your decision-making at each critical point. Each question
+        presents the situation and asks for the correct play.
+      </div>
+      <div class="material-tags">
+        <span class="material-tag">Hand Scenarios</span>
+        <span class="material-tag">Decision Points</span>
+        <span class="material-tag">Applied Theory</span>
+      </div>
+      <span class="material-arrow">&rarr;</span>
+    </a>
+
   </div>
-  <div class="theme">
-    <div class="theme-title">Read Bet Patterns</div>
-    <div class="theme-text">Small bets = marginal made hands. Big donk bets = polarized. Abnormal lines = unbalanced.</div>
+
+  <div class="topics-section">
+    <h2>Review Sessions</h2>
+    <ul class="lesson-list">
+      <li><span class="ep-num">7.1</span><span class="ep-title">Hand Review #1 &mdash; A7s nut flush, AQs 3-bet pot, 55 set mining, straddle with AA</span></li>
+      <li><span class="ep-num">7.2</span><span class="ep-title">Hand Review #2 &mdash; Q7s two pair, AJs facing 3-bet, leading vs donk betting</span></li>
+      <li><span class="ep-num">7.3</span><span class="ep-title">Hand Review #3 &mdash; AJ vs laggy player, A8s trips, Q3s min-click, QQ vs 4-bet</span></li>
+      <li><span class="ep-num">7.4</span><span class="ep-title">Hand Review #4 &mdash; QQ vs straddle donk, AK flush draw, 86c triple barrel, bet sizing mastery</span></li>
+    </ul>
   </div>
-  <div class="theme">
-    <div class="theme-title">Pot Odds</div>
-    <div class="theme-text">When you need to be good &lt;25%, lean toward calling unless opponent is tight and straightforward.</div>
+
+  <div class="footer">
+    <p>Study materials generated from PokerCoaching.com course transcripts</p>
   </div>
-  <div class="theme">
-    <div class="theme-title">Check-Raise OOP</div>
-    <div class="theme-text">With your best hands from out of position, check-raise the flop. Not doing so leaves massive value on the table.</div>
-  </div>
-  <div class="theme">
-    <div class="theme-title">Folding Strong Hands</div>
-    <div class="theme-text">Multiway with a big raise, two pair can be a fold. Multiple opponents = tighter calling range.</div>
-  </div>
-  <div class="theme">
-    <div class="theme-title">The Gift Economy</div>
-    <div class="theme-text">Small stakes wins are often gifts from bad play. Don't attribute them to skill — and expect fewer gifts as you move up.</div>
-  </div>
-  <div class="theme">
-    <div class="theme-title">Tag Opponents</div>
-    <div class="theme-text">"Laggy reg," "action fish," "tight passive" — not just "fish." Know exactly what type of bad player they are.</div>
-  </div>
-</div>
+
 </div>
 </body>
 </html>

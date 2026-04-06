@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Chapter 2: Preflop Play &mdash; Study Hub</title>
+<title>Master PLO Cash Games &mdash; Study Hub</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;0,900;1,400&family=Source+Serif+4:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
@@ -14,6 +14,10 @@
   --text-dim: #525252;
   --border: #000000;
   --border-light: #E5E5E5;
+  --blue: #2563EB;
+  --purple: #7C3AED;
+  --orange: #EA580C;
+  --red: #DC2626;
 }
 
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; border-radius: 0 !important; }
@@ -141,32 +145,49 @@ body {
 }
 .material-card:hover .material-arrow { opacity: 1; }
 
-.topics-section {
+.episodes {
   border: 1px solid var(--border-light);
   padding: 2rem;
   margin-bottom: 3rem;
 }
-.topics-section h2 {
+.episodes h2 {
   font-family: 'Playfair Display', serif;
   font-size: 1.3rem;
   margin-bottom: 1rem;
   padding-bottom: 0.5rem;
   border-bottom: 4px solid var(--text);
 }
-.topic-list {
-  list-style: none;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 0;
-}
-.topic-list li {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 0.75rem;
-  color: var(--text-dim);
-  padding: 0.5rem 0;
+.episode-list { list-style: none; }
+.episode-list li {
+  padding: 0.6rem 0;
   border-bottom: 1px solid var(--border-light);
+  display: flex;
+  align-items: baseline;
+  gap: 1rem;
+}
+.episode-list li:last-child { border-bottom: none; }
+.ep-num {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: var(--text-dim);
+  flex-shrink: 0;
+  width: 2rem;
+}
+.ep-title { font-weight: 500; }
+.ep-dur {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  color: var(--text-dim);
+  margin-left: auto;
+  flex-shrink: 0;
+}
+.ep-missing {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  color: var(--red);
   text-transform: uppercase;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.05em;
 }
 
 .footer {
@@ -190,36 +211,34 @@ body {
   .material-card { padding: 1.5rem; }
   .material-title { font-size: 1.2rem; }
   .material-arrow { display: none; }
-  .topic-list { grid-template-columns: 1fr; }
 }
 </style>
 </head>
 <body>
 <div class="container">
 
-  <a href="../index.html" class="back-link">&larr; Back to Cash Game Masterclass</a>
+  <a href="../index.html" class="back-link">&larr; Back to Poker Study Hub</a>
 
   <div class="header">
-    <h1>Chapter 2: Preflop Play</h1>
-    <div class="instructor">Cash Game Masterclass &mdash; Jonathan Little</div>
+    <h1>Master PLO Cash Games</h1>
+    <div class="instructor">Instructor: Adam Hendrix &mdash; PLO Cash Game &amp; Tournament Professional</div>
     <p class="description">
-      The most important chapter in the course. Master position-based opening ranges, 3-bet and
-      4-bet strategy, stack depth adjustments, implied odds, minimum defense frequency, and how to
-      handle limpers &mdash; all grounded in GTO data.
+      A complete PLO cash game curriculum covering preflop fundamentals through advanced exploit strategies,
+      with live hand analysis sessions coaching a no-limit player through the transition to Pot-Limit Omaha.
     </p>
   </div>
 
   <div class="stats-bar">
     <div class="stat">
-      <span class="stat-number">23</span>
-      <span class="stat-label">Lessons</span>
+      <span class="stat-number">8</span>
+      <span class="stat-label">Episodes</span>
     </div>
     <div class="stat">
-      <span class="stat-number">4</span>
-      <span class="stat-label">Materials</span>
+      <span class="stat-number">~4h</span>
+      <span class="stat-label">Runtime</span>
     </div>
     <div class="stat">
-      <span class="stat-number">36</span>
+      <span class="stat-number">35</span>
       <span class="stat-label">Drill Questions</span>
     </div>
     <div class="stat">
@@ -232,19 +251,16 @@ body {
 
     <a href="crash-course.html" class="material-card">
       <div class="material-title">Crash Course</div>
-      <div class="material-meta">Complete chapter walkthrough &mdash; ~25 min read</div>
+      <div class="material-meta">15-20 min read</div>
       <div class="material-desc">
-        Complete walkthrough of all 22 preflop lessons. Covers effective stacks, pot-sized raises,
-        RFI ranges by position, 3-bet and 4-bet strategy, facing raises, playing from the blinds,
-        deep-stacked adjustments, implied odds, MDF, and limper dynamics. Includes worked examples,
-        an embedded GTO hand matrix, and common traps.
+        Concise overview of the entire course organized by topic. Key PLO concepts, hand evaluation
+        frameworks, and strategic takeaways for rapid learning.
       </div>
       <div class="material-tags">
-        <span class="material-tag">RFI by Position</span>
-        <span class="material-tag">3-Bet Strategy</span>
-        <span class="material-tag">4-Bet Strategy</span>
-        <span class="material-tag">Blind Defense</span>
-        <span class="material-tag">Stack Depth</span>
+        <span class="material-tag">Hand Selection</span>
+        <span class="material-tag">RFI Strategy</span>
+        <span class="material-tag">3-Betting</span>
+        <span class="material-tag">Exploits</span>
       </div>
       <span class="material-arrow">&rarr;</span>
     </a>
@@ -253,80 +269,96 @@ body {
       <div class="material-title">Revision Guide</div>
       <div class="material-meta">Deep-dive reference &mdash; comprehensive</div>
       <div class="material-desc">
-        Obsidian-compatible markdown with full topic map, all formulas, position-specific range
-        percentages, bet sizing guidelines, decision trees, and cross-references to quiz topics.
-        Use as a quick-reference sheet at the table or during review sessions.
+        Every concept with full context: game situations, positions, stack depths, opponent ranges,
+        reasoning for correct plays, and EV cost of mistakes.
       </div>
       <div class="material-tags">
-        <span class="material-tag">Range Percentages</span>
-        <span class="material-tag">Decision Trees</span>
-        <span class="material-tag">Bet Sizing</span>
-        <span class="material-tag">Obsidian</span>
+        <span class="material-tag">Full Examples</span>
+        <span class="material-tag">Solver Analysis</span>
+        <span class="material-tag">SPR Theory</span>
+        <span class="material-tag">Population Reads</span>
       </div>
       <span class="material-arrow">&rarr;</span>
     </a>
 
     <a href="drills.html" class="material-card">
       <div class="material-title">Interactive Drills</div>
-      <div class="material-meta">36 scenario-based questions</div>
+      <div class="material-meta">35 scenario-based questions</div>
       <div class="material-desc">
-        36 questions covering stack depth, position, bet sizing, range composition, implied odds,
-        reverse implied odds, MDF, RFI strategy, facing raises, 3-bets, 4-bets, limpers, and
-        deep-stacked play. Multiple choice, true/false, and fill-in-the-blank.
+        Multiple-choice PLO scenarios testing preflop RFI decisions, 3-bet/4-bet strategy,
+        exploit-based deviations, and hand analysis from the coaching sessions.
       </div>
       <div class="material-tags">
-        <span class="material-tag">RFI Strategy</span>
+        <span class="material-tag">Preflop RFI</span>
         <span class="material-tag">3-Bet Ranges</span>
-        <span class="material-tag">MDF</span>
-        <span class="material-tag">Implied Odds</span>
+        <span class="material-tag">Vs 4-Bets</span>
+        <span class="material-tag">Hand Analysis</span>
       </div>
       <span class="material-arrow">&rarr;</span>
     </a>
 
-    <a href="range-drill.html" class="material-card">
-      <div class="material-title">Range Builder</div>
-      <div class="material-meta">Interactive GTO range construction drill</div>
+    <a href="quick-reference.html" class="material-card">
+      <div class="material-title">Quick Reference</div>
+      <div class="material-meta">Printable cheat sheet</div>
       <div class="material-desc">
-        Interactive GTO range construction drill. Click or drag to select hands in a 13&times;13
-        matrix, then check your answer against actual solver data. Five RFI scenarios covering
-        every open-raising position (LJ, HJ, CO, BTN, SB) at 100bb. Scored with immediate
-        visual feedback.
+        PLO starting hand categories, position-based open ranges, 3-bet ranges,
+        key differences from NL Hold'em, and essential heuristics.
       </div>
       <div class="material-tags">
-        <span class="material-tag">Hand Matrix</span>
-        <span class="material-tag">Solver Data</span>
-        <span class="material-tag">All Positions</span>
-        <span class="material-tag">100bb</span>
+        <span class="material-tag">Hand Categories</span>
+        <span class="material-tag">Ranges</span>
+        <span class="material-tag">NL vs PLO</span>
+        <span class="material-tag">Heuristics</span>
       </div>
       <span class="material-arrow">&rarr;</span>
     </a>
 
   </div>
 
-  <div class="topics-section">
-    <h2>Topics Covered</h2>
-    <ul class="topic-list">
-      <li>Effective Stacks</li>
-      <li>Pot-Sized Raises</li>
-      <li>RFI Ranges by Position</li>
-      <li>3-Bet Strategy</li>
-      <li>4-Bet / 5-Bet Strategy</li>
-      <li>Facing Raises</li>
-      <li>Blind Defense</li>
-      <li>Stack Depth Adjustments</li>
-      <li>Implied Odds</li>
-      <li>Reverse Implied Odds</li>
-      <li>Minimum Defense Frequency</li>
-      <li>Linear vs Polarized Ranges</li>
-      <li>Condensed Ranges</li>
-      <li>Limper Strategy</li>
-      <li>Isolation Raises</li>
-      <li>Squeeze Plays</li>
-      <li>Cold Calling</li>
-      <li>Cold 4-Betting</li>
-      <li>200bb Deep Play</li>
-      <li>GTO Range Construction</li>
-    </ul>
+  <div class="episodes">
+    <h2>Episode Guide</h2>
+    <ol class="episode-list">
+      <li>
+        <span class="ep-num">01</span>
+        <span class="ep-title">Intro to Mastering PLO Cash Games Series</span>
+        <span class="ep-dur">~1 min</span>
+      </li>
+      <li>
+        <span class="ep-num">02</span>
+        <span class="ep-title">Preflop Fundamentals: RFI Strategies</span>
+        <span class="ep-dur">~38 min</span>
+      </li>
+      <li>
+        <span class="ep-num">03</span>
+        <span class="ep-title">Preflop Fundamentals: 3-Betting Strategies</span>
+        <span class="ep-dur">~18 min</span>
+      </li>
+      <li>
+        <span class="ep-num">04</span>
+        <span class="ep-title">Advanced Preflop: vs 3-Bets &amp; Exploits</span>
+        <span class="ep-dur">~30 min</span>
+      </li>
+      <li>
+        <span class="ep-num">05</span>
+        <span class="ep-title">Advanced Preflop: vs 4-Bets &amp; Exploits</span>
+        <span class="ep-dur">~31 min</span>
+      </li>
+      <li>
+        <span class="ep-num">06</span>
+        <span class="ep-title">Analyzing Justin Saliba's PLO Game (Session 1)</span>
+        <span class="ep-dur">~40 min</span>
+      </li>
+      <li>
+        <span class="ep-num">07</span>
+        <span class="ep-title">Moving from NL to PLO: Analysis Part 2</span>
+        <span class="ep-dur">~32 min</span>
+      </li>
+      <li>
+        <span class="ep-num">08</span>
+        <span class="ep-title">Where EV Comes From: Analysis Part 3</span>
+        <span class="ep-dur">~51 min</span>
+      </li>
+    </ol>
   </div>
 
   <div class="footer">

@@ -9,7 +9,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Source+Serif+4:wght@300;400;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body,{delimiters:[{left:'\\(',right:'\\)',display:false},{left:'$$',right:'$$',display:true}],throwOnError:false});"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body,{delimiters:[{left:'\\(',right:'\\)',display:false}],throwOnError:false});"></script>
 <style>
 :root{--bg:#FFFFFF;--surface:#FFFFFF;--surface2:#F5F5F5;--accent:#000000;--text:#000000;--text-dim:#525252;--correct:#1a7a5e;--wrong:#b91c1c;--orange:#8B6914;--border:#000000;--border-light:#E5E5E5;--blue:#1e40af;--blue-bg:#eff6ff;--purple:#6b21a8;--purple-bg:#faf5ff;--orange-bg:#fffbeb;--red:#991b1b;--red-bg:#fef2f2}
 *{margin:0;padding:0;box-sizing:border-box}
@@ -100,7 +100,9 @@ blockquote{border-left:3px solid var(--border-light);padding:.8rem 1.2rem;margin
 
 <div class="box box-purple">
 <div class="box-label">Key Hands</div>
-<strong>65s</strong> is the power suited connector (smashes A5s when making a wheel). <strong>A5s</strong> is the aggressive bluffing hand.
+<p><strong>65s</strong> is the "power suited connector" -- when it makes a wheel straight (A-2-3-4-5), it beats A5s, which would also have a wheel but is dominated. Additionally, 65s flops well on low-connected boards (e.g., 7-4-3, 8-7-4) that miss opponents' high-card ranges. It has better implied odds than higher suited connectors because opponents rarely see it coming.</p>
+<p><strong>A5s</strong> is the premier aggressive bluffing hand at all stack depths. It blocks AA (only 3 combos instead of 6 when you hold an Ace), has nut flush potential, and can make the wheel straight. As a 3-bet or 4-bet bluff, it's ideal because when you get called, you still have live equity -- unlike bluffs with no playability like K9o.</p>
+<p><strong>Why 98s and 87s are bad from EP:</strong> These hands make the "bottom end" of straights. On a board like J-T-9, 87 has the low end while QK has the nut end. Getting stacked with the bottom straight against the top straight is a catastrophic reverse implied odds scenario, especially deep-stacked.</p>
 </div>
 
 <table>
@@ -123,8 +125,18 @@ blockquote{border-left:3px solid var(--border-light);padding:.8rem 1.2rem;margin
 </ul>
 
 <div class="box box-orange">
+<div class="box-label">Full Situation: SB Raise vs Limp on Q-6-2 Flop</div>
+<p><strong>Setup:</strong> 8-max live, 100bb, no rake. You are in the SB. Everyone folds to you. You hold K&#9827;Q&#9830;. You raise to 4bb. BB calls. Pot: ~8bb. Flop: Q&#9829;6&#9824;2&#9827;.</p>
+<p><strong>Now consider you held 8&#9829;7&#9827; instead.</strong> GTO says limp 8-7s from SB. You limp to 1bb, BB checks. Same Q-6-2 flop. Pot: ~2bb.</p>
+<p><strong>Why the differentiation matters:</strong> If you always raised with good hands and limped only trash, your limp range becomes so weak that the BB can check and bluff you every street with impunity. By also limping hands like 87s, T8s, QT, JJ -- which all play fine in a cheap pot -- you protect the range. The BB cannot now auto-attack every limp because sometimes you have QQ in there, sometimes 8-7s with a flush draw.</p>
+<p><strong>EV of wrong approach:</strong> If you limp only trash (22-55, Q3o) and raise all decent hands, the BB sees your limp = trash and fires every flop. You fold your 22 on Q-6-2 and lose 1bb. Against your correct mixed range, they must check far more often. The EV swing from protecting your limp range can be 0.5-1.5bb per limp occurrence.</p>
+</div>
+
+<div class="box box-orange">
 <div class="box-label">BB vs SB Limp</div>
-Raise ~33-38% with polarized range (best hands + weakest suited stuff); check the rest.
+<p><strong>Situation:</strong> Live 8-max, no rake. SB limps (completing to 1bb). You are in the BB.</p>
+<p><strong>Strategy:</strong> Raise ~33-38% of hands with a <strong>polarized range</strong>. Raise to about 4bb. Your raising range includes two distinct groups: (1) your best hands (AA, KK, AKs, AQs, etc.) for value, and (2) your weakest suited hands (Q2s, J3s, 74s, 53s) as bluffs. The weak suited bluffs are chosen because they're too bad to profitably check but have enough post-flop potential (flush draws, occasional straights) to justify putting in a raise. Check the middle of your range (pairs, suited connectors, decent offsuit hands) -- these play well postflop in a limped pot.</p>
+<p><strong>Why not raise all good hands?</strong> If you raise only strong hands and check weak ones, your opponent knows that when you check you have garbage and when you raise you have something good. The polarized approach keeps them guessing in both scenarios.</p>
 </div>
 
 <h3>A2. 6-Max Online RFI (With Rake)</h3>
@@ -178,6 +190,14 @@ Compare A1 SB (limp allowed, no rake) vs A2 SB (raise/fold only, rake). Rake fun
 <div class="box box-red">
 <div class="box-label">Critical Rule (200bb)</div>
 AK offsuit does NOT always 3-bet. Often just calls, especially OOP.
+</div>
+
+<div class="box box-orange">
+<div class="box-label">Full Situation: AKo vs UTG Raise, BTN, 200bb Deep</div>
+<p><strong>Setup:</strong> 8-max live, 200bb, no rake. UTG raises to 3bb. Folds to you on the BTN. You hold A&#9827;K&#9830;.</p>
+<p><strong>GTO play: Call (flat) most of the time.</strong> 3-betting AKo on the BTN at 200bb looks appealing but creates problems. When you 3-bet, UTG (a tight range) 4-bets back, and now you're facing a 4-bet with AKo at 200bb. If you call, you play a bloated pot OOP to UTG (who acts after you on every street). If you fold to the 4-bet, you've invested 10bb for nothing. If you 5-bet, you're jamming 200bb with AKo vs a range that includes AA and KK.</p>
+<p><strong>By calling instead:</strong> You keep the pot manageable, play the flop IP with 200bb behind at a much higher SPR, and retain the ability to fold cleanly on boards that miss you. Your implied odds are enormous -- if you make trips or two pair on an ace or king board, you can slowly build a monster pot. UTG cannot rapidly build a pot against you without committing to a dangerous SPR themselves.</p>
+<p><strong>EV comparison:</strong> 3-betting AKo BTN vs UTG at 200bb gains ~2bb vs folding to a 4-bet compared to simply flatting. But it also increases variance significantly and creates painful spots when 4-bet. The flat retains more equity by realizing it postflop with positional advantage. Most solvers call AKo IP at 200bb ~40-60% of the time and 3-bet ~40-60%.</p>
 </div>
 
 <h3>B2. 6-Max Online vs Raise</h3>
@@ -363,6 +383,14 @@ Offsuit hands are BAD in multiway pots -- this is the most consistent message.
 When facing raise + 3-bet before you (no money invested): 4-bet or fold, NEVER cold call. Cold calling the 3-bet reveals a "pretty good but not premium" hand -- very exploitable.
 </div>
 
+<div class="box box-orange">
+<div class="box-label">Full Situation: JJ in the HJ Facing CO Raise + BTN 3-Bet</div>
+<p><strong>Setup:</strong> 8-max live, 100bb, no rake. CO raises to 3bb. BTN 3-bets to 10bb. Action folds to you in the HJ. You hold J&#9829;J&#9824;. You have invested nothing.</p>
+<p><strong>Cold calling is wrong.</strong> Here is why: the CO raised, the BTN 3-bet. Both have their ranges compressed toward strong hands. Your JJ is "pretty good" but clearly not premium in this context. If you cold call 10bb, everyone knows you hold something like JJ-QQ or AQs -- the exact range that fits the "pretty good but not premium" profile. Both the CO and BTN (and the BB still to act) can now profitably squeeze you, knowing your range is capped at QQ-ish. If anyone 4-bets, you're stuck folding your 10bb cold call.</p>
+<p><strong>4-bet or fold:</strong> Against a CO raise from a player with a ~26% range and a BTN 3-bet from a player with a ~12-15% 3-bet range, the combined range is heavily weighted toward {QQ+, AKs, AQs, KQs, A5s, 65s}. Your JJ is well ahead of many 3-bet bluffs but crushed by QQ+ and even marginally against AK. The correct play is to 4-bet to 22-24bb with QQ+, AK, and add JJ to your 4-bet range when the open was from CO (wider range) or fold JJ against an UTG open + 3-bet (tighter ranges).</p>
+<p><strong>EV of cold calling:</strong> Cold calling invites squeezes, reveals your hand strength, and leaves you out of position against two aggressive ranges. Against competent players, cold calling costs approximately 5-8bb in EV vs. either folding or 4-betting, because you give away strategic information for free.</p>
+</div>
+
 <ul>
 <li><strong>Standard range:</strong> QQ+, AK, AQs, A5s as the primary bluff</li>
 <li>Against tightest scenarios (LJ raise + HJ 3-bet): QQ+, AK, A5s only</li>
@@ -414,6 +442,13 @@ Low suited connectors (65s, 76s) CALL because they're live; high suited hands (K
 <div class="box box-orange">
 <div class="box-label">The Ultimate Rule</div>
 <strong>"Jacks or better and AK"</strong> -- the ultimate high-action call-off rule for blind vs blind.
+</div>
+
+<div class="box box-orange">
+<div class="box-label">Full Situation: Blind vs Blind All-In Confrontation, 100bb</div>
+<p><strong>Setup:</strong> 8-max live, 100bb, no rake. Folds to SB. SB raises to 4bb (standard BvB size). BB 3-bets to 14bb. SB 4-bets to 28bb. BB 5-bets all-in for 100bb total. Action on SB. SB holds Q&#9829;Q&#9824;.</p>
+<p><strong>Is this a call or fold?</strong> The escalation chain has gone raise &rarr; 3-bet &rarr; 4-bet &rarr; 5-bet shove. In blind vs blind at 100bb, the 5-bet shove range narrows to {AA, KK, AK}. QQ is ahead of AK (57%) but badly behind AA and KK (18%). If BB's shove range is exactly {AA, KK, AK}: AA = 6 combos, KK = 6 combos (only 3 if you hold QQ = blocks 2 KK combos), AK = 16 combos. QQ vs this range: roughly 42-45% equity. At 100bb, pot odds to call are: pay 72bb to win ~200bb total = ~36% break-even. QQ at 42% equity is a profitable call, but barely. If BB's shove range is only {AA, KK}, fold QQ (18% equity needed to call, you're way worse).</p>
+<p><strong>The "Jacks or better and AK" rule applies here:</strong> If you held JJ, the call is borderline even vs {AA, KK, AK} because JJ has worse equity. Against a tighter shove range, JJ becomes a fold. The rule means: in the maximum aggression sequence (raise-3bet-4bet-shove), call off with JJ+, AK and fold everything below that threshold.</p>
 </div>
 
 <hr>

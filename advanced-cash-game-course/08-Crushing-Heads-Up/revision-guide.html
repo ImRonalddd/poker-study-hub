@@ -9,7 +9,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Source+Serif+4:wght@300;400;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body,{delimiters:[{left:'\\(',right:'\\)',display:false},{left:'$$',right:'$$',display:true}],throwOnError:false});"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body,{delimiters:[{left:'\\(',right:'\\)',display:false}],throwOnError:false});"></script>
 <style>
 :root{--bg:#FFFFFF;--surface:#FFFFFF;--surface2:#F5F5F5;--accent:#000000;--text:#000000;--text-dim:#525252;--correct:#1a7a5e;--wrong:#b91c1c;--orange:#8B6914;--border:#000000;--border-light:#E5E5E5;--blue:#1e40af;--blue-bg:#eff6ff;--purple:#6b21a8;--purple-bg:#faf5ff;--orange-bg:#fffbeb;--red:#991b1b;--red-bg:#fef2f2}
 *{margin:0;padding:0;box-sizing:border-box}
@@ -120,6 +120,16 @@ Flop C-Betting is much lower than most expect. In HUNL, "frequent" is ~75%. On m
 <tr><td>Straight-available</td><td>Bet 60-65% and check; avoid small-ball</td><td>T-7-6</td></tr>
 </table>
 
+<div class="box box-orange">
+<div class="box-label">Full Situation: A-9-3 Rainbow (Button vs BB, HUNL, 100bb)</div>
+<p><strong>Setup:</strong> HUNL, 100bb. Button opens ~80% of hands. BB defends ~70%. Flop: A&#9824;9&#9829;3&#9827; (rainbow). BB checks. Action on button.</p>
+<p><strong>Button's range on A-9-3r:</strong> Because button opens 80% of hands, their range includes EVERYTHING: A2o through AKs, 22-AA, 72o, J4s, every suited combo. Both players hit this flop roughly equally -- even the BB has A2o, A3s, random 9x hands in their defending range.</p>
+<p><strong>Why check frequently (c-bet only ~50-55%):</strong> The board is dry and static. No draws are available, so the nuts (A-x) are unlikely to be overtaken. When neither player can make a flush or straight to beat top pair, there is no urgency to build the pot. Additionally, BB's defending range contains sets of 9s and 3s that are ahead of button's frequent Kx/Qx type hands. Button has NO nut advantage -- BB also has A-x hands.</p>
+<p><strong>Hands that bet (B33, small):</strong> Medium strength Ax hands (A-7, A-6) that are ahead of BB's bluffs and want a small amount of value. Hands like K-T, Q-J (overcards + backdoor draws) as semi-bluffs. Hands like 9-9, A-K that want to build a small pot.</p>
+<p><strong>Hands that check:</strong> A-A (top set -- slow play is fine, no urgency), A-9 (strong two pair -- no draws to protect against), K-K (strong but check to realize equity without building pot against BB's possible aces).</p>
+<p><strong>EV of over-betting:</strong> If button bets 100% of range on A-9-3r, BB can check-raise aggressively targeting button's wide range (which contains many 7-8 high hands, J-4 type hands with nothing). BB's sets and aces gain massively from button's overaggression. Button loses approximately 1-2bb per occurrence from betting too wide on this static, dry texture.</p>
+</div>
+
 <h3>Key Heuristics</h3>
 <ul>
 <li><strong>Side card matters:</strong> Lower side cards bet more often (unblock opponent's offsuit folds). Higher side cards check more (block their potential folds).</li>
@@ -221,6 +231,15 @@ Some players bet-check-bet as a bluff (strong/studied players). Others simply ca
 If opponent under-bluffs by 5%, don't under-call by 5% -- <strong>never call a bluff catcher</strong> (all bluff catchers become losing calls).<br>
 If opponent over-bluffs by 5%, <strong>call every single bluff catcher</strong> (all become profitable).<br>
 The adjustment is always extreme, not proportional.
+</div>
+
+<div class="box box-orange">
+<div class="box-label">Full Situation: Extreme Bluff Frequency Adjustment -- HUNL, 100bb, River Spot</div>
+<p><strong>Setup:</strong> HUNL, 100bb. After 40 hands, you've identified that opponent never fires river bluffs after checking the turn. They bet-check-fold (bet flop, check turn, then either check or fold river). You are BB. Button bets flop, checks turn, bets river with 60bb into a 70bb pot (86% pot).</p>
+<p><strong>At GTO (opponent bluffs at correct frequency):</strong> You must call a 86% pot bet with roughly 46% of your bluff catchers (the MDF for 86% pot). You hold K&#9829;8&#9824; (king high -- top bluff catcher category). GTO says call ~46% of the time with this hand strength.</p>
+<p><strong>With your read (opponent never bluffs river after turn check):</strong> The adjustment is NOT "call K8 slightly less." The adjustment is <strong>NEVER call K8</strong> -- nor any bluff catcher. If opponent's betting range here contains only value (sets, two pair, top pairs), you need 46% equity to call -- but you have 0-15% equity against pure value. Every single bluff catcher is a losing call by a wide margin.</p>
+<p><strong>Why the response must be extreme:</strong> GTO equilibrium is binary for the defender. If bluff frequency is even 1% below optimal, the expected value of calling ANY bluff catcher is negative (you lose the call amount minus your equity vs value-only range). The only correct response is pure fold with all bluff catchers. There is no "call a bit less" -- every bluff catcher has negative EV vs a value-only range.</p>
+<p><strong>Conversely, if opponent over-bluffs (always bluffs river after turn check):</strong> Their range contains too many bluffs. Even K-4 (very weak bluff catcher) becomes a profitable call. You should call K-4, K-2, any pair -- literally every bluff catcher. The EV of calling with even the weakest bluff catcher is positive because you're scooping pots from opponent's busted draws.</p>
 </div>
 
 <h3>Three-Bet Frequency Reads</h3>

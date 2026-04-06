@@ -10,7 +10,7 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
-  onload="renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'\\(',right:'\\)',display:false}]});"></script>
+  onload="renderMathInElement(document.body,{delimiters:[{left:'\\[',right:'\\]',display:true},{left:'\\(',right:'\\)',display:false}]});"></script>
 <style>
 :root {
   --bg: #FFFFFF; --surface: #FFFFFF; --surface2: #F5F5F5; --accent: #000000;
@@ -102,12 +102,28 @@ pre.tree { font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; backgro
   <li>Reason: Deep stacks mean more money behind. If you make top pair marginal kicker and opponent wants to put in 200bb, you are in trouble.</li>
 </ul>
 
+<div class="box box-orange">
+  <span class="box-label">Example: Why KJo Is Dangerous at 200bb</span>
+  <p><strong>Situation:</strong> 6-max, 200bb effective. You raise to 3.5bb from CO with K♠J♦. BTN calls. Pot: 8.5bb. Flop: K♥9♦3♣ (top pair, second kicker).</p>
+  <p>You bet 5bb. BTN raises to 16bb. You are now facing a raise with top pair second kicker, 200bb deep. If you call and BTN fires 3 streets on a blank turn and river, you will be faced with calling roughly 80bb more into a pot that grew from 40bb. At 200bb, the stacks behind after the flop raise are ~184bb -- your opponent has room to represent AK, KQ, KK, or a flopped set.</p>
+  <p><strong>Why this is a problem:</strong> KJo only beats bluffs and weaker top pairs. When a competent opponent raises the flop for 200bb deep, their range is weighted toward hands that crush you (KK, KQ, AK, K9s, 99, 33). You are making a marginal hand in exactly the spot where marginal hands are most costly. At 100bb, a flop raise might be a fold. At 200bb, even calling once sets up a disastrous turn/river situation.</p>
+  <p><strong>Compare to 87s:</strong> With 87s on a 9♦6♣5♠ flop at 200bb, you have the nut straight. When the money goes in, you are the one with the dominant hand. This is why implied odds hands skyrocket at 200bb.</p>
+</div>
+
 <h3>Shallow-Stacked Adjustments (20-30bb)</h3>
 <ul>
   <li>All pairs and big cards become powerful (one pair is often enough)</li>
   <li>Going all-in over initial raise is strong when you have ~10x the raise or fewer</li>
   <li>If a raise puts in &gt;30% of your stack, just go all-in instead (you're pot-committed anyway)</li>
 </ul>
+
+<div class="box box-orange">
+  <span class="box-label">Example: Shoving 25bb with Pocket 9s</span>
+  <p><strong>Situation:</strong> Cash game, 25bb effective stacks. CO raises to 3bb. You are on the BTN with 9♥9♦. Action folds to you.</p>
+  <p>A 3bb raise is 12% of your 25bb stack. A re-raise to ~8bb would be 32% of your stack -- past the 30% threshold. The correct play is to shove all-in for 25bb.</p>
+  <p><strong>Why shoving is right:</strong> (1) CO must fold hands like ATo, KJs, QTs that have 35-40% equity against 99 but can't profitably call 25bb. (2) When called, you are not in terrible shape -- 99 vs AK is roughly 56/44. (3) If you just call, the SB and BB may squeeze, and you see a flop where an overcard often comes (A or K ~70% of flops). Shoving eliminates this variance and captures fold equity.</p>
+  <p><strong>EV of calling vs shoving:</strong> By just calling 3bb and seeing a flop, you may fold to a c-bet on an ace-high board having invested 3bb for nothing. By shoving, you often win 5.5bb uncontested (the raise + blinds), and when called you have equity to fight back.</p>
+</div>
 
 <!-- ============================================================ -->
 <h2 id="position">2. Position</h2>
@@ -140,7 +156,31 @@ pre.tree { font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; backgro
 
 <div class="box box-orange">
   <span class="box-label">Universal Formula: Pot-Sized Raise</span>
-  $$\text{Pot-Sized Raise} = 3 \times \text{Last Bet} + \text{Dead Money in Pot}$$
+  \[\text{Pot-Sized Raise} = 3 \times \text{Last Bet} + \text{Dead Money in Pot}\]
+  <p><em>Dead money</em> = everything already in the pot excluding the last bet (i.e., the blinds, antes, and any previous callers).</p>
+</div>
+
+<div class="box box-orange">
+  <span class="box-label">Worked Example: Raising Over 3 Limpers</span>
+  <p><strong>Situation:</strong> 6-max, 100bb effective. You are on the button. The HJ limps (1bb), the CO limps (1bb), and the BTN folds. SB (0.5bb) and BB (1bb) are already in. The action is on you in the button seat.</p>
+  <p><strong>Formula:</strong> \(3 \times 1\text{bb} + (1 + 1 + 0.5 + 1) = 3 + 3.5 = 6.5\text{bb}\)</p>
+  <p><strong>Raise to 6.5bb.</strong> Not 3bb (too small -- limpers get excellent odds to call and dominate you multi-way). Not 20bb (only your best hands get action; speculative limpers correctly fold, so you only get paid when you're crushed).</p>
+  <p><strong>Why this size?</strong> A 6.5bb raise denies the limpers a profitable price to outdraw you, while keeping the pot manageable when they do call. With a hand like A9s, you want to play heads-up or at most 2-way -- not 4-way against random limping ranges that hit unexpected two-pairs and straights.</p>
+</div>
+
+<div class="box box-orange">
+  <span class="box-label">Worked Example: 3-Betting a Raise + Caller</span>
+  <p><strong>Situation:</strong> 6-max, 100bb effective. CO raises to 4bb. BTN calls. You are in the SB with QQ and want to 3-bet.</p>
+  <p><strong>Formula (IP version):</strong> \(3 \times 4\text{bb} + (4 + 0.5 + 1) = 12 + 5.5 = 17.5\text{bb}\)</p>
+  <p><strong>OOP adjustment:</strong> You are in the SB (out of position for the entire hand), so add ~1 unit (4bb): raise to approximately <strong>21.5bb</strong>.</p>
+  <p><strong>Why bigger from OOP?</strong> Playing out of position with QQ multi-way is dangerous -- your positional disadvantage grows with each opponent. The larger 3-bet discourages the BTN from calling (they need excellent odds to continue), and if they do call, the stack-to-pot ratio becomes shallower, partially offsetting your positional disadvantage. If both call 21.5bb, the pot is ~66bb with ~78bb behind -- now any set or top-pair-top-kicker hand can comfortably get all-in on the flop.</p>
+</div>
+
+<div class="box box-red">
+  <span class="box-label">Trap: Raising to &gt;30% of Your Stack</span>
+  <p><strong>Situation:</strong> You have 30bb. The BTN raises to 2bb. You have KK in the CO. You consider re-raising to 8bb.</p>
+  <p><strong>Problem:</strong> You've put in 8/30 = 27% of your stack. If BTN shoves for 30bb, you must call 22bb more to win a pot of ~62bb -- roughly 2:1 odds. Since almost every hand wins at least 33% of the time against even the tightest 5-bet range, you are pot-committed and must call. So you gave your opponent the option to fold by not going all-in -- that fold equity is wasted if you're calling a shove anyway.</p>
+  <p><strong>Correct play:</strong> Shove all-in for 30bb. Now your opponent must fold a large portion of their range (they cannot profitably call with hands like A9s or 77), and when called you still have strong equity with KK.</p>
 </div>
 
 <h3>Recommended Sizes (100bb+)</h3>
@@ -198,7 +238,7 @@ pre.tree { font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; backgro
 
 <div class="box box-orange">
   <span class="box-label">Implied Odds Formula</span>
-  $$\text{Implied Odds} = \frac{\text{Remaining Stacks} + \text{Current Pot}}{\text{Amount to Call}}$$
+  \[\text{Implied Odds} = \frac{\text{Remaining Stacks} + \text{Current Pot}}{\text{Amount to Call}}\]
 </div>
 
 <h3>Thresholds for Continuing</h3>
@@ -218,6 +258,19 @@ pre.tree { font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; backgro
   <li>Against tight players: realize more IO (they only have premiums to pay you with)</li>
 </ul>
 
+<div class="box box-orange">
+  <span class="box-label">Example: Implied Odds Calculation for Small Pair vs Set-Mining</span>
+  <p><strong>Situation:</strong> $1/$2 cash game, 6-max. You are on the Button with \(5\heartsuit 5\spadesuit\). The UTG+1 raises to $6. Action folds to you.</p>
+  <p><strong>Calculating implied odds:</strong> Stack behind UTG+1: $195 (97.5bb). Stack behind you: $200. Effective stack: $195. Current pot: $6 + $1 + $2 = $9. You must call $6.</p>
+  \[\text{Implied Odds} = \frac{\text{Remaining Stacks} + \text{Current Pot}}{\text{Amount to Call}} = \frac{195 + 9}{6} = \frac{204}{6} = 34:1\]
+  <p><strong>Threshold for pairs:</strong> 10:1 required. You have 34:1. Calling $6 with 55 is a very profitable call.</p>
+  <p><strong>Why the math works:</strong> You flop a set approximately 1 in 8.5 times (12%). When you miss, you lose $6. When you hit, you want to win the remaining $195. Expected value of calling:</p>
+  \[\text{EV} = 0.12 \times \text{(Amount Won when set hits)} - 0.88 \times \$6\]
+  <p>If you win the full $195 stack when you hit a set: EV = 0.12 x $195 - 0.88 x $6 = $23.40 - $5.28 = <strong>+$18.12</strong> per call. Even if you only win 50% of the remaining stack when you hit (you never guarantee full stack extraction): 0.12 x $97.50 - $5.28 = $11.70 - $5.28 = <strong>+$6.42</strong> per call. Still highly profitable.</p>
+  <p><strong>EV cost of folding:</strong> Folding 55 here costs you $6.42-$18.12 in expectation every time this spot arises. Over a session where this spot occurs 10 times, that is $64-$181 left on the table. Set-mining is free money against passive opponents who pay off sets.</p>
+  <p><strong>Contrast with 76s (suited connector, 20:1 required):</strong> Same situation, but you hold \(7\diamondsuit 6\diamondsuit\). Implied odds are still 34:1, exceeding the 20:1 threshold. However, 76s hits "nutted hands" (straights and flushes) less often than pairs hit sets. The required 20:1 accounts for this lower hit rate. At 34:1 you still call 76s in position comfortably -- but if the effective stack were only $120 (IO = 21.5:1), 76s becomes borderline while 55 remains a clear call (21.5 > 10).</p>
+</div>
+
 <div class="box box-red">
   <span class="box-label">Reverse Implied Odds</span>
   <p>Hands that tend to be <strong>dominated</strong> when they hit (top pair bad kicker).</p>
@@ -229,13 +282,22 @@ pre.tree { font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; backgro
   </ul>
 </div>
 
+<div class="box box-orange">
+  <span class="box-label">Example: Reverse Implied Odds -- KJo in a 3-Bet Pot</span>
+  <p><strong>Situation:</strong> $2/$5 cash game, 100bb effective ($500). You are on the Button and raise to $15 with \(K\diamondsuit J\heartsuit\). The Big Blind 3-bets to $50. You call. Pot: $102. Effective stacks: $450 behind.</p>
+  <p><strong>Flop:</strong> \(K\spadesuit 9\clubsuit 3\diamondsuit\). You have top pair second kicker. Big Blind bets $65 into $102 (64% pot).</p>
+  <p><strong>The reverse implied odds problem:</strong> KJo flopped exactly what it "wanted" -- top pair. But the Big Blind's 3-betting range is heavy with hands that dominate you: AK (makes top pair with ace kicker), KK (makes a set), KQ (makes top pair better kicker), AA (overpair). Against this range, your KJ is behind most of the time when money goes in, and ahead only against bluffs (Axs, K9s-type bluffs), 99 (which you're behind to), and a few weaker holdings.</p>
+  <p><strong>Equity analysis:</strong> KJo vs BB's typical 3-bet range containing AK, KK, QQ, JJ, TT, AQs, and bluffs (A5s, K9s): your equity is approximately 34%. Required to call 3-street committal: roughly 40%+. You are well below threshold. Calling the flop and then facing a large turn bet puts you in an even worse spot. <strong>The correct play is call once (gather information) and fold to continued aggression, OR fold immediately.</strong></p>
+  <p><strong>EV cost of playing too committed with KJo:</strong> If you call flop ($65), turn ($130), and river ($200) = $395 invested. Against a range that beats you 66% of the time: EV = 0.34 x $892 - 0.66 x $395 = $303.28 - $260.70 = +$42.58... but this assumes you win 34% of the time, which you don't -- you fold many turns and rivers when scared. In practice, calling three streets with KJo in this spot loses money because you fold to pressure on a percentage of streets. The play leaks approximately $80-120 vs an optimal player.</p>
+</div>
+
 <!-- ============================================================ -->
 <h2 id="mdf">6. Minimum Defense Frequency (MDF)</h2>
 <div class="topic-tag">Lesson: minimum-defense-frequency-2</div>
 
 <div class="box box-orange">
   <span class="box-label">Formula</span>
-  $$\text{MDF} = 1 - \frac{\text{Opponent's Bet}}{\text{Opponent's Bet} + \text{Pot}}$$
+  \[\text{MDF} = 1 - \frac{\text{Opponent's Bet}}{\text{Opponent's Bet} + \text{Pot}}\]
 </div>
 
 <h3>Key Points</h3>
@@ -248,12 +310,11 @@ pre.tree { font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; backgro
 </ul>
 
 <div class="box box-orange">
-  <span class="box-label">Worked Example</span>
-  <ul>
-    <li>You raise to 3bb from LJ, HJ 3-bets to 10bb</li>
-    <li>MDF = 1 - 10/(10 + 3 + 0.5 + 1) = 1 - 10/14.5 = <strong>31%</strong></li>
-    <li>Must continue with at least 31% of raising range</li>
-  </ul>
+  <span class="box-label">Worked Example: MDF vs a 3-Bet</span>
+  <p><strong>Situation:</strong> 6-max, 100bb effective. You raise to 3bb from the Lojack. The Hijack 3-bets to 10bb. It folds to you.</p>
+  <p><strong>Calculating MDF:</strong> The pot before the 3-bet contains your 3bb + the SB (0.5bb) + the BB (1bb) = 4.5bb. The HJ's 3-bet is 10bb. MDF = 1 - 10/(10 + 4.5) = 1 - 10/14.5 = 1 - 0.69 = <strong>31%</strong>.</p>
+  <p><strong>What this means:</strong> You need to continue with at least 31% of your opening range to prevent the HJ from auto-profiting with any two cards. If you opened ~17% of hands from LJ, 31% of that means continuing with roughly the top 5.3% of all hands. In practice: 4-bet for value with AA, KK, QQ, AKs, AKo; 4-bet bluff with A5s or K9s; call with pairs like JJ-77, suited connectors like JTs and T9s, and suited aces like AJs.</p>
+  <p><strong>Important caveat:</strong> Before the flop, you should strive to <strong>over-defend</strong> compared to MDF, because preflop equity runs so close that folding too much is a bigger leak than calling slightly too wide.</p>
 </div>
 
 <!-- ============================================================ -->
@@ -322,11 +383,12 @@ pre.tree { font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; backgro
 
 <div class="box box-orange">
   <span class="box-label">Implementable 4-Bet Ranges (vs CO 3-bet)</span>
+  <p><strong>Situation:</strong> You open-raise from the Hijack to 3.5bb at 100bb effective. The Cutoff 3-bets to ~10bb. Everyone else folds. You are in position for the rest of the hand.</p>
   <ul>
-    <li><strong>4-bet for value:</strong> AA, KK, QQ, JJ, TT, AKs, AKo</li>
-    <li><strong>4-bet as bluff:</strong> AQo (fold to 5-bet), A5s (fold to 5-bet), K9s</li>
-    <li><strong>Call:</strong> 99-22, 76s-JTs, AJs, KQs, A4s-A3s</li>
-    <li><strong>Fold:</strong> Big offsuit hands, weak kings</li>
+    <li><strong>4-bet for value (to ~22bb):</strong> AA, KK, QQ, JJ, TT, AKs, AKo -- these hands have enough equity to happily get it in if villain 5-bet shoves. With JJ and TT you 4-bet and call a 5-bet jam because at 100bb you need ~38% equity and these hands have ~40%+ vs a reasonable 5-bet range.</li>
+    <li><strong>4-bet as bluff (to ~22bb, fold to 5-bet):</strong> AQo (blocks AA and QQ, fold to 5-bet jam since AQo only has ~34% vs a tight 5-bet range), A5s (blocks AA, has good post-flop playability if called, wheel potential), K9s (blocks KK, unblocks opponent's folding range like AJs, ATs). These bluffs fold to a 5-bet and accept losing the 22bb.</li>
+    <li><strong>Call (see a flop in position):</strong> 99-22 (set-mining, need ~10:1 implied odds -- calling 10bb to potentially win 100bb = 10:1), 76s-JTs (suited connectors with excellent post-flop playability), AJs and KQs (strong but not enough to 4-bet for value), A4s-A3s (nut flush potential, cheap call)</li>
+    <li><strong>Fold:</strong> AJo, KQo, KJo (offsuit broadways with reverse implied odds -- when they hit top pair they're often dominated by AK, AQ in villain's range), weak kings like K7s-K5s (dominated by AK in 3-bet range)</li>
   </ul>
 </div>
 

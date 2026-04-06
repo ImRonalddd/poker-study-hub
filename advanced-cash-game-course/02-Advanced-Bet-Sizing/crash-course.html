@@ -9,7 +9,7 @@
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;1,400;1,600&family=Source+Serif+4:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body,{delimiters:[{left:'\\(',right:'\\)',display:false},{left:'$$',right:'$$',display:true}],throwOnError:false})"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body,{delimiters:[{left:'\\(',right:'\\)',display:false},{left:'\\[',right:'\\]',display:true}],throwOnError:false})"></script>
 <style>
 :root {
   --bg: #FFFFFF; --surface: #FFFFFF; --surface2: #F5F5F5;
@@ -177,7 +177,7 @@ An <strong>inelastic</strong> opponent always calls with pairs/draws and always 
 
 <div class="box box-red">
 <div class="box-title">Trap</div>
-Against tight-passive players, do NOT use big GTO-style bets with your bluffs. On Q-10-7 (draw-heavy, should be big bet in GTO), bet only $15 into $65 with 6-5s against a tight-passive player. If they have nothing, they fold to ANY size. Save chips when they do have something.
+Against tight-passive players, do NOT use big GTO-style bets with your bluffs. On Q-10-7 (draw-heavy, should be big bet in GTO), bet only 15 into 65 (about 23% pot) with 6-5s against a tight-passive player. If they have nothing, they fold to ANY size. Save chips when they do have something.
 </div>
 
 <!-- ======================================= -->
@@ -246,7 +246,7 @@ Even though your equity may be below 50% after a flop c-bet and call (e.g., 46% 
 
 <h3>The EV Conversion</h3>
 <p>To convert solver chip EV to a percentage of the pot:</p>
-$$\text{EV\%} = \frac{\text{Chip EV}}{\text{Pot Size}} \times 100$$
+\[\text{EV\%} = \frac{\text{Chip EV}}{\text{Pot Size}} \times 100\]
 <p>Example: 5.8 chip EV / 10.7 pot = 54% EV (despite only 46% equity).</p>
 
 <!-- ======================================= -->
@@ -382,7 +382,7 @@ Against auto-c-bettors, you should <strong>slow-play less</strong> -- not more. 
 
 <div class="box box-orange">
 <div class="box-title">Example</div>
-<strong>Pocket JJ on 10-8-7 vs straightforward player.</strong> By potting it on every street ($60 flop -> pot turn -> all-in river), you get your entire stack in. If instead you bet 1/3 pot on the flop, the pot grows to ~$50, then ~$200 turn, then ~$100 river -- leaving massive value on the table.
+<strong>Pocket JJ on 10-8-7 vs straightforward player.</strong> By potting it on every street (pot flop, pot turn, all-in river), you get your entire stack in. If instead you bet 1/3 pot on the flop, the pot grows much more slowly across three streets -- leaving massive value on the table against a player who calls any bet.
 </div>
 
 <h3>Adjusting to Player Types</h3>

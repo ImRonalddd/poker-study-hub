@@ -95,11 +95,19 @@ hr { border: none; border-top: 1px solid var(--border-light); margin: 48px 0; }
   <tr><td>Button RFI</td><td>~41%</td><td>~45%</td><td>+4%</td></tr>
 </table>
 
+<div class="box box-orange">
+  <span class="box-label">Example: 4-Handed Range Exploitation</span>
+  <p><strong>Situation:</strong> You are at a 4-handed $2/$5 cash game, 100bb effective stacks ($500). The player in the cutoff (first to act at 4-handed) open-raises to $15. At a full 8-handed table, you know this player only raises ~25% of hands from a similar position. At 4-handed, you adjust your read: they should be raising ~30% now, so their range includes additional hands like Q8s, K7s, and 54s. This matters for two reasons.</p>
+  <p><strong>Your adjustment 1 -- calling range on the button:</strong> You hold \(J\heartsuit 9\heartsuit\). At 8-handed facing a 25% cutoff range, J9s is a comfortable call on the button. At 4-handed, they raise wider, so you are actually doing better because more of their range is weak cards you dominate or race against. You call. Pot: $32. Effective stacks: $485 behind.</p>
+  <p><strong>Flop:</strong> \(J\spadesuit 7\diamondsuit 3\clubsuit\). They bet $18 (56% pot). You hold top pair with a decent kicker on a dry board. Against a tight EP range, J9s might be a call-and-proceed-carefully hand. Against their wider 4-handed range, J9 is much more likely to be the best hand -- they have more Jx, 9x, 8x, 7x, and air. Raise to $52 for value and information.</p>
+  <p><strong>Why the range adjustment matters:</strong> If they had opened only 25% of hands, their c-betting range hits this board hard. If they opened 30%, they have 20% more bluffs and weak top pairs in their range. Against a wider range, your J9 goes from marginal to a clear value-raise. <strong>EV cost of not adjusting:</strong> Simply calling with J9 on this board (treating them as if 8-handed) misses significant value -- against their wider range you are raising to +EV while calling leaks approximately 8-12bb per occurrence over dozens of similar spots.</p>
+</div>
+
 <div class="box box-red">
   <span class="box-label">Common Opponent Mistakes</span>
   <ol>
-    <li><strong>Too tight:</strong> They think "under the gun = tight" regardless of table size, playing UTG charts from the cutoff</li>
-    <li><strong>Too loose:</strong> They think "shorthanded = play everything" and splash around with garbage</li>
+    <li><strong>Too tight:</strong> They think "under the gun = tight" regardless of table size, playing UTG charts from the cutoff. At 4-handed, a player opening only 17% from the cutoff is leaving enormous value behind. They are folding K8s, Q9s, 76s -- hands that are clearly profitable 4-handed. You can exploit this by 3-betting more frequently (their tight range is predictable) and stealing more liberally.</li>
+    <li><strong>Too loose:</strong> They think "shorthanded = play everything" and splash around with garbage. A player raising 60% of hands 4-handed creates a different exploit: call wider with implied odds hands and let them stack off into your made hands. Iso-raise their limps aggressively.</li>
   </ol>
 </div>
 
@@ -134,6 +142,15 @@ hr { border: none; border-top: 1px solid var(--border-light); margin: 48px 0; }
 </ul>
 
 <div class="box box-orange">
+  <span class="box-label">Example: Heads-Up 3-Bet Decision with A5s</span>
+  <p><strong>Situation:</strong> $2/$5 heads-up cash game, 100bb effective stacks ($500). You are on the Button/SB. You raise to $15 with \(A\diamondsuit 5\diamondsuit\). Opponent 3-bets to $45 from the BB.</p>
+  <p><strong>Why A5s is the premier 4-bet bluff heads-up:</strong> The opponent's 3-betting range heads-up is very wide (~40% of hands in a balanced strategy). Their 5-bet-or-call-a-4-bet range consists primarily of AA, KK, AK, and QQ. The \(A\diamondsuit\) in your hand blocks AA (only 3 combos remain) and AK (only 12 combos remain), reducing their strongest responses from 28 combos to 21 combos -- a 25% reduction in the exact hands that punish your 4-bet bluff.</p>
+  <p><strong>The play:</strong> 4-bet to $110. If they fold (which they do ~55% of the time with a wide 3-bet range), you collect $45. If they call, the pot is $220 with $390 behind. SPR ~1.8. You play the flop in position with a hand that can make nut flushes, nut straights (A2345), and pairs of aces -- plenty of equity to continue against their calling range of hands like 88-JJ and KQ.</p>
+  <p><strong>EV calculation:</strong> If they fold 55% of the time: EV of 4-bet = 0.55 x $45 (profit when they fold) + 0.45 x (equity in the remaining pot when called). Rough estimate: 0.55 x 45 + 0.45 x (0.38 x $220 - $95) = $24.75 + 0.45 x ($83.60 - $95) = $24.75 + 0.45 x (-$11.40) = $24.75 - $5.13 = <strong>+$19.62</strong> per 4-bet. Compare to just calling the 3-bet: you'd play OOP on the flop -- position advantage alone is worth several big blinds.</p>
+  <p><strong>If you instead held 87s (no blockers):</strong> Their 5-bet-or-call range is unchanged at 28 combos. You still profit when they fold, but more of their range continues and you have less equity when called (no ace blocker, less nut potential). The EV advantage of A5s over 87s as a 4-bet bluff is approximately $3-5 per occurrence -- significant when you do this 50-100 times per session.</p>
+</div>
+
+<div class="box box-orange">
   <span class="box-label">Practical Tips</span>
   <ul>
     <li><strong>Live poker:</strong> Negotiate no rake for heads-up play -- casinos often agree</li>
@@ -157,9 +174,9 @@ hr { border: none; border-top: 1px solid var(--border-light); margin: 48px 0; }
 
 <h3>What Changes When Someone Straddles</h3>
 <ol>
-  <li><strong>Effective stack is halved:</strong> Playing 5/10/20 with $1000 means 50bb effective</li>
-  <li><strong>One additional player is out of position:</strong> Very bad for SB and BB</li>
-  <li><strong>Great for non-straddlers:</strong> You're playing a bigger game without paying extra</li>
+  <li><strong>Effective stack is halved:</strong> In a $5/$10 game with a $20 UTG straddle and $1,000 stacks, you are now effectively playing $5/$10/$20 with 50bb effective (not 100bb). This fundamentally changes which hands are playable and how to size your bets.</li>
+  <li><strong>One additional player is out of position:</strong> The straddler acts last preflop but first postflop (if in EP). SB and BB are in the worst positions -- they have to act before everyone including the straddler.</li>
+  <li><strong>Great for non-straddlers:</strong> If you are in middle or late position, you get to play a bigger game ($20 big blind) without putting in any extra dead money. Your edge increases because the straddler is voluntarily donating.</li>
 </ol>
 
 <h3>Combating Wild Straddlers</h3>
@@ -170,6 +187,15 @@ hr { border: none; border-top: 1px solid var(--border-light); margin: 48px 0; }
   <tr><td>Small re-raise from straddler</td><td>Call or re-raise depending on depth</td><td>Call if odds are good</td></tr>
   <tr><td>Large re-raise from straddler</td><td>Re-raise all-in</td><td>Fold</td></tr>
 </table>
+
+<div class="box box-orange">
+  <span class="box-label">Example: Using a Straddle Game to Your Advantage</span>
+  <p><strong>Situation:</strong> You are in the Cutoff at a $2/$5 table with a $10 UTG straddle. Stacks: you have $1,200, the straddler has $800, and the other players have various stacks. The effective game is now $2/$5/$10 with 80bb effective (your $800 effective). One player limps for $10, another limps for $10. Action is to you.</p>
+  <p><strong>Your holding: \(K\clubsuit K\heartsuit\). Two options:</strong></p>
+  <p><strong>Option A -- Raise:</strong> Standard play is to raise to $50-60 (5-6x the straddle). This builds the pot but telegraphs strength and gives the straddler an easy fold or re-raise decision. If the straddler is wild and re-raises to $150, you re-raise all-in for $800 total, and they often fold -- you win only $150. Alternatively, if they call your $60 raise with garbage and fold the flop, you barely profit.</p>
+  <p><strong>Option B -- Slow-play (limp behind):</strong> If you have a specific read that this straddler raises ANY aggressive action (they re-raise limps frequently), limp to $10. The pot is now $30 + dead money. When action gets to the straddler, they raise to $40 "just because." The two limpers call. Now you make a large re-raise to $180. The straddler, having invested $40, calls or shoves with marginal holdings. You are a massive favorite. If they shove $800 total, you call for $800 to win $1,800 -- a 2.25:1 return on a situation where you have ~80% equity with KK. EV = 0.80 x $1,800 + 0.20 x (-$800) = $1,440 - $160 = <strong>+$1,280</strong>. Compare to winning $150 with Option A.</p>
+  <p><strong>The key principle:</strong> Slow-playing here is not passive -- it is exploitative. You are using your opponent's aggression against them by letting them bluff their stack into you. You only do this when you have a specific read that they will attack weakness. Against a passive straddler who checks, just raise normally.</p>
+</div>
 
 <div class="box box-purple">
   <span class="box-label">Key Insight</span>
@@ -231,6 +257,23 @@ hr { border: none; border-top: 1px solid var(--border-light); margin: 48px 0; }
   <tr><td><strong>40bb</strong></td><td>Mix of raise/call/shove/fold. 3-bet non-all-in with best hands + bluffs. Calling range exists IP. JJ/TT can shove over 3-bets. SB: 3-bet-or-fold if rake is big.</td></tr>
 </table>
 
+<div class="box box-orange">
+  <span class="box-label">Example: 20bb Shove Decision vs Serial Limpers</span>
+  <p><strong>Situation:</strong> $1/$2 cash game, you have $40 (20bb). You are on the Button. UTG limps for $2, MP limps for $2, CO limps for $2. There is $8 in the pot (plus $1 SB and $2 BB). You look down at \(A\diamondsuit 9\clubsuit\).</p>
+  <p><strong>At 20bb, A9o is a clear shove:</strong> Pot before your action: $8 + $1 + $2 = $11. You shove $40 (your whole stack). If everyone folds, you collect $11 profit -- that is 11/40 = 27.5% of your stack collected without seeing a flop. You need everyone to fold only 42% of the time to break even on the shove, given you also have equity when called. With three opponents all having limp-range hands (weak), they fold about 65-70% of the time collectively.</p>
+  <p><strong>Why not just raise to $10?</strong> If you raise to $10, pot-odds favor everyone calling (they need 8/28 = 28.6% equity, which any random hand has against A9o). All three limpers call for $8 more into a $11 pot. Now you are playing a multiway $40+ pot with $30 left and A9o against three random hands. Your equity drops significantly in a 4-way pot.</p>
+  <p><strong>Compare A9o vs 87s at 20bb:</strong> A9o has approximately 56% equity against a typical 3-way calling range (calling with roughly any Ax, any pair, any suited connector). 87s has approximately 49% equity against the same range. Plus, A9o blocks aces in their calling range (making them less likely to call with AJ, AQ, AK). At 20bb, A9o is clearly superior to 87s as a shove -- it wins the pot uncontested more often AND has better equity when called.</p>
+  <p><strong>EV of the shove:</strong> 67% folds = collect $11 = +$11. 33% someone calls: 56% equity in a ~$83 pot = $46.48 expected, minus the $40 put in = +$6.48. Weighted EV = (0.67 x $11) + (0.33 x $6.48) = $7.37 + $2.14 = <strong>+$9.51</strong> per shove. This is an enormous edge at 20bb.</p>
+</div>
+
+<div class="box box-orange">
+  <span class="box-label">Example: 40bb 3-Bet Decision with JJ</span>
+  <p><strong>Situation:</strong> $1/$2 cash game, you have $80 (40bb). You are on the Button. UTG opens to $6. Action folds to you with \(J\heartsuit J\spadesuit\).</p>
+  <p><strong>At 40bb, raise to $16 (non-all-in 3-bet).</strong> If UTG 4-bets all-in for $80 total, you are calling $64 more into a pot that will be $160. Required equity: 64/160 = 40%. JJ vs a tight UTG 4-bet range (QQ+, AK): JJ has approximately 36% equity -- a fold. JJ vs a slightly wider UTG range (JJ+, AK): JJ has approximately 40% -- a borderline call. This is the key 40bb decision: 3-bet-fold JJ against tight 4-bettors, 3-bet-call against wider ones.</p>
+  <p><strong>Why not shove preflop?</strong> If you shove $80 into the initial raise of $6 (plus the $3 blinds = $9 pot), you are overbetting massively. UTG folds everything except QQ+ and AK (maybe). You collect only $9 on a shove. If you 3-bet to $16, UTG may call with TT, AQ, AJs -- hands you have 55-65% equity against. The non-all-in 3-bet extracts value from those callers while maintaining fold equity against QQ+.</p>
+  <p><strong>EV cost of shoving vs 3-betting:</strong> Shove: win $9 about 70% of the time, lose to QQ+ about 30% of the time (JJ has 20% equity). EV = 0.70 x $9 + 0.30 x (0.20 x $160 - $80) = $6.30 + 0.30 x (-$48) = $6.30 - $14.40 = -$8.10. The shove loses money. The 3-bet is massively superior because it induces calls from hands you dominate.</p>
+</div>
+
 <h3>Bluff Selection at Shallow Stacks</h3>
 
 <table>
@@ -257,6 +300,14 @@ hr { border: none; border-top: 1px solid var(--border-light); margin: 48px 0; }
   <tr><td><strong>Big Blind</strong> (best blind)</td><td>Can defend somewhat wider due to extra dead money. Good relative position when both other blinds call.</td></tr>
   <tr><td><strong>EP through Button</strong></td><td>Tighter ranges than normal (especially EP). More players can wake up with a hand.</td></tr>
 </table>
+
+<div class="box box-orange">
+  <span class="box-label">Example: Three-Blind Game -- Middle Blind Calling Mistake</span>
+  <p><strong>Situation:</strong> $1/$2/$4 three-blind game, 100bb effective ($400 at $4 BB). UTG opens to $12. Action folds around. You are in the Middle Blind with $8 already posted. You hold \(9\heartsuit 8\heartsuit\) -- a suited connector with implied odds potential.</p>
+  <p><strong>The tempting wrong play:</strong> "It's only $4 more to call into a $24 pot -- 6:1 odds!" But this reasoning ignores several critical factors. First, the Big Blind still has to act: they can 3-bet, forcing you to fold your $12 investment anyway. Second, even if you see the flop, you are sandwiched between the UTG raiser (acts after flop) and the BB (also acts before you), giving you the worst possible relative position. Third, at a three-blind table the SPR is already lower -- 100bb at $4 BB means your stack is effectively 40bb at $10 equivalent. 9-8 suited needs 20:1 implied odds, which requires calling small and winning large. With multiple players involved and you OOP, you realize implied odds poorly.</p>
+  <p><strong>The correct play: 3-bet or fold.</strong> With 98s, folding is cleanest. If you want to play, 3-bet to $36-40. This fold equity compensates for the positional disadvantage. Against UTG's opening range of ~20%, you fold or 4-bet about 70% of the time, collecting the dead money frequently enough to profit. If called, the lower SPR means your position disadvantage is less punishing because there is less postflop play.</p>
+  <p><strong>EV cost of calling vs folding:</strong> Calling $4 more into $24 with 98s from the worst position: you realize maybe 60% of your equity (terrible position, always someone to act behind). Your equity against UTG's range is about 46% -- but with 60% realization, you are effectively playing with 27.6% equity in a pot where you needed 40% to call. EV of calling = -$4 x (1 - 0.276/0.4) ≈ -$1.76 per call. Every call costs you nearly two big blinds in expectation.</p>
+</div>
 
 <div class="box box-red">
   <span class="box-label">Common Mistakes</span>

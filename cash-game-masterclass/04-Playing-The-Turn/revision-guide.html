@@ -124,6 +124,17 @@ pre.tree { font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; backgro
   <li><strong>Lack nut advantage</strong> &rarr; Bet small (25%-33% pot)</li>
 </ul>
 
+<div class="box box-orange">
+  <span class="box-label">Example: Turn C-Bet Sizing Decision on A-K-5-A</span>
+  <p><strong>Full situation:</strong> $1/$2 cash game, 100bb effective ($200). You raise to $6 from the Cutoff. Big Blind calls. Pot: $13. You hold \(A\heartsuit K\clubsuit\).</p>
+  <p><strong>Flop:</strong> \(A\spadesuit K\diamondsuit 5\clubsuit\). You bet $8 (62% pot). BB calls. Pot: $29. Effective stacks: $186 behind.</p>
+  <p><strong>Turn:</strong> \(A\clubsuit\). Board is now A-K-5-A. You now have a full house (Aces full of Kings).</p>
+  <p><strong>Strategy analysis:</strong> Your nut advantage is enormous -- you hold A-K for Aces full of Kings, the second nuts (only A5 makes quads or has a higher full house). BB called the flop bet; their range includes: Kings (KQ, KJ for trip Kings), Aces (A-Q, A-J, A-T for trip Aces -- worse full house than yours), 55 (set of fives, now a full house inferior to yours), and bluff-catchers like Q-T and J-T.</p>
+  <p><strong>The turn is a "good" card for you:</strong> It improved your hand significantly and most of BB's range either improved too (making them more likely to call) or is unaffected (Kx hands still have trips). This is a board where you have BOTH nut advantage (you have the nuts) AND the turn improved your opponent's calling range (many Kx hands think they have a great hand now).</p>
+  <p><strong>Size: Bet big -- 70-90% pot ($20-26).</strong> Why big? The board is not particularly coordinated (no draws). BB's range is full of hands that think they are strong: KQ thinks they have trips (and they do -- just behind your full house), A-Q thinks they have a solid full house (behind yours). These hands are not folding to any reasonable bet. Go large to extract maximum value from the hands that will call. Betting $22 into $29: if they call and the river is any blank, you can jam or bet large again on the river.</p>
+  <p><strong>EV cost of betting small:</strong> Betting $10 (34% pot) extracts $10 from calling hands. Betting $22 (76% pot) extracts $22 from the same calling hands. Against a calling range that calls $22 as often as $10 (strong made hands like Kx and Ax), betting $10 leaks $12 per occurrence. Over a session with 5 similar spots, that is $60 in missing value.</p>
+</div>
+
 <h3>Which Draws to Bet vs Check</h3>
 
 <div class="box box-purple">
@@ -237,8 +248,14 @@ pre.tree { font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; backgro
 </table>
 
 <div class="box box-orange">
-  <span class="box-label">Special Case: Four-Card Straight Boards</span>
-  <p>On boards like 9-7-5-8 or 9-7-5-6, BB has a massive nut advantage (tons of straights). Bet small and very frequently.</p>
+  <span class="box-label">Example: Turn Probe on Four-Card Straight Board (9-7-5-8)</span>
+  <p><strong>Full situation:</strong> $2/$5 cash game, 100bb effective ($500). You are in the Big Blind with \(T\heartsuit 6\heartsuit\). UTG opens to $15. Action folds to you in the BB. You call. Pot: $31. Effective stacks: $485 behind.</p>
+  <p><strong>Flop:</strong> \(9\diamondsuit 7\clubsuit 5\spadesuit\). You have an open-ended straight draw (any 8 or J completes your straight). You check. UTG <strong>checks behind</strong> (key -- they did not continuation bet). The check-behind capped their range heavily. Pot remains $31.</p>
+  <p><strong>Turn:</strong> \(8\heartsuit\). Board is now 9-7-5-8. You have made a straight: \(T\heartsuit 6\heartsuit\) makes 6-7-8-9-T.</p>
+  <p><strong>Why BB has a massive nut advantage:</strong> BB's preflop calling range is full of suited connectors and gappers -- T6s, 86s, 64s, T8s, J6s -- many of which make straights on this board. UTG's opening range (overpairs, big cards) contains almost none of these. Furthermore, UTG <em>checked back the flop</em>, meaning their range is now even more capped -- they would have bet the flop with any set or two-pair, and many overpairs. Their remaining range is overcards, one-pair hands, and missed draws that did not c-bet.</p>
+  <p><strong>The play:</strong> Bet small -- $10 into $31 (32% pot). Why small? Two reasons. First, UTG's remaining range after the flop check-back folds to almost any bet (they have mostly overcards and weak pairs). A $10 bet and a $30 bet fold the same percentage of their range. Second, betting small maximizes the times their weak overpairs (AQ, KQ type hands) make a "stubborn call" they regret. When they call $10, they face a river decision still out of position.</p>
+  <p><strong>EV calculation of bet vs check:</strong> If UTG folds 75% of the time to any bet: EV of $10 bet = 0.75 x $31 + 0.25 x (further profit on river) = $23.25 + future profit. EV of checking = $0 now, with risk of UTG bluffing the river or improving and winning. The small bet extracts the pot immediately or sets up a river value opportunity. <strong>EV advantage of betting: approximately +$15-25 per turn in this spot.</strong></p>
+  <p><strong>If you did NOT have the straight (e.g., held \(T\heartsuit 6\clubsuit\) without completing):</strong> You still bet small. Why? UTG's range is capped after the flop check-back. Even T6 has enough equity (pair possibilities, redraw to straight) to justify a probe. The nut advantage means even your non-nut hands benefit from the probe -- UTG cannot have a straight, so they are always behind your nutted hands. Bet 80% of your range for $10 and fold to any significant resistance.</p>
 </div>
 
 <!-- ============================================================ -->

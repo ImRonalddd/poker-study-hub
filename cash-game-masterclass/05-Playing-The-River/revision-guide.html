@@ -10,7 +10,7 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
-  onload="renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'\\(',right:'\\)',display:false}]});"></script>
+  onload="renderMathInElement(document.body,{delimiters:[{left:'\\(',right:'\\)',display:false},{left:'\[',right:'\]',display:true}]});"></script>
 <style>
 :root {
   --bg: #FFFFFF; --surface: #FFFFFF; --surface2: #F5F5F5; --accent: #000000;
@@ -123,7 +123,7 @@ pre.tree { font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; backgro
 
 <div class="box box-orange">
   <span class="box-label">Formula</span>
-  $$\text{Bluff\%} = \frac{\text{Call Amount}}{\text{Pot} + \text{Bet} + \text{Call}}$$
+  \[\text{Bluff\%} = \frac{\text{Call Amount}}{\text{Pot} + \text{Bet} + \text{Call}}\]
 </div>
 
 <table>
@@ -228,21 +228,20 @@ pre.tree { font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; backgro
 <h3>Check-Raise Strategy from OOP</h3>
 
 <div class="box box-orange">
-  <span class="box-label">Check-Raise for Value</span>
-  <ul>
-    <li>Check-raise with your absolute best hands (literal nuts, second nuts)</li>
-    <li>These hands are so strong they benefit from building a bigger pot</li>
-    <li>Check-raise wider as opponent bets more frequently</li>
-  </ul>
+  <span class="box-label">Example: OOP Check-Raise for Value -- Flopped Nut Straight</span>
+  <p><strong>Situation:</strong> $2/$5 cash game, 100bb effective ($500). You are in the Big Blind and call a Button raise with \(J\diamondsuit T\clubsuit\). Pot: $12. Board runs: \(Q\heartsuit 9\spadesuit 8\clubsuit\) (flop -- you have the nut straight) -- \(2\diamondsuit\) (turn) -- \(K\heartsuit\) (river).</p>
+  <p><strong>River action:</strong> You check. Button bets $40 into an $80 pot (50% pot). You have the nut straight (J-T-Q-K = No -- wait: the nut straight on Q-9-8-2-K is J-T for J-T-Q-K... actually Q-9-8-2-K gives the straight 9-T-J-Q-K for anyone with JT, or 8-9-T-J-Q for JT... let us use the correct straight: with \(J\diamondsuit T\clubsuit\) on \(Q\heartsuit 9\spadesuit 8\clubsuit 2\diamondsuit K\heartsuit\), you have K-Q-J-T-9 -- the King-high straight. This is the nuts.)</p>
+  <p><strong>The check-raise:</strong> Raise to $130 (3.25x their $40). Why raise? Your hand is the literal nuts -- you cannot be beaten. More importantly, the King on the river improves many hands in the Button's range. The Button raised preflop with hands like A-Q, K-Q, K-J, K-T -- on the K river, K-Q made two pair, K-J made a pair of kings, A-K made top pair. These hands bet the river for value and are not folding to a raise. By check-raising to $130, you extract maximum value from their now-improved hands. Calling $40 only extracts $40; raising to $130 extracts $90 more from hands that call.</p>
+  <p><strong>EV of check-raise vs call:</strong> If the Button calls the raise 60% of the time: EV = 0.60 x $90 extra + call: $40 (guaranteed) = $40 + 0.60 x $90 = $40 + $54 = <strong>$94</strong> extracted. Call only: $40 extracted. Check-raise earns $54 more per occurrence. Against a reg who bets the river at 50% pot on a wet board, this is a clear check-raise situation.</p>
 </div>
 
 <div class="box box-orange">
-  <span class="box-label">Check-Raise as Bluff</span>
-  <ul>
-    <li>Best hands: bottom pair or weak pair (can win if check-check, blocks opponent's sets/two-pair)</li>
-    <li>Hand too weak to call a bet but has blockers to calling range</li>
-    <li>Opponent's range is capped (top pair max)</li>
-  </ul>
+  <span class="box-label">Example: OOP Check-Raise as Bluff -- Blocking Sets and Two-Pair</span>
+  <p><strong>Situation:</strong> $1/$2 cash game, 100bb effective ($200). You are in the Big Blind and called a Cutoff raise with \(6\spadesuit 6\heartsuit\). Pot: $9. Board runs: \(A\clubsuit K\diamondsuit 7\spadesuit\) (flop) -- \(T\heartsuit\) (turn) -- \(2\diamondsuit\) (river).</p>
+  <p><strong>Line so far:</strong> You check-called the flop, check-called the turn. River: You check. Cutoff bets $25 into a $45 pot (56% pot).</p>
+  <p><strong>Your holding on the river:</strong> Pocket sixes, a pair of 6s on A-K-7-T-2. This has showdown value (beats bluffs and air) but loses to all of opponent's value hands (any pair of aces, kings, or better). It is a borderline call -- not great, not terrible. However, there is a better option: check-raise bluff to $85.</p>
+  <p><strong>Why 66 is an ideal check-raise bluff:</strong> (1) Your sixes are below the natural "call" threshold against a half-pot river bet. (2) Holding \(6\spadesuit 6\heartsuit\), you block sets of sixes (66 = the only possible set of 6s, and you have it -- meaning opponent cannot have a set of 6s). You also block anyone with a 6 in their two-pair hand (76, 67). (3) If the check-raise goes wrong and they call, you occasionally win at showdown against pure air. (4) The bluff represents a flopped slow-played set (AA, KK, 77 are all plausible in a BB defend range) that came in quietly on the river.</p>
+  <p><strong>EV of check-raise bluff vs calling:</strong> If they fold 60% of the time to the raise: EV of bluff = 0.60 x $70 (pot) - 0.40 x $60 (raise cost after call) = $42 - $24 = <strong>+$18</strong>. EV of calling: approximately +$3 if they bluff 30% of the time. The check-raise bluff earns $15 more per occurrence when opponent is capable of folding top pair to aggression.</p>
 </div>
 
 <!-- ============================================================ -->
@@ -289,6 +288,15 @@ pre.tree { font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; backgro
   <li>Opponent folds all non-nut hands to a raise</li>
   <li>Opponent's value hands are all premium</li>
 </ul>
+
+<div class="box box-orange">
+  <span class="box-label">Example: River Value Raise with Two Pair Facing Small Bet</span>
+  <p><strong>Situation:</strong> $2/$5 cash game, 100bb effective ($500). You are on the Button and called a Big Blind 3-bet with \(A\spadesuit J\heartsuit\). Pot: $65. Board: \(A\clubsuit J\diamondsuit 4\heartsuit\) (flop, you bet and they called) -- \(8\spadesuit\) (turn, you bet and they called) -- \(2\clubsuit\) (river). River pot: $190. The Big Blind leads for $35 (18% pot -- a very small bet).</p>
+  <p><strong>Your holding:</strong> \(A\spadesuit J\heartsuit\) -- top two pair (aces and jacks).</p>
+  <p><strong>The raise:</strong> Raise to $110. Why raise for value? The BB's small river lead (18% pot) signals a marginal made hand -- most likely top pair weak kicker (A9, A8, A7), second pair (JT, J9), or a thin value bet with a hand like 44 (set of fours) or 88 (pair turned two-pair). They are NOT polarized (they'd bet bigger with the nuts or air). Against a marginal betting range, your top two pair is nearly the nuts. Raising to $110 extracts $75 more than calling the $35. Hands like A9, 88, J9 that bet $35 will call $110 because they think they have value.</p>
+  <p><strong>Calculating the raise value:</strong> Against a range where they call a raise 50% of the time and fold 50%: EV of raise = 0.50 x $75 extra + call: $35 (guaranteed) = $35 + $37.50 = <strong>$72.50</strong>. EV of calling: $35. Raising earns $37.50 more. Against a "never fold top pair" player (call frequency 80%): EV = $35 + 0.80 x $75 = $35 + $60 = $95. Calling: $35. The raise value scales dramatically with how wide their calling range is.</p>
+  <p><strong>When NOT to raise for value:</strong> If the BB had bet $120 (63% pot) instead of $35, their range is more polarized (strong hands and bluffs, fewer marginals). Your two pair is still the best non-nut hand, but raising $120 risks them having AA (unlikely given preflop 3-bet) or a flopped set they slow-played. Against a large bet, just call with top two pair.</p>
+</div>
 
 <!-- ============================================================ -->
 <h2 id="raise-bluff">7. Deciding to Raise as a Bluff on the River</h2>
@@ -353,12 +361,34 @@ pre.tree { font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; backgro
 </table>
 
 <div class="box box-orange">
-  <span class="box-label">Examples Highlights</span>
-  <ul>
-    <li><strong>A-J-5, 2 turn:</strong> After bet-bet, jam or check on most rivers. ~1.5x pot shoves with nuts + 33% bluffs. Bluffs use hands with 4 or 3 blockers.</li>
-    <li><strong>J-6-6, 4 turn:</strong> After flop bet + check-check turn: no overbets (you lack super nuts). Small/medium bets only (~50% pot).</li>
-    <li><strong>10-8-6, Q turn:</strong> After check-check flop + overbet turn: opponent's range is strong after calling. Non-flush rivers: jam with sets. Flush rivers: medium bets only.</li>
-  </ul>
+  <span class="box-label">Example 1: A&#9824;-J&#9829;-5&#9824;, 2&#9829; turn -- Bet-Bet Line IP (BTN vs BB, 100bb)</span>
+  <p><strong>Full situation:</strong> You raise BTN to 3bb, BB calls. Pot: 6.5bb. Flop A&#9824;-J&#9829;-5&#9824;. BB checks, you bet 4bb (62% pot). BB calls. Pot: 14.5bb. Turn 2&#9829;. BB checks, you overbet ~16bb (110% pot). BB calls. Pot: ~46bb. You have ~54bb behind. SPR on river: ~1.2. River arrives (e.g., 8&#9830;).</p>
+  <p><strong>River strategy -- jam or check, nothing else:</strong> With only 1.2x pot remaining, the solver uses exactly two actions: jam all-in (~140% of the remaining pot) or check. Half-pot and two-thirds-pot bets do not appear. Why? Your line (bet-bet big) announces a polarized range -- you either have a strong hand (AJ, AA, JJ, 55, A5s, AK) or a draw that missed. A medium river bet with a polarized range is dominated: your value hands want max money, and your bluffs need to maximize fold equity.</p>
+  <p><strong>Value hands that jam:</strong> AJ (top two pair), AA/JJ/55 (sets), A5s (two pair), AK and AQ (strong top pairs that are near-premium here). These are the super nuts on this board and all want max value.</p>
+  <p><strong>Bluffs that jam:</strong> ~33% of the jamming range. Prefer hands that hold a 3 or 4 (block the gutshot 3-4 straight that BB might call with), or hands holding a 10/9 (block A-10, A-9 hero calls). For example, K4s with a busted backdoor flush draw is a strong bluff candidate -- it blocks straights and has no showdown value.</p>
+  <p><strong>Hands that check:</strong> Thin value hands like K-10, weak aces (A8, A7), middle pairs -- these cannot jam profitably and would be destroyed by a BB check-raise jam. Also give up with some bluffs you cannot profitably jam (K7, K6 off-suit that don't hold relevant blockers).</p>
+  <p><strong>EV cost of medium-bet mistake:</strong> If you bet 50% pot instead of jamming with a set of Aces, you allow BB to call with weaker Aces and pocket pairs for a fraction of the EV you would capture by jamming. Against a range that contains A-x calling hands, the correct jam extracts full expected value. Small-betting the nuts here could easily cost 8-15bb per occurrence.</p>
+</div>
+
+<div class="box box-orange">
+  <span class="box-label">Example 2: J&#9824;-6&#9829;-6&#9827;-4&#9824;, river -- Flop Bet + Check-Check Turn IP (LJ vs BB, 100bb)</span>
+  <p><strong>Full situation:</strong> You raise LJ to 3bb, BB calls. Pot: 6.5bb. Flop J&#9824;-6&#9829;-6&#9827;. BB checks, you bet small (~2.5bb, 38% pot). BB calls. Pot: ~11.5bb. Turn 4&#9824;. BB checks, you check back. Pot: ~11.5bb. River arrives (e.g., A&#9827;).</p>
+  <p><strong>Why you checked the turn:</strong> On J-6-6, the Jack is a frequent check-back on the turn because if you bet and BB check-raises, you are often dominated by a 6. Most of your "good" turn hands (aces, jacks, overpairs) prefer the cautious check-back to avoid being blown off their equity by BB's trips.</p>
+  <p><strong>Range damage from turn check:</strong> After check-check on the turn, your range is capped at overpairs and jacks. You would have bet the turn with trips, full houses, and your best premium hands. So on the river, you have: almost no nuts. The preferred bet size is ~50% pot; overbets (80%+) do not appear in the solver output because you lack the super nuts to support them credibly.</p>
+  <p><strong>Ace river strategy:</strong> The Ace is actually a good river for you. BB is not calling the flop with a lot of ace-high combinations (they fold many to even a small flop bet), and you now have a range full of aces, which are strong here. Value bet ~50% pot with pocket aces (which are the effective nuts), pocket jacks (near-nuts -- full house), and strong ace-x (A-K, A-Q). Bluff occasionally with hands like K-Q, K-9 (blocking the opponent's Jacks and Aces that might thin-value-call). Do NOT bet weak aces (A-4, A-3) for thin value -- if BB check-raises, you are in a terrible spot.</p>
+  <p><strong>Six river strategy:</strong> The 6 is another good river. Since you would have bet the turn with sixes, BB's range is also lacking sixes (they would have called any bet). You now hold all your pairs and aces, plus BB's range is capped at Jacks and overpairs. Bet ~50% pot with almost everything (aces, kings, jacks, strong overpairs). Fewer bluffs needed because your range is dense with good hands.</p>
+  <p><strong>Nine-or-lower river (e.g., 9&#9827;):</strong> A low blank is actually bad for you because BB checked the turn with hands like 9-8, 8-7, 7-6 that now have strong pairs. You cannot bet thin value often. Bet only your best hands (aces, jacks) and check back with medium hands to avoid getting check-raised by BB's well-disguised pairs and trips.</p>
+  <p><strong>EV cost of overbetting without nuts:</strong> If you overbet jam the Ace river in this spot, BB's checking range contains many kings and sixes that called the flop and turn. When you jam, BB calls you with 6-x trips and crushes you. Sticking to 50% pot avoids this catastrophe and still extracts value from BB's weaker jacks and aces.</p>
+</div>
+
+<div class="box box-orange">
+  <span class="box-label">Example 3: 10&#9830;-8&#9827;-6&#9829;-Q&#9829;, river -- Check-Check Flop + Overbet Turn IP (LJ vs BTN, 100bb)</span>
+  <p><strong>Full situation:</strong> LJ raises, BTN (you) calls. Pot: ~6.5bb. Flop 10&#9830;-8&#9827;-6&#9829;. LJ checks, you check back (uncapped checking range -- you have straights, sets, overpairs all in your checking range here). Turn Q&#9829;. LJ checks, you overbet ~130% pot. LJ calls. Pot: large. River arrives.</p>
+  <p><strong>What LJ's range looks like after calling:</strong> By calling your turn overbet on Q, LJ has announced a strong range. They folded all their garbage (under pairs, backdoor draw hands). Their calling range consists of: Q-x top pair (Q-J, Q-10, Q-9), 10-8 / 10-6 two pair, sets (TT, 88, 66), straights (9-7, J-9), and some strong flush draws. This range is condensed and dangerous.</p>
+  <p><strong>Ace river (e.g., A&#9829; arrives):</strong> Bet infrequently, but with two distinct sizes. Overbet/jam with: sets (10-10, 8-8, 6-6), straights (9-7, J-9 if you have them), K-J (the nuts here). Use 50% pot bet with: A-Q (strong two pair -- but NOT a clear overbet candidate because LJ can have K-J for the nuts). Check behind: A-K (thin -- LJ has many Aces in their calling range from the turn), Q-10 (two pair -- looks strong but LJ's range is too good after the overbet call), A-Q non-nut two pairs. The critical insight: even Q-10 (two pair) does NOT value bet here in solver output. Opponent called an overbet -- respect their strength.</p>
+  <p><strong>Bluffs when betting big:</strong> 9-8 (blocks set of 8s and two pair 10-8, 9-7), 5-4 (blocks the straight 9-7 if relevant), low pairs with spades (block flush draws LJ might have called turn with). ~35% bluffs in the overbet range because you are not perfectly polarized -- LJ can have better hands like KJ or 9-7s.</p>
+  <p><strong>Flush-completing river (e.g., 5&#9829; -- heart completes):</strong> Dramatic change. LJ's turn-calling range includes many heart flush draws (Q&#9829;-x, 10&#9829;-x, J&#9829;-x). They now have completed flushes you do not have (you checked the flop, so your heart holdings are limited). Do NOT use all-in sizing. Use 50-66% pot bets with flushes you do hold and sets. Check two-pair hands. ~35% bluffs in the bet-big range, but reduce overall bet frequency compared to a brick river. Key: the opponent having the flush advantage means their calling range is very strong -- don't bet thin.</p>
+  <p><strong>EV cost of thin value after turn overbet:</strong> Betting top pair (A-K, Q-J) on the river after opponent called your turn overbet costs you heavily when they check-raise jam with their sets or two pairs. In solver output, even two pairs like Q-10 check back. The mistake of thin value betting here is one of the most common and costly errors made by players moving up from small stakes.</p>
 </div>
 
 <!-- ============================================================ -->
@@ -373,11 +403,17 @@ pre.tree { font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; backgro
 </table>
 
 <div class="box box-orange">
-  <span class="box-label">Examples Highlights</span>
-  <ul>
-    <li><strong>9-7-5, 2 turn:</strong> Good rivers (8, 6): bet frequently, mostly small. Bad rivers (9): bet infrequently, overbet when you do (4x pot with nuts). Check J-10 sometimes for check-raise trap.</li>
-    <li><strong>K-K-6, 2 turn:</strong> Ace river: bet infrequently, big (120% pot) with kings + blocker bluffs. Low rivers: bet very frequently, small.</li>
-  </ul>
+  <span class="box-label">Example: 9-7-5, 2 turn -- OOP as BB After Check-Raise</span>
+  <p><strong>Situation:</strong> CO raised, you called from BB. Flop 9-7-5. CO bet, you check-raised, CO called. Turn 2 (brick). You bet pot, CO called. Now the river arrives.</p>
+  <p><strong>Good rivers (8 or 6 -- completing straights):</strong> You have tons of straights (T6s, 86s, 64s, T8s) that CO cannot hold. Bet frequently and mostly small (33-50% pot) for thin value. Your opponent's range is mostly overpairs and top pairs that will call small bets but fold to huge ones.</p>
+  <p><strong>Bad rivers (9 -- pairing the top card):</strong> This card is bad for you because CO's range includes 99 (top set), A9, K9, and trip 9s. Bet infrequently. When you do bet, overbet massively (4x pot) with your absolute nuts (straights, sets of 7s/5s) plus select bluffs. The overbet works because CO's range is polarized between trips/full houses (which call anything) and everything else (which folds to the huge sizing). Check JT sometimes as a check-raise trap -- it has a straight and can extract maximum value by trapping CO's bets.</p>
+</div>
+
+<div class="box box-orange">
+  <span class="box-label">Example: K-K-6, 2 turn -- OOP River Decisions</span>
+  <p><strong>Situation:</strong> You 3-bet from BB, BTN called. Flop K-K-6. You bet small, BTN called. Turn 2. You bet again, BTN called.</p>
+  <p><strong>Ace river:</strong> The Ace is a scary card. Your opponent's range includes AK (now a full house), AQ, AJ (just made a strong pair). Bet infrequently -- maybe 30% of the time. When you do bet, use a big size (120% pot) with your best Kings (KQ, KJ -- full houses) plus blocker bluffs (hands with an Ace that block AK). Most of the time, check and accept the showdown.</p>
+  <p><strong>Low rivers (3, 4, 5):</strong> Nothing changed. Your Kings are still the best hand. Bet very frequently (70%+) and small (33% pot) for thin value. BTN's range after calling two streets includes pocket pairs (QQ, JJ, TT) and random sixes that will pay off a small bet. Include your weakest hands as bluffs to maintain balance.</p>
 </div>
 
 <!-- ============================================================ -->
@@ -394,8 +430,14 @@ pre.tree { font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; backgro
 </div>
 
 <div class="box box-purple">
-  <span class="box-label">Key Example: 9-7-5-2, 8 River</span>
-  <p>A-2 (random pair) calls &gt; 10-9 (trips) when facing an all-in. Why: A-2 doesn't block bluffs (J-10), while 10-9 blocks them heavily. <strong>Raw equity matters less than blockers</strong> when opponent is polarized.</p>
+  <span class="box-label">Key Example: Why A-2 Calls Better Than T-9 on 9-7-5-2-8</span>
+  <p><strong>Situation:</strong> BB check-raised the flop on 9-7-5, bet the turn on the 2, and now jams all-in on the 8 river. You are IP and must decide whether to call.</p>
+  <p><strong>The counterintuitive result:</strong> A-2 (a random small pair of deuces) is a better call than T-9 (trip nines). T-9 looks like a much stronger hand, but blocker effects dominate on polarized rivers:</p>
+  <ul>
+    <li><strong>T-9 blocks bluffs heavily:</strong> BB's primary bluffs are JT and T6 (missed straight draws). By holding a Ten and a Nine, you remove many of those bluff combos from BB's range. This means when BB jams, their remaining range is weighted much more toward value (straights, sets).</li>
+    <li><strong>A-2 unblocks bluffs:</strong> A-2 doesn't block JT, T6, or any of BB's natural bluff combos. So when BB jams, their full range of bluffs is still possible. This means BB is more likely to be bluffing when you hold A-2.</li>
+  </ul>
+  <p><strong>The lesson:</strong> When your opponent's range is polarized (nuts or nothing), raw hand strength matters far less than which of their combos you block. Always ask: "Does my hand remove bluffs from their range (bad for calling) or remove value hands (good for calling)?"</p>
 </div>
 
 <h3>Folding Frequencies by Bet Size</h3>
@@ -450,7 +492,7 @@ pre.tree { font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; backgro
 </div>
 
 <h3>Bet Size &rarr; Polarization Relationship</h3>
-$$\text{Bigger bet} \rightarrow \text{More polarized range} \rightarrow \text{More bluffs allowed}$$
+\[\text{Bigger bet} \rightarrow \text{More polarized range} \rightarrow \text{More bluffs allowed}\]
 
 <h3>The SPR Framework</h3>
 

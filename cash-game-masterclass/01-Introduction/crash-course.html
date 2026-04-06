@@ -10,7 +10,7 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
-  onload="renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'\(',right:'\)',display:false}]});"></script>
+  onload="renderMathInElement(document.body,{delimiters:[{left:'\\(',right:'\\)',display:false},{left:'\\[',right:'\\]',display:true}],throwOnError:false});"></script>
 <style>
 :root {
   --bg: #FFFFFF;
@@ -233,21 +233,21 @@ hr {
 
 <p>For situations with no future betting (all-in or river calls):</p>
 
-$$EV = (P_{\text{win}} \times \text{Amount Won}) + (P_{\text{lose}} \times \text{Amount Lost})$$
+\[EV = (P_{\text{win}} \times \text{Amount Won}) + (P_{\text{lose}} \times \text{Amount Lost})\]
 
 <p>Where Amount Lost is negative.</p>
 
 <div class="box box-example">
   <span class="box-label">Worked Example -- Coin Flip</span>
   <p><strong>Scenario:</strong> Fair coin flip. Win $100 when heads, lose $100 when tails.</p>
-  $$EV = (0.50 \times 100) + (0.50 \times -100) = 50 - 50 = \$0$$
+  \[EV = (0.50 \times 100) + (0.50 \times -100) = 50 - 50 = \$0\]
   <p>Exactly break-even, as expected.</p>
 </div>
 
 <div class="box box-example">
   <span class="box-label">Worked Example -- Weighted Payoff</span>
   <p><strong>Scenario:</strong> Fair coin flip. Win $200 when heads, lose $100 when tails.</p>
-  $$EV = (0.50 \times 200) + (0.50 \times -100) = 100 - 50 = +\$50$$
+  \[EV = (0.50 \times 200) + (0.50 \times -100) = 100 - 50 = +\$50\]
   <p>You profit $50 per flip on average despite winning only half the time.</p>
 </div>
 
@@ -255,22 +255,22 @@ $$EV = (P_{\text{win}} \times \text{Amount Won}) + (P_{\text{lose}} \times \text
   <span class="box-label">Worked Example -- Poker All-In</span>
   <p><strong>Scenario:</strong> Opponent goes all-in for $100 into a $300 pot. You know you'll win 30% of the time.</p>
   <p>If you win: you collect $300 (pot) + $100 (their bet) = $400. If you lose: you lose $100 (your call).</p>
-  $$EV = (0.30 \times 400) + (0.70 \times -100) = 120 - 70 = +\$50$$
+  \[EV = (0.30 \times 400) + (0.70 \times -100) = 120 - 70 = +\$50\]
   <p>Despite winning only 30% of the time, calling is profitable because the pot gives you a large payout when you do win.</p>
 </div>
 
 <h3>Equity Share of a Pot</h3>
 
-$$\text{Your Equity Share} = \text{Your Equity \%} \times \text{Total Pot}$$
-$$\text{Profit} = \text{Equity Share} - \text{Amount You Invested}$$
+\[\text{Your Equity Share} = \text{Your Equity \%} \times \text{Total Pot}\]
+\[\text{Profit} = \text{Equity Share} - \text{Amount You Invested}\]
 
 <div class="box box-example">
   <span class="box-label">Worked Example -- AKo vs JTs</span>
   <p>You get all-in preflop with AKo vs JTs. Total pot is $10,000. AKo wins ~59.5% of the time.</p>
-  $$\text{Your Share} = 0.595 \times 10{,}000 = \$5{,}948$$
+  \[\text{Your Share} = 0.595 \times 10{,}000 = \$5{,}948\]
   <p>If you invested $4,500 into the pot:</p>
-  $$\text{Profit} = 5{,}948 - 4{,}500 = +\$1{,}448$$
-  <p>JTs would lose: $(0.405 \times 10{,}000) - 4{,}500 = -\$448$</p>
+  \[\text{Profit} = 5{,}948 - 4{,}500 = +\$1{,}448\]
+  <p>JTs would lose: \((0.405 \times 10{,}000) - 4{,}500 = -\$448\)</p>
 </div>
 
 <div class="box box-insight">
@@ -288,13 +288,13 @@ $$\text{Profit} = \text{Equity Share} - \text{Amount You Invested}$$
 
 <h3>Traditional Ratio Format</h3>
 
-$$\text{Pot Odds} = (\text{Pot} + \text{Opponent's Bet}) \;:\; \text{Your Call}$$
+\[\text{Pot Odds} = (\text{Pot} + \text{Opponent's Bet}) \;:\; \text{Your Call}\]
 
 <p>Simplify by dividing both sides by the right number.</p>
 
 <h3>Converting to Required Win Percentage</h3>
 
-$$\text{Required Win\%} = \frac{\text{Your Call}}{\text{Pot} + \text{Opponent's Bet} + \text{Your Call}}$$
+\[\text{Required Win\%} = \frac{\text{Your Call}}{\text{Pot} + \text{Opponent's Bet} + \text{Your Call}}\]
 
 <p>Think of it as: <strong>your call divided by the total pot after you call</strong>.</p>
 
@@ -302,20 +302,20 @@ $$\text{Required Win\%} = \frac{\text{Your Call}}{\text{Pot} + \text{Opponent's 
   <span class="box-label">Worked Example -- Half-Pot Bet</span>
   <p><strong>Scenario:</strong> Opponent bets $10 into a $10 pot.</p>
   <p>Pot odds: ($10 + $10) : $10 = 2:1</p>
-  $$\text{Required Win\%} = \frac{10}{10 + 10 + 10} = \frac{10}{30} = 33.3\%$$
+  \[\text{Required Win\%} = \frac{10}{10 + 10 + 10} = \frac{10}{30} = 33.3\%\]
 </div>
 
 <div class="box box-example">
   <span class="box-label">Worked Example -- Third-Pot Bet</span>
   <p><strong>Scenario:</strong> Opponent bets $100 into a $300 pot.</p>
-  $$\text{Required Win\%} = \frac{100}{300 + 100 + 100} = \frac{100}{500} = 20\%$$
+  \[\text{Required Win\%} = \frac{100}{300 + 100 + 100} = \frac{100}{500} = 20\%\]
   <p>Against a small bet, you only need to win 1 in 5 times.</p>
 </div>
 
 <div class="box box-example">
   <span class="box-label">Worked Example -- Overbet</span>
   <p><strong>Scenario:</strong> Opponent bets $1,000 into a $700 pot (overbet).</p>
-  $$\text{Required Win\%} = \frac{1{,}000}{700 + 1{,}000 + 1{,}000} = \frac{1{,}000}{2{,}700} = 37\%$$
+  \[\text{Required Win\%} = \frac{1{,}000}{700 + 1{,}000 + 1{,}000} = \frac{1{,}000}{2{,}700} = 37\%\]
   <p>Even against an overbet, you never need more than ~50% to call.</p>
 </div>
 
@@ -335,7 +335,7 @@ $$\text{Required Win\%} = \frac{\text{Your Call}}{\text{Pot} + \text{Opponent's 
 
 <div class="box box-insight">
   <span class="box-label">Key Insight -- The 50% Ceiling</span>
-  <p>When facing a bet, you <strong>never</strong> need more than ~50% equity to call. Because you're always matching your opponent's bet, the formula is always $\frac{\text{call}}{\text{call} + \text{call} + \text{pot}}$. Even if they bet a million into a $10 pot, you need just under 50%.</p>
+  <p>When facing a bet, you <strong>never</strong> need more than ~50% equity to call. Because you're always matching your opponent's bet, the formula is always \(\frac{\text{call}}{\text{call} + \text{call} + \text{pot}}\). Even if they bet a million into a $10 pot, you need just under 50%.</p>
 </div>
 
 <div class="box box-insight">
@@ -410,7 +410,7 @@ $$\text{Required Win\%} = \frac{\text{Your Call}}{\text{Pot} + \text{Opponent's 
   <span class="box-label">Worked Example -- 4-Bet All-In Decision (100bb Deep)</span>
   <p><strong>Setup:</strong> You raise to 3bb from HJ. SB 3-bets to 10bb. You 4-bet to 22bb. SB shoves 100bb.</p>
   <p><strong>Step 1 -- Pot Odds:</strong> You must call 78bb more (100 - 22) into a total pot of 201bb (your 100 + their 100 + SB).</p>
-  $$\text{Required Win\%} = \frac{78}{201} = 38.8\%$$
+  \[\text{Required Win\%} = \frac{78}{201} = 38.8\%\]
   <p><strong>Step 2 -- Opponent's Range:</strong> Estimated as QQ+, AKs, AKo (maybe AQs, A5s).</p>
   <p><strong>Step 3 -- Your Equity:</strong></p>
   <table>
@@ -464,12 +464,12 @@ $$\text{Required Win\%} = \frac{\text{Your Call}}{\text{Pot} + \text{Opponent's 
 
 <h3>Counting Unpaired Combos</h3>
 
-$$\text{Combos} = \text{unseen cards of rank A} \times \text{unseen cards of rank B}$$
+\[\text{Combos} = \text{unseen cards of rank A} \times \text{unseen cards of rank B}\]
 
 <div class="box box-example">
   <span class="box-label">Worked Example -- AK on A-6-4 Board</span>
   <p>One Ace is on the board. No Kings visible.</p>
-  $$\text{AK combos} = 3 \text{ (aces left)} \times 4 \text{ (kings left)} = 12$$
+  \[\text{AK combos} = 3 \text{ (aces left)} \times 4 \text{ (kings left)} = 12\]
   <p>Down from 16 preflop to 12 on this board.</p>
   <p>Suited combos: only 3 (the A<span style="color:red">&hearts;</span>K<span style="color:red">&hearts;</span> combo is gone since A<span style="color:red">&hearts;</span> is on board).</p>
 </div>
@@ -477,14 +477,14 @@ $$\text{Combos} = \text{unseen cards of rank A} \times \text{unseen cards of ran
 <div class="box box-example">
   <span class="box-label">Worked Example -- A6 Two-Pair on A-6-4</span>
   <p>One Ace gone, one 6 gone.</p>
-  $$\text{A6 combos} = 3 \times 3 = 9$$
+  \[\text{A6 combos} = 3 \times 3 = 9\]
   <p>If opponent only plays <strong>suited</strong> A6: only 2 combos remain (A&diams;6&diams; and A&spades;6&spades;, since A<span style="color:red">&hearts;</span> and 6&clubs; are on board).</p>
 </div>
 
 <div class="box box-example">
   <span class="box-label">Worked Example -- You Hold an Ace</span>
   <p>Board: A<span style="color:red">&hearts;</span>-6&clubs;-4&diams;. You hold A&diams;.</p>
-  $$\text{Opponent's A6 combos} = 2 \text{ (aces left)} \times 3 \text{ (sixes left)} = 6$$
+  \[\text{Opponent's A6 combos} = 2 \text{ (aces left)} \times 3 \text{ (sixes left)} = 6\]
   <p>If they only play A6 suited: <strong>1 combo</strong> (only A&spades;6&spades; is possible).</p>
 </div>
 

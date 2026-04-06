@@ -9,7 +9,7 @@
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;1,400;1,600&family=Source+Serif+4:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body,{delimiters:[{left:'\\(',right:'\\)',display:false},{left:'$$',right:'$$',display:true}],throwOnError:false});"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body,{delimiters:[{left:'\\(',right:'\\)',display:false}],throwOnError:false});"></script>
 <style>
 :root {
   --bg: #FFFFFF; --surface: #FFFFFF; --surface2: #F5F5F5;
@@ -490,12 +490,12 @@ function render(){
   if(pos>=order.length){showSummary();return;}
   answered=false;
   const qi=order[pos], d=Q[qi], area=document.getElementById('quiz-area');
-  document.getElementById('progress').innerHTML=`Question ${pos+1} / ${order.length} &nbsp;|&nbsp; Score: <span class="score">${score}</span> &nbsp;|&nbsp; Missed: <span class="missed">${missed.size}</span>`;
-  let h=`<div class="q-tag">${d.tag}</div><div class="q-text">${d.q}</div>`;
+  document.getElementById('progress').innerHTML=`Question \({pos+1} / \){order.length} &nbsp;|&nbsp; Score: <span class="score">\({score}</span> &nbsp;|&nbsp; Missed: <span class="missed">\){missed.size}</span>`;
+  let h=`<div class="q-tag">\({d.tag}</div><div class="q-text">\){d.q}</div>`;
   h+=`<button class="hint-btn" onclick="document.getElementById('hint').classList.toggle('show')">Show Hint</button>`;
   h+=`<div class="hint" id="hint">${d.hint}</div>`;
   h+=`<div class="choices" id="choices">`;
-  d.choices.forEach((c,i)=>{h+=`<button class="choice" data-i="${i}" onclick="pick(${qi},${i})">${c}</button>`;});
+  d.choices.forEach((c,i)=>{h+=`<button class="choice" data-i="\({i}" onclick="pick(\){qi},\({i})">\){c}</button>`;});
   h+=`</div><div id="fb"></div><div class="nav-row"><button class="btn" id="next-btn" style="display:none" onclick="pos++;render()">Next &rarr;</button></div>`;
   area.innerHTML=h;
 }
@@ -505,13 +505,13 @@ function pick(qi,i){
   btns.forEach(b=>{b.disabled=true;const bi=+b.dataset.i;if(bi===d.answer)b.classList.add('correct');if(bi===i&&i!==d.answer)b.classList.add('wrong');});
   const ok=i===d.answer;
   if(ok)score++; else{missed.add(qi);missedSet.add(qi);}
-  document.getElementById('fb').innerHTML=`<div class="feedback ${ok?'correct-fb':'wrong-fb'}"><div class="fb-label">${ok?'Correct':'Incorrect'}</div>${d.explain}</div>`;
+  document.getElementById('fb').innerHTML=`<div class="feedback \({ok?'correct-fb':'wrong-fb'}"><div class="fb-label">\){ok?'Correct':'Incorrect'}</div>${d.explain}</div>`;
   document.getElementById('next-btn').style.display='inline-block';
-  document.getElementById('progress').innerHTML=`Question ${pos+1} / ${order.length} &nbsp;|&nbsp; Score: <span class="score">${score}</span> &nbsp;|&nbsp; Missed: <span class="missed">${missed.size}</span>`;
+  document.getElementById('progress').innerHTML=`Question \({pos+1} / \){order.length} &nbsp;|&nbsp; Score: <span class="score">\({score}</span> &nbsp;|&nbsp; Missed: <span class="missed">\){missed.size}</span>`;
 }
 function showSummary(){
   const pct=Math.round(score/order.length*100);
-  document.getElementById('quiz-area').innerHTML=`<div class="summary"><h2>Quiz Complete</h2><div class="stat">Score: ${score} / ${order.length} (${pct}%)</div><div class="stat">Missed: <span style="color:var(--wrong)">${missed.size}</span></div><br><button class="btn" onclick="startQuiz('all')">Restart All</button> <button class="btn" onclick="startQuiz('missed')">Review Missed</button></div>`;
+  document.getElementById('quiz-area').innerHTML=`<div class="summary"><h2>Quiz Complete</h2><div class="stat">Score: \({score} / \){order.length} (\({pct}%)</div><div class="stat">Missed: <span style="color:var(--wrong)">\){missed.size}</span></div><br><button class="btn" onclick="startQuiz('all')">Restart All</button> <button class="btn" onclick="startQuiz('missed')">Review Missed</button></div>`;
   document.getElementById('progress').innerHTML='';
 }
 document.addEventListener('keydown',e=>{

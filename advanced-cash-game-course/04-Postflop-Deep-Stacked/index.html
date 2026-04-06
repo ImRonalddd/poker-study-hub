@@ -3,209 +3,314 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Chapter 4: Postflop Deep-Stacked Adjustments</title>
+<title>Chapter 4: Postflop Deep-Stacked Adjustments &mdash; Study Hub</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Source+Serif+4:ital,wght@0,400;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;0,900;1,400&family=Source+Serif+4:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
 <style>
 :root {
   --bg: #FFFFFF;
-  --surface: #FFFFFF;
-  --surface2: #F5F5F5;
-  --accent: #000000;
   --text: #000000;
   --text-dim: #525252;
-  --correct: #1a7a5e;
-  --wrong: #b91c1c;
-  --orange: #8B6914;
   --border: #000000;
   --border-light: #E5E5E5;
 }
 
-* { margin: 0; padding: 0; box-sizing: border-box; }
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; border-radius: 0 !important; }
 
 body {
-  font-family: 'Source Serif 4', serif;
+  font-family: 'Source Serif 4', Georgia, serif;
   background: var(--bg);
   color: var(--text);
   line-height: 1.7;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 60px 24px 80px;
+  -webkit-font-smoothing: antialiased;
 }
 
-h1 {
+.container { max-width: 900px; margin: 0 auto; padding: 4rem 2rem 6rem; }
+
+.header { text-align: center; margin-bottom: 3rem; }
+.header h1 {
   font-family: 'Playfair Display', serif;
-  font-size: 2.6rem;
+  font-size: 3rem;
   font-weight: 900;
-  text-align: center;
-  margin-bottom: 6px;
   letter-spacing: -0.02em;
+  margin-bottom: 0.3rem;
 }
-
-.chapter-label {
+.header .instructor {
   font-family: 'JetBrains Mono', monospace;
   font-size: 0.8rem;
-  color: var(--text-dim);
   text-transform: uppercase;
-  letter-spacing: 0.12em;
-  text-align: center;
-  margin-bottom: 8px;
-}
-
-.description {
-  max-width: 600px;
-  text-align: center;
+  letter-spacing: 0.15em;
   color: var(--text-dim);
-  margin-bottom: 48px;
+  margin-bottom: 1rem;
+}
+.header .description {
   font-size: 1.05rem;
-}
-
-.cards {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 20px;
-  width: 100%;
+  color: var(--text-dim);
   max-width: 640px;
+  margin: 0 auto;
+  line-height: 1.8;
 }
 
-.card {
-  border: 2px solid var(--border);
-  border-radius: 0px;
-  padding: 28px 32px;
-  text-decoration: none;
-  color: var(--text);
-  transition: background 0.15s;
-  display: block;
-}
-
-.card:hover {
-  background: var(--surface2);
-}
-
-.card-step {
+.back-link {
+  display: inline-block;
   font-family: 'JetBrains Mono', monospace;
-  font-size: 0.7rem;
+  font-size: 0.75rem;
   text-transform: uppercase;
   letter-spacing: 0.1em;
   color: var(--text-dim);
-  margin-bottom: 8px;
+  text-decoration: none;
+  margin-bottom: 2rem;
+  transition: color 0.1s;
 }
+.back-link:hover { color: var(--text); }
 
-.card-title {
+.stats-bar {
+  display: flex;
+  justify-content: center;
+  gap: 3rem;
+  padding: 1.5rem 0;
+  border-top: 4px solid var(--text);
+  border-bottom: 1px solid var(--border-light);
+  margin-bottom: 3rem;
+}
+.stat { text-align: center; }
+.stat-number {
   font-family: 'Playfair Display', serif;
-  font-size: 1.35rem;
+  font-size: 2rem;
   font-weight: 700;
-  margin-bottom: 8px;
+  display: block;
 }
-
-.card-desc {
-  font-size: 0.95rem;
+.stat-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
   color: var(--text-dim);
-  line-height: 1.6;
 }
 
-.topics {
-  max-width: 640px;
-  width: 100%;
-  margin-top: 48px;
-  padding-top: 32px;
-  border-top: 1px solid var(--border-light);
-}
+.materials { display: flex; flex-direction: column; gap: 1.5rem; margin-bottom: 3rem; }
 
-.topics h2 {
+.material-card {
+  border: 2px solid var(--text);
+  padding: 2rem 2.5rem;
+  text-decoration: none;
+  color: var(--text);
+  display: block;
+  transition: background 0.1s, color 0.1s;
+  position: relative;
+}
+.material-card:hover { background: var(--text); color: var(--bg); }
+.material-card:hover .material-desc,
+.material-card:hover .material-meta { color: rgba(255,255,255,0.7); }
+.material-card:hover .material-tag { border-color: rgba(255,255,255,0.3); color: rgba(255,255,255,0.7); background: rgba(255,255,255,0.08); }
+
+.material-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 0.3rem;
+}
+.material-meta {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 0.8rem;
+}
+.material-desc { color: var(--text-dim); line-height: 1.6; margin-bottom: 0.8rem; }
+.material-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+.material-tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.6rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 0.25rem 0.6rem;
+  border: 1px solid var(--border-light);
+  color: var(--text-dim);
+}
+.material-arrow {
+  position: absolute;
+  right: 2rem;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1.4rem;
+  opacity: 0;
+  transition: opacity 0.1s;
+}
+.material-card:hover .material-arrow { opacity: 1; }
+
+.topics-section {
+  border: 1px solid var(--border-light);
+  padding: 2rem;
+  margin-bottom: 3rem;
+}
+.topics-section h2 {
   font-family: 'Playfair Display', serif;
   font-size: 1.3rem;
-  margin-bottom: 16px;
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 4px solid var(--text);
 }
-
 .topic-list {
   list-style: none;
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 8px 24px;
+  gap: 0;
 }
-
 .topic-list li {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 0.8rem;
-  color: var(--text-dim);
-  padding: 4px 0;
-  border-bottom: 1px solid var(--border-light);
-}
-
-.footer {
-  margin-top: 48px;
   font-family: 'JetBrains Mono', monospace;
   font-size: 0.75rem;
   color: var(--text-dim);
+  padding: 0.5rem 0;
+  border-bottom: 1px solid var(--border-light);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.footer {
   text-align: center;
+  margin-top: 3rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--border-light);
+}
+.footer p {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+@media (max-width: 600px) {
+  .header h1 { font-size: 2rem; }
+  .stats-bar { gap: 1.5rem; }
+  .stat-number { font-size: 1.5rem; }
+  .material-card { padding: 1.5rem; }
+  .material-title { font-size: 1.2rem; }
+  .material-arrow { display: none; }
+  .topic-list { grid-template-columns: 1fr; }
 }
 </style>
 </head>
 <body>
+<div class="container">
 
-<div class="chapter-label">Advanced Cash Game Course</div>
-<h1>Chapter 4: Postflop Deep-Stacked Adjustments</h1>
-<p class="description">
-  How to adjust your postflop strategy at 200bb+ stacks: stack-off thresholds, the bet-bet-check line, nut advantage exploitation, over-realizing equity, and the increased value of position. By Jonathan Little.
-</p>
+  <a href="../index.html" class="back-link">&larr; Back to Advanced Cash Game Course</a>
 
-<div class="cards">
-  <a class="card" href="crash-course.html">
-    <div class="card-step">Step 1 -- Read</div>
-    <div class="card-title">Crash Course</div>
-    <div class="card-desc">
-      Complete walkthrough of deep-stack postflop strategy. Covers the three pillars (position, nut advantage, stack-off threshold), bet-bet-check lines, over-realizing equity, OOP checking frequencies, 3-bet pot adjustments, overbetting, and checking range protection. Includes detailed examples and common traps.
+  <div class="header">
+    <h1>Chapter 4: Postflop Deep-Stacked</h1>
+    <div class="instructor">Advanced Cash Game Course &mdash; Instructor: Jonathan Little</div>
+    <p class="description">
+      How to adjust your postflop strategy at 200bb+ stacks: stack-off thresholds, the
+      bet-bet-check line, nut advantage exploitation, over-realizing equity, and the
+      increased value of position.
+    </p>
+  </div>
+
+  <div class="stats-bar">
+    <div class="stat">
+      <span class="stat-number">5</span>
+      <span class="stat-label">Lessons</span>
     </div>
-  </a>
-
-  <a class="card" href="revision-guide.html">
-    <div class="card-step">Step 2 -- Reference</div>
-    <div class="card-title">Revision Guide</div>
-    <div class="card-desc">
-      Structured topic map covering all five lessons. Quick-reference tables for c-bet frequencies by board texture, turn betting criteria, sizing guidelines, and deep-stack heuristics. Cross-references key concepts across lessons.
+    <div class="stat">
+      <span class="stat-number">3</span>
+      <span class="stat-label">Materials</span>
     </div>
-  </a>
-
-  <a class="card" href="drills.html">
-    <div class="card-step">Step 3 -- Practice</div>
-    <div class="card-title">Interactive Drills</div>
-    <div class="card-desc">
-      20 questions covering stack-off thresholds, c-betting adjustments, cost of reopening, bet-bet-check lines, nut advantage, position value, 3-bet pots, and applied deep-stack scenarios. Multiple choice, true/false, and fill-in-the-blank. Shuffled each run with review-missed mode. Keyboard shortcuts for fast drilling.
+    <div class="stat">
+      <span class="stat-number">20</span>
+      <span class="stat-label">Drill Questions</span>
     </div>
-  </a>
-</div>
+    <div class="stat">
+      <span class="stat-number">200bb+</span>
+      <span class="stat-label">Stack Depth</span>
+    </div>
+  </div>
 
-<div class="topics">
-  <h2>Topics Covered</h2>
-  <ul class="topic-list">
-    <li>Stack-Off Threshold</li>
-    <li>Nut Advantage</li>
-    <li>Position Value (Deep)</li>
-    <li>C-Bet Adjustments (200bb)</li>
-    <li>Check-Raise Frequency</li>
-    <li>Bet-Bet-Check Line</li>
-    <li>Pushing Equity</li>
-    <li>Nut Draw Selection</li>
-    <li>Over-Realizing Equity</li>
-    <li>Polarized Big Bets</li>
-    <li>Cost of Reopening</li>
-    <li>River Check-Raises</li>
-    <li>OOP Checking Ranges</li>
-    <li>Checking Range Protection</li>
-    <li>3-Bet Pot Adjustments</li>
-    <li>Overbet Sizing</li>
-    <li>Turn Bluff Selection</li>
-    <li>Nut Blockers</li>
-  </ul>
-</div>
+  <div class="materials">
 
-<div class="footer">
-  Source: PokerCoaching.com by Jonathan Little
-</div>
+    <a href="crash-course.html" class="material-card">
+      <div class="material-title">Crash Course</div>
+      <div class="material-meta">Complete walkthrough &mdash; deep-stack postflop strategy</div>
+      <div class="material-desc">
+        Complete walkthrough of deep-stack postflop strategy. Covers the three pillars (position,
+        nut advantage, stack-off threshold), bet-bet-check lines, over-realizing equity, OOP
+        checking frequencies, 3-bet pot adjustments, overbetting, and checking range protection.
+      </div>
+      <div class="material-tags">
+        <span class="material-tag">Stack-Off Threshold</span>
+        <span class="material-tag">Nut Advantage</span>
+        <span class="material-tag">Position Value</span>
+        <span class="material-tag">Bet-Bet-Check</span>
+      </div>
+      <span class="material-arrow">&rarr;</span>
+    </a>
 
+    <a href="revision-guide.html" class="material-card">
+      <div class="material-title">Revision Guide</div>
+      <div class="material-meta">All 5 lessons &mdash; tables, heuristics, cross-references</div>
+      <div class="material-desc">
+        Structured topic map covering all five lessons. Quick-reference tables for c-bet frequencies
+        by board texture, turn betting criteria, sizing guidelines, and deep-stack heuristics.
+        Cross-references key concepts across lessons.
+      </div>
+      <div class="material-tags">
+        <span class="material-tag">C-Bet Frequencies</span>
+        <span class="material-tag">Turn Criteria</span>
+        <span class="material-tag">Sizing Guidelines</span>
+        <span class="material-tag">Heuristics</span>
+      </div>
+      <span class="material-arrow">&rarr;</span>
+    </a>
+
+    <a href="drills.html" class="material-card">
+      <div class="material-title">Interactive Drills</div>
+      <div class="material-meta">20 scenario-based questions</div>
+      <div class="material-desc">
+        20 questions covering stack-off thresholds, c-betting adjustments, cost of reopening,
+        bet-bet-check lines, nut advantage, position value, 3-bet pots, and applied deep-stack
+        scenarios. Multiple choice, true/false, and fill-in-the-blank.
+      </div>
+      <div class="material-tags">
+        <span class="material-tag">Stack-Off</span>
+        <span class="material-tag">C-Bet Adjustments</span>
+        <span class="material-tag">3-Bet Pots</span>
+        <span class="material-tag">Applied Scenarios</span>
+      </div>
+      <span class="material-arrow">&rarr;</span>
+    </a>
+
+  </div>
+
+  <div class="topics-section">
+    <h2>Topics Covered</h2>
+    <ul class="topic-list">
+      <li>Stack-Off Threshold</li>
+      <li>Nut Advantage</li>
+      <li>Position Value (Deep)</li>
+      <li>C-Bet Adjustments (200bb)</li>
+      <li>Check-Raise Frequency</li>
+      <li>Bet-Bet-Check Line</li>
+      <li>Pushing Equity</li>
+      <li>Nut Draw Selection</li>
+      <li>Over-Realizing Equity</li>
+      <li>Polarized Big Bets</li>
+      <li>Cost of Reopening</li>
+      <li>River Check-Raises</li>
+      <li>OOP Checking Ranges</li>
+      <li>Checking Range Protection</li>
+      <li>3-Bet Pot Adjustments</li>
+      <li>Overbet Sizing</li>
+      <li>Turn Bluff Selection</li>
+      <li>Nut Blockers</li>
+    </ul>
+  </div>
+
+  <div class="footer">
+    <p>Study materials generated from PokerCoaching.com course transcripts</p>
+  </div>
+
+</div>
 </body>
 </html>

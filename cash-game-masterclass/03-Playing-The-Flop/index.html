@@ -3,126 +3,316 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Chapter 3: Playing the Flop</title>
+<title>Chapter 3: Playing the Flop &mdash; Study Hub</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;1,400;1,600&family=Source+Serif+4:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;0,900;1,400&family=Source+Serif+4:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
 <style>
 :root {
-  --bg: #FFFFFF; --surface: #FFFFFF; --surface2: #F5F5F5;
-  --accent: #000000; --text: #000000; --text-dim: #525252;
-  --correct: #1a7a5e; --wrong: #b91c1c; --orange: #8B6914;
-  --border: #000000; --border-light: #E5E5E5;
+  --bg: #FFFFFF;
+  --text: #000000;
+  --text-dim: #525252;
+  --border: #000000;
+  --border-light: #E5E5E5;
 }
-*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;border-radius:0!important}
-body{font-family:'Source Serif 4',Georgia,serif;background:var(--bg);color:var(--text);line-height:1.7;-webkit-font-smoothing:antialiased}
-body::before{content:'';position:fixed;inset:0;z-index:-1;opacity:0.02;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23n)'/%3E%3C/svg%3E");background-size:400px 400px;pointer-events:none}
-.container{max-width:740px;margin:0 auto;padding:0 1.5rem}
-header{padding:5rem 0 2rem;text-align:center}
-header .back{font-family:'JetBrains Mono',monospace;font-size:0.8rem;color:var(--text-dim);text-decoration:none;display:inline-block;margin-bottom:1.5rem;border-bottom:1px solid var(--border-light)}
-header .back:hover{color:var(--text);border-color:var(--text)}
-header h1{font-family:'Playfair Display',serif;font-size:2.6rem;font-weight:700;letter-spacing:-0.02em}
-header p{color:var(--text-dim);margin-top:0.75rem;font-size:1.05rem;max-width:480px;margin-left:auto;margin-right:auto}
-.chapter-num{font-family:'JetBrains Mono',monospace;font-size:0.8rem;text-transform:uppercase;letter-spacing:0.12em;color:var(--text-dim);margin-bottom:0.5rem}
-.divider{width:60px;height:2px;background:var(--accent);margin:2rem auto 3rem}
-.study-order{font-family:'JetBrains Mono',monospace;font-size:0.78rem;text-transform:uppercase;letter-spacing:0.08em;color:var(--text-dim);text-align:center;margin-bottom:1.5rem}
-.cards{display:grid;gap:1.5rem;margin-bottom:4rem}
-.card{border:1px solid var(--border-light);padding:2rem;text-decoration:none;color:var(--text);display:block;transition:all 0.2s}
-.card:hover{border-color:var(--accent);background:var(--surface2)}
-.card-label{font-family:'JetBrains Mono',monospace;font-size:0.72rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--text-dim);margin-bottom:0.5rem}
-.card h2{font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:600;margin-bottom:0.5rem}
-.card p{color:var(--text-dim);font-size:0.95rem;line-height:1.6;margin:0}
-.card .meta{font-family:'JetBrains Mono',monospace;font-size:0.75rem;color:var(--text-dim);margin-top:0.75rem}
-.topics{margin:0 0 4rem;padding:2rem;background:var(--surface2);border:1px solid var(--border-light)}
-.topics h3{font-family:'Playfair Display',serif;font-size:1.2rem;margin-bottom:1rem}
-.topics ul{columns:2;column-gap:2rem;list-style:none;margin:0;padding:0}
-.topics li{font-size:0.88rem;padding:0.3rem 0;break-inside:avoid;color:var(--text-dim)}
-.topics li::before{content:'';display:inline-block;width:6px;height:6px;background:var(--accent);margin-right:0.5rem;vertical-align:middle}
-footer{padding:2rem 0;border-top:1px solid var(--border-light);text-align:center;color:var(--text-dim);font-size:0.82rem}
-footer a{color:var(--text-dim);text-decoration:none;border-bottom:1px solid var(--border-light)}
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; border-radius: 0 !important; }
+
+body {
+  font-family: 'Source Serif 4', Georgia, serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+}
+
+.container { max-width: 900px; margin: 0 auto; padding: 4rem 2rem 6rem; }
+
+.header { text-align: center; margin-bottom: 3rem; }
+.header h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: 3rem;
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  margin-bottom: 0.3rem;
+}
+.header .instructor {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--text-dim);
+  margin-bottom: 1rem;
+}
+.header .description {
+  font-size: 1.05rem;
+  color: var(--text-dim);
+  max-width: 640px;
+  margin: 0 auto;
+  line-height: 1.8;
+}
+
+.back-link {
+  display: inline-block;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text-dim);
+  text-decoration: none;
+  margin-bottom: 2rem;
+  transition: color 0.1s;
+}
+.back-link:hover { color: var(--text); }
+
+.stats-bar {
+  display: flex;
+  justify-content: center;
+  gap: 3rem;
+  padding: 1.5rem 0;
+  border-top: 4px solid var(--text);
+  border-bottom: 1px solid var(--border-light);
+  margin-bottom: 3rem;
+}
+.stat { text-align: center; }
+.stat-number {
+  font-family: 'Playfair Display', serif;
+  font-size: 2rem;
+  font-weight: 700;
+  display: block;
+}
+.stat-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--text-dim);
+}
+
+.materials { display: flex; flex-direction: column; gap: 1.5rem; margin-bottom: 3rem; }
+
+.material-card {
+  border: 2px solid var(--text);
+  padding: 2rem 2.5rem;
+  text-decoration: none;
+  color: var(--text);
+  display: block;
+  transition: background 0.1s, color 0.1s;
+  position: relative;
+}
+.material-card:hover { background: var(--text); color: var(--bg); }
+.material-card:hover .material-desc,
+.material-card:hover .material-meta { color: rgba(255,255,255,0.7); }
+.material-card:hover .material-tag { border-color: rgba(255,255,255,0.3); color: rgba(255,255,255,0.7); background: rgba(255,255,255,0.08); }
+
+.material-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 0.3rem;
+}
+.material-meta {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 0.8rem;
+}
+.material-desc { color: var(--text-dim); line-height: 1.6; margin-bottom: 0.8rem; }
+.material-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+.material-tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.6rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 0.25rem 0.6rem;
+  border: 1px solid var(--border-light);
+  color: var(--text-dim);
+}
+.material-arrow {
+  position: absolute;
+  right: 2rem;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1.4rem;
+  opacity: 0;
+  transition: opacity 0.1s;
+}
+.material-card:hover .material-arrow { opacity: 1; }
+
+.topics-section {
+  border: 1px solid var(--border-light);
+  padding: 2rem;
+  margin-bottom: 3rem;
+}
+.topics-section h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.3rem;
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 4px solid var(--text);
+}
+.topic-list {
+  list-style: none;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+}
+.topic-list li {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  color: var(--text-dim);
+  padding: 0.5rem 0;
+  border-bottom: 1px solid var(--border-light);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.footer {
+  text-align: center;
+  margin-top: 3rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--border-light);
+}
+.footer p {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+@media (max-width: 600px) {
+  .header h1 { font-size: 2rem; }
+  .stats-bar { gap: 1.5rem; }
+  .stat-number { font-size: 1.5rem; }
+  .material-card { padding: 1.5rem; }
+  .material-title { font-size: 1.2rem; }
+  .material-arrow { display: none; }
+  .topic-list { grid-template-columns: 1fr; }
+}
 </style>
 </head>
 <body>
 <div class="container">
 
-<header>
-  <a href="../index.html" class="back">&larr; All Chapters</a>
-  <div class="chapter-num">Chapter 3</div>
-  <h1>Playing the Flop</h1>
-  <p>42 lessons covering continuation betting, board textures, bet sizing, facing bets, 3-bet/4-bet pots, multi-way, and limped pots.</p>
-</header>
+  <a href="../index.html" class="back-link">&larr; Back to Cash Game Masterclass</a>
 
-<div class="divider"></div>
+  <div class="header">
+    <h1>Chapter 3: Playing the Flop</h1>
+    <div class="instructor">Cash Game Masterclass &mdash; Jonathan Little</div>
+    <p class="description">
+      42 lessons covering continuation betting, board textures, bet sizing, facing bets,
+      3-bet and 4-bet pots, multi-way, and limped pots. The largest and most comprehensive
+      chapter in the course.
+    </p>
+  </div>
 
-<div class="study-order">Recommended study order</div>
+  <div class="stats-bar">
+    <div class="stat">
+      <span class="stat-number">42</span>
+      <span class="stat-label">Lessons</span>
+    </div>
+    <div class="stat">
+      <span class="stat-number">3</span>
+      <span class="stat-label">Materials</span>
+    </div>
+    <div class="stat">
+      <span class="stat-number">37</span>
+      <span class="stat-label">Drill Questions</span>
+    </div>
+    <div class="stat">
+      <span class="stat-number">6-Max</span>
+      <span class="stat-label">Format</span>
+    </div>
+  </div>
 
-<div class="cards">
+  <div class="materials">
 
-  <a href="crash-course.html" class="card">
-    <div class="card-label">Step 1</div>
-    <h2>Crash Course</h2>
-    <p>Comprehensive visual overview of all flop concepts: the four hand types, range advantage, nut advantage, c-bet sizing flowcharts, board texture classification, bet response framework, and adjustments for 3-bet, 4-bet, multi-way, and limped pots.</p>
-    <div class="meta">12 sections &bull; Definitions, insights, examples, common mistakes</div>
-  </a>
+    <a href="crash-course.html" class="material-card">
+      <div class="material-title">Crash Course</div>
+      <div class="material-meta">12 sections &mdash; definitions, insights, examples, common mistakes</div>
+      <div class="material-desc">
+        Comprehensive visual overview of all flop concepts: the four hand types, range advantage,
+        nut advantage, c-bet sizing flowcharts, board texture classification, bet response framework,
+        and adjustments for 3-bet, 4-bet, multi-way, and limped pots.
+      </div>
+      <div class="material-tags">
+        <span class="material-tag">C-Bet Sizing</span>
+        <span class="material-tag">Board Textures</span>
+        <span class="material-tag">Range Advantage</span>
+        <span class="material-tag">Nut Advantage</span>
+        <span class="material-tag">3-Bet Pots</span>
+      </div>
+      <span class="material-arrow">&rarr;</span>
+    </a>
 
-  <a href="revision-guide.html" class="card">
-    <div class="card-label">Step 2</div>
-    <h2>Revision Guide</h2>
-    <p>Structured Obsidian reference covering all 42 lessons organized by sub-topic. Topic map, key concepts, board-specific strategies, flowcharts, ratios, and cross-references to other chapters.</p>
-    <div class="meta">Markdown &bull; Open in Obsidian for linked navigation</div>
-  </a>
+    <a href="revision-guide.html" class="material-card">
+      <div class="material-title">Revision Guide</div>
+      <div class="material-meta">Markdown &mdash; open in Obsidian for linked navigation</div>
+      <div class="material-desc">
+        Structured Obsidian reference covering all 42 lessons organized by sub-topic. Topic map,
+        key concepts, board-specific strategies, flowcharts, ratios, and cross-references
+        to other chapters.
+      </div>
+      <div class="material-tags">
+        <span class="material-tag">All 42 Lessons</span>
+        <span class="material-tag">Flowcharts</span>
+        <span class="material-tag">Obsidian</span>
+        <span class="material-tag">Cross-References</span>
+      </div>
+      <span class="material-arrow">&rarr;</span>
+    </a>
 
-  <a href="drills.html" class="card">
-    <div class="card-label">Step 3</div>
-    <h2>Interactive Drills</h2>
-    <p>37 questions covering board texture classification, c-bet frequency and sizing, hand categorization, range ratios, bet response flowchart, check-raise defense, 3-bet/4-bet pot strategy, multi-way adjustments, and limped pot play.</p>
-    <div class="meta">Hotkeys &bull; Shuffle &bull; Review-Missed mode &bull; Hints + explanations</div>
-  </a>
+    <a href="drills.html" class="material-card">
+      <div class="material-title">Interactive Drills</div>
+      <div class="material-meta">37 scenario-based questions &mdash; hotkeys, shuffle, review-missed</div>
+      <div class="material-desc">
+        37 questions covering board texture classification, c-bet frequency and sizing, hand
+        categorization, range ratios, bet response flowchart, check-raise defense, 3-bet and 4-bet
+        pot strategy, multi-way adjustments, and limped pot play.
+      </div>
+      <div class="material-tags">
+        <span class="material-tag">Board Textures</span>
+        <span class="material-tag">C-Bet Frequency</span>
+        <span class="material-tag">Check-Raise</span>
+        <span class="material-tag">Multi-Way</span>
+      </div>
+      <span class="material-arrow">&rarr;</span>
+    </a>
 
-</div>
+  </div>
 
-<div class="topics">
-  <h3>Topics Covered (42 Lessons)</h3>
-  <ul>
-    <li>Betting vs Checking</li>
-    <li>Continuation Betting Framework</li>
-    <li>Position Effects on C-Betting</li>
-    <li>Bet Sizing (Nut Advantage)</li>
-    <li>Playing Without Range Advantage</li>
-    <li>Strategies When Facing a Bet</li>
-    <li>Facing a Bet Summary</li>
-    <li>PFR IP Facing a Donk Lead</li>
-    <li>PFR IP Facing a Check-Raise</li>
-    <li>PFR OOP Facing a Bet</li>
-    <li>Flop Strategy on A&spades;J&hearts;5&spades;</li>
-    <li>Flop Strategy on J&spades;6&clubs;2&diams;</li>
-    <li>Flop Strategy on K&hearts;7&spades;5&diams;</li>
-    <li>Flop Strategy on K&spades;K&hearts;6&diams;</li>
-    <li>Flop Strategy on Q&spades;T&spades;5&spades;</li>
-    <li>Flop Strategy on 9&diams;7&clubs;5&spades;</li>
-    <li>Flop Strategy on T&diams;8&clubs;6&hearts;</li>
-    <li>Flop Strategy on 7&hearts;4&spades;3&hearts;</li>
-    <li>Caller Facing Bet (9 boards)</li>
-    <li>3-Bet Pots as Aggressor</li>
-    <li>3-Bet Pots Aggressor Examples</li>
-    <li>3-Bet Pots as Caller</li>
-    <li>3-Bet Pots Caller Examples</li>
-    <li>4-Bet Pots as Aggressor</li>
-    <li>4-Bet Pots Aggressor Examples</li>
-    <li>4-Bet Pots as Caller</li>
-    <li>4-Bet Pots Caller Examples</li>
-    <li>Multi-Way Pots Theory</li>
-    <li>Multi-Way Pots Examples</li>
-    <li>Limped Pots Theory</li>
-    <li>Limped Pots Examples</li>
-    <li>Check-Raise Examples</li>
-    <li>OOP Facing a Bet Examples</li>
-  </ul>
-</div>
+  <div class="topics-section">
+    <h2>Topics Covered (42 Lessons)</h2>
+    <ul class="topic-list">
+      <li>Betting vs Checking</li>
+      <li>C-Bet Framework</li>
+      <li>Position Effects on C-Betting</li>
+      <li>Bet Sizing (Nut Advantage)</li>
+      <li>Playing Without Range Advantage</li>
+      <li>Strategies When Facing a Bet</li>
+      <li>PFR IP Facing a Donk Lead</li>
+      <li>PFR IP Facing a Check-Raise</li>
+      <li>PFR OOP Facing a Bet</li>
+      <li>Board-Specific Examples</li>
+      <li>Caller Facing Bet (9 boards)</li>
+      <li>3-Bet Pots as Aggressor</li>
+      <li>3-Bet Pots as Caller</li>
+      <li>4-Bet Pots as Aggressor</li>
+      <li>4-Bet Pots as Caller</li>
+      <li>Multi-Way Pots Theory</li>
+      <li>Multi-Way Pots Examples</li>
+      <li>Limped Pots Theory</li>
+      <li>Limped Pots Examples</li>
+      <li>Check-Raise Examples</li>
+    </ul>
+  </div>
 
-<footer>
-  <p>Cash Game Masterclass &mdash; <a href="../index.html">Study System</a></p>
-</footer>
+  <div class="footer">
+    <p>Study materials generated from PokerCoaching.com course transcripts</p>
+  </div>
 
 </div>
 </body>

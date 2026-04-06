@@ -9,7 +9,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Source+Serif+4:wght@300;400;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body,{delimiters:[{left:'\\(',right:'\\)',display:false},{left:'$$',right:'$$',display:true}],throwOnError:false});"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body,{delimiters:[{left:'\\(',right:'\\)',display:false}],throwOnError:false});"></script>
 <style>
 :root{--bg:#FFFFFF;--surface:#FFFFFF;--surface2:#F5F5F5;--accent:#000000;--text:#000000;--text-dim:#525252;--correct:#1a7a5e;--wrong:#b91c1c;--orange:#8B6914;--border:#000000;--border-light:#E5E5E5;--blue:#1e40af;--blue-bg:#eff6ff;--purple:#6b21a8;--purple-bg:#faf5ff;--orange-bg:#fffbeb;--red:#991b1b;--red-bg:#fef2f2}
 *{margin:0;padding:0;box-sizing:border-box}
@@ -103,9 +103,25 @@ The best live cash game players are <strong>not</strong> trying to play complex 
 <li><strong>Jack-Ten offsuit is often a fold:</strong> On boards where making two pair puts you against straights, and you block bluff combos (opponent's KT, T9), JTo is a clear fold facing turn aggression.</li>
 </ol>
 
+<div class="box box-orange">
+<div class="box-label">Worked Example: H-2-5-0, HJ vs BB, T-5-4 Rainbow</div>
+<p><strong>Situation:</strong> Hijack opens (tight 20% range), you call from the BB. Flop T-5-4 rainbow. Hijack bets 65% pot.</p>
+<p><strong>Comparison: K\u2665J\u2665 (backdoor hearts) vs KJ no backdoor.</strong> KJ with backdoor hearts is worth +0.67 BB continuing. KJ without backdoor is a marginal fold. On any heart turn you pick up a nut flush draw and have an easy decision. The backdoor alone is worth almost a full big blind in EV -- the single biggest factor distinguishing two otherwise identical hands.</p>
+<p><strong>What happens at 85% pot instead?</strong> Sixes and sevens (mixed frequency calls at 65%) become pure folds. Ace-Queen offsuit goes from marginal continue to near-pure fold. The hands that survive both sizes are exactly the KJ/KQ with backdoor flush draws -- that is why they are so valuable.</p>
+<p><strong>Range position adjustment:</strong> If villain is on the button (wider range, ~35-40% hands), you have more equity across all runouts and can continue more top-pair type hands. HJ range (~20%) means they bet turns and rivers at much higher frequency because they hold more nutted combos -- force more folds on the flop accordingly.</p>
+</div>
+
 <div class="box box-purple">
 <div class="box-label">Key Insight</div>
 Hands that can improve to the nuts over-realize equity massively. Having nut hands in your range lets you build aggressive strategies on future streets. Backdoor draws that develop into nut draws are the primary reason suited hands are worth so much more than offsuit.
+</div>
+
+<div class="box box-orange">
+<div class="box-label">Worked Example: Clean vs Dirty Outs -- Q-J-T-K board, Turn barrel</div>
+<p><strong>Situation:</strong> HJ opens, you call BB. Board Q\u2663J\u26652\u2663T\u2660 on turn. Villain overbets 1.5x pot.</p>
+<p>You hold J\u2660T\u2660 (top two pair). Looks strong. But consider what happens when you improve: if you river a Jack, villain has AK, K9 for straights. If you river a Ten, villain has K9, Q9 for straights. If any spade hits, villain has flush draws they were barreling. JT is blocking villain's key bluff combos (KT, T9) -- the very hands you need villain to have for calling to be correct. Blocking bluffs is devastatingly bad for calling decisions.</p>
+<p>Compare to K\u26547\u2665 (no pair, heart draw): Has reasonable equity against the whole range. When a heart hits, clean nut flush draw. When a King hits, top pair with no reverse implied odds. Does NOT block KT/T9 bluff combos. This hand calls more often despite being weaker in immediate showdown equity.</p>
+<p><strong>EV cost of error:</strong> Calling JTo at 1.5x pot when you should fold costs approximately 1.5-2.5 BBs of EV per occurrence. Folding K7h when you should call costs similar. The errors compound across sessions because live players almost never make these adjustments correctly.</p>
 </div>
 
 <hr>
@@ -127,6 +143,16 @@ Hands that can improve to the nuts over-realize equity massively. Having nut han
 <li><strong>Use big sizes:</strong> If your value threshold is two pair+, you want a big check-raise size</li>
 </ol>
 
+<div class="box box-orange">
+<div class="box-label">Worked Example: Check-Raise Construction -- K\u26434\u26433\u2660, BTN vs BB, 200 BB deep</div>
+<p><strong>Situation:</strong> Button opens, you call from the BB with K\u26506\u2665 (65s). 200 BB deep. Flop K\u26434\u26433\u2660 rainbow. Button bets small (~25% pot). Justin's actual hand in his training session.</p>
+<p><strong>Step 1 -- Value threshold:</strong> At 200 BB you do NOT check-raise top pair. King-Queen offsuit goes into check-call. Value hands are K4, K3, 43, sets only. These hands say "I have two pair or better" and justify a big raise size (Justin raised to 125 into ~20 at 200 BB deep).</p>
+<p><strong>Step 2 -- Add draws:</strong> Spade flush draws (7\u26485\u2648 etc.), open-ended straight draws (75s, 52s that make wheel or 6-high straights).</p>
+<p><strong>Step 3 -- Cover nut runouts:</strong> A\u2648x hands (A\u26485\u2665, A\u26486\u2665) that wrap the 3 and 4. Without these, on a 6\u2648 turn (flush + straight complete) you have zero bluffs. These hands give you credible bluffs on the worst runouts. 5-3s, 6-3s (bottom pair that wraps) serve the same purpose.</p>
+<p><strong>Against an over-c-bettor (~100% frequency vs GTO 60%):</strong> Same hand types, but increase all frequencies approximately 2x. If 6-5o was check-raising 30% of the time, now do it 60%. Do not add new hand types -- you will arrive at the turn with unmanageable ranges. The extra folds you generate on the flop means you don't actually face turn spots at higher frequency than normal.</p>
+<p><strong>Why the big size?</strong> Your value threshold (two pair+) vs their betting range (medium equity hands, top pairs) creates a massive gap at the top of the equity distribution. Big size forces them to fold everything in their middle -- all the King-X single pair hands, all the pocket pairs below two pair.</p>
+</div>
+
 <h3>Turn Barreling After Check-Raising</h3>
 <table>
 <tr><th>Turn Type</th><th>Action</th><th>Details</th></tr>
@@ -138,6 +164,15 @@ Hands that can improve to the nuts over-realize equity massively. Having nut han
 <div class="box box-red">
 <div class="box-label">The One-Track Mind Trap</div>
 After check-raising flop and barreling turn, don't default to jamming the river. Adapt: if the nuts change (flush completes), block instead of jam. If nuts stay the same (brick), jam confidently.
+</div>
+
+<div class="box box-orange">
+<div class="box-label">Worked Example: Turn Barreling and River Adaptation -- K-4-3, Turn 6, River 7\u2660 vs 2\u2666</div>
+<p><strong>Situation continued from above:</strong> You check-raised K\u26434\u26433\u2660 to 125 with 6\u26505\u2665. Button calls. Turn is 6\u2663. You have 49% raw equity but a massive nut advantage: you hold all the straights (75s, 52s now complete), all the sets, all the two pairs. The button has mostly single-pair King-X hands.</p>
+<p><strong>Turn action (6\u2663):</strong> Pot-bet at very high frequency (~75%). The 49% equity does not matter -- the high-end equity gap is enormous. Folding out all their King-X, pocket Jacks, pocket Queens. You have a third of your range as sets or straights in this spot. This is what over-realizing equity looks like: 46% raw equity realizing more than 50% pot share.</p>
+<p><strong>River scenario A -- 7\u2660 (flush completes):</strong> The opponent called your pot-bet with flush draws they were barreling the flop with. They now have many flushes. Your nut advantage has shifted. Your sets and straights are now sharing the high end with their flushes. Correct play: block bet (not jam). Let them develop a raise range. Jamming when nuts are shared costs you EV because you're now behind a significant portion of their range.</p>
+<p><strong>River scenario B -- 2\u2666 (complete brick):</strong> Nuts have not changed. You still have all the straights and sets; they cannot have improved. Your nut advantage is preserved from the turn. Correct play: jam. You have about 30% of your range as sets or straights -- the opponent cannot call profitably with any single pair hand. Even with 5x pot behind, jamming is correct.</p>
+<p><strong>EV cost of misadapting:</strong> Jamming on a flush-completing river when you should block costs roughly 3-6 BB per occurrence because you fold out hands worse than yours (their bluffs fold) and get called/raised only by hands that beat you. Blocking on a brick when you should jam costs roughly 2-4 BB by leaving value on the table.</p>
 </div>
 
 <hr>
@@ -166,12 +201,28 @@ After check-raising flop and barreling turn, don't default to jamming the river.
 <strong>The more you check, the more aggressive you can be on future streets.</strong> Pure check on flop &rarr; all nutted hands retained &rarr; aggressive check-raises and delayed c-bets with big sizes. Develop flop bets &rarr; condensed checking range &rarr; very low check-raise frequency.
 </div>
 
+<div class="box box-orange">
+<div class="box-label">Worked Example: The Sliding Scale in Action -- T-6-5 LJ vs BTN, Check-Check then Turn</div>
+<p><strong>Situation:</strong> You open the lojack, button calls. Flop T\u26656\u26655\u2660 (ten-high). You pure-check your entire range -- the rule for ten-high and lower boards.</p>
+<p><strong>Why pure check works:</strong> You retain ALL overpairs (JJ, QQ, KK, AA), ALL sets (TT, 66, 55), ALL strong draws. These are in your range ready to spring the trap. If instead you had c-bet 33% of your range, your checking range becomes condensed -- JJ/QQ get moved into the betting range -- and you can no longer check-raise aggressively.</p>
+<p><strong>After check-check (brick turn, e.g., 2\u2666):</strong> You retained everything. Now you pot-bet with a polarized range: QQ-AA for value, 65o/KJo type hands as bluffs. The button, who checked back a ten-high flop, is now forced to fold all their middle equity. They cannot call pot-bets without strong hands. This is the sliding scale payoff.</p>
+<p><strong>Compare -- if you had c-bet 33% then checked:</strong> Button facing your check now sees a condensed range (you moved many strong hands into your betting range). They should respond by betting big and polarized. Your check-raise frequency on the turn drops to near-zero because you don't have enough nutted hands to support it.</p>
+<p><strong>IP's counter-adjustment:</strong> Versus your pure-check range on T-6-5, the button should bet small (33-40% pot) with a linear range because you are still fully uncapped. Versus your bet-then-check range, they bet big (65%+) with a polarized range because your range is now condensed. Watch for this as a tell on opponent's c-bet strategy.</p>
+</div>
+
 <h3>Delayed C-Bet Strategy (Check-Check-Bet)</h3>
 <ul>
 <li><strong>Brick turns:</strong> Pot-sized bet with polarized range. You have all overpairs, sets, strong draws.</li>
 <li><strong>High card turns</strong> (e.g., King): Smaller sizes, higher frequency. Your offsuit KQ/KJ combos now connect.</li>
 <li><strong>Flush-completing turns:</strong> Simply choose your flush draw hands as barrels.</li>
 </ul>
+
+<div class="box box-orange">
+<div class="box-label">Worked Example: Delayed C-Bet Turn Choices -- T-6-5 then King turn vs Club turn vs 8 turn</div>
+<p><strong>King turn (e.g., T-6-5-K):</strong> Now your offsuit region connects -- KQo, KJo are now top pair. Use smaller sizing at higher frequency. The King gave you a range advantage: your KQ/KJ combos connect while the button has fewer of them (they would have raised or re-raised with many KX preflop from the button). Push this equity advantage across a wide range.</p>
+<p><strong>Club turn (flush draw completes):</strong> Do not reach for random combos as bluffs. Simply choose your club-suited hands as bluffs -- they have equity to make the nut flush on the river. Your 8\u26637\u2663 type hands now have real equity to improve. Non-club hands without sets or overpairs check at high frequency.</p>
+<p><strong>Brick turn (e.g., T-6-5-2 off-suit):</strong> Pot-size bet with your overpairs (QQ-AA) and bluffs (KJo, QJo without hearts/spades). Aces tend to check at higher frequency because (a) the Ace in your hand unblocks the button's check-back range on the flop -- they are more likely to have checked back KA, QA type hands -- so against their wider range, you want to let them bet. (b) Aces need less protection. Both overpairs and aces in the right combo choose the checking option to gain EV in that specific way.</p>
+</div>
 
 <h3>Common Exploits vs Weaker Players</h3>
 <ul>
@@ -272,12 +323,23 @@ Think of it as each standing player putting an extra ante in (roughly 1 BB per s
 <div class="box box-orange">
 <div class="box-label">Minimum Defense Frequency (MDF)</div>
 When facing a bet of size B into pot P:<br>
-\( \text{MDF} = \frac{P}{P + B} \)
+\(\text{MDF} = \frac{P}{P + B}\)
+<br><br>
+<strong>Worked example:</strong> Pot is 20bb, villain bets 15bb (75% pot). MDF = 20 / (20 + 15) = 20/35 = 57%. You must continue with 57% of your range to prevent auto-profit bluffs. If you folded 50%, villain profits by bluffing with any two cards.
 </div>
 
 <div class="box box-orange">
 <div class="box-label">Pot Odds for Calling</div>
-\( \text{Required equity} = \frac{\text{Call}}{\text{Pot} + \text{Opponent's Bet} + \text{Call}} \)
+\(\text{Required equity} = \frac{\text{Call}}{\text{Pot} + \text{Opponent's Bet} + \text{Call}}\)
+<br><br>
+<strong>Worked example:</strong> Villain bets 50bb into a 40bb pot. You must call 50bb. Required equity = 50 / (40 + 50 + 50) = 50/140 = 36%. If your hand has more than 36% equity against villain's range, calling is +EV. If less, folding is correct.
+</div>
+
+<div class="box box-orange">
+<div class="box-label">Full Situation: Applying MDF Precisely -- HJ vs BB, T-5-4 Rainbow, 65% Pot Bet</div>
+<p><strong>Setup:</strong> Live 2-5 NL, 100bb. HJ raises (tight ~20% range), BB calls. Pot: ~12bb. Flop: T&#9827;5&#9829;4&#9824; (rainbow). HJ bets 65% pot (~7.8bb). BB must defend 12 / (12 + 7.8) = 61% of their range to make bluffing unprofitable.</p>
+<p><strong>What BB continues with:</strong> Any pair, any strong draw, any backdoor flush draw + overcard. Specifically: T-x (top pair), 5-x, 4-x, 9-8, 7-6, 6-3 (straight draws), A-5s, A-4s (pair + wheel draw), K-J with a backdoor flush draw. The backdoor flush draw alone is worth ~0.5-0.7bb in EV -- it decides close cases like KJ with vs KJ without hearts.</p>
+<p><strong>What changes at 85% pot instead:</strong> MDF = 12 / (12 + 10.2) = 54%. Now 7% fewer hands defend. The hands eliminated are exactly the "mixing" frequency hands -- 7-6 without a flush suit, 6-3 without a flush draw. K-J without any backdoor becomes a near-pure fold at 85% but mixed at 65%. This is why Saliba's point that "65% and 85% are NOT the same" is so actionable: the hands in your range around the fold threshold swing from call to fold, and they make up 8-10% of your total defending range. That's real money.</p>
 </div>
 
 <div class="box box-blue">

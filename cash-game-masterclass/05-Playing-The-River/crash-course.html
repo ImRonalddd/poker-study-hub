@@ -9,7 +9,7 @@
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;1,400;1,600&family=Source+Serif+4:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'\(',right:'\)',display:false}]})"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body,{delimiters:[{left:'\(',right:'\)',display:false},{left:'\[',right:'\]',display:true}]})"></script>
 <style>
 :root {
   --bg: #FFFFFF; --surface: #FFFFFF; --surface2: #F5F5F5;
@@ -152,7 +152,7 @@ code { font-family:'JetBrains Mono',monospace; font-size:0.88em; background:var(
 <p>When perfectly polarized, you <strong>win the existing pot on average</strong> regardless of what your opponent does.</p>
 
 <h3>Bluff Percentage Formula</h3>
-$$\text{Bluff\%} = \frac{\text{Amount Opponent Calls}}{\text{Pot} + \text{Your Bet} + \text{Opponent's Call}}$$
+\[\text{Bluff\%} = \frac{\text{Amount Opponent Calls}}{\text{Pot} + \text{Your Bet} + \text{Opponent's Call}}\]
 
 <table>
   <tr><th>Bet Size</th><th>Max Bluff %</th><th>Value : Bluff Ratio</th></tr>
@@ -528,7 +528,7 @@ $$\text{Bluff\%} = \frac{\text{Amount Opponent Calls}}{\text{Pot} + \text{Your B
 <div class="box box-blue">
   <span class="label">Definition</span>
   <strong>Minimum Defense Frequency (MDF):</strong> The minimum % of your range you must continue with to prevent opponent from profitably bluffing with any two cards.<br>
-  $\text{MDF} = \frac{\text{Pot}}{\text{Pot} + \text{Bet}}$
+  \(\text{MDF} = \frac{\text{Pot}}{\text{Pot} + \text{Bet}}\)
 </div>
 
 <h3>The Five Pillars of River Play</h3>

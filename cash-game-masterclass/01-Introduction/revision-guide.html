@@ -10,7 +10,7 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
-  onload="renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'\\(',right:'\\)',display:false}]});"></script>
+  onload="renderMathInElement(document.body,{delimiters:[{left:'\\(',right:'\\)',display:false},{left:'\[',right:'\]',display:true}]});"></script>
 <style>
 :root {
   --bg: #FFFFFF;
@@ -267,7 +267,7 @@ hr {
 
 <div class="box box-orange">
   <span class="box-label">Formula</span>
-  $$EV = (P_{win} \times \text{Amount Won}) + (P_{lose} \times \text{Amount Lost})$$
+  \[EV = (P_{win} \times \text{Amount Won}) + (P_{lose} \times \text{Amount Lost})\]
   <ul>
     <li>Amount Lost is entered as a <strong>negative</strong> number</li>
     <li>Amount Won = pot + opponent's bet (everything you collect when you win)</li>
@@ -276,8 +276,8 @@ hr {
 
 <h3>Equity Share of a Pot</h3>
 
-$$\text{Your Share} = \text{Equity}\% \times \text{Total Pot}$$
-$$\text{Profit} = \text{Your Share} - \text{Amount You Put In}$$
+\[\text{Your Share} = \text{Equity}\% \times \text{Total Pot}\]
+\[\text{Profit} = \text{Your Share} - \text{Amount You Put In}\]
 
 <h3>Worked Examples</h3>
 
@@ -292,6 +292,12 @@ $$\text{Profit} = \text{Your Share} - \text{Amount You Put In}$$
 <div class="box box-purple">
   <span class="box-label">Key Insight</span>
   <p>You can be <strong>behind in raw equity</strong> and still have a <strong>profitable call</strong> because dead money in the pot compensates.</p>
+  <p><strong>Full situation:</strong> You are in the Big Blind at a 6-max $1/$2 game, 100bb effective stacks. A player raises to $6 from the Button. You call with \(9\diamondsuit 8\diamondsuit\). The flop comes \(K\spadesuit 5\clubsuit 2\heartsuit\) -- you miss completely. You check, they bet $8 into a $13 pot, you fold. The turn is a blank. This is NOT the scenario.</p>
+  <p>Instead: Later, on the turn in a different hand, the board is \(Q\heartsuit J\clubsuit 4\diamondsuit 9\clubsuit\). You are in the Big Blind with \(K\clubsuit T\clubsuit\) -- an open-ended straight draw plus a flush draw. The pot is $300. Your opponent, who raised preflop from the Cutoff, bets all-in for $100.</p>
+  <p><strong>Your draw:</strong> Any Ace or 8 makes a straight (8 outs), plus any King gives you top pair (3 outs), plus you can re-evaluate against their range. Against their value range of sets and two-pairs, you have roughly 30% equity overall (the flush draw partially cancels against their disguised holdings).</p>
+  <p><strong>EV of calling:</strong> \(\text{EV} = (0.30 \times \$400) + (0.70 \times -\$100) = \$120 - \$70 = +\$50\)</p>
+  <p>Even though you lose 70% of the time, the $300 already in the pot means every $100 call earns you $50 on average. The key insight: you are not deciding whether to "invest" $100 to "win" $100 -- you are deciding whether to invest $100 to own 30% of a $400 pot ($120 value). <strong>The pot is the prize, not just your opponent's bet.</strong></p>
+  <p><strong>EV cost of folding:</strong> By folding, you collect $0. By calling, you collect +$50 in expectation. You forfeit $50 every time you make this fold, even though it feels "safe."</p>
 </div>
 
 <!-- ============================================================ -->
@@ -303,14 +309,14 @@ $$\text{Profit} = \text{Your Share} - \text{Amount You Put In}$$
 
 <div class="box box-orange">
   <span class="box-label">Formula</span>
-  $$\text{Pot Odds} = \frac{\text{Pot} + \text{Opponent's Bet}}{\text{Your Call}} \;:\; 1$$
+  \[\text{Pot Odds} = \frac{\text{Pot} + \text{Opponent's Bet}}{\text{Your Call}} \;:\; 1\]
 </div>
 
 <h3>Converting to Required Win %</h3>
 
 <div class="box box-orange">
   <span class="box-label">Formula</span>
-  $$\text{Required Win\%} = \frac{\text{Call Amount}}{\text{Pot} + \text{Opponent's Bet} + \text{Call Amount}}$$
+  \[\text{Required Win\%} = \frac{\text{Call Amount}}{\text{Pot} + \text{Opponent's Bet} + \text{Call Amount}}\]
   <p>Or equivalently: \(\text{Required Win\%} = \frac{\text{Call}}{\text{Total Pot After You Call}}\)</p>
 </div>
 
@@ -336,6 +342,17 @@ $$\text{Profit} = \text{Your Share} - \text{Amount You Put In}$$
     <li>As bet size <strong>increases</strong> &rarr; continue <strong>less</strong> often</li>
     <li>Always account for <strong>rake</strong> in real games</li>
   </ul>
+</div>
+
+<div class="box box-orange">
+  <span class="box-label">Example: Pot Odds on the River with a Flush Draw That Missed</span>
+  <p><strong>Situation:</strong> You are on the Button in a $1/$2 cash game, 100bb effective stacks ($200 total). You raised to $6 preflop with \(A\heartsuit 5\heartsuit\). The Big Blind called. The pot is $13.</p>
+  <p><strong>Flop:</strong> \(K\heartsuit 9\heartsuit 2\clubsuit\) -- you have the nut flush draw and an overcard. Opponent checks, you bet $8 (pot grows to $29). They call.</p>
+  <p><strong>Turn:</strong> \(3\diamondsuit\) -- a blank. Pot: $29. Opponent checks. You bet $18. They call. Pot: $65.</p>
+  <p><strong>River:</strong> \(J\clubsuit\) -- the flush draw misses. Opponent bets $150 into the $65 pot.</p>
+  <p><strong>Pot odds calculation:</strong> You must call $150 to win ($65 + $150 + $150) = $365 total. Required equity: $150 / $365 = <strong>41%</strong>.</p>
+  <p><strong>Should you call?</strong> You have Ace-high. Your opponent fired $150 into a $65 pot -- a 2.3x overbet on the river. Against their range (which includes sets, two-pair, and some bluffs), your Ace-high has very little showdown equity. You need 41% to call -- your hand wins perhaps 5-10% of the time. This is a clear fold, even though the pot is large. The pot odds require you to win nearly half the time, and your Ace-high cannot do that.</p>
+  <p><strong>EV cost of the wrong play (calling):</strong> EV = (0.07 x $365) + (0.93 x -$150) = $25.55 - $139.50 = <strong>-$113.95</strong> per call. Calling here loses over $100 on average. The large overbet by the opponent prices you out unless you have a strong read they are bluffing more than 59% of the time with that sizing.</p>
 </div>
 
 <!-- ============================================================ -->
@@ -379,7 +396,14 @@ $$\text{Profit} = \text{Your Share} - \text{Amount You Put In}$$
 
 <div class="box box-purple">
   <span class="box-label">Exploitative Insight</span>
-  <p>Weak-tight players who <strong>bet = strong, check = weak</strong> can be exploited by betting aggressively when they check (they fold ~67% of marginal/junk hands).</p>
+  <p><strong>Full situation:</strong> $1/$2 cash game, 100bb effective stacks. A weak-tight, straightforward player raises to $6 from early position (UTG). He only raises premium hands: AA, KK, QQ, JJ, TT, AKs, AQs, AJs, AKo, AQo. You call from the Button with \(J\clubsuit T\clubsuit\).</p>
+  <p><strong>Preflop range:</strong> You know he raised only those hands. He does NOT have hands like 87s or KJo -- he would fold those preflop.</p>
+  <p><strong>Flop:</strong> \(K\spadesuit 7\heartsuit 6\diamondsuit\). Pot: $13. He bets $8 (his standard c-bet with everything). You call. Pot: $29. His range is unchanged -- he bets the flop with 100% of his raising range, so you learn nothing from his bet.</p>
+  <p><strong>Turn:</strong> \(Q\diamondsuit\). Board: \(K\spadesuit 7\heartsuit 6\diamondsuit Q\diamondsuit\). Pot: $29. He checks.</p>
+  <p><strong>What his check means:</strong> This player only bets his strong hands on the turn. His strong hands on K-7-6-Q are: AA, KK, QQ, AK, KQ -- he bets all of these. His checking range is everything else: AQ (second pair), JJ, TT, 99, 88 (underpairs), and air (AJ, smaller pairs). The range analyzer shows he folds approximately <strong>67% of the time</strong> when you bet into his checking range, because only AQ calls while JJ-88 and air fold.</p>
+  <p><strong>The exploit:</strong> Bet the turn -- with ANY two cards. If you bet $18 into the $29 pot, he folds 67% of the time and you win the pot uncontested. You only need to win 38% of the time to profit from this bet (18 / (29 + 18 + 18) = 27.7% breakeven). You win 67%. This is a massive profit.</p>
+  <p><strong>EV of the bet:</strong> 67% of the time you win $29 = $19.43. 33% of the time he calls and you continue (assume you lose the remaining street for simplicity): -$18 x 33% = -$5.94. Net EV of the bet = roughly <strong>+$13</strong> per turn bet in this spot.</p>
+  <p><strong>Root cause:</strong> He put all his strong hands into one action (betting) and all his weak hands into another (checking). This makes him perfectly transparent and easily exploitable. The counter is to include some strong hands in your checking range.</p>
 </div>
 
 <!-- ============================================================ -->
@@ -398,12 +422,20 @@ $$\text{Profit} = \text{Your Share} - \text{Amount You Put In}$$
 
 <div class="box box-orange">
   <span class="box-label">Worked Example: 4-Bet All-In at 100bb</span>
+  <p><strong>Situation:</strong> You raise to 3bb from the Hijack seat with a 100bb effective stack. The Small Blind 3-bets to 10bb. You 4-bet to 22bb. The Small Blind shoves all-in for 100bb total.</p>
+  <p><strong>Villain's presumed jamming range:</strong> TT+, AQs+, AKo -- a tight, value-heavy range of premium hands.</p>
+  <p><strong>Pot odds calculation:</strong> You already put in 22bb. You must call 78bb more (100 - 22). The total pot after your call will be 201bb (your 100 + villain's 100 + the 1bb dead BB). Required equity: 78 / 201 = <strong>38.8%</strong>.</p>
+  <p><strong>Finding the calling range using Equilab:</strong></p>
   <ul>
-    <li>Hero 4-bets to 22bb, villain shoves 100bb</li>
-    <li>Call 78 more into total pot of 201</li>
-    <li>Required equity: 78/201 = <strong>38.8%</strong></li>
-    <li>Calling range vs villain's jam range: <strong>88+, AQs+, AKo</strong></li>
+    <li><strong>AKo</strong> vs this range: ~47% equity -- easy call</li>
+    <li><strong>AQo</strong> vs this range: ~38.6% equity -- just barely a fold (0.2% below threshold)</li>
+    <li><strong>AQs</strong> vs this range: ~41% equity -- clear call (suitedness adds ~2.5%)</li>
+    <li><strong>99</strong> vs this range: ~39.1% equity -- razor-thin call (just above threshold)</li>
+    <li><strong>88</strong> vs this range: ~39.0% equity -- also a call (88 and 99 have similar equity because both are dominated by all pairs in the range, and both block some straight combos)</li>
+    <li><strong>77 and below</strong>: drops below 38.8% -- fold</li>
   </ul>
+  <p><strong>Final calling range: 88+, AQs+, AKo.</strong> With 88 and 99, you are making a tiny profit -- a razor-thin edge. But consistently folding these spots gives your opponent free equity over time.</p>
+  <p><strong>Why your read matters:</strong> If villain has even one extra bluff (e.g., A5s in their jam range), AQo jumps to ~40% and becomes a call. If they remove KQs, your equity drops and 99 becomes a fold. Your assessment of the opponent's range is the most critical variable in every all-in decision.</p>
 </div>
 
 <h3>Key Relationships</h3>
@@ -441,7 +473,7 @@ $$\text{Profit} = \text{Your Share} - \text{Amount You Put In}$$
 
 <div class="box box-orange">
   <span class="box-label">Formula</span>
-  $$\text{Unpaired combos} = \text{unseen cards of rank 1} \times \text{unseen cards of rank 2}$$
+  \[\text{Unpaired combos} = \text{unseen cards of rank 1} \times \text{unseen cards of rank 2}\]
 </div>
 
 <table>
@@ -480,13 +512,39 @@ $$\text{Profit} = \text{Your Share} - \text{Amount You Put In}$$
 
 <div class="box box-blue">
   <span class="box-label">Definition</span>
-  <p>A <strong>blocker</strong> is a card in your hand that reduces opponent's combos of specific holdings.</p>
+  <p>A <strong>blocker</strong> is a card in your hand that reduces opponent's combos of specific holdings. Blockers are one of the most powerful concepts in poker -- they change how likely your opponent is to hold specific hands.</p>
+</div>
+
+<div class="box box-orange">
+  <span class="box-label">Example: Nut Flush Blocker</span>
+  <p><strong>Situation:</strong> $2/$5 cash game, 100bb effective stacks ($500). You are in the Big Blind with \(A\spadesuit T\diamondsuit\). The Hijack raises to $15. You call. The pot is $31.</p>
+  <p><strong>Flop:</strong> \(9\spadesuit 6\spadesuit 2\heartsuit\). You check, they bet $20. You call (pot: $71). <strong>Turn:</strong> \(K\spadesuit\) -- three spades on board. You check. They check behind. <strong>River:</strong> \(4\spadesuit\) -- four spades on board. You check. They bet $80 into the $71 pot.</p>
+  <p><strong>Analysis:</strong> You have Ace-high -- not a made hand. But you hold the \(A\spadesuit\), meaning your opponent <strong>cannot have the nut flush (ace-high flush)</strong>. Their possible flush combos, assuming they play AKs, AQs, AJs, KQs, KJs, QJs, JTs, T9s in spades (8 reasonable combos), are reduced as follows: the \(A\spadesuit\) eliminates AKs-spades, AQs-spades, AJs-spades = <strong>3 combos eliminated out of 8 = 37.5% fewer total flushes</strong>.</p>
+  <p><strong>Why this matters:</strong> Their betting range on the river now contains more bluffs (semi-bluffs that missed, like \(Q\spadesuit J\diamondsuit\) with one spade, missed straight draws) relative to flushes than you would expect without holding the blocker. Calling $80 to win $231 requires winning 34.6% of the time. If without the blocker their range were 60% flushes and 40% bluffs, you'd win only 40% and calling would be borderline. <em>With</em> the blocker, their range shifts toward perhaps 45% flushes and 55% bluffs -- a clear profitable call.</p>
+  <p><strong>EV cost of ignoring the blocker:</strong> If you fold when you should call, you forfeit +$35 in EV per river situation of this type. Over a year of play, this type of fold in blocker spots adds up to a significant leak.</p>
+</div>
+
+<div class="box box-orange">
+  <span class="box-label">Example: Preflop Ace Blocker as a 3-Bet Bluff</span>
+  <p><strong>Situation:</strong> $1/$2 cash game, 100bb effective stacks ($200). The player UTG+1 raises to $6. It folds to you in the Hijack. You hold \(A\diamondsuit 5\diamondsuit\). You 3-bet to $18 as a bluff, planning to fold if they 4-bet (unless they are very aggressive).</p>
+  <p><strong>Why A5s specifically?</strong> Your opponent's 4-bet (fighting back) range consists primarily of AA and AK. Without your ace in hand, their danger combos are:</p>
+  <ul>
+    <li>AA: 6 combos</li>
+    <li>AK: 16 combos</li>
+    <li>Total: 22 combos that punish your bluff</li>
+  </ul>
+  <p>With the \(A\diamondsuit\) in your hand, those combos shrink to:</p>
+  <ul>
+    <li>AA: only <strong>3 combos</strong> (C(3,2) -- only 3 aces remain)</li>
+    <li>AK: only <strong>12 combos</strong> (3 remaining aces x 4 kings)</li>
+    <li>Total: <strong>15 combos -- a 32% reduction in the hands that punish you</strong></li>
+  </ul>
+  <p>If you instead 3-bet bluffed with \(7\clubsuit 6\clubsuit\), no blockers apply and the full 22 danger combos exist. The A5s bluff is intrinsically 32% more likely to succeed (or at least not encounter the hands most likely to 4-bet you). Additionally, the flush draw on \(A\heartsuit T\heartsuit 3\diamondsuit\) type boards gives you a backup equity source, making A5s doubly preferable to 76s as a bluff.</p>
+  <p><strong>EV cost of using 76s instead of A5s:</strong> Suppose the opponent 4-bets 22% of the time against random bluffs (22 danger combos). Against A5s, they 4-bet only 15% of the time (15 combos adjusted). If you always fold to a 4-bet, each 3-bet costs you $18 when called off -- the 7% reduction in 4-bet frequency saves you approximately $1.26 per 3-bet attempt. Over hundreds of 3-bets, this compounds significantly.</p>
 </div>
 
 <ul>
-  <li>Holding A-spade on 3-spade board &rarr; opponent <strong>cannot</strong> have nut flush; their flush combos reduced by ~33%</li>
-  <li>Holding an Ace when 3-betting &rarr; opponent has only 3 combos of AA (not 6) and 12 combos of AK (not 16)</li>
-  <li>If opponent only plays <strong>suited</strong> versions of a hand, combos drop dramatically (e.g., 75s = 4 combos vs 75 = 16)</li>
+  <li><strong>Suited vs offsuit matters for combos:</strong> If your opponent only plays 75 suited (from a middle-position raise), there are only 4 combos of 75s. If they play all 75 hands, there are 16 combos. On a board like A-6-4, a 3 or 8 making a straight is far less worrying if your opponent only plays the suited version.</li>
 </ul>
 
 <!-- ============================================================ -->
@@ -517,26 +575,31 @@ $$\text{Profit} = \text{Your Share} - \text{Amount You Put In}$$
 
 <h3>Example: Facing a 3-Bet in the Hijack</h3>
 
+<p><strong>Full situation:</strong> $1/$2 cash game, 100bb effective stacks ($200). You are in the Hijack and open to 3bb ($6). Everyone folds. The Small Blind 3-bets to 10bb ($20). The Big Blind folds. Action is back to you. You have already invested $6. To continue, you must either 4-bet or call. The effective stack started at 100bb; after your open and the SB's 3-bet, there is $43 in the pot (your $6 + SB's $20 + BB's $2 dead). Your 4-bet will be to approximately 22bb ($44). If you 4-bet and the SB shoves 100bb, you have to call 78bb more into a ~201bb pot (38.8% equity required).</p>
+
 <table>
-  <tr><th>Hand</th><th>GTO Action</th><th>Implementable Action</th></tr>
-  <tr><td>AA</td><td>4-bet 100%</td><td>4-bet 100%</td></tr>
-  <tr><td>KK</td><td>4-bet 54%, call 46%</td><td>4-bet 100%</td></tr>
-  <tr><td>AKs</td><td>4-bet 42%, call 58%</td><td>Call 100%</td></tr>
-  <tr><td>AKo</td><td>4-bet 68%, call 32%</td><td>4-bet 100%</td></tr>
-  <tr><td>A3s</td><td>4-bet 43%</td><td>4-bet bluff 100%</td></tr>
-  <tr><td>A5s</td><td>Fold</td><td>4-bet bluff 100%</td></tr>
+  <tr><th>Hand</th><th>GTO Action</th><th>Implementable Action</th><th>Reasoning</th></tr>
+  <tr><td>AA</td><td>4-bet 100%</td><td>4-bet 100%</td><td>Always value 4-bet; no mixing needed at this extreme</td></tr>
+  <tr><td>KK</td><td>4-bet 54%, call 46%</td><td>4-bet 100%</td><td>Simplify: always 4-bet. Adds ~3 extra value combos</td></tr>
+  <tr><td>AKs</td><td>4-bet 42%, call 58%</td><td>Call 100%</td><td>Simplify: always call. Keeps our calling range strong</td></tr>
+  <tr><td>AKo</td><td>4-bet 68%, call 32%</td><td>4-bet 100%</td><td>Simplify: always 4-bet. Adds ~4 extra value combos</td></tr>
+  <tr><td>A3s</td><td>4-bet bluff 43%</td><td>4-bet bluff 100%</td><td>Pure bluff with ace blocker; adds ~2 bluff combos</td></tr>
+  <tr><td>A5s</td><td>Fold</td><td>4-bet bluff 100%</td><td>Added to offset extra value combos; ace blocker helps</td></tr>
 </table>
 
 <div class="box box-purple">
-  <span class="box-label">Key Insight</span>
-  <p>The implementable version has slightly more value combos AND slightly more bluff combos, which roughly cancels out.</p>
+  <span class="box-label">Key Insight: Why This Works</span>
+  <p>The GTO solver mixes KK (54% 4-bet, 46% call), AKs (42% 4-bet, 58% call), and AKo (68% 4-bet, 32% call). This is <strong>impossible for humans to execute precisely</strong> at the table. You cannot flip an internal mental coin and 4-bet exactly 54% of the time with KK.</p>
+  <p><strong>The implementable fix:</strong> Always 4-bet KK and AKo for value. Always call AKs. This gives approximately 2 more value combos than GTO uses (12 combos of AKo x 100% + 6 combos of KK x 100% = 18 combos, vs GTO's ~16 effective value combos at mixed frequencies). To compensate, we add 2 extra bluff combos: A3s and A5s as pure 4-bet bluffs = 8 bluff combos total, vs GTO's ~4-6.</p>
+  <p><strong>Why the "errors" cancel:</strong> Extra value hands make us slightly over-aggressive for value. Extra bluffs make us slightly over-aggressive with air. These two effects push in opposite directions from the opponent's perspective -- one gives them more opportunities to call and be wrong, the other gives them more opportunities to fold. Net effect: our 4-bet frequency and value-to-bluff ratio stay close to GTO. The strategy is vastly easier to execute while sacrificing minimal EV -- likely less than 0.5bb per 100 hands.</p>
+  <p><strong>EV cost of pure GTO mixing vs. implementable:</strong> A player who tries to execute the GTO mixed strategy but who gets the percentages wrong by even 10-15% (very common) loses more EV than a player who uses the pure-action implementable strategy. Correct frequencies matter more than theoretically-correct mixing.</p>
 </div>
 
 <h3>Exploitative Adjustments</h3>
 <ul>
-  <li>Opponent only 3-bets premium? &rarr; <strong>Stop bluffing</strong>, call tighter</li>
-  <li>Opponent 3-bets wide with junk? &rarr; <strong>Add more bluffs</strong>, widen 4-bet range</li>
-  <li>Opponent 3-bets wide AND 5-bets wide? &rarr; <strong>Stop bluffing</strong>, add more value hands (e.g., 4-bet TT for value)</li>
+  <li><strong>Opponent only 3-bets premium (QQ+, AK)?</strong> Stop bluffing with A3s/A5s -- they won't fold. Tighten calling range because their range is stronger. If they shove, required equity is the same (38.8%) but our actual equity with hands like 99 drops below threshold. Now call only TT+, AQs+, AKo.</li>
+  <li><strong>Opponent 3-bets very wide (any two suited, all pairs)?</strong> Add many more bluff combos to your 4-bet range. Their range is so wide that your bluffs go through more often AND your value hands have more equity. Even hands like QJs can be profitable 4-bet bluffs against a wide 3-bettor.</li>
+  <li><strong>Opponent 3-bets wide AND 5-bets all-in with junk?</strong> Stop bluffing entirely -- they call everything. Instead, add more value hands. 4-bet TT for value (normally a call in implementable) because their shove range is so wide that TT has 50%+ equity against it. You profit from calling their wide shove.</li>
 </ul>
 
 <hr>

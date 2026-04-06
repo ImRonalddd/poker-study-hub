@@ -3,414 +3,185 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Advanced Cash Game Course — Master Study Hub</title>
+<title>Advanced Cash Game Course &mdash; Study Hub</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;1,400;1,600&family=Source+Serif+4:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;0,900;1,400&family=Source+Serif+4:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
 <style>
 :root {
   --bg: #FFFFFF;
-  --surface: #FFFFFF;
-  --surface2: #F5F5F5;
-  --accent: #000000;
   --text: #000000;
   --text-dim: #525252;
-  --correct: #1a7a5e;
-  --wrong: #b91c1c;
-  --orange: #8B6914;
   --border: #000000;
   --border-light: #E5E5E5;
 }
 
-*, *::before, *::after {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  border-radius: 0 !important;
-}
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; border-radius: 0 !important; }
 
 body {
-  font-family: 'Source Serif 4', 'Georgia', serif;
+  font-family: 'Source Serif 4', Georgia, serif;
   background: var(--bg);
   color: var(--text);
-  line-height: 1.6;
+  line-height: 1.7;
   -webkit-font-smoothing: antialiased;
 }
 
-body::before {
-  content: '';
-  position: fixed;
-  inset: 0;
-  z-index: -1;
-  opacity: 0.02;
-  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23n)'/%3E%3C/svg%3E");
-  background-size: 400px 400px;
-  pointer-events: none;
-}
+.container { max-width: 900px; margin: 0 auto; padding: 4rem 2rem 6rem; }
 
-.container {
-  max-width: 960px;
-  margin: 0 auto;
-  padding: 0 2rem;
-}
-
-/* -- Header -- */
-header {
-  padding: 5rem 0 3rem;
-  text-align: center;
-}
-
-header h1 {
+.header { text-align: center; margin-bottom: 3rem; }
+.header h1 {
   font-family: 'Playfair Display', serif;
-  font-weight: 800;
-  font-size: 3.2rem;
+  font-size: 3rem;
+  font-weight: 900;
   letter-spacing: -0.02em;
-  line-height: 1.15;
-  margin-bottom: 0.75rem;
+  margin-bottom: 0.3rem;
 }
-
-header .subtitle {
+.header .instructor {
   font-family: 'JetBrains Mono', monospace;
   font-size: 0.8rem;
-  font-weight: 500;
   text-transform: uppercase;
   letter-spacing: 0.15em;
   color: var(--text-dim);
+  margin-bottom: 1rem;
 }
-
-/* -- Divider -- */
-.divider {
-  border: none;
-  border-top: 4px solid var(--accent);
-  margin: 0;
-}
-
-.divider-thin {
-  border: none;
-  border-top: 1px solid var(--border-light);
-  margin: 0;
-}
-
-/* -- Overview -- */
-.overview {
-  padding: 3rem 0;
-}
-
-.overview p {
-  font-size: 1.1rem;
-  line-height: 1.75;
+.header .description {
+  font-size: 1.05rem;
   color: var(--text-dim);
-  max-width: 720px;
+  max-width: 640px;
   margin: 0 auto;
-  text-align: center;
+  line-height: 1.8;
 }
 
-/* -- Stats Bar -- */
+.back-link {
+  display: inline-block;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text-dim);
+  text-decoration: none;
+  margin-bottom: 2rem;
+  transition: color 0.1s;
+}
+.back-link:hover { color: var(--text); }
+
 .stats-bar {
   display: flex;
   justify-content: center;
   gap: 3rem;
-  padding: 2rem 0;
-  border-top: 1px solid var(--border);
-  border-bottom: 1px solid var(--border);
+  padding: 1.5rem 0;
+  border-top: 4px solid var(--text);
+  border-bottom: 1px solid var(--border-light);
+  margin-bottom: 3rem;
 }
-
-.stat {
-  text-align: center;
-}
-
+.stat { text-align: center; }
 .stat-number {
   font-family: 'Playfair Display', serif;
+  font-size: 2rem;
   font-weight: 700;
-  font-size: 2.4rem;
-  line-height: 1;
   display: block;
 }
-
 .stat-label {
   font-family: 'JetBrains Mono', monospace;
   font-size: 0.65rem;
   text-transform: uppercase;
-  letter-spacing: 0.15em;
+  letter-spacing: 0.12em;
   color: var(--text-dim);
-  margin-top: 0.35rem;
+}
+
+.materials { display: flex; flex-direction: column; gap: 1.5rem; margin-bottom: 3rem; }
+
+.material-card {
+  border: 2px solid var(--text);
+  padding: 2rem 2.5rem;
+  text-decoration: none;
+  color: var(--text);
   display: block;
+  transition: background 0.1s, color 0.1s;
+  position: relative;
 }
+.material-card:hover { background: var(--text); color: var(--bg); }
+.material-card:hover .material-desc,
+.material-card:hover .material-meta { color: rgba(255,255,255,0.7); }
+.material-card:hover .material-tag { border-color: rgba(255,255,255,0.3); color: rgba(255,255,255,0.7); background: rgba(255,255,255,0.08); }
 
-/* -- Chapters Grid -- */
-.chapters-section {
-  padding: 3.5rem 0 2rem;
-}
-
-.chapters-section > h2 {
+.material-title {
   font-family: 'Playfair Display', serif;
-  font-weight: 700;
-  font-size: 1.8rem;
-  margin-bottom: 2rem;
-  text-align: center;
-}
-
-.chapters-grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 1.25rem;
-}
-
-.chapter-card {
-  border: 1px solid var(--border);
-  background: var(--surface);
-  padding: 2rem 2.25rem;
-  display: grid;
-  grid-template-columns: auto 1fr auto;
-  gap: 1.5rem;
-  align-items: start;
-  text-decoration: none;
-  color: var(--text);
-  transition: background 100ms, color 100ms;
-}
-
-.chapter-card:hover {
-  background: var(--accent);
-  color: #FFFFFF;
-}
-
-.chapter-card:hover .chapter-num {
-  border-color: #FFFFFF;
-  color: #FFFFFF;
-}
-
-.chapter-card:hover .chapter-instructor {
-  color: rgba(255, 255, 255, 0.7);
-}
-
-.chapter-card:hover .chapter-topics {
-  color: rgba(255, 255, 255, 0.7);
-}
-
-.chapter-card:hover .chapter-lessons {
-  color: rgba(255, 255, 255, 0.7);
-  border-color: rgba(255, 255, 255, 0.3);
-}
-
-.chapter-card:hover .chapter-arrow {
-  color: #FFFFFF;
-}
-
-.chapter-num {
-  font-family: 'JetBrains Mono', monospace;
-  font-weight: 700;
-  font-size: 0.75rem;
-  border: 1px solid var(--border);
-  width: 2.5rem;
-  height: 2.5rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  transition: border-color 100ms, color 100ms;
-}
-
-.chapter-body {
-  min-width: 0;
-}
-
-.chapter-title {
-  font-family: 'Playfair Display', serif;
-  font-weight: 700;
-  font-size: 1.3rem;
-  margin-bottom: 0.2rem;
-  line-height: 1.3;
-}
-
-.chapter-instructor {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 0.65rem;
-  text-transform: uppercase;
-  letter-spacing: 0.12em;
-  color: var(--text-dim);
-  margin-bottom: 0.5rem;
-  transition: color 100ms;
-}
-
-.chapter-lessons {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 0.65rem;
-  text-transform: uppercase;
-  letter-spacing: 0.12em;
-  color: var(--text-dim);
-  display: inline-block;
-  border: 1px solid var(--border-light);
-  padding: 0.15rem 0.5rem;
-  margin-bottom: 0.75rem;
-  transition: color 100ms, border-color 100ms;
-}
-
-.chapter-topics {
-  list-style: none;
-  color: var(--text-dim);
-  font-size: 0.92rem;
-  line-height: 1.6;
-  transition: color 100ms;
-}
-
-.chapter-topics li::before {
-  content: '\2014';
-  margin-right: 0.5rem;
-}
-
-.chapter-arrow {
   font-size: 1.5rem;
-  align-self: center;
-  color: var(--text-dim);
-  transition: color 100ms;
-  flex-shrink: 0;
-}
-
-/* -- Quick Links -- */
-.quick-links {
-  padding: 3rem 0;
-}
-
-.quick-links h2 {
-  font-family: 'Playfair Display', serif;
   font-weight: 700;
-  font-size: 1.8rem;
-  margin-bottom: 1.5rem;
-  text-align: center;
+  margin-bottom: 0.3rem;
 }
-
-.link-row {
-  display: flex;
-  gap: 1rem;
-  justify-content: center;
-  flex-wrap: wrap;
-}
-
-.link-btn {
-  display: inline-block;
+.material-meta {
   font-family: 'JetBrains Mono', monospace;
   font-size: 0.7rem;
-  font-weight: 600;
+  color: var(--text-dim);
   text-transform: uppercase;
-  letter-spacing: 0.12em;
-  background: var(--accent);
-  color: #FFFFFF;
-  text-decoration: none;
-  padding: 0.75rem 1.5rem;
-  border: 1px solid var(--accent);
-  transition: background 100ms, color 100ms;
+  letter-spacing: 0.08em;
+  margin-bottom: 0.8rem;
 }
-
-.link-btn:hover {
-  background: var(--surface);
-  color: var(--accent);
+.material-desc { color: var(--text-dim); line-height: 1.6; margin-bottom: 0.8rem; }
+.material-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+.material-tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.6rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 0.25rem 0.6rem;
+  border: 1px solid var(--border-light);
+  color: var(--text-dim);
 }
-
-/* -- Study Path -- */
-.study-path {
-  padding: 3rem 0;
+.material-arrow {
+  position: absolute;
+  right: 2rem;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1.4rem;
+  opacity: 0;
+  transition: opacity 0.1s;
 }
+.material-card:hover .material-arrow { opacity: 1; }
 
-.study-path h2 {
-  font-family: 'Playfair Display', serif;
-  font-weight: 700;
-  font-size: 1.8rem;
-  margin-bottom: 1.5rem;
+.footer {
   text-align: center;
+  margin-top: 3rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--border-light);
 }
-
-.study-path-content {
-  max-width: 680px;
-  margin: 0 auto;
-}
-
-.study-path-content h3 {
+.footer p {
   font-family: 'JetBrains Mono', monospace;
   font-size: 0.7rem;
-  text-transform: uppercase;
-  letter-spacing: 0.12em;
-  margin-top: 1.5rem;
-  margin-bottom: 0.5rem;
-}
-
-.study-path-content p {
-  font-size: 1rem;
-  line-height: 1.7;
   color: var(--text-dim);
-}
-
-.study-path-content ol {
-  padding-left: 1.5rem;
-  color: var(--text-dim);
-  font-size: 1rem;
-  line-height: 1.8;
-}
-
-.study-path-content ol li {
-  padding-left: 0.25rem;
-}
-
-.study-path-content ol li strong {
-  color: var(--text);
-}
-
-/* -- Footer -- */
-footer {
-  padding: 3rem 0;
-  text-align: center;
-  border-top: 4px solid var(--accent);
-}
-
-footer p {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 0.65rem;
   text-transform: uppercase;
   letter-spacing: 0.1em;
-  color: var(--text-dim);
-  line-height: 1.8;
 }
 
-/* -- Responsive -- */
-@media (max-width: 640px) {
-  header { padding: 3rem 0 2rem; }
-  header h1 { font-size: 2.2rem; }
-  .stats-bar { gap: 1.5rem; flex-wrap: wrap; }
-  .stat-number { font-size: 1.8rem; }
-  .chapter-card {
-    grid-template-columns: auto 1fr;
-    gap: 1rem;
-    padding: 1.5rem;
-  }
-  .chapter-arrow { display: none; }
+@media (max-width: 600px) {
+  .header h1 { font-size: 2rem; }
+  .stats-bar { gap: 1.5rem; }
+  .stat-number { font-size: 1.5rem; }
+  .material-card { padding: 1.5rem; }
+  .material-title { font-size: 1.2rem; }
+  .material-arrow { display: none; }
 }
 </style>
 </head>
 <body>
+<div class="container">
 
-<header>
-  <div class="container">
+  <a href="../index.html" class="back-link">&larr; Back to Poker Study Hub</a>
+
+  <div class="header">
     <h1>Advanced Cash Game Course</h1>
-    <div class="subtitle">81 Lessons, 8 Modules, 4 Expert Instructors</div>
-  </div>
-</header>
-
-<hr class="divider">
-
-<section class="overview">
-  <div class="container">
-    <p>
+    <div class="instructor">4 Expert Instructors &mdash; 81 Lessons, 8 Modules</div>
+    <p class="description">
       An advanced, multi-instructor deep dive into cash game poker. Jonathan Little builds your
       preflop foundation across 8-max and 6-max formats, then layers on advanced bet sizing,
       multiway strategies, and deep-stacked adjustments. Justin Saliba bridges GTO theory to
-      live cash execution, Chris Brewer reveals high-stakes secrets from the biggest games,
-      Brad Wilson deconstructs exploitative play in online 6-max, and Jon Jaffe breaks down
-      heads-up no-limit with live match analysis. Each module stands alone but together they
-      form a complete advanced cash game education.
+      live cash execution, Chris Brewer reveals high-stakes secrets, Brad Wilson deconstructs
+      exploitative play in online 6-max, and Jon Jaffe breaks down heads-up no-limit.
     </p>
   </div>
-</section>
 
-<div class="container">
   <div class="stats-bar">
     <div class="stat">
       <span class="stat-number">81</span>
@@ -429,206 +200,147 @@ footer p {
       <span class="stat-label">Quizzes</span>
     </div>
   </div>
-</div>
 
-<section class="chapters-section">
-  <div class="container">
-    <h2>Modules</h2>
+  <div class="materials">
 
-    <div class="chapters-grid">
+    <a href="./01-Mastering-Preflop-Play/index.html" class="material-card">
+      <div class="material-title">Chapter 1: Mastering Preflop Play</div>
+      <div class="material-meta">20 Lessons &mdash; Jonathan Little</div>
+      <div class="material-desc">
+        Complete GTO preflop strategies for 8-max live (100bb/200bb) and 6-max online (100bb).
+        Covers every preflop decision tree from RFI through 6-bet all-in, squeezing, and
+        blind vs blind play.
+      </div>
+      <div class="material-tags">
+        <span class="material-tag">GTO RFI Ranges</span>
+        <span class="material-tag">3-Bet / 4-Bet</span>
+        <span class="material-tag">8-Max Live</span>
+        <span class="material-tag">6-Max Online</span>
+      </div>
+      <span class="material-arrow">&rarr;</span>
+    </a>
 
-      <a href="./01-Mastering-Preflop-Play/index.html" class="chapter-card">
-        <div class="chapter-num">01</div>
-        <div class="chapter-body">
-          <div class="chapter-title">Mastering Preflop Play</div>
-          <div class="chapter-instructor">Jonathan Little</div>
-          <div class="chapter-lessons">20 Lessons</div>
-          <ul class="chapter-topics">
-            <li>GTO RFI ranges for 8-max live and 6-max online at 100bb and 200bb</li>
-            <li>3-betting, squeezing vs single and multiple callers</li>
-            <li>Cold 4-betting and facing 4-bet/5-bet/all-in scenarios</li>
-            <li>Blind vs blind play and defending against heavy action</li>
-          </ul>
-        </div>
-        <div class="chapter-arrow">&rarr;</div>
-      </a>
+    <a href="./02-Advanced-Bet-Sizing/index.html" class="material-card">
+      <div class="material-title">Chapter 2: Advanced Bet Sizing</div>
+      <div class="material-meta">15 Lessons &mdash; Jonathan Little</div>
+      <div class="material-desc">
+        Nut advantage and range connectivity driving flop bet size. When to bet very small vs
+        very large on flop, turn, and river. Exploitative check-raising and dynamic sizing adjustments.
+      </div>
+      <div class="material-tags">
+        <span class="material-tag">Nut Advantage</span>
+        <span class="material-tag">Flop Sizing</span>
+        <span class="material-tag">Turn Sizing</span>
+        <span class="material-tag">River Sizing</span>
+      </div>
+      <span class="material-arrow">&rarr;</span>
+    </a>
 
-      <a href="./02-Advanced-Bet-Sizing/index.html" class="chapter-card">
-        <div class="chapter-num">02</div>
-        <div class="chapter-body">
-          <div class="chapter-title">Advanced Bet Sizing</div>
-          <div class="chapter-instructor">Jonathan Little</div>
-          <div class="chapter-lessons">15 Lessons</div>
-          <ul class="chapter-topics">
-            <li>Nut advantage and range connectivity driving flop bet size</li>
-            <li>When to bet very small vs very large on flop, turn, and river</li>
-            <li>Turn probes, delayed c-bets, and continuation betting</li>
-            <li>Exploitative check-raising and dynamic sizing adjustments</li>
-          </ul>
-        </div>
-        <div class="chapter-arrow">&rarr;</div>
-      </a>
+    <a href="./03-Advanced-Multiway/index.html" class="material-card">
+      <div class="material-title">Chapter 3: Advanced Multiway Strategies</div>
+      <div class="material-meta">6 Lessons &mdash; Jonathan Little</div>
+      <div class="material-desc">
+        Why range and nut advantage shrinks in multiway pots. C-betting opportunities and
+        in-position play when checked to. Facing aggression and using big bets in multiway scenarios.
+      </div>
+      <div class="material-tags">
+        <span class="material-tag">Diminished Advantage</span>
+        <span class="material-tag">Shared MDF</span>
+        <span class="material-tag">C-Bet Adjustments</span>
+        <span class="material-tag">Big Bet Spots</span>
+      </div>
+      <span class="material-arrow">&rarr;</span>
+    </a>
 
-      <a href="./03-Advanced-Multiway/index.html" class="chapter-card">
-        <div class="chapter-num">03</div>
-        <div class="chapter-body">
-          <div class="chapter-title">Advanced Multiway Strategies</div>
-          <div class="chapter-instructor">Jonathan Little</div>
-          <div class="chapter-lessons">6 Lessons</div>
-          <ul class="chapter-topics">
-            <li>Why range and nut advantage shrinks in multiway pots</li>
-            <li>C-betting opportunities and in-position play when checked to</li>
-            <li>Facing aggression multiway and minimum defense frequency shifts</li>
-            <li>Spots to use big bets in multiway scenarios</li>
-          </ul>
-        </div>
-        <div class="chapter-arrow">&rarr;</div>
-      </a>
+    <a href="./04-Postflop-Deep-Stacked/index.html" class="material-card">
+      <div class="material-title">Chapter 4: Postflop Deep-Stacked Adjustments</div>
+      <div class="material-meta">5 Lessons &mdash; Jonathan Little</div>
+      <div class="material-desc">
+        How position and nut advantage scale with stack depth. Stack-off thresholds and why
+        medium-strength hands get downgraded. Pushing equity with deep stacks.
+      </div>
+      <div class="material-tags">
+        <span class="material-tag">200bb+ Play</span>
+        <span class="material-tag">Stack-Off Threshold</span>
+        <span class="material-tag">Position Value</span>
+        <span class="material-tag">Bet-Bet-Check</span>
+      </div>
+      <span class="material-arrow">&rarr;</span>
+    </a>
 
-      <a href="./04-Postflop-Deep-Stacked/index.html" class="chapter-card">
-        <div class="chapter-num">04</div>
-        <div class="chapter-body">
-          <div class="chapter-title">Postflop Deep-Stacked Adjustments</div>
-          <div class="chapter-instructor">Jonathan Little</div>
-          <div class="chapter-lessons">5 Lessons</div>
-          <ul class="chapter-topics">
-            <li>How position and nut advantage scale with stack depth</li>
-            <li>Stack-off thresholds and why medium-strength hands get downgraded</li>
-            <li>Pushing equity with deep stacks and the cost of reopening action</li>
-            <li>Deep-stacked hand examples tying concepts together</li>
-          </ul>
-        </div>
-        <div class="chapter-arrow">&rarr;</div>
-      </a>
+    <a href="./05-GTO-Concepts-Live/index.html" class="material-card">
+      <div class="material-title">Chapter 5: GTO Concepts for Live Cash Games</div>
+      <div class="material-meta">8 Lessons &mdash; Justin Saliba</div>
+      <div class="material-desc">
+        Defending vs aggression in deep-stacked cash. Identifying nut advantage spots to
+        over-realize equity. Playing out of position and the live-to-online transition.
+      </div>
+      <div class="material-tags">
+        <span class="material-tag">Defending vs Aggression</span>
+        <span class="material-tag">Nut Advantage</span>
+        <span class="material-tag">OOP Strategy</span>
+        <span class="material-tag">Live Cash</span>
+      </div>
+      <span class="material-arrow">&rarr;</span>
+    </a>
 
-      <a href="./05-GTO-Concepts-Live/index.html" class="chapter-card">
-        <div class="chapter-num">05</div>
-        <div class="chapter-body">
-          <div class="chapter-title">GTO Concepts for Live Cash Games</div>
-          <div class="chapter-instructor">Justin Saliba</div>
-          <div class="chapter-lessons">8 Lessons</div>
-          <ul class="chapter-topics">
-            <li>Defending vs aggression in deep-stacked cash on flops and turns</li>
-            <li>Identifying nut advantage spots to over-realize equity</li>
-            <li>Playing out of position in passive lines and springing traps</li>
-            <li>Stand-up game analysis and live-to-online transition</li>
-          </ul>
-        </div>
-        <div class="chapter-arrow">&rarr;</div>
-      </a>
+    <a href="./06-High-Stakes-Secrets/index.html" class="material-card">
+      <div class="material-title">Chapter 6: High Stakes Live Cash Game Secrets</div>
+      <div class="material-meta">7 Lessons &mdash; Chris Brewer</div>
+      <div class="material-desc">
+        Simplifying GTO into implementable high-stakes strategies. When to deviate from GTO to
+        massively exploit opponents. High-stakes hand analysis and Rampage Poker reviews.
+      </div>
+      <div class="material-tags">
+        <span class="material-tag">GTO vs Exploit</span>
+        <span class="material-tag">Bluff-Catching Math</span>
+        <span class="material-tag">High Stakes</span>
+        <span class="material-tag">Hand Analysis</span>
+      </div>
+      <span class="material-arrow">&rarr;</span>
+    </a>
 
-      <a href="./06-High-Stakes-Secrets/index.html" class="chapter-card">
-        <div class="chapter-num">06</div>
-        <div class="chapter-body">
-          <div class="chapter-title">High Stakes Live Cash Game Secrets</div>
-          <div class="chapter-instructor">Chris Brewer</div>
-          <div class="chapter-lessons">7 Lessons</div>
-          <ul class="chapter-topics">
-            <li>Simplifying GTO into implementable high-stakes strategies</li>
-            <li>When to deviate from GTO to massively exploit opponents</li>
-            <li>High-stakes hand analysis from live cash game streams</li>
-            <li>Rampage Poker hand review: biggest punts and bluffs</li>
-          </ul>
-        </div>
-        <div class="chapter-arrow">&rarr;</div>
-      </a>
+    <a href="./07-Mastering-Exploits-6Max/index.html" class="material-card">
+      <div class="material-title">Chapter 7: Mastering Exploits in 6-Max Online</div>
+      <div class="material-meta">9 Lessons &mdash; Brad Wilson</div>
+      <div class="material-desc">
+        The birth of exploits: node locking and strategy deviations. Quickly tagging players
+        and identifying imbalance. The CPG Wolves methodology for attacking imbalance.
+      </div>
+      <div class="material-tags">
+        <span class="material-tag">Node Locking</span>
+        <span class="material-tag">Player Tagging</span>
+        <span class="material-tag">Preflop Exploits</span>
+        <span class="material-tag">Reg Exploits</span>
+      </div>
+      <span class="material-arrow">&rarr;</span>
+    </a>
 
-      <a href="./07-Mastering-Exploits-6Max/index.html" class="chapter-card">
-        <div class="chapter-num">07</div>
-        <div class="chapter-body">
-          <div class="chapter-title">Mastering Exploits in 6-Max Online</div>
-          <div class="chapter-instructor">Brad Wilson</div>
-          <div class="chapter-lessons">9 Lessons</div>
-          <ul class="chapter-topics">
-            <li>The birth of exploits: node locking and strategy deviations</li>
-            <li>Quickly tagging players and identifying imbalance</li>
-            <li>Preflop exploits vs recreational players and reg exploits</li>
-            <li>Attacking imbalance and the CPG Wolves methodology</li>
-          </ul>
-        </div>
-        <div class="chapter-arrow">&rarr;</div>
-      </a>
+    <a href="./08-Crushing-Heads-Up/index.html" class="material-card">
+      <div class="material-title">Chapter 8: Crushing Heads Up NL Hold&rsquo;em</div>
+      <div class="material-meta">11 Lessons &mdash; Jon Jaffe</div>
+      <div class="material-desc">
+        100bb and 200bb heads-up hand analysis and range construction. 3-bet pots on monotone
+        boards and advanced HUNL lines. Live play-and-explain sessions with Rampage vs Polk
+        match review.
+      </div>
+      <div class="material-tags">
+        <span class="material-tag">HUNL Fundamentals</span>
+        <span class="material-tag">Deep-Stack HUNL</span>
+        <span class="material-tag">Opponent Profiling</span>
+        <span class="material-tag">Match Analysis</span>
+      </div>
+      <span class="material-arrow">&rarr;</span>
+    </a>
 
-      <a href="./08-Crushing-Heads-Up/index.html" class="chapter-card">
-        <div class="chapter-num">08</div>
-        <div class="chapter-body">
-          <div class="chapter-title">Crushing Heads Up NL Hold'em</div>
-          <div class="chapter-instructor">Jon Jaffe</div>
-          <div class="chapter-lessons">11 Lessons</div>
-          <ul class="chapter-topics">
-            <li>100bb and 200bb heads-up hand analysis and range construction</li>
-            <li>3-bet pots on monotone boards and advanced HUNL lines</li>
-            <li>Live play and explain sessions with dual-perspective analysis</li>
-            <li>Rampage vs Doug Polk match review and key takeaways</li>
-          </ul>
-        </div>
-        <div class="chapter-arrow">&rarr;</div>
-      </a>
-
-    </div>
   </div>
-</section>
 
-<hr class="divider">
-
-<section class="quick-links">
-  <div class="container">
-    <h2>Quick Access</h2>
-    <div class="link-row">
-      <a href="./quick-reference.html" class="link-btn">Quick Reference Card</a>
-    </div>
-  </div>
-</section>
-
-<hr class="divider">
-
-<section class="study-path">
-  <div class="container">
-    <h2>Recommended Study Path</h2>
-    <div class="study-path-content">
-
-      <h3>Phase 1 — Core Preflop and Sizing</h3>
-      <ol>
-        <li><strong>Mastering Preflop Play</strong> — Lock in GTO ranges for both 8-max live and 6-max online. Every postflop decision begins with a sound preflop range.</li>
-        <li><strong>Advanced Bet Sizing</strong> — Learn how nut advantage, range connectivity, and board dynamics determine your bet size on every street.</li>
-      </ol>
-
-      <h3>Phase 2 — Multiway and Deep-Stacked Play</h3>
-      <ol start="3">
-        <li><strong>Advanced Multiway Strategies</strong> — Adjust your heads-up instincts for multiway pots. Learn why you check more, bet smaller, and tighten your value range.</li>
-        <li><strong>Postflop Deep-Stacked Adjustments</strong> — Understand how stack depth shifts nut advantage, position value, and stack-off thresholds dramatically.</li>
-      </ol>
-
-      <h3>Phase 3 — GTO Meets Exploitation</h3>
-      <ol start="5">
-        <li><strong>GTO Concepts for Live Cash Games</strong> — Bridge solver theory into actionable live cash decisions with Justin Saliba's framework.</li>
-        <li><strong>High Stakes Live Cash Game Secrets</strong> — See how Chris Brewer simplifies GTO for the biggest games and when he deviates to exploit.</li>
-        <li><strong>Mastering Exploits in 6-Max Online</strong> — Brad Wilson's systematic approach to identifying and attacking opponent imbalances.</li>
-      </ol>
-
-      <h3>Phase 4 — Heads-Up Mastery</h3>
-      <ol start="8">
-        <li><strong>Crushing Heads Up NL Hold'em</strong> — The ultimate test of your fundamentals. Build robust HUNL ranges and study real match analysis at 100bb and 200bb depths.</li>
-      </ol>
-
-      <h3>Ongoing Practice</h3>
-      <p>
-        After completing each module, work through its quiz to test retention. Revisit the
-        quick reference card before sessions. The four-instructor format means you will see
-        the same concepts from different angles — use that overlap to deepen understanding
-        rather than skipping familiar topics.
-      </p>
-    </div>
-  </div>
-</section>
-
-<footer>
-  <div class="container">
+  <div class="footer">
     <p>Advanced Cash Game Course</p>
-    <p>Jonathan Little / Justin Saliba / Chris Brewer / Brad Wilson / Jon Jaffe</p>
+    <p>Jonathan Little &middot; Justin Saliba &middot; Chris Brewer &middot; Brad Wilson &middot; Jon Jaffe</p>
     <p>Study materials generated from PokerCoaching.com course content</p>
   </div>
-</footer>
 
+</div>
 </body>
 </html>

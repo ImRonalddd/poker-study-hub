@@ -9,7 +9,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Source+Serif+4:wght@300;400;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body,{delimiters:[{left:'\\(',right:'\\)',display:false},{left:'$$',right:'$$',display:true}],throwOnError:false});"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body,{delimiters:[{left:'\\(',right:'\\)',display:false}],throwOnError:false});"></script>
 <style>
 :root{--bg:#FFFFFF;--surface:#FFFFFF;--surface2:#F5F5F5;--accent:#000000;--text:#000000;--text-dim:#525252;--correct:#1a7a5e;--wrong:#b91c1c;--orange:#8B6914;--border:#000000;--border-light:#E5E5E5;--blue:#1e40af;--blue-bg:#eff6ff;--purple:#6b21a8;--purple-bg:#faf5ff;--orange-bg:#fffbeb;--red:#991b1b;--red-bg:#fef2f2}
 *{margin:0;padding:0;box-sizing:border-box}
@@ -87,24 +87,28 @@ blockquote{border-left:3px solid var(--border-light);padding:.8rem 1.2rem;margin
 </div>
 
 <h3>Combo Substitution Demo</h3>
-<ul>
-<li>HJ vs BB, 100bb deep. River spot with pot-sized bet.</li>
-<li>Optimal strategy bluffs with QJ, Q9, J9 (no showdown value).</li>
-<li>Alternative strategy swaps bluffs to AJ, AQ (showdown value hands) -- <strong>zero EV loss in the betting line</strong>.</li>
-<li>The only small loss comes from bluffing hands that had showdown value, not from the opponent exploiting the "wrong" combos.</li>
-</ul>
+
+<div class="box box-orange">
+<div class="box-label">Full Situation</div>
+<strong>HJ opens 3BB, BB calls. 100BB deep, heads-up to the river.</strong> Flop checks through, turn checks through. On the river with a pot-sized bet available, the BB must construct a strategy. The BB's value hands are Kx (top pair is strong enough to go for full pot). With a pot-sized bet, the math requires a 2:1 value-to-bluff ratio and the defender calls at 50% (MDF). Chris shows two strategies side by side:<br><br>
+<strong>Optimal strategy:</strong> BB bluffs with QJ, Q9, J9 -- hands with no showdown value that gain nothing by checking.<br>
+<strong>Alternative strategy:</strong> Exact same betting frequency, but swap those bluffs to AJ, AQ instead.<br><br>
+Result: <strong>zero EV loss in the betting line</strong>. The opponent cannot exploit the "wrong" combos because the frequencies are identical. The only small loss comes from bluffing AJ/AQ (which had showdown value and could have won at showdown), not from opponent adjustment.
+</div>
 
 <h3>Frequency Error Demo</h3>
-<ul>
-<li>Same spot but opponent overbluffs by just a few combos.</li>
-<li>Result: <strong>pure call with every bluff catcher</strong>. EV of the betting line plummets by 0.7 BB.</li>
-<li>Even tiny frequency errors create massive exploits.</li>
-</ul>
+
+<div class="box box-orange">
+<div class="box-label">Same River Spot -- Frequency Deviation</div>
+Using the same HJ vs BB river spot, now keep the <em>right</em> combos (QJ, Q9, J9) but add a couple extra bluffs -- say J9 and Q9 appear at higher frequency than optimal. The opponent now over-bluffs by a small amount.<br><br>
+Result: <strong>pure call with every bluff catcher</strong>. EV of the betting line <strong>plummets by 0.7 BB</strong> per betting instance. That means every single time the bet is made, it performs 0.7 BB worse than the balanced version. Against a player who spots this, even tiny frequency errors create massive exploits.
+</div>
 
 <h3>Solver Output Sensitivity</h3>
 <div class="box box-red">
 <div class="box-label">Warning</div>
-Small changes to input ranges produce very different outputs. Giving opponent slightly more Kx and slightly less Tx changed betting frequency by 10% and shifted the value threshold from K3 to K8. If you lazily assume "GTO ranges" without considering actual opponent tendencies, you will misvalue hands significantly.
+<strong>Same river node, two different input ranges:</strong> In version one, the in-position player is assigned a standard GTO range (lots of Tx checkbacks on the flop, some Kx bets). In version two, assume a more ABC opponent who checks back Kx too often (trapping) and bets Tx less. Give them slightly more Kx and slightly less Tx arriving on the river.<br><br>
+Result: betting frequency drops by <strong>10%</strong> and the value threshold shifts from <strong>K3 to K8</strong> -- a massive shift in what qualifies as a value bet. If you lazily assume "standard GTO ranges" without observing what your specific opponent actually does, you will systematically under- or over-value hands. The player who range-traps Kx makes the entire spot play differently.
 </div>
 
 <h3>How to Use Combos in Practice</h3>
@@ -122,18 +126,26 @@ Small changes to input ranges produce very different outputs. Giving opponent sl
 <span class="tag">gto-vs-exploit-making-in-cash-games</span>
 
 <h3>The Math of Bluff Catching</h3>
-<ul>
-<li>Facing a bet of 360 into 310: need approximately 45% equity to call (for chips)</li>
-<li>Tournament ICM adds risk premium: need closer to 47-48%</li>
-<li>For every ~1.8 value combos, opponent needs 1 bluff to make you indifferent</li>
-</ul>
+
+<div class="box box-orange">
+<div class="box-label">Real Hand: Chris Brewer vs Jason Koon -- Super High Roller, ~10 Players Left</div>
+<strong>Setup:</strong> Small blind (Chris) limps, Koon ISOs from the big blind. ~50BB effective with ICM pressure (both near average stack, full pay).
+Flop: A-A-3 rainbow. Chris checks, Koon bets 25% pot. Turn: Q of diamonds. Chris checks, Koon bets ~60% pot. River: off-suit brick. Chris checks. Koon jams approximately 360 into 310.<br><br>
+<strong>Chris's bluff-catching math:</strong><br>
+Required equity for chips = 360 / (310 + 360 + 360) = 360 / 1030 ≈ 35%<br>
+With ICM risk premium: roughly 40-47% needed<br>
+At 3:2 ratio: for every 3 value combos, Koon needs 2 bluffs to make Chris indifferent<br><br>
+<strong>Counting Koon's value range:</strong> AQ off (3 combos), A10 off (3 combos), suited AK as an iso call, KJ of diamonds (4 combos, maybe discounted), 6 combos of full houses (e.g. A3s), ~12 flushes (KJ, K9, 87 of diamonds) = roughly 22 value combos<br>
+Required bluffs: ~14 combos<br><br>
+<strong>Chris holds A8 of diamonds:</strong> Ace blocks AQ/A10 (removes value), 8 of diamonds blocks some low diamond flushes (slightly reduces bluff combos). Net: a reasonable bluff catcher. Chris folds in the tournament on instinct despite theory suggesting a call -- he acknowledges it was probably a theory call he talked himself out of.
+</div>
 
 <h3>Combo Counting Process</h3>
 <ol>
-<li>Identify value hands (full houses, flushes, etc.)</li>
-<li>Estimate: ~22 value combos</li>
-<li>Calculate required bluffs: at 3:2 ratio, need ~14 bluff combos</li>
-<li>Assess: is it easy or hard for opponent to find those bluffs?</li>
+<li>Identify value hands (full houses, flushes, trips+) given the board and opponent's likely ISO/calling range</li>
+<li>Estimate total value combos (this hand: ~22 combos)</li>
+<li>Calculate required bluffs at the bet size: at 3:2 ratio, need ~14 bluff combos</li>
+<li>Assess: can this opponent physically find those bluffs? What does their preflop range look like? Did they ISO tight or wide?</li>
 </ol>
 
 <h3>Equilibrium Fragility</h3>
@@ -173,16 +185,21 @@ Theory and exploits are "one package." You need a baseline understanding to iden
 
 <h4>Hand 1: A8s 4-Bet Bluff vs Nick (Rating: 6.5-7/10)</h4>
 <div class="box box-orange">
-<div class="box-label">Blocker Selection</div>
-Having an 8 is bad for bluffing because 88 is one of Nick's easiest continuing hands. Prefer having a King (blocks KQ, the hand you most want to fold out). <strong>When bluffing deep, select hands that unblock opponent's folding range and block their continuing range.</strong>
+<div class="box-label">Blocker Selection for Deep-Stack 4-Bet Bluffs</div>
+<p><strong>Situation:</strong> Deep-stacked cash game. Rampage holds A8 suited and 4-bets as a bluff against Nick's 3-bet.</p>
+<p><strong>Why A8s is suboptimal:</strong> Having an 8 is bad for bluffing because 88 is one of Nick's easiest hands to continue with (he calls a 4-bet with pocket eights at most stack depths). By holding an 8, you remove one combo of 88 from his range -- meaning his remaining range is slightly stronger. You <em>want</em> him to have 88 (a hand he might fold), not block it.</p>
+<p><strong>Better bluff selection:</strong> A hand with a King (like K5s) blocks KQ and KJs -- hands Nick is on the fence about calling with. When you block his borderline calls, his remaining range is weighted toward folds, increasing your bluff's success rate.</p>
+<p><strong>General principle:</strong> When bluffing deep, select hands that <strong>unblock opponent's folding range</strong> (let them have the hands they'd fold) and <strong>block their continuing range</strong> (remove the hands they'd call with).</p>
 </div>
 
 <h4>Hand 2: KK vs Mariano (~1000 BB Deep)</h4>
-<ul>
-<li>KK is "exactly mediocre" -- close to mixing folds already</li>
-<li>KK doesn't interact with any value hands and has only negative interaction (blocks K10, K9 which are bluffs)</li>
-<li>JT is a better call than KK because it has positive interaction with opponent's range</li>
-</ul>
+<div class="box box-orange">
+<div class="box-label">Full Situation: KK at 1000bb Deep -- Why You Might Fold Kings</div>
+<p><strong>Setup:</strong> Ultra-high-stakes live cash, ~1000bb effective. Mariano raises from early position. Rampage is in late position with K&#9829;K&#9827;. The question: call or fold to a river jam?</p>
+<p><strong>Why KK is "exactly mediocre":</strong> At 1000bb, the SPR is enormous. On the river with a significant bet, KK has no interaction with Mariano's value hands -- KK doesn't block AA (the most likely value hand), doesn't block AK (another likely value), doesn't block sets (33, 44, etc. depending on board). The only thing KK does is block K-T and K-9 type hands -- exactly the combos Mariano might use as bluffs. If you hold KK, Mariano is less likely to have K-T as a bluff, which means his range, when he bets, is weighted MORE toward value.</p>
+<p><strong>Compare to JT:</strong> J-T has positive interaction -- it unblocks J-X and T-X type hands that Mariano might be bluffing with (J9, T8, QT, etc.). JT doesn't block any likely value hands (AA, KK, sets on this board). When you hold JT, Mariano's betting range contains more bluffs because you haven't removed bluff combos from his range.</p>
+<p><strong>Lesson:</strong> At extreme stack depths, even a strong hand like KK can be a fold or mix-fold if it blocks bluffs and unblocks value. The blocker analysis completely reverses intuition -- "I have a strong hand" is not the same as "I am a good bluff catcher." Good bluff catchers unblock bluffs and block value.</p>
+</div>
 
 <div class="box box-purple">
 <div class="box-label">Key Insight</div>
@@ -208,11 +225,13 @@ At deep stacks, even strong-looking hands can be clear folds when they block blu
 <span class="tag">high-stakes-analysis-rampage-pokers-biggest-hands-part-2</span>
 
 <h4>Hand 1: AKo Hero Call vs Tilted Nick (Rating: 10/10)</h4>
-<ul>
-<li>Nick 3-betting "100%" of hands while on tilt. Rampage flats AKo.</li>
-<li><strong>3-bet sizing deep:</strong> At 400-500BB deep, OOP 3-bet should be 7-10x. Ranges should be extremely tight: AA, AKs, KK, some KQs/QJs. AQo is "extremely bad to 3-bet" at these depths.</li>
-<li>AKo is a "very strong call" -- blocks all value (AQ, KQ), beats every bluff, has excellent removal properties.</li>
-</ul>
+<div class="box box-orange">
+<div class="box-label">Full Situation: AKo Hero Call, Nick Tilting, ~400bb Deep</div>
+<p><strong>Setup:</strong> High-stakes live cash, 400-500bb effective. Nick has been 3-betting extremely wide while tilting. Rampage opens in late position. Nick 3-bets from the blinds. Rampage holds A&#9827;K&#9830; and flats (calls) the 3-bet.</p>
+<p><strong>Why flat instead of 4-bet?</strong> At 400-500bb deep, OOP 3-bets should be 7-10x the open to charge for positional disadvantage. If Rampage 4-bets, Nick -- on tilt and 3-betting everything -- will 5-bet or call, creating a massive inflated pot where Rampage is OOP to Nick with AKo and ~400bb behind. That is a dangerous situation even with AK: AK has ~57% equity vs QQ and only ~46% vs KK, and deep stacks mean any edge in a bloated pot becomes amplified.</p>
+<p><strong>Why AKo is a great call (not fold):</strong> (1) Blocks AQ and KQ -- hands Nick uses for value in his 3-bet range. (2) Beats every bluff Nick might 3-bet (97s, 65s, random J-3s while tilting). (3) Has strong postflop realization in position -- you will flop an A or K about 27% of the time, and any ace-high board is a nightmare for Nick's 3-bet bluffs. (4) Even against Nick's real value hands (QQ, JJ), AKo is a flip or ahead of JJ (3 combos).</p>
+<p><strong>On an ace-high flop:</strong> Rampage now has top pair top kicker and can call down multiple streets. On a low flop (7-4-2), Rampage has ace-high and can fold to continued aggression without having inflated the pot preflop. This flexibility is worth more than 4-betting and bloating the pot.</p>
+</div>
 
 <h4>Hand 2: KK in 5-Bet Pot (Rating: 1.5/10)</h4>
 <div class="box box-red">
@@ -275,11 +294,13 @@ You need a better hand to call than to bet. On the turn, your range polarizes: b
 </ul>
 
 <h4>Hand 4: KJs Turn Barrel (vs Andy, ~125 BB 3-bet pot)</h4>
-<ul>
-<li>Flop 4-4-3: Bet big (75% pot). Opponent has dust or bluff catchers.</li>
-<li>Turn double-draw: KJs picks up flush draw + gutshot. Pot-sized barrel is strong because it blocks jacks, has no flush draw interaction, folds out high-equity hands, has 6 real outs if called.</li>
-<li>Andy found a great counter-play -- jamming his set to fold out aces and kings.</li>
-</ul>
+<div class="box box-orange">
+<div class="box-label">Full Situation: KJs Turn Barrel in a 3-Bet Pot, ~125bb</div>
+<p><strong>Setup:</strong> 3-bet pot, ~125bb effective. Chris c-bets the flop 4&#9824;4&#9829;3&#9827; at 75% pot. Andy calls. Turn: K&#9829; (giving Chris K&#9829;J&#9824;, now top pair plus flush draw plus gutshot to AQ type straights). Pot: ~100bb after the turn card.</p>
+<p><strong>Why pot-sized barrel on the turn with KJs:</strong> (1) Top pair king is strong value against Andy's likely range -- Andy called a 75% pot bet on 4-4-3, so his range is mostly: small pairs (AA-55), Ax hands with some equity, and rare 4x hands. On a king turn, all of Andy's 55-99 range is now behind top pair. (2) The flush draw adds approximately 9 outs. (3) The gutshot adds 3-4 more outs. Combined: ~11-13 clean outs if called. (4) KJ blocks AJ (Andy's possible holdings), making some of his calling range weaker. (5) 100% pot size forces Andy to choose: commit or fold. Many of Andy's pairs from the 4-4-3 flop are now behind and face impossible decisions.</p>
+<p><strong>Andy's counter-play (jamming his set):</strong> If Andy held 33 (set of threes), he faces a massive SPR situation. By jamming, Andy is saying: "I have a set, you have the king, fold." He's targeting Chris's top pairs and pairs that cannot commit 125bb. Against Chris's specific hand (KJs), Andy's set is actually a ~2:1 favorite -- KJs has top pair + flush draw + gutshot but still loses to a set most of the time at showdown. Chris must evaluate: do I have enough equity to call a jam? With ~35-40% equity, and needing ~40% to call, it's borderline. Chris should have folded (he was slightly wrong to call even with flush draw).</p>
+<p><strong>Lesson:</strong> A combo draw (top pair + flush draw + gutshot) is not always enough to call a jam vs a range weighted toward sets. Count outs carefully: 9 flush outs + maybe 3 gutshot outs but MINUS any outs that don't improve enough = real outs. When facing a 4-4-3 caller who then jams on a King turn, his range for jamming is mostly sets (44, 33) or occasionally 43s. Against that range, 35% equity is marginal for a call-off.</p>
+</div>
 
 <h3>Balance vs Dominant Strategy</h3>
 <div class="box box-blue">

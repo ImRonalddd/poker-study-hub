@@ -7,6 +7,9 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;1,400;1,600&family=Source+Serif+4:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body,{delimiters:[{left:'\(',right:'\)',display:false},{left:'\[',right:'\]',display:true}]})"></script>
 <style>
 :root {
   --bg: #FFFFFF; --surface: #FFFFFF; --surface2: #F5F5F5;
@@ -77,9 +80,23 @@ blockquote { border-left:3px solid var(--border-light); padding-left:1rem; margi
 </table>
 
 <div class="hand-card">
-  <div class="hand-title">Example: A7s Nut Flush</div>
-  <div class="hand-desc">Monotone flop, hero has the nuts multiway</div>
-  <p>How much will the J&#9827; with a random card call? <strong>$20 every time.</strong> So bet $20, not $50. Betting big folds out the weaker flush draws you want to keep.</p>
+  <div class="hand-title">Full Situation: A7s Nut Flush — Sizing for Max Value</div>
+  <div class="hand-desc">$1/$1/$3 live cash game, 100bb effective (~$300). Hero on BTN with \(A\clubsuit 7\clubsuit\).</div>
+  <p><strong>Preflop:</strong> Multiple limpers. Hero raises to $20 on the Button. 3 players call. Pot: ~$85.</p>
+  <p><strong>Flop:</strong> \(Q\clubsuit J\clubsuit 4\clubsuit\). Checks to Hero. Hero holds the nut flush.</p>
+  <p><strong>The question:</strong> Bet $50 (~60% pot) or bet $20 (~24% pot)?</p>
+  <p><strong>Answer: Bet $20.</strong> Ask what hands will call and for how much:</p>
+  <ul>
+    <li>\(J\clubsuit x\) or \(K\clubsuit x\) (lower flush draws): calls $20 every time, folds to $50 half the time</li>
+    <li>Qx (top pair, no club): calls $20 comfortably, folds to $50 when scared of the flush</li>
+    <li>Anyone with a pair: calls $20, folds $50</li>
+  </ul>
+  <p>Betting $20 into $85 keeps 3 players in. Betting $50 likely gets one caller. Expected callers × call amount = EV:</p>
+  <ul>
+    <li>$20 bet, 2-3 callers = $40-60 added to pot → pot grows to $125-145, giving great setup for a larger turn bet</li>
+    <li>$50 bet, 1 caller = $50 added → pot grows to $135, but you've lost 2 players who would've stacked off on the turn</li>
+  </ul>
+  <p><strong>EV cost of overbetting:</strong> You fold out 2 drawing opponents who each have ~15% equity but will call 3 streets adding ~$100+ each to your win. Overbetting costs ~$100-200 in long-run EV from this multiway spot.</p>
 </div>
 
 <div class="hand-card">
@@ -177,9 +194,21 @@ blockquote { border-left:3px solid var(--border-light); padding-left:1rem; margi
 <h2>Theme 5: Check-Raising From Out of Position</h2>
 
 <div class="hand-card">
-  <div class="hand-title">Missed Opportunity: AJ on A-Q-J</div>
-  <div class="hand-desc">Hero 3-bet preflop, checks flop, calls bet, opponent checks back turn.</div>
-  <p>After 3-betting preflop, you don't have AA, KK, or JJ in your range (you'd 4-bet those). So <strong>AJ and QT are your absolute best hands</strong>. You MUST check-raise these.</p>
+  <div class="hand-title">Full Situation: AJ on A-Q-J — Missed Check-Raise</div>
+  <div class="hand-desc">$1/$1/$3 live cash game, 100bb effective (~$300). Hero in BB with \(A\diamondsuit J\spadesuit\).</div>
+  <p><strong>Preflop:</strong> CO raises to $10. Hero 3-bets to $35 from the BB. CO calls. Pot: $71.</p>
+  <p><strong>Flop:</strong> \(A\clubsuit Q\heartsuit J\diamondsuit\). Hero checks. CO bets $25 (~35% pot). Hero calls. Pot: $121.</p>
+  <p><strong>Turn:</strong> \(4\spadesuit\). Hero checks. CO checks back.</p>
+  <p><strong>River:</strong> \(7\heartsuit\). Hero bets $50. CO calls. Hero wins ~$221.</p>
+  <p><strong>What went wrong:</strong> Hero won the hand but extracted far less than optimal. After 3-betting preflop, Hero's range excludes AA, KK, JJ (4-bet hands) and AK/AQ (likely 4-bet or 4-bet bluff). This means <strong>AJ (two pair) and QT (straight) are Hero's absolute best hands</strong> on this flop. Hero must check-raise with these.</p>
+  <p><strong>Why check-raise the flop to $75:</strong></p>
+  <ul>
+    <li>CO's $25 small bet into $71 = weak marginal hand (Qx, Jx, KT, maybe AK). They're not betting big with top pair because Hero 3-bet.</li>
+    <li>A call gives CO a free turn to improve or shut down. A check-raise builds the pot with the best hand.</li>
+    <li>Check-raise to $75: pot grows to $221. Turn bet ~$130, pot ~$481. River jam ~$95 remaining. Total extracted: $300 (stacks).</li>
+    <li>Hero's actual line extracted ~$110 in net profit. Check-raise line extracts full stacks: ~$265 net profit.</li>
+  </ul>
+  <p><strong>EV cost of calling instead of check-raising:</strong> ~$155 left on the table. Over a session with two such spots: $310 of lost value from passive play with the nuts.</p>
 </div>
 
 <div class="box box-orange">
@@ -188,6 +217,7 @@ blockquote { border-left:3px solid var(--border-light); padding-left:1rem; margi
     <li>If you just call, opponents bet one street and check back — you leave value on the table</li>
     <li>Check-raising builds the pot geometrically: a $50 check-raise leads to a $150 turn bet leads to a $300+ river bet</li>
     <li>Without check-raises, your checking range becomes entirely weak hands, making you exploitable</li>
+    <li>In 3-bet pots especially, your OOP range is capped (no 4-bet candidates remain) — your checking range MUST contain some strong hands or opponents exploit you freely</li>
   </ul>
 </div>
 
