@@ -60,7 +60,7 @@ h1{font-family:'Playfair Display',serif;font-weight:800;font-size:2.2rem;text-al
 <body>
 <div class="container">
 <h1>Bet Sizing Drills</h1>
-<div class="subtitle">Chapter 2 -- 30 Questions</div>
+<div class="subtitle">Chapter 2 -- 32 Questions</div>
 <div class="hotkeys"><kbd>1</kbd><kbd>2</kbd><kbd>3</kbd><kbd>4</kbd> answer &nbsp; <kbd>Space</kbd> next &nbsp; <kbd>R</kbd> restart &nbsp; <kbd>H</kbd> toggle hint</div>
 
 <div style="display:flex;gap:0.5rem;justify-content:center;margin-bottom:1rem;">
@@ -147,7 +147,7 @@ function pick(idx){
   if(answered)return;answered=true;
   const q=questions[current];const btns=document.querySelectorAll('.option');
   btns.forEach(b=>{b.classList.add('disabled');const bi=parseInt(b.dataset.idx);if(bi===q.ans)b.classList.add('show-correct');if(bi===idx&&idx!==q.ans)b.classList.add('selected-wrong');if(bi===idx&&idx===q.ans)b.classList.add('selected-correct')});
-  if(idx===q.ans)score++;else missed.push({q:q.q,opts:q.opts,correct:q.opts[q.ans],hint:q.hint||'',ex:q.ex});
+  if(idx===q.ans)score++;else missed.push({q:q.q,opts:q.opts,yours:q.opts[idx],correct:q.opts[q.ans],hint:q.hint||'',ex:q.ex});
   updateReviewBtn();
   document.getElementById('explanation').innerHTML=q.ex;document.getElementById('explanation').className='visible';
   document.getElementById('next-btn').style.display='block';

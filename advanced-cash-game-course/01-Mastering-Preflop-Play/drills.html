@@ -73,13 +73,13 @@ code,.mono{font-family:'JetBrains Mono',monospace;font-size:.88em}
 <body>
 
 <h1>Preflop Play Drills</h1>
-<p class="subtitle">Chapter 1 -- Jonathan Little -- 35 Questions</p>
+<p class="subtitle">Chapter 1 -- Jonathan Little -- 37 Questions</p>
 
 <div class="controls">
 <button id="btn-shuffle" onclick="shuffleAndRestart()">Shuffle (R)</button>
 <button id="btn-restart" onclick="restart()">Restart</button>
 <button id="btn-review" onclick="showReview()">Review Missed (M)</button>
-<div class="stats" id="stats">0 / 35 -- 0%</div>
+<div class="stats" id="stats">0 / 37 -- 0%</div>
 </div>
 
 <div style="display:flex;gap:0.5rem;justify-content:center;margin-bottom:1rem;">
@@ -97,7 +97,7 @@ code,.mono{font-family:'JetBrains Mono',monospace;font-size:.88em}
 const ALL_QUESTIONS=[
 // --- RFI (8-max & 6-max) ---
 {type:"mc",topic:"RFI (8-max)",q:"You're UTG in an 8-max live cash game (100bb, no rake) and look down at 9-8 suited. What should you do?",hint:"Think about how 9-8s performs on Q-J-T boards versus the UTG RFI range size.",options:["Raise to 3bb","Limp","Fold","Raise to 2.5bb"],correct:2,explain:"9-8s is consistently one of the worst suited connectors from early position. It makes the bad end of straights (Q-J-T means AK crushes you) and pairs poorly against 3-betting ranges. The UTG RFI range is about 11% and does NOT include 9-8s."},
-{type:"mc",topic:"RFI (8-max)",q:"From the SB in an 8-max no-rake game (100bb), you're folded to with pocket Aces. What is the GTO play?",hint:"In no-rake blind vs blind, what happens to your limping range if you never limp AA?",options:["Always raise to 4bb","Limp some portion of the time","Always raise to 3bb","Fold (chop)"],correct:1,explain:"In no-rake blind vs blind, the SB has a limp/raise strategy. You MUST limp with some premium hands (including AA) to protect your limping range. If you only raise premiums and limp trash, your opponent exploits you easily."},
+{type:"mc",topic:"RFI (8-max)",q:"From the SB in an 8-max no-rake game (100bb), you're folded to with pocket Aces. What is the GTO play?",hint:"In no-rake blind vs blind, what happens to your limping range if you never limp AA?",options:["Always raise to 4bb","Limp some portion of the time","Always raise to 3bb","Fold -- chop"],correct:1,explain:"In no-rake blind vs blind, the SB has a limp/raise strategy. You MUST limp with some premium hands (including AA) to protect your limping range. If you only raise premiums and limp trash, your opponent exploits you easily."},
 {type:"tf",topic:"RFI (6-max)",q:"In 6-max online cash games (with rake), the small blind should have a limping range.",hint:"Rake changes the math: who benefits when a limped pot goes to the flop?",correct:false,explain:"With rake, there is NO limping from any position. The value of winning the pot preflop without paying rake makes raise-or-fold mandatory from the SB. Limping lets the BB see a flop cheaply and you pay rake when the pot is contested."},
 {type:"mc",topic:"RFI (8-max)",q:"Which suited connector gains the MOST value going from 100bb to 200bb deep in 8-max RFI ranges?",hint:"Deeper stacks reward post-flop playability; which connector makes the cleanest nut straights?",options:["AKs","T9s","65s","98s"],correct:2,explain:"65s gains significant value at deeper stacks because post-flop playability matters more. It makes clean nut straights and smashes A5s on wheel boards. It appears in BTN ranges at 200bb but not always at 100bb. Meanwhile, 98s is bad at both depths."},
 {type:"mc",topic:"RFI (6-max)",q:"What is the standard RFI size in 6-max online cash games?",hint:"Online 6-max opens are slightly smaller than live 8-max opens; rake efficiency matters.",options:["2bb","2.5bb","3bb","3.5bb"],correct:1,explain:"2.5bb is the standard 6-max online open. Raising larger means playing tighter. Raising smaller gives the BB too good odds to call, meaning you pay more rake."},
@@ -107,14 +107,14 @@ const ALL_QUESTIONS=[
 {type:"mc",topic:"vs Raise (6-max)",q:"In 6-max, the HJ faces a LJ (UTG) raise. What is the correct approach?",hint:"Rake kills the value of cold-calling in middle position; players behind you also threaten to squeeze.",options:["Call with suited broadways, 3-bet premiums","3-bet or fold only -- no calling range","Call wide since you have position","Fold everything except AA/KK"],correct:1,explain:"In 6-max with rake, middle positions (HJ and CO) have NO calling range against a raise. The rake makes flatting unprofitable, and you let people behind you enter the pot in position. You must 3-bet or fold."},
 {type:"mc",topic:"vs Raise (8-max)",q:"Which hand is the #1 3-bet bluff hand across nearly all preflop scenarios?",hint:"JL calls out one specific suited connector by name in nearly every lesson as the premier 3-bet bluff.",options:["AQo","KJs","65s","T9s"],correct:2,explain:"65s is the 'power hand' for 3-bet bluffing. JL calls it out repeatedly across all 20 lessons. It makes clean nut straights (unlike 98s), it smashes A5s on wheel boards, and it's never dominated by calling/3-betting ranges."},
 {type:"tf",topic:"vs Raise (6-max)",q:"From the SB facing a raise in 6-max, you should sometimes just call to see a cheap flop.",hint:"Calling from the SB invites the BB to overcall with an uncapped range — you end up OOP multiway.",correct:false,explain:"SB vs a raise in 6-max is ALWAYS 3-bet or fold. If you call, the BB gets great odds to overcall, then you're OOP in a multiway pot where the BB has an uncapped range and you act first on every street. Disaster."},
-{type:"mc",topic:"vs Raise (8-max)",q:"What is the standard 3-bet size from OUT OF POSITION in 8-max live games?",hint:"OOP 3-bets are larger than IP 3-bets to compensate for positional disadvantage; the open is 3bb.",options:["3x the open (about 9bb)","10bb","12bb","8bb"],correct:2,explain:"From OOP in 8-max (no rake), the 3-bet size is 12bb over a 3bb open. This is larger than IP 3-bets (10bb) to deny the in-position player good odds to call and see a flop against you."},
+{type:"mc",topic:"vs Raise (8-max)",q:"What is the standard 3-bet size from OUT OF POSITION in 8-max live games?",hint:"OOP 3-bets are larger than IP 3-bets to compensate for positional disadvantage; the open is 3bb.",options:["3x the open -- about 9bb","10bb","12bb","8bb"],correct:2,explain:"From OOP in 8-max (no rake), the 3-bet size is 12bb over a 3bb open. This is larger than IP 3-bets (10bb) to deny the in-position player good odds to call and see a flop against you."},
 {type:"mc",topic:"vs Raise (6-max)",q:"From the BB in 6-max, what is the 3-bet size against a 2.5bb open?",hint:"BB is OOP, so the 3-bet must be large enough to discourage in-position calls in a rake environment.",options:["7.5bb","8bb","10bb","12bb"],correct:2,explain:"BB 3-bets to 10bb in 6-max. From OOP, you want to 3-bet larger to discourage calls -- if you get called in position, you pay the rake AND play OOP. The extra size compensates."},
-{type:"mc",topic:"vs Raise (6-max)",q:"BB vs BTN raise in 6-max. The 'magical triangle' of 3-bet bluffs refers to which region of the hand matrix?",hint:"Think about which suited hands are never dominated by the BTN's opening range.",options:["Top-right corner (high suited broadways)","Bottom-left corner (low suited connectors and gappers)","Diagonal (pairs)","Middle (medium suited hands)"],correct:1,explain:"JL identifies the 'magical triangle' as the low-middle suited connector/gapper region: 76s, 87s, 65s, 54s, 75s, etc. These hands flop well, aren't dominated, and make effective 3-bet bluffs against late position raisers."},
+{type:"mc",topic:"vs Raise (6-max)",q:"BB vs BTN raise in 6-max. The 'magical triangle' of 3-bet bluffs refers to which region of the hand matrix?",hint:"Think about which suited hands are never dominated by the BTN's opening range.",options:["Top-right corner -- high suited broadways","Bottom-left corner -- low suited connectors and gappers","Diagonal (pairs)","Middle (medium suited hands)"],correct:1,explain:"JL identifies the 'magical triangle' as the low-middle suited connector/gapper region: 76s, 87s, 65s, 54s, 75s, etc. These hands flop well, aren't dominated, and make effective 3-bet bluffs against late position raisers."},
 // --- vs 3-Bet ---
 {type:"mc",topic:"vs 3-Bet (8-max)",q:"You raise UTG, UTG+1 3-bets. You hold KQ suited. What should you do?",hint:"When UTG+1 3-bets UTG, their range is very narrow — how does KQs fare against AA/KK/AK?",options:["Call -- good suited broadway hand","4-bet as a bluff","Fold","4-bet for value"],correct:2,explain:"KQs is a FOLD against an EP 3-bet. The 3-bettor's range (AA, KK, AK, plus blocker bluffs) crushes KQs. This applies to AQo, KJs, QJs as well. Many players mistakenly think suited broadway hands are automatic continues vs 3-bets."},
 {type:"tf",topic:"vs 3-Bet (8-max)",q:"At 200bb deep, AK offsuit should always 4-bet when facing a 3-bet.",hint:"At deep stacks, facing a 5-bet with AKo and no flush equity is catastrophic.",correct:false,explain:"At 200bb, AK offsuit often just CALLS (not 4-bets) and sometimes even FOLDS to 3-bets. If you 4-bet and face a 5-bet, you're in a disaster with a hand that has no flush equity. AKo at deep stacks is NOT a premium -- it's a cautious hand."},
 {type:"mc",topic:"vs 3-Bet (8-max)",q:"When you raise and get 3-bet, which rule covers offsuit hands?",hint:"Offsuit hands can't make flushes — one major removal from their post-flop value when stacks go in.",options:["Call all offsuit broadway hands","3-bet offsuit hands with blockers","Fold every offsuit hand except AK","Fold everything offsuit including AK"],correct:2,explain:"The universal rule: when raised and 3-bet, fold every offsuit hand except AK in most scenarios. This is one of the most consistent messages across all 20 lessons."},
-{type:"mc",topic:"vs 3-Bet (6-max)",q:"LJ raises, HJ 3-bets to 8bb in 6-max. What are the primary 4-bet bluffs from OOP at 100bb?",hint:"At 100bb OOP, you need hands that play well post-flop if called — pure blockers like AQo fall short.",options:["AQo and KQo (best blockers)","AJs and KQs (playability)","A5s and 65s (suited blockers)","Random suited connectors"],correct:1,explain:"At 100bb OOP, the 4-bet bluffs are AJs and KQs -- hands with PLAYABILITY, not just blockers. AQo has better blockers but worse playability. When you 4-bet OOP and get called (which happens), you need post-flop equity, so suited broadway hands are preferred."},
+{type:"mc",topic:"vs 3-Bet (6-max)",q:"LJ raises, HJ 3-bets to 8bb in 6-max. What are the primary 4-bet bluffs from OOP at 100bb?",hint:"At 100bb OOP, you need hands that play well post-flop if called — pure blockers like AQo fall short.",options:["AQo and KQo -- best blockers","AJs and KQs (playability)","A5s and 65s (suited blockers)","Random suited connectors"],correct:1,explain:"At 100bb OOP, the 4-bet bluffs are AJs and KQs -- hands with PLAYABILITY, not just blockers. AQo has better blockers but worse playability. When you 4-bet OOP and get called (which happens), you need post-flop equity, so suited broadway hands are preferred."},
 {type:"fib",topic:"vs 3-Bet (6-max)",q:"When you 4-bet from OOP in 6-max and get called, the opponent puts in ____ more big blinds to try to win about 49.5bb.",hint:"The 4-bet is to 20bb over an 8bb 3-bet; subtract what the caller already put in.",answer:["14","12","12.5"],explain:"Against a 20bb 4-bet (over an 8bb 3-bet), the caller puts in about 12-14 more to win ~49.5bb. They're getting decent odds AND have position, which is why you need hands with good post-flop playability as your 4-bet bluffs."},
 {type:"mc",topic:"vs 3-Bet (8-max)",q:"Why do low suited connectors (65s, 76s) call 3-bets but high suited hands (KJs, QTs) fold?",hint:"When 65s flops a flush or straight, is it likely dominated by the 3-bettor's range?",options:["Low connectors have more combos","Low connectors are 'live' -- not dominated by 3-bet ranges","Low connectors block more hands","Low connectors have higher raw equity"],correct:1,explain:"Low suited connectors don't interact with the 3-bettor's range at all. If you flop a straight or flush with 65s, it's almost always good. High suited hands (KJs, QTs) are heavily dominated -- K on a KQx board with KJs vs the 3-bettor's AK/KQ is a disaster."},
 // --- vs 4-Bet+ ---
@@ -139,7 +139,7 @@ const ALL_QUESTIONS=[
 {type:"mc",topic:"Patterns",q:"At 200bb deep, your 3-bet bluffs should primarily come from which hand type?",hint:"At deep stacks, post-flop playability matters more than pure blocker value.",options:["Offsuit broadway hands (AQo, KJo)","Ax suited and Kx suited blockers","Suited connectors and Ax suited","Any two cards with an Ace"],correct:2,explain:"At 200bb, 3-bet bluffs shift to suited connectors (65s, 76s, 54s) and Ax suited. This is because playability matters more at deep stacks -- you'll see more flops and need hands that can make straights and flushes. At 100bb, offsuit blockers (Ax, Kx) are used more."},
 {type:"mc",topic:"Patterns",q:"Which hand does JL consistently identify as a TRAP hand -- one that looks good but performs poorly in most preflop scenarios?",hint:"JL explicitly calls out one suited connector by name in multiple videos as one to avoid.",options:["65s","A5s","98s","AKs"],correct:2,explain:"98s is the consistent trap hand across all 20 lessons. It makes the bad end of straights (Q-J-T means AK beats you), pairs poorly, and is dominated by calling/3-betting ranges. JL explicitly says 'do not play the 9-8 suited' in multiple videos. Prefer 65s, 76s, 54s instead."},
 {type:"tf",topic:"Patterns",q:"In position, you should generally 4-bet MORE and call LESS compared to out of position.",hint:"In position, seeing a flop is profitable — so which action lets you do that more often?",correct:false,explain:"It's the opposite. In position, you CALL more and 4-bet LESS (you want to see flops with your positional advantage). Out of position, you 4-bet more and call less (you want to either win the pot now or build it with nutted hands to compensate for positional disadvantage)."},
-{type:"mc",topic:"Patterns",q:"When facing a raise from early position, what is a reliable heuristic for offsuit hands containing a 9?",hint:"JL gives a simple card-rank cutoff rule for offsuit hands versus EP raises.",options:["Call with any 9 that's suited or offsuit","Fold any offsuit hand with a 9 (not pocket 9s)","3-bet as a bluff with 9-high","Only play 9s on the button"],correct:1,explain:"JL identifies a clear heuristic: against an EP raise, if you have a 9 in your hand and it's offsuit (not pocket 9s), fold. Always. A9o, K9o, Q9o, J9o, T9o, 98o -- all folds. Against earlier position raises, even offsuit 10s fold."},
+{type:"mc",topic:"Patterns",q:"When facing a raise from early position, what is a reliable heuristic for offsuit hands containing a 9?",hint:"JL gives a simple card-rank cutoff rule for offsuit hands versus EP raises.",options:["Call with any 9 that's suited or offsuit","Fold any offsuit hand with a 9 -- not pocket 9s","3-bet as a bluff with 9-high","Only play 9s on the button"],correct:1,explain:"JL identifies a clear heuristic: against an EP raise, if you have a 9 in your hand and it's offsuit (not pocket 9s), fold. Always. A9o, K9o, Q9o, J9o, T9o, 98o -- all folds. Against earlier position raises, even offsuit 10s fold."},
 ];
 
 let questions=[...ALL_QUESTIONS];
@@ -168,8 +168,8 @@ function restart(){questions=[...ALL_QUESTIONS];init()}
 
 function updateStats(){
 const pct=questions.length?Math.round(answered/questions.length*100):0;
-document.getElementById('stats').textContent=`${answered} / ${questions.length} -- ${questions.length?Math.round(correct/Math.max(answered,1)*100):0}% correct`;
-document.getElementById('progress').style.width=`${pct}%`;
+document.getElementById('stats').textContent=answered+' / '+questions.length+' -- '+(questions.length?Math.round(correct/Math.max(answered,1)*100):0)+'% correct';
+document.getElementById('progress').style.width=pct+'%';
 }
 
 function render(){
@@ -177,13 +177,13 @@ const area=document.getElementById('question-area');
 if(current>=questions.length){showFinal();return}
 const q=questions[current];
 const state=questionState[current];
-let html=`<div class="q-header">Question ${current+1} of ${questions.length} <span class="q-type">${q.type==='mc'?'Multiple Choice':q.type==='tf'?'True / False':'Fill in Blank'}</span> <span class="q-type">${q.topic}</span></div>`;
-if(q.context)html+=`<div class="q-context">${q.context}</div>`;
-html+=`<div class="q-text">${q.q}</div>`;
+let html='<div class="q-header">Question '+(current+1)+' of '+questions.length+' <span class="q-type">'+(q.type==='mc'?'Multiple Choice':q.type==='tf'?'True / False':'Fill in Blank')+'</span> <span class="q-type">'+q.topic+'</span></div>';
+if(q.context)html+='<div class="q-context">'+q.context+'</div>';
+html+='<div class="q-text">'+q.q+'</div>';
 if(q.hint){html+='<button class="hint-btn" onclick="toggleHint()">Show Hint (H)</button>';html+='<div class="hint" id="hint">'+q.hint+'</div>';}
 
 if(q.type==='mc'){
-html+=`<div class="options">`;
+html+='<div class="options">';
 q.options.forEach((opt,i)=>{
 let cls='option';
 if(state.answered){
@@ -192,11 +192,11 @@ if(i===q.correct)cls+=' reveal-correct';
 if(state.userAnswer===i&&i!==q.correct)cls+=' selected-wrong';
 if(state.userAnswer===i&&i===q.correct)cls+=' selected-correct';
 }
-html+=`<div class="${cls}" onclick="answerMC(${i})"><span class="key">${i+1}</span><span>${opt}</span></div>`;
+html+='<div class="'+cls+'" onclick="answerMC('+i+')"><span class="key">'+(i+1)+'</span><span>'+opt+'</span></div>';
 });
-html+=`</div>`;
+html+='</div>';
 }else if(q.type==='tf'){
-html+=`<div class="tf-options options">`;
+html+='<div class="tf-options options">';
 [true,false].forEach((val,i)=>{
 let cls='option';
 if(state.answered){
@@ -205,24 +205,24 @@ if(val===q.correct)cls+=' reveal-correct';
 if(state.userAnswer===val&&val!==q.correct)cls+=' selected-wrong';
 if(state.userAnswer===val&&val===q.correct)cls+=' selected-correct';
 }
-html+=`<div class="${cls}" onclick="answerTF(${val})"><span class="key">${i+1}</span><span>${val?'True':'False'}</span></div>`;
+html+='<div class="'+cls+'" onclick="answerTF('+val+')"><span class="key">'+(i+1)+'</span><span>'+(val?'True':'False')+'</span></div>';
 });
-html+=`</div>`;
+html+='</div>';
 }else if(q.type==='fib'){
 if(!state.answered){
-html+=`<div><input type="text" class="fib-input" id="fib-input" placeholder="Type your answer..." onkeydown="if(event.key==='Enter')answerFIB()"><button class="fib-submit" onclick="answerFIB()">Submit</button></div>`;
+html+='<div><input type="text" class="fib-input" id="fib-input" placeholder="Type your answer..." onkeydown="if(event.key===\'Enter\')answerFIB()"><button class="fib-submit" onclick="answerFIB()">Submit</button></div>';
 }else{
 const isCorrect=state.correct;
-html+=`<div style="margin-bottom:.5rem"><span style="font-family:'JetBrains Mono',monospace;padding:.3rem .6rem;background:${isCorrect?'#f0fdf4':'#fef2f2'};border:1px solid ${isCorrect?'var(--correct)':'var(--wrong)'}">Your answer: ${state.userAnswer}</span></div>`;
-html+=`<div style="font-family:'JetBrains Mono',monospace;color:var(--correct)">Accepted: ${q.answer.join(', ')}</div>`;
+html+='<div style="margin-bottom:.5rem"><span style="font-family:\'JetBrains Mono\',monospace;padding:.3rem .6rem;background:'+(isCorrect?'#f0fdf4':'#fef2f2')+';border:1px solid '+(isCorrect?'var(--correct)':'var(--wrong)')+'">Your answer: '+state.userAnswer+'</span></div>';
+html+='<div style="font-family:\'JetBrains Mono\',monospace;color:var(--correct)">Accepted: '+q.answer.join(', ')+'</div>';
 }
 }
 
-html+=`<div class="explanation ${state.answered?'show':''}" id="explanation">${q.explain}</div>`;
-html+=`<div style="display:flex;gap:.5rem;margin-top:1rem">`;
-html+=`<button class="nav-btn" onclick="prev()" ${current===0?'disabled':''}>Prev</button>`;
-html+=`<button class="nav-btn" onclick="next()" id="next-btn">${current===questions.length-1?'Finish':'Next (Space)'}</button>`;
-html+=`</div>`;
+html+='<div class="explanation '+(state.answered?'show':'')+'" id="explanation">'+q.explain+'</div>';
+html+='<div style="display:flex;gap:.5rem;margin-top:1rem">';
+html+='<button class="nav-btn" onclick="prev()" '+(current===0?'disabled':'')+'>Prev</button>';
+html+='<button class="nav-btn" onclick="next()" id="next-btn">'+(current===questions.length-1?'Finish':'Next (Space)')+'</button>';
+html+='</div>';
 area.innerHTML=html;
 if(q.type==='fib'&&!state.answered){setTimeout(()=>{const inp=document.getElementById('fib-input');if(inp)inp.focus()},50)}
 }
@@ -286,16 +286,16 @@ const pct=Math.round(correct/questions.length*100);
 let cls='ok';
 if(pct>=80)cls='good';
 else if(pct<50)cls='bad';
-let html=`<div class="final-score"><h2>Session Complete</h2><div class="pct ${cls}">${pct}%</div><p>${correct} correct out of ${questions.length}</p><div style="margin-top:1.5rem"><button class="nav-btn" onclick="shuffleAndRestart()">Shuffle & Retry (R)</button> <button class="nav-btn" onclick="showReview()">Review Missed (M)</button></div></div>`;
+let html='<div class="final-score"><h2>Session Complete</h2><div class="pct '+cls+'">'+pct+'%</div><p>'+correct+' correct out of '+questions.length+'</p><div style="margin-top:1.5rem"><button class="nav-btn" onclick="shuffleAndRestart()">Shuffle & Retry (R)</button> <button class="nav-btn" onclick="showReview()">Review Missed (M)</button></div></div>';
 document.getElementById('question-area').innerHTML=html;
 }
 
 function showReview(){
 if(missed.length===0){
-document.getElementById('question-area').innerHTML=`<div class="final-score"><h2>No missed questions!</h2><p>Perfect score. Try shuffling for another round.</p><button class="nav-btn" onclick="shuffleAndRestart()" style="margin-top:1rem">Shuffle & Retry</button></div>`;
+document.getElementById('question-area').innerHTML='<div class="final-score"><h2>No missed questions!</h2><p>Perfect score. Try shuffling for another round.</p><button class="nav-btn" onclick="shuffleAndRestart()" style="margin-top:1rem">Shuffle & Retry</button></div>';
 return;
 }
-let html=`<div class="review-section"><h2 style="font-family:'Playfair Display',serif;margin-bottom:1rem">Missed Questions (${missed.length})</h2>`;
+let html='<div class="review-section"><h2 style="font-family:\'Playfair Display\',serif;margin-bottom:1rem">Missed Questions ('+missed.length+')</h2>';
 missed.forEach(idx=>{
 const q=questions[idx];
 const state=questionState[idx];
@@ -303,9 +303,9 @@ let correctAnswer='';
 if(q.type==='mc')correctAnswer=q.options[q.correct];
 else if(q.type==='tf')correctAnswer=q.correct?'True':'False';
 else correctAnswer=q.answer[0];
-html+=`<div class="review-item"><div class="q">${q.q}</div><div class="a">Your answer: <strong>${q.type==='mc'?q.options[state.userAnswer]:state.userAnswer}</strong> -- Correct: <strong>${correctAnswer}</strong></div><div class="a" style="margin-top:.3rem;font-size:.85rem">${q.explain}</div></div>`;
+html+='<div class="review-item"><div class="q">'+q.q+'</div><div class="a">Your answer: <strong>'+(q.type==='mc'?q.options[state.userAnswer]:state.userAnswer)+'</strong> -- Correct: <strong>'+correctAnswer+'</strong></div><div class="a" style="margin-top:.3rem;font-size:.85rem">'+q.explain+'</div></div>';
 });
-html+=`<button class="nav-btn" onclick="retryMissed()" style="margin-top:1rem">Retry Missed Only</button> <button class="nav-btn" onclick="shuffleAndRestart()">Full Shuffle</button></div>`;
+html+='<button class="nav-btn" onclick="retryMissed()" style="margin-top:1rem">Retry Missed Only</button> <button class="nav-btn" onclick="shuffleAndRestart()">Full Shuffle</button></div>';
 document.getElementById('question-area').innerHTML=html;
 }
 

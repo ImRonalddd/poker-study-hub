@@ -83,7 +83,7 @@ h1{font-family:'Playfair Display',serif;font-weight:900;font-size:2.2rem;text-al
 
 <div class="container">
 <h1>Interactive Drills</h1>
-<div class="subtitle">Master PLO Cash Games &mdash; 35 Questions</div>
+<div class="subtitle">Master PLO Cash Games &mdash; 43 Questions</div>
 <div class="hotkeys"><kbd>1</kbd><kbd>2</kbd><kbd>3</kbd><kbd>4</kbd> answer &nbsp; <kbd>Space</kbd> next &nbsp; <kbd>R</kbd> restart &nbsp; <kbd>H</kbd> toggle hint</div>
 
 <div style="display:flex;gap:0.5rem;justify-content:center;margin-bottom:1rem;">
@@ -112,14 +112,14 @@ const allQuestions = [
   // === SECTION: Preflop RFI ===
   {section:"Preflop RFI Decisions", q:"You are in the Lojack (tightest position) in a 6-max cash game, 100bb deep, standard rake. You hold 2233 double-suited. What is your action?",
    situation:"6-max, Lojack, 100bb effective, standard online rake. Folded to you.",
-   opts:["Fold &mdash; low pairs are unplayable from early position","Open (pot) &mdash; double-suited connectivity compensates for low pairs","Open small (2.5bb) to see a cheap flop","Limp and try to see a cheap flop"],
+   opts:["Fold &mdash; low pairs are unplayable from early position","Open -- pot &mdash; double-suited connectivity compensates for low pairs","Open small (2.5bb) to see a cheap flop","Limp and try to see a cheap flop"],
    ans:1,
    hint:"The second suit is the key factor that separates this hand from its single-suited version.",
    ex:"Despite being the lowest possible pairs, 2233 double-suited is an open from the Lojack. The double suit adds significant equity, and the 2-3 connectivity means you can flop straights (A-4-5 gives you the wheel). However, the single-suited version (2234 single-suited) is a fold. The second suit is what saves this hand."},
 
   {section:"", q:"Button, 100bb deep. You hold Ace-King-Queen-8 with three spades (A, K, 8 are spades). What do you do?",
    situation:"6-max, Button, 100bb effective. Folded to you.",
-   opts:["Fold &mdash; three spades ruins the hand","Open (pot) &mdash; on the button, AKQX always opens regardless of suits","Open but plan to fold to any 3-bet","Open only if the blinds are tight"],
+   opts:["Fold &mdash; three spades ruins the hand","Open -- pot &mdash; on the button, AKQX always opens regardless of suits","Open but plan to fold to any 3-bet","Open only if the blinds are tight"],
    ans:1,
    hint:"From the button, one specific hand class always opens regardless of suit configuration.",
    ex:"From the button, ALL AKQX combinations are opens regardless of suit configuration. The high cards matter more than suits on the button because you're blocking 3-bets from the blinds and seeing flops cheaply. From the Lojack, the three-spade version would be a fold, but the button's wider range absorbs this hand easily."},
@@ -270,14 +270,14 @@ const allQuestions = [
   // === SECTION: Post-Flop ===
   {section:"Post-Flop Decisions", q:"You 3-bet from the SB with AK77. Flop comes A-5-3 rainbow. SPR is 3.5. What's your action?",
    situation:"3-bet pot, heads up. You are OOP as the 3-bettor. Flop: A-5-3 rainbow. SPR ~3.5.",
-   opts:["Check &mdash; your hand is too weak to bet","Bet small (30% pot) &mdash; range bet on ace-high disconnected boards","Bet pot &mdash; you need to protect against draws","Check-raise if they bet"],
+   opts:["Check &mdash; your hand is too weak to bet","Bet small -- 30% pot &mdash; range bet on ace-high disconnected boards","Bet pot &mdash; you need to protect against draws","Check-raise if they bet"],
    ans:1,
    hint:"As the 3-bettor you have all the aces, opponents rarely check-raise these boards, and a small size cleans up equity cheaply.",
    ex:"On ace-high disconnected boards as the 3-bettor, you bet your ENTIRE range at a small size (~30% pot). This is a range-based strategy, not hand-based. You don't care about your specific cards. Why: you have all the aces (opponents flatted), opponents under-check-raise these boards (they fear your pocket aces), and the small bet cleans up equity cheaply. Even with AK72 &mdash; the ugliest hand in your range &mdash; you still bet."},
 
   {section:"", q:"You opened the Button. BB defends. Flop: Q-8-5 with a flush draw. Check, check. Turn: 3 (blank). BB checks again. What should you do with a middling hand like K-9-9-7?",
    situation:"Single-raised pot. Button vs BB. Flop check-check. Turn blank. BB checks.",
-   opts:["Check back &mdash; your hand has showdown value","Bet small (30%) to see where you are","Pot &mdash; their range is capped from checking flop","Bet half pot as a standard play"],
+   opts:["Check back &mdash; your hand has showdown value","Bet small -- 30% to see where you are","Pot &mdash; their range is capped from checking flop","Bet half pot as a standard play"],
    ans:2,
    hint:"PLO players almost always bet the flop with strong hands, so a check-check flop caps their range heavily.",
    ex:"When the flop goes check-check and the turn blanks, the BB's range is heavily capped. Population tendency: PLO players almost always stab the flop with sets, top two pair, and nut flush draws. By checking, they've shown weakness. Potting the turn applies maximum pressure &mdash; they fold equity they'd otherwise realize (their middle pairs, gutshots with 30-40% equity). Even with K-9-9-7, you can pot profitably because their range simply cannot withstand pot-sized pressure after showing weakness."},
@@ -305,7 +305,7 @@ const allQuestions = [
 
   {section:"", q:"3-bet pot. You bet flop on K-3-4 rainbow, got called. Turn: 9 (no flush draw). SPR is now ~1.5. You have AA with no redraws. What size?",
    situation:"3-bet pot OOP. Board: K-3-4-9 rainbow. You have AA-X-X no suit. SPR ~1.5.",
-   opts:["Check to induce","Bet small (30%) for thin value","Bet pot &mdash; sub-2 SPR, just get the money in","Bet half pot to leave room for a river decision"],
+   opts:["Check to induce","Bet small -- 30% for thin value","Bet pot &mdash; sub-2 SPR, just get the money in","Bet half pot to leave room for a river decision"],
    ans:2,
    hint:"At sub-2 SPR there is only one street left; big pairs gain value as effective stack depth decreases.",
    ex:"At sub-2 SPR, you don't need redraws or fancy play. Just pot it. Your aces are strong enough at this stack depth &mdash; you're not worried about navigating future streets because there's only one street left. Big pairs gain value as SPR decreases. This is the key SPR insight: at SPR 5+, you need redraws and caution. At sub-2, overpairs are often good enough to go with."},
@@ -399,7 +399,7 @@ const allQuestions = [
   // === SECTION: Concepts ===
   {section:"Core PLO Concepts", q:"In PLO, what percentage equity does the worst possible hand have against pocket aces?",
    situation:"Conceptual question about PLO equity.",
-   opts:["About 7% (like NLHE worst case)","About 15%","About 27%","About 40%"],
+   opts:["About 7% -- like NLHE worst case","About 15%","About 27%","About 40%"],
    ans:2,
    hint:"In NLHE the worst hand has about 7% equity vs aces; PLO equities run dramatically closer together.",
    ex:"Even the worst PLO hand has roughly 27% equity against aces. Compare this to NLHE where the worst hand (like 72o vs AA) has about 7% equity. This is why folding is so much rarer in PLO &mdash; you almost always have enough equity to continue. It's also why 3-bet bluffs don't fold people out: their hands always have a \"fighting chance.\" The equities-run-close principle is fundamental to understanding PLO strategy."},
