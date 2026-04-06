@@ -69,6 +69,11 @@ h1{font-family:'Playfair Display',serif;font-weight:800;font-size:2.2rem;text-al
 <div class="subtitle">How to Beat the Microstakes &mdash; 30 Questions</div>
 <div class="hotkeys"><kbd>1</kbd><kbd>2</kbd><kbd>3</kbd><kbd>4</kbd> answer &nbsp; <kbd>H</kbd> hint &nbsp; <kbd>Space</kbd> next &nbsp; <kbd>R</kbd> restart</div>
 
+<div style="display:flex;gap:0.5rem;justify-content:center;margin-bottom:1rem;">
+  <button id="shuffleBtn" onclick="shuffleRestart()" style="font-family:'JetBrains Mono',monospace;font-size:0.7rem;padding:0.4rem 0.8rem;border:1px solid var(--border-light,#E5E5E5);background:var(--surface,#fff);cursor:pointer;text-transform:uppercase;letter-spacing:0.08em;">Shuffle</button>
+  <button id="reviewMissedBtn" onclick="reviewMissed()" disabled style="font-family:'JetBrains Mono',monospace;font-size:0.7rem;padding:0.4rem 0.8rem;border:1px solid var(--border-light,#E5E5E5);background:var(--surface,#fff);cursor:pointer;text-transform:uppercase;letter-spacing:0.08em;opacity:0.4;">Review Missed (0)</button>
+</div>
+
 <div id="progress-bar"><div id="progress-fill" style="width:0%"></div></div>
 <div id="score-display"></div>
 
@@ -467,6 +472,8 @@ var allQuestions = [
 // ============================================================
 // DRILL ENGINE
 // ============================================================
+var originalQuestions = allQuestions.slice();
+var questions = originalQuestions.slice();
 var current = 0, score = 0, answered = false;
 var missed = [];
 var qa = document.getElementById('question-area');
@@ -476,14 +483,55 @@ var progFill = document.getElementById('progress-fill');
 var scoreDisp = document.getElementById('score-display');
 var resultsDiv = document.getElementById('results');
 
+function shuffleArray(arr) {
+  for (var i = arr.length - 1; i > 0; i--) {
+    var j = Math.floor(Math.random() * (i + 1));
+    var tmp = arr[i]; arr[i] = arr[j]; arr[j] = tmp;
+  }
+}
+
+function updateReviewBtn() {
+  var btn = document.getElementById('reviewMissedBtn');
+  if (!btn) return;
+  btn.textContent = 'Review Missed (' + missed.length + ')';
+  if (missed.length > 0) {
+    btn.disabled = false;
+    btn.style.opacity = '1';
+  } else {
+    btn.disabled = true;
+    btn.style.opacity = '0.4';
+  }
+}
+
+function shuffleRestart() {
+  questions = originalQuestions.slice();
+  shuffleArray(questions);
+  current = 0; score = 0; missed = [];
+  updateReviewBtn();
+  qa.style.display = 'block';
+  resultsDiv.style.display = 'none';
+  showQuestion();
+}
+
+function reviewMissed() {
+  if (missed.length === 0) return;
+  questions = missed.slice();
+  shuffleArray(questions);
+  current = 0; score = 0; missed = [];
+  updateReviewBtn();
+  qa.style.display = 'block';
+  resultsDiv.style.display = 'none';
+  showQuestion();
+}
+
 function showQuestion() {
-  if (current >= allQuestions.length) { showResults(); return; }
+  if (current >= questions.length) { showResults(); return; }
   answered = false;
-  var q = allQuestions[current];
-  progFill.style.width = (current / allQuestions.length * 100) + '%';
+  var q = questions[current];
+  progFill.style.width = (current / questions.length * 100) + '%';
   scoreDisp.textContent = 'Score: ' + score + ' / ' + current;
 
-  var html = '<div class="q-number">Question ' + (current + 1) + ' of ' + allQuestions.length + '</div>';
+  var html = '<div class="q-number">Question ' + (current + 1) + ' of ' + questions.length + '</div>';
   html += '<div class="q-text">' + q.q + '</div>';
   if (q.hint) {
     html += '<button class="hint-btn" onclick="toggleHint()">Show Hint (H)</button>';
@@ -503,7 +551,7 @@ function showQuestion() {
 function selectAnswer(idx) {
   if (answered) return;
   answered = true;
-  var q = allQuestions[current];
+  var q = questions[current];
   var btns = qa.querySelectorAll('.option');
   for (var i = 0; i < btns.length; i++) {
     btns[i].classList.add('disabled');
@@ -516,6 +564,7 @@ function selectAnswer(idx) {
     btns[idx].classList.add('selected-wrong');
     missed.push({q: q.q, yours: q.opts[idx], correct: q.opts[q.ans], ex: q.ex});
   }
+  updateReviewBtn();
   var hintBtn = qa.querySelector('.hint-btn');
   if (hintBtn) hintBtn.style.display = 'none';
   exEl.innerHTML = q.ex;
@@ -542,8 +591,8 @@ function showResults() {
   scoreDisp.textContent = '';
   resultsDiv.style.display = 'block';
   document.getElementById('r-correct').textContent = score;
-  document.getElementById('r-total').textContent = allQuestions.length;
-  var pct = Math.round(score / allQuestions.length * 100);
+  document.getElementById('r-total').textContent = questions.length;
+  var pct = Math.round(score / questions.length * 100);
   document.getElementById('r-pct').textContent = pct + '% correct';
   var reviewHtml = '';
   for (var i = 0; i < missed.length; i++) {
@@ -560,7 +609,9 @@ function showResults() {
 }
 
 function restart() {
-  current = 0; score = 0; missed.length = 0;
+  questions = originalQuestions.slice();
+  current = 0; score = 0; missed = [];
+  updateReviewBtn();
   qa.style.display = 'block';
   resultsDiv.style.display = 'none';
   showQuestion();

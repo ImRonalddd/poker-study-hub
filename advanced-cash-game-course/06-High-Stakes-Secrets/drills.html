@@ -84,6 +84,11 @@ header .sub { font-family:'JetBrains Mono',monospace; font-size:0.7rem; font-wei
 
 <div class="hotkeys"><kbd>1</kbd>-<kbd>4</kbd> answer &middot; <kbd>H</kbd> hint &middot; <kbd>Space</kbd>/<kbd>Enter</kbd> next &middot; <kbd>R</kbd> restart</div>
 
+<div style="display:flex;gap:0.5rem;justify-content:center;margin-bottom:1rem;">
+  <button id="shuffleBtn" onclick="restart()" style="font-family:'JetBrains Mono',monospace;font-size:0.7rem;padding:0.4rem 0.8rem;border:1px solid var(--border-light,#E5E5E5);background:var(--surface,#fff);cursor:pointer;text-transform:uppercase;letter-spacing:0.08em;">Shuffle</button>
+  <button id="reviewMissedBtn" onclick="reviewMissed()" disabled style="font-family:'JetBrains Mono',monospace;font-size:0.7rem;padding:0.4rem 0.8rem;border:1px solid var(--border-light,#E5E5E5);background:var(--surface,#fff);cursor:pointer;text-transform:uppercase;letter-spacing:0.08em;opacity:0.4;">Review Missed (0)</button>
+</div>
+
 <div class="progress-bar"><div class="progress-fill" id="progFill"></div></div>
 <div class="status" id="status"></div>
 
@@ -281,11 +286,23 @@ function shuffle(arr) {
   return a;
 }
 
+function updateReviewBtn() {
+  var btn = document.getElementById('reviewMissedBtn');
+  if (!btn) return;
+  var n = missed ? missed.length : 0;
+  btn.textContent = 'Review Missed (' + n + ')';
+  if (n > 0) { btn.disabled = false; btn.style.opacity = '1'; }
+  else { btn.disabled = true; btn.style.opacity = '0.4'; }
+}
+
+function shuffleRestart() { restart(); }
+
 function init(qs) {
   questions = qs;
   current = 0; score = 0; answered = false; missed = [];
   document.getElementById('results').style.display = 'none';
   document.getElementById('quizArea').style.display = 'block';
+  updateReviewBtn();
   render();
 }
 
@@ -327,6 +344,7 @@ function answer(idx) {
     if (i === idx && idx !== q.ans) b.classList.add('wrong');
   });
   if (idx === q.ans) { score++; } else { missed.push(q); }
+  updateReviewBtn();
   const expl = document.getElementById('expl');
   expl.textContent = q.expl;
   expl.classList.add('show');

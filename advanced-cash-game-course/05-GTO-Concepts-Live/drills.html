@@ -603,10 +603,10 @@ function reviewMissed() {
 }
 
 function render() {
-  const q = QUESTIONS[cur];
+  const q = activeQuestions[cur];
   const area = document.getElementById('cardArea');
-  document.getElementById('progressFill').style.width = ((cur) / QUESTIONS.length * 100) + '%';
-  document.getElementById('progressLabel').textContent = 'Question ' + (cur + 1) + ' / ' + QUESTIONS.length;
+  document.getElementById('progressFill').style.width = ((cur) / activeQuestions.length * 100) + '%';
+  document.getElementById('progressLabel').textContent = 'Question ' + (cur + 1) + ' / ' + activeQuestions.length;
   document.getElementById('scoreLabel').textContent = score + ' correct';
 
   let html = '<div class="tag">' + q.tag + '</div>';
@@ -652,7 +652,7 @@ function render() {
 }
 
 function judge(idx) {
-  const q = QUESTIONS[cur];
+  const q = activeQuestions[cur];
   const btns = document.querySelectorAll('.option-btn');
   const correctIdx = q.type === 'tf' ? (q.answer ? 0 : 1) : q.answer;
   if (answered[cur]) return;
@@ -665,17 +665,20 @@ function judge(idx) {
   } else {
     btns[idx].classList.add('wrong-choice');
     btns[correctIdx].classList.add('show-correct');
+    missed5.push(q);
     showFeedback(false, q.explanation);
   }
+  updateReviewBtn();
   document.getElementById('scoreLabel').textContent = score + ' correct';
 }
 
 function judgeFib(val) {
-  const q = QUESTIONS[cur];
+  const q = activeQuestions[cur];
   if (answered[cur]) return;
   answered[cur] = true;
   const correct = q.answer.some(a => val.toLowerCase() === a.toLowerCase());
-  if (correct) { score++; }
+  if (correct) { score++; } else { missed5.push(q); }
+  updateReviewBtn();
   const inp = document.getElementById('fibIn');
   inp.style.borderColor = correct ? 'var(--correct)' : 'var(--wrong)';
   inp.disabled = true;
@@ -695,13 +698,13 @@ function showFeedback(correct, text) {
 }
 
 function next() {
-  if (cur < QUESTIONS.length - 1) { cur++; render(); }
+  if (cur < activeQuestions.length - 1) { cur++; render(); }
   else { showSummary(); }
 }
 
 function showSummary() {
   const area = document.getElementById('cardArea');
-  const wrong = QUESTIONS.length - score;
+  const wrong = activeQuestions.length - score;
   document.getElementById('progressFill').style.width = '100%';
   document.getElementById('progressLabel').textContent = 'Complete';
   area.innerHTML = '<div class="summary"><h2>Drill Complete</h2>' +
@@ -711,12 +714,15 @@ function showSummary() {
 }
 
 function restart() {
-  cur = 0; score = 0; answered = Array(QUESTIONS.length).fill(false); render();
+  activeQuestions = QUESTIONS.slice();
+  missed5 = []; cur = 0; score = 0; answered = Array(activeQuestions.length).fill(false);
+  updateReviewBtn(); render();
 }
 
 document.addEventListener('keydown', e => {
   if (e.target.tagName === 'INPUT') return;
-  const q = QUESTIONS[cur];
+  const q = activeQuestions[cur];
+  if (!q) return;
   if ((q.type === 'mc' || q.type === 'tf') && !answered[cur]) {
     const maxKey = q.type === 'tf' ? 2 : q.options.length;
     const num = parseInt(e.key);

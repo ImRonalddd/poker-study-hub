@@ -510,7 +510,7 @@ function showQ() {
 
   let sectionHtml = '';
   if (q.section) {
-    sectionHtml = `<div class="q-section">${q.section}</div>`;
+    sectionHtml = '<div class="q-section">' + q.section + '</div>';
   }
 
   let html = sectionHtml + '<div class="q-number">Question ' + (current + 1) + '</div>';

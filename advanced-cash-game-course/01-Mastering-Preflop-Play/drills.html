@@ -81,6 +81,12 @@ code,.mono{font-family:'JetBrains Mono',monospace;font-size:.88em}
 <button id="btn-review" onclick="showReview()">Review Missed (M)</button>
 <div class="stats" id="stats">0 / 35 -- 0%</div>
 </div>
+
+<div style="display:flex;gap:0.5rem;justify-content:center;margin-bottom:1rem;">
+  <button id="shuffleBtn" onclick="shuffleRestart()" style="font-family:'JetBrains Mono',monospace;font-size:0.7rem;padding:0.4rem 0.8rem;border:1px solid var(--border-light,#E5E5E5);background:var(--surface,#fff);cursor:pointer;text-transform:uppercase;letter-spacing:0.08em;">Shuffle</button>
+  <button id="reviewMissedBtn" onclick="reviewMissedDrill()" disabled style="font-family:'JetBrains Mono',monospace;font-size:0.7rem;padding:0.4rem 0.8rem;border:1px solid var(--border-light,#E5E5E5);background:var(--surface,#fff);cursor:pointer;text-transform:uppercase;letter-spacing:0.08em;opacity:0.4;">Review Missed (0)</button>
+</div>
+
 <div class="progress-bar"><div class="progress-fill" id="progress" style="width:0%"></div></div>
 
 <div id="question-area"></div>
@@ -145,11 +151,16 @@ let questionState=[];
 
 function shuffle(arr){for(let i=arr.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[arr[i],arr[j]]=[arr[j],arr[i]]}return arr}
 
+function updateReviewBtn(){var btn=document.getElementById('reviewMissedBtn');if(!btn)return;var n=missed.length;btn.textContent='Review Missed ('+n+')';if(n>0){btn.disabled=false;btn.style.opacity='1';}else{btn.disabled=true;btn.style.opacity='0.4';}}
+function shuffleRestart(){shuffleAndRestart();}
+function reviewMissedDrill(){if(!missed.length)return;var missedQs=missed.map(function(i){return questions[i];});questions=shuffle([...missedQs]);init();}
+
 function init(){
 questionState=questions.map(()=>({answered:false,correct:false,userAnswer:null}));
 current=0;answered=0;correct=0;missed=[];
 render();
 updateStats();
+updateReviewBtn();
 }
 
 function shuffleAndRestart(){questions=shuffle([...ALL_QUESTIONS]);init()}
@@ -258,6 +269,7 @@ answered++;
 if(isCorrect)correct++;
 else missed.push(current);
 updateStats();
+updateReviewBtn();
 }
 
 function next(){

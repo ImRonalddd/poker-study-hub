@@ -78,6 +78,11 @@ header .subtitle { font-family:'JetBrains Mono',monospace; font-size:0.75rem; te
 
 <div class="hotkeys"><kbd>1</kbd>-<kbd>4</kbd> answer &nbsp; <kbd>Space</kbd> next &nbsp; <kbd>R</kbd> restart &nbsp; <kbd>H</kbd> toggle hotkey help</div>
 
+<div style="display:flex;gap:0.5rem;justify-content:center;margin-bottom:1rem;">
+  <button class="btn" id="shuffleBtn" onclick="init()" style="font-family:'JetBrains Mono',monospace;font-size:0.7rem;padding:0.4rem 0.8rem;border:1px solid var(--border-light);background:var(--surface,#fff);cursor:pointer;text-transform:uppercase;letter-spacing:0.08em;">Shuffle</button>
+  <button class="btn" id="reviewMissedBtn" onclick="reviewMissedTop()" disabled style="font-family:'JetBrains Mono',monospace;font-size:0.7rem;padding:0.4rem 0.8rem;border:1px solid var(--border-light);background:var(--surface,#fff);cursor:pointer;text-transform:uppercase;letter-spacing:0.08em;opacity:0.4;">Review Missed (0)</button>
+</div>
+
 <div id="quiz-area">
   <div class="progress-text" id="progress-text">Question 1 of 18</div>
   <div class="progress-bar"><div class="progress-fill" id="progress-fill" style="width:0%"></div></div>
@@ -274,6 +279,7 @@ function init() {
   current = 0; score = 0; missed = [];
   document.getElementById('quiz-area').style.display = 'block';
   document.getElementById('results').style.display = 'none';
+  updateReviewBtn();
   render();
 }
 
@@ -327,6 +333,7 @@ function answer(idx) {
   document.getElementById('btn-next').style.display = 'inline-block';
   document.getElementById('btn-hint').style.display = 'none';
   document.getElementById('hint-box').classList.remove('show');
+  updateReviewBtn();
 }
 
 function nextQuestion() {
@@ -365,6 +372,7 @@ function showResults() {
     document.getElementById('missed-list').style.display = 'none';
     document.getElementById('btn-review').style.display = 'none';
   }
+  updateReviewBtn();
 }
 
 function restart() { init(); }
@@ -374,9 +382,24 @@ function reviewMissed() {
   if (questions.length === 0) { restart(); return; }
   questions = shuffle(questions);
   current = 0; score = 0; missed = [];
+  updateReviewBtn();
   document.getElementById('quiz-area').style.display = 'block';
   document.getElementById('results').style.display = 'none';
   render();
+}
+
+function reviewMissedTop() {
+  if (missed.length === 0) return;
+  reviewMissed();
+}
+
+function updateReviewBtn() {
+  var btn = document.getElementById('reviewMissedBtn');
+  if (btn) {
+    btn.textContent = 'Review Missed (' + missed.length + ')';
+    btn.disabled = missed.length === 0;
+    btn.style.opacity = missed.length === 0 ? '0.4' : '1';
+  }
 }
 
 document.addEventListener('keydown', (e) => {

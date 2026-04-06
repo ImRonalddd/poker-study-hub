@@ -63,6 +63,11 @@ h1{font-family:'Playfair Display',serif;font-weight:800;font-size:2.2rem;text-al
 <div class="subtitle">Chapter 4 -- 32 Questions</div>
 <div class="hotkeys"><kbd>1</kbd><kbd>2</kbd><kbd>3</kbd><kbd>4</kbd> answer &nbsp; <kbd>Space</kbd> next &nbsp; <kbd>R</kbd> restart &nbsp; <kbd>H</kbd> hint</div>
 
+<div style="display:flex;gap:0.5rem;justify-content:center;margin-bottom:1rem;">
+  <button id="shuffleBtn" onclick="shuffleRestart()" style="font-family:'JetBrains Mono',monospace;font-size:0.7rem;padding:0.4rem 0.8rem;border:1px solid var(--border-light);background:var(--surface,#fff);cursor:pointer;text-transform:uppercase;letter-spacing:0.08em;">Shuffle</button>
+  <button id="reviewMissedBtn" onclick="reviewMissedTop()" disabled style="font-family:'JetBrains Mono',monospace;font-size:0.7rem;padding:0.4rem 0.8rem;border:1px solid var(--border-light);background:var(--surface,#fff);cursor:pointer;text-transform:uppercase;letter-spacing:0.08em;opacity:0.4;">Review Missed (0)</button>
+</div>
+
 <div id="progress-bar"><div id="progress-fill" style="width:0%"></div></div>
 <div id="score-display"></div>
 
@@ -76,6 +81,7 @@ h1{font-family:'Playfair Display',serif;font-weight:800;font-size:2.2rem;text-al
 <p id="r-pct"></p>
 <div id="review-section"><h3>Review Missed</h3><div id="review-list"></div></div>
 <button class="btn-restart" onclick="restart()">Restart (R)</button>
+<button class="btn-restart" id="resultsReviewBtn" onclick="reviewMissedTop()" style="display:none;margin-left:1rem;">Review Missed</button>
 </div>
 </div>
 
@@ -116,7 +122,31 @@ const allQuestions = [
 
 let questions,current,score,missed,answered;
 function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
-function restart(){questions=shuffle([...allQuestions]);current=0;score=0;missed=[];answered=false;document.getElementById('results').style.display='none';document.getElementById('question-area').style.display='block';document.getElementById('next-btn').style.display='none';showQ()}
+function restart(){questions=shuffle([...allQuestions]);current=0;score=0;missed=[];answered=false;updateReviewBtn();document.getElementById('results').style.display='none';document.getElementById('question-area').style.display='block';document.getElementById('next-btn').style.display='none';showQ()}
+
+function shuffleRestart(){questions=shuffle([...allQuestions]);current=0;score=0;missed=[];answered=false;updateReviewBtn();document.getElementById('results').style.display='none';document.getElementById('question-area').style.display='block';document.getElementById('next-btn').style.display='none';showQ()}
+
+function reviewMissedTop(){
+  if(missed.length===0)return;
+  var missedQs=missed.map(function(m){for(var i=0;i<allQuestions.length;i++){if(allQuestions[i].q===m.q)return allQuestions[i];}return null;}).filter(function(q){return q!==null;});
+  if(missedQs.length===0)return;
+  questions=shuffle(missedQs);
+  current=0;score=0;missed=[];answered=false;
+  updateReviewBtn();
+  document.getElementById('results').style.display='none';
+  document.getElementById('question-area').style.display='block';
+  document.getElementById('next-btn').style.display='none';
+  showQ();
+}
+
+function updateReviewBtn(){
+  var btn=document.getElementById('reviewMissedBtn');
+  if(btn){
+    btn.textContent='Review Missed ('+missed.length+')';
+    btn.disabled=missed.length===0;
+    btn.style.opacity=missed.length===0?'0.4':'1';
+  }
+}
 function showQ(){
   if(current>=questions.length){showResults();return}
   answered=false;
@@ -149,6 +179,7 @@ function pick(idx){
   document.getElementById('explanation').classList.add('visible');
   document.getElementById('next-btn').style.display='block';
   document.getElementById('score-display').textContent=`Question ${current+1} of ${questions.length}  |  Score: ${score}`;
+  updateReviewBtn();
 }
 function advance(){if(!answered)return;current++;showQ()}
 function toggleHint(){const h=document.getElementById('hint');if(h)h.classList.toggle('show')}
@@ -165,6 +196,9 @@ function showResults(){
   if(missed.length===0)rh='<p>Perfect score -- nothing to review.</p>';
   else missed.forEach(m=>{rh+=`<div class="review-item"><div class="ri-q">${m.q}</div><div class="ri-your">Your answer: ${m.your}</div><div class="ri-correct">Correct: ${m.correct}</div><div class="ri-explain">${m.ex}</div></div>`});
   document.getElementById('review-list').innerHTML=rh;
+  var rrBtn=document.getElementById('resultsReviewBtn');
+  if(rrBtn){rrBtn.style.display=missed.length>0?'inline-block':'none';rrBtn.textContent='Review '+missed.length+' Missed';}
+  updateReviewBtn();
 }
 document.getElementById('next-btn').addEventListener('click',advance);
 document.addEventListener('keydown',e=>{

@@ -84,6 +84,11 @@ header .sub { font-family:'JetBrains Mono',monospace; font-size:0.7rem; font-wei
 
 <div class="hotkeys"><kbd>1</kbd>-<kbd>4</kbd> answer &middot; <kbd>H</kbd> hint &middot; <kbd>Space</kbd>/<kbd>Enter</kbd> next &middot; <kbd>R</kbd> restart</div>
 
+<div style="display:flex;gap:0.5rem;justify-content:center;margin-bottom:1rem;">
+  <button class="nav-btn" id="shuffleBtn" onclick="restart()" style="font-family:'JetBrains Mono',monospace;font-size:0.7rem;padding:0.4rem 0.8rem;border:1px solid var(--border-light);background:var(--surface,#fff);cursor:pointer;text-transform:uppercase;letter-spacing:0.08em;">Shuffle</button>
+  <button class="nav-btn" id="reviewMissedBtn" onclick="reviewMissedTop()" disabled style="font-family:'JetBrains Mono',monospace;font-size:0.7rem;padding:0.4rem 0.8rem;border:1px solid var(--border-light);background:var(--surface,#fff);cursor:pointer;text-transform:uppercase;letter-spacing:0.08em;opacity:0.4;">Review Missed (0)</button>
+</div>
+
 <div class="progress-bar"><div class="progress-fill" id="progFill"></div></div>
 <div class="status" id="status"></div>
 
@@ -295,6 +300,7 @@ function init(qs) {
   missed = [];
   document.getElementById('results').style.display = 'none';
   document.getElementById('quizArea').style.display = 'block';
+  updateReviewBtn();
   showQ();
 }
 
@@ -341,6 +347,7 @@ function pick(i) {
   expl.textContent = q.expl;
   expl.className = 'explanation show';
   document.getElementById('nextBtn').disabled = false;
+  updateReviewBtn();
 }
 
 function nextQ() {
@@ -364,6 +371,7 @@ function showResults() {
   } else {
     document.getElementById('reviewBtn').textContent = `Review ${missed.length} Missed`;
   }
+  updateReviewBtn();
 }
 
 function reviewMissed() {
@@ -371,8 +379,21 @@ function reviewMissed() {
   init(shuffle([...missed]));
 }
 
+function reviewMissedTop() {
+  reviewMissed();
+}
+
 function restart() {
   init(shuffle([...ALL_QUESTIONS]));
+}
+
+function updateReviewBtn() {
+  var btn = document.getElementById('reviewMissedBtn');
+  if (btn) {
+    btn.textContent = 'Review Missed (' + missed.length + ')';
+    btn.disabled = missed.length === 0;
+    btn.style.opacity = missed.length === 0 ? '0.4' : '1';
+  }
 }
 
 document.addEventListener('keydown', e => {
