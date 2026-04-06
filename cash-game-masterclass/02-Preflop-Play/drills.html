@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ch 2: Preflop Play -- Drills</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Source+Serif+4:wght@400;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'\(',right:'\)',display:false}]})"></script>
+<style>
+:root {
+  --bg: #FFFFFF; --surface: #FFFFFF; --surface2: #F5F5F5;
+  --accent: #000000; --text: #000000; --text-dim: #525252;
+  --correct: #1a7a5e; --wrong: #b91c1c; --orange: #8B6914;
+  --border: #000000; --border-light: #E5E5E5;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Source Serif 4', Georgia, serif; color: var(--text); background: var(--bg); line-height: 1.6; }
+.container { max-width: 720px; margin: 0 auto; padding: 2rem 1.5rem; }
+h1 { font-family: 'Playfair Display', serif; font-size: 2rem; margin-bottom: 0.3rem; }
+.subtitle { color: var(--text-dim); margin-bottom: 1.5rem; }
+
+/* Progress bar */
+.progress-wrap { background: var(--surface2); height: 6px; width: 100%; margin-bottom: 2rem; }
+.progress-bar { height: 100%; background: var(--accent); transition: width 0.3s; }
+.progress-text { font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; color: var(--text-dim); margin-bottom: 0.5rem; }
+
+/* Question card */
+.card { border: 1px solid var(--border); padding: 2rem; margin-bottom: 1.5rem; }
+.tag { font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-dim); margin-bottom: 0.8rem; }
+.question { font-size: 1.15rem; font-weight: 600; margin-bottom: 1.5rem; line-height: 1.5; }
+
+/* MC / TF options */
+.options { display: flex; flex-direction: column; gap: 0.6rem; }
+.option-btn { font-family: 'Source Serif 4', serif; font-size: 1rem; padding: 0.8rem 1.2rem; border: 1px solid var(--border-light); background: var(--bg); cursor: pointer; text-align: left; transition: border-color 0.2s; display: flex; align-items: center; gap: 0.8rem; }
+.option-btn:hover:not(.locked) { border-color: var(--accent); }
+.option-btn .key { font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; border: 1px solid var(--border-light); flex-shrink: 0; }
+.option-btn.correct { border-color: var(--correct); background: #f0fdf4; }
+.option-btn.correct .key { background: var(--correct); color: #fff; border-color: var(--correct); }
+.option-btn.wrong { border-color: var(--wrong); background: #fef2f2; }
+.option-btn.wrong .key { background: var(--wrong); color: #fff; border-color: var(--wrong); }
+
+/* FIB */
+.fib-input { font-family: 'JetBrains Mono', monospace; font-size: 1.1rem; padding: 0.6rem 1rem; border: 1px solid var(--border-light); width: 200px; outline: none; }
+.fib-input:focus { border-color: var(--accent); }
+.fib-submit { font-family: 'JetBrains Mono', monospace; font-size: 0.9rem; padding: 0.6rem 1.2rem; border: 1px solid var(--accent); background: var(--accent); color: #fff; cursor: pointer; margin-left: 0.5rem; }
+.fib-row { display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap; }
+
+/* Hint & explanation */
+.hint { font-size: 0.9rem; color: var(--orange); margin-top: 1rem; display: none; }
+.explanation { font-size: 0.95rem; margin-top: 1rem; padding: 1rem; background: var(--surface2); display: none; line-height: 1.5; }
+
+/* Controls */
+.controls { display: flex; gap: 1rem; margin-top: 1.5rem; flex-wrap: wrap; }
+.btn { font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; padding: 0.6rem 1.2rem; border: 1px solid var(--accent); cursor: pointer; background: var(--bg); transition: background 0.2s; }
+.btn:hover { background: var(--surface2); }
+.btn-primary { background: var(--accent); color: #fff; }
+.btn-primary:hover { background: #333; }
+
+/* Hotkey hints */
+.hotkeys { font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; color: var(--text-dim); margin-top: 2rem; }
+.hotkeys kbd { background: var(--surface2); padding: 0.15em 0.4em; border: 1px solid var(--border-light); }
+
+/* Summary screen */
+.summary { text-align: center; padding: 3rem 0; }
+.summary h2 { font-family: 'Playfair Display', serif; font-size: 1.8rem; margin-bottom: 1rem; }
+.score-big { font-family: 'JetBrains Mono', monospace; font-size: 3rem; font-weight: 700; margin-bottom: 0.5rem; }
+.score-label { color: var(--text-dim); margin-bottom: 2rem; }
+
+@media (max-width: 640px) {
+  .container { padding: 1rem; }
+  .card { padding: 1.2rem; }
+  h1 { font-size: 1.5rem; }
+}
+</style>
+</head>
+<body>
+<div class="container">
+
+<h1>Preflop Play Drills</h1>
+<p class="subtitle">Chapter 2 -- 36 questions</p>
+
+<div class="progress-text" id="progressText">1 / 36</div>
+<div class="progress-wrap"><div class="progress-bar" id="progressBar" style="width:2.8%"></div></div>
+
+<div id="questionArea"></div>
+
+<div class="controls" id="controlsArea">
+  <button class="btn" id="hintBtn" onclick="showHint()">Hint (H)</button>
+  <button class="btn btn-primary" id="nextBtn" onclick="nextQuestion()" style="display:none">Next (Space)</button>
+</div>
+
+<div class="hotkeys">
+  <kbd>1</kbd>-<kbd>4</kbd> answer &nbsp; <kbd>Space</kbd> next &nbsp; <kbd>H</kbd> hint &nbsp; <kbd>R</kbd> reset &nbsp; <kbd>M</kbd> review missed
+</div>
+
+</div>
+
+<script>
+const questions = [
+  // === STACK DEPTH ===
+  {type:"TF",tag:"Stack Depth",q:"True or False: You always play the effective stack, meaning the shortest stack in the hand.",correct:0,options:["True","False"],hint:"Think about what happens when a 10bb stack goes all-in against your 500bb stack.",expl:"You always play the effective stack. If someone has 25bb, you're playing 25bb poker against them regardless of your stack size."},
+  {type:"TF",tag:"Stack Depth",q:"True or False: Suited connectors increase in value as stacks get deeper.",correct:0,options:["True","False"],hint:"What kind of hands benefit from bigger implied odds?",expl:"Suited connectors can make nut hands (straights, flushes). The deeper the stacks, the more you can potentially win when you hit, so their implied odds increase dramatically."},
+  {type:"MC",tag:"Stack Depth",q:"At 200bb deep, which hand type goes DOWN in value compared to 100bb?",correct:1,options:["Suited aces","Offsuit broadways (KJo, QTo)","Small pairs","Suited connectors"],hint:"Which hands make top pair with a marginal kicker?",expl:"Offsuit broadways make top pair marginal kicker. Deep-stacked, if your opponent wants to put in 200bb, you're usually behind. These hands have severe reverse implied odds."},
+  {type:"MC",tag:"Stack Depth",q:"When playing 20-30bb effective, if your raise would put in more than 30% of your stack, you should usually:",correct:2,options:["Make a smaller raise","Call instead","Go all-in","Fold"],hint:"Think about pot commitment and the odds you'd be getting if opponent shoves.",expl:"If you put in 30% of your stack and opponent shoves, you're getting about 2:1 odds. Most hands win 33% of the time, so you'd have to call anyway. Just go all-in to get fold equity."},
+
+  // === POSITION ===
+  {type:"MC",tag:"Position",q:"Which position can profitably open the widest range of hands?",correct:0,options:["Button","Cutoff","Small Blind","Big Blind"],hint:"Which seat acts last on every post-flop street?",expl:"The button acts last on flop, turn, and river. This positional advantage allows you to play ~43% of hands -- far more than any other position."},
+  {type:"TF",tag:"Position",q:"True or False: Closing the action preflop from the big blind justifies playing almost any two cards.",correct:1,options:["True","False"],hint:"What happens on the flop, turn, and river from the BB?",expl:"False. While you close the action preflop, you are OOP on every post-flop street. Against a 3-4bb raise, you are not getting odds to play junk. Positional disadvantage is permanent."},
+
+  // === BET SIZING ===
+  {type:"FIB",tag:"Bet Sizing",q:"Using the pot-sized raise formula (3x last bet + dead money): facing 3 limpers at 1bb each, with SB (0.5bb) and BB (1bb), what is the pot-sized raise? (answer in bb)",correct:"6.5",hint:"3 x 1bb + (1 + 1 + 0.5 + 1) = ?",expl:"3 x 1 (last bet) = 3. Dead money = 2 other limpers (2bb) + SB (0.5bb) + BB (1bb) = 3.5bb. Total = 6.5bb."},
+  {type:"MC",tag:"Bet Sizing",q:"When 3-betting from out of position, how should your size compare to an in-position 3-bet?",correct:1,options:["Smaller","About 1 unit (the raise amount) larger","The same","Much smaller to save chips"],hint:"OOP you want to discourage calls and make stacks effectively shallower.",expl:"From OOP, raise about 1 unit larger (e.g., if IP 3-bet would be 10bb, OOP make it ~13bb). This discourages calls and reduces your positional disadvantage by making the SPR lower."},
+  {type:"MC",tag:"Bet Sizing",q:"What is the recommended open-raise size when folded to you at 100bb+?",correct:1,options:["2bb","3-3.5bb","5bb","Min-raise (2x)"],hint:"Not too small (opponents call too light) and not too big (only good hands give action).",expl:"3 to 3.5bb is the standard open-raise at 100bb+. This balances getting folds from weak hands while keeping the pot manageable when called."},
+
+  // === RANGE COMPOSITION ===
+  {type:"MC",tag:"Range Composition",q:"A player raises from UTG and someone in the HJ calls. The caller's range is best described as:",correct:2,options:["Linear","Polarized","Condensed","Uncapped"],hint:"The caller would have 3-bet their very best hands...",expl:"Condensed. The caller would have 3-bet premiums (AA, KK, AK) and doesn't have junk. Their range is medium-strength hands that flop well but aren't premium. This means they're capped on most high-card boards."},
+  {type:"MC",tag:"Range Composition",q:"When 3-betting from IP (e.g., BTN vs CO raise), your range should typically be:",correct:1,options:["Linear (all best hands)","Polarized (best hands + bluffs, skip the middle)","Condensed","Random"],hint:"You want the best hands for value and the worst playable hands as bluffs, while calling the middle.",expl:"Polarized. You 3-bet premiums for value (AA, KK, AKs) and bluffs (A5s, K9s), while calling the middle hands (JTs, 99, AJs) that flop well but don't want to face a 4-bet."},
+  {type:"TF",tag:"Range Composition",q:"True or False: When 3-betting from the big blind against a button raise, you should use a polarized range.",correct:1,options:["True","False"],hint:"Consider that OOP, your opponent is incentivized to call your 3-bet...",expl:"False. From the BB against a BTN raise, you should 3-bet with a strong linear range. Since you're OOP, your opponent is highly incentivized to call (they have position), so you want to make sure you're re-raising with genuinely strong hands."},
+
+  // === IMPLIED ODDS ===
+  {type:"FIB",tag:"Implied Odds",q:"Opponent raises to 3bb from a 100bb stack. You call on BTN. Pot is 7.5bb, remaining stacks are 97bb. What are your implied odds? (format: X.X to 1, e.g., 34.8)",correct:"34.8",hint:"(Remaining stacks + pot) / call amount",expl:"(97 + 7.5) / 3 = 34.83, rounded to 34.8 to 1. This is more than enough for any speculative hand."},
+  {type:"MC",tag:"Implied Odds",q:"What implied odds do you need to profitably call with small pairs (22-66)?",correct:1,options:["5:1","10:1","20:1","30:1"],hint:"You flop a set about 1 in 8.5 times.",expl:"10:1 implied odds for small pairs. You make three of a kind about 1 in 9 times, and when you hit, you need to win enough to compensate for all the misses."},
+  {type:"MC",tag:"Implied Odds",q:"What implied odds do you need for suited connectors and suited aces?",correct:2,options:["5:1","10:1","20:1","40:1"],hint:"These hands hit less often than pairs but make bigger hands when they connect.",expl:"20:1 implied odds. Suited connectors and suited aces hit nutted hands less often than pairs hit sets, so you need more compensation when you do connect."},
+  {type:"MC",tag:"Implied Odds",q:"Why can you accept slightly worse implied odds when in position?",correct:0,options:["You realize your equity better by seeing more streets cheaply","You have more chips","The pot is bigger","Your hand is stronger"],hint:"IP gives you control over the pot and information.",expl:"In position, you can check behind to see free cards, control the pot size, and make better decisions with more information. This means you realize more of your theoretical equity."},
+
+  // === REVERSE IMPLIED ODDS ===
+  {type:"MC",tag:"Reverse IO",q:"Which hand has the WORST reverse implied odds deep-stacked?",correct:2,options:["87s","A5s","KJo","55"],hint:"Which hand makes top pair with a marginal kicker most often?",expl:"KJo has terrible reverse implied odds. If you make top pair (K or J), and your opponent wants to put in lots of money, you're often behind (they have AK, KQ, AJ, etc.). Suited hands escape this by making flushes."},
+  {type:"TF",tag:"Reverse IO",q:"True or False: As stacks get shallower, hands with reverse implied odds become MORE playable.",correct:0,options:["True","False"],hint:"If you make one pair at 25bb deep, is that enough?",expl:"True. At shallow stacks, one pair is often good enough to stack off happily. KQo making top pair at 25bb deep is great. At 200bb deep, it's a disaster if opponent wants to put all the money in."},
+
+  // === MDF ===
+  {type:"FIB",tag:"MDF",q:"You raise to 3bb from LJ. HJ 3-bets to 10bb. What is the MDF? (answer as percentage, e.g., 31)",correct:"31",hint:"MDF = 1 - bet/(bet + pot). The pot includes your raise + blinds.",expl:"MDF = 1 - 10/(10 + 3 + 0.5 + 1) = 1 - 10/14.5 = 1 - 0.69 = 0.31 = 31%. You must continue with at least 31% of your range."},
+  {type:"TF",tag:"MDF",q:"True or False: MDF is divided among all players remaining in the pot, so multiway each player defends less.",correct:0,options:["True","False"],hint:"If there are 7 players behind, does each need to defend 31%?",expl:"True. In a multi-way pot, the responsibility to defend is shared. This is why facing an UTG raise with many players behind, you should play very tight from middle positions."},
+
+  // === RFI RANGES ===
+  {type:"FIB",tag:"RFI",q:"Approximately what percentage of hands should you open-raise from the LJ (UTG 6-max) at 100bb? (answer as number, e.g., 17)",correct:"17",hint:"It's a tight range -- about pairs 55+, ATs+, a few suited connectors.",expl:"~17% of hands from the LJ. This includes pairs 55+, suited aces A2s-ATs+, suited broadways KJs+/QJs/JTs, a few suited connectors (T9s, 98s), and offsuit broadways AJo+/KQo."},
+  {type:"FIB",tag:"RFI",q:"Approximately what percentage of hands should you open-raise from the BTN at 100bb? (answer as number, e.g., 43)",correct:"43",hint:"The button plays the widest range of any position.",expl:"~43% of hands from the BTN. All pairs, all suited aces, all suited kings, most suited queens/jacks, suited connectors down to 54s, and many offsuit broadways."},
+  {type:"TF",tag:"RFI",q:"True or False: You should sometimes open-limp when folded to you in cash games with rake.",correct:1,options:["True","False"],hint:"What happens to the pot when you limp and see a flop?",expl:"False. Never open-limp with rake. When you limp and see a flop, the house takes 5-10% of the pot immediately. When you raise and everyone folds, you collect the blinds with no rake taken."},
+
+  // === FACING RAISE ===
+  {type:"MC",tag:"Facing Raise",q:"From the HJ facing an LJ (UTG) raise, with rake and good opponents, your strategy should be:",correct:0,options:["3-bet or fold only","Call with implied odds hands, 3-bet strong hands","Always call to see a flop","Fold everything"],hint:"Can you profitably have a calling range from HJ with rake?",expl:"3-bet or fold only from HJ. With rake, there is no profitable calling range from middle positions against an EP raise. If you call, the BTN can overcall and someone can squeeze."},
+  {type:"MC",tag:"Facing Raise",q:"From the BTN facing an LJ raise, which hand is most appropriate to CALL (not 3-bet)?",correct:1,options:["AJo","98s","K3o","Q7o"],hint:"Which hand has good implied odds and flops well?",expl:"98s is a great calling hand on the BTN. It's a suited connector with implied odds -- you can make straights and flushes. AJo should be a 3-bet or fold. K3o and Q7o are never playable facing a raise."},
+  {type:"MC",tag:"Facing Raise",q:"Why should the SB mostly 3-bet (not call) when facing a raise?",correct:2,options:["To win more money","To build the pot for premium hands","To avoid playing 3-way OOP with worst relative position","Because SB has a strong range"],hint:"What happens if SB calls and BB comes along?",expl:"If SB calls, BB gets good odds and calls too. Now SB is playing 3-way, going first on every street, not knowing what BB will do after the raiser acts. This is the worst possible spot in poker."},
+
+  // === FACING 3-BET ===
+  {type:"MC",tag:"Facing 3-Bet",q:"You raise KQo from the CO and the BTN 3-bets. Against a solid player, you should:",correct:2,options:["Call","4-bet for value","Fold","4-bet as a bluff"],hint:"KQo has reverse implied odds facing a 3-bet.",expl:"Fold. KQo is dominated by AK, AQ, and sometimes KK/QQ in the 3-bettor's range. If you make top pair and face a big bet, you're in terrible shape. Use KQo as a fold or sometimes a 4-bet bluff, never a call."},
+  {type:"MC",tag:"Facing 3-Bet",q:"You raise from LJ and the CO 3-bets. Which hand should you CALL with?",correct:1,options:["AJo","76s","KTo","Q9o"],hint:"Which hand is least likely to be dominated and has good playability?",expl:"76s. It's far less likely to be dominated than AJo or KTo. When 76s makes a hand (straight or flush), it's usually the nuts. The offsuit hands have reverse implied odds and should fold."},
+  {type:"MC",tag:"Facing 3-Bet",q:"When you are IN POSITION facing a 3-bet compared to OUT OF POSITION, you should:",correct:0,options:["Call more, 4-bet less","Call less, 4-bet more","Play the same range","Fold more in both cases"],hint:"IP you realize equity better by calling.",expl:"In position, call more and 4-bet less. You realize your equity better in position, so calling with speculative hands is profitable. OOP, you should 4-bet or fold more, because calling doesn't realize equity well."},
+
+  // === LIMPERS ===
+  {type:"MC",tag:"Limpers",q:"A player who rarely limps suddenly limps from UTG. This most likely indicates:",correct:1,options:["A very weak hand","A tricky trap with a premium hand","A suited connector","Random play"],hint:"When a normally active player makes an unusual play from EP...",expl:"Alarm bells should go off. When someone who normally raises suddenly limps from EP, they're very often trapping with a premium hand (AA, KK). Approach with extreme caution."},
+  {type:"MC",tag:"Limpers",q:"Against a straightforward limper, your raising range should be:",correct:0,options:["Similar to your RFI range for that position","Much tighter than RFI","Much wider than RFI","Only premium hands"],hint:"A straightforward limper has already indicated weakness.",expl:"Similar to your RFI range. The straightforward limper has a weak hand (otherwise they'd have raised), so you can raise your normal range. You might even raise slightly wider if they fold a lot."},
+  {type:"TF",tag:"Limpers",q:"True or False: You should never bluff over multiple limpers from the big blind.",correct:1,options:["True","False"],hint:"What if all the limpers are straightforward with garbage?",expl:"False. If you know all limpers are straightforward with weak hands, raising big (12-14bb) from the BB can collect the pot almost every time. Don't do it too often, but it's a profitable play once every few hours."},
+
+  // === COLD 4-BET & 4-BET ===
+  {type:"MC",tag:"Cold 4-Bet",q:"At 100bb, facing a raise and a 3-bet (you have no money in), your strategy should be:",correct:1,options:["Call with implied odds hands","4-bet or fold only (no calling range)","3-bet squeeze","Call only with pairs"],hint:"If you call, the initial raiser can 4-bet and kill your implied odds.",expl:"4-bet or fold. At 100bb, if you call a 3-bet, the initial raiser will 4-bet often enough to destroy your implied odds. You cannot profitably set-mine because you may not see a flop."},
+  {type:"MC",tag:"Facing 4-Bet",q:"AQo facing a 4-bet at 100bb. Your play?",correct:2,options:["Call","5-bet all-in","Fold","It depends on position"],hint:"Most small-stakes players 4-bet very tightly.",expl:"Fold. AQo facing a 4-bet is a clear fold at 100bb in almost all games. Most opponents only 4-bet with QQ+ and AK. You're dominated too often. This is one of the biggest leaks in small-stakes games."},
+  {type:"MC",tag:"Facing 4-Bet",q:"Which hands should almost never call a deep-stacked 4-bet?",correct:1,options:["Small pairs","Big offsuit hands with reverse implied odds","Suited connectors","Suited aces"],hint:"Which hands are dominated when they hit top pair?",expl:"Big offsuit hands (AQo, KQo, AJo) should almost never call a 4-bet deep-stacked. They have reverse implied odds -- when they hit, they're often behind. Pairs and suited hands have better implied odds."},
+
+  // === 200BB ADJUSTMENTS ===
+  {type:"MC",tag:"200bb Deep",q:"At 200bb, the BTN RFI is approximately what percentage of hands?",correct:2,options:["41%","43%","46%","50%"],hint:"It's a few percent wider than 100bb, adding suited connectors and gappers.",expl:"~46% at 200bb (vs ~41% at 100bb). The extra hands are suited connectors and gappers like 85s, 53s, 43s that benefit from deeper implied odds."},
+  {type:"MC",tag:"200bb Deep",q:"At 200bb, your 4-bet bluffs should come more from:",correct:1,options:["Big offsuit hands like ATo","Suited connectors like 87s and 76s","Random hands","Only premiums"],hint:"At 200bb, opponents call 4-bets more often, so you want post-flop playability.",expl:"Suited connectors. At 200bb, opponents are more incentivized to call your 4-bet (better implied odds for them). So your bluffs should have post-flop playability, not just blockers."},
+  {type:"TF",tag:"200bb Deep",q:"True or False: KXs (like K9s, K8s) is a good hand to call a 4-bet with when deep-stacked.",correct:1,options:["True","False"],hint:"What is the most common hand in a 4-betting range that dominates Kx?",expl:"False. King-X suited is dominated by AK, which is a staple of every 4-betting range. If you make a flush with K9s and your opponent has AK of the same suit, you lose your entire 200bb stack."},
+  {type:"MC",tag:"200bb Deep",q:"When facing a 3-bet at 200bb from OOP, your 3-betting range should become more:",correct:0,options:["Linear (with hands that have post-flop playability)","Polarized (nuts and bluffs)","Condensed","Tight"],hint:"Deeper stacks mean opponents call more, so bluffs with no playability are worse.",expl:"More linear. At 200bb, opponents are more incentivized to call your 3-bet because of better implied odds. So you want to 3-bet hands with genuine post-flop playability (suited aces, good suited connectors) rather than pure bluffs."},
+
+  // === QUIZ-DERIVED ===
+  {type:"TF",tag:"Quiz: Facing Raise 200bb",q:"True or False: When facing a preflop raise at 200bb, there are scenarios where you should deviate from the GTO charts.",correct:0,options:["True","False"],hint:"GTO assumes opponents play perfectly...",expl:"True. GTO charts assume perfect play. In reality, opponents make mistakes (calling too wide, not 3-betting enough, etc.), so you should adjust to exploit their errors."},
+  {type:"MC",tag:"Quiz: Facing Raise 200bb",q:"Why do the charts recommend folding AQo at 200bb on the BTN vs UTG raise, but not at 100bb?",correct:2,options:["Your pot odds are worse","The MDF does not justify continuing","Reverse implied odds hands become less valuable as stack depth increases"],hint:"What happens when AQo makes top pair and your opponent puts in 200bb?",expl:"Reverse implied odds. At 200bb, if you make top pair with AQ and your opponent puts in massive bets, you're often behind. The deeper the stacks, the more costly these reverse-IO situations become."},
+  {type:"MC",tag:"Quiz: 3-Bet Pots",q:"In 3-bet pots, the SPR (stack-to-pot ratio) is lower. Should your c-bet sizes get smaller or larger?",correct:0,options:["Smaller","Larger"],hint:"When SPR is low, a small bet already commits a big portion of remaining stacks.",expl:"Smaller. With a lower SPR, a small bet is already a significant portion of the remaining stacks. You don't need to bet big to put pressure on your opponent."},
+];
+
+let state = {current:0, answered:[], missed:[], mode:'normal', order:[]};
+
+function init() {
+  state.current = 0;
+  state.answered = new Array(questions.length).fill(false);
+  state.missed = [];
+  state.order = [...Array(questions.length).keys()];
+  shuffle(state.order);
+  render();
+}
+
+function shuffle(arr) {
+  for (let i = arr.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+}
+
+function render() {
+  if (state.current >= state.order.length) { showSummary(); return; }
+  const idx = state.order[state.current];
+  const q = questions[idx];
+  const total = state.order.length;
+  const num = state.current + 1;
+
+  document.getElementById('progressText').textContent = `${num} / ${total}`;
+  document.getElementById('progressBar').style.width = `${(num/total)*100}%`;
+  document.getElementById('nextBtn').style.display = 'none';
+  document.getElementById('hintBtn').style.display = '';
+
+  let html = `<div class="card"><div class="tag">${q.tag} &mdash; ${q.type}</div><div class="question">${q.q}</div>`;
+
+  if (q.type === 'FIB') {
+    html += `<div class="fib-row"><input class="fib-input" id="fibInput" type="text" placeholder="Your answer..." onkeydown="if(event.key==='Enter')checkFIB()"><button class="fib-submit" onclick="checkFIB()">Check</button></div>`;
+  } else {
+    html += `<div class="options">`;
+    q.options.forEach((opt, i) => {
+      html += `<button class="option-btn" data-idx="${i}" onclick="checkMC(${idx},${i})"><span class="key">${i+1}</span><span>${opt}</span></button>`;
+    });
+    html += `</div>`;
+  }
+
+  html += `<div class="hint" id="hintArea">${q.hint}</div>`;
+  html += `<div class="explanation" id="explArea">${q.expl}</div>`;
+  html += `</div>`;
+
+  document.getElementById('questionArea').innerHTML = html;
+  if (q.type === 'FIB') setTimeout(() => document.getElementById('fibInput')?.focus(), 50);
+}
+
+function checkMC(qIdx, chosen) {
+  const q = questions[qIdx];
+  if (state.answered[qIdx]) return;
+  state.answered[qIdx] = true;
+
+  const btns = document.querySelectorAll('.option-btn');
+  btns.forEach(b => {
+    b.classList.add('locked');
+    const i = parseInt(b.dataset.idx);
+    if (i === q.correct) b.classList.add('correct');
+    else if (i === chosen) b.classList.add('wrong');
+  });
+
+  if (chosen !== q.correct) state.missed.push(qIdx);
+  document.getElementById('explArea').style.display = 'block';
+  document.getElementById('nextBtn').style.display = '';
+}
+
+function checkFIB() {
+  const idx = state.order[state.current];
+  const q = questions[idx];
+  if (state.answered[idx]) return;
+  state.answered[idx] = true;
+
+  const input = document.getElementById('fibInput');
+  const val = input.value.trim().replace('%','');
+  const correct = val === q.correct || val === q.correct.toString();
+
+  input.style.borderColor = correct ? 'var(--correct)' : 'var(--wrong)';
+  input.style.background = correct ? '#f0fdf4' : '#fef2f2';
+  input.readOnly = true;
+
+  if (!correct) {
+    state.missed.push(idx);
+    const note = document.createElement('div');
+    note.style.cssText = 'margin-top:0.5rem;font-family:JetBrains Mono;font-size:0.9rem;color:var(--correct)';
+    note.textContent = `Correct answer: ${q.correct}`;
+    input.parentElement.appendChild(note);
+  }
+
+  document.getElementById('explArea').style.display = 'block';
+  document.getElementById('nextBtn').style.display = '';
+}
+
+function showHint() {
+  document.getElementById('hintArea').style.display = 'block';
+}
+
+function nextQuestion() {
+  state.current++;
+  render();
+}
+
+function showSummary() {
+  const total = state.order.length;
+  const missed = state.missed.length;
+  const score = total - missed;
+  const pct = Math.round((score/total)*100);
+
+  document.getElementById('progressText').textContent = `Done!`;
+  document.getElementById('progressBar').style.width = '100%';
+  document.getElementById('controlsArea').innerHTML = '';
+
+  let html = `<div class="summary">
+    <h2>${state.mode === 'review' ? 'Review Complete' : 'Drill Complete'}</h2>
+    <div class="score-big">${pct}%</div>
+    <div class="score-label">${score} / ${total} correct</div>
+    <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap">
+      <button class="btn btn-primary" onclick="init()">Restart (R)</button>
+      ${missed > 0 ? `<button class="btn" onclick="reviewMissed()">Review ${missed} Missed (M)</button>` : ''}
+    </div>
+  </div>`;
+
+  document.getElementById('questionArea').innerHTML = html;
+}
+
+function reviewMissed() {
+  if (state.missed.length === 0) return;
+  state.order = [...state.missed];
+  shuffle(state.order);
+  state.current = 0;
+  state.answered = new Array(questions.length).fill(false);
+  state.missed = [];
+  state.mode = 'review';
+  document.getElementById('controlsArea').innerHTML = `
+    <button class="btn" id="hintBtn" onclick="showHint()">Hint (H)</button>
+    <button class="btn btn-primary" id="nextBtn" onclick="nextQuestion()" style="display:none">Next (Space)</button>
+  `;
+  render();
+}
+
+document.addEventListener('keydown', e => {
+  if (e.target.tagName === 'INPUT') return;
+  const idx = state.order[state.current];
+  if (!idx && idx !== 0) return;
+  const q = questions[idx];
+
+  if (e.key >= '1' && e.key <= '4' && q && q.type !== 'FIB' && !state.answered[idx]) {
+    const choice = parseInt(e.key) - 1;
+    if (choice < q.options.length) checkMC(idx, choice);
+  }
+  if (e.key === ' ' || e.code === 'Space') { e.preventDefault(); if (document.getElementById('nextBtn')?.style.display !== 'none') nextQuestion(); }
+  if (e.key === 'h' || e.key === 'H') showHint();
+  if (e.key === 'r' || e.key === 'R') init();
+  if (e.key === 'm' || e.key === 'M') reviewMissed();
+});
+
+init();
+</script>
+</body>
+</html>

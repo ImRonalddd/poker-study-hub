@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chapter 5: Playing the River -- Drills</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;1,400;1,600&family=Source+Serif+4:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'\(',right:'\)',display:false}]})"></script>
+<style>
+:root {
+  --bg: #FFFFFF; --surface: #FFFFFF; --surface2: #F5F5F5;
+  --accent: #000000; --text: #000000; --text-dim: #525252;
+  --correct: #1a7a5e; --wrong: #b91c1c; --orange: #8B6914;
+  --border: #000000; --border-light: #E5E5E5;
+}
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; border-radius:0 !important; }
+body { font-family:'Source Serif 4','Georgia',serif; background:var(--bg); color:var(--text); line-height:1.6; -webkit-font-smoothing:antialiased; }
+
+.container { max-width:680px; margin:0 auto; padding:0 1.5rem 4rem; }
+
+header { padding:3.5rem 0 2rem; text-align:center; border-bottom:4px solid var(--accent); margin-bottom:2rem; }
+header h1 { font-family:'Playfair Display',serif; font-weight:800; font-size:2.2rem; letter-spacing:-0.02em; line-height:1.15; margin-bottom:0.4rem; }
+header .sub { font-family:'JetBrains Mono',monospace; font-size:0.7rem; font-weight:500; text-transform:uppercase; letter-spacing:0.15em; color:var(--text-dim); }
+
+/* Progress bar */
+.progress-bar { width:100%; height:6px; background:var(--surface2); border:1px solid var(--border-light); margin-bottom:1.5rem; }
+.progress-fill { height:100%; background:var(--accent); transition:width 0.3s; }
+
+.status { font-family:'JetBrains Mono',monospace; font-size:0.75rem; color:var(--text-dim); text-align:center; margin-bottom:1.5rem; letter-spacing:0.05em; }
+
+/* Question card */
+.card { border:1px solid var(--border); padding:2rem; margin-bottom:1.5rem; }
+.card .q-num { font-family:'JetBrains Mono',monospace; font-size:0.7rem; font-weight:600; text-transform:uppercase; letter-spacing:0.1em; color:var(--text-dim); margin-bottom:0.75rem; display:block; }
+.card .q-text { font-size:1.1rem; font-weight:500; margin-bottom:1.5rem; line-height:1.5; }
+
+/* Options */
+.options { display:flex; flex-direction:column; gap:0.6rem; }
+.opt-btn { display:block; width:100%; text-align:left; font-family:'Source Serif 4','Georgia',serif; font-size:1rem; padding:0.85rem 1.1rem; background:var(--surface); border:1px solid var(--border); cursor:pointer; transition:background 0.1s, border-color 0.1s; line-height:1.4; }
+.opt-btn:hover:not(:disabled) { background:var(--surface2); }
+.opt-btn:disabled { cursor:default; }
+.opt-btn.correct { background:#e6f4ee; border-color:var(--correct); color:var(--correct); font-weight:600; }
+.opt-btn.wrong { background:#fce8e8; border-color:var(--wrong); color:var(--wrong); }
+
+/* Explanation */
+.explanation { margin-top:1rem; padding:1rem 1.25rem; background:var(--surface2); border-left:4px solid var(--accent); font-size:0.95rem; line-height:1.6; display:none; }
+.explanation.show { display:block; }
+
+/* Hotkey hints */
+.hotkeys { font-family:'JetBrains Mono',monospace; font-size:0.65rem; color:var(--text-dim); text-align:center; margin-bottom:1rem; letter-spacing:0.05em; }
+.hotkeys kbd { background:var(--surface2); border:1px solid var(--border-light); padding:0.1em 0.4em; font-size:0.65rem; }
+
+/* Nav buttons */
+.nav-row { display:flex; gap:1rem; justify-content:center; margin-top:1.5rem; }
+.nav-btn { font-family:'JetBrains Mono',monospace; font-size:0.75rem; font-weight:600; text-transform:uppercase; letter-spacing:0.1em; padding:0.7rem 1.5rem; border:1px solid var(--border); background:var(--surface); cursor:pointer; transition:background 0.1s, color 0.1s; }
+.nav-btn:hover { background:var(--accent); color:#fff; }
+.nav-btn:disabled { opacity:0.3; cursor:default; }
+.nav-btn:disabled:hover { background:var(--surface); color:var(--text); }
+
+/* Results screen */
+.results { text-align:center; padding:3rem 0; display:none; }
+.results h2 { font-family:'Playfair Display',serif; font-size:2rem; margin-bottom:0.5rem; }
+.results .score { font-family:'JetBrains Mono',monospace; font-size:1.2rem; margin-bottom:1.5rem; }
+.results .score .num { font-size:2.5rem; font-weight:700; }
+</style>
+</head>
+<body>
+<div class="container">
+
+<header>
+  <h1>River Play Drills</h1>
+  <div class="sub">Chapter 5 -- 23 Questions -- Shuffle + Review Missed</div>
+</header>
+
+<div class="hotkeys"><kbd>1</kbd>-<kbd>4</kbd> answer &middot; <kbd>N</kbd> next &middot; <kbd>R</kbd> restart</div>
+
+<div class="progress-bar"><div class="progress-fill" id="progFill"></div></div>
+<div class="status" id="status"></div>
+
+<div id="quizArea">
+  <div class="card" id="card">
+    <span class="q-num" id="qNum"></span>
+    <div class="q-text" id="qText"></div>
+    <div class="options" id="opts"></div>
+    <div class="explanation" id="expl"></div>
+  </div>
+  <div class="nav-row">
+    <button class="nav-btn" id="nextBtn" onclick="nextQ()" disabled>Next &rarr;</button>
+  </div>
+</div>
+
+<div class="results" id="results">
+  <h2>Session Complete</h2>
+  <div class="score"><span class="num" id="finalScore"></span> / <span id="finalTotal"></span></div>
+  <div class="nav-row">
+    <button class="nav-btn" id="reviewBtn" onclick="reviewMissed()">Review Missed</button>
+    <button class="nav-btn" onclick="restart()">Restart All</button>
+  </div>
+</div>
+
+</div>
+
+<script>
+const ALL_QUESTIONS = [
+  {
+    q: "On the river, your range is a mixture of which two types of hands?",
+    opts: ["Semi-bluffs and value hands", "Value hands and bluffs", "Draws and made hands", "Thin value and marginal hands"],
+    ans: 1,
+    expl: "Unlike earlier streets, the river has no draws or semi-bluffs. Your range is purely value bets (expect to win >50% when called) and bluffs (expect to lose ~100% when called)."
+  },
+  {
+    q: "You bet 75% pot on the river with a polarized range. What is the maximum percentage of bluffs you should have?",
+    opts: ["20%", "25%", "30%", "33%"],
+    ans: 2,
+    expl: "Bluff% = Call / (Pot + Bet + Call) = 75 / (100 + 75 + 75) = 30%. The formula gives the opponent the pot odds they need, making them indifferent to calling."
+  },
+  {
+    q: "You bet 200% pot on the river. Approximately what percentage of your range can be bluffs?",
+    opts: ["30%", "35%", "40%", "45%"],
+    ans: 2,
+    expl: "200 / (100 + 200 + 200) = 40%. As bet sizes increase, you get to have more bluffs because your opponent needs to win more often to justify calling."
+  },
+  {
+    q: "Which factor does NOT increase the number of traps in your opponent's range?",
+    opts: ["Opponent has a large nut advantage", "You use small bet sizes", "You have a large range advantage", "Opponent is prone to slow-playing"],
+    ans: 2,
+    expl: "When you have a large range advantage, the opponent is the one under pressure. Traps increase when the opponent has the nut advantage, you bet small (they have random two-pairs), or they're tricky/slow-playing."
+  },
+  {
+    q: "You hold Q♦J♦ on a board of 10-9-4 (two diamonds) -- 9 -- 2. Is this a good or bad hand to bluff with?",
+    opts: ["Good -- we have two overcards", "Bad -- we block opponent's auto-folds (KQ, KJ, AQ, AJ)", "Good -- we have a flush draw blocker", "Bad -- queen-high has showdown value"],
+    ans: 1,
+    expl: "Q-J blocks hands like K-Q, K-J, A-Q, A-J that opponent would automatically fold. This makes them more likely to have a pair they won't fold, making your bluff less effective."
+  },
+  {
+    q: "On the river, your opponent is a known calling station. According to the bluffing decision flowchart, what should you do?",
+    opts: ["Bluff more -- they call too wide", "Bluff less or never -- they won't fold", "Bluff the same amount -- stay balanced", "Only bluff with nut blockers"],
+    ans: 1,
+    expl: "The first question on the flowchart is 'Is my opponent capable of folding?' Against a calling station: No. Don't bluff. Instead, value bet wider since they call too much."
+  },
+  {
+    q: "In position on the river with SPR ≤ 1 (shallow stacked), how many bet sizes should you use?",
+    opts: ["Three: small, medium, all-in", "Two: half pot and all-in", "One: all-in only", "Depends on the board texture"],
+    ans: 2,
+    expl: "When SPR ≤ 1 in position, use only one bet size: all-in. Do not go for thin value with small bets -- if you bet and get raised, it's a disaster."
+  },
+  {
+    q: "Out of position on the river, what is the ideal hand to check-raise bluff with?",
+    opts: ["A busted flush draw (no pair)", "Bottom pair or weak fourth pair", "Ace-high with no pair", "The second-best hand in your range"],
+    ans: 1,
+    expl: "Bottom pair / weak pair is ideal because: (1) it can win if it goes check-check (showdown value), (2) it blocks opponent's sets and two-pair (their calling hands), making the check-raise bluff more effective."
+  },
+  {
+    q: "What is a bluff catcher?",
+    opts: ["A hand that beats some value bets and all bluffs", "A hand that beats all bluffs but loses to all value hands", "Any hand with a pair or better", "A hand that blocks opponent's bluffing range"],
+    ans: 1,
+    expl: "A bluff catcher beats ALL of opponent's bluffs but loses to ALL of their value hands. If you beat some value hands too, it's just a good hand, not a bluff catcher."
+  },
+  {
+    q: "You face a river all-in on 9-7-5-2-9 and hold A♠2♠ (one pair of twos). Should you call or fold?",
+    opts: ["Fold -- one pair of twos is terrible", "Call -- A-2 doesn't block opponent's bluffs (J-10, etc.)", "Fold -- you need at least top pair", "Call -- you have an ace kicker"],
+    ans: 1,
+    expl: "When opponent is perfectly polarized, all bluff catchers have roughly the same equity. A-2 is actually a better call than 10-9 (trips!) because A-2 doesn't block the obvious bluffs (J-10) while 10-9 does."
+  },
+  {
+    q: "You bet the river and get raised. Your opponent is a typical small-stakes player. What should you do with most of your range?",
+    opts: ["Call -- you need to defend at MDF", "Raise back -- they might be bluffing", "Fold -- opponents almost never bluff enough in this spot", "It depends on your blockers entirely"],
+    ans: 2,
+    expl: "When you bet and get raised on the river, fold a lot. This is the most under-bluffed spot in poker. At small stakes, opponents show up with the goods when they raise the river."
+  },
+  {
+    q: "You overbet the turn and your opponent calls. On the river, should you bet thin value (e.g., top pair bad kicker)?",
+    opts: ["Yes -- you have the initiative", "No -- opponent's range is condensed and strong after calling the overbet", "Only if you're in position", "Only if the river improves your hand"],
+    ans: 1,
+    expl: "After calling a turn overbet, opponent's range is strong (they folded all junk). Be very cautious with thin value on the river. In many solver solutions, even two-pair checks back here."
+  },
+  {
+    q: "When the river is especially good for your range (you have the nut advantage), how should you adjust your bluffing?",
+    opts: ["Bluff less -- you already have value", "Bluff the same amount", "Bluff more -- nut advantage lets you use bigger sizes with more bluffs", "Stop bluffing entirely and only value bet"],
+    ans: 2,
+    expl: "Good rivers that give you the nut advantage let you bet bigger. Bigger bets = more bluffs allowed by the formula. You also get raised less and opponent overfolds."
+  },
+  {
+    q: "From OOP, what should your checking range contain on the river?",
+    opts: ["Only marginal made hands and junk", "Mostly junk that will fold to any bet", "Marginal hands, some junk, AND some super nuts for check-raising", "Only hands that plan to check-call"],
+    ans: 2,
+    expl: "OOP checking range must contain: (1) marginal made hands to call, (2) some junk that folds, and (3) some super nuts looking to check-raise for value, plus weak pairs for check-raise bluffs."
+  },
+  {
+    q: "BTN raises, BB calls. Check-check flop on J♠-6♥-6♣. Bet small flop, check-check turn (4♠). On the ace river IP, should you overbet?",
+    opts: ["Yes -- ace gives you the nut advantage", "No -- after check-check turn, you lack super nuts for overbetting", "Yes -- always overbet with strong hands", "No -- paired boards never warrant overbets"],
+    ans: 1,
+    expl: "After check-check on the turn, your range lacks super nuts (you would have bet them on the turn). Use small/medium bets (~50% pot) on the river. No overbetting."
+  },
+  {
+    q: "When facing a small river bet, should you raise more or less often compared to facing a large bet?",
+    opts: ["Raise less -- small bets indicate strength", "Raise more -- small bets indicate a marginal range you can attack", "The same amount regardless of size", "Never raise against small bets"],
+    ans: 1,
+    expl: "When facing a small bet, opponent typically has a marginal, non-premium range. You can raise wider for value (they call with worse) and bluff raise more (they fold marginal hands to big raises)."
+  },
+  {
+    q: "What is the best bluff-raising size on the river when facing a small bet?",
+    opts: ["Min-raise (2x their bet)", "2-5x pot (huge)", "50% pot", "The same size as their bet"],
+    ans: 1,
+    expl: "Bluff raise huge (2-5x pot) to maximize fold equity. Against a small bet, opponent has marginal made hands. A small raise gives them good odds to call, but a huge raise forces them to fold."
+  },
+  {
+    q: "On the river, you bet small (25% pot) from IP and get check-raised. How should you respond?",
+    opts: ["Always fold -- check-raises mean the nuts", "Overfold but not as much as when you bet big", "Defend at exactly MDF", "Defend closer to MDF -- your small bet may have induced bluffs"],
+    ans: 3,
+    expl: "When you bet small and get raised, defend closer to MDF because your small bet may have induced the opponent to bluff-raise with their marginal hands. Ask: 'Did I induce my opponent to bluff me?'"
+  },
+  {
+    q: "BTN raises, BB calls. 9♦-7♣-5♠-2♥. BB overbets turn, BTN calls. River 8♣. The BB should bet with what frequency?",
+    opts: ["Rarely -- the 8 is bad for BB", "Very frequently -- 8 gives BB a range and equity advantage", "About 50% -- it's neutral", "Only with the nuts"],
+    ans: 1,
+    expl: "The 8 is great for the BB because BTN would have bet most of their 8s/6s (straights) on the flop. BB has lots of 8s and 6s in their turn overbetting range. Bet frequently (~67%), mostly small."
+  },
+  {
+    q: "When deciding to call a river bet, which matters more: raw equity of your hand, or whether you block the opponent's bluffs?",
+    opts: ["Raw equity", "Blockers", "They matter equally", "Neither -- only pot odds matter"],
+    ans: 1,
+    expl: "Against a polarized range, all bluff catchers have roughly the same equity. The differentiator is blockers. Block value hands (good for calling), don't block bluffs (good for calling)."
+  },
+  {
+    q: "When your opponent bets the river using a linear (non-polarized) range, should you raise more or less often?",
+    opts: ["More often -- linear ranges are vulnerable to raises", "Less often -- linear ranges are well-protected", "The same as against polarized ranges", "Never raise against linear ranges"],
+    ans: 0,
+    expl: "Raise more often against linear ranges. Linear ranges contain many marginal hands that fold to raises. Polarized ranges contain only nuts (which never fold) and bluffs (which always fold to any raise size)."
+  },
+  {
+    q: "On the river from OOP, you check and opponent bets. On the board K♠-K♥-6♦-2♠-A♣, which is the better bluff catcher: A♥7♣ or A♥J♣?",
+    opts: ["A-J is better -- higher kicker", "A-7 is better -- it doesn't block opponent's bluffs (Q-J, J-10, etc.)", "They're equal -- both have an ace", "Neither should call -- the board is too scary"],
+    ans: 1,
+    expl: "A-7 is better because A-J blocks the opponent's bluffs (Q-J, J-10 type hands). A-7 doesn't block those bluffs, so the opponent is more likely to be bluffing when you hold A-7."
+  },
+  {
+    q: "As you bet bigger and bigger on the river, your range should become:",
+    opts: ["More linear / merged", "More polarized (nuts + bluffs only)", "More balanced between all hand types", "Weighted toward thin value hands"],
+    ans: 1,
+    expl: "Bigger bets demand more polarized ranges. When you bet pot+, your range should be primarily the nuts (for value) and pure bluffs (that can never win at showdown)."
+  }
+];
+
+let questions = [], current = 0, score = 0, answered = [], missed = [];
+
+function shuffle(arr) {
+  for (let i = arr.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+  return arr;
+}
+
+function init(qs) {
+  questions = qs;
+  current = 0;
+  score = 0;
+  answered = new Array(qs.length).fill(false);
+  missed = [];
+  document.getElementById('results').style.display = 'none';
+  document.getElementById('quizArea').style.display = 'block';
+  showQ();
+}
+
+function showQ() {
+  const q = questions[current];
+  document.getElementById('qNum').textContent = `Question ${current + 1} of ${questions.length}`;
+  document.getElementById('qText').textContent = q.q;
+  document.getElementById('progFill').style.width = ((current / questions.length) * 100) + '%';
+  document.getElementById('status').textContent = `Score: ${score} / ${questions.length}`;
+  const optsDiv = document.getElementById('opts');
+  optsDiv.innerHTML = '';
+  q.opts.forEach((text, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'opt-btn';
+    btn.textContent = text;
+    btn.onclick = () => pick(i);
+    optsDiv.appendChild(btn);
+  });
+  document.getElementById('expl').className = 'explanation';
+  document.getElementById('expl').textContent = '';
+  document.getElementById('nextBtn').disabled = true;
+}
+
+function pick(i) {
+  if (answered[current]) return;
+  answered[current] = true;
+  const q = questions[current];
+  const btns = document.querySelectorAll('.opt-btn');
+  btns.forEach(b => b.disabled = true);
+  if (i === q.ans) {
+    btns[i].classList.add('correct');
+    score++;
+  } else {
+    btns[i].classList.add('wrong');
+    btns[q.ans].classList.add('correct');
+    missed.push(q);
+  }
+  document.getElementById('status').textContent = `Score: ${score} / ${questions.length}`;
+  const expl = document.getElementById('expl');
+  expl.textContent = q.expl;
+  expl.className = 'explanation show';
+  document.getElementById('nextBtn').disabled = false;
+}
+
+function nextQ() {
+  if (current < questions.length - 1) {
+    current++;
+    showQ();
+  } else {
+    showResults();
+  }
+}
+
+function showResults() {
+  document.getElementById('quizArea').style.display = 'none';
+  document.getElementById('results').style.display = 'block';
+  document.getElementById('finalScore').textContent = score;
+  document.getElementById('finalTotal').textContent = questions.length;
+  document.getElementById('progFill').style.width = '100%';
+  document.getElementById('reviewBtn').disabled = missed.length === 0;
+  if (missed.length === 0) {
+    document.getElementById('reviewBtn').textContent = 'All Correct!';
+  } else {
+    document.getElementById('reviewBtn').textContent = `Review ${missed.length} Missed`;
+  }
+}
+
+function reviewMissed() {
+  if (missed.length === 0) return;
+  init(shuffle([...missed]));
+}
+
+function restart() {
+  init(shuffle([...ALL_QUESTIONS]));
+}
+
+document.addEventListener('keydown', e => {
+  const key = e.key.toLowerCase();
+  if (key >= '1' && key <= '4') {
+    const idx = parseInt(key) - 1;
+    const btns = document.querySelectorAll('.opt-btn');
+    if (idx < btns.length && !answered[current]) btns[idx].click();
+  } else if (key === 'n') {
+    if (!document.getElementById('nextBtn').disabled) nextQ();
+  } else if (key === 'r') {
+    restart();
+  }
+});
+
+// Start
+init(shuffle([...ALL_QUESTIONS]));
+</script>
+</body>
+</html>

@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hand Reviews — Decision Drills</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;1,400;1,600&family=Source+Serif+4:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #FFFFFF; --surface: #FFFFFF; --surface2: #F5F5F5;
+  --accent: #000000; --text: #000000; --text-dim: #525252;
+  --correct: #1a7a5e; --wrong: #b91c1c; --orange: #8B6914;
+  --border: #000000; --border-light: #E5E5E5;
+}
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; border-radius:0!important; }
+body { font-family:'Source Serif 4','Georgia',serif; background:var(--bg); color:var(--text); line-height:1.6; }
+.container { max-width:700px; margin:0 auto; padding:2rem; }
+header { text-align:center; padding:2rem 0; }
+header h1 { font-family:'Playfair Display',serif; font-weight:800; font-size:2.2rem; margin-bottom:0.3rem; }
+header .subtitle { font-family:'JetBrains Mono',monospace; font-size:0.75rem; text-transform:uppercase; letter-spacing:0.15em; color:var(--text-dim); }
+.divider { border:none; border-top:4px solid var(--accent); margin:0 0 2rem; }
+.progress-bar { width:100%; height:6px; background:var(--surface2); border:1px solid var(--border-light); margin-bottom:1.5rem; }
+.progress-fill { height:100%; background:var(--accent); transition:width 0.3s; }
+.progress-text { font-family:'JetBrains Mono',monospace; font-size:0.8rem; color:var(--text-dim); margin-bottom:1rem; text-align:center; }
+.scenario { background:var(--surface2); border:1px solid var(--border-light); padding:1rem 1.2rem; margin-bottom:1rem; }
+.scenario-label { font-family:'JetBrains Mono',monospace; font-size:0.7rem; text-transform:uppercase; letter-spacing:0.1em; color:var(--text-dim); margin-bottom:0.3rem; }
+.scenario-text { font-size:0.95rem; line-height:1.5; }
+.question-num { font-family:'JetBrains Mono',monospace; font-size:0.75rem; text-transform:uppercase; letter-spacing:0.1em; color:var(--text-dim); margin-bottom:0.5rem; }
+.question-text { font-family:'Playfair Display',serif; font-size:1.3rem; font-weight:600; line-height:1.4; margin-bottom:1.5rem; }
+.options { display:flex; flex-direction:column; gap:0.6rem; margin-bottom:1.5rem; }
+.option { padding:0.9rem 1.2rem; border:2px solid var(--border-light); cursor:pointer; font-size:1rem; text-align:left; background:var(--surface); transition:border-color 0.15s, background 0.15s; display:flex; align-items:baseline; gap:0.7rem; }
+.option:hover:not(.disabled) { border-color:var(--accent); background:var(--surface2); }
+.option .key { font-family:'JetBrains Mono',monospace; font-size:0.8rem; font-weight:600; min-width:1.5rem; }
+.option.correct { border-color:var(--correct); background:#f0fdf4; }
+.option.wrong { border-color:var(--wrong); background:#fef2f2; }
+.option.disabled { cursor:default; opacity:0.7; }
+.option.disabled:hover { border-color:var(--border-light); background:var(--surface); }
+.option.correct.disabled, .option.wrong.disabled { opacity:1; }
+.explanation { padding:1rem 1.2rem; border-left:4px solid var(--accent); background:var(--surface2); margin-bottom:1.5rem; display:none; }
+.explanation.show { display:block; }
+.explanation p { font-size:0.95rem; margin-bottom:0.3rem; }
+.controls { display:flex; gap:0.8rem; flex-wrap:wrap; }
+.btn { font-family:'JetBrains Mono',monospace; font-size:0.8rem; font-weight:600; text-transform:uppercase; letter-spacing:0.08em; padding:0.7rem 1.4rem; border:2px solid var(--accent); background:var(--surface); color:var(--text); cursor:pointer; transition:background 0.15s; }
+.btn:hover { background:var(--surface2); }
+.btn-primary { background:var(--accent); color:var(--bg); }
+.btn-primary:hover { background:#333; }
+.hotkey { font-size:0.65rem; opacity:0.6; margin-left:0.3rem; }
+.results { text-align:center; display:none; }
+.results h2 { font-family:'Playfair Display',serif; font-size:2rem; margin-bottom:1rem; }
+.results .score { font-family:'JetBrains Mono',monospace; font-size:3rem; font-weight:700; margin:1rem 0; }
+.results .score.good { color:var(--correct); }
+.results .score.bad { color:var(--wrong); }
+.missed-list { text-align:left; margin:1.5rem 0; padding:1rem 1.2rem; background:var(--surface2); border:1px solid var(--border-light); }
+.missed-list h3 { font-family:'JetBrains Mono',monospace; font-size:0.8rem; text-transform:uppercase; letter-spacing:0.1em; margin-bottom:0.8rem; }
+.missed-item { margin-bottom:0.8rem; padding-bottom:0.8rem; border-bottom:1px solid var(--border-light); }
+.missed-item:last-child { margin-bottom:0; padding-bottom:0; border-bottom:none; }
+.missed-item .q { font-weight:600; margin-bottom:0.2rem; font-size:0.95rem; }
+.missed-item .a { font-size:0.9rem; color:var(--correct); }
+</style>
+</head>
+<body>
+<div class="container">
+<header>
+  <div class="subtitle">Cash Game Masterclass &middot; Chapter 7</div>
+  <h1>Hand Review Decision Drills</h1>
+  <div class="subtitle" style="margin-top:0.3rem;">18 Scenarios &middot; Hotkeys: 1-4 answer, Space next, R restart</div>
+</header>
+<hr class="divider">
+
+<div id="quiz-area">
+  <div class="progress-text" id="progress-text">Question 1 of 18</div>
+  <div class="progress-bar"><div class="progress-fill" id="progress-fill" style="width:0%"></div></div>
+  <div id="scenario-box" class="scenario" style="display:none">
+    <div class="scenario-label">Scenario</div>
+    <div class="scenario-text" id="scenario-text"></div>
+  </div>
+  <div class="question-num" id="q-num">Question 1</div>
+  <div class="question-text" id="q-text"></div>
+  <div class="options" id="options"></div>
+  <div class="explanation" id="explanation"></div>
+  <div class="controls">
+    <button class="btn btn-primary" id="btn-next" style="display:none" onclick="nextQuestion()">Next <span class="hotkey">Space</span></button>
+    <button class="btn" id="btn-hint" onclick="showHint()">Hint <span class="hotkey">H</span></button>
+  </div>
+</div>
+
+<div class="results" id="results">
+  <h2>Drill Complete</h2>
+  <div class="score" id="final-score"></div>
+  <p id="final-text"></p>
+  <div class="missed-list" id="missed-list" style="display:none">
+    <h3>Review Missed Decisions</h3>
+    <div id="missed-items"></div>
+  </div>
+  <div class="controls" style="justify-content:center; margin-top:1.5rem;">
+    <button class="btn btn-primary" onclick="restart()">Restart <span class="hotkey">R</span></button>
+    <button class="btn" id="btn-review" onclick="reviewMissed()" style="display:none">Review Missed <span class="hotkey">M</span></button>
+  </div>
+</div>
+</div>
+
+<script>
+const ALL_QUESTIONS = [
+  {
+    scenario: "You hold A7 of clubs. Flop is three clubs (you have the nut flush). Three opponents. Pot is ~$60.",
+    q: "What is the best bet size on the flop?",
+    opts: ["Check to trap", "~$20 (small)", "~$50 (large)", "All-in"],
+    ans: 1,
+    exp: "Bet small (~$20). Ask 'how much will a K/Q/J of clubs call?' The answer is $20 every time. Betting big folds out the weaker flush draws you want in the pot.",
+    hint: "Think about what hands will call and for how much."
+  },
+  {
+    scenario: "You have the nut flush. Opponent check-raised the flop. Turn is an Ace. Opponent bets $50 into $200.",
+    q: "What should you do?",
+    opts: ["Raise big to protect", "Just call to keep them in", "Fold — the board paired", "Go all-in"],
+    ans: 1,
+    exp: "Just call. When you have the nuts, keep opponents in with their bluffs and worse hands. Raising pushes out everything except full houses.",
+    hint: "You have the best possible hand. What maximizes the pot?"
+  },
+  {
+    scenario: "River. You have the nut flush on a paired board. Opponent checks. They are 'stuck piles' (losing badly). You have $350 behind, pot is $350.",
+    q: "What is the optimal river bet?",
+    opts: ["All-in ($350)", "$70-100 (small)", "$175 (half pot)", "Check back for safety"],
+    ans: 1,
+    exp: "Bet small ($70-100). Give the tilting opponent room to make a mistake — they might bluff-raise with worse. An all-in scares them into folding everything but full houses.",
+    hint: "The opponent is tilting. How do you give them room to blunder?"
+  },
+  {
+    scenario: "You 3-bet AQs from the big blind. Flop: T-6-4. Two callers. Turn: 5 (completes some straights).",
+    q: "What should you do on the turn?",
+    opts: ["Bet big to charge draws", "Bet small to set your own price", "Check and see what develops", "Shove all-in"],
+    ans: 2,
+    exp: "Check and see what develops. The 5 completes 87s straights and 65 two-pair. Both callers connect well with this texture. If it goes check, bet, call — fold. If check, check, bet — call.",
+    hint: "How many hands just improved against you?"
+  },
+  {
+    scenario: "You have pocket 5s. Flop: K-8-5 (you have a set). An opponent leads for $30. A third player is on the button.",
+    q: "What is the best play?",
+    opts: ["Raise to $100 for value", "Just call to keep the button in", "Go all-in to protect against draws", "Fold — there's a king out there"],
+    ans: 1,
+    exp: "Just call. Calling keeps the button in the pot — they'll be drawing thin or dead. Sometimes they raise behind you, building the pot for free. You don't need to raise with a set here.",
+    hint: "Think about the third player still to act."
+  },
+  {
+    scenario: "You raise A8o from the button facing a limp. Three opponents call. Flop: A-8-2 with two clubs. A player check-raises you to $160 (pot-sized). Button still to act.",
+    q: "What is the correct play with your two pair?",
+    opts: ["Call and evaluate the turn", "Shove all-in for value", "Fold — the check-raiser has a flush or better", "Re-raise small to see where you stand"],
+    ans: 2,
+    exp: "Consider folding. The check-raiser's range is mostly flushes and king-high flush draws. With the button still to act (who could be trapping), you're often behind. When you don't beat much of the raising range and another player could have you crushed, two pair is a fold.",
+    hint: "What hands check-raise big on this board? And don't forget the button."
+  },
+  {
+    scenario: "You raise AJs. 'Action fish' 3-bets, big blind cold-calls. Pot is multiway.",
+    q: "What should you do with AJs here?",
+    opts: ["Call — you're getting good odds", "4-bet bluff to isolate", "Fold — reverse implied odds are massive", "Call and plan to check-fold any flop"],
+    ans: 2,
+    exp: "Fold. Your reverse implied odds are enormous multiway. If a J comes, opponents could have JT, J9, T8. If an A comes, they could have AK, AQ. Your equity realization is terrible out of position.",
+    hint: "What turns and rivers are actually good for you if opponents want to put money in?"
+  },
+  {
+    scenario: "You have AJ on the button vs. a laggy raiser. Board: J-7-6. Laggy opponent bets small on the turn ($25 into $80).",
+    q: "What is the best play?",
+    opts: ["Raise to $70 for value", "Just call to keep their bluffs in", "Fold — the board is too connected", "Shove all-in"],
+    ans: 1,
+    exp: "Just call. Against laggy players who bet small, preserve their bluffing range. If you raise, they fold all their bluffs (QT, K8, air). If you call, they continue bluffing the river.",
+    hint: "How does a laggy opponent react to a raise vs. a call?"
+  },
+  {
+    scenario: "You have A8s. Board: 6-7-5. Turn: 8 (you have trips). Opponent leads $30 into $100.",
+    q: "What should you do with trip eights?",
+    opts: ["Just call — many hands beat you", "Raise to ~$90", "Fold — the board is too coordinated", "Check back (you're out of position... wait, you're IP)"],
+    ans: 1,
+    exp: "Raise to about $90. The opponent's small lead usually indicates a marginal made hand. You beat most eights (T8, 98) and want to charge draws. Don't use a bet size containing '8' — some opponents subconsciously associate it with your hand.",
+    hint: "What does a small lead typically indicate about their hand strength?"
+  },
+  {
+    scenario: "Opponent raises, you call with 86c on the button. Flop: Q-9-4 with one club. You miss completely.",
+    q: "You have a flush draw and nothing else. What is the ideal flop bet size for a bluff?",
+    opts: ["Don't bet — check and hope to improve", "Small (~1/3 pot) to keep fold equity for later streets", "Large (~pot) to maximize fold equity now", "Medium (~2/3 pot)"],
+    ans: 1,
+    exp: "Bet small (~1/3 pot). When bluffing multi-street, bet small on the flop to keep opponents' ranges wide. This creates more fold equity on later streets. Betting big strengthens their calling range, making turns harder to barrel.",
+    hint: "If you plan to bluff all three streets, how should you structure the sizing?"
+  },
+  {
+    scenario: "You 3-bet preflop. Board: A-Q-J. You have AJ (top and bottom pair). Opponent bets the flop.",
+    q: "What should you do from out of position with AJ on A-Q-J?",
+    opts: ["Check-raise for value", "Call and re-evaluate the turn", "Fold — too many hands beat you", "Lead out with a donk bet"],
+    ans: 0,
+    exp: "Check-raise. After 3-betting, you don't have AA, KK, or JJ in your range. AJ and QT are your BEST possible hands. You must check-raise these to build the pot. If you just call, opponents bet one street and check back.",
+    hint: "What are the best hands you can have after 3-betting preflop on this board?"
+  },
+  {
+    scenario: "You raised preflop. Board: Q-3-2-K (turn). Opponent check-called flop, now leads the turn for $20 into $60. You have 5-3s for bottom two pair.",
+    q: "The opponent leads the turn on the king. What should you do?",
+    opts: ["Fold — the king probably helped them", "Call to keep bluffs in their range", "Raise to ~$55 for value", "Shove all-in"],
+    ans: 2,
+    exp: "Raise. When an opponent leads into a card that looks good for YOUR range (the king), they usually have something at least okay — a king, queen, or draw. They won't fold a king or queen to a raise, so get value.",
+    hint: "What does it mean when an opponent bets into a card that should scare them?"
+  },
+  {
+    scenario: "You have QQ. A tight, straightforward player makes a small 4-bet over your 3-bet (raising from $42 to $100).",
+    q: "What is the best play with pocket queens?",
+    opts: ["Shove all-in for value", "Call and play postflop", "Fold — their range is AA/KK heavy", "Min-raise to $160"],
+    ans: 1,
+    exp: "Call. Against tight players who 4-bet small, their range may be exactly AA, KK, QQ, JJ. If you shove, they only call with better (AA, KK). By calling, you can escape if an A or K comes, and you extract value when you're ahead.",
+    hint: "When you shove, what hands actually call you?"
+  },
+  {
+    scenario: "You have KQ suited. Limped pot. Opponent leads the flop. Opponent leads the turn. River completes no draws. Opponent leads river for 75 into 275.",
+    q: "You have top pair. Need to be good 27% to call. What should you do?",
+    opts: ["Easy fold — they've bet three streets", "Call — too many possible bluffs and overvalued hands", "Raise for value", "Shove as a bluff"],
+    ans: 1,
+    exp: "Call. You only need to be good 27% of the time. Could they be overvaluing a worse hand? Could they be bluffing with a busted draw? Unless your opponent is very tight and straightforward, lean toward calling at these odds.",
+    hint: "Do the pot odds math. How often do you really need to be right?"
+  },
+  {
+    scenario: "Opponent raises from EP. You call with pocket 5s. Flop: K-8-5. Opponent leads $30 into $50. Button raises to $100. Opponent goes all-in.",
+    q: "You have a set of fives with $295 behind. What do you do?",
+    opts: ["Just call to keep the button in", "Go all-in", "Fold — could be set over set", "Raise small to $200"],
+    ans: 1,
+    exp: "Go all-in. If the button has two pair or a good king, they're calling. Yes, you run into 88 or KK sometimes (only 5 combos), but they also have K8s, K6s, K5s, 85s — many more combos that call and lose.",
+    hint: "Count the combos that beat you vs. the combos you beat."
+  },
+  {
+    scenario: "Straddle game. You hold AA. It goes raise to $15, call, call ahead of you.",
+    q: "You're on the button and the straddler behind you is known to be wild and aggressive. What's your play?",
+    opts: ["3-bet to $60", "Just call and let the straddler re-raise", "Go all-in immediately", "Fold — too many callers"],
+    ans: 1,
+    exp: "Just call. The wild straddler will likely re-raise huge, and you can then get it all in. If you 3-bet, the straddler folds even garbage. You beat maniacs by letting them bluff you.",
+    hint: "What will the maniac do if everyone just calls?"
+  },
+  {
+    scenario: "You have A9 and raised preflop. Flop: A-9-8. Opponent raises your c-bet. You're shallow (190 behind, pot is 120).",
+    q: "With top two pair, relatively shallow, what should you do?",
+    opts: ["Just call and evaluate the turn", "Go all-in", "Fold — they could have a set", "Re-raise small to $160"],
+    ans: 1,
+    exp: "Go all-in. When shallow with near-nuts, don't try to be fancy. The opponent calls with high-equity draws (you're ahead), A8/98 (you're ahead), and only 5 combos of sets (AA/88/99) beat you. Simplify by jamming.",
+    hint: "When you're shallow and near the top of your range, what's the cleanest play?"
+  },
+  {
+    scenario: "You raised 86c on the button. Everyone folded except the big blind. Flop: Q-9-4 with one club. You bet, get called. Turn: 7 of clubs (you now have a flush draw). River: 3 of spades (you missed). Opponent checks.",
+    q: "You have 8-high (no pair, busted flush draw). What should you do on the river?",
+    opts: ["Check back — you can't win", "Bet small ($40) hoping they fold", "Shove all-in as a bluff", "Bet medium ($80)"],
+    ans: 2,
+    exp: "Shove all-in. You have zero showdown value, so checking loses 100%. When you have no logical bluffs in your range, take the ones you have. The opponent folds aces and marginal hands a meaningful percentage of the time to a river jam.",
+    hint: "Can you ever win by checking? If not, what's the only way to win the pot?"
+  }
+];
+
+let questions = [], current = 0, score = 0, answered = false, missed = [];
+
+function shuffle(arr) {
+  for (let i = arr.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+  return arr;
+}
+
+function init() {
+  questions = shuffle([...ALL_QUESTIONS]);
+  current = 0; score = 0; missed = [];
+  document.getElementById('quiz-area').style.display = 'block';
+  document.getElementById('results').style.display = 'none';
+  render();
+}
+
+function render() {
+  answered = false;
+  const q = questions[current];
+  document.getElementById('progress-text').textContent = `Question ${current+1} of ${questions.length}`;
+  document.getElementById('progress-fill').style.width = `${(current/questions.length)*100}%`;
+  document.getElementById('q-num').textContent = `Question ${current+1}`;
+  document.getElementById('q-text').textContent = q.q;
+  const scenarioBox = document.getElementById('scenario-box');
+  if (q.scenario) {
+    scenarioBox.style.display = 'block';
+    document.getElementById('scenario-text').textContent = q.scenario;
+  } else {
+    scenarioBox.style.display = 'none';
+  }
+  const optsEl = document.getElementById('options');
+  optsEl.innerHTML = '';
+  q.opts.forEach((opt, i) => {
+    const div = document.createElement('div');
+    div.className = 'option';
+    div.innerHTML = `<span class="key">${i+1}</span><span>${opt}</span>`;
+    div.onclick = () => answer(i);
+    optsEl.appendChild(div);
+  });
+  document.getElementById('explanation').classList.remove('show');
+  document.getElementById('explanation').innerHTML = '';
+  document.getElementById('btn-next').style.display = 'none';
+  document.getElementById('btn-hint').style.display = 'inline-block';
+}
+
+function answer(idx) {
+  if (answered) return;
+  answered = true;
+  const q = questions[current];
+  const opts = document.querySelectorAll('.option');
+  opts.forEach((o, i) => {
+    o.classList.add('disabled');
+    if (i === q.ans) o.classList.add('correct');
+    if (i === idx && idx !== q.ans) o.classList.add('wrong');
+  });
+  if (idx === q.ans) { score++; }
+  else { missed.push({ q: q.q, a: q.opts[q.ans], scenario: q.scenario }); }
+  const expEl = document.getElementById('explanation');
+  expEl.innerHTML = `<p><strong>${idx === q.ans ? 'Correct!' : 'Incorrect.'}</strong> ${q.exp}</p>`;
+  expEl.classList.add('show');
+  document.getElementById('btn-next').style.display = 'inline-block';
+  document.getElementById('btn-hint').style.display = 'none';
+}
+
+function nextQuestion() {
+  if (!answered) return;
+  current++;
+  if (current >= questions.length) { showResults(); return; }
+  render();
+}
+
+function showHint() {
+  if (answered) return;
+  const q = questions[current];
+  const expEl = document.getElementById('explanation');
+  expEl.innerHTML = `<p><em>${q.hint || "Think about what your opponent's range looks like in this spot."}</em></p>`;
+  expEl.classList.add('show');
+}
+
+function showResults() {
+  document.getElementById('quiz-area').style.display = 'none';
+  const res = document.getElementById('results');
+  res.style.display = 'block';
+  const pct = Math.round((score/questions.length)*100);
+  const scoreEl = document.getElementById('final-score');
+  scoreEl.textContent = `${score}/${questions.length} (${pct}%)`;
+  scoreEl.className = 'score ' + (pct >= 70 ? 'good' : 'bad');
+  document.getElementById('final-text').textContent = pct >= 90 ? 'Excellent decision-making!' : pct >= 70 ? 'Good instincts. Review the missed scenarios.' : 'Keep studying the hand reviews and try again.';
+  if (missed.length > 0) {
+    document.getElementById('missed-list').style.display = 'block';
+    document.getElementById('btn-review').style.display = 'inline-block';
+    document.getElementById('missed-items').innerHTML = missed.map(m =>
+      `<div class="missed-item"><div class="q">${m.scenario ? m.scenario + ' — ' : ''}${m.q}</div><div class="a">Correct: ${m.a}</div></div>`
+    ).join('');
+  } else {
+    document.getElementById('missed-list').style.display = 'none';
+    document.getElementById('btn-review').style.display = 'none';
+  }
+}
+
+function restart() { init(); }
+
+function reviewMissed() {
+  questions = missed.map(m => ALL_QUESTIONS.find(q => q.q === m.q)).filter(Boolean);
+  if (questions.length === 0) { restart(); return; }
+  questions = shuffle(questions);
+  current = 0; score = 0; missed = [];
+  document.getElementById('quiz-area').style.display = 'block';
+  document.getElementById('results').style.display = 'none';
+  render();
+}
+
+document.addEventListener('keydown', (e) => {
+  if (e.key >= '1' && e.key <= '4') { const idx = parseInt(e.key)-1; const opts = document.querySelectorAll('.option'); if (idx < opts.length) answer(idx); }
+  if (e.key === ' ' || e.key === 'Enter') { e.preventDefault(); if (answered) nextQuestion(); }
+  if (e.key === 'r' || e.key === 'R') restart();
+  if (e.key === 'h' || e.key === 'H') showHint();
+  if (e.key === 'm' || e.key === 'M') { if (document.getElementById('results').style.display !== 'none') reviewMissed(); }
+});
+
+init();
+</script>
+</body>
+</html>

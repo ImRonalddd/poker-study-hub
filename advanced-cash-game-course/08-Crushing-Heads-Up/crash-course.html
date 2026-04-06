@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chapter 8: Crushing Heads Up No Limit Hold'em -- Crash Course</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;1,400;1,600&family=Source+Serif+4:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body,{delimiters:[{left:'\\(',right:'\\)',display:false},{left:'$$',right:'$$',display:true}]})"></script>
+<style>
+:root {
+  --bg: #FFFFFF; --surface: #FFFFFF; --surface2: #F5F5F5;
+  --accent: #000000; --text: #000000; --text-dim: #525252;
+  --correct: #1a7a5e; --wrong: #b91c1c; --orange: #8B6914;
+  --border: #000000; --border-light: #E5E5E5;
+  --blue: #1e40af; --purple: #6b21a8; --red: #b91c1c;
+}
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; border-radius:0 !important; }
+body { font-family:'Source Serif 4','Georgia',serif; background:var(--bg); color:var(--text); line-height:1.7; -webkit-font-smoothing:antialiased; }
+.container { max-width:780px; margin:0 auto; padding:0 1.5rem 4rem; }
+
+header { padding:4rem 0 2rem; text-align:center; border-bottom:4px solid var(--accent); margin-bottom:2.5rem; }
+header h1 { font-family:'Playfair Display',serif; font-weight:800; font-size:2.6rem; letter-spacing:-0.02em; line-height:1.15; margin-bottom:0.5rem; }
+header .sub { font-family:'JetBrains Mono',monospace; font-size:0.75rem; font-weight:500; text-transform:uppercase; letter-spacing:0.15em; color:var(--text-dim); }
+
+h2 { font-family:'Playfair Display',serif; font-weight:700; font-size:1.7rem; margin:2.5rem 0 1rem; padding-bottom:0.4rem; border-bottom:2px solid var(--accent); }
+h3 { font-family:'Playfair Display',serif; font-weight:600; font-size:1.25rem; margin:1.8rem 0 0.6rem; }
+h4 { font-family:'JetBrains Mono',monospace; font-weight:600; font-size:0.85rem; text-transform:uppercase; letter-spacing:0.08em; margin:1.2rem 0 0.4rem; }
+
+p, li { font-size:1.02rem; margin-bottom:0.5rem; }
+ul, ol { padding-left:1.5rem; margin-bottom:1rem; }
+strong { font-weight:700; }
+
+.box { padding:1rem 1.25rem; margin:1rem 0; border-left:4px solid; background:var(--surface2); }
+.box-blue { border-color:var(--blue); }
+.box-purple { border-color:var(--purple); }
+.box-orange { border-color:var(--orange); }
+.box-red { border-color:var(--red); }
+.box .label { font-family:'JetBrains Mono',monospace; font-size:0.7rem; font-weight:600; text-transform:uppercase; letter-spacing:0.1em; margin-bottom:0.4rem; display:block; }
+.box-blue .label { color:var(--blue); }
+.box-purple .label { color:var(--purple); }
+.box-orange .label { color:var(--orange); }
+.box-red .label { color:var(--red); }
+
+table { width:100%; border-collapse:collapse; margin:1rem 0; font-size:0.92rem; }
+th, td { text-align:left; padding:0.5rem 0.75rem; border:1px solid var(--border-light); }
+th { background:var(--accent); color:#fff; font-family:'JetBrains Mono',monospace; font-size:0.75rem; text-transform:uppercase; letter-spacing:0.08em; font-weight:600; }
+
+code { font-family:'JetBrains Mono',monospace; font-size:0.88em; background:var(--surface2); padding:0.1em 0.35em; border:1px solid var(--border-light); }
+
+.toc { background:var(--surface2); padding:1.5rem 2rem; margin-bottom:2rem; border:1px solid var(--border); }
+.toc h3 { margin-top:0; }
+.toc ol { margin-bottom:0; }
+.toc li { font-size:0.95rem; margin-bottom:0.25rem; }
+.toc a { color:var(--text); text-decoration:none; border-bottom:1px solid var(--border-light); }
+.toc a:hover { border-color:var(--accent); }
+
+.katex-display { margin:1rem 0; }
+</style>
+</head>
+<body>
+<div class="container">
+
+<header>
+  <h1>Crushing Heads Up<br>No Limit Hold'em</h1>
+  <div class="sub">Advanced Cash Game Course -- Chapter 8 Crash Course</div>
+</header>
+
+<nav class="toc">
+  <h3>Contents</h3>
+  <ol>
+    <li><a href="#foundations">HUNL Foundations: Why It's Different</a></li>
+    <li><a href="#cbetting">Flop C-Betting in HUNL</a></li>
+    <li><a href="#turn">Turn Strategy: The Hardest Street</a></li>
+    <li><a href="#river">River Play: Simplicity Wins</a></li>
+    <li><a href="#deep">Deep Stack Adjustments (200bb+)</a></li>
+    <li><a href="#3bet">Three-Bet Pot Strategy</a></li>
+    <li><a href="#monotone">Monotone Boards</a></li>
+    <li><a href="#exploits">Exploitative Reads &amp; Adjustments</a></li>
+    <li><a href="#mental">Mental Game &amp; Match Dynamics</a></li>
+  </ol>
+</nav>
+
+<!-- ================================================================ -->
+<h2 id="foundations">1. HUNL Foundations: Why It's Different</h2>
+
+<div class="box box-blue">
+  <span class="label">Core Principle</span>
+  Heads-up poker is the purest form of the game. There is nowhere to hide. Your biases, frequency errors, and tendencies are exposed within minutes -- not hours.
+</div>
+
+<p>In 6-max, you might open 13% of hands from the lojack. In HUNL, you're playing the entire deck. This fundamental difference cascades through every decision:</p>
+
+<ul>
+  <li><strong>Both players have wide ranges</strong> on every street, making frequency control the primary skill</li>
+  <li><strong>Board dynamics change drastically with stack depth</strong> -- the same board texture plays completely differently at 100bb vs 400bb</li>
+  <li><strong>Huge win rates are achievable</strong> -- the better player can win 20+ bb/100 because there is no multi-way dilution</li>
+  <li><strong>Simplicity beats complexity</strong> -- Jon Jaffe: "Treat yourself like a high school quarterback. Don't give yourself an 800-page playbook."</li>
+</ul>
+
+<div class="box box-orange">
+  <span class="label">Transition Warning</span>
+  If you bring your 6-max or full-ring calibration to HUNL, you will get destroyed. Button-vs-blind ranges from 6-max do not approximate HUNL ranges. You must start from scratch.
+</div>
+
+<h3>Jaffe's #1 Advice for Cash Players Moving to HUNL</h3>
+<p><strong>"C-bet less."</strong> Most players coming from ring games c-bet 80-90% of flops. In HUNL, 75% is "frequent" and many boards are closer to 50-60%. If you over-c-bet, your opponent will ravage you with check-raises and river bluffs.</p>
+
+<!-- ================================================================ -->
+<h2 id="cbetting">2. Flop C-Betting in HUNL</h2>
+
+<h3>Frequency Is Lower Than You Think</h3>
+<p>In most 6-max setups, you c-bet range on many textures. In HUNL, even on boards that "look good" for the button, your c-bet frequency is often 60-75%. A flop like <code>K-4-2</code> two-tone might feel like an auto-bet, but you should be checking roughly 25% of your range.</p>
+
+<h3>Board Texture Determines Everything</h3>
+
+<table>
+  <tr><th>Board Type</th><th>Strategy</th><th>Key Concept</th></tr>
+  <tr><td>Dry ace-high (A-9-3r)</td><td>Heavy checking from both players</td><td>Equities are static; betting top pair always gets you in trouble</td></tr>
+  <tr><td>Middling (Q-5-2)</td><td>Bet ~65%, mostly small (B33)</td><td>Many backdoors to continue with</td></tr>
+  <tr><td>Paired (5-5-x)</td><td>Button bets high frequency</td><td>Button has all offsuit 5x in range</td></tr>
+  <tr><td>Straight-available (T-7-6)</td><td>Bet 60-65% and check</td><td>3-bettor has suited two-pairs and straights</td></tr>
+  <tr><td>Monotone</td><td>Very small bets or checks</td><td>If opponent has a flush, you have zero equity</td></tr>
+</table>
+
+<h3>The Side Card Heuristic</h3>
+<p>When deciding which hands to bet on the flop:</p>
+<ul>
+  <li><strong>Lower side cards bet more</strong>: they unblock opponent's offsuit high-card folds</li>
+  <li><strong>Higher side cards check more</strong>: they block the folds you want</li>
+  <li><strong>Backdoor flush draws always bet more</strong>: added equity on future streets</li>
+</ul>
+
+<div class="box box-purple">
+  <span class="label">Example</span>
+  On <code>5-3-2</code>, your <code>8-4</code> with a backdoor flush draw is a better bet than <code>Q-6</code> of hearts. The 8-4 unblocks folds and has backdoor equity. The Q-6 blocks folds and has less future equity.
+</div>
+
+<!-- ================================================================ -->
+<h2 id="turn">3. Turn Strategy: The Hardest Street</h2>
+
+<h3>Three Turn Scenarios in HUNL</h3>
+
+<h4>A) Delayed C-Bet (IP after check-check)</h4>
+<ul>
+  <li>Use equity-rich hands: draws, gut-shots, backdoor flush draws</li>
+  <li>On brick turns, be <strong>very polar</strong>: overbet with nuts, check with middle</li>
+  <li><strong>Cap your big size</strong> when no new nutted hands arrive (e.g., K-4-2-8 -- no new straights or flushes possible)</li>
+  <li>When new nutted hands DO arrive (e.g., T-7-3-7), you can develop big bets again</li>
+</ul>
+
+<h4>B) Turn Probe (OOP after check-check)</h4>
+<ul>
+  <li><strong>Must have equity</strong> -- this is non-negotiable when OOP</li>
+  <li>Preferred bluff candidates: any 4, any 5, any 8, any 9, spades (on appropriate boards)</li>
+  <li>The bigger your bet, the more equity you need -- blocking bets (B33) are more forgiving</li>
+  <li>Do NOT probe with Q-J offsuit with no draw -- you have too many better candidates</li>
+</ul>
+
+<h4>C) Turn Barrel (continuation after flop bet)</h4>
+<ul>
+  <li>Bluff selection: prefer hands without the board's flush draw suit (those draws called flop and now fold turn)</li>
+  <li>Low cards unblock middling folds</li>
+  <li>"Pertinent card" adds EV: a card that completes draws on certain rivers gives future bluffing opportunities</li>
+</ul>
+
+<div class="box box-red">
+  <span class="label">Critical Concept: Push Equity, Not Hand Strength</span>
+  At deep stacks, the hand that should bet isn't necessarily the "best" hand. <code>K-8s</code> with a gut-shot bets the turn because it has added equity. <code>K-Jo</code> with no draw checks back because it doesn't benefit from building the pot -- it just creates ugly river spots.
+</div>
+
+<h3>Controlling Frequencies</h3>
+<p>You have SO many combos in HUNL that frequency control is paramount. If you bet 80% of your range on a turn, you're playing way too many hands. Even hands that "feel right" (a gut-shot with overcards) might need to check some percentage of the time.</p>
+
+<!-- ================================================================ -->
+<h2 id="river">4. River Play: Simplicity Wins</h2>
+
+<h3>The Check-Back Monster</h3>
+<p>One of Jaffe's signature concepts: deliberately check back strong hands on the flop, then bet for value on later streets when opponent discounts your range.</p>
+
+<div class="box box-blue">
+  <span class="label">Why It Works</span>
+  When you check the flop and then bet the river, opponents think: "How can he have a good hand? He checked!" This makes them call wider, pay off thinner, and attempt fewer raises.
+</div>
+
+<p><strong>But don't overdo it.</strong> Against wide HUNL ranges, slow-playing is like running a draw play on 3rd and 10 -- they won't expect it, but you probably won't get the first down. Bet trips 80%+ on the flop. Slow-playing is a spice, not a main course.</p>
+
+<h3>River Betting Framework</h3>
+<ol>
+  <li><strong>Choose 1-2 bet sizes</strong> -- don't try to play 5 sizes</li>
+  <li><strong>Put your best bluff candidates into your biggest size</strong> -- hands with the most equity, best suit blockers</li>
+  <li><strong>Put mediocre bluffs into your smallest size</strong> -- or just give up</li>
+  <li><strong>If you barreled aggressively on the turn, CHILL on the river</strong> -- "just because you have no showdown value doesn't mean you should bluff"</li>
+</ol>
+
+<h3>River Bluff Frequency Control</h3>
+<p>The most common river error: "I overbetted the turn, of course I'm jamming the river -- I have no showdown value." This is wrong. If the river is a brick that doesn't improve your range, you cannot maintain a high betting frequency. Some queen-highs and jack-highs just have to check and lose.</p>
+
+<h3>Blocking Bets</h3>
+<p>When to use blocking bets on the river:</p>
+<ul>
+  <li>You open the door to raises from flushes and creative hands</li>
+  <li>You're targeting specific thin calls (single pair, ace-high)</li>
+  <li>Ask: "Is my opponent capable of raising here?" If not, block freely</li>
+  <li>King-6 with the 6 of diamonds is a "perfect block candidate" -- unblocks raises, targets thin calls</li>
+</ul>
+
+<!-- ================================================================ -->
+<h2 id="deep">5. Deep Stack Adjustments (200bb+)</h2>
+
+<h3>Everything Changes When You're Deep</h3>
+<p>The same hand on the same board requires a completely different approach at 200bb vs 100bb:</p>
+
+<table>
+  <tr><th>Factor</th><th>100bb</th><th>200bb+</th></tr>
+  <tr><td>Overpairs</td><td>Can pile money in confidently</td><td>Must be careful; board dynamics can change dramatically</td></tr>
+  <tr><td>Positional advantage</td><td>Significant</td><td>Enormous -- call wider IP, ranges over-realize equity</td></tr>
+  <tr><td>Slow-playing risk</td><td>Moderate</td><td>High -- SPR means more streets to navigate</td></tr>
+  <tr><td>Check-raise</td><td>Frequent and effective</td><td>More dangerous; pot grows too large to control</td></tr>
+  <tr><td>Preflop 3-bet sizing</td><td>Standard</td><td>Go bigger to charge for positional equity</td></tr>
+</table>
+
+<h3>Jaffe's Deep-Stack Framework</h3>
+<ol>
+  <li><strong>Profile your opponent first</strong>: "Going into a heads-up match without knowing your opponent is like game-planning without knowing what team you're playing"</li>
+  <li><strong>If opponent fears big pots</strong>: inflate pots, jack up frequencies, pressure them</li>
+  <li><strong>If opponent is spewy</strong>: play value-heavy, flat strong hands, let them give you their chips</li>
+  <li><strong>How fast can you read them?</strong> "Decent feel after 20 hands" -- watch timing, sizing choices, c-bet frequency</li>
+</ol>
+
+<div class="box box-purple">
+  <span class="label">Key Insight: Board Dynamics at Depth</span>
+  At 400bb on <code>T-6-4</code> two-tone, you cannot just pile money in with an overpair. Too many turn and river cards will put you in impossible spots. Diminish the SPR if you can (raise bigger preflop), but if you can't, play more passively with overpairs and save aggression for hands with added equity.
+</div>
+
+<!-- ================================================================ -->
+<h2 id="3bet">6. Three-Bet Pot Strategy</h2>
+
+<h3>HUNL 3-Bet Ranges Are Massive</h3>
+<p>BB 3-bets ~25% in HUNL. This means:</p>
+<ul>
+  <li>The 3-bettor has tons of suited middle cards (8-7s, 6-5s, T-8s)</li>
+  <li>Your "automatic" range advantage assumptions from 6-max are wrong</li>
+  <li>Boards like <code>K-T-3r</code> are NOT clear button advantages -- the 3-bettor has K-T suited, T-9s, etc.</li>
+</ul>
+
+<h3>Flop Play in 3-Bet Pots</h3>
+<ul>
+  <li>The 3-bettor plays <strong>heavy check on most textures</strong></li>
+  <li>Use small sizes (B33) as your default if you're not a HUNL specialist</li>
+  <li>On ace-high boards in 3-bet pots: both players must show passivity (don't always bet your ace-x)</li>
+  <li>Check-raise frequency depends on stack depth: more at 100bb, less at 200bb+</li>
+</ul>
+
+<div class="box box-orange">
+  <span class="label">The 10-8o Problem</span>
+  When you 3-bet garbage like T-8o and check the flop, you have nothing. Finding check-raise bluffs is hard. The fix: commit to reasonable check-raise frequencies in advance. Adapt at every node -- don't just barrel blindly because you "started aggressive."
+</div>
+
+<!-- ================================================================ -->
+<h2 id="monotone">7. Monotone Boards</h2>
+
+<h3>Everyone Hates Studying Monotone -- But You Must</h3>
+<ul>
+  <li>Only use very small bet sizes (B25-B33 max)</li>
+  <li>If opponent has a flush, you literally have zero equity</li>
+  <li>Board dynamics rarely change -- flushes stay flushes</li>
+  <li>Min check-raises are effective because opponent must fold so much</li>
+</ul>
+
+<h3>The Gap Heuristic for Monotone</h3>
+<p>The bigger the gap between your two cards, the more you should bet:</p>
+<ul>
+  <li><code>A-2</code> of the suit: wants to bet (big gap, blocks less of opponent's flush combos)</li>
+  <li><code>A-Q</code> of the suit: inclined to check (blocks more of the range, smaller gap)</li>
+</ul>
+
+<h3>Deep-Stack Monotone Adjustments</h3>
+<p>At extreme depths (400bb+), even top pair on a monotone board is not worth building a pot with. Play hyper-passively. If opponent bets too frequently, develop tiny min-raises as an exploit.</p>
+
+<!-- ================================================================ -->
+<h2 id="exploits">8. Exploitative Reads &amp; Adjustments</h2>
+
+<h3>Bet-Check-Bet: The Litmus Test</h3>
+<p>Jon Jaffe's key read divides all opponents into two categories:</p>
+<ul>
+  <li><strong>Players who bet-check-bet as a bluff</strong>: these are strong, studied players who can re-emerge with aggression after showing weakness</li>
+  <li><strong>Players who cannot</strong>: after checking the turn, they feel "too fraudulent" to bluff the river; they say "I'm capped, how can I bluff?"</li>
+</ul>
+<p>Once you identify a player in the second category: <strong>massively over-fold</strong> when they bet the river after checking the turn. Their range is almost pure value.</p>
+
+<h3>The Extreme Adjustment Principle</h3>
+<div class="box box-red">
+  <span class="label">Critical Rule</span>
+  If your opponent under-bluffs by 5%, the adjustment is NOT to under-call by 5%. The adjustment is to <strong>literally never call a bluff catcher</strong> -- every single one becomes a losing call. Conversely, if they over-bluff by 5%, call <strong>every single bluff catcher</strong>.
+</div>
+
+<h3>Offsuit Combos Are What Swing Frequencies</h3>
+<p>On a grid, suited hands are 4 combos and offsuit hands are 12. The offsuit combos are what really determine whether someone is over-bluffing or under-bluffing a river spot. Focus your reads on what offsuit hands they're capable of bluffing with.</p>
+
+<h3>"Shiny New Toy" Exploits</h3>
+<p>When someone has just discovered a new aggressive line (e.g., pot-sized c-bets on certain boards, or overbet turns), they almost always overdo it. If you identify this pattern: develop the counter-strategy. For example, if someone is potting flops too frequently on boards like <code>T-5-3r</code>, respond with check-min-raise your entire continuing range.</p>
+
+<!-- ================================================================ -->
+<h2 id="mental">9. Mental Game &amp; Match Dynamics</h2>
+
+<h3>Timing Tells in HUNL</h3>
+<ul>
+  <li>Even online, acting too quickly gives away information</li>
+  <li>Jaffe's technique: take hand off mouse between decisions, then grab it when ready to act</li>
+  <li>An observant opponent reads snap-checks and snap-calls as weakness within minutes</li>
+</ul>
+
+<h3>Recovering from Blunders</h3>
+<p>"No matter what happened on the previous hand, you're now in a new node. Make the best decision for THIS spot." Don't tilt-fold because you just blundered. Don't go one-speed aggressive to "get it back." Recalibrate immediately.</p>
+
+<h3>Clarity vs. Uncertainty</h3>
+<p>The ideal player lives between two extremes:</p>
+<ul>
+  <li><strong>Old school problem</strong>: "I need to know what I'll do on every street" -- leads to crutches (betting turn just to check-back river)</li>
+  <li><strong>New school problem</strong>: "I'll do the right thing now and figure out later" -- leads to impossible spots on later streets</li>
+  <li><strong>The truth</strong>: you should have difficult decisions. If you never feel uncertain, you're probably playing too simply. If you ALWAYS feel uncertain, you're probably over-extending.</li>
+</ul>
+
+<div class="box box-blue">
+  <span class="label">Jaffe on Experience</span>
+  "Every single big mistake I've made at a final table -- I play those spots perfectly now. You have to feel the pain. That's how you get better."
+</div>
+
+</div>
+</body>
+</html>

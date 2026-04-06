@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hand Reviews — Crash Course</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;1,400;1,600&family=Source+Serif+4:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #FFFFFF; --surface: #FFFFFF; --surface2: #F5F5F5;
+  --accent: #000000; --text: #000000; --text-dim: #525252;
+  --correct: #1a7a5e; --wrong: #b91c1c; --orange: #8B6914;
+  --border: #000000; --border-light: #E5E5E5;
+  --blue: #1e40af; --purple: #6b21a8; --red: #b91c1c;
+}
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; border-radius:0!important; }
+body { font-family:'Source Serif 4','Georgia',serif; background:var(--bg); color:var(--text); line-height:1.7; -webkit-font-smoothing:antialiased; }
+.container { max-width:780px; margin:0 auto; padding:0 2rem 4rem; }
+header { padding:4rem 0 2rem; text-align:center; }
+header h1 { font-family:'Playfair Display',serif; font-weight:800; font-size:2.6rem; letter-spacing:-0.02em; line-height:1.15; margin-bottom:0.5rem; }
+header .subtitle { font-family:'JetBrains Mono',monospace; font-size:0.75rem; font-weight:500; text-transform:uppercase; letter-spacing:0.15em; color:var(--text-dim); }
+.divider { border:none; border-top:4px solid var(--accent); margin:0 0 3rem; }
+h2 { font-family:'Playfair Display',serif; font-weight:700; font-size:1.8rem; margin:2.5rem 0 1rem; padding-bottom:0.5rem; border-bottom:2px solid var(--accent); }
+h3 { font-family:'Playfair Display',serif; font-weight:600; font-size:1.3rem; margin:1.8rem 0 0.8rem; }
+p, li { font-size:1.05rem; margin-bottom:0.6rem; }
+ul, ol { padding-left:1.5rem; margin-bottom:1rem; }
+strong { font-weight:700; }
+code { font-family:'JetBrains Mono',monospace; font-size:0.9em; background:var(--surface2); padding:0.15em 0.4em; border:1px solid var(--border-light); }
+.box { padding:1.2rem 1.5rem; margin:1.2rem 0; border-left:4px solid; }
+.box-blue { border-color:var(--blue); background:#eff6ff; }
+.box-purple { border-color:var(--purple); background:#faf5ff; }
+.box-orange { border-color:var(--orange); background:#fffbeb; }
+.box-red { border-color:var(--red); background:#fef2f2; }
+.box-title { font-family:'JetBrains Mono',monospace; font-size:0.75rem; font-weight:600; text-transform:uppercase; letter-spacing:0.1em; margin-bottom:0.5rem; }
+.box-blue .box-title { color:var(--blue); }
+.box-purple .box-title { color:var(--purple); }
+.box-orange .box-title { color:var(--orange); }
+.box-red .box-title { color:var(--red); }
+table { width:100%; border-collapse:collapse; margin:1rem 0; font-size:0.95rem; }
+th, td { padding:0.6rem 0.8rem; border:1px solid var(--border-light); text-align:left; }
+th { background:var(--surface2); font-family:'JetBrains Mono',monospace; font-size:0.8rem; font-weight:600; text-transform:uppercase; letter-spacing:0.05em; }
+.hand-card { background:var(--surface2); border:1px solid var(--border-light); padding:1.2rem 1.5rem; margin:1.2rem 0; }
+.hand-card .hand-title { font-family:'JetBrains Mono',monospace; font-size:0.8rem; font-weight:600; text-transform:uppercase; letter-spacing:0.08em; color:var(--text-dim); margin-bottom:0.3rem; }
+.hand-card .hand-desc { font-family:'Playfair Display',serif; font-weight:600; font-size:1.15rem; margin-bottom:0.5rem; }
+blockquote { border-left:3px solid var(--border-light); padding-left:1rem; margin:1rem 0; font-style:italic; color:var(--text-dim); }
+</style>
+</head>
+<body>
+<div class="container">
+<header>
+  <div class="subtitle">Cash Game Masterclass &middot; Chapter 7</div>
+  <h1>Hand Reviews</h1>
+  <div class="subtitle" style="margin-top:0.5rem;">Crash Course &mdash; 15 min read</div>
+</header>
+<hr class="divider">
+
+<p>Jonathan Little reviews hands from Michael Clifford, a PokerCoaching member crushing 1/1/3 and similar small stakes games. Each hand teaches specific, actionable principles about bet sizing, exploitation, and decision-making.</p>
+
+<!-- ═══════════════════════════════════════════ -->
+<h2>Theme 1: Bet Sizing Is Everything</h2>
+
+<p>The single most common improvement area across all reviewed hands. The framework is simple:</p>
+
+<div class="box box-purple">
+  <div class="box-title">The Sizing Question</div>
+  Before every bet, ask: <strong>"What am I trying to get called by, and how much will that hand call?"</strong>
+</div>
+
+<table>
+  <tr><th>Target</th><th>Size</th><th>Logic</th></tr>
+  <tr><td>Middle pair or draw</td><td>Small (1/4 - 1/3 pot)</td><td>They call any small amount but fold to 2/3 pot</td></tr>
+  <tr><td>Top pair</td><td>Medium (1/2 - 3/4 pot)</td><td>Top pair rarely folds, so charge them</td></tr>
+  <tr><td>Overpair or better</td><td>Big (3/4 pot - pot)</td><td>They're committed; maximize value</td></tr>
+  <tr><td>Force a fold (bluff)</td><td>Set up multi-street sizing</td><td>Small flop, medium turn, jam river</td></tr>
+</table>
+
+<div class="hand-card">
+  <div class="hand-title">Example: A7s Nut Flush</div>
+  <div class="hand-desc">Monotone flop, hero has the nuts multiway</div>
+  <p>How much will the J&#9827; with a random card call? <strong>$20 every time.</strong> So bet $20, not $50. Betting big folds out the weaker flush draws you want to keep.</p>
+</div>
+
+<div class="hand-card">
+  <div class="hand-title">Example: 5-3s Two Pair</div>
+  <div class="hand-desc">Board: Q-3-2-K. Opponent leads turn and river.</div>
+  <p>What are you trying to get called by? If mostly kings, go big (~$100). If mostly queens, go smaller (~$60). The proportion of their range that's kings vs. queens determines your sizing.</p>
+</div>
+
+<div class="box box-red">
+  <div class="box-title">Common Mistake</div>
+  Betting amounts that create awkward stack-to-pot ratios. Plan your sizing across all three streets. If you want to jam the river, work backward from that to determine flop and turn bets.
+</div>
+
+<!-- ═══════════════════════════════════════════ -->
+<h2>Theme 2: Give Bad Players Room to Blunder</h2>
+
+<div class="box box-orange">
+  <div class="box-title">Principle</div>
+  "Whenever you have someone who is stuck piles, you want to do everything you can to give them a chance to make a blunder."
+</div>
+
+<h3>Small River Bets Induce Action</h3>
+<p>With the nut flush on a paired board (A7s hand), the river bet should be <strong>small ($70-100)</strong> rather than all-in. Why?</p>
+<ul>
+  <li>A hand like J&#9827;x may bluff-raise over a small bet but fold to an all-in</li>
+  <li>Random aces or tens may hero-call a small bet but fold to a big one</li>
+  <li>You give tilting opponents maximum room to make a mistake</li>
+</ul>
+
+<h3>Against Laggy Players, Just Call</h3>
+
+<div class="hand-card">
+  <div class="hand-title">Example: AJ vs. Laggy Player</div>
+  <div class="hand-desc">Board: J-7-6. Laggy opponent bets small on the turn.</div>
+  <p><strong>Just call.</strong> If you raise, they fold all their bluffs. If you call, they continue bluffing the river with Q-T, K-8, random air. Preserve their bluffing range.</p>
+</div>
+
+<blockquote>You beat maniacs by letting them bluff you. You do NOT beat them by forcing them to play straightforwardly.</blockquote>
+
+<!-- ═══════════════════════════════════════════ -->
+<h2>Theme 3: Reading Bet Patterns</h2>
+
+<div class="box box-blue">
+  <div class="box-title">Small Bets = Marginal Made Hands</div>
+  When opponents bet 1/4 to 1/3 pot, they almost always have a marginal made hand (middle pair, weak top pair). This is NOT a polarized range. Adjust:
+  <ul style="margin-top:0.5rem; margin-bottom:0;">
+    <li>Raise for thin value with your medium-strength hands</li>
+    <li>Don't fear the nuts behind this sizing</li>
+  </ul>
+</div>
+
+<div class="box box-blue">
+  <div class="box-title">Big Donk Bets = Polarized</div>
+  When straddlers or aggressive players bet big into you, their range is polarized: very strong hands and draws. Against this:
+  <ul style="margin-top:0.5rem; margin-bottom:0;">
+    <li>Call with your medium-strength hands and proceed cautiously</li>
+    <li>Don't raise unless you can handle getting it all in</li>
+  </ul>
+</div>
+
+<div class="box box-blue">
+  <div class="box-title">Abnormal Lines Are Unbalanced</div>
+  Check-call, check-call, then lead the river? Check-raise the flop small, then check the turn? These unusual sequences are almost always heavily weighted toward one end of the spectrum.
+</div>
+
+<!-- ═══════════════════════════════════════════ -->
+<h2>Theme 4: Pot Odds Drive Hero Calls</h2>
+
+<p>Multiple hands came down to pot odds calculations:</p>
+
+<div class="hand-card">
+  <div class="hand-title">The Formula</div>
+  <div class="hand-desc" style="font-family:'JetBrains Mono',monospace; font-size:1rem;">Required equity = Amount to call / (Pot + Amount to call)</div>
+  <p>If you need $150 to win $800 total: 150/800 = <strong>18.75%</strong>. You only need to be right less than 1 in 5 times.</p>
+</div>
+
+<p>When the math says you need to be good 18-27% of the time, ask:</p>
+<ol>
+  <li>Could the opponent be overvaluing a worse hand? (Even 10% of the time counts)</li>
+  <li>Could the opponent be bluffing? (Even occasionally counts)</li>
+  <li>Are there full house blockers that make the nuts less likely?</li>
+</ol>
+
+<div class="box box-purple">
+  <div class="box-title">When to Override Pot Odds</div>
+  <strong>Fold despite good odds when:</strong>
+  <ul style="margin-top:0.5rem; margin-bottom:0;">
+    <li>Multiple opponents are in the pot (both could have you beat)</li>
+    <li>The opponent's range is almost entirely hands that beat you</li>
+    <li>The opponent is known to be tight, straightforward, and never bluffs</li>
+  </ul>
+</div>
+
+<!-- ═══════════════════════════════════════════ -->
+<h2>Theme 5: Check-Raising From Out of Position</h2>
+
+<div class="hand-card">
+  <div class="hand-title">Missed Opportunity: AJ on A-Q-J</div>
+  <div class="hand-desc">Hero 3-bet preflop, checks flop, calls bet, opponent checks back turn.</div>
+  <p>After 3-betting preflop, you don't have AA, KK, or JJ in your range (you'd 4-bet those). So <strong>AJ and QT are your absolute best hands</strong>. You MUST check-raise these.</p>
+</div>
+
+<div class="box box-orange">
+  <div class="box-title">Why Check-Raising Matters</div>
+  <ul>
+    <li>If you just call, opponents bet one street and check back — you leave value on the table</li>
+    <li>Check-raising builds the pot geometrically: a $50 check-raise leads to a $150 turn bet leads to a $300+ river bet</li>
+    <li>Without check-raises, your checking range becomes entirely weak hands, making you exploitable</li>
+  </ul>
+</div>
+
+<!-- ═══════════════════════════════════════════ -->
+<h2>Theme 6: When to Fold Strong Hands</h2>
+
+<p>Not every big hand should go to the felt. The reviews highlighted key folding spots:</p>
+
+<div class="box box-red">
+  <div class="box-title">Fold When</div>
+  <ul>
+    <li><strong>Multiway + big raise:</strong> A8 two pair facing a pot-sized check-raise with the button still to act. The raiser's range is mostly flushes, and the button could be trapping.</li>
+    <li><strong>Opponent's range is capped to beats-you:</strong> When a tight player 4-bets small, their range may be exactly AA/KK/QQ. QQ becomes a fold or a call (not a shove).</li>
+    <li><strong>AJs facing a 3-bet and a cold call:</strong> Reverse implied odds are massive. Every good card for you is also good for your opponents' ranges.</li>
+  </ul>
+</div>
+
+<p>The key distinction: when you're getting good odds and beat bluffs + overvalued hands, call. When you're getting mediocre odds and the opponent's range is almost all better hands, fold — even with two pair.</p>
+
+<!-- ═══════════════════════════════════════════ -->
+<h2>Theme 7: The "Gift Economy" of Small Stakes</h2>
+
+<div class="box box-purple">
+  <div class="box-title">Reality Check</div>
+  Many of the pots Michael won were <strong>gifts from opponents playing terribly</strong>:
+  <ul style="margin-top:0.5rem; margin-bottom:0;">
+    <li>KK not 3-betting preflop, then donk-betting and jamming the turn</li>
+    <li>Opponents not bluffing the river when they should (busted draws checking back)</li>
+    <li>AK not 4-betting preflop, giving hero a cheap look with a worse hand</li>
+    <li>Players calling 3-bets with K3 of hearts</li>
+  </ul>
+</div>
+
+<p><strong>This inflates your win rate.</strong> As you move up in stakes, these gifts become rarer. A player winning $50/hour at 1-3 may only win $30/hour at 2-5. This is normal.</p>
+
+<p>The solution: <strong>game select aggressively</strong>. Pick when you play, where you play, and who you play against. Even some high stakes games are very soft if you choose well.</p>
+
+<!-- ═══════════════════════════════════════════ -->
+<h2>Quick Reference: Decision Checklist</h2>
+
+<table>
+  <tr><th>Situation</th><th>Default Play</th><th>Exception</th></tr>
+  <tr><td>Nuts multiway, flop</td><td>Bet small</td><td>Bet big if opponents call anything</td></tr>
+  <tr><td>Overpair facing a donk bet</td><td>Call, proceed cautiously</td><td>Raise if bet is small and opponent is weak</td></tr>
+  <tr><td>Best hand OOP (top 2 pair+)</td><td>Check-raise</td><td>Just call if opponent will barrel off</td></tr>
+  <tr><td>Draw facing a raise</td><td>Call if odds are good</td><td>Shove if you can also be ahead (nut draw)</td></tr>
+  <tr><td>Strong hand, opponent bets small</td><td>Raise for value</td><td>Call if opponent is laggy (preserve bluffs)</td></tr>
+  <tr><td>River, need &lt;25% equity</td><td>Call</td><td>Fold if opponent is tight/straight&shy;forward</td></tr>
+  <tr><td>Two pair multiway, big raise</td><td>Consider folding</td><td>Call if opponent is loose/aggressive</td></tr>
+</table>
+
+<p style="text-align:center; margin-top:3rem; color:var(--text-dim); font-family:'JetBrains Mono',monospace; font-size:0.8rem;">End of Crash Course &middot; Chapter 7: Hand Reviews</p>
+</div>
+</body>
+</html>

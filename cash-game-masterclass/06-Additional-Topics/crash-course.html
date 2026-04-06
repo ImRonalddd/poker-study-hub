@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Additional Topics — Crash Course</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;1,400;1,600&family=Source+Serif+4:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+<style>
+:root {
+  --bg: #FFFFFF; --surface: #FFFFFF; --surface2: #F5F5F5;
+  --accent: #000000; --text: #000000; --text-dim: #525252;
+  --correct: #1a7a5e; --wrong: #b91c1c; --orange: #8B6914;
+  --border: #000000; --border-light: #E5E5E5;
+  --blue: #1e40af; --purple: #6b21a8; --red: #b91c1c;
+}
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; border-radius:0!important; }
+body { font-family:'Source Serif 4','Georgia',serif; background:var(--bg); color:var(--text); line-height:1.7; -webkit-font-smoothing:antialiased; }
+.container { max-width:780px; margin:0 auto; padding:0 2rem 4rem; }
+header { padding:4rem 0 2rem; text-align:center; }
+header h1 { font-family:'Playfair Display',serif; font-weight:800; font-size:2.6rem; letter-spacing:-0.02em; line-height:1.15; margin-bottom:0.5rem; }
+header .subtitle { font-family:'JetBrains Mono',monospace; font-size:0.75rem; font-weight:500; text-transform:uppercase; letter-spacing:0.15em; color:var(--text-dim); }
+.divider { border:none; border-top:4px solid var(--accent); margin:0 0 3rem; }
+h2 { font-family:'Playfair Display',serif; font-weight:700; font-size:1.8rem; margin:2.5rem 0 1rem; padding-bottom:0.5rem; border-bottom:2px solid var(--accent); }
+h3 { font-family:'Playfair Display',serif; font-weight:600; font-size:1.3rem; margin:1.8rem 0 0.8rem; }
+p, li { font-size:1.05rem; margin-bottom:0.6rem; }
+ul, ol { padding-left:1.5rem; margin-bottom:1rem; }
+strong { font-weight:700; }
+code { font-family:'JetBrains Mono',monospace; font-size:0.9em; background:var(--surface2); padding:0.15em 0.4em; border:1px solid var(--border-light); }
+.box { padding:1.2rem 1.5rem; margin:1.2rem 0; border-left:4px solid; }
+.box-blue { border-color:var(--blue); background:#eff6ff; }
+.box-purple { border-color:var(--purple); background:#faf5ff; }
+.box-orange { border-color:var(--orange); background:#fffbeb; }
+.box-red { border-color:var(--red); background:#fef2f2; }
+.box-title { font-family:'JetBrains Mono',monospace; font-size:0.75rem; font-weight:600; text-transform:uppercase; letter-spacing:0.1em; margin-bottom:0.5rem; }
+.box-blue .box-title { color:var(--blue); }
+.box-purple .box-title { color:var(--purple); }
+.box-orange .box-title { color:var(--orange); }
+.box-red .box-title { color:var(--red); }
+table { width:100%; border-collapse:collapse; margin:1rem 0; font-size:0.95rem; }
+th, td { padding:0.6rem 0.8rem; border:1px solid var(--border-light); text-align:left; }
+th { background:var(--surface2); font-family:'JetBrains Mono',monospace; font-size:0.8rem; font-weight:600; text-transform:uppercase; letter-spacing:0.05em; }
+.toc { background:var(--surface2); padding:1.5rem 2rem; margin-bottom:2rem; border:1px solid var(--border-light); }
+.toc h3 { margin-top:0; }
+.toc ol { margin-bottom:0; }
+.toc a { color:var(--text); text-decoration:none; border-bottom:1px solid var(--border-light); }
+.toc a:hover { border-color:var(--accent); }
+.math-block { text-align:center; margin:1rem 0; padding:0.8rem; background:var(--surface2); border:1px solid var(--border-light); }
+</style>
+</head>
+<body>
+<div class="container">
+<header>
+  <div class="subtitle">Cash Game Masterclass &middot; Chapter 6</div>
+  <h1>Additional Topics</h1>
+  <div class="subtitle" style="margin-top:0.5rem;">Crash Course &mdash; 12 min read</div>
+</header>
+<hr class="divider">
+
+<nav class="toc">
+<h3>Contents</h3>
+<ol>
+  <li><a href="#shorthanded">Shorthanded Play</a></li>
+  <li><a href="#headsup">Heads-Up Play</a></li>
+  <li><a href="#straddle">Playing with a Straddle</a></li>
+  <li><a href="#mississippi">Mississippi Straddle</a></li>
+  <li><a href="#short">Short-Stacked Games</a></li>
+  <li><a href="#threeblind">Three-Blind Games</a></li>
+</ol>
+</nav>
+
+<!-- ═══════════════════════════════════════════ -->
+<h2 id="shorthanded">1. Shorthanded Play (4-Handed)</h2>
+
+<div class="box box-blue">
+  <div class="box-title">Key Principle</div>
+  Four-handed is NOT a radically different game. Just assume the first few players at a full table folded. The cutoff is now the first to act.
+</div>
+
+<h3>The Bunching Effect</h3>
+<p>When players fold before you, they're folding weaker hands. This means remaining players are <em>slightly</em> more likely to hold premium cards. But four-handed, only one player has folded before the button, so the effect is minimal.</p>
+
+<h3>Range Adjustments</h3>
+<table>
+  <tr><th>Position</th><th>8-Handed</th><th>4-Handed</th></tr>
+  <tr><td>Cutoff (first to act)</td><td>~25.5%</td><td>~30%</td></tr>
+  <tr><td>Button RFI</td><td>~41%</td><td>~45%</td></tr>
+</table>
+<p>The extra hands are small pairs, suited connectors, and marginal offsuit broadways. Just <strong>a little bit wider</strong>.</p>
+
+<div class="box box-orange">
+  <div class="box-title">Opponent Mistakes</div>
+  <strong>Too tight:</strong> They play UTG charts from the cutoff because "first to act = tight." <br>
+  <strong>Too loose:</strong> They think shorthanded means play every hand. <br>
+  Both are wrong. Adjust your ranges only slightly.
+</div>
+
+<h3>Postflop</h3>
+<ul>
+  <li>Fewer multiway pots — you'll battle heads-up more</li>
+  <li>More 3-bet and 4-bet pots (SB 3-bets the button more frequently)</li>
+  <li>With only 3 opponents, develop targeted reads on each player</li>
+</ul>
+
+<!-- ═══════════════════════════════════════════ -->
+<h2 id="headsup">2. Heads-Up Play</h2>
+
+<div class="box box-red">
+  <div class="box-title">Warning</div>
+  Heads-up is a <strong>fundamentally different game</strong> from any other format. Ranges are roughly double what you're used to, and mixed strategies become critical.
+</div>
+
+<h3>Structure</h3>
+<p>Small blind = button. Small blind acts first preflop; big blind acts first postflop. This heavily favors the button player.</p>
+
+<h3>Preflop Ranges (100bb)</h3>
+<table>
+  <tr><th>Position</th><th>Action</th><th>Frequency</th></tr>
+  <tr><td>Button/SB</td><td>Raise</td><td><strong>81%</strong> of hands (no limping)</td></tr>
+  <tr><td>Big Blind</td><td>3-bet</td><td>Strong linear range + bluffs</td></tr>
+  <tr><td>Big Blind</td><td>Call</td><td>Hands that flop well</td></tr>
+  <tr><td>Big Blind</td><td>Play total</td><td><strong>~75%</strong> of hands</td></tr>
+</table>
+
+<div class="box box-purple">
+  <div class="box-title">Insight: 3-Bet Sizing</div>
+  From the big blind, 3-bet to <strong>11-12 big blinds</strong>, not 9. If you make it 9 vs. a 3bb open, the button is getting 2:1 odds and only needs 33% equity to call — which most hands have.
+</div>
+
+<h3>Mixed Strategies</h3>
+<p>Against the same opponent repeatedly, pure strategies become exploitable. Use randomizers. Example: A9s might 3-bet 50%, call 50%. Doug Polk and Daniel Negreanu used charts + random number generators in their famous heads-up match.</p>
+
+<h3>Facing 3-Bets (Button)</h3>
+<ul>
+  <li>4-bet with absolute best hands + tiny frequencies of bluffs</li>
+  <li>Call with hands that flop well (especially small/medium pairs)</li>
+  <li>Best 4-bet bluffs: <code>A5s, A4s, A3s, A2s</code> (blockers)</li>
+</ul>
+
+<div class="box box-orange">
+  <div class="box-title">Practical Tip</div>
+  <strong>Live:</strong> Negotiate no rake for heads-up — casinos want you to start tables. <br>
+  <strong>Online:</strong> Avoid unless you've studied specifically; most online HU players are very strong.
+</div>
+
+<!-- ═══════════════════════════════════════════ -->
+<h2 id="straddle">3. Playing with a Straddle</h2>
+
+<div class="box box-blue">
+  <div class="box-title">Definition</div>
+  A <strong>straddle</strong> is a voluntary third blind, typically posted by UTG for 2x the big blind. The straddler acts last preflop.
+</div>
+
+<h3>Why Straddling Is -EV</h3>
+<p>You only lose money from the blinds in NLHE. Why voluntarily create a third blind out of position? <strong>Do not straddle from UTG.</strong></p>
+
+<h3>What Changes</h3>
+<ul>
+  <li><strong>Effective stack halved:</strong> $1000 at 5/10/20 = 50bb effective</li>
+  <li><strong>Great for non-straddlers:</strong> You play a bigger game without paying extra</li>
+  <li><strong>Bad if straddler is on your left:</strong> They take equity from your blinds</li>
+</ul>
+
+<h3>Combating Wild Straddlers</h3>
+
+<div class="box box-purple">
+  <div class="box-title">Core Strategy</div>
+  "You beat maniacs by <strong>letting them bluff you</strong>. You do NOT beat them by forcing them to play straightforwardly."
+</div>
+
+<p><strong>With AA:</strong> If there's a raise and calls in front, just <em>call</em>. Let the straddler re-raise, then trap. If you 3-bet, the straddler folds even with garbage.</p>
+<p><strong>With marginal hands (97s):</strong> If you foresee a big re-raise coming, just fold preflop.</p>
+
+<!-- ═══════════════════════════════════════════ -->
+<h2 id="mississippi">4. Mississippi Straddle</h2>
+
+<div class="box box-blue">
+  <div class="box-title">Definition</div>
+  The <strong>button</strong> posts a straddle (2x BB). In most venues, the small blind acts first preflop. The button acts last both preflop and postflop.
+</div>
+
+<h3>Impact</h3>
+<p><strong>Blinds get crushed.</strong> The small blind must act first before the entire table — worse than UTG. Both blinds should fold a lot.</p>
+
+<h3>Strategy by Position</h3>
+<table>
+  <tr><th>Position</th><th>Adjustment</th></tr>
+  <tr><td>Small Blind</td><td>Very tight. Limp entire playable range. Include limp-reraise with AA, KK, QQ, AK + blocker bluffs.</td></tr>
+  <tr><td>Big Blind</td><td>Tight. Only 1bb to call but terrible equity realization.</td></tr>
+  <tr><td>EP through CO</td><td>Tighter than normal. Raise bigger (4-4.5x). No limping.</td></tr>
+  <tr><td>Button (straddler)</td><td>Defend wide in position. Raise over limps. Call raises with suited connectors.</td></tr>
+</table>
+
+<div class="box box-red">
+  <div class="box-title">The Lame Game Problem</div>
+  If everyone plays correctly: fold around to button, button wins the blinds, next hand. This is why many casinos ban button straddles.
+</div>
+
+<!-- ═══════════════════════════════════════════ -->
+<h2 id="short">5. Short-Stacked Games (20-40bb)</h2>
+
+<h3>How It Differs</h3>
+<ul>
+  <li>More all-in preflop situations</li>
+  <li>Fewer postflop betting rounds</li>
+  <li>Easier to solve — opponents who've studied make fewer errors</li>
+  <li><strong>Rake trap:</strong> At 20bb with $10 rake, the game may be unbeatable</li>
+</ul>
+
+<h3>Use Tournament Charts as a Starting Point</h3>
+<p>Tournament charts presume no rake + an ante. Cash games have rake but no ante. Therefore: <strong>play tighter</strong> than tournament charts and cut marginal hands.</p>
+
+<div class="box box-purple">
+  <div class="box-title">Bluff Selection Shifts</div>
+  <table>
+    <tr><th>Depth</th><th>Preferred Bluffs</th><th>Why</th></tr>
+    <tr><td>Deep (200bb+)</td><td>Suited connectors</td><td>Implied odds, playability</td></tr>
+    <tr><td>Standard (100bb)</td><td>Mix of both</td><td>Balanced</td></tr>
+    <tr><td>Shallow (20-40bb)</td><td><strong>Blocker hands (Ax, Kx)</strong></td><td>Block calling range, no room to play postflop</td></tr>
+  </table>
+</div>
+
+<h3>At 20bb</h3>
+<p>Use <strong>shove-or-fold</strong> strategy extensively. Against serial limpers who fold to all-ins, shove wide — gaining 10-40% of your stack when everyone folds is massive. High cards (AT offsuit) beat suited connectors (T7s) at this depth.</p>
+
+<h3>At 40bb</h3>
+<p>Mix of raise/call/shove/fold. 3-bet non-all-in with best hands + blocker bluffs. If rake is big, use 3-bet-or-fold from the small blind (no calling range).</p>
+
+<!-- ═══════════════════════════════════════════ -->
+<h2 id="threeblind">6. Three-Blind Games</h2>
+
+<div class="box box-blue">
+  <div class="box-title">Definition</div>
+  Three forced bets: small blind, middle blind, big blind (e.g., $1/$2/$4). Often occurs when a "round of straddles" becomes permanent.
+</div>
+
+<h3>Blind Strategy</h3>
+
+<table>
+  <tr><th>Position</th><th>Strategy</th><th>Why</th></tr>
+  <tr><td>Small Blind</td><td><strong>3-bet or fold only</strong></td><td>Worst position. If you call, two players behind can overcall or re-raise. Devastating equity under-realization.</td></tr>
+  <tr><td>Middle Blind</td><td><strong>3-bet or fold mostly</strong></td><td>Acts like the small blind in a 2-blind game. Big blind still to act behind.</td></tr>
+  <tr><td>Big Blind</td><td>Normal BB strategy</td><td>Best relative position. Can defend somewhat wider due to extra dead money.</td></tr>
+</table>
+
+<div class="box box-red">
+  <div class="box-title">Common Trap</div>
+  "It's just a little bit more" is what the middle blind thinks when calling. It's NOT. You're not closing the action, you're out of position, and you'll under-realize your equity drastically.
+</div>
+
+<h3>Other Positions</h3>
+<ul>
+  <li>Tighter from early positions — more players can wake up with a hand</li>
+  <li>Button can stay roughly the same</li>
+  <li>Effective stack is halved (100bb at 1/2/4 becomes ~50bb equivalent)</li>
+</ul>
+
+<h3>If You Have a Deep-Stack Edge</h3>
+<p>You do NOT want the blinds getting bigger. It mitigates your postflop advantage. The "let's gamble and straddle" mentality only helps if opponents are blasting off postflop.</p>
+
+<!-- ═══════════════════════════════════════════ -->
+<h2>The Universal Framework</h2>
+
+<div class="box box-purple">
+  <div class="box-title">For Every New Format, Ask</div>
+  <ol>
+    <li>How have the positions changed?</li>
+    <li>How has the effective stack changed?</li>
+    <li>Who has the position advantage?</li>
+    <li>How does this affect equity realization?</li>
+    <li>What mistakes are my opponents making in this format?</li>
+  </ol>
+</div>
+
+<p style="text-align:center; margin-top:3rem; color:var(--text-dim); font-family:'JetBrains Mono',monospace; font-size:0.8rem;">End of Crash Course &middot; Chapter 6: Additional Topics</p>
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+  renderMathInElement(document.body, {
+    delimiters: [
+      {left: "$$", right: "$$", display: true},
+      {left: "\(", right: "\)", display: false}
+    ]
+  });
+});
+</script>
+</body>
+</html>

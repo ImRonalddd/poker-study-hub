@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chapter 3: Advanced Multiway Strategies — Drills</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;1,400;1,600&family=Source+Serif+4:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body,{delimiters:[{left:'\\(',right:'\\)',display:false},{left:'$$',right:'$$',display:true}],throwOnError:false});"></script>
+<style>
+:root {
+  --bg: #FFFFFF; --surface: #FFFFFF; --surface2: #F5F5F5;
+  --accent: #000000; --text: #000000; --text-dim: #525252;
+  --correct: #1a7a5e; --wrong: #b91c1c; --orange: #8B6914;
+  --border: #000000; --border-light: #E5E5E5;
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;border-radius:0!important}
+body{font-family:'Source Serif 4',Georgia,serif;background:var(--bg);color:var(--text);line-height:1.7;-webkit-font-smoothing:antialiased}
+.container{max-width:740px;margin:0 auto;padding:0 1.5rem}
+header{padding:3rem 0 1.5rem;text-align:center;border-bottom:2px solid var(--border);margin-bottom:2rem}
+header h1{font-family:'Playfair Display',serif;font-size:2rem;font-weight:700;letter-spacing:-0.02em}
+header p{color:var(--text-dim);margin-top:0.3rem;font-size:0.95rem}
+.controls{display:flex;gap:0.75rem;justify-content:center;margin-bottom:2rem;flex-wrap:wrap}
+.btn{font-family:'JetBrains Mono',monospace;font-size:0.82rem;padding:0.5rem 1.2rem;border:1px solid var(--border);background:var(--bg);color:var(--text);cursor:pointer;transition:all 0.15s}
+.btn:hover{background:var(--accent);color:var(--bg)}
+.btn.active{background:var(--accent);color:var(--bg)}
+.progress{font-family:'JetBrains Mono',monospace;font-size:0.85rem;text-align:center;margin-bottom:1.5rem;color:var(--text-dim)}
+.progress .score{color:var(--correct);font-weight:600}
+.progress .missed{color:var(--wrong);font-weight:600}
+#quiz-area{min-height:400px}
+.q-tag{font-family:'JetBrains Mono',monospace;font-size:0.72rem;text-transform:uppercase;letter-spacing:0.08em;color:var(--text-dim);margin-bottom:0.5rem}
+.q-text{font-size:1.15rem;font-weight:500;margin-bottom:1.5rem;line-height:1.6}
+.choices{display:flex;flex-direction:column;gap:0.6rem}
+.choice{display:block;width:100%;text-align:left;padding:0.85rem 1.1rem;border:1px solid var(--border-light);background:var(--bg);font-family:'Source Serif 4',serif;font-size:1rem;cursor:pointer;transition:all 0.15s;line-height:1.5}
+.choice:hover{border-color:var(--accent);background:var(--surface2)}
+.choice.correct{border-color:var(--correct);background:#f0fdf4;color:var(--correct);font-weight:600}
+.choice.wrong{border-color:var(--wrong);background:#fef2f2;color:var(--wrong)}
+.choice.reveal{border-color:var(--correct);background:#f0fdf4}
+.choice[disabled]{cursor:default;opacity:0.85}
+.feedback{margin-top:1.25rem;padding:1rem 1.25rem;border-left:4px solid;font-size:0.92rem;line-height:1.6}
+.feedback.correct-fb{border-color:var(--correct);background:#f0fdf4}
+.feedback.wrong-fb{border-color:var(--wrong);background:#fef2f2}
+.feedback .fb-label{font-family:'JetBrains Mono',monospace;font-size:0.78rem;font-weight:600;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:0.3rem}
+.hint-btn{font-family:'JetBrains Mono',monospace;font-size:0.78rem;color:var(--text-dim);background:none;border:none;cursor:pointer;margin-bottom:0.75rem;text-decoration:underline}
+.hint{font-size:0.9rem;color:var(--text-dim);margin-bottom:1rem;padding:0.6rem 0.8rem;background:var(--surface2);border-left:3px solid var(--border-light);display:none}
+.hint.show{display:block}
+.nav-row{display:flex;justify-content:center;margin-top:1.5rem}
+.summary{text-align:center;padding:2rem 0}
+.summary h2{font-family:'Playfair Display',serif;margin-bottom:1rem}
+.summary .stat{font-family:'JetBrains Mono',monospace;font-size:1.3rem;margin:0.5rem 0}
+footer{margin:3rem 0 1.5rem;padding-top:1rem;border-top:1px solid var(--border-light);text-align:center;color:var(--text-dim);font-size:0.82rem}
+.keys{font-family:'JetBrains Mono',monospace;font-size:0.78rem;color:var(--text-dim);text-align:center;margin-bottom:1rem}
+</style>
+</head>
+<body>
+<div class="container">
+<header>
+  <h1>Advanced Multiway Strategies &mdash; Drills</h1>
+  <p>Chapter 3 &bull; Advanced Cash Game Course</p>
+</header>
+
+<div class="controls">
+  <button class="btn active" onclick="startQuiz('all')">All Questions</button>
+  <button class="btn" onclick="startQuiz('missed')">Review Missed</button>
+  <button class="btn" onclick="startQuiz('shuffle')">Shuffle</button>
+</div>
+
+<div class="keys">Hotkeys: <strong>1-5</strong> answer &bull; <strong>H</strong> hint &bull; <strong>N / Enter</strong> next &bull; <strong>R</strong> restart</div>
+
+<div class="progress" id="progress"></div>
+<div id="quiz-area"></div>
+
+<footer>Advanced Cash Game Course &mdash; Chapter 3 Drills</footer>
+</div>
+
+<script>
+const Q = [
+  // ── Multiway Foundations ──
+  {
+    tag: "Foundations",
+    q: "In a 3-way pot, a heavily favored player typically has about what equity?",
+    choices: ["55-60%", "45-50%", "37-42%", "25-30%"],
+    answer: 2,
+    hint: "Equity is split among more players. Even with an advantage, you can't have as much as heads-up.",
+    explain: "In a 3-way pot, even a heavily favored player typically has only 37-42% equity, compared to 55-65% heads-up. This is why you check far more often and bet smaller."
+  },
+  {
+    tag: "Foundations",
+    q: "What is the default recommended bet size when c-betting in a multiway pot?",
+    choices: ["66% pot", "50% pot", "~30% pot", "Overbet (100%+ pot)"],
+    answer: 2,
+    hint: "You rarely have a big nut advantage multiway, so sizes stay small.",
+    explain: "The default multiway c-bet size is approximately 30% pot. You rarely have a significant nut advantage, so small sizes are standard. Only go bigger (50-70% pot) with a clear nut advantage."
+  },
+  {
+    tag: "Foundations",
+    q: "In multiway pots, your 'bluffs' should typically be:",
+    choices: [
+      "Pure air with no equity",
+      "Hands with real equity: flush draws, gutshots, backdoor draws",
+      "The same as heads-up bluffs",
+      "Only pocket pairs below middle pair"
+    ],
+    answer: 1,
+    hint: "You need a safety net when bluffing against multiple opponents.",
+    explain: "Multiway bluffs must have real equity: flush draws, straight draws, overcards with backdoor draws, or middle pair needing protection. You almost never bluff with pure nothing because you're far more likely to get called."
+  },
+  {
+    tag: "Foundations",
+    q: "Compared to heads-up, your betting range multiway should be constructed in a more:",
+    choices: ["Polarized manner (nuts + air)", "Linear manner (hands with good equity)", "Merged manner (all medium-strength hands)", "Random manner"],
+    answer: 1,
+    hint: "You're betting fewer trash hands and more hands that actually have equity.",
+    explain: "Multiway ranges are LINEAR: you bet hands with good equity (top pair, draws, middle pair needing protection) rather than polarized nuts-or-air. Your 'bluffs' are equity-driven, not pure air."
+  },
+  // ── Range & Nut Advantage ──
+  {
+    tag: "Advantage",
+    q: "On T-7-5 two-tone, cutoff raises and button + big blind call. The cutoff should:",
+    choices: ["Bet 100% of range small", "Bet ~60% of range", "Check entire range", "Bet big with nut hands only"],
+    answer: 2,
+    hint: "Does the cutoff have a nut or range advantage over the button on this board?",
+    explain: "On T-7-5, the cutoff and button have essentially the same nuts (sets, straight draws). With no nut advantage and no range advantage, the cutoff checks their entire range."
+  },
+  {
+    tag: "Advantage",
+    q: "On K-Q-5, cutoff raises and button + big blind call. Why does the cutoff have the nut advantage?",
+    choices: [
+      "The cutoff always has more equity",
+      "Opponents three-bet KK, QQ, AK preflop, so they lack these hands",
+      "The cutoff has more suited connectors",
+      "The big blind is out of position"
+    ],
+    answer: 1,
+    hint: "Think about what hands the button and big blind would have three-bet preflop.",
+    explain: "The button and big blind would three-bet KK, QQ, AK, and often AQ preflop. So they lack these premium hands postflop. The cutoff has all of them, creating a clear nut advantage."
+  },
+  {
+    tag: "Advantage",
+    q: "What does the nut advantage primarily determine in your strategy?",
+    choices: ["Bet frequency", "Bet sizing", "Whether to check-raise", "Bluffing frequency"],
+    answer: 1,
+    hint: "Range advantage drives one thing, nut advantage drives another.",
+    explain: "Nut advantage drives bet SIZING. When you have far more nut hands, you use bigger sizes (50-70% pot multiway). Range advantage drives bet FREQUENCY."
+  },
+  {
+    tag: "Advantage",
+    q: "If the equity distribution graph shows your line far above opponents in the top region but similar in the middle, you have:",
+    choices: ["Range advantage only", "Nut advantage only", "Both range and nut advantage", "Neither advantage"],
+    answer: 1,
+    hint: "Top region = strongest hands = nut advantage zone. Middle region = range advantage zone.",
+    explain: "The top region of the equity graph represents your strongest hands. Being above there = nut advantage. The middle region determines range advantage. Being similar in the middle = no range advantage. So you have nut advantage only."
+  },
+  // ── MDF Multiway ──
+  {
+    tag: "MDF",
+    q: "In heads-up, you defend ~70% vs a standard bet. In a 3-way pot with 2 players left to act, each player's shared MDF is approximately:",
+    choices: ["70%", "50%", "35%", "20%"],
+    answer: 2,
+    hint: "The MDF is divided among the remaining players.",
+    explain: "The heads-up MDF (~70%) is shared among all players after the bet. With 2 players remaining: 70% / 2 = ~35% each."
+  },
+  {
+    tag: "MDF",
+    q: "With 7 players yet to act after a bet, each player's shared MDF is approximately:",
+    choices: ["35%", "20%", "10%", "50%"],
+    answer: 2,
+    hint: "70% divided by 7.",
+    explain: "70% / 7 = 10% each. That means you only need to defend with about 10% of your range — essentially just the nuts. This is why multiway pots require very tight defense."
+  },
+  {
+    tag: "MDF",
+    q: "When you are NOT closing the action (players behind you), you should:",
+    choices: [
+      "Defend at exactly the shared MDF",
+      "Defend wider than the shared MDF",
+      "Overfold compared to the shared MDF",
+      "Always raise instead of calling"
+    ],
+    answer: 2,
+    hint: "What happens if someone behind you raises after you call?",
+    explain: "You should overfold when not closing the action because: (1) someone behind can raise, putting you in a terrible spot, and (2) your equity realization drops significantly when sandwiched between players."
+  },
+  {
+    tag: "MDF",
+    q: "The player closest to closing the action should defend:",
+    choices: [
+      "Less than their shared MDF",
+      "At exactly their shared MDF",
+      "More than their shared MDF",
+      "It doesn't matter — position is irrelevant to MDF"
+    ],
+    answer: 2,
+    hint: "Closing the action means better equity realization.",
+    explain: "The player closing the action defends more than the shared MDF because they realize equity better — no one can raise behind them. Conversely, the first player to act defends less."
+  },
+  // ── Hand Strength Downgrade ──
+  {
+    tag: "Hand Strength",
+    q: "You hold AA on 8-7-5 in a 5-way pot. You bet and face a call, call, and raise. You should:",
+    choices: ["Re-raise all-in", "Call and re-evaluate", "Fold immediately", "Raise small"],
+    answer: 2,
+    hint: "How many opponents have you beat when someone raises after two calls in a 5-way pot?",
+    explain: "Fold immediately. In a 5-way pot on 8-7-5, someone almost certainly has a set, two pair, or a straight. Pocket aces are substantially downgraded multiway on coordinated boards."
+  },
+  {
+    tag: "Hand Strength",
+    q: "You have a J-high flush on a board that ran out with obvious flush cards in a 4-way pot. If you bet and get called, the caller likely has:",
+    choices: [
+      "A set or two pair",
+      "A higher flush (ace-high or king-high)",
+      "A bluff",
+      "Top pair"
+    ],
+    answer: 1,
+    hint: "Which flush draws are most commonly played? Ace-high, king-high...",
+    explain: "Ace-high and king-high flush draws are the most common. If someone calls your bet on a flush board in a 4-way pot, they very likely have a higher flush. J-high flush is marginal multiway."
+  },
+  {
+    tag: "Hand Strength",
+    q: "Top pair facing a bet + raise in a 3-way pot should generally be:",
+    choices: ["A 3-bet for value", "A call", "A fold", "Depends on the kicker only"],
+    answer: 2,
+    hint: "Think about the KQ on K-7-6 example. What does the raiser have?",
+    explain: "Top pair facing bet + raise multiway is a clear fold. The raiser almost certainly has sets, two pair, or very strong draws. Even if you're ahead, virtually every turn card is bad for you."
+  },
+  // ── C-Betting ──
+  {
+    tag: "C-Betting",
+    q: "On K-Q-5, cutoff vs button + big blind, the cutoff bets approximately what percentage of their range?",
+    choices: ["100%", "~80%", "~58%", "~30%"],
+    answer: 2,
+    hint: "Even on the best boards for the PFR, multiway betting frequency never reaches heads-up levels.",
+    explain: "About 58%. Even on boards with clear nut and range advantage, the cutoff still checks ~42% of their range multiway. You never bet 100% of your range in a multiway pot."
+  },
+  {
+    tag: "C-Betting",
+    q: "After checking the flop multiway on T-7-5 (check-check-check), a Queen comes on the turn. The cutoff should now:",
+    choices: [
+      "Check again — we gave up the initiative",
+      "Bet frequently because we gained range and nut advantage",
+      "Bet only with queens",
+      "Check-raise"
+    ],
+    answer: 1,
+    hint: "What does a queen do to the cutoff's range compared to the callers?",
+    explain: "The queen turn gives the cutoff a new advantage — their range has lots of AK, KQ, KJ, QJ, AQ that just improved. Bet frequently with queens, flush draws, tens, and strong draws. Still equity-driven, not pure air."
+  },
+  {
+    tag: "C-Betting",
+    q: "On the river in a former multiway pot, after betting turn and getting called, you should bluff with:",
+    choices: [
+      "Any hand that missed",
+      "Hands with no blockers to opponent's folding range",
+      "The highest card you have",
+      "Never — just give up"
+    ],
+    answer: 1,
+    hint: "Blocker effects matter. You want the opponent to have hands they'll fold.",
+    explain: "Bluff with hands that DON'T block the opponent's folding range. For example, if bluffing on a flush board, don't hold the ace of the flush suit — that blocks the opponent's busted flush draws they'd fold."
+  },
+  // ── Big Bets ──
+  {
+    tag: "Big Bets",
+    q: "On A-T-5 (cutoff vs small blind + big blind), 'big' in multiway means approximately:",
+    choices: ["100%+ pot (overbet)", "70% pot", "50% pot", "30% pot"],
+    answer: 1,
+    hint: "Multiway 'big' is still smaller than heads-up big bets.",
+    explain: "Big multiway = 70% pot. You never overbet on the flop multiway. Even 70% pot is considered 'big' because the default is ~30% pot."
+  },
+  {
+    tag: "Big Bets",
+    q: "On 8-3-2 from UTG+1 vs small blind + big blind, why do we bet 70% pot with the entire betting range?",
+    choices: [
+      "We have a range advantage from having suited connectors",
+      "We have a massive effective nut advantage from all overpairs (AA-88)",
+      "The board is too dry to bet small",
+      "We want to bluff everyone out"
+    ],
+    answer: 1,
+    hint: "EP ranges have all the overpairs. What do the blinds have?",
+    explain: "The EP range has ALL overpairs (AA through 88) plus A8s, K8s. The blinds have more low sets but those are few combos. Our overpair advantage is massive, making every opponent's best hand (like 87s) miserable against a big bet."
+  },
+  {
+    tag: "Big Bets",
+    q: "Why does AA (top set) bet SMALL on A-T-5 while AK bets BIG?",
+    choices: [
+      "AA is weaker than AK multiway",
+      "AA is not vulnerable and doesn't need protection; AK is strong but can be outdrawn",
+      "Top set always bets small in every situation",
+      "AK blocks more of the opponent's calling range"
+    ],
+    answer: 1,
+    hint: "Which hand benefits more from protection — the one that's almost never outdrawn, or the one that's strong but vulnerable?",
+    explain: "AA on A-T-5 is virtually never outdrawn. It can afford to bet small and still extract value. AK is strong but vulnerable to runner-runner or being counterfeited. Big bets are for hands that are almost always good BUT vulnerable."
+  },
+  // ── IP When Checked To ──
+  {
+    tag: "IP Play",
+    q: "When the PFR checks their entire range to you on the button, you should bet:",
+    choices: [
+      "Big (70% pot) because they're weak",
+      "Small (30% pot) because they're uncapped and have the nuts in their range",
+      "Only with the nuts",
+      "Never — respect their check"
+    ],
+    answer: 1,
+    hint: "If the PFR checks everything, their range includes strong hands. You don't have nut advantage.",
+    explain: "When the PFR checks their entire range, they're UNCAPPED (they have nuts in their range). You have a range advantage but NOT a nut advantage. Bet small (30% pot) and frequently (~60%)."
+  },
+  {
+    tag: "IP Play",
+    q: "On 8-7-6 checked to you on the button, which hand should you check BACK to protect your range?",
+    choices: ["King-Jack offsuit", "Pocket Queens", "Ten-Nine suited", "Seven-Six suited"],
+    answer: 1,
+    hint: "Which hand is almost always good but would hate getting raised?",
+    explain: "Pocket Queens: almost always good on 8-7-6, but if you bet and get raised, it's miserable. Perfect check-back to protect your range. KJ is a bluff you'd bet. T9 and 76s are strong enough to bet for value/protection."
+  },
+  {
+    tag: "IP Play",
+    q: "When the PFR normally bets strong hands but checks to you, their check signals:",
+    choices: [
+      "A trap with the nuts",
+      "A weak, capped range",
+      "Indifference — same as any other check",
+      "They want to check-raise"
+    ],
+    answer: 1,
+    hint: "If they would normally bet their strong hands, what's left when they check?",
+    explain: "If the PFR normally bets their strong hands, checking signals a weak/capped range. You now have the nut advantage and should bet BIGGER (70% pot) when you do bet."
+  },
+  {
+    tag: "IP Play",
+    q: "The flush completes on the turn after PFR checked everything on the flop. With a set, you should:",
+    choices: [
+      "Bet big for protection",
+      "Check some of the time — the PFR's range is loaded with flush draws that got there",
+      "Always bet small",
+      "Fold"
+    ],
+    answer: 1,
+    hint: "If the PFR checked everything including flush draws, what happened when the flush card hit?",
+    explain: "The PFR checked everything on the flop, including all their flush draws. When the flush completes, their range is loaded with made flushes. Even sets should check some of the time. Top pair and overpairs check ALWAYS."
+  },
+  // ── Facing Aggression ──
+  {
+    tag: "Facing Aggression",
+    q: "On J-8-5, you're in the BB facing a cutoff bet. Small blind folds. You fold approximately:",
+    choices: ["55% of your range", "44% of your range", "32% of your range", "70% of your range"],
+    answer: 2,
+    hint: "With the small blind out, you're now heads-up and closing the action.",
+    explain: "When the small blind folds, you fold about 32% — you're closing the action heads-up with reasonable equity realization. If the small blind had called, that jumps to 55%."
+  },
+  {
+    tag: "Facing Aggression",
+    q: "Same spot: J-8-5, BB facing cutoff bet, but now the small blind CALLS. Your fold frequency changes to approximately:",
+    choices: ["32%", "44%", "55%", "70%"],
+    answer: 2,
+    hint: "Bet + call before you = way tighter defense.",
+    explain: "When the small blind calls, your fold frequency jumps from 32% to 55%. You drop all marginal hands: pocket 7s, pocket 5s, Ax without draws, weak gutshots. Only continue with strong pairs and strong draws."
+  },
+  {
+    tag: "Facing Aggression",
+    q: "On K-Q-5, the big blind faces a LoJack bet + Button call. The big blind folds approximately:",
+    choices: ["50%", "65%", "82%", "30%"],
+    answer: 2,
+    hint: "The big blind is OOP against two players with tight ranges on a high-card board.",
+    explain: "The big blind folds a staggering 82% of their range. OOP against two players who have strong ranges on K-Q-5, equity realization is terrible. When continuing, the BB mostly raises (not calls) — either raise or fold."
+  },
+  {
+    tag: "Facing Aggression",
+    q: "When the big blind continues on K-Q-5 facing bet + call, they prefer to:",
+    choices: [
+      "Call with everything and see the turn",
+      "Raise or fold — almost no calling",
+      "Only call with top pair",
+      "Check-raise the turn instead"
+    ],
+    answer: 1,
+    hint: "OOP equity realization is terrible. What does the BB do to compensate?",
+    explain: "The BB either raises or folds — almost no flat calling. Calling OOP against two players is terrible for equity realization. Raising lets the BB define their hand, build the pot with strong hands, and potentially win immediately with bluffs."
+  },
+  // ── Protecting Check Range ──
+  {
+    tag: "Range Protection",
+    q: "Why must you check back some strong hands in multiway pots?",
+    choices: [
+      "To slow-play for deception",
+      "To protect your checking range so opponents can't exploit it",
+      "Because strong hands don't need to bet",
+      "To save money when you're behind"
+    ],
+    answer: 1,
+    hint: "If your checking range is all trash, what happens when a competent opponent bets into you?",
+    explain: "If your checking range is too weak, competent opponents will run you over by betting every street. You must include strong hands (overpairs, sets) so your checking range can withstand aggression."
+  },
+  {
+    tag: "Range Protection",
+    q: "Which is the BEST hand to check back on 8-7-6 for range protection?",
+    choices: ["Pocket Aces", "Pocket Jacks", "Ten-Nine suited (open-ender)", "Ace-King offsuit"],
+    answer: 1,
+    hint: "You want a hand that is almost always good but would hate getting raised if you bet.",
+    explain: "Pocket Jacks: strong enough to win at showdown, can comfortably call turn + river bets, but betting and getting raised is miserable. Aces are too strong (want to bet for protection). T9 and AK are hands you'd bet as bluffs/draws."
+  },
+  // ── Hand Examples ──
+  {
+    tag: "Examples",
+    q: "You hold JJ on T-6-5 multiway (button + BB called). The flop action should be:",
+    choices: ["Bet small for value", "Bet big for protection", "Check — we should check this board every time", "Check-raise if someone bets"],
+    answer: 2,
+    hint: "What does GTO say about the PFR's strategy on T-6-5 in a 3-way pot?",
+    explain: "On T-6-5 multiway, the PFR checks their entire range. JJ is no exception — check. On the turn, if an overcard like a King comes, THEN bet because you've gained range and nut advantage."
+  },
+  {
+    tag: "Examples",
+    q: "You hold KQ on K-7-6. Cutoff bets small, big blind raises to 65. You should:",
+    choices: ["3-bet for value", "Call — top pair is too good to fold", "Fold immediately", "Call and re-evaluate the turn"],
+    answer: 2,
+    hint: "Top pair facing a bet + raise multiway. What does the raiser have?",
+    explain: "Fold immediately. The big blind raises into a bettor and a caller — they have sets, two pair, or strong draws. Every turn card is bad: diamonds, straight cards, 7, 6, ace. This is not even close to a call."
+  },
+  {
+    tag: "Examples",
+    q: "You hold KK on K-K-6 multiway. Both opponents call your small flop bet. Turn is a 6 (you have a full house). You should:",
+    choices: ["Bet big — you have the nuts", "Bet small to keep them in", "Check — let opponents bluff or catch up", "Go all-in"],
+    answer: 2,
+    hint: "You block all Kx. What can opponents possibly pay you off with?",
+    explain: "Check! You block all Kx so opponents can't have trips. Nobody can pay you off. By checking, opponents with draws or medium hands may bluff, and someone might improve on the river. Don't blast every street with the nuts when you block the calling range."
+  },
+  {
+    tag: "Examples",
+    q: "You hold QQ with Q&spades; on J-7-5. You check-raise the flop, both call. Turn: A&spades; (flush completes). You should:",
+    choices: [
+      "Bet — you have a flush draw and overpair",
+      "Check-call — you have outs",
+      "Fold to any aggression — you're almost certainly beaten",
+      "Go all-in as a semi-bluff"
+    ],
+    answer: 2,
+    hint: "Both opponents called your check-raise. The flush completed. What do they have?",
+    explain: "When both opponents call a check-raise and the flush completes, they almost certainly have made flushes or very strong hands. Your overpair + flush draw is often drawing dead (ace-high and king-high flushes beat yours). Fold to any aggression."
+  },
+  {
+    tag: "Examples",
+    q: "You hold A&spades;4&spades; and your flush draw missed on the river. You should NOT bluff because:",
+    choices: [
+      "You don't have enough chips",
+      "The A&spades; blocks opponent's busted flush draws that would fold to your bet",
+      "The board is too wet",
+      "You should always bluff missed draws"
+    ],
+    answer: 1,
+    hint: "What hands would fold to your river bet? And do you block those hands?",
+    explain: "The A&spades; blocks the opponent's busted A&spades;x flush draws — the very hands that would auto-fold to your river bluff. If you block their folds, bluffing is terrible. Bluff instead with hands that DON'T block the folding range."
+  },
+  {
+    tag: "Examples",
+    q: "You hold AA on 8-3-2 multiway. You bet the flop, get called. Turn is a 6. You should:",
+    choices: [
+      "Bet big again for protection",
+      "Check — aces are not vulnerable here and you can value bet the river",
+      "Go all-in",
+      "Bet small for value"
+    ],
+    answer: 1,
+    hint: "Is AA really that vulnerable on 8-3-2-6? What's the opponent's range?",
+    explain: "Check. AA on 8-3-2-6 is not very vulnerable (opponent needs specific sets or two pair). If you bet turn, opponent folds all worse hands. By checking, you protect your checking range and can value bet the river when an overcard comes or the opponent decides to bluff."
+  }
+];
+
+let order=[], pos=0, score=0, missed=new Set(), answered=false, missedSet=new Set();
+function startQuiz(mode){
+  document.querySelectorAll('.btn').forEach(b=>b.classList.remove('active'));
+  event.target.classList.add('active');
+  pos=0; score=0; answered=false;
+  if(mode==='missed'){
+    order=[...missedSet];
+    if(!order.length){order=[...Array(Q.length).keys()];}
+  } else {
+    order=[...Array(Q.length).keys()];
+  }
+  if(mode==='shuffle') for(let i=order.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[order[i],order[j]]=[order[j],order[i]];}
+  missed=new Set();
+  render();
+}
+function render(){
+  if(pos>=order.length){showSummary();return;}
+  answered=false;
+  const qi=order[pos], d=Q[qi], area=document.getElementById('quiz-area');
+  document.getElementById('progress').innerHTML=`Question ${pos+1} / ${order.length} &nbsp;|&nbsp; Score: <span class="score">${score}</span> &nbsp;|&nbsp; Missed: <span class="missed">${missed.size}</span>`;
+  let h=`<div class="q-tag">${d.tag}</div><div class="q-text">${d.q}</div>`;
+  h+=`<button class="hint-btn" onclick="document.getElementById('hint').classList.toggle('show')">Show Hint</button>`;
+  h+=`<div class="hint" id="hint">${d.hint}</div>`;
+  h+=`<div class="choices" id="choices">`;
+  d.choices.forEach((c,i)=>{h+=`<button class="choice" data-i="${i}" onclick="pick(${qi},${i})">${c}</button>`;});
+  h+=`</div><div id="fb"></div><div class="nav-row"><button class="btn" id="next-btn" style="display:none" onclick="pos++;render()">Next &rarr;</button></div>`;
+  area.innerHTML=h;
+}
+function pick(qi,i){
+  if(answered)return; answered=true;
+  const d=Q[qi], btns=document.querySelectorAll('.choice');
+  btns.forEach(b=>{b.disabled=true;const bi=+b.dataset.i;if(bi===d.answer)b.classList.add('correct');if(bi===i&&i!==d.answer)b.classList.add('wrong');});
+  const ok=i===d.answer;
+  if(ok)score++; else{missed.add(qi);missedSet.add(qi);}
+  document.getElementById('fb').innerHTML=`<div class="feedback ${ok?'correct-fb':'wrong-fb'}"><div class="fb-label">${ok?'Correct':'Incorrect'}</div>${d.explain}</div>`;
+  document.getElementById('next-btn').style.display='inline-block';
+  document.getElementById('progress').innerHTML=`Question ${pos+1} / ${order.length} &nbsp;|&nbsp; Score: <span class="score">${score}</span> &nbsp;|&nbsp; Missed: <span class="missed">${missed.size}</span>`;
+}
+function showSummary(){
+  const pct=Math.round(score/order.length*100);
+  document.getElementById('quiz-area').innerHTML=`<div class="summary"><h2>Quiz Complete</h2><div class="stat">Score: ${score} / ${order.length} (${pct}%)</div><div class="stat">Missed: <span style="color:var(--wrong)">${missed.size}</span></div><br><button class="btn" onclick="startQuiz('all')">Restart All</button> <button class="btn" onclick="startQuiz('missed')">Review Missed</button></div>`;
+  document.getElementById('progress').innerHTML='';
+}
+document.addEventListener('keydown',e=>{
+  if(e.target.tagName==='INPUT'||e.target.tagName==='TEXTAREA')return;
+  const k=e.key;
+  if(k>='1'&&k<='5'&&!answered){const i=+k-1;const qi=order[pos];if(i<Q[qi].choices.length)pick(qi,i);}
+  if((k==='n'||k==='N'||k==='Enter')&&answered){pos++;render();}
+  if(k==='h'||k==='H'){const el=document.getElementById('hint');if(el)el.classList.toggle('show');}
+  if(k==='r'||k==='R')startQuiz('all');
+});
+startQuiz('all');
+</script>
+</body>
+</html>

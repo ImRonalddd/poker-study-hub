@@ -1,0 +1,789 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cash Game Masterclass — Quick Reference Card</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;1,400;1,600&family=Source+Serif+4:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #FFFFFF;
+  --surface: #FFFFFF;
+  --surface2: #F5F5F5;
+  --accent: #000000;
+  --text: #000000;
+  --text-dim: #525252;
+  --correct: #1a7a5e;
+  --wrong: #b91c1c;
+  --orange: #8B6914;
+  --border: #000000;
+  --border-light: #E5E5E5;
+}
+
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  border-radius: 0 !important;
+}
+
+body {
+  font-family: 'Source Serif 4', 'Georgia', serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  opacity: 0.02;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 400px 400px;
+  pointer-events: none;
+}
+
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+/* ── Header ── */
+header {
+  padding: 4rem 0 2.5rem;
+  text-align: center;
+}
+
+header h1 {
+  font-family: 'Playfair Display', serif;
+  font-weight: 800;
+  font-size: 2.6rem;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+  margin-bottom: 0.5rem;
+}
+
+header .subtitle {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--text-dim);
+}
+
+.back-link {
+  display: inline-block;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text-dim);
+  text-decoration: none;
+  margin-bottom: 1rem;
+  transition: color 100ms;
+}
+
+.back-link:hover { color: var(--text); }
+
+/* ── Dividers ── */
+.divider {
+  border: none;
+  border-top: 4px solid var(--accent);
+  margin: 0;
+}
+
+.divider-thin {
+  border: none;
+  border-top: 1px solid var(--border-light);
+  margin: 2rem 0;
+}
+
+/* ── Sections ── */
+.section {
+  padding: 2.5rem 0;
+}
+
+.section + .section {
+  border-top: 1px solid var(--border);
+}
+
+.section h2 {
+  font-family: 'Playfair Display', serif;
+  font-weight: 700;
+  font-size: 1.6rem;
+  margin-bottom: 0.35rem;
+}
+
+.section-tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.6rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  background: var(--accent);
+  color: #FFFFFF;
+  padding: 0.2rem 0.6rem;
+  display: inline-block;
+  margin-bottom: 1.25rem;
+}
+
+.section h3 {
+  font-family: 'Playfair Display', serif;
+  font-weight: 600;
+  font-size: 1.15rem;
+  margin: 1.5rem 0 0.5rem;
+}
+
+.section p, .section li {
+  font-size: 0.95rem;
+  line-height: 1.7;
+  color: var(--text-dim);
+}
+
+.section ul, .section ol {
+  padding-left: 1.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.section li {
+  margin-bottom: 0.25rem;
+}
+
+.section strong {
+  color: var(--text);
+  font-weight: 600;
+}
+
+/* ── Formula Boxes ── */
+.formula-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1rem;
+  margin: 1rem 0;
+}
+
+.formula-box {
+  border: 1px solid var(--border);
+  padding: 1.25rem 1.5rem;
+}
+
+.formula-box .label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.6rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--text-dim);
+  margin-bottom: 0.5rem;
+}
+
+.formula-box .formula {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.95rem;
+  font-weight: 600;
+  line-height: 1.6;
+}
+
+.formula-box .note {
+  font-size: 0.82rem;
+  color: var(--text-dim);
+  margin-top: 0.4rem;
+  line-height: 1.5;
+}
+
+/* ── Tables ── */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1rem 0;
+  font-size: 0.88rem;
+}
+
+th {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  background: var(--accent);
+  color: #FFFFFF;
+  padding: 0.6rem 0.75rem;
+  text-align: left;
+}
+
+td {
+  padding: 0.55rem 0.75rem;
+  border-bottom: 1px solid var(--border-light);
+  color: var(--text-dim);
+  vertical-align: top;
+  line-height: 1.5;
+}
+
+td strong {
+  color: var(--text);
+}
+
+tr:hover td {
+  background: var(--surface2);
+}
+
+/* ── Mistake Items ── */
+.mistake-list {
+  list-style: none;
+  padding-left: 0;
+}
+
+.mistake-list li {
+  padding: 0.6rem 0;
+  border-bottom: 1px solid var(--border-light);
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.75rem;
+  align-items: start;
+}
+
+.mistake-list .x-mark {
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 700;
+  font-size: 0.75rem;
+  color: var(--wrong);
+  margin-top: 0.15rem;
+}
+
+/* ── Footer ── */
+footer {
+  padding: 2.5rem 0;
+  text-align: center;
+  border-top: 4px solid var(--accent);
+}
+
+footer p {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.6rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text-dim);
+  line-height: 1.8;
+}
+
+/* ── Print Styles ── */
+@media print {
+  body::before { display: none; }
+
+  body {
+    font-size: 10pt;
+    color: #000;
+  }
+
+  .container {
+    max-width: 100%;
+    padding: 0;
+  }
+
+  header {
+    padding: 1rem 0;
+  }
+
+  header h1 {
+    font-size: 20pt;
+  }
+
+  .back-link { display: none; }
+
+  .section {
+    padding: 1rem 0;
+    break-inside: avoid;
+  }
+
+  .section h2 {
+    font-size: 14pt;
+  }
+
+  .formula-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .formula-box, table, .mistake-list li {
+    break-inside: avoid;
+  }
+
+  th {
+    background: #000 !important;
+    color: #FFF !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .section-tag {
+    background: #000 !important;
+    color: #FFF !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  a { color: #000; text-decoration: none; }
+}
+
+/* ── Responsive ── */
+@media (max-width: 640px) {
+  header { padding: 2.5rem 0 1.5rem; }
+  header h1 { font-size: 1.8rem; }
+  .formula-grid { grid-template-columns: 1fr; }
+  table { font-size: 0.8rem; }
+  th, td { padding: 0.4rem 0.5rem; }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="container">
+    <a href="./index.html" class="back-link">&larr; Back to Study Hub</a>
+    <h1>Quick Reference Card</h1>
+    <div class="subtitle">Cash Game Masterclass — One-Page Cheat Sheet</div>
+  </div>
+</header>
+
+<hr class="divider">
+
+<!-- ═══════════════════════ KEY FORMULAS ═══════════════════════ -->
+
+<div class="container">
+<section class="section">
+  <span class="section-tag">Foundations</span>
+  <h2>Key Formulas</h2>
+
+  <div class="formula-grid">
+    <div class="formula-box">
+      <div class="label">Pot Odds</div>
+      <div class="formula">Call / (Pot + Call)</div>
+      <div class="note">E.g., call $50 into $150 pot = 50/200 = 25%. You need 25%+ equity to call.</div>
+    </div>
+    <div class="formula-box">
+      <div class="label">Equity</div>
+      <div class="formula">Wins / (Wins + Losses)</div>
+      <div class="note">Your share of the pot if all remaining cards were dealt out.</div>
+    </div>
+    <div class="formula-box">
+      <div class="label">Expected Value (EV)</div>
+      <div class="formula">(Win% x WinAmt) - (Lose% x LoseAmt)</div>
+      <div class="note">Positive = profitable long-run. Always compare EV of all options.</div>
+    </div>
+    <div class="formula-box">
+      <div class="label">Minimum Defense Frequency</div>
+      <div class="formula">1 - Bet / (Pot + Bet)</div>
+      <div class="note">How often you must continue to prevent opponent from profiting with any two cards.</div>
+    </div>
+    <div class="formula-box">
+      <div class="label">Stack-to-Pot Ratio (SPR)</div>
+      <div class="formula">Effective Stack / Pot on Flop</div>
+      <div class="note">Low SPR (&lt;4): commit with top pair. High SPR (&gt;10): need strong hands or draws.</div>
+    </div>
+    <div class="formula-box">
+      <div class="label">Combinations</div>
+      <div class="formula">Pairs: 6 combos | Suited: 4 | Offsuit: 12</div>
+      <div class="note">Remove combos for known/dead cards. Blockers matter most on later streets.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════ POSITION STRATEGY ═══════════════════════ -->
+
+<section class="section">
+  <span class="section-tag">Preflop</span>
+  <h2>Position-Based Strategy</h2>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Position</th>
+        <th>Open-Raise Range</th>
+        <th>Key Adjustments</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>UTG / UTG+1</strong></td>
+        <td>~12-15% — Premium pairs, strong broadways, suited aces</td>
+        <td>Tightest range. Fold marginal hands. Must play well OOP postflop.</td>
+      </tr>
+      <tr>
+        <td><strong>MP / LJ</strong></td>
+        <td>~16-20% — Add suited connectors, more broadways</td>
+        <td>Slightly wider. Still cautious — multiple players left to act.</td>
+      </tr>
+      <tr>
+        <td><strong>HJ</strong></td>
+        <td>~22-26% — Add suited one-gappers, lower pocket pairs</td>
+        <td>Transition zone. Start stealing but respect CO/BTN 3-bets.</td>
+      </tr>
+      <tr>
+        <td><strong>CO</strong></td>
+        <td>~28-33% — Wide range including suited Kx, suited connectors</td>
+        <td>Premium steal position. 3-bet wider vs. earlier opens.</td>
+      </tr>
+      <tr>
+        <td><strong>BTN</strong></td>
+        <td>~40-50% — Very wide. Most hands with playability</td>
+        <td>Widest open. Guaranteed position postflop. Steal aggressively.</td>
+      </tr>
+      <tr>
+        <td><strong>SB</strong></td>
+        <td>~35-45% (vs. folds to you) or limp/raise range</td>
+        <td>Raise or fold vs. limps. Against opens: tight 3-bet or fold. Worst postflop position.</td>
+      </tr>
+      <tr>
+        <td><strong>BB</strong></td>
+        <td>Defend ~40-55% vs. opens (getting best pot odds)</td>
+        <td>Close pot odds justify wide defense. Check-raise strong hands and draws.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>3-Bet Guidelines</h3>
+  <ul>
+    <li><strong>Value 3-bets:</strong> QQ+, AKs, AKo (always), JJ, AQs (usually)</li>
+    <li><strong>Bluff 3-bets:</strong> A2s-A5s (blocker + nut potential), suited connectors from position</li>
+    <li><strong>3-bet sizing:</strong> 3x IP, 4x OOP, +1x per caller</li>
+    <li><strong>4-bet range:</strong> KK+/AKs for value; A5s/A4s as bluffs (use sparingly)</li>
+  </ul>
+</section>
+
+<!-- ═══════════════════════ BOARD TEXTURE ═══════════════════════ -->
+
+<section class="section">
+  <span class="section-tag">Flop</span>
+  <h2>Board Texture Classification</h2>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Texture</th>
+        <th>Example</th>
+        <th>C-Bet Strategy</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Dry / Static</strong></td>
+        <td>K-7-2 rainbow</td>
+        <td>Small c-bet (25-33%), high frequency. Board changes little on turn. Range advantage usually with raiser.</td>
+      </tr>
+      <tr>
+        <td><strong>Semi-Wet</strong></td>
+        <td>Q-J-5 one suit</td>
+        <td>Medium c-bet (50-66%), medium frequency. Some draws possible. Protect equity more.</td>
+      </tr>
+      <tr>
+        <td><strong>Wet / Dynamic</strong></td>
+        <td>9-8-7 two-tone</td>
+        <td>Polarized: large bet (66-75%) or check. Many draws and two-pair combos. Board changes drastically.</td>
+      </tr>
+      <tr>
+        <td><strong>Monotone</strong></td>
+        <td>T-6-3 all spades</td>
+        <td>Check often unless you have the nut flush draw. Caller's range has many flush draws too.</td>
+      </tr>
+      <tr>
+        <td><strong>Paired</strong></td>
+        <td>J-J-4 rainbow</td>
+        <td>Small c-bet, high frequency. Few trips in anyone's range. Overcards dominate.</td>
+      </tr>
+      <tr>
+        <td><strong>High / Broadway</strong></td>
+        <td>A-K-Q rainbow</td>
+        <td>Check more often — both ranges connect. Aggressor advantage is smaller on these boards.</td>
+      </tr>
+      <tr>
+        <td><strong>Low / Disconnected</strong></td>
+        <td>7-3-2 rainbow</td>
+        <td>Small c-bet, very high frequency. Misses caller's range almost entirely. Pure range bet.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>Range Advantage vs. Nut Advantage</h3>
+  <ul>
+    <li><strong>Range advantage:</strong> Your overall range is stronger (more high cards, overpairs). Use small bets at high frequency.</li>
+    <li><strong>Nut advantage:</strong> You have more of the very strongest hands (sets, two-pair, straights). Use larger bets, more polarized.</li>
+    <li>The preflop aggressor typically has range advantage on A/K-high boards. The caller may have nut advantage on low, connected boards.</li>
+  </ul>
+</section>
+
+<!-- ═══════════════════════ TURN PLAY ═══════════════════════ -->
+
+<section class="section">
+  <span class="section-tag">Turn</span>
+  <h2>Turn Strategy Essentials</h2>
+
+  <h3>Card Categories for Turn Decisions</h3>
+  <table>
+    <thead>
+      <tr>
+        <th>Turn Card Type</th>
+        <th>Effect</th>
+        <th>Adjustment</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Brick / Blank</strong></td>
+        <td>Changes nothing — no draws complete, no new draws</td>
+        <td>Continue previous street's plan. Barrel for value or as a bluff if you c-bet flop.</td>
+      </tr>
+      <tr>
+        <td><strong>Draw-completing</strong></td>
+        <td>Flush or straight completes</td>
+        <td>If you have it, bet for value. If not, consider checking — opponent may have gotten there.</td>
+      </tr>
+      <tr>
+        <td><strong>Overcard</strong></td>
+        <td>New highest card appears</td>
+        <td>Good barrel card for aggressor (represents new top pair). Bad for caller holding middle pair.</td>
+      </tr>
+      <tr>
+        <td><strong>Pairing card</strong></td>
+        <td>Pairs the board</td>
+        <td>Reduces straights/flushes. Good for overpairs. Check if opponent called with that card's pair.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>Delayed C-Bet</h3>
+  <ul>
+    <li>Check flop, bet turn. Use on boards where flop checking is standard (wet boards, bad range advantage).</li>
+    <li>Effective when turn improves your range (e.g., overcard to board that hits your checking range).</li>
+    <li>Size: typically 50-66% pot. Represents strength since you chose to check and then bet.</li>
+  </ul>
+</section>
+
+<!-- ═══════════════════════ RIVER PLAY ═══════════════════════ -->
+
+<section class="section">
+  <span class="section-tag">River</span>
+  <h2>River Decision Framework</h2>
+
+  <h3>The River Checklist</h3>
+  <ol>
+    <li><strong>Narrow opponent's range</strong> — What hands called/raised each street? What folded?</li>
+    <li><strong>Categorize your hand</strong> — Is it value, bluff-catcher, or clear bluff?</li>
+    <li><strong>Choose an action</strong> — Value bet (if called by worse 50%+), check (bluff-catcher), or bluff (if opponent folds enough).</li>
+  </ol>
+
+  <h3>Bluff-to-Value Ratio</h3>
+  <table>
+    <thead>
+      <tr>
+        <th>Bet Size (% Pot)</th>
+        <th>Opponent Must Defend</th>
+        <th>Your Bluff Frequency</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>33%</strong></td>
+        <td>75%</td>
+        <td>~20% bluffs (1 bluff per 4 value bets)</td>
+      </tr>
+      <tr>
+        <td><strong>50%</strong></td>
+        <td>67%</td>
+        <td>~25% bluffs (1 bluff per 3 value bets)</td>
+      </tr>
+      <tr>
+        <td><strong>66%</strong></td>
+        <td>60%</td>
+        <td>~29% bluffs (2 bluffs per 5 value bets)</td>
+      </tr>
+      <tr>
+        <td><strong>75%</strong></td>
+        <td>57%</td>
+        <td>~30% bluffs (3 bluffs per 7 value bets)</td>
+      </tr>
+      <tr>
+        <td><strong>100%</strong></td>
+        <td>50%</td>
+        <td>~33% bluffs (1 bluff per 2 value bets)</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>Bluff Catching Rules</h3>
+  <ul>
+    <li>If you beat zero value hands but lose to zero bluff hands, you are a pure bluff-catcher.</li>
+    <li>Call if you think opponent bluffs more than the required frequency (based on pot odds).</li>
+    <li>Good bluff-catchers: hands that block opponent's value (e.g., holding a flush blocker).</li>
+    <li>Bad bluff-catchers: hands that block opponent's bluffs (e.g., holding missed draw cards they would bluff).</li>
+  </ul>
+</section>
+
+<!-- ═══════════════════════ BET SIZING ═══════════════════════ -->
+
+<section class="section">
+  <span class="section-tag">All Streets</span>
+  <h2>Bet Sizing Guidelines</h2>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Size</th>
+        <th>% of Pot</th>
+        <th>When to Use</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Small</strong></td>
+        <td>25-33%</td>
+        <td>Dry boards with range advantage. Range c-bets. When you want few folds (thin value).</td>
+      </tr>
+      <tr>
+        <td><strong>Medium</strong></td>
+        <td>50-66%</td>
+        <td>Standard sizing for most spots. Semi-wet boards. Turn barrels. Balanced default.</td>
+      </tr>
+      <tr>
+        <td><strong>Large</strong></td>
+        <td>75-100%</td>
+        <td>Wet/dynamic boards. When you want to charge draws. Polarized ranges. River value/bluffs.</td>
+      </tr>
+      <tr>
+        <td><strong>Overbet</strong></td>
+        <td>120-200%+</td>
+        <td>Nut advantage spots. When opponent's range is capped. River polarization. Requires careful balance.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>Sizing Principles</h3>
+  <ul>
+    <li><strong>Bigger when polarized</strong> — nuts or air. You want max value from strong hands and max fold equity with bluffs.</li>
+    <li><strong>Smaller when merged</strong> — many medium-strength hands. You want calls from worse but can't handle raises.</li>
+    <li><strong>Match your sizing to your range</strong>, not just your hand. If your range is polarized, bet big with your whole range.</li>
+    <li><strong>Increase sizing with more streets left</strong> — pot geometry means small flop bets grow into big river pots.</li>
+  </ul>
+</section>
+
+<!-- ═══════════════════════ CHAPTER TAKEAWAYS ═══════════════════════ -->
+
+<section class="section">
+  <span class="section-tag">Summary</span>
+  <h2>Chapter-by-Chapter Key Takeaways</h2>
+
+  <h3>Ch 1 — Introduction</h3>
+  <ul>
+    <li>Every poker decision is an EV calculation. If the math says call, call — regardless of results.</li>
+    <li>Pot odds tell you the minimum equity needed. Compare pot odds to hand equity before every call.</li>
+    <li>GTO is the baseline strategy that cannot be exploited. Deviate from GTO only when you have a read.</li>
+  </ul>
+
+  <h3>Ch 2 — Preflop Play</h3>
+  <ul>
+    <li>Position is the single most important factor in preflop decisions. Play tighter OOP, wider IP.</li>
+    <li>Lock in your ranges and play them consistently. Unpredictable deviations cost money.</li>
+    <li>3-bet for value and as a bluff. A linear 3-bet range works at low stakes; polarized at higher stakes.</li>
+  </ul>
+
+  <h3>Ch 3 — Playing the Flop</h3>
+  <ul>
+    <li>C-bet strategy depends on board texture and range advantage, not your specific hand.</li>
+    <li>Small bets at high frequency on dry boards. Larger bets at lower frequency on wet boards.</li>
+    <li>When you check, have a plan: check-call, check-raise, or check-fold based on your hand category.</li>
+  </ul>
+
+  <h3>Ch 4 — Playing the Turn</h3>
+  <ul>
+    <li>The turn is where the pot gets big. Only barrel when your range supports it.</li>
+    <li>Board runout matters enormously. Re-evaluate your range advantage on every new card.</li>
+    <li>Delayed c-bets are a powerful weapon — especially when the turn card favors your range.</li>
+  </ul>
+
+  <h3>Ch 5 — Playing the River</h3>
+  <ul>
+    <li>The river is pure math. No more draws — you either have the best hand or you don't.</li>
+    <li>Value bet thin when you beat more than 50% of your opponent's calling range.</li>
+    <li>Choose bluffs with good blocker properties: block opponent's calls, unblock their folds.</li>
+  </ul>
+
+  <h3>Ch 6 — Additional Topics</h3>
+  <ul>
+    <li>Shorthanded: widen all ranges proportionally. Aggression and positional awareness increase.</li>
+    <li>Straddle pots play like lower-SPR poker — tighten up slightly and commit with less relative strength.</li>
+    <li>Live tells and timing are extra information layers. Use them to deviate from GTO.</li>
+  </ul>
+
+  <h3>Ch 7 — Hand Reviews</h3>
+  <ul>
+    <li>Walk through each street asking: what is my range, what is their range, what changed?</li>
+    <li>Focus on process, not results. A good decision with a bad outcome is still a good decision.</li>
+    <li>Review your own hands regularly. Study where you deviated from your plan and why.</li>
+  </ul>
+</section>
+
+<!-- ═══════════════════════ COMMON MISTAKES ═══════════════════════ -->
+
+<section class="section">
+  <span class="section-tag">Avoid</span>
+  <h2>Common Mistakes</h2>
+
+  <ul class="mistake-list">
+    <li>
+      <span class="x-mark">X</span>
+      <span><strong>Playing too many hands preflop.</strong> Entering with marginal hands OOP is the most expensive leak. Tight is right, especially from early position.</span>
+    </li>
+    <li>
+      <span class="x-mark">X</span>
+      <span><strong>C-betting every flop.</strong> Not all boards favor the aggressor. Check boards where the caller has nut or range advantage (e.g., low connected boards vs. BB).</span>
+    </li>
+    <li>
+      <span class="x-mark">X</span>
+      <span><strong>Using the same bet size for every situation.</strong> Your sizing communicates your range. Match size to board texture and your strategic goal.</span>
+    </li>
+    <li>
+      <span class="x-mark">X</span>
+      <span><strong>Ignoring position postflop.</strong> Being IP lets you control pot size, realize equity, and make better decisions. Value it heavily.</span>
+    </li>
+    <li>
+      <span class="x-mark">X</span>
+      <span><strong>Calling river bets with bluff-catchers too often.</strong> Most low-stakes players underbluff on the river. Fold your marginal hands unless you have a specific read.</span>
+    </li>
+    <li>
+      <span class="x-mark">X</span>
+      <span><strong>Never bluff-raising.</strong> If your range is always value-heavy when you raise, observant opponents will overfold. Include some bluffs with good blockers.</span>
+    </li>
+    <li>
+      <span class="x-mark">X</span>
+      <span><strong>Failing to adjust to opponents.</strong> GTO is a baseline, not a religion. When villains have clear tendencies, exploit them.</span>
+    </li>
+    <li>
+      <span class="x-mark">X</span>
+      <span><strong>Chasing draws without odds.</strong> Always compare implied odds and pot odds to your equity. Calling "because it might hit" loses money.</span>
+    </li>
+    <li>
+      <span class="x-mark">X</span>
+      <span><strong>Playing results-oriented.</strong> A bad beat does not make the call wrong. Evaluate decisions on process and expected value, not single outcomes.</span>
+    </li>
+    <li>
+      <span class="x-mark">X</span>
+      <span><strong>Not reviewing your sessions.</strong> You cannot improve what you do not examine. Mark interesting hands, review them away from the table.</span>
+    </li>
+  </ul>
+</section>
+</div>
+
+<footer>
+  <div class="container">
+    <p>Cash Game Masterclass by Jonathan Little — Quick Reference Card</p>
+    <p>Study materials generated from PokerCoaching.com course content</p>
+  </div>
+</footer>
+
+</body>
+</html>

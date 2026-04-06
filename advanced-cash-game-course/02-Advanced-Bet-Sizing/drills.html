@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chapter 2: Advanced Bet Sizing -- Drills</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;1,400;1,600&family=Source+Serif+4:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body,{delimiters:[{left:'\\(',right:'\\)',display:false},{left:'$$',right:'$$',display:true}],throwOnError:false})"></script>
+<style>
+:root{--bg:#FFFFFF;--surface:#FFFFFF;--surface2:#F5F5F5;--accent:#000;--text:#000;--text-dim:#525252;--correct:#1a7a5e;--wrong:#b91c1c;--orange:#8B6914;--border:#000;--border-light:#E5E5E5}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;border-radius:0!important}
+body{font-family:'Source Serif 4','Georgia',serif;background:var(--bg);color:var(--text);line-height:1.6;-webkit-font-smoothing:antialiased}
+.container{max-width:700px;margin:0 auto;padding:2rem 1.5rem 4rem}
+h1{font-family:'Playfair Display',serif;font-weight:800;font-size:2.2rem;text-align:center;margin:2rem 0 0.3rem}
+.subtitle{font-family:'JetBrains Mono',monospace;font-size:0.72rem;font-weight:500;text-transform:uppercase;letter-spacing:0.15em;color:var(--text-dim);text-align:center;margin-bottom:0.5rem}
+.hotkeys{font-family:'JetBrains Mono',monospace;font-size:0.7rem;color:var(--text-dim);text-align:center;margin-bottom:2rem;line-height:1.8}
+.hotkeys kbd{display:inline-block;padding:0.1em 0.45em;border:1px solid var(--border-light);background:var(--surface2);font-weight:600;margin:0 0.1em}
+#progress-bar{width:100%;height:4px;background:var(--border-light);margin-bottom:1.5rem}
+#progress-fill{height:100%;background:var(--accent);transition:width 0.3s}
+#score-display{font-family:'JetBrains Mono',monospace;font-size:0.8rem;text-align:center;margin-bottom:1.5rem;color:var(--text-dim)}
+#question-area{min-height:350px}
+.q-number{font-family:'JetBrains Mono',monospace;font-size:0.72rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--text-dim);margin-bottom:0.5rem}
+.q-text{font-size:1.15rem;font-weight:600;margin-bottom:1.5rem;line-height:1.5}
+.option{display:block;width:100%;text-align:left;font-family:'Source Serif 4',serif;font-size:1rem;padding:0.85rem 1rem;margin-bottom:0.6rem;border:2px solid var(--border-light);background:var(--surface);cursor:pointer;transition:border-color 0.15s,background 0.15s}
+.option:hover:not(.disabled){border-color:var(--accent);background:var(--surface2)}
+.option.selected-correct{border-color:var(--correct);background:#f0fdf4;color:var(--correct);font-weight:600}
+.option.selected-wrong{border-color:var(--wrong);background:#fef2f2;color:var(--wrong)}
+.option.show-correct{border-color:var(--correct);background:#f0fdf4}
+.option.disabled{cursor:default;opacity:0.7}
+.option .opt-key{font-family:'JetBrains Mono',monospace;font-weight:700;margin-right:0.5rem;font-size:0.9rem}
+#explanation{margin-top:1.2rem;padding:1rem 1.25rem;border-left:4px solid var(--accent);background:var(--surface2);display:none;font-size:0.95rem;line-height:1.6}
+#explanation.visible{display:block}
+#next-btn{display:none;margin-top:1.5rem;width:100%;padding:0.8rem;font-family:'JetBrains Mono',monospace;font-size:0.85rem;font-weight:600;text-transform:uppercase;letter-spacing:0.1em;border:2px solid var(--accent);background:var(--accent);color:var(--bg);cursor:pointer;transition:opacity 0.15s}
+#next-btn:hover{opacity:0.85}
+#results{display:none;text-align:center}
+#results h2{font-family:'Playfair Display',serif;font-size:1.8rem;margin-bottom:1rem}
+#results .score-big{font-family:'JetBrains Mono',monospace;font-size:3rem;font-weight:700;margin:1rem 0}
+#results .score-big .correct-n{color:var(--correct)}
+#results .score-big .wrong-n{color:var(--wrong)}
+#review-section{margin-top:2rem;text-align:left}
+#review-section h3{font-family:'Playfair Display',serif;font-size:1.3rem;margin-bottom:1rem}
+.review-item{padding:1rem;margin-bottom:1rem;border:1px solid var(--border-light);background:var(--surface2)}
+.review-item .ri-q{font-weight:600;margin-bottom:0.4rem}
+.review-item .ri-your{color:var(--wrong);font-size:0.9rem}
+.review-item .ri-correct{color:var(--correct);font-size:0.9rem}
+.ri-explain{font-size:0.88rem;color:var(--text-dim);margin-top:0.3rem}
+.btn-restart{margin-top:2rem;padding:0.8rem 2rem;font-family:'JetBrains Mono',monospace;font-size:0.85rem;font-weight:600;text-transform:uppercase;letter-spacing:0.1em;border:2px solid var(--accent);background:var(--accent);color:var(--bg);cursor:pointer}
+.btn-restart:hover{opacity:0.85}
+</style>
+</head>
+<body>
+<div class="container">
+<h1>Bet Sizing Drills</h1>
+<div class="subtitle">Chapter 2 -- 30 Questions</div>
+<div class="hotkeys"><kbd>1</kbd><kbd>2</kbd><kbd>3</kbd><kbd>4</kbd> answer &nbsp; <kbd>Space</kbd> next &nbsp; <kbd>R</kbd> restart &nbsp; <kbd>H</kbd> toggle hotkey help</div>
+
+<div id="progress-bar"><div id="progress-fill" style="width:0%"></div></div>
+<div id="score-display"></div>
+
+<div id="question-area"></div>
+<div id="explanation"></div>
+<button id="next-btn">Next Question (Space)</button>
+
+<div id="results">
+<h2>Results</h2>
+<div class="score-big"><span class="correct-n" id="r-correct"></span> / <span id="r-total"></span></div>
+<p id="r-pct"></p>
+<div id="review-section"><h3>Review Missed</h3><div id="review-list"></div></div>
+<button class="btn-restart" onclick="restart()">Restart (R)</button>
+</div>
+</div>
+
+<script>
+const allQuestions = [
+  {q:"What are the four factors that determine your bet size on any street?",opts:["Pot odds, implied odds, fold equity, position","Nut advantage, range connectivity, stack depth, board dynamics","Hand strength, position, opponent type, pot size","Equity, blockers, board texture, SPR"],ans:1,ex:"Jonathan Little identifies four factors: Nut advantage (who has more premium combos), range connectivity (how well the board hits opponent's range), stack depth (stack-off threshold), and board dynamics (how likely current nuts get downgraded)."},
+  {q:"LJ raises, BB calls. Flop: 10-9-7. Who has the nut advantage and what size should LJ use?",opts:["LJ has it -- bet 66% pot","BB has it -- bet 25% pot","Neither -- check everything","LJ has it -- overbet 120% pot"],ans:1,ex:"On 10-9-7, straights, sets, and two-pair are available. BB has all suited combos (and maybe offsuit). LJ lacks the nut advantage, so when LJ bets, they use a small 25% pot size."},
+  {q:"BTN vs BB, flop A-9-3. Opponent's range is mostly queen-high and worse. What size?",opts:["Overbet -- punish their weak range","Bet large (66% pot) -- they have pairs and draws","Bet small (~25% pot) -- low range connectivity","Check -- board is too dry"],ans:2,ex:"When opponent's range connects poorly with the board (queen-high can't do much), bet small. Low range connectivity = small bet. On K-Q-10, by contrast, any ace-jack or nine is a draw, so you'd bet bigger."},
+  {q:"How does stack depth affect your bet sizing on a 10-8-6 flop (BTN vs BB)?",opts:["Deeper stacks = bet more often, smaller","Deeper stacks = bet less often but bigger when you do","Stack depth doesn't matter on the flop","Deeper stacks = always overbet"],ans:1,ex:"At 200bb deep, check 44% of the time vs only 23% at 100bb. Deeper stacks need closer to the actual nuts. You bet less often but use a larger size when you do, because you're betting more polarized."},
+  {q:"Flop comes K-8-3 all hearts (SB 3-bet, BTN calls). What's the ideal c-bet strategy?",opts:["Bet 66% pot with strong hands only","Bet 20% pot with your entire range","Check everything -- monotone board is scary","Overbet pot to deny flush draws"],ans:1,ex:"On a monotone flop, both players have nut flushes (no nut advantage), but you have a range advantage. The solver bets 20% pot with the entire range, making more EV than checking or using a bigger size."},
+  {q:"On a paired flop like 8-6-6, LJ raises, BB calls. LJ should:",opts:["Bet large -- paired boards are dry","Bet small (~20% pot) -- LJ has almost no sixes","Check always -- BB has all the trips","Overbet -- overpairs are the nuts"],ans:1,ex:"LJ has basically no sixes (the nut hand), so no nut advantage. But LJ has overpairs giving a range advantage. Bet small (20% pot) about 55% of the time to push the range advantage."},
+  {q:"What is the 'straight/flush shortcut' for flop bet sizing?",opts:["Always overbet when a flush draw is present","Straight/flush already made = bet small; draw only = bet large; dry = overbet","Bet the same size regardless of made hands","Check when draws are present"],ans:1,ex:"This is the single most practical heuristic: when a straight or flush is already available, bet small (nuts won't change). When only a draw exists, bet large (build pot before draws complete). Completely dry = overbet with overpairs as effective nuts."},
+  {q:"BTN vs BB, flop 8-3-2. No flush draw. What should BTN do?",opts:["Bet small -- uncoordinated board","Check most hands","Overbet (100%+ pot) with overpairs and naked overcards as bluffs","Bet 50% pot with a linear range"],ans:2,ex:"On 8-3-2, overpairs are essentially the nuts (no straights or flushes). Overbet with a polarized range: overpairs for value, naked overcards like K-4 and Q-9 as bluffs to fold out K-J, Q-J type hands."},
+  {q:"Against an opponent who is 'inelastic to bet sizes' (always calls pairs/draws, always folds air), you should:",opts:["Bet small with everything","Bet large with value hands, tiny with bluffs","Use GTO sizing regardless","Check more often"],ans:1,ex:"Against inelastic opponents, maximize value with large bets (they call anyway) and minimize bluff cost with tiny bets (they fold air to any size). This creates a massive exploitative advantage."},
+  {q:"Opponent defends BB too wide (calling with offsuit trash). On 9-5-2, how does your strategy change?",opts:["No change -- play GTO","Most 2/3 pot bets become 110% pot overbets","Bet smaller since they have more pairs","Check more to trap"],ans:1,ex:"When opponent defends too wide, they have proportionally more trash. Your nut advantage increases massively. On 9-5-2, GTO bets 2/3 pot, but vs a wide defender, upgrade to 110% pot overbets. Same frequency, much bigger size."},
+  {q:"Against a tight-passive player on Q-10-7 (draw-heavy), you have 6-5 suited (air). What size?",opts:["Bet 66% pot -- GTO sizing for dynamic boards","Bet 15 into 65 (about 23% pot)","Check -- can't bluff a tight player","Overbet to maximize fold equity"],ans:1,ex:"Against tight-passive players, if they don't have a pair or draw, they fold to ANY size. Bet tiny ($15 into $65). Breakeven is only 15/80 = 19%. They probably fold 30%+ of the time, making this hugely profitable."},
+  {q:"How much EV do you gain by adding an overbet on A-K-5 flop (BTN vs BB) instead of using only 1/3 and 2/3 pot?",opts:["About 0.5bb/100 hands","About 8bb/100 hands","About 2bb/100 hands","Negligible difference"],ans:1,ex:"The solver EV with all sizes is 4.16bb vs 4.08bb with only 1/3 and 2/3. That 0.08bb per hand translates to 8bb/100 hands -- huge given a good online win rate is ~5bb/100."},
+  {q:"When facing a small bet (33% pot) on the flop, how should your check-raise size compare to facing a pot-sized bet?",opts:["Same size in both cases","Raise larger (relative to pot) vs small bet; smaller vs big bet","Raise smaller vs small bet; larger vs big bet","Never check-raise against small bets"],ans:1,ex:"Rule: the smaller the bet you face, the larger you raise in comparison. Facing 1bb, raise to 10-15bb. Facing a pot bet, raise to about 2.4x their bet. This is because small bets indicate wider ranges you want to punish."},
+  {q:"200bb deep. LJ vs BB, flop 10-9-7 vs 10-7-7. Which board should you check-raise bigger on?",opts:["10-7-7 -- paired boards need bigger raises","10-9-7 -- dynamic board, nuts likely to change","Same size on both","Neither -- don't check-raise 200bb deep"],ans:1,ex:"On 10-9-7 (dynamic), the current nuts (straights) will change on many turns. Raise big to build the pot now. On 10-7-7 (static), trips likely stay nuts -- raise small to keep opponent in with hands drawing thin."},
+  {q:"After you bet the flop and get called, what kind of advantage do you typically have on the turn?",opts:["Range advantage only","Nut advantage only","Both range and nut advantage","Nut advantage but NOT range advantage"],ans:3,ex:"When opponent check-calls, they fold all junk (you still have some) and raise many strong hands (they have fewer). You have the nut advantage but not the range advantage. This drives polarized turn betting."},
+  {q:"On K-8-3 two hearts (BTN bet flop, BB called). Turn is the 7 of hearts (flush completes). What size?",opts:["150% pot overbet -- press the advantage","60% pot -- both players have flushes now","25% pot -- check-call instead","Check everything"],ans:1,ex:"When the flush completes, both players have flushes, so the nut advantage disappears. Bet a smaller 60% pot. On a blank like K of diamonds, you'd use 150% pot overbets because the nuts didn't change."},
+  {q:"You c-bet the flop and get called. Turn is a King on 10-9-7 board. What size do you use?",opts:["25% pot -- king helps opponent","60% pot -- neutral card","150% pot overbet -- king is great for us","Check -- scary card"],ans:2,ex:"The King is excellent for the flop aggressor -- many bluffs were overcards (AK, KQ, KJ) that now became pairs. Plus QJ makes a straight. Bet 150% pot with a strong polarized range. Check only 31% of the time."},
+  {q:"What is a 'turn probe'?",opts:["Any thin value bet on the turn","An OOP bet after the preflop aggressor checked behind on the flop","A delayed c-bet from the preflop raiser","A bluff with no equity"],ans:1,ex:"A turn probe is specifically an out-of-position bet made after the in-position preflop raiser checked behind the flop. A delayed c-bet is when the preflop raiser themselves bets the turn after checking the flop."},
+  {q:"LJ raises, BTN calls. 9-7-3 flop, check-check. Turn: 2 of diamonds. LJ (OOP) should:",opts:["Check again -- you checked the flop for a reason","Bet small and frequently","Overbet 150% pot with a polarized range","Bet 60% pot with a linear range"],ans:2,ex:"From OOP as the preflop raiser, you checked the flop very often, so your range STILL contains strong hands (overpairs). When the nuts don't change (blank 2), overbet 150% pot with overpairs for value and gutshot hands (A-5, A-4) as bluffs."},
+  {q:"When the IP player checks behind the flop on 10-6-4, then BB checks again on the turn, IP should expect:",opts:["BB has a strong trapped range","BB's range is quite weak (checked twice)","BB will check-raise the turn","Ranges are equal"],ans:1,ex:"When BB checks flop (normal) then checks turn too, their range is getting weak -- they would have bet their strong hands on many turns. IP now has both range and nut advantage, leading to frequent medium-sized bets."},
+  {q:"In position on the river, what is the minimum viable value bet size?",opts:["10% pot","25% pot","~50% pot","100% pot"],ans:2,ex:"IP on the river, thin value bets become +EV compared to checking at around 50% pot. Below that, you risk getting raised and folding out equity. Don't bet bottom pair -- if you bet and get raised, it's miserable."},
+  {q:"Out of position on the river, how thin can you value bet?",opts:["Only with the nuts","Down to top pair (50%+ pot)","Down to middle pair using tiny bets (10-33% pot)","Never value bet thin from OOP"],ans:2,ex:"OOP, you're never closing the action anyway. By betting tiny (10-33% pot), you can value bet as thin as middle pair. The smaller you bet, the more hands that call which are worse than yours."},
+  {q:"What is the maximum bluff percentage in your river betting range when you bet pot?",opts:["20%","25%","33%","40%"],ans:2,ex:"At pot-sized bet, opponent needs to call with top 50% of their range (getting 2:1). You can have ~33% bluffs to make them indifferent. At 2x pot, it increases to ~40%. At 33% pot, only ~20%."},
+  {q:"When should you bet very large (all-in for 4x+ pot) on the river?",opts:["Whenever you have the nuts","When draws all missed and you have a big nut advantage","Only in tournaments","When the pot is already large"],ans:1,ex:"Bet all-in when draws missed, the board didn't change from turn to river, and opponent's range is almost all medium-strength hands (they called a big turn bet). In one example, capping at 150% pot cost 77bb/100 hands."},
+  {q:"200bb deep. You overbet 150% pot on the turn and get called. River is a blank. Opponent's range is almost entirely marginal hands. With A-10 (the nuts), you should:",opts:["Bet 66% pot to get called","Bet 150% pot (your biggest normal size)","Jam all-in (4x+ pot)","Check to induce a bluff"],ans:2,ex:"With the nuts against a range of all bluff-catchers, jam all-in. A-10 (the nuts) gains 6.16bb per hand by jamming vs capping at 150% pot -- that's 616bb/100 hands. The EV gain is enormous."},
+  {q:"On the river, with AK on a board where you can jam for 4x pot, what should you do?",opts:["Jam -- AK is a premium hand","Bet 66% pot for thin value","Check -- AK belongs in the checking range here","Bet small for thin value"],ans:2,ex:"When using giant all-in sizes, hands like AK are NOT value bets. They're at the boundary -- if you bet and get called, you're usually behind. If you bet and get raised, it's miserable. Check AK and let it showdown."},
+  {q:"Against an auto-c-bettor on 10-9-7 (they bet 100% instead of 50%), how should you adjust your check-raising?",opts:["Don't adjust -- play GTO","Check-raise less to trap more","Check-raise more often, using a large (pot-sized) raise","Check-raise more often, using a small raise"],ans:2,ex:"On connected boards like 10-9-7, the auto-c-bettor has too many marginal made hands (9x, 7x). Check-raise LARGE (pot-sized) to pressure all those pairs and draws. Also slow-play less because their range is weak."},
+  {q:"Against an auto-c-bettor on A-7-2 (they bet 100% instead of 40%), what check-raise size?",opts:["Pot-sized raise","Small raise (30% pot)","3x their bet","Never check-raise on dry boards"],ans:1,ex:"On uncoordinated boards like A-7-2, the auto-c-bettor has too much TRASH (K-high, Q-high, J-high). They fold to anything. Check-raise small (30% pot) to fold out their air cheaply. Don't raise big -- they have nothing to call with."},
+  {q:"After check-check on the turn, you're OOP on the river with a 6 completing a straight draw. Your range has lots of two-pair, top pair, and some straights. What's the right strategy?",opts:["Bet big with everything -- you have the nuts","Bet 33% pot frequently with thin value, protect with some straights","Check everything -- let IP bet","Overbet with straights only"],ans:1,ex:"After check-check on the turn, you have a range advantage with many medium-strength hands. Bet 33% pot with thin value (A-9, K-9, two-pair). Include some straights that can bet-then-reraise. Include lowest-equity hands as bluffs."},
+  {q:"Pot growth is exponential. If you bet 33% pot on the flop instead of potting it against a calling station, what happens?",opts:["You save money when behind","The pot stays roughly the same by the river","You leave massive value on the table across all streets","It's better to bet small against calling stations"],ans:2,ex:"Against calling stations, pots grow exponentially. Potting the flop cascades: $60 flop -> pot turn -> all-in river = huge pot. 33% pot flop only grows to ~$50, then ~$200 turn, ~$100 river. You leave enormous value on the table by starting small."},
+  {q:"Against a loose-aggressive player on the river, you have a straight on a board that favors your range. Best play?",opts:["Overbet for maximum value","Bet small to induce a raise, then call","Check to induce a bluff or bet small to induce a raise","Pot it -- standard value bet"],ans:2,ex:"Against LAGs, you have two good options: check to induce their bluff, or bet small to induce a raise. On boards favoring YOUR range, bet small to get raised. On boards where opponent naturally has more bluffs, check to let them blast off."},
+];
+
+let questions,current,score,missed,answered;
+function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
+function restart(){questions=shuffle([...allQuestions]);current=0;score=0;missed=[];answered=false;document.getElementById('results').style.display='none';document.getElementById('question-area').style.display='block';document.getElementById('next-btn').style.display='none';showQ()}
+function showQ(){
+  if(current>=questions.length){showResults();return}
+  answered=false;
+  const q=questions[current];
+  const pct=((current)/questions.length*100).toFixed(0);
+  document.getElementById('progress-fill').style.width=pct+'%';
+  document.getElementById('score-display').textContent=`Question ${current+1} of ${questions.length}  |  Score: ${score}`;
+  const keys=['A','B','C','D'];
+  let html=`<div class="q-number">Question ${current+1} of ${questions.length}</div><div class="q-text">${q.q}</div>`;
+  q.opts.forEach((o,i)=>{html+=`<button class="option" data-idx="${i}" onclick="pick(${i})"><span class="opt-key">${keys[i]}</span>${o}</button>`});
+  document.getElementById('question-area').innerHTML=html;
+  document.getElementById('explanation').className='';document.getElementById('explanation').innerHTML='';
+  document.getElementById('next-btn').style.display='none';
+}
+function pick(idx){
+  if(answered)return;answered=true;
+  const q=questions[current];const btns=document.querySelectorAll('.option');
+  btns.forEach(b=>{b.classList.add('disabled');const bi=parseInt(b.dataset.idx);if(bi===q.ans)b.classList.add('show-correct');if(bi===idx&&idx!==q.ans)b.classList.add('selected-wrong');if(bi===idx&&idx===q.ans)b.classList.add('selected-correct')});
+  if(idx===q.ans)score++;else missed.push({q:q.q,yours:q.opts[idx],correct:q.opts[q.ans],ex:q.ex});
+  document.getElementById('explanation').innerHTML=q.ex;document.getElementById('explanation').className='visible';
+  document.getElementById('next-btn').style.display='block';
+}
+function advance(){if(!answered)return;current++;showQ()}
+function showResults(){
+  document.getElementById('question-area').style.display='none';document.getElementById('next-btn').style.display='none';
+  document.getElementById('explanation').className='';
+  const r=document.getElementById('results');r.style.display='block';
+  document.getElementById('r-correct').textContent=score;document.getElementById('r-total').textContent=questions.length;
+  document.getElementById('r-pct').textContent=`${(score/questions.length*100).toFixed(0)}% correct`;
+  let rh='';missed.forEach(m=>{rh+=`<div class="review-item"><div class="ri-q">${m.q}</div><div class="ri-your">Your answer: ${m.yours}</div><div class="ri-correct">Correct: ${m.correct}</div><div class="ri-explain">${m.ex}</div></div>`});
+  document.getElementById('review-list').innerHTML=rh||'<p style="color:var(--correct);font-weight:600">Perfect score!</p>';
+  document.getElementById('progress-fill').style.width='100%';
+}
+document.getElementById('next-btn').addEventListener('click',advance);
+document.addEventListener('keydown',e=>{
+  if(e.key>='1'&&e.key<='4')pick(parseInt(e.key)-1);
+  if(e.key===' '||e.key==='Enter'){e.preventDefault();advance()}
+  if(e.key==='r'||e.key==='R')restart();
+});
+restart();
+</script>
+</body>
+</html>

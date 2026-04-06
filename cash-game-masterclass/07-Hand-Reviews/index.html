@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chapter 7: Hand Reviews — Study Hub</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;1,400;1,600&family=Source+Serif+4:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #FFFFFF; --surface: #FFFFFF; --surface2: #F5F5F5;
+  --accent: #000000; --text: #000000; --text-dim: #525252;
+  --correct: #1a7a5e; --wrong: #b91c1c; --orange: #8B6914;
+  --border: #000000; --border-light: #E5E5E5;
+}
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; border-radius:0!important; }
+body { font-family:'Source Serif 4','Georgia',serif; background:var(--bg); color:var(--text); line-height:1.6; }
+.container { max-width:700px; margin:0 auto; padding:0 2rem 4rem; }
+header { padding:4rem 0 2rem; text-align:center; }
+header h1 { font-family:'Playfair Display',serif; font-weight:800; font-size:2.8rem; letter-spacing:-0.02em; line-height:1.15; margin-bottom:0.5rem; }
+header .subtitle { font-family:'JetBrains Mono',monospace; font-size:0.75rem; font-weight:500; text-transform:uppercase; letter-spacing:0.15em; color:var(--text-dim); }
+header .desc { margin-top:1rem; font-size:1.05rem; color:var(--text-dim); max-width:550px; margin-left:auto; margin-right:auto; }
+.divider { border:none; border-top:4px solid var(--accent); margin:0 0 2.5rem; }
+.nav-back { font-family:'JetBrains Mono',monospace; font-size:0.8rem; display:inline-block; margin-bottom:1rem; color:var(--text-dim); text-decoration:none; border-bottom:1px solid var(--border-light); }
+.nav-back:hover { color:var(--text); border-color:var(--accent); }
+
+.card-grid { display:flex; flex-direction:column; gap:1.2rem; margin-bottom:2.5rem; }
+.card { border:2px solid var(--border-light); padding:1.5rem; text-decoration:none; color:var(--text); display:block; transition:border-color 0.15s, background 0.15s; }
+.card:hover { border-color:var(--accent); background:var(--surface2); }
+.card-label { font-family:'JetBrains Mono',monospace; font-size:0.7rem; text-transform:uppercase; letter-spacing:0.12em; color:var(--text-dim); margin-bottom:0.3rem; }
+.card-title { font-family:'Playfair Display',serif; font-weight:700; font-size:1.4rem; margin-bottom:0.4rem; }
+.card-desc { font-size:0.95rem; color:var(--text-dim); }
+
+h2 { font-family:'Playfair Display',serif; font-weight:700; font-size:1.5rem; margin:2rem 0 1rem; }
+.lesson-list { list-style:none; padding:0; }
+.lesson-list li { padding:0.6rem 0; border-bottom:1px solid var(--border-light); font-size:1rem; display:flex; gap:0.8rem; align-items:baseline; }
+.lesson-list li:last-child { border-bottom:none; }
+.lesson-num { font-family:'JetBrains Mono',monospace; font-size:0.8rem; font-weight:600; color:var(--text-dim); min-width:2rem; }
+
+.theme-grid { display:grid; grid-template-columns: 1fr 1fr; gap:1rem; margin:1rem 0 2rem; }
+.theme { padding:1rem; border:1px solid var(--border-light); background:var(--surface2); }
+.theme-title { font-family:'JetBrains Mono',monospace; font-size:0.75rem; text-transform:uppercase; letter-spacing:0.08em; font-weight:600; margin-bottom:0.3rem; }
+.theme-text { font-size:0.9rem; color:var(--text-dim); }
+@media (max-width: 550px) { .theme-grid { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<div class="container">
+<a href="../index.html" class="nav-back">&larr; All Chapters</a>
+<header>
+  <div class="subtitle">Cash Game Masterclass &middot; Chapter 7</div>
+  <h1>Hand Reviews</h1>
+  <div class="desc">Jonathan Little reviews real hands from a student crushing small stakes cash games. Each hand teaches specific, actionable principles about bet sizing, reads, and decision-making.</div>
+</header>
+<hr class="divider">
+
+<div class="card-grid">
+  <a href="revision-guide.html" class="card">
+    <div class="card-label">Study Material</div>
+    <div class="card-title">Revision Guide</div>
+    <div class="card-desc">Detailed breakdown of all 4 review sessions. Key hands, common mistakes, and universal principles extracted from 20+ hands.</div>
+  </a>
+  <a href="crash-course.html" class="card">
+    <div class="card-label">Quick Reference</div>
+    <div class="card-title">Crash Course</div>
+    <div class="card-desc">The 7 recurring themes across all reviews: bet sizing, reading opponents, pot odds, check-raising, folding strong hands, and more. 15 min read.</div>
+  </a>
+  <a href="drills.html" class="card">
+    <div class="card-label">Practice</div>
+    <div class="card-title">Decision Drills</div>
+    <div class="card-desc">18 hand scenarios testing your decision-making at each critical point. Each question presents the situation and asks for the correct play.</div>
+  </a>
+</div>
+
+<h2>Sessions</h2>
+<ul class="lesson-list">
+  <li><span class="lesson-num">7.1</span> Hand Review #1 — A7s nut flush, AQs 3-bet pot, 55 set mining, straddle with AA</li>
+  <li><span class="lesson-num">7.2</span> Hand Review #2 — Q7s two pair, AJs facing 3-bet, leading vs. donk betting</li>
+  <li><span class="lesson-num">7.3</span> Hand Review #3 — AJ vs. laggy player, A8s trips, Q3s min-click, QQ vs. 4-bet</li>
+  <li><span class="lesson-num">7.4</span> Hand Review #4 — QQ vs. straddle donk, AK flush draw, 86c triple barrel, bet sizing mastery</li>
+</ul>
+
+<h2>Recurring Themes</h2>
+<div class="theme-grid">
+  <div class="theme">
+    <div class="theme-title">Bet Sizing</div>
+    <div class="theme-text">Always ask: "What am I trying to get called by, and how much will that hand call?"</div>
+  </div>
+  <div class="theme">
+    <div class="theme-title">Give Room to Blunder</div>
+    <div class="theme-text">Against tilting/loose opponents, bet small to induce mistakes rather than betting big for "protection."</div>
+  </div>
+  <div class="theme">
+    <div class="theme-title">Read Bet Patterns</div>
+    <div class="theme-text">Small bets = marginal made hands. Big donk bets = polarized. Abnormal lines = unbalanced.</div>
+  </div>
+  <div class="theme">
+    <div class="theme-title">Pot Odds</div>
+    <div class="theme-text">When you need to be good &lt;25%, lean toward calling unless opponent is tight and straightforward.</div>
+  </div>
+  <div class="theme">
+    <div class="theme-title">Check-Raise OOP</div>
+    <div class="theme-text">With your best hands from out of position, check-raise the flop. Not doing so leaves massive value on the table.</div>
+  </div>
+  <div class="theme">
+    <div class="theme-title">Folding Strong Hands</div>
+    <div class="theme-text">Multiway with a big raise, two pair can be a fold. Multiple opponents = tighter calling range.</div>
+  </div>
+  <div class="theme">
+    <div class="theme-title">The Gift Economy</div>
+    <div class="theme-text">Small stakes wins are often gifts from bad play. Don't attribute them to skill — and expect fewer gifts as you move up.</div>
+  </div>
+  <div class="theme">
+    <div class="theme-title">Tag Opponents</div>
+    <div class="theme-text">"Laggy reg," "action fish," "tight passive" — not just "fish." Know exactly what type of bad player they are.</div>
+  </div>
+</div>
+</div>
+</body>
+</html>

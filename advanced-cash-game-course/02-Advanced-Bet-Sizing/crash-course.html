@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chapter 2: Advanced Bet Sizing -- Crash Course</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;1,400;1,600&family=Source+Serif+4:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body,{delimiters:[{left:'\\(',right:'\\)',display:false},{left:'$$',right:'$$',display:true}],throwOnError:false})"></script>
+<style>
+:root {
+  --bg: #FFFFFF; --surface: #FFFFFF; --surface2: #F5F5F5;
+  --accent: #000000; --text: #000000; --text-dim: #525252;
+  --correct: #1a7a5e; --wrong: #b91c1c; --orange: #8B6914;
+  --border: #000000; --border-light: #E5E5E5;
+  --blue: #1e40af; --purple: #6b21a8; --red: #991b1b;
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;border-radius:0!important}
+body{font-family:'Source Serif 4','Georgia',serif;background:var(--bg);color:var(--text);line-height:1.7;-webkit-font-smoothing:antialiased}
+.container{max-width:780px;margin:0 auto;padding:2rem 1.5rem 4rem}
+h1{font-family:'Playfair Display',serif;font-weight:800;font-size:2.6rem;letter-spacing:-0.02em;line-height:1.15;margin:3rem 0 0.5rem;text-align:center}
+.subtitle{font-family:'JetBrains Mono',monospace;font-size:0.75rem;font-weight:500;text-transform:uppercase;letter-spacing:0.15em;color:var(--text-dim);text-align:center;margin-bottom:2rem}
+h2{font-family:'Playfair Display',serif;font-weight:700;font-size:1.7rem;margin:2.5rem 0 0.75rem;padding-bottom:0.3rem;border-bottom:3px solid var(--accent)}
+h3{font-family:'Source Serif 4',serif;font-weight:700;font-size:1.2rem;margin:1.8rem 0 0.5rem}
+p,li{margin-bottom:0.6rem}
+ul,ol{padding-left:1.5rem;margin-bottom:1rem}
+code{font-family:'JetBrains Mono',monospace;font-size:0.88em;background:var(--surface2);padding:0.1em 0.35em;border:1px solid var(--border-light)}
+strong{font-weight:700}
+table{width:100%;border-collapse:collapse;margin:1rem 0 1.5rem;font-size:0.92rem}
+th,td{padding:0.5rem 0.75rem;border:1px solid var(--border-light);text-align:left}
+th{background:var(--surface2);font-weight:600;font-family:'JetBrains Mono',monospace;font-size:0.82rem;text-transform:uppercase;letter-spacing:0.05em}
+hr{border:none;border-top:1px solid var(--border-light);margin:2rem 0}
+.box{padding:1rem 1.25rem;margin:1.2rem 0;border-left:4px solid}
+.box-title{font-family:'JetBrains Mono',monospace;font-size:0.75rem;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.4rem}
+.box-blue{border-color:var(--blue);background:#eff6ff}.box-blue .box-title{color:var(--blue)}
+.box-purple{border-color:var(--purple);background:#faf5ff}.box-purple .box-title{color:var(--purple)}
+.box-orange{border-color:var(--orange);background:#fefce8}.box-orange .box-title{color:var(--orange)}
+.box-red{border-color:var(--red);background:#fef2f2}.box-red .box-title{color:var(--red)}
+.katex-display{margin:0.8rem 0}
+</style>
+</head>
+<body>
+<div class="container">
+
+<h1>Advanced Bet Sizing in Cash Games</h1>
+<div class="subtitle">Advanced Cash Game Course -- Chapter 2 Crash Course</div>
+
+<!-- ======================================= -->
+<h2>1. The Four Factors Driving Bet Size</h2>
+
+<div class="box box-blue">
+<div class="box-title">Definition</div>
+Every bet sizing decision on every street is determined by four factors: <strong>Nut Advantage</strong> (who has more premium combos), <strong>Range Connectivity</strong> (how well the board hits opponent's continuing range), <strong>Stack Depth</strong> (the stack-off threshold), and <strong>Board Dynamics</strong> (how likely current strong hands get downgraded).
+</div>
+
+<h3>Nut Advantage</h3>
+<p>The player with more combinations of premium hands has the <strong>nut advantage</strong>. When you have it, you bet larger. When you don't, you bet smaller.</p>
+
+<div class="box box-orange">
+<div class="box-title">Example</div>
+<strong>LJ raises, BB calls. Flop: 8-5-2 vs 10-9-7.</strong> On 8-5-2, LJ has overpairs (no straights/flushes available), giving a big nut advantage -- bet 2/3 pot. On 10-9-7, BB has all the straights/sets, LJ lacks nut advantage -- bet only 25% pot.
+</div>
+
+<h3>Range Connectivity</h3>
+<p>When opponent's range connects well with the board (lots of pairs and draws), bet <strong>larger</strong> because they'll call with decent hands your strong hands crush. When their range is disconnected (queen-high, king-high), bet <strong>smaller</strong>.</p>
+
+<div class="box box-orange">
+<div class="box-title">Example</div>
+<strong>BTN vs BB. Flop: A-9-3 vs K-Q-10.</strong> On A-9-3, BB's range is mostly trash (Q-high can't do much) -- bet small. On K-Q-10, any A-J or 9 is a draw, any K/Q/10 is a pair -- bet bigger despite having <em>less</em> equity because opponent has more hands that will call.
+</div>
+
+<h3>Stack Depth</h3>
+<p>As stacks get deeper, you need closer to the actual nuts to have a nut advantage. Pocket jacks on 10-8-7 is happy to get all-in at 40bb but not at 400bb.</p>
+<ul>
+<li><strong>100bb deep</strong>: Overpairs count as effective nuts; bet wider, check less (23% checks on 10-8-6)</li>
+<li><strong>200bb deep</strong>: Must have closer to true nuts; bet less often but BIGGER when you do (44% checks on 10-8-6)</li>
+</ul>
+
+<h3>Board Dynamics</h3>
+
+<div class="box box-blue">
+<div class="box-title">Definition</div>
+<strong>Board dynamics</strong> measures how likely the current strong hands are to get downgraded on later streets. When a straight or flush is <em>already available</em>, bet smaller. When there's a straight or flush <em>draw but no made hand</em>, bet larger.
+</div>
+
+<div class="box box-orange">
+<div class="box-title">Example</div>
+<strong>BTN vs BB. Flop: A-K-5 vs A-K-J.</strong> On A-K-5 (no straight, but draws like 5-4, Q-J, Q-10), overbet to 120% pot with a polarized range. On A-K-J (straight already available via Q-10), bet only 60% pot despite having a big nut advantage on both boards.
+</div>
+
+<!-- ======================================= -->
+<h2>2. When to Bet Very Small on the Flop (~20% Pot)</h2>
+
+<p>The Cash Game Masterclass used 33% as the small size. There are boards where you should go even smaller, to around 20% pot, and bet with almost your entire range.</p>
+
+<h3>When to Use 20% Pot Bets</h3>
+<ul>
+<li><strong>Monotone boards</strong> (three of same suit): Both players have nut flushes, so no nut advantage; you just have a range advantage</li>
+<li><strong>Paired boards</strong> where you lack trips (e.g., 8-6-6 as LJ raiser): Opponent has the trips, you have overpairs</li>
+<li><strong>Uncoordinated boards</strong> (K-6-2): Huge range advantage, minimal nut advantage</li>
+<li><strong>Boards with a straight already there</strong> (7-5-4): Opponent has the straights and two-pair</li>
+</ul>
+
+<div class="box box-purple">
+<div class="box-title">Insight</div>
+As you bet smaller, you get to bet <strong>more often</strong>. On K-8-3 monotone, using 33% pot lets you bet 40% of the time. Using 20% pot lets you bet <em>every single time</em> -- and makes more EV. Opponents make errors whenever you bet, so maximizing betting frequency is very valuable.
+</div>
+
+<div class="box box-red">
+<div class="box-title">Trap</div>
+Don't use big bets on monotone or paired boards just because the board looks "scary." On K-8-3 all hearts (SB 3-bet, BTN calls), if you pot it, you barely get to bet at all. Tiny bets are far more profitable because you deny equity from <em>everything</em>.
+</div>
+
+<h3>The Equity Diagram Signal</h3>
+<p>When you see both players have roughly equal nuts at the top of the range, but you're favored across the middle and bottom, that's the signal for <strong>frequent tiny bets</strong>. You're exploiting your range advantage, not your nut advantage.</p>
+
+<!-- ======================================= -->
+<h2>3. When to Bet Very Large on the Flop (66%+ Pot)</h2>
+
+<p>Large bets should be used when you have a large nut advantage, high range connectivity for your opponent, and when the board is dynamic with draws but no made straights or flushes.</p>
+
+<h3>Key Conditions for Overbetting the Flop</h3>
+<ol>
+<li><strong>Overpairs are the effective nuts</strong>: Uncoordinated low boards (8-3-2, 7-4-2) with no straight available</li>
+<li><strong>Your range has many draw-to-the-nuts combos</strong>: A-Q-3 (you have 5-4s, K-J, K-10, J-10 for draws)</li>
+<li><strong>Board heavily favors your range</strong>: A-K-4 from LJ (big cards + draws = overbet territory)</li>
+</ol>
+
+<div class="box box-orange">
+<div class="box-title">Example</div>
+<strong>BTN vs BB, 8-3-2:</strong> Overpairs are essentially the nuts. No straights, no flushes. Overbet (100%+ pot). Bluffs are overcards like K-4, Q-9, J-9 that benefit from making K-J, Q-J fold. On <strong>8-5-4</strong> (straight already available), check 44% of the time and never overbet.
+</div>
+
+<div class="box box-purple">
+<div class="box-title">Insight</div>
+The hands bluffing with big sizes are often surprising: naked overcards like K-4 or Q-9 on 7-4-2. They benefit from forcing K-J, Q-J, and some A-highs to fold. The way to get these hands to fold is a big bet size.
+</div>
+
+<!-- ======================================= -->
+<h2>4. The Straight/Flush Shortcut</h2>
+
+<p>This is the single most practical heuristic from the entire chapter:</p>
+
+<table>
+<tr><th>Board State</th><th>Size Tendency</th><th>Why</th></tr>
+<tr><td>Straight or flush <strong>already made</strong></td><td>Bet SMALL</td><td>Current nuts likely remains nuts; both players have them</td></tr>
+<tr><td>Straight/flush <strong>draw only</strong></td><td>Bet LARGE</td><td>Board will change; build pot before draws complete</td></tr>
+<tr><td>Completely dry (no draws)</td><td>OVERBET</td><td>Overpairs = effective nuts; maximize value</td></tr>
+</table>
+
+<!-- ======================================= -->
+<h2>5. Exploitative Flop Sizing Adjustments</h2>
+
+<h3>Three Reasons to Exploitatively Bet Large</h3>
+
+<div class="box box-blue">
+<div class="box-title">Definition</div>
+An <strong>inelastic</strong> opponent always calls with pairs/draws and always folds air, regardless of your bet size. Against these players, maximize value by betting large.
+</div>
+
+<ol>
+<li><strong>Opponent is inelastic to bet sizes</strong>: They call with pairs/draws no matter what -- load the pot with value hands</li>
+<li><strong>Opponent doesn't check-raise enough</strong>: Bet bigger with value since you won't get punished. Example: AK on K-10-4, pot it instead of 2/3 pot</li>
+<li><strong>Opponent defends BB too wide</strong>: More trash in their range = bigger nut advantage = overbet. On 9-5-2 vs wide BB, most 2/3 pot bets become 110% pot overbets</li>
+</ol>
+
+<h3>Three Reasons to Exploitatively Bet Very Small</h3>
+
+<ol>
+<li><strong>Wide BB defender</strong>: Their range contains too much junk. Bet tiny (20% pot) and often (every hand). EV jumps massively (71bb/100 vs 45bb/100 in one example)</li>
+<li><strong>Size-inelastic opponent</strong>: They fold trash to any bet. Bluff for 20% pot instead of 66% pot -- breakeven at only \(\frac{15}{80} \approx 19\%\) instead of 40%</li>
+<li><strong>Opponent won't check-raise</strong>: Bet wider for thin value/protection. Gain 26bb/100 extra by betting tiny every time vs 33% pot 63% of the time</li>
+</ol>
+
+<div class="box box-red">
+<div class="box-title">Trap</div>
+Against tight-passive players, do NOT use big GTO-style bets with your bluffs. On Q-10-7 (draw-heavy, should be big bet in GTO), bet only $15 into $65 with 6-5s against a tight-passive player. If they have nothing, they fold to ANY size. Save chips when they do have something.
+</div>
+
+<!-- ======================================= -->
+<h2>6. From Rigid to Dynamic Bet Sizes</h2>
+
+<div class="box box-purple">
+<div class="box-title">Insight</div>
+Using only 1/3 and 2/3 pot on the flop (rigid strategy) costs real money compared to dynamic sizing. On A-K-5, adding an overbet gains <strong>8bb/100 hands</strong>. On 8-4-4, adding a tiny bet gains <strong>5bb/100</strong>. A good online win rate is ~5bb/100, so these are massive gains.
+</div>
+
+<p>The goal is not to memorize specific boards but to understand the concepts:</p>
+<ul>
+<li>Low paired boards with a straight draw -> tiny bet</li>
+<li>High boards with draws but no made hand -> overbet</li>
+<li>Dynamic bet sizes take opponents to unfamiliar areas of the game</li>
+</ul>
+
+<div class="box box-red">
+<div class="box-title">Trap</div>
+Adding complexity without proper study leads to <em>more</em> mistakes. If you're not comfortable with a spot, use the rigid 1/3 and 2/3 strategy. A simple strategy implemented correctly beats a complex strategy implemented poorly.
+</div>
+
+<!-- ======================================= -->
+<h2>7. Check-Raise Sizing</h2>
+
+<h3>Three Rules</h3>
+<ol>
+<li><strong>Smaller bet faced -> Larger raise</strong>: If they bet 1bb, raise to 10-15bb. If they bet 33% pot, raise to a big size relative to pot</li>
+<li><strong>Bigger bet faced -> Smaller raise</strong>: If they pot it, raise to about 2.4x their bet (a small raise over the top)</li>
+<li><strong>More dynamic board -> Larger raise</strong>: Current nuts likely to change = bigger sizing</li>
+</ol>
+
+<div class="box box-orange">
+<div class="box-title">Example</div>
+<strong>200bb deep, LJ vs BB. Flop: 10-9-7 vs 10-7-7.</strong> On 10-9-7 (dynamic -- straights will change), check-raise BIG. On 10-7-7 (static -- trips stay nuts), check-raise SMALL to keep opponent in with hands drawing thin.
+</div>
+
+<h3>Exploitative Check-Raising</h3>
+<p>Against auto-c-bettors (players who bet 100% on boards they should check sometimes):</p>
+<ul>
+<li><strong>On connected boards</strong> (10-9-7): They have too many marginal made hands -> check-raise LARGE to pot</li>
+<li><strong>On uncoordinated boards</strong> (A-7-2): They have too much trash -> check-raise SMALL (30% pot). Just fold out king-high, queen-high</li>
+</ul>
+
+<!-- ======================================= -->
+<h2>8. Turn Continuation Betting</h2>
+
+<div class="box box-blue">
+<div class="box-title">Definition</div>
+After you bet the flop and get called, opponent's range has lost all junk (they folded it) and many strong hands (they raised them). You typically have the <strong>nut advantage but not the range advantage</strong>. This drives polarized betting.
+</div>
+
+<h3>Turn Card Effects on Bet Size</h3>
+<table>
+<tr><th>Turn Card</th><th>Size</th><th>Reason</th></tr>
+<tr><td>Flush completes (heart on K-8-3 two hearts)</td><td>60% pot</td><td>Both players have flushes -- no nut advantage</td></tr>
+<tr><td>Overcard (K on 10-9-7)</td><td>150% pot overbet</td><td>Your bluffs improved; huge nut advantage</td></tr>
+<tr><td>Blank (2 on K-8-3)</td><td>150% pot overbet</td><td>Current nuts preserved; press the advantage</td></tr>
+<tr><td>Connects with opponent (8 on 10-9-7)</td><td>25% pot</td><td>Opponent has tons of straights; small thin-value bets</td></tr>
+</table>
+
+<div class="box box-purple">
+<div class="box-title">Insight</div>
+Even though your equity may be below 50% after a flop c-bet and call (e.g., 46% on K-8-3 two hearts), your <strong>EV is above 50%</strong> because you have position plus the nut advantage. Position + nut advantage = over-realization.
+</div>
+
+<h3>The EV Conversion</h3>
+<p>To convert solver chip EV to a percentage of the pot:</p>
+$$\text{EV\%} = \frac{\text{Chip EV}}{\text{Pot Size}} \times 100$$
+<p>Example: 5.8 chip EV / 10.7 pot = 54% EV (despite only 46% equity).</p>
+
+<!-- ======================================= -->
+<h2>9. Turn Probes &amp; Delayed C-Bets</h2>
+
+<h3>Key Distinction: Position Matters Enormously</h3>
+
+<div class="box box-blue">
+<div class="box-title">Definition</div>
+A <strong>turn probe</strong> is an OOP bet after the preflop aggressor checked behind the flop. A <strong>delayed c-bet</strong> is when the preflop raiser bets the turn after checking the flop.
+</div>
+
+<h3>OOP Delayed C-Bets (Preflop Raiser Checks Flop)</h3>
+<ul>
+<li>You checked the flop from OOP very often (as you should), so your range <strong>still contains strong hands</strong></li>
+<li>When the nuts don't change, you use <strong>150% pot overbets</strong> (e.g., 9-7-3 flop, 2 turn: overbet with overpairs + gutshot bluffs)</li>
+<li>When an overcard comes (K on 9-7-3), you have range advantage -> bet <strong>frequently and small</strong></li>
+</ul>
+
+<h3>IP Delayed C-Bets (After Check-Check)</h3>
+<ul>
+<li>When nuts don't change, IP delayed c-bets are <strong>rarely huge</strong> -- you would have bet your strong hands on the flop</li>
+<li>Exception: when opponent checks flop AND turn, they've announced weakness twice. You now have both range and nut advantage -> frequent medium bets</li>
+</ul>
+
+<div class="box box-orange">
+<div class="box-title">Example</div>
+<strong>LJ raises, BTN calls. 9-7-3 flop, check-check. Turn: 2 of diamonds.</strong> OOP LJ overbets 150% pot with overpairs (AA, KK, QQ) and gutshot bluffs (A-5, A-4). On turn K of spades, LJ bets frequently and small (range advantage, opponent also has kings).
+</div>
+
+<div class="box box-orange">
+<div class="box-title">Example</div>
+<strong>BTN raises, BB calls. K-7-4 two spades flop, check-check.</strong> BB probes the turn. On 6 of hearts (range improves with straights/two-pair), bet more frequently with some big and some small bets. On J of diamonds (connects with BTN), bet very polarized and infrequent -- just nuts + high-equity draws.
+</div>
+
+<!-- ======================================= -->
+<h2>10. River Bet Sizing Fundamentals</h2>
+
+<h3>IP vs OOP: Critical Difference</h3>
+
+<table>
+<tr><th>Position</th><th>Min Value Bet</th><th>Key Reason</th></tr>
+<tr><td>In position</td><td>~50% pot</td><td>You can check back and realize equity; betting small reopens the action for a raise</td></tr>
+<tr><td>Out of position</td><td>~10-33% pot</td><td>You can't close the action anyway; tiny bets extract thin value safely</td></tr>
+</table>
+
+<h3>River Bluff-to-Value Ratios</h3>
+<p>The maximum percentage of bluffs in your river betting range, based on bet size:</p>
+
+<table>
+<tr><th>Bet Size</th><th>Max Bluff %</th><th>Opponent Must Call With</th></tr>
+<tr><td>33% pot</td><td>~20%</td><td>Very wide (great odds)</td></tr>
+<tr><td>50% pot</td><td>~25%</td><td>Wide</td></tr>
+<tr><td>100% pot</td><td>~33%</td><td>Top 50% of range</td></tr>
+<tr><td>200% pot</td><td>~40%</td><td>Top 33% of range</td></tr>
+<tr><td>300% pot</td><td>~43%</td><td>Top 25% of range</td></tr>
+</table>
+
+<div class="box box-red">
+<div class="box-title">Trap</div>
+In practice, bluff slightly <strong>less</strong> than these theoretical maximums. Your value bets don't always win (opponent has some traps in checking range), and tricky opponents will check-raise you. Against super trappy opponents, bluff even less.
+</div>
+
+<!-- ======================================= -->
+<h2>11. When to Bet Small on the River (OOP)</h2>
+
+<p>Small river bets from OOP are ideal when you have a <strong>massive range advantage</strong> but not necessarily the nut advantage. This commonly occurs after check-check on the turn.</p>
+
+<div class="box box-orange">
+<div class="box-title">Example</div>
+<strong>BB vs BTN. 9-7-3 flop, BTN bets 2/3, BB calls. Turn 8d, check-check. River 6h.</strong> BB has tons of straights, two-pairs, and top pairs. Bet 33% pot with the wide thin-value range (A-9, K-9, two-pairs). Include some nut hands (straights) that can bet-then-reraise. Include some low-equity bluffs (queen-high).
+</div>
+
+<h3>Structuring Your Small Betting Range</h3>
+<ol>
+<li><strong>Thin value</strong>: Top pair, two-pair, medium-strength hands</li>
+<li><strong>Traps</strong>: Some nut hands (sets, straights) that bet small and re-raise if opponent raises</li>
+<li><strong>Bluffs</strong>: Lowest equity hands (queen-high, no pair). NOT king-high or ace-high (those have showdown value to check)</li>
+</ol>
+
+<div class="box box-purple">
+<div class="box-title">Insight</div>
+In deep-stacked GTO, the river rarely prefers going smaller than 33% pot from OOP. But <strong>exploitatively</strong>, against opponents who never raise and call too often (thinking they're getting good odds), going even smaller can work very well.
+</div>
+
+<!-- ======================================= -->
+<h2>12. When to Bet Very Large on the River</h2>
+
+<p>Bet very large (all-in for 4x+ pot) when you have a <strong>big nut advantage</strong> -- typically when draws miss and the board doesn't change from turn to river.</p>
+
+<div class="box box-orange">
+<div class="box-title">Example</div>
+<strong>200bb deep, LJ vs BB. K-7-4ss flop, bet/call. J turn, overbet 150%/call. Queen of clubs river.</strong> LJ has A-10 and 10-9 for straights, plus sets. BB has almost no nuts (would have raised earlier). JAM for 4.2x pot. LJ gains \(\frac{28.8 - 28.07}{1} = 0.77\) bb per hand by having all-in available -- that's <strong>77bb/100 hands</strong> lost by capping at 150% pot.
+</div>
+
+<h3>When to All-In</h3>
+<ul>
+<li><strong>Draws all missed on the river</strong>: Opponent's range is almost entirely marginal. Your range has either nuts or air</li>
+<li><strong>Turn nuts preserved on the river</strong>: Board didn't change meaningfully</li>
+<li><strong>Opponent's range is "all medium"</strong>: They called a big turn bet with bluff-catchers; they have no nuts</li>
+</ul>
+
+<div class="box box-purple">
+<div class="box-title">Insight</div>
+The biggest EV gain from having an all-in size is with <strong>the nuts specifically</strong>. In one example, A-10 (the nuts) gained 6.16bb per hand by jamming vs capping at 150% pot -- that's <strong>616bb/100</strong>. Even if all-in is rare, when it's correct, the EV gain is enormous.
+</div>
+
+<h3>What NOT to Value Bet on the River</h3>
+<p>When using giant sizes, hands like AK, A-K, or one-pair are NOT value bets. They belong in the checking range. If you bet AK on a board where you can jam, you either get called by better or fold out worse. Those hands are right at the boundary -- check them.</p>
+
+<!-- ======================================= -->
+<h2>13. Exploitative Check-Raising Strategies</h2>
+
+<h3>Against Auto-C-Bettors</h3>
+<p>When opponents c-bet 100% on boards where GTO checks 50%+, punish with check-raises:</p>
+
+<table>
+<tr><th>Board Type</th><th>Opponent's Excess Range</th><th>Your Check-Raise</th></tr>
+<tr><td>Connected (10-9-7)</td><td>Too many marginal pairs (9x, 7x)</td><td>LARGE (pot-sized) to pressure pairs</td></tr>
+<tr><td>Uncoordinated (A-7-2)</td><td>Too much trash (K-high, Q-high)</td><td>SMALL (30% pot) -- they fold air to anything</td></tr>
+</table>
+
+<div class="box box-purple">
+<div class="box-title">Insight</div>
+Against auto-c-bettors, you should <strong>slow-play less</strong> -- not more. Their range is so weak that if you just check-call, they won't put in more money on the turn. Check-raise immediately to build the pot while they still have their "betting" range.
+</div>
+
+<!-- ======================================= -->
+<h2>14. Multi-Street Sizing &amp; Player-Type Adjustments</h2>
+
+<h3>The Pot Growth Principle</h3>
+<p>Pots grow exponentially in no-limit. A slightly bigger flop bet cascades across streets:</p>
+
+<div class="box box-orange">
+<div class="box-title">Example</div>
+<strong>Pocket JJ on 10-8-7 vs straightforward player.</strong> By potting it on every street ($60 flop -> pot turn -> all-in river), you get your entire stack in. If instead you bet 1/3 pot on the flop, the pot grows to ~$50, then ~$200 turn, then ~$100 river -- leaving massive value on the table.
+</div>
+
+<h3>Adjusting to Player Types</h3>
+
+<table>
+<tr><th>Player Type</th><th>Your Sizing Strategy</th></tr>
+<tr><td><strong>Straightforward</strong></td><td>Their bets are strong; fold to double-barrels. When they check, bet thin value (they won't bluff-raise). Small river value bets work well.</td></tr>
+<tr><td><strong>Loose-Aggressive</strong></td><td>Overbet-bluff rivers (they fold everything but straights to 2x pot). Check to induce bluffs on boards favoring your range. Call wider on turns.</td></tr>
+<tr><td><strong>Calling Station</strong></td><td>Bet big for value (pot to 2x pot) -- they call "because they're getting odds." Never bluff-small (they call that too). Size up value, give up on bluffs.</td></tr>
+<tr><td><strong>Tight-Passive</strong></td><td>Tiny bluffs (20% pot, breakeven at 19%). Small value bets. Fold to their aggression (when they bet big, they have it). Bet wider for thin value since they won't raise.</td></tr>
+</table>
+
+<div class="box box-red">
+<div class="box-title">Trap</div>
+Pay close attention to the <strong>specific bet sizes</strong> opponents use when they're bluffing vs value betting. Many live players use different sizes: some pot it with bluffs and overbet with nuts, some reverse it. If you can identify this pattern, it adds enormously to your win rate.
+</div>
+
+<!-- ======================================= -->
+<h2>15. The Complete Decision Framework</h2>
+
+<h3>Flop Sizing Flowchart</h3>
+<ol>
+<li>Do I have the <strong>nut advantage</strong>?
+  <ul>
+  <li>YES: Is the board dynamic (draws but no made straight/flush)? -> <strong>BET LARGE</strong> (66-120% pot)</li>
+  <li>YES: Is there already a made straight/flush? -> <strong>BET MEDIUM</strong> (33-66% pot)</li>
+  <li>NO: Do I have a <strong>range advantage</strong>? -> <strong>BET SMALL</strong> (20-33% pot) frequently</li>
+  <li>NO range or nut advantage? -> CHECK most, bet tiny when you do</li>
+  </ul>
+</li>
+</ol>
+
+<h3>Turn Sizing Flowchart (After C-Bet + Call)</h3>
+<ol>
+<li>Are the flop nuts <strong>still the nuts</strong>?
+  <ul>
+  <li>YES: -> <strong>OVERBET 150%</strong> with polarized range (nuts + draws)</li>
+  <li>NO: Did a flush/straight complete? -> <strong>Bet smaller</strong> (60% pot), less polarized</li>
+  <li>NO: Did the turn improve YOUR range (overcard)? -> <strong>BET LARGE</strong></li>
+  </ul>
+</li>
+</ol>
+
+<h3>River Sizing Flowchart</h3>
+<ol>
+<li><strong>IP</strong>: Value bet at 50%+ pot. Check marginals. Never bet bottom pair</li>
+<li><strong>OOP</strong>: Thin value at 10-33% pot. Protect checking range with traps</li>
+<li>Did draws miss? Do I have a nut advantage?
+  <ul>
+  <li>YES: -> <strong>ALL-IN</strong> (even for 4-11x pot) with nuts + bluffs</li>
+  <li>NO: -> Smaller sizes; both players have nuts</li>
+  </ul>
+</li>
+</ol>
+
+<div class="box box-purple">
+<div class="box-title">Insight -- The Meta-Principle</div>
+Every sizing decision reduces to one question: <strong>"Who has the nuts here?"</strong> Nut advantage = big bets, infrequently. Range advantage without nut advantage = small bets, frequently. Both = medium bets, frequently. Neither = check.
+</div>
+
+</div>
+</body>
+</html>

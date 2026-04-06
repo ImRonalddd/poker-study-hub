@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chapter 8: Crushing Heads Up -- Drills</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;1,400;1,600&family=Source+Serif+4:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body,{delimiters:[{left:'\\(',right:'\\)',display:false},{left:'$$',right:'$$',display:true}],throwOnError:false})"></script>
+<style>
+:root {
+  --bg: #FFFFFF; --surface: #FFFFFF; --surface2: #F5F5F5;
+  --accent: #000000; --text: #000000; --text-dim: #525252;
+  --correct: #1a7a5e; --wrong: #b91c1c; --orange: #8B6914;
+  --border: #000000; --border-light: #E5E5E5;
+}
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; border-radius:0 !important; }
+body { font-family:'Source Serif 4','Georgia',serif; background:var(--bg); color:var(--text); line-height:1.6; -webkit-font-smoothing:antialiased; }
+
+.container { max-width:680px; margin:0 auto; padding:0 1.5rem 4rem; }
+
+header { padding:3.5rem 0 2rem; text-align:center; border-bottom:4px solid var(--accent); margin-bottom:2rem; }
+header h1 { font-family:'Playfair Display',serif; font-weight:800; font-size:2.2rem; letter-spacing:-0.02em; line-height:1.15; margin-bottom:0.4rem; }
+header .sub { font-family:'JetBrains Mono',monospace; font-size:0.7rem; font-weight:500; text-transform:uppercase; letter-spacing:0.15em; color:var(--text-dim); }
+
+.progress-bar { width:100%; height:6px; background:var(--surface2); border:1px solid var(--border-light); margin-bottom:1.5rem; }
+.progress-fill { height:100%; background:var(--accent); transition:width 0.3s; }
+
+.status { font-family:'JetBrains Mono',monospace; font-size:0.75rem; color:var(--text-dim); text-align:center; margin-bottom:1.5rem; letter-spacing:0.05em; }
+
+.card { border:1px solid var(--border); padding:2rem; margin-bottom:1.5rem; }
+.card .q-num { font-family:'JetBrains Mono',monospace; font-size:0.7rem; font-weight:600; text-transform:uppercase; letter-spacing:0.1em; color:var(--text-dim); margin-bottom:0.75rem; display:block; }
+.card .q-text { font-size:1.1rem; font-weight:500; margin-bottom:1.5rem; line-height:1.5; }
+
+.options { display:flex; flex-direction:column; gap:0.6rem; }
+.opt-btn { display:block; width:100%; text-align:left; font-family:'Source Serif 4','Georgia',serif; font-size:1rem; padding:0.85rem 1.1rem; background:var(--surface); border:1px solid var(--border); cursor:pointer; transition:background 0.1s, border-color 0.1s; line-height:1.4; }
+.opt-btn:hover:not(:disabled) { background:var(--surface2); }
+.opt-btn:disabled { cursor:default; }
+.opt-btn.correct { background:#e6f4ee; border-color:var(--correct); color:var(--correct); font-weight:600; }
+.opt-btn.wrong { background:#fce8e8; border-color:var(--wrong); color:var(--wrong); }
+
+.explanation { margin-top:1rem; padding:1rem 1.25rem; background:var(--surface2); border-left:4px solid var(--accent); font-size:0.95rem; line-height:1.6; display:none; }
+.explanation.show { display:block; }
+
+.hotkeys { font-family:'JetBrains Mono',monospace; font-size:0.65rem; color:var(--text-dim); text-align:center; margin-bottom:1rem; letter-spacing:0.05em; }
+.hotkeys kbd { background:var(--surface2); border:1px solid var(--border-light); padding:0.1em 0.4em; font-size:0.65rem; }
+
+.nav-row { display:flex; gap:1rem; justify-content:center; margin-top:1.5rem; }
+.nav-btn { font-family:'JetBrains Mono',monospace; font-size:0.75rem; font-weight:600; text-transform:uppercase; letter-spacing:0.1em; padding:0.7rem 1.5rem; border:1px solid var(--border); background:var(--surface); cursor:pointer; transition:background 0.1s, color 0.1s; }
+.nav-btn:hover { background:var(--accent); color:#fff; }
+.nav-btn:disabled { opacity:0.3; cursor:default; }
+.nav-btn:disabled:hover { background:var(--surface); color:var(--text); }
+
+.results { text-align:center; padding:3rem 0; display:none; }
+.results h2 { font-family:'Playfair Display',serif; font-size:2rem; margin-bottom:0.5rem; }
+.results .score { font-family:'JetBrains Mono',monospace; font-size:1.2rem; margin-bottom:1.5rem; }
+.results .score .num { font-size:2.5rem; font-weight:700; }
+</style>
+</head>
+<body>
+<div class="container">
+
+<header>
+  <h1>Heads Up HUNL Drills</h1>
+  <div class="sub">Chapter 8 -- 22 Questions -- Shuffle + Review Missed</div>
+</header>
+
+<div class="hotkeys"><kbd>1</kbd>-<kbd>4</kbd> answer &middot; <kbd>N</kbd> next &middot; <kbd>R</kbd> restart</div>
+
+<div class="progress-bar"><div class="progress-fill" id="progFill"></div></div>
+<div class="status" id="status"></div>
+
+<div id="quizArea">
+  <div class="card" id="card">
+    <span class="q-num" id="qNum"></span>
+    <div class="q-text" id="qText"></div>
+    <div class="options" id="opts"></div>
+    <div class="explanation" id="expl"></div>
+  </div>
+  <div class="nav-row">
+    <button class="nav-btn" id="nextBtn" onclick="nextQ()" disabled>Next &rarr;</button>
+  </div>
+</div>
+
+<div class="results" id="results">
+  <h2>Session Complete</h2>
+  <div class="score"><span class="num" id="finalScore"></span> / <span id="finalTotal"></span></div>
+  <div class="nav-row">
+    <button class="nav-btn" id="reviewBtn" onclick="reviewMissed()">Review Missed</button>
+    <button class="nav-btn" onclick="restart()">Restart All</button>
+  </div>
+</div>
+
+</div>
+
+<script>
+const ALL_QUESTIONS = [
+  {
+    q: "According to Jon Jaffe, what is the #1 piece of advice for cash game players transitioning to HUNL?",
+    opts: ["3-bet more aggressively", "C-bet less", "Always use overbets on the turn", "Play tighter preflop"],
+    ans: 1,
+    expl: "Jaffe's top advice: 'C-bet less.' Most cash players c-bet 80-90% of flops. In HUNL, even 75% is 'frequent' and many boards should be closer to 50-60%."
+  },
+  {
+    q: "In HUNL, what does 'frequent c-betting' typically mean in terms of percentage?",
+    opts: ["Range-bet (90-100%)", "About 75%", "About 50%", "About 30%"],
+    ans: 1,
+    expl: "In HUNL, 'frequent' c-betting is ~75%, which may seem low to 6-max players who range-bet many textures. Many HUNL boards are even lower at 50-60%."
+  },
+  {
+    q: "On a flop like K-4-2 two-tone in HUNL (100bb, single-raised pot), approximately what percentage of your range should you check as the button?",
+    opts: ["0% -- range bet this board", "About 10%", "About 25%", "About 50%"],
+    ans: 2,
+    expl: "Even on boards that look great for the button, you check ~25% of your range in HUNL. If you range-bet, opponent will punish you with check-raises and strong continuing ranges."
+  },
+  {
+    q: "When selecting which hands to c-bet on the flop in HUNL, which property makes a hand a BETTER candidate to bet?",
+    opts: ["Having a high side card (e.g., queen or jack)", "Having a backdoor flush draw", "Having top pair with a strong kicker", "Having two overcards to the board"],
+    ans: 1,
+    expl: "Backdoor flush draws increase betting frequency because they provide future equity and future bluffing opportunities. Lower side cards and backdoors = bet more."
+  },
+  {
+    q: "The 'side card heuristic' says that on low boards (e.g., 5-3-2), lower side cards should bet more. Why?",
+    opts: ["Lower cards have more showdown value", "Lower cards unblock opponent's offsuit high-card folds", "Lower cards make better pairs on the turn", "Lower cards are harder to read"],
+    ans: 1,
+    expl: "Opponent defends with offsuit high cards (K-x, Q-x, J-x). Low side cards don't block these folds, so opponent folds more often. High side cards block folds, reducing c-bet effectiveness."
+  },
+  {
+    q: "In a HUNL turn probe spot (OOP after check-check), what is the most important property for your bluffing hands?",
+    opts: ["Showdown value", "Equity (draws, gut-shots, flush draws)", "Blockers to opponent's value", "Position"],
+    ans: 1,
+    expl: "When probing OOP, you MUST have equity. You can't just throw in random garbage like Q-Jo with no draw. Prioritize straight draws, flush draws, and gut-shots."
+  },
+  {
+    q: "You're IP in HUNL after check-check on a K-4-2-8 board (brick turn, no new nutted hands). How should you cap your delayed c-bet sizing?",
+    opts: ["Always use pot-sized bets", "Use medium sizes (B50-B65) maximum -- no overbets", "Overbet to put maximum pressure", "Only use blocking bets"],
+    ans: 1,
+    expl: "Cap your big size when no new nutted hands arrive on the turn. On K-4-2-8, no new straights or flushes are possible, so overbets don't make sense -- what nutted hand are you representing?"
+  },
+  {
+    q: "On a turn that DOES bring new nutted hands (e.g., T-7-3-7), what changes about your IP delayed c-bet strategy?",
+    opts: ["Nothing changes -- always use the same size", "You can develop big bets again because you have hands that want to pile money in", "You should always check because the paired board is dangerous", "Use only blocking bets"],
+    ans: 1,
+    expl: "When the turn brings new nutted hands (trips, boats, completed draws), you can build big-bet ranges again. The paired 7 gives you potential trip sevens to bet big with."
+  },
+  {
+    q: "What is the 'Check-Back Monster' strategy in HUNL?",
+    opts: ["Always check back the nuts on the flop", "Deliberately check back strong hands on the flop, then value-bet later streets when opponent discounts your range", "Check-raise the flop with all monsters", "Block-bet the river with all strong hands"],
+    ans: 1,
+    expl: "The Check-Back Monster: check back strong hands on the flop so opponents think you're weak. Then bet for value on later streets when they call wider and raise less, thinking 'how can he have a good hand?'"
+  },
+  {
+    q: "According to the course, how often should you slow-play trips (e.g., T-T-x when you have a ten) on the flop in HUNL?",
+    opts: ["Almost always slow-play to trap", "Bet about 80% of the time -- slow-play is a spice, not the main course", "Always bet -- never slow-play in HUNL", "Check about 50% of the time"],
+    ans: 1,
+    expl: "Jaffe: 'Bet your trips overall about 80% of the time, maybe more.' Against wide HUNL ranges, slow-playing costs EV. You need to put money in the pot when ranges are wide and SPRs are high."
+  },
+  {
+    q: "You barreled aggressively on the turn with many low-equity hands. The river is a total brick. What should you do with your no-showdown-value hands?",
+    opts: ["Bluff all of them -- you have no showdown value", "Give up with many of them -- you must control river bluffing frequency", "Always jam -- maximize fold equity", "Block-bet all of them"],
+    ans: 1,
+    expl: "If you barreled many bluffs on the turn, your river range is too bluff-heavy. A brick river doesn't add nutted hands, so you MUST give up with many bluffs. Just check and lose -- that's okay."
+  },
+  {
+    q: "Jon Jaffe divides all opponents into two categories regarding river bluffing. What are they?",
+    opts: ["Tight and loose players", "Players who bet-check-bet as a bluff, and players who don't", "Value-heavy and bluff-heavy players", "Players who overbet and players who underbet"],
+    ans: 1,
+    expl: "Jaffe's key read: some players can re-emerge with a bluff after checking the turn (bet-check-bet). Others feel 'too fraudulent' to bluff after showing weakness. Against the second type, massively over-fold their river bets."
+  },
+  {
+    q: "Your opponent under-bluffs the river by 5%. How should you adjust your calling frequency with bluff catchers?",
+    opts: ["Under-call by 5%", "Under-call by 10%", "Never call a bluff catcher -- they all become losing calls", "Adjust based on pot odds"],
+    ans: 2,
+    expl: "The adjustment is extreme: if opponent under-bluffs by even a small amount, EVERY bluff catcher becomes a losing call. The correct response is to literally never call. This is one of the most important exploit concepts in HUNL."
+  },
+  {
+    q: "At 200bb+ deep in HUNL, how should you adjust your approach to overpairs on dynamic boards?",
+    opts: ["Pile money in -- overpairs are always strong", "Be more careful; board dynamics can change dramatically with deep SPRs", "Always check overpairs at deep stacks", "Only 3-bet overpairs preflop"],
+    ans: 1,
+    expl: "At deep stacks, boards change too much to blindly pile money in with overpairs. On T-6-4 two-tone at 400bb, an overpair can get in enormous trouble across multiple streets."
+  },
+  {
+    q: "Jon Jaffe says that going into a HUNL match without profiling your opponent is like what?",
+    opts: ["Playing blackjack without counting cards", "Game-planning for a football game without knowing what team you're playing", "Playing a tournament without knowing the payout structure", "Bluffing without looking at your cards"],
+    ans: 1,
+    expl: "Jaffe: 'Going into a heads-up match where you don't know your opponent very well with a game plan is like game planning for a football game when you don't know what team you're playing.'"
+  },
+  {
+    q: "How quickly does Jon Jaffe say you can get a 'decent feel' for your HUNL opponent?",
+    opts: ["After 100 hands", "After 20 hands, sometimes even quicker", "After 5 hands", "After one full session"],
+    ans: 1,
+    expl: "Jaffe: 'You have a decent feel after 20 hands, sometimes even quicker.' Key early reads include timing tells, c-bet frequency, and whether they standardize their timing."
+  },
+  {
+    q: "In HUNL 3-bet pots, why are your 6-max range advantage assumptions often wrong?",
+    opts: ["The deck is shuffled differently", "BB 3-bets ~25% of hands, including tons of suited middling cards the 6-max 3-bet range doesn't contain", "The button's range is narrower in HUNL", "3-bet pots are always good for the caller"],
+    ans: 1,
+    expl: "BB 3-bets ~25% in HUNL, including hands like 8-7s, 6-5s, T-8s. This means boards like K-T-3r are NOT clear button advantages -- the 3-bettor has lots of hands that connect."
+  },
+  {
+    q: "On an ace-high board in a HUNL 3-bet pot, how should both players approach the flop?",
+    opts: ["Button should always c-bet; BB should always check-raise", "Both players should show a lot of passivity -- equities are static", "BB should lead out to take initiative", "Button should overbet to leverage nut advantage"],
+    ans: 1,
+    expl: "On ace-high boards in 3-bet pots, equities are static. If you always bet your ace-x, opponent will run you over in the check-check line and develop polar check-raise strategies."
+  },
+  {
+    q: "On a monotone flop in HUNL, what is the maximum c-bet size you should typically use?",
+    opts: ["Pot-sized (B100)", "Two-thirds pot (B66)", "Small -- B25 to B33", "Overbet (B150+)"],
+    ans: 2,
+    expl: "Monotone boards require very small bet sizes (B25-B33). If opponent has a flush, you have zero equity. The board dynamics rarely change, so building a big pot is dangerous."
+  },
+  {
+    q: "The 'gap heuristic' for monotone boards says you should bet more with which type of hand?",
+    opts: ["Hands where your two cards are close together (e.g., 9-8)", "Hands with a big gap between cards (e.g., A-2)", "Only pocket pairs", "Only hands with the board's suit"],
+    ans: 1,
+    expl: "Bigger gap between cards = bet more. A-2 suited wants to bet (big gap, blocks fewer of opponent's flush combos). A-Q suited is more inclined to check (smaller gap, blocks more)."
+  },
+  {
+    q: "In HUNL, why is the concept of 'pushing equity' more important than 'hand strength ranking' for turn betting?",
+    opts: ["Because solver outputs are random", "Because hands with added draws benefit from building the pot, while pure top-pair hands create ugly river spots", "Because bluffs are always better than value bets", "Because equity doesn't matter in HUNL"],
+    ans: 1,
+    expl: "K-8s with a gut-shot bets the turn because it benefits from building the pot (equity + draws). K-Jo with no draw checks back despite being a 'better hand' because betting it creates difficult river situations."
+  },
+  {
+    q: "When playing very deep (400bb+) in HUNL, how should you adjust your preflop calling range in position?",
+    opts: ["Tighten up -- don't play speculative hands", "Call much wider -- positional advantage magnifies at deep stacks and you over-realize equity", "Only play premium hands", "Fold everything except pairs and suited broadways"],
+    ans: 1,
+    expl: "The deeper you are, the bigger your positional advantage. At 400bb+, you 'just can't fold good suited cards' in position against 3-bets because you over-realize equity enormously."
+  },
+  {
+    q: "After a blunder in HUNL, what is the correct mental approach according to Justin and Jaffe?",
+    opts: ["Tighten up to avoid further losses", "Recognize you're in a new node and make the best decision for THIS spot -- don't let emotions from the previous hand affect you", "Play more aggressively to recover chips", "Take a break from the match"],
+    ans: 1,
+    expl: "Justin: 'No matter what happened here, we're at this part of the game tree and I need to make a good decision.' Don't tilt-fold or go one-speed aggressive. Recalibrate immediately."
+  }
+];
+
+let qs, idx, score, missed, answered;
+
+function shuffle(a) { for(let i=a.length-1;i>0;i--){const j=Math.random()*i+1|0;[a[i],a[j]]=[a[j],a[i]];} return a; }
+
+function init(list) {
+  qs=list; idx=0; score=0; missed=[]; answered=false;
+  document.getElementById('results').style.display='none';
+  document.getElementById('quizArea').style.display='';
+  showQ();
+}
+
+function showQ() {
+  answered=false;
+  const q=qs[idx];
+  document.getElementById('qNum').textContent=`Question ${idx+1} of ${qs.length}`;
+  document.getElementById('qText').textContent=q.q;
+  document.getElementById('status').textContent=`Score: ${score} / ${idx}`;
+  document.getElementById('progFill').style.width=((idx/qs.length)*100)+'%';
+  const opts=document.getElementById('opts'); opts.innerHTML='';
+  const expl=document.getElementById('expl'); expl.className='explanation'; expl.textContent='';
+  document.getElementById('nextBtn').disabled=true;
+  q.opts.forEach((o,i)=>{
+    const b=document.createElement('button');
+    b.className='opt-btn'; b.textContent=o;
+    b.onclick=()=>pick(i,b);
+    opts.appendChild(b);
+  });
+}
+
+function pick(i,btn) {
+  if(answered) return; answered=true;
+  const q=qs[idx];
+  document.querySelectorAll('.opt-btn').forEach((b,j)=>{
+    b.disabled=true;
+    if(j===q.ans) b.classList.add('correct');
+  });
+  if(i===q.ans){ score++; }
+  else { btn.classList.add('wrong'); missed.push(q); }
+  const expl=document.getElementById('expl');
+  expl.textContent=q.expl; expl.classList.add('show');
+  document.getElementById('nextBtn').disabled=false;
+  document.getElementById('status').textContent=`Score: ${score} / ${idx+1}`;
+}
+
+function nextQ() {
+  idx++;
+  if(idx>=qs.length){ showResults(); return; }
+  showQ();
+}
+
+function showResults() {
+  document.getElementById('quizArea').style.display='none';
+  const r=document.getElementById('results'); r.style.display='';
+  document.getElementById('finalScore').textContent=score;
+  document.getElementById('finalTotal').textContent=qs.length;
+  document.getElementById('progFill').style.width='100%';
+  document.getElementById('reviewBtn').style.display=missed.length?'':'none';
+}
+
+function reviewMissed(){ init(shuffle([...missed])); }
+function restart(){ init(shuffle([...ALL_QUESTIONS])); }
+
+document.addEventListener('keydown',e=>{
+  const k=e.key.toLowerCase();
+  if(k>='1'&&k<='4'&&!answered){
+    const btns=document.querySelectorAll('.opt-btn');
+    const i=parseInt(k)-1; if(btns[i]) btns[i].click();
+  }
+  if(k==='n') document.getElementById('nextBtn').click();
+  if(k==='r') restart();
+});
+
+init(shuffle([...ALL_QUESTIONS]));
+</script>
+</body>
+</html>

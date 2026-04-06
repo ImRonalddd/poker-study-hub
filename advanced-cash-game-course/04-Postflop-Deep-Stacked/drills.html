@@ -1,0 +1,887 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chapter 4: Postflop Deep-Stacked -- Interactive Drills</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Source+Serif+4:ital,wght@0,400;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+<style>
+:root {
+  --bg: #FFFFFF;
+  --surface: #FFFFFF;
+  --surface2: #F5F5F5;
+  --accent: #000000;
+  --text: #000000;
+  --text-dim: #525252;
+  --correct: #1a7a5e;
+  --wrong: #b91c1c;
+  --orange: #8B6914;
+  --border: #000000;
+  --border-light: #E5E5E5;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'Source Serif 4', serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.7;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 32px 20px 60px;
+}
+
+h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: 2rem;
+  font-weight: 900;
+  text-align: center;
+  margin-bottom: 4px;
+}
+
+.subtitle {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.8rem;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+/* Progress bar */
+.progress-wrap {
+  width: 100%;
+  max-width: 680px;
+  margin-bottom: 32px;
+}
+
+.progress-bar {
+  width: 100%;
+  height: 6px;
+  background: var(--border-light);
+  border-radius: 0px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: var(--accent);
+  transition: width 0.3s ease;
+  width: 0%;
+}
+
+.progress-text {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  color: var(--text-dim);
+  margin-top: 6px;
+  display: flex;
+  justify-content: space-between;
+}
+
+/* Card */
+.card {
+  width: 100%;
+  max-width: 680px;
+  border: 2px solid var(--border);
+  border-radius: 0px;
+  padding: 32px;
+  min-height: 320px;
+  display: flex;
+  flex-direction: column;
+}
+
+.tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text-dim);
+  margin-bottom: 16px;
+}
+
+.question-text {
+  font-size: 1.15rem;
+  font-weight: 600;
+  margin-bottom: 24px;
+  flex-shrink: 0;
+}
+
+/* Options */
+.options { list-style: none; flex: 1; }
+
+.option-btn {
+  display: block;
+  width: 100%;
+  text-align: left;
+  padding: 12px 16px;
+  margin-bottom: 8px;
+  border: 1px solid var(--border-light);
+  border-radius: 0px;
+  background: var(--surface);
+  font-family: 'Source Serif 4', serif;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: border-color 0.15s;
+  line-height: 1.5;
+}
+
+.option-btn:hover:not(.locked) {
+  border-color: var(--accent);
+}
+
+.option-btn .hotkey {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.8rem;
+  color: var(--text-dim);
+  margin-right: 8px;
+}
+
+.option-btn.correct-choice {
+  border-color: var(--correct);
+  background: #f0fdf4;
+}
+
+.option-btn.wrong-choice {
+  border-color: var(--wrong);
+  background: #fef2f2;
+}
+
+.option-btn.show-correct {
+  border-color: var(--correct);
+  border-width: 2px;
+}
+
+.option-btn.locked { cursor: default; }
+
+/* FIB */
+.fib-wrap {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  flex: 1;
+}
+
+.fib-input {
+  flex: 1;
+  padding: 12px 16px;
+  border: 1px solid var(--border-light);
+  border-radius: 0px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 1rem;
+  outline: none;
+}
+
+.fib-input:focus { border-color: var(--accent); }
+
+.fib-submit {
+  padding: 12px 24px;
+  border: 2px solid var(--accent);
+  border-radius: 0px;
+  background: var(--accent);
+  color: var(--bg);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.85rem;
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* Feedback */
+.feedback {
+  margin-top: 16px;
+  padding: 16px;
+  border: 1px solid var(--border-light);
+  border-radius: 0px;
+  display: none;
+}
+
+.feedback.show { display: block; }
+
+.feedback-verdict {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 6px;
+  font-weight: 500;
+}
+
+.feedback-verdict.is-correct { color: var(--correct); }
+.feedback-verdict.is-wrong { color: var(--wrong); }
+
+.feedback-explanation {
+  font-size: 0.95rem;
+  color: var(--text-dim);
+}
+
+.hint-btn {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  color: var(--text-dim);
+  background: none;
+  border: 1px solid var(--border-light);
+  padding: 4px 10px;
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-top: 12px;
+}
+
+.hint-text {
+  font-size: 0.9rem;
+  color: var(--orange);
+  font-style: italic;
+  margin-top: 8px;
+  display: none;
+}
+
+.hint-text.show { display: block; }
+
+/* Navigation */
+.nav-row {
+  margin-top: 20px;
+  display: flex;
+  gap: 12px;
+  justify-content: flex-end;
+  width: 100%;
+}
+
+.nav-btn {
+  padding: 10px 28px;
+  border: 2px solid var(--accent);
+  border-radius: 0px;
+  background: var(--bg);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.85rem;
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  transition: background 0.15s, color 0.15s;
+}
+
+.nav-btn:hover {
+  background: var(--accent);
+  color: var(--bg);
+}
+
+.nav-btn:disabled {
+  opacity: 0.3;
+  cursor: default;
+}
+
+/* Summary */
+.summary {
+  width: 100%;
+  max-width: 680px;
+  text-align: center;
+}
+
+.summary h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.8rem;
+  margin-bottom: 8px;
+}
+
+.score-text {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 1.4rem;
+  margin-bottom: 24px;
+}
+
+.score-text .num-correct { color: var(--correct); }
+.score-text .num-wrong { color: var(--wrong); }
+
+.summary-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+/* Hotkey legend */
+.hotkeys {
+  width: 100%;
+  max-width: 680px;
+  margin-top: 32px;
+  padding-top: 16px;
+  border-top: 1px solid var(--border-light);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  color: var(--text-dim);
+  text-align: center;
+  letter-spacing: 0.02em;
+}
+
+.hotkeys kbd {
+  background: var(--surface2);
+  padding: 2px 6px;
+  border: 1px solid var(--border-light);
+  border-radius: 0px;
+  font-family: inherit;
+}
+</style>
+</head>
+<body>
+
+<h1>Interactive Drills</h1>
+<div class="subtitle">Chapter 4 -- Postflop Deep-Stacked Adjustments</div>
+
+<div class="progress-wrap">
+  <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+  <div class="progress-text">
+    <span id="progressLabel">Question 1 / --</span>
+    <span id="scoreLabel">0 correct</span>
+  </div>
+</div>
+
+<div class="card" id="cardArea"></div>
+
+<div class="hotkeys">
+  <kbd>1</kbd>-<kbd>4</kbd> select answer &middot;
+  <kbd>Enter</kbd> submit FIB &middot;
+  <kbd>Space</kbd> next question &middot;
+  <kbd>H</kbd> hint &middot;
+  <kbd>R</kbd> restart
+</div>
+
+<script>
+// ============================================================
+// QUESTION BANK
+// ============================================================
+const QUESTIONS = [
+  // --- STACK-OFF THRESHOLD ---
+  {
+    tag: "Stack-Off Threshold", type: "mc",
+    text: "You have K9 on a K-7-2 flop, 200bb deep. Opponent c-bets small. What is the correct play?",
+    options: ["Check-call", "Check-raise", "Check-fold", "Donk bet"],
+    answer: 0,
+    hint: "At 200bb, medium-strength hands cannot withstand heavy action.",
+    explanation: "At 200bb deep, K9 is a marginal hand on K-7-2. If you check-raise and get called or re-raised, you're in a terrible spot. The correct play is to check-call."
+  },
+  {
+    tag: "Stack-Off Threshold", type: "tf",
+    text: "True or False: At 200bb deep, even KQ on K-7-2 should avoid check-raising.",
+    answer: true,
+    hint: "Consider what hands give you heavy action at this depth.",
+    explanation: "True. At 200bb, if you check-raise KQ and get a lot of action, your opponent can easily have sets, K7s, or K2s. The hand is strong but not strong enough to play a massive pot."
+  },
+  // --- CONTINUATION BETTING ---
+  {
+    tag: "C-Betting", type: "mc",
+    text: "Button vs BB on T-8-6 at 200bb deep. Compared to 100bb, how should the button adjust their c-bet strategy?",
+    options: [
+      "Check more often; when betting, use bigger sizes (more polarized)",
+      "Bet more often with smaller sizes",
+      "Bet the same frequency but always use a large size",
+      "Check everything -- this board is too dangerous"
+    ],
+    answer: 0,
+    hint: "At 200bb, nut advantage matters more than range advantage.",
+    explanation: "At 200bb, you check far more often (medium hands like Q6, J6 always check). When you do bet, you bet more polarized with bigger sizes because your betting range is stronger."
+  },
+  {
+    tag: "C-Betting", type: "mc",
+    text: "LJ vs BTN on T-6-4 at 200bb. LJ checks, BTN bets 33% pot. At 100bb, LJ raises 17%. What happens at 200bb?",
+    options: [
+      "LJ barely raises at all",
+      "LJ raises about the same (17%)",
+      "LJ raises more often (25%+)",
+      "LJ should always raise or fold"
+    ],
+    answer: 0,
+    hint: "If you check-raise JJ or KK at 200bb and face a 3-bet...",
+    explanation: "At 200bb, LJ barely raises. Even JJ or KK don't want the pot to balloon because when the opponent continues, they'll have sets and high equity draws. Check-call is the standard play."
+  },
+  // --- COST OF REOPENING ---
+  {
+    tag: "Cost of Reopening", type: "mc",
+    text: "You have KQ of hearts on the button, 250bb deep. Board is K-J-7-5-8. You bet flop, bet turn big, opponent checks river. What should you do?",
+    options: [
+      "Check back -- cost of reopening is too high",
+      "Value bet half pot",
+      "Value bet full pot",
+      "Overbet for maximum value"
+    ],
+    answer: 0,
+    hint: "What happens if you bet and get check-raised at this stack depth?",
+    explanation: "At 250bb deep, if you bet and get check-raised, it's horrible. The opponent can blast you with a gigantic raise. Unless your opponent is a straightforward calling station, check it back."
+  },
+  {
+    tag: "Cost of Reopening", type: "mc",
+    text: "Your opponent value bets thinly on the river when 200bb deep. You're out of position. What is the best exploitative counter?",
+    options: [
+      "Check and then put in a massive check-raise (3x-4x pot)",
+      "Lead out with a blocking bet",
+      "Check-call with bluff catchers",
+      "Check-fold unless you have the nuts"
+    ],
+    answer: 0,
+    hint: "Deep-stacked, the OOP player can punish thin value bets severely.",
+    explanation: "When opponents value bet too thinly deep-stacked, punish them with massive check-raises. Use hands with excellent blockers (blocking straights, flushes, two pair). Go huge -- 3x to 4x pot."
+  },
+  // --- BET-BET-CHECK ---
+  {
+    tag: "Bet-Bet-Check", type: "mc",
+    text: "On J-7-6-5 (BTN vs BB, 200bb deep), which hand should bet the turn?",
+    options: ["J9 (pair + straight draw)", "KJ (top pair, good kicker)", "QJ (top pair)", "AJ (top pair, top kicker)"],
+    answer: 0,
+    hint: "Deep-stacked, which hand can improve to the nuts?",
+    explanation: "J9 bets because it can improve to a straight (nut potential). KJ, QJ, and AJ all check because they cannot improve to a straight -- at 200bb, nut potential matters more than current hand strength."
+  },
+  {
+    tag: "Bet-Bet-Check", type: "mc",
+    text: "You bet J9 on the turn (J-7-6-5 board). The river is a blank that doesn't complete your straight. What do you do?",
+    options: [
+      "Check back (this was always the plan)",
+      "Bet small for thin value",
+      "Overbet as a bluff",
+      "Bet half pot to deny equity"
+    ],
+    answer: 0,
+    hint: "This is the 'check' part of the bet-bet-check line.",
+    explanation: "The bet-bet-check line means you planned to check the river all along if you didn't improve. You already pushed equity on the turn. Check back and accept the result."
+  },
+  {
+    tag: "Bet-Bet-Check", type: "tf",
+    text: "True or False: On the turn with three flush cards showing (K-7-4-Xs), KJ should bet because it has 60% equity.",
+    answer: false,
+    hint: "Can KJ improve to the nut flush? The king is already on the board.",
+    explanation: "False. Despite having 60% equity, KJ checks because it cannot improve to a flush (the King is on the board). Deep-stacked, you need nut potential to bet -- hands like AQ with a spade are better turn bets."
+  },
+  // --- NUT ADVANTAGE ---
+  {
+    tag: "Nut Advantage", type: "mc",
+    text: "BB check-raises on 9-7-3, gets called. Turn is a 6 (giving BB straights and two pairs opponent can't have). BB has 55% equity. What percentage of the pot does BB actually realize?",
+    options: ["~70%", "~55%", "~60%", "~80%"],
+    answer: 0,
+    hint: "Having hands your opponent cannot have lets you over-realize equity dramatically.",
+    explanation: "BB realizes about 70% of the pot despite having only 55% equity. This is because BB has straights and two pairs that the opponent cannot have, allowing massive over-realization through big bets."
+  },
+  {
+    tag: "Nut Advantage", type: "mc",
+    text: "You have a huge nut advantage on the turn at 200bb deep. What sizing should you use?",
+    options: [
+      "150% pot or full pot with your entire continuing range",
+      "33% pot to keep opponent in with marginal hands",
+      "50% pot as a balanced default",
+      "Check to trap with your nut hands"
+    ],
+    answer: 0,
+    hint: "Big nut advantage = big bets. Don't be afraid.",
+    explanation: "When you have a huge nut advantage, blast it with 150% pot or pot. This is what allows you to over-realize your equity. Opponent folds marginal stuff, and on favorable rivers you blast again."
+  },
+  {
+    tag: "Nut Advantage", type: "tf",
+    text: "True or False: If the river card gives your opponent the nut advantage (e.g., completing their flush draws), you should continue betting at the same frequency.",
+    answer: false,
+    hint: "What happens to your bluffing ability when opponent now has nuts you don't?",
+    explanation: "False. When the river shifts nut advantage to your opponent, you must dramatically reduce betting. Checking frequency might jump from 24% to 54%. Even busted flush draws shouldn't bluff because they block opponent's auto-folds."
+  },
+  // --- POSITION VALUE ---
+  {
+    tag: "Position Value", type: "mc",
+    text: "LJ raises, BTN calls. Flop is A-8-3 with two hearts, 200bb deep. How often should LJ (OOP) check?",
+    options: ["~91% of the time", "~50% of the time", "~30% of the time", "Never -- always c-bet with an ace"],
+    answer: 0,
+    hint: "Even AK won't be the nuts by the river at this depth. Flush draws threaten.",
+    explanation: "At 200bb deep on A-8-3 with two hearts, LJ checks 91% of the time. Even AK isn't safe because opponent's Ax makes two pair sometimes and flushes arrive. You must protect your checking range."
+  },
+  {
+    tag: "Position Value", type: "fib",
+    text: "In a 3-bet pot (SB vs BTN), SB check-calls the flop. SB has 53.5% equity across all turns. What percentage of the pot does SB actually realize? (Whole number, e.g., 44)",
+    answer: ["44", "43", "43.6"],
+    hint: "OOP under-realizes equity significantly at deep stacks.",
+    explanation: "SB realizes only about 43.6% of the pot despite having 53.5% equity. The ~10% gap comes from the IP player being able to blast turn and river, forcing OOP to fold hands with real equity."
+  },
+  // --- 3-BET POTS ---
+  {
+    tag: "3-Bet Pots", type: "mc",
+    text: "In a 200bb deep 3-bet pot, which hands should you use as turn bluffs from in position?",
+    options: [
+      "High equity hands (draws, pair + gut shot)",
+      "Low equity hands (air, no draws)",
+      "Only the nuts or nothing",
+      "Any two cards since opponent will fold"
+    ],
+    answer: 0,
+    hint: "At 200bb you won't get jammed on, so your bluffs don't need to be throw-aways.",
+    explanation: "At 200bb, you won't get shoved on, so use high equity bluffs. Hands like AQ, QJ with draws are ideal. At 100bb you'd use low equity junk (since you'd bet-fold to a shove anyway)."
+  },
+  // --- APPLIED EXAMPLES ---
+  {
+    tag: "Applied", type: "mc",
+    text: "You 3-bet QJs from the small blind, c-bet the flop draw, and blast the turn with a flush draw. The river misses. What should you do?",
+    options: [
+      "Give up -- you block opponent's auto-folds",
+      "Shove all-in as a bluff",
+      "Bet small to represent a value hand",
+      "Bet 2/3 pot to finish the story"
+    ],
+    answer: 0,
+    hint: "Your spades block their busted spade draws (which would fold to a bet anyway).",
+    explanation: "Give up. Your flush draw blocks opponent's busted flush draws -- the very hands that would auto-fold to a river bet. It's OK to push equity on the turn and give up on the river."
+  },
+  {
+    tag: "Applied", type: "mc",
+    text: "You have K7 (trips) on a 7-7-x board. You check-raised the flop. Turn brings draws. What should you do with K7 specifically?",
+    options: [
+      "Check to protect your checking range",
+      "Bet big for value with trips",
+      "Bet small to block",
+      "Check-raise if opponent bets"
+    ],
+    answer: 0,
+    hint: "Your best Kings should bet; weaker Kings protect the checking range.",
+    explanation: "Check K7 to protect your checking range. Bet your best Kings (better kicker) that get called by worse. K7 protects you when opponent attacks your check -- you call comfortably and prevent loose players from running you over."
+  },
+  {
+    tag: "Applied", type: "mc",
+    text: "You hold AA on a T-high board, 200bb deep. Opponent bets. What is the preferred line?",
+    options: [
+      "Check-call all three streets, even facing an overbet",
+      "Check-raise the flop for protection",
+      "Check-call flop, then lead the turn",
+      "Raise flop to build the pot immediately"
+    ],
+    answer: 0,
+    hint: "AA is almost always good but NOT vulnerable. JJ or AT would prefer to raise.",
+    explanation: "Check-call all three streets. AA is almost always good but not vulnerable to being outdrawn. Hands like JJ or AT (almost always good but vulnerable) should raise instead. Never fold AA in this line against competent opponents."
+  },
+  {
+    tag: "Applied", type: "mc",
+    text: "You hold the ace of spades on a two-spade board, deep-stacked. The river brings the third spade. You have no made hand. What should you do?",
+    options: [
+      "Blast it with a big overbet -- you block the nut flush",
+      "Check-fold, you missed your draw",
+      "Bet small as a blocking bet",
+      "Check-call in case opponent is bluffing"
+    ],
+    answer: 0,
+    hint: "You block the one hand that can never fold to a big bet.",
+    explanation: "Blast it! You block the nut flush, so opponent cannot have the best possible hand. When deep-stacked and your range contains many flushes, an overbet with the nut blocker is extremely profitable."
+  },
+  {
+    tag: "Applied", type: "mc",
+    text: "When deep-stacked and you have nut advantage, what does 'big' mean for bet sizing?",
+    options: [
+      "Over-pot: 1.5x, 2x, even 3x pot",
+      "Pot-sized bet",
+      "75% pot",
+      "50% pot (to get called more)"
+    ],
+    answer: 0,
+    hint: "Jonathan Little emphasizes: big is NOT pot. Big is OVER pot.",
+    explanation: "Deep-stacked with nut advantage, 'big' means over-pot. 1.5x, 2x, even 3x pot on the turn and river. Players who bet pot leave value on the table. When opponent can't have the nuts, maximize pressure."
+  }
+];
+
+// ============================================================
+// APP STATE
+// ============================================================
+let questions = [];
+let current = 0;
+let score = 0;
+let answered = false;
+let missed = [];
+let reviewMode = false;
+
+function shuffle(arr) {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+function init() {
+  questions = shuffle(QUESTIONS);
+  current = 0;
+  score = 0;
+  answered = false;
+  missed = [];
+  reviewMode = false;
+  render();
+}
+
+function renderMath() {
+  if (typeof renderMathInElement === 'function') {
+    renderMathInElement(document.getElementById('cardArea'), {
+      delimiters: [
+        {left: '\\(', right: '\\)', display: false},
+        {left: '$$', right: '$$', display: true}
+      ],
+      throwOnError: false
+    });
+  }
+}
+
+function updateProgress() {
+  const total = questions.length;
+  const pct = total > 0 ? ((current) / total) * 100 : 0;
+  document.getElementById('progressFill').style.width = pct + '%';
+  document.getElementById('progressLabel').textContent =
+    `Question ${Math.min(current + 1, total)} / ${total}` + (reviewMode ? ' (Review)' : '');
+  document.getElementById('scoreLabel').textContent = `${score} correct`;
+}
+
+function render() {
+  updateProgress();
+  if (current >= questions.length) {
+    renderSummary();
+    return;
+  }
+  const q = questions[current];
+  const card = document.getElementById('cardArea');
+
+  if (q.type === 'mc') renderMC(q, card);
+  else if (q.type === 'tf') renderTF(q, card);
+  else if (q.type === 'fib') renderFIB(q, card);
+
+  answered = false;
+  setTimeout(renderMath, 50);
+}
+
+function renderMC(q, card) {
+  const shuffledOpts = q._shuffled || (() => {
+    const indices = q.options.map((_, i) => i);
+    const shuffled = shuffle(indices);
+    q._shuffled = shuffled;
+    return shuffled;
+  })();
+
+  let html = `<div class="tag">${q.tag}</div>`;
+  html += `<div class="question-text">${q.text}</div>`;
+  html += `<ul class="options">`;
+  shuffledOpts.forEach((origIdx, displayIdx) => {
+    html += `<button class="option-btn" data-orig="${origIdx}" data-display="${displayIdx}">
+      <span class="hotkey">${displayIdx + 1}</span>${q.options[origIdx]}</button>`;
+  });
+  html += `</ul>`;
+  html += feedbackHTML(q);
+  card.innerHTML = html;
+
+  card.querySelectorAll('.option-btn').forEach(btn => {
+    btn.addEventListener('click', () => handleMCAnswer(q, parseInt(btn.dataset.orig)));
+  });
+  card.querySelector('.hint-btn').addEventListener('click', toggleHint);
+}
+
+function renderTF(q, card) {
+  let html = `<div class="tag">${q.tag}</div>`;
+  html += `<div class="question-text">${q.text}</div>`;
+  html += `<ul class="options">`;
+  html += `<button class="option-btn" data-val="true"><span class="hotkey">1</span>True</button>`;
+  html += `<button class="option-btn" data-val="false"><span class="hotkey">2</span>False</button>`;
+  html += `</ul>`;
+  html += feedbackHTML(q);
+  card.innerHTML = html;
+
+  card.querySelectorAll('.option-btn').forEach(btn => {
+    btn.addEventListener('click', () => handleTFAnswer(q, btn.dataset.val === 'true'));
+  });
+  card.querySelector('.hint-btn').addEventListener('click', toggleHint);
+}
+
+function renderFIB(q, card) {
+  let html = `<div class="tag">${q.tag}</div>`;
+  html += `<div class="question-text">${q.text}</div>`;
+  html += `<div class="fib-wrap">
+    <input class="fib-input" type="text" placeholder="Type your answer..." id="fibInput">
+    <button class="fib-submit" id="fibSubmit">Submit</button>
+  </div>`;
+  html += feedbackHTML(q);
+  card.innerHTML = html;
+
+  const input = document.getElementById('fibInput');
+  const submit = document.getElementById('fibSubmit');
+  submit.addEventListener('click', () => handleFIBAnswer(q, input.value));
+  input.addEventListener('keydown', e => {
+    if (e.key === 'Enter') handleFIBAnswer(q, input.value);
+  });
+  input.focus();
+  card.querySelector('.hint-btn').addEventListener('click', toggleHint);
+}
+
+function feedbackHTML(q) {
+  return `
+    <button class="hint-btn">H -- Hint</button>
+    <div class="hint-text" id="hintText">${q.hint}</div>
+    <div class="feedback" id="feedback">
+      <div class="feedback-verdict" id="verdict"></div>
+      <div class="feedback-explanation" id="explanation"></div>
+      <div class="nav-row">
+        <button class="nav-btn" id="nextBtn" onclick="advance()">Space -- Next</button>
+      </div>
+    </div>`;
+}
+
+function handleMCAnswer(q, origIdx) {
+  if (answered) return;
+  answered = true;
+  const correct = origIdx === q.answer;
+  if (correct) score++;
+  else missed.push({...q, _shuffled: undefined});
+
+  const card = document.getElementById('cardArea');
+  card.querySelectorAll('.option-btn').forEach(btn => {
+    btn.classList.add('locked');
+    const oi = parseInt(btn.dataset.orig);
+    if (oi === origIdx && !correct) btn.classList.add('wrong-choice');
+    if (oi === q.answer) btn.classList.add(correct ? 'correct-choice' : 'show-correct');
+  });
+  showFeedback(correct, q.explanation);
+}
+
+function handleTFAnswer(q, val) {
+  if (answered) return;
+  answered = true;
+  const correct = val === q.answer;
+  if (correct) score++;
+  else missed.push({...q});
+
+  const card = document.getElementById('cardArea');
+  card.querySelectorAll('.option-btn').forEach(btn => {
+    btn.classList.add('locked');
+    const bv = btn.dataset.val === 'true';
+    if (bv === val && !correct) btn.classList.add('wrong-choice');
+    if (bv === q.answer) btn.classList.add(correct ? 'correct-choice' : 'show-correct');
+  });
+  showFeedback(correct, q.explanation);
+}
+
+function handleFIBAnswer(q, val) {
+  if (answered) return;
+  answered = true;
+  const trimmed = val.trim().replace(/[%$,]/g, '');
+  const correct = q.answer.some(a => a.replace(/[%$,]/g, '') === trimmed);
+  if (correct) score++;
+  else missed.push({...q});
+
+  const input = document.getElementById('fibInput');
+  input.disabled = true;
+  input.style.borderColor = correct ? 'var(--correct)' : 'var(--wrong)';
+  document.getElementById('fibSubmit').disabled = true;
+  showFeedback(correct, q.explanation + (correct ? '' : ` Accepted answers: ${q.answer[0]}`));
+}
+
+function showFeedback(correct, explanation) {
+  const fb = document.getElementById('feedback');
+  const verdict = document.getElementById('verdict');
+  const expl = document.getElementById('explanation');
+  verdict.textContent = correct ? 'Correct' : 'Incorrect';
+  verdict.className = 'feedback-verdict ' + (correct ? 'is-correct' : 'is-wrong');
+  expl.textContent = explanation;
+  fb.classList.add('show');
+  updateProgress();
+}
+
+function toggleHint() {
+  const ht = document.getElementById('hintText');
+  ht.classList.toggle('show');
+}
+
+function advance() {
+  if (!answered && current < questions.length) return;
+  current++;
+  if (current < questions.length) {
+    render();
+  } else {
+    renderSummary();
+    updateProgress();
+  }
+}
+
+function renderSummary() {
+  const total = questions.length;
+  const pct = Math.round((score / total) * 100);
+  const card = document.getElementById('cardArea');
+
+  let html = `<div class="summary">
+    <h2>Drill Complete</h2>
+    <div class="score-text">
+      <span class="num-correct">${score}</span> / ${total} correct (${pct}%)
+    </div>`;
+
+  if (missed.length > 0) {
+    html += `<p style="margin-bottom:20px;color:var(--text-dim)">You missed ${missed.length} question${missed.length > 1 ? 's' : ''}.</p>`;
+  }
+
+  html += `<div class="summary-actions">
+    <button class="nav-btn" onclick="init()">R -- Restart All</button>`;
+  if (missed.length > 0) {
+    html += `<button class="nav-btn" onclick="startReview()">Review Missed</button>`;
+  }
+  html += `</div></div>`;
+  card.innerHTML = html;
+  document.getElementById('progressFill').style.width = '100%';
+}
+
+function startReview() {
+  reviewMode = true;
+  questions = shuffle(missed);
+  missed = [];
+  current = 0;
+  score = 0;
+  questions.forEach(q => { q._shuffled = undefined; });
+  render();
+}
+
+// ============================================================
+// KEYBOARD SHORTCUTS
+// ============================================================
+document.addEventListener('keydown', e => {
+  if (e.target.tagName === 'INPUT') {
+    if (e.key === 'h' || e.key === 'H') return;
+    if (e.key === 'Enter') return;
+    return;
+  }
+
+  if (e.key === ' ' || e.code === 'Space') {
+    e.preventDefault();
+    if (answered) advance();
+  }
+
+  if (e.key === 'r' || e.key === 'R') {
+    if (current >= questions.length || confirm('Restart the drill?')) init();
+  }
+
+  if (e.key === 'h' || e.key === 'H') {
+    const hintBtn = document.querySelector('.hint-btn');
+    if (hintBtn) toggleHint();
+  }
+
+  const q = current < questions.length ? questions[current] : null;
+  if (!q || answered) return;
+
+  if (q.type === 'mc') {
+    const num = parseInt(e.key);
+    if (num >= 1 && num <= 4) {
+      const btns = document.querySelectorAll('.option-btn');
+      if (btns[num - 1]) btns[num - 1].click();
+    }
+  }
+
+  if (q.type === 'tf') {
+    if (e.key === '1') document.querySelectorAll('.option-btn')[0]?.click();
+    if (e.key === '2') document.querySelectorAll('.option-btn')[1]?.click();
+  }
+});
+
+// ============================================================
+// INIT
+// ============================================================
+init();
+</script>
+</body>
+</html>

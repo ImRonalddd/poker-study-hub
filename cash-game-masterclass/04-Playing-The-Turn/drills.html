@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chapter 4: Playing the Turn -- Interactive Drills</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;1,400;1,600&family=Source+Serif+4:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'\(',right:'\)',display:false}]})"></script>
+<style>
+:root{--bg:#FFFFFF;--surface:#FFFFFF;--surface2:#F5F5F5;--accent:#000;--text:#000;--text-dim:#525252;--correct:#1a7a5e;--wrong:#b91c1c;--orange:#8B6914;--border:#000;--border-light:#E5E5E5}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;border-radius:0!important}
+body{font-family:'Source Serif 4','Georgia',serif;background:var(--bg);color:var(--text);line-height:1.6;-webkit-font-smoothing:antialiased}
+.container{max-width:700px;margin:0 auto;padding:2rem 1.5rem 4rem}
+h1{font-family:'Playfair Display',serif;font-weight:800;font-size:2.2rem;text-align:center;margin:2rem 0 0.3rem}
+.subtitle{font-family:'JetBrains Mono',monospace;font-size:0.72rem;font-weight:500;text-transform:uppercase;letter-spacing:0.15em;color:var(--text-dim);text-align:center;margin-bottom:0.5rem}
+.hotkeys{font-family:'JetBrains Mono',monospace;font-size:0.7rem;color:var(--text-dim);text-align:center;margin-bottom:2rem;line-height:1.8}
+.hotkeys kbd{display:inline-block;padding:0.1em 0.45em;border:1px solid var(--border-light);background:var(--surface2);font-weight:600;margin:0 0.1em}
+#progress-bar{width:100%;height:4px;background:var(--border-light);margin-bottom:1.5rem}
+#progress-fill{height:100%;background:var(--accent);transition:width 0.3s}
+#score-display{font-family:'JetBrains Mono',monospace;font-size:0.8rem;text-align:center;margin-bottom:1.5rem;color:var(--text-dim)}
+#question-area{min-height:350px}
+.q-number{font-family:'JetBrains Mono',monospace;font-size:0.72rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--text-dim);margin-bottom:0.5rem}
+.q-text{font-size:1.15rem;font-weight:600;margin-bottom:1.5rem;line-height:1.5}
+.option{display:block;width:100%;text-align:left;font-family:'Source Serif 4',serif;font-size:1rem;padding:0.85rem 1rem;margin-bottom:0.6rem;border:2px solid var(--border-light);background:var(--surface);cursor:pointer;transition:border-color 0.15s,background 0.15s}
+.option:hover:not(.disabled){border-color:var(--accent);background:var(--surface2)}
+.option.selected-correct{border-color:var(--correct);background:#f0fdf4;color:var(--correct);font-weight:600}
+.option.selected-wrong{border-color:var(--wrong);background:#fef2f2;color:var(--wrong)}
+.option.show-correct{border-color:var(--correct);background:#f0fdf4}
+.option.disabled{cursor:default;opacity:0.7}
+.option .opt-key{font-family:'JetBrains Mono',monospace;font-weight:700;margin-right:0.5rem;font-size:0.9rem}
+#explanation{margin-top:1.2rem;padding:1rem 1.25rem;border-left:4px solid var(--accent);background:var(--surface2);display:none;font-size:0.95rem;line-height:1.6}
+#explanation.visible{display:block}
+#next-btn{display:none;margin-top:1.5rem;width:100%;padding:0.8rem;font-family:'JetBrains Mono',monospace;font-size:0.85rem;font-weight:600;text-transform:uppercase;letter-spacing:0.1em;border:2px solid var(--accent);background:var(--accent);color:var(--bg);cursor:pointer;transition:opacity 0.15s}
+#next-btn:hover{opacity:0.85}
+#results{display:none;text-align:center}
+#results h2{font-family:'Playfair Display',serif;font-size:1.8rem;margin-bottom:1rem}
+#results .score-big{font-family:'JetBrains Mono',monospace;font-size:3rem;font-weight:700;margin:1rem 0}
+#results .score-big .correct-n{color:var(--correct)}
+#results .score-big .wrong-n{color:var(--wrong)}
+#review-section{margin-top:2rem;text-align:left}
+#review-section h3{font-family:'Playfair Display',serif;font-size:1.3rem;margin-bottom:1rem}
+.review-item{padding:1rem;margin-bottom:1rem;border:1px solid var(--border-light);background:var(--surface2)}
+.review-item .ri-q{font-weight:600;margin-bottom:0.4rem}
+.review-item .ri-your{color:var(--wrong);font-size:0.9rem}
+.review-item .ri-correct{color:var(--correct);font-size:0.9rem}
+.ri-explain{font-size:0.88rem;color:var(--text-dim);margin-top:0.3rem}
+.btn-restart{margin-top:2rem;padding:0.8rem 2rem;font-family:'JetBrains Mono',monospace;font-size:0.85rem;font-weight:600;text-transform:uppercase;letter-spacing:0.1em;border:2px solid var(--accent);background:var(--accent);color:var(--bg);cursor:pointer}
+.btn-restart:hover{opacity:0.85}
+</style>
+</head>
+<body>
+<div class="container">
+<h1>Turn Play Drills</h1>
+<div class="subtitle">Chapter 4 -- 30 Questions</div>
+<div class="hotkeys"><kbd>1</kbd><kbd>2</kbd><kbd>3</kbd><kbd>4</kbd> answer &nbsp; <kbd>Space</kbd> next &nbsp; <kbd>R</kbd> restart &nbsp; <kbd>H</kbd> toggle hotkey help</div>
+
+<div id="progress-bar"><div id="progress-fill" style="width:0%"></div></div>
+<div id="score-display"></div>
+
+<div id="question-area"></div>
+<div id="explanation"></div>
+<button id="next-btn">Next Question (Space)</button>
+
+<div id="results">
+<h2>Results</h2>
+<div class="score-big"><span class="correct-n" id="r-correct"></span> / <span id="r-total"></span></div>
+<p id="r-pct"></p>
+<div id="review-section"><h3>Review Missed</h3><div id="review-list"></div></div>
+<button class="btn-restart" onclick="restart()">Restart (R)</button>
+</div>
+</div>
+
+<script>
+const allQuestions = [
+  {q:"On the turn, what is the maximum ratio of premium made hands to draws in your betting range?",opts:["1 premium : 2 draws","1 premium : 1 draw","2 premiums : 1 draw","3 premiums : 1 draw"],ans:1,ex:"On the flop it's 1:2, on the turn it shifts to 1:1, and on the river it's 2:1. Fewer cards to come means draws complete less often."},
+  {q:"Which of these turn cards is usually BEST for the flop continuation bettor on a K-8-4 flop?",opts:["An Ace","A 4 (pairing the bottom card)","An 8 (pairing the middle card)","A 3 (low blank)"],ans:0,ex:"Overcards, especially aces, are typically great for the flop aggressor because many of their bluffs are ace-high. When the ace comes, those bluffs become top pair."},
+  {q:"On J-6-2, you bet flop as Button, BB calls. Turn is a 3 (bad for you). How should you bet?",opts:["Bet frequently and small","Bet infrequently and big (polarized)","Check everything","Bet half pot with entire range"],ans:1,ex:"Bad turn cards mean you check a lot, but when you do bet, you use a big polarized size with only your best hands and draws. On J-6-2-3, you bet ~36% of the time using 125% pot."},
+  {q:"When facing a turn overbet (125%+ pot), what should you do with raising from a GTO perspective?",opts:["Raise with your best hands for value","Raise with draws that have equity","Basically never raise","Raise only with the absolute nuts"],ans:2,ex:"Against overbets, the opponent is announcing maximum polarization. You do a lot of calling and basically never raise. Raising would weaken your calling range."},
+  {q:"What is a turn 'probe bet'?",opts:["Any small bet to test where you stand","An OOP bet after the preflop aggressor checked behind on the flop","A bluff with no equity","A bet made by the preflop aggressor after checking the flop"],ans:1,ex:"A probe is specifically an out-of-position bet made after the preflop raiser checked behind on the flop. The old Harrington definition (any small bet) is outdated."},
+  {q:"On 9-7-5, BB vs Button, flop checks through. Turn is an 8. BB should:",opts:["Check -- the board is scary","Bet big and infrequently","Bet small and frequently (~70% of range)","Bet pot-sized with only straights"],ans:2,ex:"The 8 is paradoxically great for BB because Button would have bet their 8s and 6s on the flop. BB has all the straights and gets to bet small and frequently, similar to a range bet."},
+  {q:"When the flop aggressor bets the turn and their opponent's range lost all junk from the flop, what type of strategy should the bettor usually use?",opts:["Linear (bet all decent hands)","Polarized (bet best hands + draws, check middle)","Balanced (bet exactly 50%)","Always overbet"],ans:1,ex:"Because opponent's check-call range on the flop lost all junk, ranges become closer on the turn. The bettor uses a polarized strategy of premium hands + draws."},
+  {q:"Which draws should you typically CHECK on the turn (not barrel)?",opts:["Nut flush draws","Open-ender + flush draw combos","Medium flush draws with a marginal pair","Overcards with no showdown value"],ans:2,ex:"Draws with a pair (e.g., flush draw + middle pair) are the worst to barrel because if you bet and get raised, you have to fold a hand with significant equity. Check these and realize equity."},
+  {q:"In a 3-bet pot on A-9-3, you c-bet small on the flop and get called. Turn is an 8. Should you slow-play pocket aces?",opts:["No -- always bet the nuts","Yes -- check AA to protect your checking range","Only if out of position","Only against loose opponents"],ans:1,ex:"In 3-bet pots, GTO starts checking top set on the turn to protect the checking range. Bet AK, A9, A8 as value instead. AA needs less protection."},
+  {q:"On K-7-5 (LJ vs BTN), you c-bet flop, BTN calls. Turn is an Ace. What happens to equities?",opts:["Very good for BTN caller","Roughly 50/50","Very good for LJ (flop bettor)","Terrible for both"],ans:2,ex:"The ace is amazing for the flop aggressor because most of their bluffs were ace-high. Those now become top pair. Bet frequently and small on this turn."},
+  {q:"When you are the flop caller IP and opponent checks to you on the turn, you typically have:",opts:["A range disadvantage","Roughly equal ranges","A big range advantage","The nut advantage only"],ans:2,ex:"When opponent bets flop then checks turn, they announce marginal hands/junk. You retained a well-protected range (you don't raise much IP on flop). You have a big range advantage."},
+  {q:"What should you do with your checking range when you're out of position and checking a lot on the turn?",opts:["Include only junk (save value hands for betting)","Always include some nut hands to protect it","Only include marginal made hands","It doesn't matter since you'll fold to a bet anyway"],ans:1,ex:"Protecting your checking range is the single most important turn theme. Always include some strong hands so your opponent can't exploit you with automatic turn + river barrels."},
+  {q:"On Q-T-5 (three spades), LJ vs BB, you bet flop, they call. Turn is the 4 of spades (four flush). Facing your overbet, opponent should:",opts:["Raise with all flushes","Call all flushes, fold everything else","Call all flushes, sets, two-pair; fold the rest; never raise","Fold everything without a flush"],ans:2,ex:"Facing an overbet on a four-flush board, you NEVER raise (opponent is maximally polarized). Call with any flush, sets, and two-pair. Fold pairs without a spade. The nut flush stays in the calling range."},
+  {q:"In a multi-way pot, when there's a flop bet and multiple callers, what should you do with marginal hands?",opts:["Call -- the pot is big","Raise to thin the field","Fold -- all callers must have something","Check-raise as a semi-bluff"],ans:2,ex:"In multi-way pots with a bet and calls, everyone has something. Hands like middle pair with a gutshot that you'd continue with heads-up should be folded multi-way."},
+  {q:"When does GTO use small pocket pairs as bluffs on the turn?",opts:["Never -- they have showdown value","When there aren't enough logical draws to bluff with","Only in 3-bet pots","Only from the blinds"],ans:1,ex:"GTO frequently uses small underpairs as bluffs when logical draws are scarce. They have ~2 outs to sets, don't block opponent's folding range, and lack enough showdown value to check profitably."},
+  {q:"On J-6-2, Button c-bets flop, BB calls. Turn is a King. What size should Button bet?",opts:["Small (25% pot) -- you have range advantage","Big (125% pot) -- you have nut advantage","Medium (66% pot) -- ranges are close","Check -- the king helps BB more"],ans:1,ex:"The King is a good card for Button (overcards improve). Button has the nut advantage (AK, KJ, sets) but doesn't have a massive range advantage. Bet big and polarized (~56% frequency, 125% pot)."},
+  {q:"What is the relationship between opponent's bet size and your raising frequency?",opts:["Bigger bet = raise more (punish them)","Bigger bet = raise less (they're more polarized)","Bet size doesn't affect raising frequency","Only raise against medium bets"],ans:1,ex:"As opponent bets bigger, they're announcing a more polarized range. Against polarized ranges, you raise less. Against small bets (wider range), you raise more. This holds in every turn spot."},
+  {q:"When facing a delayed continuation bet (opponent bets turn after check-check on flop), your range is:",opts:["Very strong (you kept all your nut hands)","Somewhat capped (you checked twice)","Perfectly balanced","Full of draws"],ans:1,ex:"Checking twice somewhat caps your range. Your range is mostly marginal made hands and junk. This is why it's critical to protect your flop/turn checking range with some strong hands."},
+  {q:"On K-K-6 (LJ vs BTN), LJ bets 66% flop, BTN calls. Turn is an Ace. How should BTN respond?",opts:["Raise aggressively -- the ace is great for us","Fold a lot -- the ace is terrible for us","Call everything -- we have good equity","Bet small if checked to"],ans:1,ex:"The ace is amazing for LJ (their bluffs were ace-high, now top pair). BTN should drastically overfold compared to MDF, even against a small bet. Underpairs (below ace) become nearly worthless."},
+  {q:"When your opponent bets the turn after you called their flop c-bet, and you have ace-high, you should:",opts:["Always call -- ace high beats their bluffs","Usually fold unless you have additional draws","Always raise -- your hand is underrepresented","Call only in position"],ans:1,ex:"Ace-high frequently becomes junk on the turn. If your opponent's betting range is polarized, ace-high is below their value range and is only marginally ahead of their bluffs. Usually fold without draws."},
+  {q:"In a 4-bet pot on Q-9-8, you bet flop small, opponent calls. Turn is a 6. With KK, what should you do?",opts:["Check to pot-control","Bet 2/3 pot","Jam all-in","Bet 1/3 pot"],ans:2,ex:"In 4-bet pots on coordinated boards, KK needs massive protection. The opponent has tons of draws (QJ, JT, T9). With a low SPR, jam all-in to deny equity. KK jams more often than AA (AA needs less protection)."},
+  {q:"On A-J-5 (LJ vs BB), you bet flop, BB calls. Turn is 10 of spades (completing flush draw). What size should you use?",opts:["Overbet 125% pot","Small bet 25% pot","66% pot","Check everything"],ans:1,ex:"When the flush completes, you lack the nut advantage (BB has more random flushes). Without nut advantage, bet small (25% pot). You're betting a linear-ish range with a mix of flushes, draws, and value."},
+  {q:"What is the main reason you should check more from OOP than IP on the turn?",opts:["Your range is always weaker OOP","OOP you can face two streets of aggression (turn + river)","It's harder to read opponents OOP","You always have a range disadvantage OOP"],ans:1,ex:"Out of position, if you check, opponent can bet both the turn and river -- two streets of aggression. In position, you can check back and only face one street. This makes you want to keep pots smaller OOP."},
+  {q:"When it goes check-check on the flop in a multi-way pot and it checks to you on the turn (IP), what should you do?",opts:["Check -- everyone's range is unknown","Bet small with a merged range","Make a big bet or overbet to steal","Call a clock on yourself"],ans:2,ex:"When everyone checks twice multi-way, they've announced they don't have the nuts. Make a big/overbet to steal. Most players don't protect their multi-way checking ranges, making this very profitable."},
+  {q:"Which turn cards typically pair the middle or bottom board card and are good for the flop CALLER?",opts:["They favor the flop bettor (more full houses)","They favor the flop caller (bettor checked/didn't bet those pairs)","They're neutral for both","They're bad for both"],ans:1,ex:"On J-7-3-7: the flop bettor usually didn't bet their 7s (marginal), while the caller check-called all their 7s. So the bettor lacks 7s and the caller has them all. Very good for the caller."},
+  {q:"On 9-7-5, BTN bets flop 66%, BB calls. Turn is a 2 (blank). BTN should bet:",opts:["Frequently and small","Infrequently and big (polarized)","Medium frequency and medium size","Check everything -- it's a bad board"],ans:1,ex:"On a complete blank, the flop bettor still has the nut advantage (overpairs, sets). Bet medium frequency (~57%) using a big size (125% pot) because you're betting polarized with nuts + draws. But you have lots of junk to check too."},
+  {q:"Why does the pair-plus-straight-draw combination almost always bet on the turn?",opts:["It has the most equity of any draw type","It provides both protection value and bluff equity","Solvers are biased toward these combos","It blocks opponent's calling range"],ans:1,ex:"Pair + straight draw has decent showdown value worth protecting AND additional outs. If you bet and get called, you can still improve. If you bet and opponent folds, you denied their equity. It's the ideal turn barrel hand."},
+  {q:"What happens to your strategy when the turn card gives your opponent a large range advantage?",opts:["Bet more to fight back","Check very frequently; bet only super nuts + best draws","Lead into them aggressively","Raise their bets more often"],ans:1,ex:"When the turn is bad for your range, you check basically everything besides your absolute best premium hands and draws. On bad turns, you just end up losing a lot -- that's normal and okay."},
+  {q:"In position facing a turn continuation bet, should you call more or less than minimum defense frequency?",opts:["More (you realize equity well IP)","Less (to compensate for turn card changes)","Exactly MDF","It depends on stack depth only"],ans:0,ex:"In position, you realize equity very well because you get to see the river for free if it checks through. This incentivizes calling more than MDF, especially against big bets on blank-ish turns."},
+  {q:"When the preflop raiser checks behind on J-6-2 and the turn brings a Queen, BB should:",opts:["Check -- Queens are bad for BB","Bet infrequently but big with a polarized range","Bet frequently because opponent lacks queens","Fold to any bet"],ans:2,ex:"Counterintuitively, the Queen is good for BB because the Button would have bet most queen-high on the flop as bluffs. When they didn't bet, they lack queens. BB has AJ, KJ as effective nuts + queens in range."},
+  {q:"What is the critical error many small/medium stakes players make regarding their flop checking range?",opts:["They check too often on the flop","They always bet all premium hands, leaving their check range as trash","They check-raise too often","They don't use blockers when checking"],ans:1,ex:"The #1 mistake is always betting all strong hands on the flop, leaving the checking range unprotected. This makes them exploitable on the turn when opponents delayed c-bet or probe. Always protect your checking range."},
+];
+
+let questions,current,score,missed,answered;
+function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
+function restart(){questions=shuffle([...allQuestions]);current=0;score=0;missed=[];answered=false;document.getElementById('results').style.display='none';document.getElementById('question-area').style.display='block';document.getElementById('next-btn').style.display='none';showQ()}
+function showQ(){
+  if(current>=questions.length){showResults();return}
+  answered=false;
+  const q=questions[current];
+  const pct=((current)/questions.length*100).toFixed(0);
+  document.getElementById('progress-fill').style.width=pct+'%';
+  document.getElementById('score-display').textContent=`Question ${current+1} of ${questions.length}  |  Score: ${score}`;
+  let html=`<div class="q-number">Question ${current+1}</div><div class="q-text">${q.q}</div>`;
+  q.opts.forEach((o,i)=>{html+=`<button class="option" data-idx="${i}" onclick="pick(${i})"><span class="opt-key">${i+1}.</span>${o}</button>`});
+  document.getElementById('question-area').innerHTML=html;
+  document.getElementById('explanation').classList.remove('visible');
+  document.getElementById('explanation').textContent='';
+  document.getElementById('next-btn').style.display='none';
+}
+function pick(idx){
+  if(answered)return;answered=true;
+  const q=questions[current];
+  const btns=document.querySelectorAll('.option');
+  btns.forEach(b=>{
+    b.classList.add('disabled');
+    const bi=parseInt(b.dataset.idx);
+    if(bi===q.ans)b.classList.add(bi===idx?'selected-correct':'show-correct');
+    else if(bi===idx)b.classList.add('selected-wrong');
+  });
+  if(idx===q.ans)score++;
+  else missed.push({q:q.q,your:q.opts[idx],correct:q.opts[q.ans],ex:q.ex});
+  document.getElementById('explanation').textContent=q.ex;
+  document.getElementById('explanation').classList.add('visible');
+  document.getElementById('next-btn').style.display='block';
+  document.getElementById('score-display').textContent=`Question ${current+1} of ${questions.length}  |  Score: ${score}`;
+}
+function advance(){if(!answered)return;current++;showQ()}
+function showResults(){
+  document.getElementById('question-area').style.display='none';
+  document.getElementById('next-btn').style.display='none';
+  document.getElementById('explanation').classList.remove('visible');
+  document.getElementById('progress-fill').style.width='100%';
+  const r=document.getElementById('results');r.style.display='block';
+  document.getElementById('r-correct').textContent=score;
+  document.getElementById('r-total').textContent=questions.length;
+  document.getElementById('r-pct').textContent=`${(score/questions.length*100).toFixed(0)}% correct`;
+  let rh='';
+  if(missed.length===0)rh='<p>Perfect score -- nothing to review.</p>';
+  else missed.forEach(m=>{rh+=`<div class="review-item"><div class="ri-q">${m.q}</div><div class="ri-your">Your answer: ${m.your}</div><div class="ri-correct">Correct: ${m.correct}</div><div class="ri-explain">${m.ex}</div></div>`});
+  document.getElementById('review-list').innerHTML=rh;
+}
+document.getElementById('next-btn').addEventListener('click',advance);
+document.addEventListener('keydown',e=>{
+  if(e.key===' '||e.key==='Enter'){e.preventDefault();if(answered)advance()}
+  if(e.key==='r'||e.key==='R'){if(document.getElementById('results').style.display==='block')restart()}
+  if(!answered&&e.key>='1'&&e.key<='4'){const i=parseInt(e.key)-1;const opts=document.querySelectorAll('.option');if(i<opts.length)pick(i)}
+  if(e.key==='h'||e.key==='H'){const hk=document.querySelector('.hotkeys');hk.style.display=hk.style.display==='none'?'block':'none'}
+});
+restart();
+</script>
+</body>
+</html>

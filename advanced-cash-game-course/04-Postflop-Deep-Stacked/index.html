@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chapter 4: Postflop Deep-Stacked Adjustments</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Source+Serif+4:ital,wght@0,400;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #FFFFFF;
+  --surface: #FFFFFF;
+  --surface2: #F5F5F5;
+  --accent: #000000;
+  --text: #000000;
+  --text-dim: #525252;
+  --correct: #1a7a5e;
+  --wrong: #b91c1c;
+  --orange: #8B6914;
+  --border: #000000;
+  --border-light: #E5E5E5;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'Source Serif 4', serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.7;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 60px 24px 80px;
+}
+
+h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.6rem;
+  font-weight: 900;
+  text-align: center;
+  margin-bottom: 6px;
+  letter-spacing: -0.02em;
+}
+
+.chapter-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.8rem;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  text-align: center;
+  margin-bottom: 8px;
+}
+
+.description {
+  max-width: 600px;
+  text-align: center;
+  color: var(--text-dim);
+  margin-bottom: 48px;
+  font-size: 1.05rem;
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+  width: 100%;
+  max-width: 640px;
+}
+
+.card {
+  border: 2px solid var(--border);
+  border-radius: 0px;
+  padding: 28px 32px;
+  text-decoration: none;
+  color: var(--text);
+  transition: background 0.15s;
+  display: block;
+}
+
+.card:hover {
+  background: var(--surface2);
+}
+
+.card-step {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text-dim);
+  margin-bottom: 8px;
+}
+
+.card-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.35rem;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.card-desc {
+  font-size: 0.95rem;
+  color: var(--text-dim);
+  line-height: 1.6;
+}
+
+.topics {
+  max-width: 640px;
+  width: 100%;
+  margin-top: 48px;
+  padding-top: 32px;
+  border-top: 1px solid var(--border-light);
+}
+
+.topics h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.3rem;
+  margin-bottom: 16px;
+}
+
+.topic-list {
+  list-style: none;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px 24px;
+}
+
+.topic-list li {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.8rem;
+  color: var(--text-dim);
+  padding: 4px 0;
+  border-bottom: 1px solid var(--border-light);
+}
+
+.footer {
+  margin-top: 48px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  color: var(--text-dim);
+  text-align: center;
+}
+</style>
+</head>
+<body>
+
+<div class="chapter-label">Advanced Cash Game Course</div>
+<h1>Chapter 4: Postflop Deep-Stacked Adjustments</h1>
+<p class="description">
+  How to adjust your postflop strategy at 200bb+ stacks: stack-off thresholds, the bet-bet-check line, nut advantage exploitation, over-realizing equity, and the increased value of position. By Jonathan Little.
+</p>
+
+<div class="cards">
+  <a class="card" href="crash-course.html">
+    <div class="card-step">Step 1 -- Read</div>
+    <div class="card-title">Crash Course</div>
+    <div class="card-desc">
+      Complete walkthrough of deep-stack postflop strategy. Covers the three pillars (position, nut advantage, stack-off threshold), bet-bet-check lines, over-realizing equity, OOP checking frequencies, 3-bet pot adjustments, overbetting, and checking range protection. Includes detailed examples and common traps.
+    </div>
+  </a>
+
+  <a class="card" href="revision-guide.html">
+    <div class="card-step">Step 2 -- Reference</div>
+    <div class="card-title">Revision Guide</div>
+    <div class="card-desc">
+      Structured topic map covering all five lessons. Quick-reference tables for c-bet frequencies by board texture, turn betting criteria, sizing guidelines, and deep-stack heuristics. Cross-references key concepts across lessons.
+    </div>
+  </a>
+
+  <a class="card" href="drills.html">
+    <div class="card-step">Step 3 -- Practice</div>
+    <div class="card-title">Interactive Drills</div>
+    <div class="card-desc">
+      20 questions covering stack-off thresholds, c-betting adjustments, cost of reopening, bet-bet-check lines, nut advantage, position value, 3-bet pots, and applied deep-stack scenarios. Multiple choice, true/false, and fill-in-the-blank. Shuffled each run with review-missed mode. Keyboard shortcuts for fast drilling.
+    </div>
+  </a>
+</div>
+
+<div class="topics">
+  <h2>Topics Covered</h2>
+  <ul class="topic-list">
+    <li>Stack-Off Threshold</li>
+    <li>Nut Advantage</li>
+    <li>Position Value (Deep)</li>
+    <li>C-Bet Adjustments (200bb)</li>
+    <li>Check-Raise Frequency</li>
+    <li>Bet-Bet-Check Line</li>
+    <li>Pushing Equity</li>
+    <li>Nut Draw Selection</li>
+    <li>Over-Realizing Equity</li>
+    <li>Polarized Big Bets</li>
+    <li>Cost of Reopening</li>
+    <li>River Check-Raises</li>
+    <li>OOP Checking Ranges</li>
+    <li>Checking Range Protection</li>
+    <li>3-Bet Pot Adjustments</li>
+    <li>Overbet Sizing</li>
+    <li>Turn Bluff Selection</li>
+    <li>Nut Blockers</li>
+  </ul>
+</div>
+
+<div class="footer">
+  Source: PokerCoaching.com by Jonathan Little
+</div>
+
+</body>
+</html>

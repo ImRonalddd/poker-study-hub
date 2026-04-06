@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chapter 4: Playing the Turn</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Source+Serif+4:ital,wght@0,400;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #FFFFFF;
+  --surface: #FFFFFF;
+  --surface2: #F5F5F5;
+  --accent: #000000;
+  --text: #000000;
+  --text-dim: #525252;
+  --correct: #1a7a5e;
+  --wrong: #b91c1c;
+  --orange: #8B6914;
+  --border: #000000;
+  --border-light: #E5E5E5;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'Source Serif 4', serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.7;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 60px 24px 80px;
+}
+
+h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.6rem;
+  font-weight: 900;
+  text-align: center;
+  margin-bottom: 6px;
+  letter-spacing: -0.02em;
+}
+
+.chapter-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.8rem;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  text-align: center;
+  margin-bottom: 8px;
+}
+
+.description {
+  max-width: 600px;
+  text-align: center;
+  color: var(--text-dim);
+  margin-bottom: 48px;
+  font-size: 1.05rem;
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+  width: 100%;
+  max-width: 640px;
+}
+
+.card {
+  border: 2px solid var(--border);
+  border-radius: 0px;
+  padding: 28px 32px;
+  text-decoration: none;
+  color: var(--text);
+  transition: background 0.15s;
+  display: block;
+}
+
+.card:hover {
+  background: var(--surface2);
+}
+
+.card-step {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text-dim);
+  margin-bottom: 8px;
+}
+
+.card-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.35rem;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.card-desc {
+  font-size: 0.95rem;
+  color: var(--text-dim);
+  line-height: 1.6;
+}
+
+.topics {
+  max-width: 640px;
+  width: 100%;
+  margin-top: 48px;
+  padding-top: 32px;
+  border-top: 1px solid var(--border-light);
+}
+
+.topics h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.3rem;
+  margin-bottom: 16px;
+}
+
+.topic-list {
+  list-style: none;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px 24px;
+}
+
+.topic-list li {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.8rem;
+  color: var(--text-dim);
+  padding: 4px 0;
+  border-bottom: 1px solid var(--border-light);
+}
+
+.footer {
+  margin-top: 48px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  color: var(--text-dim);
+  text-align: center;
+}
+</style>
+</head>
+<body>
+
+<div class="chapter-label">Cash Game Masterclass</div>
+<h1>Chapter 4: Playing the Turn</h1>
+<p class="description">
+  39 lessons covering every turn scenario: continuation bets, delayed c-bets, probes, multi-way pots, and 3-bet/4-bet pots. Master the 1:1 bluff-to-value ratio, turn card classification, and the range advantage framework.
+</p>
+
+<div class="cards">
+  <a class="card" href="crash-course.html">
+    <div class="card-step">Step 1 -- Read</div>
+    <div class="card-title">Crash Course</div>
+    <div class="card-desc">
+      Complete walkthrough of all turn concepts: c-betting, facing c-bets, delayed c-bets, probes, flop caller IP spots, multi-way pots, and 3-bet/4-bet pots. Covers bet sizing frameworks, turn card classification, and the range/nut advantage matrix with worked board examples.
+    </div>
+  </a>
+
+  <a class="card" href="revision-guide.html">
+    <div class="card-step">Step 2 -- Reference</div>
+    <div class="card-title">Revision Guide</div>
+    <div class="card-desc">
+      Obsidian-compatible topic map with all 9 turn scenario sections, bluff-to-value ratios, sizing heuristics, the overbet-raise relationship, and cross-references to flop and river chapters. Use as a quick-reference sheet during study or play.
+    </div>
+  </a>
+
+  <a class="card" href="drills.html">
+    <div class="card-step">Step 3 -- Practice</div>
+    <div class="card-title">Interactive Drills</div>
+    <div class="card-desc">
+      30 questions covering turn c-bets, facing bets, delayed c-bets, probes, multi-way play, 3-bet pots, and protecting your ranges. Shuffled each run with review-missed mode. Keyboard shortcuts: 1-4 for answers, Space for next, R to restart, H for help.
+    </div>
+  </a>
+</div>
+
+<div class="topics">
+  <h2>Topics Covered</h2>
+  <ul class="topic-list">
+    <li>Turn Bluff-to-Value Ratio</li>
+    <li>Turn Card Classification</li>
+    <li>Turn Continuation Betting</li>
+    <li>Facing Turn C-Bets</li>
+    <li>Delayed Continuation Bets</li>
+    <li>Facing Delayed C-Bets</li>
+    <li>Turn Probes (OOP)</li>
+    <li>Facing Turn Probes</li>
+    <li>Flop Caller IP Spots</li>
+    <li>Multi-Way Turn Play</li>
+    <li>3-Bet Pots on the Turn</li>
+    <li>4-Bet Pot Dynamics</li>
+    <li>Range vs Nut Advantage</li>
+    <li>Polarized Bet Sizing</li>
+    <li>Protecting Check Ranges</li>
+    <li>Overbet-Raise Relationship</li>
+    <li>MDF on the Turn</li>
+    <li>Pair + Draw Patterns</li>
+  </ul>
+</div>
+
+<div class="footer">
+  Source: PokerCoaching.com by Jonathan Little
+</div>
+
+</body>
+</html>

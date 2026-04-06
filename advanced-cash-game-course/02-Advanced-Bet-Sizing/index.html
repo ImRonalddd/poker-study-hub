@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chapter 2: Advanced Bet Sizing in Cash Games</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Source+Serif+4:ital,wght@0,400;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #FFFFFF;
+  --surface: #FFFFFF;
+  --surface2: #F5F5F5;
+  --accent: #000000;
+  --text: #000000;
+  --text-dim: #525252;
+  --correct: #1a7a5e;
+  --wrong: #b91c1c;
+  --orange: #8B6914;
+  --border: #000000;
+  --border-light: #E5E5E5;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'Source Serif 4', serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.7;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 60px 24px 80px;
+}
+
+h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.6rem;
+  font-weight: 900;
+  text-align: center;
+  margin-bottom: 6px;
+  letter-spacing: -0.02em;
+}
+
+.chapter-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.8rem;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  text-align: center;
+  margin-bottom: 8px;
+}
+
+.description {
+  max-width: 600px;
+  text-align: center;
+  color: var(--text-dim);
+  margin-bottom: 48px;
+  font-size: 1.05rem;
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+  width: 100%;
+  max-width: 640px;
+}
+
+.card {
+  border: 2px solid var(--border);
+  border-radius: 0px;
+  padding: 28px 32px;
+  text-decoration: none;
+  color: var(--text);
+  transition: background 0.15s;
+}
+.card:hover {
+  background: var(--surface2);
+}
+
+.card-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--text-dim);
+  margin-bottom: 4px;
+}
+
+.card-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.35rem;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.card-desc {
+  font-size: 0.95rem;
+  color: var(--text-dim);
+  line-height: 1.5;
+}
+
+.topics {
+  margin-top: 48px;
+  width: 100%;
+  max-width: 640px;
+}
+
+.topics h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.4rem;
+  font-weight: 700;
+  margin-bottom: 16px;
+  padding-bottom: 8px;
+  border-bottom: 3px solid var(--accent);
+}
+
+.topic-list {
+  list-style: none;
+  padding: 0;
+}
+
+.topic-list li {
+  padding: 10px 0;
+  border-bottom: 1px solid var(--border-light);
+  display: flex;
+  gap: 12px;
+  align-items: baseline;
+}
+
+.topic-num {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  color: var(--text-dim);
+  min-width: 24px;
+}
+
+.topic-name {
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+.topic-concepts {
+  font-size: 0.85rem;
+  color: var(--text-dim);
+  margin-top: 2px;
+}
+</style>
+</head>
+<body>
+
+<div class="chapter-label">Advanced Cash Game Course -- Chapter 2</div>
+<h1>Advanced Bet Sizing in Cash Games</h1>
+<p class="description">15 lessons by Jonathan Little covering flop, turn, and river bet sizing with both GTO foundations and exploitative adjustments for live and online cash games.</p>
+
+<div class="cards">
+  <a class="card" href="crash-course.html">
+    <div class="card-label">Study</div>
+    <div class="card-title">Crash Course</div>
+    <div class="card-desc">Comprehensive coverage of all 15 lessons: the four-factor framework, flop/turn/river sizing, exploitative adjustments, check-raise sizing, and player-type reads.</div>
+  </a>
+
+  <a class="card" href="drills.html">
+    <div class="card-label">Practice</div>
+    <div class="card-title">Interactive Drills</div>
+    <div class="card-desc">30 scenario-based questions testing bet sizing decisions on every street, exploitative adjustments, check-raise sizing, and multi-street planning.</div>
+  </a>
+
+  <a class="card" href="revision-guide.html">
+    <div class="card-label">Reference</div>
+    <div class="card-title">Revision Guide</div>
+    <div class="card-desc">Topic map of all 15 lessons with key concepts, decision flowcharts, quick-reference tables, and the complete bet sizing framework.</div>
+  </a>
+</div>
+
+<div class="topics">
+  <h2>Lesson Overview</h2>
+  <ol class="topic-list">
+    <li>
+      <span class="topic-num">01</span>
+      <div>
+        <div class="topic-name">Introduction to Advanced Bet Sizing on the Flop</div>
+        <div class="topic-concepts">Nut advantage, range connectivity, stack depth, board dynamics</div>
+      </div>
+    </li>
+    <li>
+      <span class="topic-num">02</span>
+      <div>
+        <div class="topic-name">When to Bet Very Small on the Flop</div>
+        <div class="topic-concepts">20% pot bets, monotone boards, paired boards, range advantage</div>
+      </div>
+    </li>
+    <li>
+      <span class="topic-num">03</span>
+      <div>
+        <div class="topic-name">When to Bet Very Large on the Flop</div>
+        <div class="topic-concepts">Overbets, overpairs as effective nuts, dynamic boards</div>
+      </div>
+    </li>
+    <li>
+      <span class="topic-num">04</span>
+      <div>
+        <div class="topic-name">Exploitative Reasons for Betting Large</div>
+        <div class="topic-concepts">Inelastic opponents, no check-raises, wide BB defense</div>
+      </div>
+    </li>
+    <li>
+      <span class="topic-num">05</span>
+      <div>
+        <div class="topic-name">Exploitative Reasons for Betting Very Small</div>
+        <div class="topic-concepts">Wide defenders, size-inelastic folders, passive opponents</div>
+      </div>
+    </li>
+    <li>
+      <span class="topic-num">06</span>
+      <div>
+        <div class="topic-name">Going from Rigid to Dynamic Bet Sizes</div>
+        <div class="topic-concepts">EV gain from multiple sizes, 8bb/100 gains, complexity tradeoff</div>
+      </div>
+    </li>
+    <li>
+      <span class="topic-num">07</span>
+      <div>
+        <div class="topic-name">Adjusting Your Raise Size When Facing a Bet</div>
+        <div class="topic-concepts">Check-raise sizing, small bet = big raise, board dynamics</div>
+      </div>
+    </li>
+    <li>
+      <span class="topic-num">08</span>
+      <div>
+        <div class="topic-name">Turn Continuation Betting</div>
+        <div class="topic-concepts">Nut advantage without range advantage, polarized ranges, overbet turns</div>
+      </div>
+    </li>
+    <li>
+      <span class="topic-num">09</span>
+      <div>
+        <div class="topic-name">Turn Probes &amp; Delayed C-Betting</div>
+        <div class="topic-concepts">OOP overbets, IP small bets, nuts preservation</div>
+      </div>
+    </li>
+    <li>
+      <span class="topic-num">10</span>
+      <div>
+        <div class="topic-name">Bet Sizing on the River</div>
+        <div class="topic-concepts">IP 50% min, OOP 10-33% thin value, bluff ratios by size</div>
+      </div>
+    </li>
+    <li>
+      <span class="topic-num">11</span>
+      <div>
+        <div class="topic-name">When to Bet Small on the River</div>
+        <div class="topic-concepts">OOP thin value after check-check, 33% pot, protecting with nuts</div>
+      </div>
+    </li>
+    <li>
+      <span class="topic-num">12</span>
+      <div>
+        <div class="topic-name">When to Bet Very Large on the River</div>
+        <div class="topic-concepts">All-in for 4x+ pot, blank rivers, 616bb/100 gain with nuts</div>
+      </div>
+    </li>
+    <li>
+      <span class="topic-num">13</span>
+      <div>
+        <div class="topic-name">Exploitative Check-Raising Strategies</div>
+        <div class="topic-concepts">Auto c-bettors, small vs large raise by board texture</div>
+      </div>
+    </li>
+    <li>
+      <span class="topic-num">14</span>
+      <div>
+        <div class="topic-name">Bet Sizing on Turn &amp; River: 7 Hand Examples</div>
+        <div class="topic-concepts">Player-type reads, adjusting to straightforward/LAG/calling station</div>
+      </div>
+    </li>
+    <li>
+      <span class="topic-num">15</span>
+      <div>
+        <div class="topic-name">Putting It All Together</div>
+        <div class="topic-concepts">Multi-street sizing, OOP thin value, multi-way pots</div>
+      </div>
+    </li>
+  </ol>
+</div>
+
+</body>
+</html>

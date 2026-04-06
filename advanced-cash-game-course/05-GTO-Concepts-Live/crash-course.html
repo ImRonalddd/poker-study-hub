@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chapter 5: GTO Concepts for Live Cash Games -- Crash Course</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Source+Serif+4:ital,wght@0,400;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+  onload="renderMathInElement(document.body,{delimiters:[{left:'\\(',right:'\\)',display:false},{left:'$$',right:'$$',display:true}]);"></script>
+<style>
+:root {
+  --bg: #FFFFFF;
+  --surface: #FFFFFF;
+  --surface2: #F5F5F5;
+  --accent: #000000;
+  --text: #000000;
+  --text-dim: #525252;
+  --correct: #1a7a5e;
+  --wrong: #b91c1c;
+  --orange: #8B6914;
+  --border: #000000;
+  --border-light: #E5E5E5;
+  --blue: #1e40af;
+  --purple: #6b21a8;
+  --red: #b91c1c;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'Source Serif 4', serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.7;
+  max-width: 780px;
+  margin: 0 auto;
+  padding: 40px 24px 80px;
+}
+
+h1, h2, h3 {
+  font-family: 'Playfair Display', serif;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+h1 {
+  font-size: 2.4rem;
+  font-weight: 900;
+  margin-bottom: 8px;
+  line-height: 1.15;
+}
+
+.subtitle {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.85rem;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 40px;
+}
+
+h2 {
+  font-size: 1.7rem;
+  margin-top: 56px;
+  margin-bottom: 16px;
+  padding-bottom: 6px;
+  border-bottom: 2px solid var(--border);
+}
+
+h3 {
+  font-size: 1.2rem;
+  margin-top: 32px;
+  margin-bottom: 10px;
+}
+
+p { margin-bottom: 14px; }
+
+ul, ol {
+  margin-bottom: 14px;
+  padding-left: 24px;
+}
+
+li { margin-bottom: 6px; }
+
+code {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.88em;
+  background: var(--surface2);
+  padding: 2px 6px;
+  border-radius: 0px;
+}
+
+.box {
+  padding: 20px 24px;
+  margin: 24px 0;
+  border-radius: 0px;
+  border: 2px solid;
+}
+
+.box-definition { border-color: var(--blue); }
+.box-definition .box-label { color: var(--blue); }
+
+.box-insight { border-color: var(--purple); }
+.box-insight .box-label { color: var(--purple); }
+
+.box-example { border-color: var(--orange); }
+.box-example .box-label { color: var(--orange); }
+
+.box-trap { border-color: var(--red); }
+.box-trap .box-label { color: var(--red); }
+
+.box-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 8px;
+  font-weight: 500;
+}
+
+.box p:last-child { margin-bottom: 0; }
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+  font-size: 0.95rem;
+}
+
+th, td {
+  border: 1px solid var(--border-light);
+  padding: 10px 14px;
+  text-align: left;
+}
+
+th {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  background: var(--surface2);
+}
+
+.back-link {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.8rem;
+  color: var(--text-dim);
+  text-decoration: none;
+  display: inline-block;
+  margin-bottom: 24px;
+}
+.back-link:hover { color: var(--text); }
+
+.footer {
+  margin-top: 60px;
+  padding-top: 20px;
+  border-top: 1px solid var(--border-light);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  color: var(--text-dim);
+}
+</style>
+</head>
+<body>
+
+<a class="back-link" href="index.html">&larr; Back to Chapter 5</a>
+
+<h1>GTO Concepts for Live Cash Games</h1>
+<div class="subtitle">Crash Course -- Justin Saliba</div>
+
+<p>
+  The sharpest live cash game players don't try to play perfectly GTO. They extract <strong>mechanics and principles</strong> from solvers, then build <strong>simple, robust strategies</strong> they can execute under pressure. This chapter covers the three biggest areas where players leak EV: defending vs aggression, exploiting nut advantage, and playing out of position.
+</p>
+
+<!-- ========================================== -->
+<h2>1. Defending Your Range vs Aggression</h2>
+
+<div class="box box-definition">
+  <div class="box-label">Key Principle</div>
+  <p><strong>Equity realization matters more than raw equity.</strong> The question is not "how strong is my hand right now?" but "how well can I realize my equity on future streets?" In deep-stack cash, being able to make the nuts is everything.</p>
+</div>
+
+<h3>What Makes a Good Continuation Hand?</h3>
+
+<ol>
+  <li><strong>Nut potential on future streets</strong> -- Can you make the nuts? Backdoor flush draws, gutshot-to-nut-straight draws, hands that improve to uncounterfeitable two-pair.</li>
+  <li><strong>Clean outs</strong> -- When you improve, is your opponent dead or do they also improve? Five-three making a pair of fives on the river is "clean" because villain rarely has fives. Jack-ten making two pair is "dirty" because it can complete villain's straights.</li>
+  <li><strong>Backdoor flush draws</strong> -- Worth 0.5 to 1.2 BB more than the same hand without the backdoor. This is enormous.</li>
+</ol>
+
+<div class="box box-example">
+  <div class="box-label">Example: A-K-5 Board (HJ vs BB, 100 BB deep)</div>
+  <p>Facing a 65% pot c-bet as the BB: <strong>KJ with backdoor hearts</strong> is a clear continue worth +0.67 BB. <strong>KJ with no backdoor</strong> is a marginal fold. Same "hand," completely different decision based on backdoor potential.</p>
+</div>
+
+<h3>Bet Sizing Precision Matters</h3>
+
+<p>Players lump all "big bets" together. Don't.</p>
+
+<table>
+  <tr><th>C-bet Size</th><th>Fold Frequency</th><th>Impact</th></tr>
+  <tr><td>65% pot</td><td>~33% fold</td><td>Pocket pairs continue, AQo continues</td></tr>
+  <tr><td>85% pot</td><td>~41% fold</td><td>Low pairs fold, AQo nearly pure fold</td></tr>
+  <tr><td>110% pot</td><td>~48% fold</td><td>Only nutted draws and top pair+ continue</td></tr>
+</table>
+
+<p>A mere 20% sizing increase (65% to 85%) causes 8% more folding. Hands like suited broadway with backdoors survive both sizes -- which is exactly why they're so valuable.</p>
+
+<h3>Position/Range Adjustments</h3>
+
+<div class="box box-insight">
+  <div class="box-label">Insight</div>
+  <p>Against a <strong>tight range</strong> (HJ open), you must fold more on the flop because their nut advantage is higher and their turn barreling frequency is much higher. Against a <strong>wide range</strong> (BTN open), you can continue more top-pair type hands because their range has more air and the nut advantage is diluted.</p>
+</div>
+
+<h3>Double Flush Draw Boards</h3>
+
+<p>Common mistake: "It's double flush draw -- they have lots of draws, so I should call more." Wrong framing.</p>
+
+<p>Correct thinking: "On double flush draw boards, I have <em>so many</em> clean continues (suited aces, suited connectors with flush draws, nut-draw combos) that I can afford to fold marginal top pair without backdoors." Queens pocket on K-J-8 with two flush draws? Pure fold -- you have plenty of better continues.</p>
+
+<h3>Blocking Bluffs vs Blocking Value</h3>
+
+<div class="box box-trap">
+  <div class="box-label">Common Trap</div>
+  <p><strong>Blocking bluffs is far worse than blocking value</strong> when deciding to call. The opponent has more value combos than bluff combos (they're only "allowed" a certain bluff ratio). When you block their bluffs, they become value-heavy faster than when you block value. JTo on Q-J-T-K blocking opponent's T9/KT bluffs is a clear fold -- you're removing the hands you need them to have.</p>
+</div>
+
+<!-- ========================================== -->
+<h2>2. Nut Advantage and Over-Realizing Equity</h2>
+
+<div class="box box-definition">
+  <div class="box-label">Definition</div>
+  <p><strong>Nut advantage</strong> = when one player's range contains significantly more combinations of the strongest possible hands. This is the primary driver of who gets to bet big and who must play passively.</p>
+</div>
+
+<h3>Attacking Small C-Bets with Check-Raises</h3>
+
+<p>When opponents c-bet too frequently for small sizes, attack with robust check-raise ranges:</p>
+
+<ol>
+  <li><strong>Value foundation</strong>: Two pair and sets (don't go thin at deep stacks -- no top pair check-raises)</li>
+  <li><strong>Equity draws</strong>: Flush draws, open-ended straight draws</li>
+  <li><strong>Nut-covering hands</strong>: Ace-of-suit with cards that wrap the board (covers nut flush runouts)</li>
+  <li><strong>Bottom pair that wraps</strong>: Hands like 5-3s on K-4-3 (covers straight-completing runouts where you'd otherwise have no bluffs)</li>
+</ol>
+
+<div class="box box-example">
+  <div class="box-label">Example: K-4-3 Board (BTN vs BB, 200 BB deep)</div>
+  <p><strong>GTO check-raise range (~10%):</strong> Sets, two pairs, spade draws, 7-5s/5-2s straight draws, A-spade-x that wraps the 3-4, and bottom pair combos like 6-3s/5-3s.</p>
+  <p><strong>vs Over-c-bettor (~17%):</strong> Same hand types at roughly 2x frequency. Don't add new hand types -- just do the same things more often.</p>
+</div>
+
+<h3>Turn Barreling: Nut Advantage in Action</h3>
+
+<p>After check-raising the flop, your turn strategy is driven entirely by how the card affects your nut advantage:</p>
+
+<table>
+  <tr><th>Turn Card</th><th>Nut Advantage</th><th>Strategy</th><th>Frequency</th></tr>
+  <tr><td>Completes your straights (e.g., 6 on K-4-3)</td><td>Massive</td><td>Pot-size bet</td><td>~75%+ barrel</td></tr>
+  <tr><td>Brick (e.g., 9 on K-4-3)</td><td>Moderate</td><td>Pot-size bet</td><td>~40% barrel</td></tr>
+  <tr><td>High card helping villain</td><td>Reduced</td><td>Smaller size or check</td><td>~25% barrel</td></tr>
+  <tr><td>Flush completes</td><td>Shared</td><td>Block bet</td><td>Block, don't jam</td></tr>
+</table>
+
+<div class="box box-insight">
+  <div class="box-label">The Over-Realization Effect</div>
+  <p>On a K-4-3-6 board after check-raising flop and potting turn, you might have 46% raw equity but realize <strong>50%+ pot share</strong> because ~30% of your range is sets or straights. That gap is the over-realization of equity -- the reward for having the nuts in your range.</p>
+</div>
+
+<h3>River: Adapt, Don't Auto-Jam</h3>
+
+<ul>
+  <li><strong>Nuts stay the same</strong> (brick river): Jam confidently -- you still have the massive high-end advantage</li>
+  <li><strong>Nuts change</strong> (flush completes): Block bet -- opponent also has flushes now, and you share the high-end equity. Let them develop raise ranges.</li>
+  <li><strong>Avoid blocking your own fold equity</strong>: Don't bluff with hands containing an ace of the flush suit or cards that block villain's folding range</li>
+</ul>
+
+<!-- ========================================== -->
+<h2>3. Playing Out of Position (OOP as PFR)</h2>
+
+<div class="box box-definition">
+  <div class="box-label">Why OOP Is Hard</div>
+  <p>You act first on every street. Opponents range you one step ahead every time. On the river, they get to put in the last bet. This causes systematic <strong>under-realization of equity</strong> out of position.</p>
+</div>
+
+<h3>Two Range Rules for C-Bet Frequency</h3>
+
+<ol>
+  <li><strong>Later RFI = more checking.</strong> Cutoff checks far more than UTG because the cutoff range is wider and weaker.</li>
+  <li><strong>Closer caller = more checking.</strong> HJ calling your LJ is much tighter than BTN calling your LJ. Tighter callers have more equity, reducing your range advantage.</li>
+</ol>
+
+<h3>Board Texture Decision Framework</h3>
+
+<table>
+  <tr><th>Board Type</th><th>Strategy</th><th>Why</th></tr>
+  <tr><td>Ten-high and lower (T-6-5, 9-7-2)</td><td>Pure check range</td><td>Range disadvantage or very close equities; board changes often</td></tr>
+  <tr><td>Two high cards (J-T-5, Q-J-x)</td><td>~25% small c-bet</td><td>Connect with offsuit combos; some range advantage from high cards</td></tr>
+  <tr><td>Ace-high dry (A-9-3, A-5-2)</td><td>Very passive, mostly check</td><td>Static equities; single-pair aces rarely get three streets profitably</td></tr>
+  <tr><td>Connected high (A-J-5)</td><td>Some small c-bets</td><td>More connectivity with offsuit region</td></tr>
+  <tr><td>Disconnected high (A-5-2)</td><td>Pure check</td><td>Gap between cards means fewer offsuit combos connect</td></tr>
+</table>
+
+<h3>The Sliding Scale</h3>
+
+<div class="box box-insight">
+  <div class="box-label">The Sliding Scale Principle</div>
+  <p><strong>The more you check on the flop, the more aggressive you can be on future streets.</strong></p>
+  <ul>
+    <li>Pure check flop &rarr; all nutted hands retained &rarr; aggressive check-raises, big delayed c-bets</li>
+    <li>Partial c-bet then check &rarr; condensed range &rarr; low check-raise frequency, passive turns</li>
+  </ul>
+  <p>This also dictates IP's response: vs pure check, IP bets small (you're still uncapped); vs c-bet-then-check, IP bets big polarized (your range is condensed).</p>
+</div>
+
+<h3>Delayed C-Bet Lines (Check-Check on Flop)</h3>
+
+<p>After pure-checking a ten-high board and it goes check-check:</p>
+
+<ul>
+  <li><strong>Brick turn</strong>: Pot-sized bet with overpairs, sets. Aces check more (unblock opponent's check-backs). Bluff with queen-jack, king-jack type hands.</li>
+  <li><strong>Flush draw turn</strong>: Simply choose your flush-draw hands as bluffs. Don't reach for non-flush combos -- you have enough natural candidates.</li>
+  <li><strong>High card turn (e.g., King)</strong>: Higher frequency, smaller size. Your offsuit KQ/KJ region connects. Push equity advantage across the range.</li>
+</ul>
+
+<h3>Ace-High Board Caution</h3>
+
+<div class="box box-trap">
+  <div class="box-label">Common Trap</div>
+  <p>Ace-high dry boards (A-9-3 rainbow) feel like they should be good for the PFR, but equities are very static. Don't develop check-raise strategies with AK/AQ. Don't try to get three streets of value with one-pair aces. Play very passively -- check frequently, check-call vs bets, slow-play turns. Even after check-check-check, you're checking ace-high on many rivers.</p>
+</div>
+
+<h3>Exploiting Weak Opponents OOP</h3>
+
+<p>If your opponent won't barrel turns/rivers when you check to them:</p>
+<ul>
+  <li>Fast-play overpairs (bet JJ/QQ/KK on T-7-2 for a big size)</li>
+  <li>Check-raise more aggressively (they won't punish your weakened passive range)</li>
+  <li>Don't protect your checking range as hard (they won't exploit it)</li>
+</ul>
+
+<!-- ========================================== -->
+<h2>4. Side Games: Deuce-Seven and Stand-Up</h2>
+
+<h3>Deuce-Seven: Minimize Loss Rate</h3>
+
+<div class="box box-definition">
+  <div class="box-label">Core Principle</div>
+  <p>The bounty is ~4-5 BB per player. Risking hundreds of BBs to win it is -EV. Your goal: <strong>keep the pot small</strong> while maximizing your chance to win.</p>
+</div>
+
+<ul>
+  <li><strong>Over-limp</strong> rather than raise -- see cheap flops</li>
+  <li><strong>Loose-passive pre-flop</strong>, tight-aggressive post-flop in spots where opponents fold</li>
+  <li><strong>Small stabs</strong> (~25% pot) on favorable flops, then give up if called</li>
+  <li><strong>Check-check then block river</strong> is extremely deceptive -- opponents expect aggression with 7-2</li>
+  <li><strong>Fit 7-2 into your strongest passive line</strong> to maximize credibility</li>
+</ul>
+
+<p><strong>Leveraging 7-2 for non-7-2 hands:</strong> The game adds ~12 perceived bluff combos to your range. Use this to overbet for value with strong hands -- opponents hero-call thinking you could have deuce-seven.</p>
+
+<h3>Stand-Up Game: Extra Ante Model</h3>
+
+<p>Think of each standing player as putting an extra pseudo-ante in every pot (~1 BB per standing player). Adjust accordingly:</p>
+
+<ul>
+  <li>See more flops, wider calling ranges (even K2s from the small blind)</li>
+  <li>As players sit down, the effective ante shrinks -- tighten up</li>
+  <li>Final two: massive widening, stack off much lighter (AQo is a clear jam)</li>
+  <li>Position matters enormously when 2-3 remain -- having the button is "infinite" value</li>
+  <li>Don't force huge pots to avoid the penalty -- that's the #1 mistake</li>
+</ul>
+
+<!-- ========================================== -->
+<h2>5. Transitioning from Live to Online</h2>
+
+<h3>Pre-Flop Framework</h3>
+
+<table>
+  <tr><th>Position</th><th>Strategy</th></tr>
+  <tr><td>HJ, CO, SB</td><td>Three-bet or fold (no flatting)</td></tr>
+  <tr><td>BTN, BB</td><td>Develop calling ranges</td></tr>
+  <tr><td>All positions</td><td>Cut bottom opens; tighten by ~10-15%</td></tr>
+  <tr><td>BB defense</td><td>Tighter due to rake; fringe calls become folds</td></tr>
+</table>
+
+<h3>Key Adjustments</h3>
+
+<ul>
+  <li><strong>Move down stakes</strong>: Online 2/5 is much tougher than live 2/5</li>
+  <li><strong>Limit tables</strong>: Start with 1-2 tables, prioritize decision quality</li>
+  <li><strong>Lock in for sessions</strong>: No NFL on the side, no phone -- full focus</li>
+  <li><strong>Short stackers change range shape</strong>: High-card hands gain value over suited connectors vs 30-40 BB players</li>
+  <li><strong>Win rate comes from BTN/CO</strong>: Maximize late-position volume</li>
+  <li><strong>Rake compresses EV</strong>: Fringe flop and turn continues that are +0.03 BB live are immediately unprofitable with rake</li>
+</ul>
+
+<div class="box box-example">
+  <div class="box-label">Example: C-Bet Frequency</div>
+  <p>Opening a wider range doesn't mean betting more post-flop. When your range is wider, your range advantage is smaller. Adjust c-bet frequencies <em>down</em>. Players who open loose and then auto-c-bet leak massive EV online.</p>
+</div>
+
+<!-- ========================================== -->
+<h2>Summary: Three Pillars of Live GTO</h2>
+
+<div class="box box-insight">
+  <div class="box-label">The Three Pillars</div>
+  <ol>
+    <li><strong>Defend with nut potential</strong> -- Continue hands that can make the nuts, not just hands with raw equity</li>
+    <li><strong>Push nut advantage aggressively</strong> -- When you have more nutted combos, use big sizes to fold out equity and over-realize</li>
+    <li><strong>Play OOP passively, then spring the trap</strong> -- High check frequencies lead to aggressive future actions via check-raises and delayed c-bets</li>
+  </ol>
+</div>
+
+<p style="text-align:center; margin-top:32px; color:var(--text-dim); font-style:italic;">
+  "We're not trying to memorize spots. We're trying to find reasonable and strong strategies." -- Justin Saliba
+</p>
+
+<div class="footer">
+  Advanced Cash Game Course -- Chapter 5 -- PokerCoaching.com
+</div>
+
+</body>
+</html>

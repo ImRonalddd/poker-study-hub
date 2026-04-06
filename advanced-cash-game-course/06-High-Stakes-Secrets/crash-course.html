@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chapter 6: High Stakes Secrets -- Crash Course</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;1,400;1,600&family=Source+Serif+4:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body,{delimiters:[{left:'\\(',right:'\\)',display:false},{left:'$$',right:'$$',display:true}],throwOnError:false})"></script>
+<style>
+:root {
+  --bg: #FFFFFF; --surface: #FFFFFF; --surface2: #F5F5F5;
+  --accent: #000000; --text: #000000; --text-dim: #525252;
+  --correct: #1a7a5e; --wrong: #b91c1c; --orange: #8B6914;
+  --border: #000000; --border-light: #E5E5E5;
+  --blue: #1e40af; --purple: #6b21a8; --red: #b91c1c;
+}
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; border-radius:0 !important; }
+body { font-family:'Source Serif 4','Georgia',serif; background:var(--bg); color:var(--text); line-height:1.7; -webkit-font-smoothing:antialiased; }
+.container { max-width:780px; margin:0 auto; padding:0 1.5rem 4rem; }
+
+header { padding:4rem 0 2rem; text-align:center; border-bottom:4px solid var(--accent); margin-bottom:2.5rem; }
+header h1 { font-family:'Playfair Display',serif; font-weight:800; font-size:2.6rem; letter-spacing:-0.02em; line-height:1.15; margin-bottom:0.5rem; }
+header .sub { font-family:'JetBrains Mono',monospace; font-size:0.75rem; font-weight:500; text-transform:uppercase; letter-spacing:0.15em; color:var(--text-dim); }
+
+h2 { font-family:'Playfair Display',serif; font-weight:700; font-size:1.7rem; margin:2.5rem 0 1rem; padding-bottom:0.4rem; border-bottom:2px solid var(--accent); }
+h3 { font-family:'Playfair Display',serif; font-weight:600; font-size:1.25rem; margin:1.8rem 0 0.6rem; }
+h4 { font-family:'JetBrains Mono',monospace; font-weight:600; font-size:0.85rem; text-transform:uppercase; letter-spacing:0.08em; margin:1.2rem 0 0.4rem; }
+
+p, li { font-size:1.02rem; margin-bottom:0.5rem; }
+ul, ol { padding-left:1.5rem; margin-bottom:1rem; }
+strong { font-weight:700; }
+
+/* Colored boxes */
+.box { padding:1rem 1.25rem; margin:1rem 0; border-left:4px solid; background:var(--surface2); }
+.box-blue { border-color:var(--blue); }
+.box-purple { border-color:var(--purple); }
+.box-orange { border-color:var(--orange); }
+.box-red { border-color:var(--red); }
+.box .label { font-family:'JetBrains Mono',monospace; font-size:0.7rem; font-weight:600; text-transform:uppercase; letter-spacing:0.1em; margin-bottom:0.4rem; display:block; }
+.box-blue .label { color:var(--blue); }
+.box-purple .label { color:var(--purple); }
+.box-orange .label { color:var(--orange); }
+.box-red .label { color:var(--red); }
+
+table { width:100%; border-collapse:collapse; margin:1rem 0; font-size:0.92rem; }
+th, td { text-align:left; padding:0.5rem 0.75rem; border:1px solid var(--border-light); }
+th { background:var(--accent); color:#fff; font-family:'JetBrains Mono',monospace; font-size:0.75rem; text-transform:uppercase; letter-spacing:0.08em; font-weight:600; }
+
+code { font-family:'JetBrains Mono',monospace; font-size:0.88em; background:var(--surface2); padding:0.1em 0.35em; border:1px solid var(--border-light); }
+
+.toc { background:var(--surface2); padding:1.5rem 2rem; margin-bottom:2rem; border:1px solid var(--border); }
+.toc h3 { margin-top:0; }
+.toc ol { margin-bottom:0; }
+.toc li { font-size:0.95rem; margin-bottom:0.25rem; }
+.toc a { color:var(--text); text-decoration:none; border-bottom:1px solid var(--border-light); }
+.toc a:hover { border-color:var(--accent); }
+
+.katex-display { margin:1rem 0; }
+</style>
+</head>
+<body>
+<div class="container">
+
+<header>
+  <h1>High Stakes Live Cash Game Secrets</h1>
+  <div class="sub">Advanced Cash Game Course -- Chapter 6 Crash Course &middot; Chris Brewer</div>
+</header>
+
+<nav class="toc">
+  <h3>Contents</h3>
+  <ol>
+    <li><a href="#freq-vs-combos">Frequencies Over Combos</a></li>
+    <li><a href="#sensitivity">Solver Sensitivity</a></li>
+    <li><a href="#equilibrium">Equilibrium Fragility</a></li>
+    <li><a href="#bluff-catching">Bluff Catching Math</a></li>
+    <li><a href="#preflop-cascade">Preflop Range Cascading</a></li>
+    <li><a href="#deep-stack">Deep-Stack Principles</a></li>
+    <li><a href="#exploit-framework">The Exploit Framework</a></li>
+    <li><a href="#hand-highlights">Hand Analysis Highlights</a></li>
+  </ol>
+</nav>
+
+<!-- ====================================================== -->
+<h2 id="freq-vs-combos">1. Frequencies Over Combos</h2>
+
+<div class="box box-blue">
+  <span class="label">Core Principle</span>
+  <strong>Frequencies are more important than specific combos.</strong> If your opponent uses the wrong combos but maintains correct frequencies, you gain almost nothing. If their frequencies are off -- even slightly -- you can exploit them with pure strategies.
+</div>
+
+<h3>The Experiment</h3>
+<p>Chris demonstrates with a HJ vs BB river spot (pot-sized bet, 2:1 value-to-bluff ratio):</p>
+
+<table>
+  <tr><th>Scenario</th><th>Change</th><th>EV Loss</th></tr>
+  <tr><td>Optimal combos, optimal frequency</td><td>Baseline</td><td>0 BB</td></tr>
+  <tr><td><strong>Wrong combos</strong>, right frequency</td><td>Swap QJ/Q9/J9 bluffs for AJ/AQ</td><td>~0 BB in betting line</td></tr>
+  <tr><td>Right combos, <strong>slightly overbluffing</strong></td><td>Add Q9, J9 beyond optimal</td><td><strong>0.7 BB</strong> (massive)</td></tr>
+</table>
+
+<div class="box box-purple">
+  <span class="label">Practical Takeaway</span>
+  Think in <strong>hand classes</strong>, not individual combos. "I bluff with my gutshots" or "all low flush draws give up" is sufficient. Your goal is no noticeable frequency skew.
+</div>
+
+<h3>Stop Asking "What Did My Hand Play As?"</h3>
+<p>This promotes a micro, combo-focused mindset. Instead ask:</p>
+<ul>
+  <li>"Am I bluffing enough in this spot?"</li>
+  <li>"Is my value-to-bluff ratio reasonable?"</li>
+  <li>"On a frequency scale, is my opponent over- or under-bluffing?"</li>
+</ul>
+
+<!-- ====================================================== -->
+<h2 id="sensitivity">2. Solver Sensitivity</h2>
+
+<p>Small input changes produce dramatically different outputs:</p>
+
+<div class="box box-orange">
+  <span class="label">Example</span>
+  Give opponent slightly more Kx and slightly less Tx on a river node:
+  <ul>
+    <li>Betting frequency drops by <strong>10%</strong></li>
+    <li>Value threshold shifts from <strong>K3 to K8</strong></li>
+  </ul>
+  If you assume "standard GTO ranges" without considering actual tendencies, you will systematically misvalue hands.
+</div>
+
+<p>This is why memorizing solver outputs is inferior to understanding the <em>mechanics</em> behind them: what frequencies are demanded, what the nut advantage looks like, and how ranges interact.</p>
+
+<!-- ====================================================== -->
+<h2 id="equilibrium">3. Equilibrium Fragility</h2>
+
+<h3>The Nuts vs Air Toy Game</h3>
+<p>Setup: Aces vs 72s, board \(4\,4\,4\,5\,5\), pot = 300, stack = 100 (one-third pot jam).</p>
+
+<table>
+  <tr><th>Bettor's Strategy</th><th>Defender's Response</th><th>Bluff Catcher EV</th></tr>
+  <tr><td>Optimal (75% of 72s bluff)</td><td>Call at MDF (50%)</td><td>0</td></tr>
+  <tr><td>Under-bluff by 0.1%</td><td><strong>Pure fold everything</strong></td><td>0</td></tr>
+  <tr><td>Over-bluff by any amount</td><td><strong>Pure call everything</strong></td><td>&gt; 0</td></tr>
+</table>
+
+<div class="box box-red">
+  <span class="label">Critical Insight</span>
+  There is <strong>no gradual adjustment</strong>. Equilibrium is an "outrageously sensitive" knife-edge. Any deviation in either direction triggers a pure strategy response. This is why frequency errors are so costly.
+</div>
+
+<p>Implication for live play: against opponents you believe are well-balanced (like Jason Koon), you cannot confidently deviate. Against opponents with known frequency leaks, you should deviate maximally.</p>
+
+<!-- ====================================================== -->
+<h2 id="bluff-catching">4. Bluff Catching Math</h2>
+
+<h3>Pot Odds and Required Bluff Frequency</h3>
+<p>When facing a bet, calculate what percentage of the time you need to be good:</p>
+
+$$\text{Required equity} = \frac{\text{Call Amount}}{\text{Pot} + \text{Bet} + \text{Call}}$$
+
+<h4>Example: Chris vs Jason Koon</h4>
+<ul>
+  <li>Bet: 360 into pot of 310</li>
+  <li>Required equity for chips: \(\frac{360}{310 + 360 + 360} \approx 35\%\)</li>
+  <li>With ICM risk premium: ~40%</li>
+  <li>At 3:2 ratio (every 3 value combos, need 2 bluffs): need ~14 bluff combos against ~22 value combos</li>
+</ul>
+
+<h3>Blocker Logic for Bluff Catching</h3>
+<p>Your hand's blockers determine its quality as a bluff catcher:</p>
+
+<table>
+  <tr><th>You Block</th><th>Effect</th><th>Quality</th></tr>
+  <tr><td>Opponent's value hands (AQ, AT)</td><td>Fewer value combos in their range</td><td>Better call</td></tr>
+  <tr><td>Opponent's bluffs (low spades, offsuit draws)</td><td>Fewer bluff combos in their range</td><td>Worse call</td></tr>
+  <tr><td>Neither</td><td>Neutral</td><td>Average</td></tr>
+</table>
+
+<div class="box box-purple">
+  <span class="label">Key Example</span>
+  Chris holds A8 with the 8 of diamonds. The Ace blocks AQ/AT (value) -- good. The 8 of diamonds blocks some flush draws -- slightly bad, but most flushes use higher cards. Net: a reasonable bluff catcher.
+</div>
+
+<!-- ====================================================== -->
+<h2 id="preflop-cascade">5. Preflop Range Cascading</h2>
+
+<p>Every preflop decision compounds through the entire hand. Chris demonstrates with three versions of the same spot:</p>
+
+<table>
+  <tr><th>Preflop Type</th><th>ISO Range</th><th>River Consequence</th></tr>
+  <tr><td><strong>Correct</strong></td><td>Includes suited trash (72s, 82s, 65s)</td><td>Can bluff but must be disciplined; easy to over-do with one-spade hands</td></tr>
+  <tr><td><strong>Slightly tight</strong></td><td>50% fewer offsuit bluffs</td><td>Trips drops from good call to marginal; AK call worth 2.5 BB instead of 8 BB</td></tr>
+  <tr><td><strong>No dust</strong></td><td>Only decent+ hands</td><td>Must bluff with 76cc, 87dd -- nearly impossible; all bluff catchers have 0 EV</td></tr>
+</table>
+
+<div class="box box-orange">
+  <span class="label">Practical Rule</span>
+  Before reacting to a river bet, ask: "What does this player's preflop range look like?" If they ISO too few trash hands, they <em>physically cannot</em> bluff enough on later streets. If they ISO too wide, they will have too many bluffs.
+</div>
+
+<!-- ====================================================== -->
+<h2 id="deep-stack">6. Deep-Stack Principles</h2>
+
+<h3>Suitedness Is King</h3>
+<p>At deep stacks (300+ BB), suited hands dramatically outperform offsuit equivalents:</p>
+<ul>
+  <li><strong>AKs >> AKo</strong> -- AKs is above KK in effective hand rankings for 5-betting; AKo is equivalent to TT-JJ</li>
+  <li>Having an Ace in your hand blocks opponent's Aces (critical for 5-bet pots)</li>
+  <li>Over-realization of equity at high SPR means suited hands extract far more value</li>
+</ul>
+
+<h3>3-Bet and 5-Bet Sizing</h3>
+
+<table>
+  <tr><th>Depth</th><th>3-Bet Size (OOP)</th><th>Range</th></tr>
+  <tr><td>100 BB</td><td>3-4x open</td><td>Standard polarized</td></tr>
+  <tr><td>200-400 BB</td><td><strong>7-10x open</strong></td><td>Very tight: AA, AKs, KK, some KQs/QJs</td></tr>
+  <tr><td>1000+ BB</td><td>May decrease slightly</td><td>More board coverage, but still tight</td></tr>
+</table>
+
+<div class="box box-blue">
+  <span class="label">Deep-Stack Rules</span>
+  <ol>
+    <li><strong>Play tight ranges</strong> -- you are supposed to mostly have it</li>
+    <li><strong>When calling, expect to lose</strong> -- majority of bluff catcher calls lose. That is correct play.</li>
+    <li><strong>When betting, mostly have value</strong> -- with 12 value combos, you get only ~6 bluffs</li>
+    <li><strong>Over-bluffing is the #1 leak</strong> -- one offsuit combo already gives you 12 bluffs (too many!)</li>
+    <li>"Winning poker is not supposed to be sexy and glamorous"</li>
+  </ol>
+</div>
+
+<h3>Geometric Sizing on the Turn</h3>
+<p>After c-betting the flop, you often have an <strong>equity disadvantage but nut advantage</strong> on the turn (classic gap theory). The response:</p>
+<ul>
+  <li>Polarize your range: bet strong hands and bluffs, check everything in between</li>
+  <li>Use large sizes (80-133% pot) to force indifference from opponent's medium hands</li>
+  <li>Goal: make opponent's AJ indifferent so you win maximum with AK</li>
+</ul>
+
+<!-- ====================================================== -->
+<h2 id="exploit-framework">7. The Exploit Framework</h2>
+
+<div class="box box-purple">
+  <span class="label">Chris's Framework</span>
+  Theory and exploits are <strong>"one package."</strong> You need a baseline understanding of GTO to identify where opponents deviate, then exploit the deviation maximally.
+</div>
+
+<h3>Tight Range Spots vs Wide Range Spots</h3>
+
+<table>
+  <tr><th>Spot Type</th><th>Example</th><th>Typical Leak</th><th>Your Exploit</th></tr>
+  <tr><td><strong>Tight ranges</strong></td><td>UTG vs BB on high boards</td><td>Opponents struggle to bluff enough (need to turn decent hands into bluffs)</td><td>Over-fold bluff catchers</td></tr>
+  <tr><td><strong>Wide ranges</strong></td><td>BTN vs BB</td><td>Opponents have too many trash hands, easy to over-bluff</td><td>Call down wider</td></tr>
+</table>
+
+<h3>The Frequency Scale</h3>
+<p>Judge opponents on a scale of under-bluffing to over-bluffing, <em>not</em> on whether they "could be bluffing":</p>
+<ul>
+  <li>"My opponent can always be bluffing" -- true but irrelevant</li>
+  <li>"Can they hit the required bluff <em>frequency</em>?" -- this is the real question</li>
+  <li>Use words like "never" and "always" carefully -- think in percentages</li>
+</ul>
+
+<!-- ====================================================== -->
+<h2 id="hand-highlights">8. Hand Analysis Highlights</h2>
+
+<h3>AKo Hero Call vs Tilted Opponent</h3>
+<div class="box box-blue">
+  <span class="label">Situation</span>
+  QQ2 flop in 3-bet pot. Opponent checked, then bet turn + river. AKo blocks AQ, KQ (all value), beats every bluff. "Looks like a hero call but you just have a very strong hand."
+</div>
+
+<h3>Blocker Selection When Bluffing Deep</h3>
+<div class="box box-orange">
+  <span class="label">Situation</span>
+  Trips on board, need to select river bluffs. Chris's approach:
+  <ul>
+    <li>Prioritize the <strong>Ace of the trip suit</strong> (blocks quads)</li>
+    <li>Preferred bluffs: A&#9829;J&#9824;, A&#9829;T&#9824;, A&#9829;K&#9824; -- only 3 combos, still under-bluffing</li>
+    <li>Opponent folding KK is not crazy: KK beats zero value hands in your range</li>
+  </ul>
+</div>
+
+<h3>KK as a Fold at 1000 BB Deep</h3>
+<div class="box box-red">
+  <span class="label">Situation</span>
+  3-bet pot, unfavorable runout. KK on the river doesn't beat any value hand and only has <strong>negative interaction</strong> (blocks KT, K9 which are bluffs). JT is a better call because it has positive interaction. "You just gotta fold sometimes."
+</div>
+
+<h3>Balance vs Dominant Strategy</h3>
+<div class="box box-purple">
+  <span class="label">Principle</span>
+  Don't slow-play to "be balanced." GTO is about choosing the <strong>dominant EV option</strong>. If betting is clearly higher EV, just bet. You mix <em>only</em> when two actions have identical EV.
+</div>
+
+<h3>The Turn Barrel: KJs on 4-4-3-T</h3>
+<p>Why this is an excellent turn barrel:</p>
+<ul>
+  <li><strong>Blocks</strong> opponent's best non-boat hand (jacks)</li>
+  <li><strong>Unblocks</strong> the entire folding range (flush draws, sevens, 5-9 pairs)</li>
+  <li><strong>Folds out</strong> high-equity draws (KQdd, K9dd, 87hh)</li>
+  <li><strong>6 outs</strong> if called (any King or Jack improves to near-nuts)</li>
+  <li>No interaction with flush draws = good for bluffing</li>
+</ul>
+
+</div>
+</body>
+</html>

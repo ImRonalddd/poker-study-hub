@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Revision Guide: Advanced Bet Sizing in Cash Games</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Source+Serif+4:wght@300;400;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body,{delimiters:[{left:'\\(',right:'\\)',display:false},{left:'$$',right:'$$',display:true}],throwOnError:false});"></script>
+<style>
+:root{--bg:#FFFFFF;--surface:#FFFFFF;--surface2:#F5F5F5;--accent:#000000;--text:#000000;--text-dim:#525252;--correct:#1a7a5e;--wrong:#b91c1c;--orange:#8B6914;--border:#000000;--border-light:#E5E5E5;--blue:#1e40af;--blue-bg:#eff6ff;--purple:#6b21a8;--purple-bg:#faf5ff;--orange-bg:#fffbeb;--red:#991b1b;--red-bg:#fef2f2}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Source Serif 4',serif;color:var(--text);background:var(--bg);line-height:1.7;max-width:860px;margin:0 auto;padding:2rem 1.5rem 4rem}
+h1{font-family:'Playfair Display',serif;font-weight:900;font-size:2.4rem;margin-bottom:.3rem;letter-spacing:-.02em}
+h2{font-family:'Playfair Display',serif;font-weight:700;font-size:1.7rem;margin:2.8rem 0 1rem;padding-bottom:.5rem;border-bottom:4px solid var(--accent)}
+h3{font-family:'Playfair Display',serif;font-weight:700;font-size:1.25rem;margin:2rem 0 .8rem}
+h4{font-family:'Source Serif 4',serif;font-weight:700;font-size:1.05rem;margin:1.5rem 0 .5rem}
+p{margin-bottom:1rem}
+.subtitle{font-family:'Source Serif 4',serif;font-weight:300;font-size:1.1rem;color:var(--text-dim);margin-bottom:2rem}
+.back-link{font-family:'JetBrains Mono',monospace;font-size:.8rem;color:var(--text-dim);text-decoration:none;display:inline-block;margin-bottom:1.5rem;letter-spacing:.02em}
+.back-link:hover{color:var(--accent)}
+code,.mono{font-family:'JetBrains Mono',monospace;font-size:.88em;background:var(--surface2);padding:.15em .35em;border-radius:0}
+.toc{background:var(--surface2);padding:1.5rem 2rem;margin:1.5rem 0 2.5rem}
+.toc h3{margin-top:0}
+.toc ol{padding-left:1.5rem}
+.toc li{margin-bottom:.35rem}
+.toc a{color:var(--accent);text-decoration:none;border-bottom:1px solid var(--border-light)}
+.toc a:hover{border-color:var(--accent)}
+.box{padding:1.2rem 1.5rem;margin:1.2rem 0;border-left:4px solid}
+.box-blue{border-color:var(--blue);background:var(--blue-bg)}
+.box-blue .box-label{color:var(--blue)}
+.box-purple{border-color:var(--purple);background:var(--purple-bg)}
+.box-purple .box-label{color:var(--purple)}
+.box-orange{border-color:var(--orange);background:var(--orange-bg)}
+.box-orange .box-label{color:var(--orange)}
+.box-red{border-color:var(--red);background:var(--red-bg)}
+.box-red .box-label{color:var(--red)}
+.box-label{font-family:'JetBrains Mono',monospace;font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;margin-bottom:.4rem}
+.tag{font-family:'JetBrains Mono',monospace;font-size:.7rem;font-weight:500;text-transform:uppercase;letter-spacing:.08em;color:var(--text-dim);background:var(--surface2);padding:.2em .5em;display:inline-block;margin-bottom:.5rem}
+table{width:100%;border-collapse:collapse;margin:1rem 0 1.5rem;font-size:.92rem}
+th,td{padding:.5rem .7rem;text-align:left;border:1px solid var(--border-light)}
+th{font-weight:700;background:var(--accent);color:#fff;font-family:'JetBrains Mono',monospace;font-size:.8rem;text-transform:uppercase;letter-spacing:.04em;border-color:var(--accent)}
+ul,ol{margin-bottom:1rem;padding-left:1.5rem}
+li{margin-bottom:.3rem}
+.section-num{font-family:'JetBrains Mono',monospace;font-size:.8rem;color:var(--text-dim);margin-right:.3rem}
+hr{border:none;border-top:1px solid var(--border-light);margin:2rem 0}
+strong{font-weight:700}
+blockquote{border-left:3px solid var(--border-light);padding:.8rem 1.2rem;margin:1rem 0;color:var(--text-dim);font-style:italic}
+.flowchart{font-family:'JetBrains Mono',monospace;font-size:.85rem;background:var(--surface2);padding:1.2rem 1.5rem;margin:1rem 0 1.5rem;white-space:pre-wrap;line-height:1.6}
+.footer{text-align:center;color:var(--text-dim);font-size:.85rem;margin-top:3rem}
+@media print{body{max-width:100%;padding:1rem;font-size:11pt}h1{font-size:20pt}h2{font-size:16pt;margin-top:1.5rem;break-after:avoid}h3{font-size:13pt;break-after:avoid}.box{break-inside:avoid}table{break-inside:avoid;font-size:9pt}th{background:#000!important;color:#fff!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}.back-link{display:none}.toc{break-inside:avoid}}
+</style>
+</head>
+<body>
+
+<a href="index.html" class="back-link">&larr; Back to Chapter 2</a>
+
+<h1>Advanced Bet Sizing in Cash Games</h1>
+<p class="subtitle">Revision Guide -- Jonathan Little -- Advanced Cash Game Course, Chapter 2</p>
+
+<div class="box box-blue">
+<div class="box-label">Scope</div>
+15 lessons covering flop, turn, and river bet sizing with GTO and exploitative adjustments.
+</div>
+
+<div class="toc">
+<h3>Contents</h3>
+<ol>
+<li><a href="#topic-map">Topic Map</a></li>
+<li><a href="#framework">Core Framework: Four Factors</a></li>
+<li><a href="#flop">Flop Bet Sizing</a></li>
+<li><a href="#check-raise">Check-Raise Sizing</a></li>
+<li><a href="#exploitative-flop">Exploitative Flop Adjustments</a></li>
+<li><a href="#turn">Turn Bet Sizing</a></li>
+<li><a href="#river">River Bet Sizing</a></li>
+<li><a href="#multi-street">Multi-Street Sizing</a></li>
+<li><a href="#flowchart">Quick Decision Flowchart</a></li>
+</ol>
+</div>
+
+<!-- TOPIC MAP -->
+<h2 id="topic-map"><span class="section-num">1.</span> Topic Map</h2>
+
+<table>
+<tr><th>#</th><th>Lesson</th><th>Key Concepts</th></tr>
+<tr><td>1</td><td>Introduction to Advanced Bet Sizing on the Flop</td><td>Nut advantage, range connectivity, stack depth, board dynamics</td></tr>
+<tr><td>2</td><td>When to Bet Very Small on the Flop</td><td>20% pot bets, monotone boards, paired boards, range advantage without nut advantage</td></tr>
+<tr><td>3</td><td>When to Bet Very Large on the Flop</td><td>Overbets, overpairs as effective nuts, no straight/flush available, dynamic boards</td></tr>
+<tr><td>4</td><td>Exploitative Reasons for Betting Large</td><td>Inelastic opponents, no check-raises, wide BB defense</td></tr>
+<tr><td>5</td><td>Exploitative Reasons for Betting Very Small</td><td>Wide BB defenders, size-inelastic opponents, passive opponents</td></tr>
+<tr><td>6</td><td>Going from Rigid to Dynamic Bet Sizes</td><td>EV gain from multiple sizes, 1/3-2/3 vs full solver, 8bb/100 gains</td></tr>
+<tr><td>7</td><td>Adjusting Your Raise Size When Facing a Bet</td><td>Check-raise sizing, small bet = large raise, dynamic boards = large raise</td></tr>
+<tr><td>8</td><td>Turn Continuation Betting</td><td>Nut advantage without range advantage, polarized betting, flush completion</td></tr>
+<tr><td>9</td><td>Turn Probes &amp; Delayed C-Betting</td><td>OOP overbets, IP small bets, nuts preservation, range protection</td></tr>
+<tr><td>10</td><td>Bet Sizing on the River</td><td>IP min 50% pot, OOP 10-33% pot for thin value, bluff ratios</td></tr>
+<tr><td>11</td><td>When to Bet Small on the River</td><td>Check-check then OOP small bet, thin value with top pair, protecting with nuts</td></tr>
+<tr><td>12</td><td>When to Bet Very Large on the River</td><td>All-in for 4x+ pot, blank rivers, 77bb/100 lost by capping at 150% pot</td></tr>
+<tr><td>13</td><td>Exploitative Check-Raising Strategies</td><td>Auto c-bettors, small raise vs air boards, large raise vs connected boards</td></tr>
+<tr><td>14</td><td>Bet Sizing on Turn &amp; River (7 Hand Examples)</td><td>Adjusting to player types, straightforward/LAG/calling station reads</td></tr>
+<tr><td>15</td><td>Putting It All Together</td><td>Multi-street sizing, OOP thin value, multi-way considerations</td></tr>
+</table>
+
+<hr>
+
+<!-- CORE FRAMEWORK -->
+<h2 id="framework"><span class="section-num">2.</span> Core Framework: Four Factors Driving Bet Size</h2>
+
+<p>Every bet size decision on every street reduces to four questions:</p>
+
+<h3>1. Nut Advantage</h3>
+<div class="box box-blue">
+<div class="box-label">Definition</div>
+Who has more combinations of premium hands?
+</div>
+<ul>
+<li><strong>You have nut advantage</strong> &rarr; Bet LARGER, less frequently (polarized)</li>
+<li><strong>Neither has nut advantage</strong> &rarr; Bet SMALLER, more frequently (range bet)</li>
+<li><strong>Opponent has nut advantage</strong> &rarr; Check more, bet tiny when you do</li>
+</ul>
+
+<h3>2. Range Connectivity</h3>
+<div class="box box-blue">
+<div class="box-label">Definition</div>
+How well does the board connect with your opponent's continuing range?
+</div>
+<ul>
+<li><strong>High connectivity</strong> (lots of pairs/draws for opponent) &rarr; Bet LARGER (they'll call with decent hands your strong hands crush)</li>
+<li><strong>Low connectivity</strong> (opponent has mostly air) &rarr; Bet SMALLER (they fold trash to any size)</li>
+</ul>
+
+<h3>3. Stack Depth</h3>
+<ul>
+<li><strong>Shallow (40-100bb):</strong> Overpairs are effective nuts &rarr; bigger bets, wider value</li>
+<li><strong>Deep (200bb+):</strong> Need closer to actual nuts &rarr; more checking, more polarized when betting</li>
+<li>As stacks deepen, your stack-off threshold requires stronger hands</li>
+</ul>
+
+<h3>4. Board Dynamics</h3>
+<ul>
+<li><strong>Straight/flush ALREADY available</strong> &rarr; Bet SMALLER (current nuts likely stays nuts)</li>
+<li><strong>Straight/flush DRAW present</strong> &rarr; Bet LARGER (board will change, build pot now)</li>
+<li><strong>No draws</strong> (dry board) &rarr; Overpairs become effective nuts &rarr; can go very large</li>
+</ul>
+
+<hr>
+
+<!-- FLOP -->
+<h2 id="flop"><span class="section-num">3.</span> Flop Bet Sizing</h2>
+
+<h3>When to Bet Very Small (~20% pot)</h3>
+<ul>
+<li><strong>Monotone flops</strong> (three of same suit): Both players have nut flushes, range advantage without nut advantage</li>
+<li><strong>Paired flops</strong> (e.g., 8-6-6): You lack trips, opponent has them; you have overpairs</li>
+<li><strong>Uncoordinated low boards</strong> (K-6-2): Big range advantage, no nut advantage</li>
+<li><strong>Boards with straight already there</strong> (7-5-4): Opponent has the made hands</li>
+</ul>
+
+<div class="box box-purple">
+<div class="box-label">Key Insight</div>
+As you bet smaller, you can bet MORE OFTEN.
+</div>
+
+<h3>When to Bet Very Large (66%+ pot, often overbets)</h3>
+<ul>
+<li><strong>Uncoordinated low boards where overpairs are nuts</strong> (8-3-2, 7-4-2): No straight/flush available</li>
+<li><strong>High boards with draw potential</strong> (A-K-4, A-Q-3): You have overcards + draws</li>
+<li><strong>Boards heavily favoring your range</strong> (A-K-J from LJ): Massive nut advantage</li>
+</ul>
+
+<div class="box box-purple">
+<div class="box-label">Key Insight</div>
+When there's NO straight/flush available but draws exist &rarr; big sizes.
+</div>
+
+<h3>The Straight/Flush Shortcut</h3>
+<table>
+<tr><th>Board State</th><th>Bet Size Tendency</th></tr>
+<tr><td>Straight or flush already available</td><td>Bet SMALL</td></tr>
+<tr><td>Straight/flush draw but none made</td><td>Bet LARGE</td></tr>
+<tr><td>Completely dry (no draws)</td><td>Overbet (overpairs = effective nuts)</td></tr>
+</table>
+
+<hr>
+
+<!-- CHECK-RAISE -->
+<h2 id="check-raise"><span class="section-num">4.</span> Check-Raise Sizing</h2>
+
+<h3>Three Rules for Check-Raise Size</h3>
+<ol>
+<li><strong>Smaller bet faced &rarr; Larger raise</strong> (relative to bet): If they bet 1bb, raise to 10-15bb</li>
+<li><strong>Larger bet faced &rarr; Smaller raise</strong> (relative to bet): If they pot it, raise to ~2.4x</li>
+<li><strong>More dynamic board &rarr; Larger raise:</strong> Nuts likely to change = bigger sizing</li>
+</ol>
+
+<h3>Paired vs Dynamic Boards</h3>
+<table>
+<tr><th>Board</th><th>Type</th><th>Raise Size</th><th>Reasoning</th></tr>
+<tr><td>10-9-7</td><td>Dynamic</td><td>BIG</td><td>Nuts will change on many turns</td></tr>
+<tr><td>10-7-7</td><td>Paired/Static</td><td>SMALL</td><td>Trips likely stays nuts; keep opponent in with thin hands</td></tr>
+</table>
+
+<hr>
+
+<!-- EXPLOITATIVE FLOP -->
+<h2 id="exploitative-flop"><span class="section-num">5.</span> Exploitative Flop Adjustments</h2>
+
+<h3>Bet Large When Opponent...</h3>
+<ol>
+<li><strong>Is inelastic to bet sizes:</strong> They call with pairs/draws regardless &rarr; load the pot</li>
+<li><strong>Never check-raises:</strong> You can bet bigger with value since you won't get punished</li>
+<li><strong>Defends BB too wide:</strong> More trash in range = bigger nut advantage for you</li>
+</ol>
+
+<h3>Bet Very Small When Opponent...</h3>
+<ol>
+<li><strong>Defends BB too wide:</strong> They have more junk, you have range advantage &rarr; bet tiny and often</li>
+<li><strong>Is inelastic to sizes:</strong> They fold trash to any size &rarr; make bluffs cheaply (15/80 = 19% breakeven)</li>
+<li><strong>Never check-raises:</strong> Bet wider for thin value/protection with no fear of raises</li>
+</ol>
+
+<h3>Exploitative Check-Raising</h3>
+<ul>
+<li><strong>Opponent auto-c-bets boards good for THEM:</strong> Can't exploit much, play near GTO</li>
+<li><strong>Opponent auto-c-bets boards good for YOU:</strong> Punish with check-raises
+<ul>
+<li>Trash in their range &rarr; Small check-raise (they fold air anyway)</li>
+<li>Marginal hands in their range &rarr; Large check-raise (pressure pairs/draws)</li>
+</ul>
+</li>
+</ul>
+
+<hr>
+
+<!-- TURN -->
+<h2 id="turn"><span class="section-num">6.</span> Turn Bet Sizing</h2>
+
+<h3>After Flop C-Bet + Call</h3>
+<ul>
+<li>You have <strong>nut advantage</strong> but NOT range advantage (opponent folded junk, raised strong hands)</li>
+<li>This leads to <strong>polarized betting</strong> with big sizes</li>
+<li>Over-realize equity with position + nut advantage (46% equity &rarr; 54% EV)</li>
+</ul>
+
+<h3>Key Turn Dynamics</h3>
+<table>
+<tr><th>Turn Card Type</th><th>Bet Size</th></tr>
+<tr><td>Flush completes</td><td>SMALLER (both players have flushes)</td></tr>
+<tr><td>High card (K, Q, A)</td><td>LARGER (your bluffs improved, nut advantage grows)</td></tr>
+<tr><td>Current nuts preserved</td><td>LARGE overbets (150% pot)</td></tr>
+<tr><td>Straight completes</td><td>SMALLER sizes</td></tr>
+<tr><td>Connects with opponent's range</td><td>SMALLER sizes</td></tr>
+</table>
+
+<h3>Turn Probes &amp; Delayed C-Bets</h3>
+<ul>
+<li><strong>OOP as preflop raiser after check-check:</strong> You still have strong hands (checked flop a lot) &rarr; overbets when nuts don't change</li>
+<li><strong>IP after check-check when nuts don't change:</strong> Rarely huge bets (you would have bet strong hands on flop)</li>
+<li><strong>IP delayed c-bet when checked to twice:</strong> Both range + nut advantage &rarr; frequent but medium bets</li>
+</ul>
+
+<hr>
+
+<!-- RIVER -->
+<h2 id="river"><span class="section-num">7.</span> River Bet Sizing</h2>
+
+<h3>In Position (IP)</h3>
+<ul>
+<li><strong>Minimum viable value bet:</strong> ~50% pot (thin value starts being +EV at this size)</li>
+<li>Don't bet bottom pair on the river for thin value if you bet flop/turn</li>
+<li>If bet and get raised, it's miserable with marginal hands</li>
+</ul>
+
+<h3>Out of Position (OOP)</h3>
+<ul>
+<li><strong>Thin value bets:</strong> 10-33% pot (can value bet middle pair at tiny sizes)</li>
+<li><strong>Always protect checking range</strong> with some traps/check-raises</li>
+<li>The smaller you bet, the thinner you can go for value</li>
+</ul>
+
+<h3>River Bluff Ratios</h3>
+<table>
+<tr><th>Bet Size</th><th>Max Bluff %</th></tr>
+<tr><td>33% pot</td><td>~20%</td></tr>
+<tr><td>50% pot</td><td>~25%</td></tr>
+<tr><td>100% pot</td><td>~33%</td></tr>
+<tr><td>200% pot</td><td>~40%</td></tr>
+<tr><td>300% pot</td><td>~43%</td></tr>
+</table>
+
+<h3>When to Bet Very Large on the River</h3>
+<ul>
+<li><strong>Draws all missed</strong> (blank river): You have the nut advantage, blast it</li>
+<li><strong>Board didn't change from turn:</strong> Turn nuts = river nuts</li>
+<li><strong>EV cost of capping at 150%:</strong> Lost 77bb/100 in one example; the nuts gains 616bb/100 by jamming</li>
+<li><strong>All-in for 4x+ pot</strong> is correct in many deep-stacked spots</li>
+</ul>
+
+<div class="box box-red">
+<div class="box-label">Warning</div>
+Capping your river bet size at 150% pot costs enormous EV. When you have the nuts and draws missed, jam all-in regardless of how large it looks relative to the pot.
+</div>
+
+<h3>When to Bet Small on the River (OOP)</h3>
+<ul>
+<li><strong>After check-check on turn:</strong> You have range advantage with medium-strength hands</li>
+<li>Bet thin value (top pair, two pair) for 33% pot</li>
+<li><strong>Protect small betting range</strong> with some nutted hands that can bet-3bet</li>
+<li>Include a small number of bluffs (lowest equity hands)</li>
+</ul>
+
+<hr>
+
+<!-- MULTI-STREET -->
+<h2 id="multi-street"><span class="section-num">8.</span> Multi-Street Sizing</h2>
+
+<h3>Pot Growth Principle</h3>
+<p>Pots grow exponentially in no-limit. A slightly bigger flop bet cascades:</p>
+<ul>
+<li><strong>Small flop bet path:</strong> 33% &rarr; 50 pot &rarr; 200 turn &rarr; 100 river = small final pot</li>
+<li><strong>Large flop bet path:</strong> 100% &rarr; 65 pot &rarr; 500 turn &rarr; all-in = much larger final pot</li>
+<li>Against players who will call with any decent hand, load the pot early</li>
+</ul>
+
+<h3>Player-Type Adjustments</h3>
+<table>
+<tr><th>Player Type</th><th>Flop</th><th>Turn</th><th>River</th></tr>
+<tr><td><strong>Straightforward</strong></td><td>Standard sizes</td><td>Bet big if they bet; fold if they double-barrel</td><td>Small value bets, big folds to their bets</td></tr>
+<tr><td><strong>Loose-Aggressive</strong></td><td>Standard</td><td>Call wider, don't raise marginal</td><td>Overbet bluffs or check to induce</td></tr>
+<tr><td><strong>Calling Station</strong></td><td>Bet bigger for value</td><td>Keep betting value, size up</td><td>Bet big for value (pot to 2x pot); they call "because of odds"</td></tr>
+<tr><td><strong>Tight-Passive</strong></td><td>Bet tiny with bluffs, bigger with value</td><td>Fold to their aggression</td><td>Tiny bluffs (19% breakeven); small value bets</td></tr>
+</table>
+
+<hr>
+
+<!-- FLOWCHART -->
+<h2 id="flowchart"><span class="section-num">9.</span> Quick Decision Flowchart</h2>
+
+<div class="flowchart">FLOP:
+  Nut advantage?
+    YES &rarr; Is board dynamic (draws, no made straight/flush)?
+      YES &rarr; BET LARGE (66-120% pot)
+      NO  &rarr; BET MEDIUM (33-66% pot)
+    NO  &rarr; Range advantage?
+      YES &rarr; BET SMALL (20-33% pot) frequently
+      NO  &rarr; CHECK most, bet tiny when you do
+
+TURN (after c-bet + call):
+  Current nuts preserved?
+    YES &rarr; OVERBET (150% pot) with polarized range
+    NO  &rarr; Did flush/straight complete?
+      YES &rarr; Bet SMALLER (60% pot)
+      NO  &rarr; Did turn improve your range?
+        YES &rarr; Bet LARGE
+        NO  &rarr; Check more, bet polarized when you do
+
+RIVER:
+  IP: Value bet &ge; 50% pot, check marginals
+  OOP: Thin value 10-33% pot, protect checking range
+  Draws missed? &rarr; ALL-IN with nuts + bluffs
+  Draws hit? &rarr; Smaller sizes, both have nuts</div>
+
+<hr>
+
+<p class="footer">
+Advanced Cash Game Course -- Chapter 2 Revision Guide<br>
+Source: PokerCoaching.com -- Jonathan Little
+</p>
+
+</body>
+</html>

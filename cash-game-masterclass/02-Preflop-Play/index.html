@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chapter 2: Preflop Play</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Source+Serif+4:ital,wght@0,400;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #FFFFFF;
+  --surface: #FFFFFF;
+  --surface2: #F5F5F5;
+  --accent: #000000;
+  --text: #000000;
+  --text-dim: #525252;
+  --correct: #1a7a5e;
+  --wrong: #b91c1c;
+  --orange: #8B6914;
+  --border: #000000;
+  --border-light: #E5E5E5;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'Source Serif 4', serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.7;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 60px 24px 80px;
+}
+
+h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.6rem;
+  font-weight: 900;
+  text-align: center;
+  margin-bottom: 6px;
+  letter-spacing: -0.02em;
+}
+
+.chapter-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.8rem;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  text-align: center;
+  margin-bottom: 8px;
+}
+
+.description {
+  max-width: 600px;
+  text-align: center;
+  color: var(--text-dim);
+  margin-bottom: 48px;
+  font-size: 1.05rem;
+}
+
+.study-order {
+  max-width: 640px;
+  width: 100%;
+  margin-bottom: 32px;
+  padding: 20px 28px;
+  border: 1px solid var(--border-light);
+  background: var(--surface2);
+}
+
+.study-order-title {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text-dim);
+  margin-bottom: 8px;
+}
+
+.study-order p {
+  font-size: 0.92rem;
+  color: var(--text-dim);
+  line-height: 1.6;
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+  width: 100%;
+  max-width: 640px;
+}
+
+.card {
+  border: 2px solid var(--border);
+  border-radius: 0px;
+  padding: 28px 32px;
+  text-decoration: none;
+  color: var(--text);
+  transition: background 0.15s;
+  display: block;
+}
+
+.card:hover {
+  background: var(--surface2);
+}
+
+.card-step {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text-dim);
+  margin-bottom: 8px;
+}
+
+.card-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.35rem;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.card-desc {
+  font-size: 0.95rem;
+  color: var(--text-dim);
+  line-height: 1.6;
+}
+
+.topics {
+  max-width: 640px;
+  width: 100%;
+  margin-top: 48px;
+  padding-top: 32px;
+  border-top: 1px solid var(--border-light);
+}
+
+.topics h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.3rem;
+  margin-bottom: 16px;
+}
+
+.topic-list {
+  list-style: none;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px 24px;
+}
+
+.topic-list li {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.8rem;
+  color: var(--text-dim);
+  padding: 4px 0;
+  border-bottom: 1px solid var(--border-light);
+}
+
+.footer {
+  margin-top: 48px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  color: var(--text-dim);
+  text-align: center;
+}
+</style>
+</head>
+<body>
+
+<div class="chapter-label">Cash Game Masterclass</div>
+<h1>Chapter 2: Preflop Play</h1>
+<p class="description">
+  The most important chapter in the course. Master position-based opening ranges, 3-bet and 4-bet strategy, stack depth adjustments, implied odds, minimum defense frequency, and how to handle limpers -- all grounded in GTO data.
+</p>
+
+<div class="study-order">
+  <div class="study-order-title">Recommended Study Order</div>
+  <p>
+    Start with the <strong>Crash Course</strong> for a full walkthrough of every concept.
+    Use the <strong>Revision Guide</strong> as a reference while studying.
+    Then test yourself with <strong>Drills</strong> (theory questions) and the
+    <strong>Range Builder</strong> (hands-on GTO range construction).
+  </p>
+</div>
+
+<div class="cards">
+  <a class="card" href="crash-course.html">
+    <div class="card-step">Step 1 -- Read</div>
+    <div class="card-title">Crash Course</div>
+    <div class="card-desc">
+      Complete walkthrough of all 22 preflop lessons. Covers effective stacks, pot-sized raises, RFI ranges by position, 3-bet and 4-bet strategy, facing raises, playing from the blinds, deep-stacked adjustments, implied odds, MDF, and limper dynamics. Includes worked examples, an embedded GTO hand matrix, and common traps.
+    </div>
+  </a>
+
+  <a class="card" href="revision-guide.html">
+    <div class="card-step">Step 2 -- Reference</div>
+    <div class="card-title">Revision Guide</div>
+    <div class="card-desc">
+      Obsidian-compatible markdown with full topic map, all formulas, position-specific range percentages, bet sizing guidelines, decision trees, and cross-references to quiz topics. Use as a quick-reference sheet at the table or during review sessions.
+    </div>
+  </a>
+
+  <a class="card" href="drills.html">
+    <div class="card-step">Step 3 -- Practice</div>
+    <div class="card-title">Interactive Drills</div>
+    <div class="card-desc">
+      36 questions covering stack depth, position, bet sizing, range composition, implied odds, reverse implied odds, MDF, RFI strategy, facing raises, 3-bets, 4-bets, limpers, and deep-stacked play. Multiple choice, true/false, and fill-in-the-blank. Shuffled each run with review-missed mode and keyboard shortcuts.
+    </div>
+  </a>
+
+  <a class="card" href="range-drill.html">
+    <div class="card-step">Step 4 -- Build</div>
+    <div class="card-title">Range Builder</div>
+    <div class="card-desc">
+      Interactive GTO range construction drill. Click or drag to select hands in a 13x13 matrix, then check your answer against actual solver data. Five RFI scenarios covering every open-raising position (LJ, HJ, CO, BTN, SB) at 100bb. Scored with immediate visual feedback.
+    </div>
+  </a>
+</div>
+
+<div class="topics">
+  <h2>Topics Covered</h2>
+  <ul class="topic-list">
+    <li>Effective Stacks</li>
+    <li>Pot-Sized Raises</li>
+    <li>RFI Ranges by Position</li>
+    <li>3-Bet Strategy</li>
+    <li>4-Bet / 5-Bet Strategy</li>
+    <li>Facing Raises</li>
+    <li>Blind Defense</li>
+    <li>Stack Depth Adjustments</li>
+    <li>Implied Odds</li>
+    <li>Reverse Implied Odds</li>
+    <li>Minimum Defense Frequency</li>
+    <li>Linear vs Polarized Ranges</li>
+    <li>Condensed Ranges</li>
+    <li>Limper Strategy</li>
+    <li>Isolation Raises</li>
+    <li>Squeeze Plays</li>
+    <li>Cold Calling</li>
+    <li>Cold 4-Betting</li>
+    <li>200bb Deep Play</li>
+    <li>GTO Range Construction</li>
+  </ul>
+</div>
+
+<div class="footer">
+  Source: PokerCoaching.com by Jonathan Little
+</div>
+
+</body>
+</html>

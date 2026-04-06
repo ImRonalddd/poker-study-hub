@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Crash Course: Mastering Preflop Play in Cash Games</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Source+Serif+4:wght@300;400;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body,{delimiters:[{left:'\\(',right:'\\)',display:false},{left:'$$',right:'$$',display:true}],throwOnError:false});"></script>
+<style>
+:root{--bg:#FFFFFF;--surface:#FFFFFF;--surface2:#F5F5F5;--accent:#000000;--text:#000000;--text-dim:#525252;--correct:#1a7a5e;--wrong:#b91c1c;--orange:#8B6914;--border:#000000;--border-light:#E5E5E5;--blue:#1e40af;--blue-bg:#eff6ff;--purple:#6b21a8;--purple-bg:#faf5ff;--orange-bg:#fffbeb;--red:#991b1b;--red-bg:#fef2f2}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Source Serif 4',serif;color:var(--text);background:var(--bg);line-height:1.7;max-width:860px;margin:0 auto;padding:2rem 1.5rem 4rem}
+h1{font-family:'Playfair Display',serif;font-weight:900;font-size:2.4rem;margin-bottom:.3rem;letter-spacing:-.02em}
+h2{font-family:'Playfair Display',serif;font-weight:700;font-size:1.7rem;margin:2.8rem 0 1rem;padding-bottom:.5rem;border-bottom:2px solid var(--accent)}
+h3{font-family:'Playfair Display',serif;font-weight:700;font-size:1.25rem;margin:2rem 0 .8rem}
+h4{font-family:'Source Serif 4',serif;font-weight:700;font-size:1.05rem;margin:1.5rem 0 .5rem}
+p{margin-bottom:1rem}
+.subtitle{font-family:'Source Serif 4',serif;font-weight:300;font-size:1.1rem;color:var(--text-dim);margin-bottom:2rem}
+code,.mono{font-family:'JetBrains Mono',monospace;font-size:.88em;background:var(--surface2);padding:.15em .35em;border-radius:0}
+.toc{background:var(--surface2);padding:1.5rem 2rem;margin:1.5rem 0 2.5rem}
+.toc h3{margin-top:0}
+.toc ol{padding-left:1.5rem}
+.toc li{margin-bottom:.35rem}
+.toc a{color:var(--accent);text-decoration:none;border-bottom:1px solid var(--border-light)}
+.toc a:hover{border-color:var(--accent)}
+.box{padding:1.2rem 1.5rem;margin:1.2rem 0;border-left:4px solid}
+.box-blue{border-color:var(--blue);background:var(--blue-bg)}
+.box-blue .box-label{color:var(--blue)}
+.box-purple{border-color:var(--purple);background:var(--purple-bg)}
+.box-purple .box-label{color:var(--purple)}
+.box-orange{border-color:var(--orange);background:var(--orange-bg)}
+.box-orange .box-label{color:var(--orange)}
+.box-red{border-color:var(--red);background:var(--red-bg)}
+.box-red .box-label{color:var(--red)}
+.box-label{font-family:'JetBrains Mono',monospace;font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;margin-bottom:.4rem}
+table{width:100%;border-collapse:collapse;margin:1rem 0 1.5rem;font-size:.92rem}
+th,td{padding:.5rem .7rem;text-align:left;border-bottom:1px solid var(--border-light)}
+th{font-weight:700;border-bottom:2px solid var(--accent);font-family:'JetBrains Mono',monospace;font-size:.8rem;text-transform:uppercase;letter-spacing:.04em}
+.hand{font-family:'JetBrains Mono',monospace;font-weight:500;white-space:nowrap}
+.raise{color:var(--wrong);font-weight:700}
+.call{color:var(--blue);font-weight:700}
+.fold{color:var(--text-dim)}
+ul,ol{margin-bottom:1rem;padding-left:1.5rem}
+li{margin-bottom:.3rem}
+.matrix-container{overflow-x:auto;margin:1.5rem 0}
+.matrix{display:inline-grid;grid-template-columns:repeat(14,1fr);gap:1px;background:var(--border-light);border:1px solid var(--border-light);font-family:'JetBrains Mono',monospace;font-size:.65rem;line-height:1}
+.matrix .cell{padding:4px 2px;text-align:center;background:var(--bg);min-width:36px}
+.matrix .cell.header{font-weight:700;background:var(--surface2)}
+.matrix .cell.raise-cell{background:#fecaca;color:var(--wrong)}
+.matrix .cell.fold-cell{background:var(--bg);color:var(--text-dim)}
+.matrix .cell.suited{font-style:italic}
+.section-num{font-family:'JetBrains Mono',monospace;font-size:.8rem;color:var(--text-dim);margin-right:.3rem}
+hr{border:none;border-top:1px solid var(--border-light);margin:2rem 0}
+strong{font-weight:700}
+.key-rule{font-family:'JetBrains Mono',monospace;background:var(--surface2);display:block;padding:.8rem 1.2rem;margin:1rem 0;border-left:3px solid var(--accent);font-size:.88rem;line-height:1.6}
+</style>
+</head>
+<body>
+
+<h1>Mastering Preflop Play in Cash Games</h1>
+<p class="subtitle">Jonathan Little -- Advanced Cash Game Course, Chapter 1</p>
+
+<div class="toc">
+<h3>Contents</h3>
+<ol>
+<li><a href="#foundations">Foundations & Key Concepts</a></li>
+<li><a href="#rfi">Raise First In (RFI)</a></li>
+<li><a href="#vs-raise">Facing a Raise</a></li>
+<li><a href="#vs-3bet">Facing a 3-Bet</a></li>
+<li><a href="#vs-4bet">Facing 4-Bets and Beyond</a></li>
+<li><a href="#squeezing">Squeezing & Multiway</a></li>
+<li><a href="#cold-4bet">Cold 4-Betting</a></li>
+<li><a href="#blind-vs-blind">Blind vs Blind</a></li>
+<li><a href="#rules">Universal Rules & Heuristics</a></li>
+<li><a href="#range-grid">Sample Range: BTN RFI (6-Max)</a></li>
+</ol>
+</div>
+
+<!-- SECTION 1 -->
+<h2 id="foundations"><span class="section-num">1.</span> Foundations & Key Concepts</h2>
+
+<div class="box box-blue">
+<div class="box-label">Definition</div>
+<strong>GTO (Game Theory Optimal):</strong> A strategy that cannot be exploited. When you play GTO and your opponent deviates (too loose, too tight, too passive, too aggressive), money flows in your direction. Learning GTO preflop is <em>mandatory</em>.
+</div>
+
+<div class="box box-blue">
+<div class="box-label">Definition</div>
+<strong>RFI (Raise First In):</strong> When the action folds to you and you are the first player to put money in the pot (beyond the blinds). No limpers before you.
+</div>
+
+<div class="box box-blue">
+<div class="box-label">Definition</div>
+<strong>Rake:</strong> The percentage of the pot taken by the house. A 5% rake capped at 1.5bb is standard online. Live games may have no per-pot rake (timed or entry fee). <em>Rake fundamentally changes preflop strategy</em> -- with rake, you must play tighter and never limp.
+</div>
+
+<h3>Two Formats, Two Systems</h3>
+
+<table>
+<tr><th>Feature</th><th>8-Max Live</th><th>6-Max Online</th></tr>
+<tr><td>Players</td><td>8-handed</td><td>6-handed</td></tr>
+<tr><td>Stack Depths</td><td>100bb and 200bb</td><td>100bb</td></tr>
+<tr><td>Rake</td><td>No per-pot rake</td><td>5% capped at 1.5bb</td></tr>
+<tr><td>SB Strategy</td><td>Raise or limp (no rake)</td><td>Raise or fold (rake)</td></tr>
+<tr><td>Middle Position Calling</td><td>Allowed</td><td>3-bet or fold (no flatting)</td></tr>
+</table>
+
+<div class="box box-purple">
+<div class="box-label">Insight</div>
+<strong>Stack depth changes everything.</strong> At 100bb, high cards and pairs dominate. At 200bb, suited connectors and suited aces gain significant value because post-flop playability matters more when stacks are deep. You'll 3-bet with more mixed strategies at 200bb and use more polarized strategies at 100bb.
+</div>
+
+<!-- SECTION 2 -->
+<h2 id="rfi"><span class="section-num">2.</span> Raise First In (RFI)</h2>
+
+<h3>The No-Limp Rule</h3>
+
+<p>From every position except SB in no-rake games: if you're first in, you <strong>raise or fold</strong>. There are zero limps in GTO play. With rake, even the SB is raise-or-fold.</p>
+
+<div class="box box-orange">
+<div class="box-label">Example</div>
+<strong>UTG, 8-max, 100bb:</strong> You look down at <span class="hand">9-8 suited</span>. Many players think this is playable, but it is a clear fold. 9-8s makes the bad end of straights (Q-J-T means AK crushes you) and pairs badly. RFI range from UTG is about 11% -- only premium pairs, suited broadways, suited aces, and select connectors like <span class="hand">T9s</span>, <span class="hand">76s</span>, <span class="hand">65s</span>.
+</div>
+
+<h3>Position-Based RFI Ranges</h3>
+
+<p>Ranges widen dramatically as position improves:</p>
+
+<table>
+<tr><th>Position</th><th>8-Max ~RFI%</th><th>6-Max RFI%</th><th>Key Hands</th></tr>
+<tr><td>UTG/LJ</td><td>11-16%</td><td>17%</td><td>Pairs 5s+, suited aces, KTs+, QTs+, T9s, 76s, 65s</td></tr>
+<tr><td>HJ</td><td>19-20%</td><td>20%</td><td>Add: all pairs, K8s+, all suited aces, A9o+</td></tr>
+<tr><td>CO</td><td>26-27%</td><td>28%</td><td>Add: K3s+, Q6s+, all broadway, more connectors</td></tr>
+<tr><td>BTN</td><td>40-44%</td><td>42.6%</td><td>Add: any Qxs+, J4s+, K7o+, Q8o+, A2o+</td></tr>
+<tr><td>SB</td><td>~68-74% (raise+limp)</td><td>~42%</td><td>Raise/fold with rake; raise/limp without</td></tr>
+</table>
+
+<div class="box box-red">
+<div class="box-label">Trap</div>
+<strong>Small pairs from EP are weak.</strong> Pocket 2s through 5s are not playable from UTG in 8-max. They get 3-bet too often and play poorly OOP. Also, <span class="hand">9-8s</span> and <span class="hand">8-7s</span> are consistently bad from early and middle positions -- do not treat all suited connectors equally.
+</div>
+
+<div class="box box-purple">
+<div class="box-label">Insight</div>
+<strong>200bb deep vs 100bb deep (8-max):</strong> The biggest RFI divergence is on the button -- 40% at 100bb vs 44% at 200bb. The extra hands are almost entirely suited: Q2s, J4s, T5s, 85s, 64s, 53s. Suited connectivity and flush potential matter more as stacks deepen.
+</div>
+
+<h3>SB Special: The Limp-or-Raise Decision (No Rake)</h3>
+
+<p>In 8-max with no rake, the SB has a unique limp/raise strategy:</p>
+<ul>
+<li><strong>Raise for value:</strong> AKs-ATs, KQs, and similar premiums</li>
+<li><strong>Raise as bluffs:</strong> Junky suited hands (Q2s, J4s, 85s, 53s) + offsuit blockers (A9o, KJo, QTo)</li>
+<li><strong>Limp:</strong> Most pairs (including AA!), medium suited hands, medium offsuit hands</li>
+</ul>
+
+<div class="box box-red">
+<div class="box-label">Trap</div>
+<strong>Never raise all good hands and limp all bad hands from the SB.</strong> If you do, your limp range becomes transparently weak and your opponent crushes you by raising your limps aggressively. You MUST mix good hands into your limp range (including aces and kings sometimes) to protect it.
+</div>
+
+<!-- SECTION 3 -->
+<h2 id="vs-raise"><span class="section-num">3.</span> Facing a Raise</h2>
+
+<h3>3-Bet or Call: The Position Factor</h3>
+
+<div class="box box-blue">
+<div class="box-label">Definition</div>
+<strong>Polarized 3-betting:</strong> 3-betting with the best hands (for value) and the worst playable hands (as bluffs), while calling with middle-strength hands. Used primarily when you have position.
+</div>
+
+<div class="box box-blue">
+<div class="box-label">Definition</div>
+<strong>Linear 3-betting:</strong> 3-betting with a continuous range of strong hands. Used primarily when out of position (especially from the SB/BB).
+</div>
+
+<h4>In Position (IP)</h4>
+<ul>
+<li>3-bet <strong>polarized</strong>: value hands + blocker bluffs</li>
+<li><strong>Value 3-bets:</strong> AA-QQ, AK (not always at 200bb)</li>
+<li><strong>Bluff 3-bets:</strong> Low Ax suited (A5s, A4s), Kx suited on the cusp (K9s-KJs), 65s</li>
+<li><strong>Calls:</strong> QQ-JJ (often!), AQs, KQs, suited connectors, medium pairs</li>
+</ul>
+
+<div class="box box-orange">
+<div class="box-label">Example</div>
+<strong>BTN vs UTG raise, 8-max, 100bb:</strong> You hold <span class="hand">JJ</span>. Many players auto-3-bet here. But GTO says <em>mostly call</em>. Jacks play well post-flop in position but hate getting 4-bet. Same for <span class="hand">QQ</span> and even <span class="hand">KK</span> at 200bb deep.
+</div>
+
+<h4>Out of Position (OOP)</h4>
+<ul>
+<li><strong>SB vs raise:</strong> 3-bet or fold only (no calling). Size: 10-12bb. Super tight.</li>
+<li><strong>BB vs raise:</strong> Can call. 3-bet to 10bb. Calls: pairs, suited aces, suited connectors/gappers</li>
+<li>3-bet bluffs OOP: more linear -- good suited broadways + Ax suited + 65s</li>
+</ul>
+
+<h4>6-Max: No Flatting from Middle Positions</h4>
+<p>A critical 6-max rule: from the HJ and CO facing a raise, you have <strong>no calling range</strong>. The rake makes flatting unprofitable (you pay rake + let people behind you call in position). You 3-bet or fold.</p>
+
+<div class="box box-purple">
+<div class="box-label">Insight</div>
+<strong>The "Magical Triangle" of 3-bet bluffs (BB, 6-max):</strong> Against late position raisers, the hands in the low-middle region of the hand matrix -- suited connectors like 76s, 87s, 65s, 54s -- are the primary 3-bet bluffs from the BB. These hands flop well and aren't dominated. JL calls this the "magical triangle" on the hand chart.
+</div>
+
+<h3>3-Bet Sizing</h3>
+<table>
+<tr><th>Position</th><th>3-Bet Size (over 2.5bb open)</th></tr>
+<tr><td>In Position (6-max)</td><td>8bb</td></tr>
+<tr><td>Out of Position (6-max)</td><td>10bb</td></tr>
+<tr><td>In Position (8-max)</td><td>10bb</td></tr>
+<tr><td>Out of Position (8-max)</td><td>12bb</td></tr>
+</table>
+
+<div class="box box-red">
+<div class="box-label">Trap</div>
+<strong>Do not always 3x the open.</strong> Many players make it 3x regardless of position. From OOP in cash games, you should 3-bet <em>larger</em> to deny the in-position caller good odds. Making it only 7.5bb OOP over a 2.5bb open gives the caller too good a price to see a flop in position against you.
+</div>
+
+<!-- SECTION 4 -->
+<h2 id="vs-3bet"><span class="section-num">4.</span> Facing a 3-Bet</h2>
+
+<h3>The Brutal Truth: Fold a Lot</h3>
+
+<p>When you raise and get 3-bet, the most common correct action is <strong>fold</strong>. The 3-bettor should have a strong range, especially from early positions.</p>
+
+<div class="key-rule">RULE: When you raise and get 3-bet, fold every offsuit hand except AK in most scenarios.</div>
+
+<h4>What Calls a 3-Bet</h4>
+<ul>
+<li><strong>Always:</strong> Pairs (for set mining), low suited connectors (65s, 76s, 54s -- they're live)</li>
+<li><strong>Usually:</strong> AKs, AQs (often just calls, doesn't 4-bet), QQ-JJ at 200bb</li>
+<li><strong>Never:</strong> Low Ax suited, Kx suited (even KQs folds vs EP 3-bets), offsuit hands, 98s</li>
+</ul>
+
+<div class="box box-orange">
+<div class="box-label">Example</div>
+<strong>UTG raise, HJ 3-bets, you're UTG:</strong> You hold <span class="hand">KQ suited</span>. You might think this is a slam-dunk continue. But against the HJ's tight 3-betting range (AA, KK, AK, plus blockers), KQs is crushed. <em>Fold.</em> This applies to AQo, KJs, QJs -- all fold vs EP 3-bets.
+</div>
+
+<h4>What 4-Bets</h4>
+<ul>
+<li><strong>100bb, OOP:</strong> Jam AK + KK. Small 4-bet with AA, QQ + blocker bluffs (AJs, KQs for playability)</li>
+<li><strong>100bb, IP:</strong> Almost never 4-bet. Call instead.</li>
+<li><strong>200bb, OOP:</strong> Small 5-bet with only AA + Ax suited blockers</li>
+<li><strong>200bb, IP:</strong> Almost never 4-bet. Call with everything decent.</li>
+</ul>
+
+<div class="box box-purple">
+<div class="box-label">Insight</div>
+<strong>100bb vs 200bb 4-bet bluff selection:</strong> At 100bb, your 4-bet bluffs are Ax offsuit and Kx suited hands (blocker value matters most). At 200bb, your bluffs shift to Ax suited and suited connectors (playability matters because you'll get called more often and see flops).
+</div>
+
+<div class="box box-red">
+<div class="box-label">Trap</div>
+<strong>AK offsuit at 200bb deep.</strong> Against a tight 3-bet range, AK offsuit should often <em>fold</em> or just call -- not 4-bet. At 200bb, if you 4-bet and face a 5-bet, you're in a disaster. AK offsuit makes top pair but has no flush outs. This is one of the most commonly overplayed hands at deep stacks.
+</div>
+
+<!-- SECTION 5 -->
+<h2 id="vs-4bet"><span class="section-num">5.</span> Facing 4-Bets and Beyond</h2>
+
+<h3>vs Non-All-In 4-Bet</h3>
+
+<p>You 3-bet, they 4-bet to ~20-24bb. You're getting decent odds (~14 to win 49.5) but against a strong range.</p>
+
+<h4>Pattern: What Folds, What Calls</h4>
+<table>
+<tr><th>Action</th><th>Hands</th></tr>
+<tr><td class="fold"><strong>Fold</strong></td><td>Low Ax suited, ALL Kx suited (even KQ at 200bb), all offsuit (except AK), 98s, QJs, JTs</td></tr>
+<tr><td class="call"><strong>Call</strong></td><td>Pairs, low suited connectors (65s, 76s, 54s), AKs, QQ (usually), A5s</td></tr>
+<tr><td class="raise"><strong>5-bet/Jam</strong></td><td>100bb: AK + KK. 200bb: only AA + Ax suited blockers</td></tr>
+</table>
+
+<div class="box box-purple">
+<div class="box-label">Insight</div>
+<strong>Why do low suited connectors call 4-bets but high suited hands fold?</strong> High suited hands (KJs, QTs, KQs) are heavily dominated by the 4-bettor's value range. Low suited connectors (65s, 76s) are "live" -- they don't interact with the 4-bettor's range at all. If you flop a straight or flush with 65s, it's almost always good. If you flop top pair with KJs against a 4-bet range, you're often crushed.
+</div>
+
+<h3>vs All-In 4-Bet / 5-Bet / 6-Bet</h3>
+
+<div class="key-rule">RULE: vs 4-bet all-in -- tight ranges: QQ+ and AKs. Wide ranges: TT+ and AK.<br>
+RULE: vs 5-bet all-in -- "Tens or better and Ace-King calls."<br>
+RULE: vs 6-bet all-in (200bb) -- AA, KK, AKs only.</div>
+
+<div class="box box-red">
+<div class="box-label">Trap</div>
+<strong>Don't auto-call with AKo vs 5-bet all-in from EP.</strong> Against early position 5-bet jams (where the range is AA/KK/AKs with tiny bluffs), AK offsuit should fold. AKs calls because it blocks their range better AND has flush potential. This is a subtle but important distinction that costs many players money.
+</div>
+
+<!-- SECTION 6 -->
+<h2 id="squeezing"><span class="section-num">6.</span> Squeezing & Multiway</h2>
+
+<h3>Raise + Call(s) Before You</h3>
+
+<div class="box box-blue">
+<div class="box-label">Definition</div>
+<strong>Squeeze:</strong> A 3-bet made when there is a raise and one or more callers before you. The goal is to isolate or win the pot immediately by pressuring the original caller(s) who have capped ranges.
+</div>
+
+<h4>Key Principles</h4>
+<ul>
+<li><strong>SB vs raise + call:</strong> 3-bet or fold. No cold calling (even getting better odds).</li>
+<li><strong>BB vs raise + call:</strong> Can call. Defend with suited aces, pairs, suited connectors/gappers.</li>
+<li><strong>GTO squeeze ranges are tighter than you think</strong> -- solver assumes perfect post-flop play</li>
+<li><strong>Exploitative adjustment:</strong> Play more suited aces, pairs, and low suited connectors than GTO recommends (opponents don't play well enough to justify the solver's extreme tightness)</li>
+</ul>
+
+<div class="box box-orange">
+<div class="box-label">Example</div>
+<strong>BB vs CO raise + BTN call, 8-max, 100bb:</strong> You hold <span class="hand">A6 offsuit</span>. GTO says fold. Even closing the action with good odds, offsuit aces are dominated multiway. Instead, call with <span class="hand">A6 suited</span> (flush potential), or better yet, <span class="hand">76s</span> or <span class="hand">55</span>. The suited/offsuit distinction is enormous in multiway pots.
+</div>
+
+<div class="key-rule">THE MULTIWAY RULE: Offsuit hands are bad. Suited aces and low suited connectors are good. Pairs are great. This applies to every multiway preflop scenario.</div>
+
+<!-- SECTION 7 -->
+<h2 id="cold-4bet"><span class="section-num">7.</span> Cold 4-Betting</h2>
+
+<p>When there's a raise and a 3-bet before you and you have no money invested: <strong>4-bet or fold</strong>. Never cold call the 3-bet.</p>
+
+<div class="box box-red">
+<div class="box-label">Trap</div>
+<strong>Cold calling a 3-bet reveals your hand.</strong> When you cold call a 3-bet (with no money in the pot), you almost always have a "good but not premium" hand -- something like JJ, AQs, KQs. This narrows your range enormously and makes you easy to play against post-flop. Either 4-bet or fold.
+</div>
+
+<h4>Implementable Cold 4-Bet Ranges</h4>
+<table>
+<tr><th>Scenario</th><th>Cold 4-Bet Range</th></tr>
+<tr><td>Tightest (EP raise + EP 3-bet)</td><td>QQ+, AK, A5s</td></tr>
+<tr><td>Medium (EP raise + LP 3-bet)</td><td>QQ+, AQs+, AK, A5s, KQs</td></tr>
+<tr><td>Widest (LP raise + LP 3-bet)</td><td>TT+, ATs+, AK, AQo, KQs, A5s</td></tr>
+</table>
+
+<!-- SECTION 8 -->
+<h2 id="blind-vs-blind"><span class="section-num">8.</span> Blind vs Blind (No Rake)</h2>
+
+<p>In 8-max no-rake games, do <em>not</em> chop. Play every blind-vs-blind hand if you're the better player.</p>
+
+<h4>Escalation Pattern</h4>
+<p>As the pot escalates through re-raises in blind-vs-blind, ranges converge rapidly:</p>
+
+<table>
+<tr><th>Stage</th><th>Approx. Range</th></tr>
+<tr><td>SB RFI / BB raise</td><td>Wide (50-70% of hands)</td></tr>
+<tr><td>3-bet</td><td>JJ+, AQ+, KQ + blocker bluffs</td></tr>
+<tr><td>4-bet</td><td>TT+, AK + Ax/Kx suited blockers</td></tr>
+<tr><td>5-bet</td><td>AA, KK, AK + rare Ax suited bluffs</td></tr>
+<tr><td>5-bet all-in / 6-bet</td><td><strong>JJ+ and AK</strong></td></tr>
+</table>
+
+<div class="box box-purple">
+<div class="box-label">Insight</div>
+<strong>"Jacks or better and Ace-King"</strong> -- this is the ultimate blind-vs-blind all-in call-off rule. When the money is going in after multiple re-raises, if you have JJ+ or AK, you call. Everything else folds. Memorize this phrase.
+</div>
+
+<!-- SECTION 9 -->
+<h2 id="rules"><span class="section-num">9.</span> Universal Rules & Heuristics</h2>
+
+<h3>The Five Power Rules</h3>
+
+<div class="key-rule">1. OFFSUIT HANDS ARE BAD. Beyond RFI, fold all offsuit hands except AKo (and sometimes AQo) in nearly every 3-bet+ scenario.</div>
+
+<div class="key-rule">2. 65s IS THE POWER HAND. It gets in as a bluff in 3-bet, 4-bet, and squeeze spots. It makes the nut straight cleanly (unlike 98s). It smashes A5s on wheel boards. Always 3-bet it.</div>
+
+<div class="key-rule">3. 98s IS A TRAP. Despite looking like a premium suited connector, 98s makes the bad end of straights (Q-J-T = opponent has AK). Fold it in most preflop scenarios. Prefer 65s, 76s, 54s.</div>
+
+<div class="key-rule">4. AK OFFSUIT AT 200bb IS NOT A PREMIUM. It often just calls (not 3-bets), calls (not 4-bets), and sometimes folds to 4-bets. It makes TPTK but has no flush equity. Be cautious.</div>
+
+<div class="key-rule">5. IN POSITION = CALL MORE, 4-BET LESS. Out of position = 4-bet more, call less. IP players want to see flops. OOP players want to either win the pot now or build it with nutted hands.</div>
+
+<h3>Stack Depth Cheat Sheet</h3>
+
+<table>
+<tr><th></th><th>100bb</th><th>200bb</th></tr>
+<tr><td><strong>3-Bet Bluffs</strong></td><td>Ax/Kx offsuit blockers</td><td>Suited connectors + Ax suited</td></tr>
+<tr><td><strong>4-Bet Bluffs</strong></td><td>Ax suited, Kx suited</td><td>Ax suited, suited connectors</td></tr>
+<tr><td><strong>Calling 4-Bets</strong></td><td>Pairs, AKs, QQ</td><td>Pairs, AKs, QQ, more connectors</td></tr>
+<tr><td><strong>All-In Hands</strong></td><td>AK + KK jam</td><td>Only AA clicks back; AK/KK sometimes jam</td></tr>
+<tr><td><strong>AK Offsuit</strong></td><td>3-bet/4-bet normally</td><td>Often just call; sometimes fold to 4-bet</td></tr>
+</table>
+
+<h3>Exploitative Adjustments</h3>
+
+<div class="box box-orange">
+<div class="box-label">Example</div>
+<strong>If opponents don't 3-bet enough:</strong> Raise wider from all positions, especially CO and BTN. Add suited connectors, small pairs, more suited aces.<br><br>
+<strong>If opponents don't 4-bet enough:</strong> 3-bet wider as a bluff. Your marginal 3-bets become profitable because they won't get re-raised.<br><br>
+<strong>If opponents are super loose/passive post-flop:</strong> Call with more suited aces and suited connectors (you'll get paid when you make flushes and straights). Low suited connectors > offsuit broadways.
+</div>
+
+<!-- SECTION 10 -->
+<h2 id="range-grid"><span class="section-num">10.</span> Sample Range: BTN RFI (6-Max Online)</h2>
+
+<p>Below is the simplified implementable BTN Raise First In range from the course charts. <span class="raise">Red = Raise</span>, <span class="fold">Gray = Fold</span>.</p>
+
+<div class="matrix-container">
+<div class="matrix">
+<div class="cell header"></div><div class="cell header">A</div><div class="cell header">K</div><div class="cell header">Q</div><div class="cell header">J</div><div class="cell header">T</div><div class="cell header">9</div><div class="cell header">8</div><div class="cell header">7</div><div class="cell header">6</div><div class="cell header">5</div><div class="cell header">4</div><div class="cell header">3</div><div class="cell header">2</div>
+
+<div class="cell header">A</div><div class="cell raise-cell">AA</div><div class="cell raise-cell">AKs</div><div class="cell raise-cell">AQs</div><div class="cell raise-cell">AJs</div><div class="cell raise-cell">ATs</div><div class="cell raise-cell">A9s</div><div class="cell raise-cell">A8s</div><div class="cell raise-cell">A7s</div><div class="cell raise-cell">A6s</div><div class="cell raise-cell">A5s</div><div class="cell raise-cell">A4s</div><div class="cell raise-cell">A3s</div><div class="cell raise-cell">A2s</div>
+
+<div class="cell header">K</div><div class="cell raise-cell">AKo</div><div class="cell raise-cell">KK</div><div class="cell raise-cell">KQs</div><div class="cell raise-cell">KJs</div><div class="cell raise-cell">KTs</div><div class="cell raise-cell">K9s</div><div class="cell raise-cell">K8s</div><div class="cell raise-cell">K7s</div><div class="cell raise-cell">K6s</div><div class="cell raise-cell">K5s</div><div class="cell raise-cell">K4s</div><div class="cell raise-cell">K3s</div><div class="cell raise-cell">K2s</div>
+
+<div class="cell header">Q</div><div class="cell raise-cell">AQo</div><div class="cell raise-cell">KQo</div><div class="cell raise-cell">QQ</div><div class="cell raise-cell">QJs</div><div class="cell raise-cell">QTs</div><div class="cell raise-cell">Q9s</div><div class="cell raise-cell">Q8s</div><div class="cell raise-cell">Q7s</div><div class="cell raise-cell">Q6s</div><div class="cell raise-cell">Q5s</div><div class="cell raise-cell">Q4s</div><div class="cell raise-cell">Q3s</div><div class="cell raise-cell">Q2s</div>
+
+<div class="cell header">J</div><div class="cell raise-cell">AJo</div><div class="cell raise-cell">KJo</div><div class="cell raise-cell">QJo</div><div class="cell raise-cell">JJ</div><div class="cell raise-cell">JTs</div><div class="cell raise-cell">J9s</div><div class="cell raise-cell">J8s</div><div class="cell raise-cell">J7s</div><div class="cell raise-cell">J6s</div><div class="cell fold-cell suited">J5s</div><div class="cell fold-cell suited">J4s</div><div class="cell fold-cell suited">J3s</div><div class="cell fold-cell suited">J2s</div>
+
+<div class="cell header">T</div><div class="cell raise-cell">ATo</div><div class="cell raise-cell">KTo</div><div class="cell raise-cell">QTo</div><div class="cell raise-cell">JTo</div><div class="cell raise-cell">TT</div><div class="cell raise-cell">T9s</div><div class="cell raise-cell">T8s</div><div class="cell raise-cell">T7s</div><div class="cell raise-cell">T6s</div><div class="cell fold-cell suited">T5s</div><div class="cell fold-cell suited">T4s</div><div class="cell fold-cell suited">T3s</div><div class="cell fold-cell suited">T2s</div>
+
+<div class="cell header">9</div><div class="cell raise-cell">A9o</div><div class="cell raise-cell">K9o</div><div class="cell raise-cell">Q9o</div><div class="cell raise-cell">J9o</div><div class="cell raise-cell">T9o</div><div class="cell raise-cell">99</div><div class="cell raise-cell">98s</div><div class="cell raise-cell">97s</div><div class="cell raise-cell">96s</div><div class="cell fold-cell suited">95s</div><div class="cell fold-cell suited">94s</div><div class="cell fold-cell suited">93s</div><div class="cell fold-cell suited">92s</div>
+
+<div class="cell header">8</div><div class="cell raise-cell">A8o</div><div class="cell raise-cell">K8o</div><div class="cell raise-cell">Q8o</div><div class="cell raise-cell">J8o</div><div class="cell raise-cell">T8o</div><div class="cell raise-cell">98o</div><div class="cell raise-cell">88</div><div class="cell raise-cell">87s</div><div class="cell raise-cell">86s</div><div class="cell raise-cell">85s</div><div class="cell fold-cell suited">84s</div><div class="cell fold-cell suited">83s</div><div class="cell fold-cell suited">82s</div>
+
+<div class="cell header">7</div><div class="cell raise-cell">A7o</div><div class="cell raise-cell">K7o</div><div class="cell fold-cell">Q7o</div><div class="cell fold-cell">J7o</div><div class="cell fold-cell">T7o</div><div class="cell raise-cell">97o</div><div class="cell raise-cell">87o</div><div class="cell raise-cell">77</div><div class="cell raise-cell">76s</div><div class="cell raise-cell">75s</div><div class="cell raise-cell">74s</div><div class="cell fold-cell suited">73s</div><div class="cell fold-cell suited">72s</div>
+
+<div class="cell header">6</div><div class="cell raise-cell">A6o</div><div class="cell fold-cell">K6o</div><div class="cell fold-cell">Q6o</div><div class="cell fold-cell">J6o</div><div class="cell fold-cell">T6o</div><div class="cell fold-cell">96o</div><div class="cell raise-cell">86o</div><div class="cell raise-cell">76o</div><div class="cell raise-cell">66</div><div class="cell raise-cell">65s</div><div class="cell raise-cell">64s</div><div class="cell fold-cell suited">63s</div><div class="cell fold-cell suited">62s</div>
+
+<div class="cell header">5</div><div class="cell raise-cell">A5o</div><div class="cell fold-cell">K5o</div><div class="cell fold-cell">Q5o</div><div class="cell fold-cell">J5o</div><div class="cell fold-cell">T5o</div><div class="cell fold-cell">95o</div><div class="cell fold-cell">85o</div><div class="cell fold-cell">75o</div><div class="cell fold-cell">65o</div><div class="cell raise-cell">55</div><div class="cell raise-cell">54s</div><div class="cell raise-cell">53s</div><div class="cell fold-cell suited">52s</div>
+
+<div class="cell header">4</div><div class="cell raise-cell">A4o</div><div class="cell fold-cell">K4o</div><div class="cell fold-cell">Q4o</div><div class="cell fold-cell">J4o</div><div class="cell fold-cell">T4o</div><div class="cell fold-cell">94o</div><div class="cell fold-cell">84o</div><div class="cell fold-cell">74o</div><div class="cell fold-cell">64o</div><div class="cell fold-cell">54o</div><div class="cell raise-cell">44</div><div class="cell raise-cell">43s</div><div class="cell fold-cell suited">42s</div>
+
+<div class="cell header">3</div><div class="cell raise-cell">A3o</div><div class="cell fold-cell">K3o</div><div class="cell fold-cell">Q3o</div><div class="cell fold-cell">J3o</div><div class="cell fold-cell">T3o</div><div class="cell fold-cell">93o</div><div class="cell fold-cell">83o</div><div class="cell fold-cell">73o</div><div class="cell fold-cell">63o</div><div class="cell fold-cell">53o</div><div class="cell fold-cell">43o</div><div class="cell raise-cell">33</div><div class="cell raise-cell">32s</div>
+
+<div class="cell header">2</div><div class="cell raise-cell">A2o</div><div class="cell fold-cell">K2o</div><div class="cell fold-cell">Q2o</div><div class="cell fold-cell">J2o</div><div class="cell fold-cell">T2o</div><div class="cell fold-cell">92o</div><div class="cell fold-cell">82o</div><div class="cell fold-cell">72o</div><div class="cell fold-cell">62o</div><div class="cell fold-cell">52o</div><div class="cell fold-cell">42o</div><div class="cell fold-cell">32o</div><div class="cell raise-cell">22</div>
+</div>
+</div>
+
+<p style="font-size:.85rem;color:var(--text-dim);margin-top:.5rem"><em>Suited hands above the diagonal. Offsuit hands below. Pairs on the diagonal. BTN opens ~42.6% of hands with a 2.5bb raise. Note: this is for 6-max 100bb with 5% rake capped at 1.5bb.</em></p>
+
+<hr>
+
+<p style="text-align:center;color:var(--text-dim);font-size:.85rem;margin-top:2rem">
+Advanced Cash Game Course -- Chapter 1 Crash Course<br>
+Source: PokerCoaching.com -- Jonathan Little
+</p>
+
+</body>
+</html>

@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chapter 3: Playing the Flop — Drills</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;1,400;1,600&family=Source+Serif+4:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body,{delimiters:[{left:'\(',right:'\)',display:false},{left:'$$',right:'$$',display:true}],throwOnError:false});"></script>
+<style>
+:root {
+  --bg: #FFFFFF; --surface: #FFFFFF; --surface2: #F5F5F5;
+  --accent: #000000; --text: #000000; --text-dim: #525252;
+  --correct: #1a7a5e; --wrong: #b91c1c; --orange: #8B6914;
+  --border: #000000; --border-light: #E5E5E5;
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;border-radius:0!important}
+body{font-family:'Source Serif 4',Georgia,serif;background:var(--bg);color:var(--text);line-height:1.7;-webkit-font-smoothing:antialiased}
+.container{max-width:740px;margin:0 auto;padding:0 1.5rem}
+header{padding:3rem 0 1.5rem;text-align:center;border-bottom:2px solid var(--border);margin-bottom:2rem}
+header h1{font-family:'Playfair Display',serif;font-size:2rem;font-weight:700;letter-spacing:-0.02em}
+header p{color:var(--text-dim);margin-top:0.3rem;font-size:0.95rem}
+.controls{display:flex;gap:0.75rem;justify-content:center;margin-bottom:2rem;flex-wrap:wrap}
+.btn{font-family:'JetBrains Mono',monospace;font-size:0.82rem;padding:0.5rem 1.2rem;border:1px solid var(--border);background:var(--bg);color:var(--text);cursor:pointer;transition:all 0.15s}
+.btn:hover{background:var(--accent);color:var(--bg)}
+.btn.active{background:var(--accent);color:var(--bg)}
+.progress{font-family:'JetBrains Mono',monospace;font-size:0.85rem;text-align:center;margin-bottom:1.5rem;color:var(--text-dim)}
+.progress .score{color:var(--correct);font-weight:600}
+.progress .missed{color:var(--wrong);font-weight:600}
+#quiz-area{min-height:400px}
+.q-tag{font-family:'JetBrains Mono',monospace;font-size:0.72rem;text-transform:uppercase;letter-spacing:0.08em;color:var(--text-dim);margin-bottom:0.5rem}
+.q-text{font-size:1.15rem;font-weight:500;margin-bottom:1.5rem;line-height:1.6}
+.choices{display:flex;flex-direction:column;gap:0.6rem}
+.choice{display:block;width:100%;text-align:left;padding:0.85rem 1.1rem;border:1px solid var(--border-light);background:var(--bg);font-family:'Source Serif 4',serif;font-size:1rem;cursor:pointer;transition:all 0.15s;line-height:1.5}
+.choice:hover{border-color:var(--accent);background:var(--surface2)}
+.choice.correct{border-color:var(--correct);background:#f0fdf4;color:var(--correct);font-weight:600}
+.choice.wrong{border-color:var(--wrong);background:#fef2f2;color:var(--wrong)}
+.choice.reveal{border-color:var(--correct);background:#f0fdf4}
+.choice[disabled]{cursor:default;opacity:0.85}
+.feedback{margin-top:1.25rem;padding:1rem 1.25rem;border-left:4px solid;font-size:0.92rem;line-height:1.6}
+.feedback.correct-fb{border-color:var(--correct);background:#f0fdf4}
+.feedback.wrong-fb{border-color:var(--wrong);background:#fef2f2}
+.feedback .fb-label{font-family:'JetBrains Mono',monospace;font-size:0.78rem;font-weight:600;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:0.3rem}
+.hint-btn{font-family:'JetBrains Mono',monospace;font-size:0.78rem;color:var(--text-dim);background:none;border:none;cursor:pointer;margin-bottom:0.75rem;text-decoration:underline}
+.hint{font-size:0.9rem;color:var(--text-dim);margin-bottom:1rem;padding:0.6rem 0.8rem;background:var(--surface2);border-left:3px solid var(--border-light);display:none}
+.hint.show{display:block}
+.nav-row{display:flex;justify-content:center;margin-top:1.5rem}
+.summary{text-align:center;padding:2rem 0}
+.summary h2{font-family:'Playfair Display',serif;margin-bottom:1rem}
+.summary .stat{font-family:'JetBrains Mono',monospace;font-size:1.3rem;margin:0.5rem 0}
+footer{margin:3rem 0 1.5rem;padding-top:1rem;border-top:1px solid var(--border-light);text-align:center;color:var(--text-dim);font-size:0.82rem}
+.keys{font-family:'JetBrains Mono',monospace;font-size:0.78rem;color:var(--text-dim);text-align:center;margin-bottom:1rem}
+</style>
+</head>
+<body>
+<div class="container">
+<header>
+  <h1>Playing the Flop &mdash; Drills</h1>
+  <p>Chapter 3 &bull; Cash Game Masterclass</p>
+</header>
+
+<div class="controls">
+  <button class="btn active" onclick="startQuiz('all')">All Questions</button>
+  <button class="btn" onclick="startQuiz('missed')">Review Missed</button>
+  <button class="btn" onclick="startQuiz('shuffle')">Shuffle</button>
+</div>
+
+<div class="keys">Hotkeys: <strong>1-5</strong> answer &bull; <strong>H</strong> hint &bull; <strong>N / Enter</strong> next &bull; <strong>R</strong> restart</div>
+
+<div class="progress" id="progress"></div>
+<div id="quiz-area"></div>
+
+<footer>Cash Game Masterclass &mdash; Chapter 3 Drills</footer>
+</div>
+
+<script>
+const Q = [
+  // ── Board Texture Classification ──
+  {
+    tag: "Board Texture",
+    q: "On which board type does the preflop raiser (IP vs BB) typically have the LARGEST range advantage?",
+    choices: ["8-6-5 two-tone", "A-K-J rainbow", "T-9-7 two-tone", "7-4-3 monotone"],
+    answer: 1,
+    hint: "Think about which boards have the most high cards that connect with the PFR's range.",
+    explain: "A-K-J rainbow gives the PFR 60-65% equity because they have all the strong aces, kings, and jacks. The big blind has mostly junk that doesn't connect."
+  },
+  {
+    tag: "Board Texture",
+    q: "Which board type is WORST for the preflop raiser's range advantage?",
+    choices: ["K-J-2 rainbow", "A-Q-5 two-tone", "6-5-4 two-tone", "Q-Q-5 rainbow"],
+    answer: 2,
+    hint: "The preflop caller's range contains lots of low-middle suited connectors.",
+    explain: "Low-middle connected boards like 6-5-4 heavily favor the big blind caller who defends with hands like 7-6s, 5-4s, 8-7s, and low pairs that nail this board."
+  },
+  {
+    tag: "Board Texture",
+    q: "Monotone boards (three of one suit) are generally good for the preflop raiser. Why?",
+    choices: [
+      "The caller never has flush draws",
+      "The raiser has all the best flushes and nut flush draws in their range",
+      "Monotone boards always have low cards",
+      "Position doesn't matter on monotone boards"
+    ],
+    answer: 1,
+    hint: "Consider which player has the highest suited cards.",
+    explain: "The PFR has all the best suited hands (AKs, AQs, etc.) giving them the best made flushes and nut flush draws. The caller often 3-bets their best suited hands, removing them from their flatting range."
+  },
+  {
+    tag: "Board Texture",
+    q: "On paired boards like K-K-6, ace-high is usually:",
+    choices: ["Junk — fold immediately", "A premium made hand", "A decent marginal hand that often wins at showdown", "Always a bluff candidate"],
+    answer: 2,
+    hint: "On paired boards, how many players actually have a king?",
+    explain: "On paired boards, it's unlikely anyone has the paired card. This means ace-high has great showdown value and is often a decent marginal hand worth checking and potentially calling with."
+  },
+  // ── C-Bet Frequency ──
+  {
+    tag: "C-Bet Frequency",
+    q: "You raise from LoJack, BB calls. Flop: K-J-2 rainbow. Your equity is ~60%. What should your c-bet frequency be?",
+    choices: ["About 25%", "About 50%", "About 75-100%", "0% — check everything"],
+    answer: 2,
+    hint: "60%+ equity in position = ?",
+    explain: "With a strong range advantage (60%+) in position, you bet very frequently — 75-100% of your range. K-J-2 is one of the best boards for the PFR. Bet basically everything."
+  },
+  {
+    tag: "C-Bet Frequency",
+    q: "You raise LoJack, BTN calls. Flop: 8-4-3 two diamonds. You are OOP. What's your c-bet frequency?",
+    choices: ["About 75%", "About 50%", "About 25%", "0% — check entire range"],
+    answer: 3,
+    hint: "What is your equity OOP against the button on a low board?",
+    explain: "OOP on low boards vs the button caller, you have less than 50% equity. The GTO strategy is to check your ENTIRE range. You are at a significant range disadvantage."
+  },
+  {
+    tag: "C-Bet Frequency",
+    q: "What determines your continuation bet FREQUENCY? (Select the most complete answer)",
+    choices: [
+      "Position only",
+      "Range advantage only",
+      "Hand types, range advantage, and position",
+      "Nut advantage and stack depth"
+    ],
+    answer: 2,
+    hint: "Frequency and sizing are determined by different factors.",
+    explain: "Frequency is determined by (1) hand types, (2) range advantage, and (3) position. Sizing is determined by nut advantage, range connectivity, and stack depth."
+  },
+  {
+    tag: "C-Bet Frequency",
+    q: "What is approximately the stack-to-pot ratio (SPR) when you have 100bb in a heads-up single raised pot?",
+    choices: ["5", "7", "10", "15"],
+    answer: 3,
+    hint: "You raise to 3bb, BB calls. Pot is ~6.5bb. You have ~97bb behind.",
+    explain: "97 / 6.5 ≈ 15. The SPR in a standard 100bb single-raised pot is approximately 15."
+  },
+  // ── C-Bet Sizing ──
+  {
+    tag: "C-Bet Sizing",
+    q: "You have the nut advantage on A-K-J. The opponent's range connects well (they have lots of aces, kings, jacks). What size should you use?",
+    choices: ["Small (25-33% pot)", "Big (50-75% pot)", "Check — don't bet at all", "Overbet (100%+ pot)"],
+    answer: 1,
+    hint: "Nut advantage + high range connectivity = ?",
+    explain: "Nut advantage + opponent connecting well with the board = BIG bet. Their strong hands are still beaten by your premium hands, so charge them maximally."
+  },
+  {
+    tag: "C-Bet Sizing",
+    q: "On J-6-6, UTG has the range advantage but NOT the nut advantage (BB has the sixes). What bet size should UTG use?",
+    choices: ["Big — to push out the sixes", "Small — because no nut advantage means always bet small", "Medium — split the difference", "Don't bet at all"],
+    answer: 1,
+    hint: "The sizing rule when you lack the nut advantage is simple and absolute.",
+    explain: "No nut advantage = bet SMALL. Period. The BB has the effective nuts (sixes) and your over-pairs/top pairs can't handle a big pot against those holdings."
+  },
+  {
+    tag: "C-Bet Sizing",
+    q: "Which factor determines your C-BET SIZE? (Select the most complete answer)",
+    choices: [
+      "Range advantage and position",
+      "Nut advantage, range connectivity, and stack depth",
+      "Hand type and draw strength",
+      "Your opponent's image"
+    ],
+    answer: 1,
+    hint: "Frequency and sizing have different determining factors.",
+    explain: "Size is determined by: (1) Nut advantage — most important, (2) Range connectivity of opponent, and (3) Stack depth. Deeper stacks generally = larger bets."
+  },
+  {
+    tag: "C-Bet Sizing",
+    q: "On J-6-2 (UTG vs BB), UTG has range advantage, nut advantage, but opponent's range connectivity is LOW. What size?",
+    choices: ["Big (66% pot)", "Small (25-33% pot)", "Overbet", "Check"],
+    answer: 1,
+    hint: "The opponent must continue with weak hands like backdoor draws and overcards.",
+    explain: "Even with nut advantage, if opponent connects POORLY (they call with king-high, queen-high, backdoor draws), bet SMALL. Small bets force them to continue with these weak hands."
+  },
+  // ── Hand Classification ──
+  {
+    tag: "Hand Classification",
+    q: "On K-J-4 two spades, how should you classify A-K?",
+    choices: ["Marginal made hand", "Premium made hand", "Draw", "Junk"],
+    answer: 1,
+    hint: "Top pair, top kicker on a board where you're happy if lots of money goes in.",
+    explain: "AK on KJ4 is a clear premium made hand — top pair top kicker. You are happy betting and not folding to a raise."
+  },
+  {
+    tag: "Hand Classification",
+    q: "On K-J-4 two spades, how should you classify pocket tens?",
+    choices: ["Premium made hand", "Marginal made hand", "Draw", "Junk"],
+    answer: 1,
+    hint: "Under-pair to both the king and jack. Want to keep the pot small.",
+    explain: "Pocket tens is a clear marginal made hand on KJ4. It wants to check and see a cheap showdown. If you bet and get raised, you're in terrible shape."
+  },
+  {
+    tag: "Hand Classification",
+    q: "On Q-9-7 two hearts, how should you classify K-9 (no heart)?",
+    choices: ["Premium made hand", "Marginal made hand", "Draw", "Junk"],
+    answer: 1,
+    hint: "Middle pair with an overcard kicker. If you bet and get raised...",
+    explain: "K9 on Q97 is a marginal made hand. If you check and opponent bets, you can easily call. But if you bet and get raised, you're crushed by every queen, set, and strong draw."
+  },
+  {
+    tag: "Hand Classification",
+    q: "Hand types are fixed for the entire hand. True or false?",
+    choices: ["True — once classified, always that type", "False — hand types shift as the board changes"],
+    answer: 1,
+    hint: "What happens to a flush draw when the flush card comes on the turn?",
+    explain: "False. Hand types constantly shift. A flush draw becomes a premium made hand when the flush hits. Top pair becomes marginal when a scare card falls. AQ goes from premium to marginal when the T♥ falls on a two-heart board."
+  },
+  // ── Betting Range Ratios ──
+  {
+    tag: "Range Ratios",
+    q: "What is the maximum ratio of draws to premium made hands in your flop betting range?",
+    choices: ["1:1", "2:1", "3:1", "No limit"],
+    answer: 1,
+    hint: "You can have at most 2 draws for every 1 premium made hand.",
+    explain: "At most 2:1 draws to premium made hands. If you have 30 premium hands, you can have at most 60 draws. More premiums is always fine; more draws is not."
+  },
+  {
+    tag: "Range Ratios",
+    q: "Your checking range should be approximately what ratio of marginal made hands to junk?",
+    choices: ["50/50", "70/30 (or more marginals)", "30/70 (mostly junk)", "100% marginals only"],
+    answer: 1,
+    hint: "You need your checking range to be reasonably strong.",
+    explain: "About 70% marginal made hands to 30% junk, or even more marginals. This ensures your checking range can defend against opponent aggression."
+  },
+  // ── Facing a Bet ──
+  {
+    tag: "Facing a Bet",
+    q: "According to the Bet Response Flowchart, what should you do with a marginal made hand facing a bet?",
+    choices: ["Fold", "Call", "Raise", "It depends on position"],
+    answer: 1,
+    hint: "The flowchart gives a clear, simple answer for marginal hands.",
+    explain: "Marginal made hand = CALL. Simple as that. Don't raise (you'll only get action from better hands) and don't fold (you have showdown value)."
+  },
+  {
+    tag: "Facing a Bet",
+    q: "When you are OUT OF POSITION facing a c-bet, should you defend at Minimum Defense Frequency?",
+    choices: [
+      "Yes — always defend at MDF to prevent exploitation",
+      "No — you should overfold compared to MDF because equity realization is poor OOP",
+      "Only on dry boards",
+      "Only against small bets"
+    ],
+    answer: 1,
+    hint: "Think about how well you realize your equity from OOP.",
+    explain: "You should OVERFOLD compared to MDF from OOP. Your equity realization is poor because you face 3 streets of aggression. Defend with hands that realize the required equity, not mechanically at MDF."
+  },
+  {
+    tag: "Facing a Bet",
+    q: "When facing a bet, you have a premium hand but NO nut advantage. You are in position. What should you do?",
+    choices: ["Raise aggressively", "Mostly call", "Fold — they have the nuts", "Raise small for information"],
+    answer: 1,
+    hint: "IP + no nut advantage = ?",
+    explain: "Without the nut advantage and in position, you mostly CALL. You have position to realize your equity on later streets. Raising would only get action from hands that beat you."
+  },
+  {
+    tag: "Facing a Bet",
+    q: "When you are OOP and have the nut advantage, how should you respond to a bet with your premium hands and draws?",
+    choices: [
+      "Always call to trap",
+      "Raise more frequently — with best hands + weak draws + some junky draws",
+      "Fold the draws and only call premiums",
+      "Check-raise only the absolute nuts"
+    ],
+    answer: 1,
+    hint: "OOP with nut advantage = more aggressive defense.",
+    explain: "With nut advantage from OOP, you raise more frequently. Raise with your best made hands and weak draws (which can't profitably call and play turns OOP). This also protects your check-calling range."
+  },
+  // ── Raise Sizing ──
+  {
+    tag: "Raise Sizing",
+    q: "When raising a bet IN POSITION, what is the standard raise size?",
+    choices: ["2x the bet", "~2.5x the bet", "~3x the bet", "Pot-sized"],
+    answer: 1,
+    hint: "IP raises are slightly smaller than OOP raises.",
+    explain: "In position, standard raise is about 2.5x the previous bet (as long as the bet isn't too tiny). Out of position, it's about 3x or more."
+  },
+  {
+    tag: "Raise Sizing",
+    q: "On K-J-4 (high range connectivity), your check-raise size should be:",
+    choices: [
+      "Small — to save money on bluffs",
+      "Large (70%+ pot) — opponent has clear strong hands that won't fold",
+      "Minimum — 2x the bet",
+      "All-in always"
+    ],
+    answer: 1,
+    hint: "When opponent connects well with the board, they won't fold pairs.",
+    explain: "High connectivity means opponent has lots of kings and jacks that won't fold. Raise large (70%+ pot) to charge them maximally and build the pot with your polarized range."
+  },
+  {
+    tag: "Raise Sizing",
+    q: "On 7-5-4 (low connectivity), your check-raise size should be:",
+    choices: [
+      "Large — to deny equity",
+      "Small — opponent has lots of ace-high that can't continue against any raise",
+      "Pot-sized always",
+      "Don't check-raise on this board"
+    ],
+    answer: 1,
+    hint: "When opponent's continuing range is weak, you want cheaper bluffs.",
+    explain: "Low connectivity means opponent has lots of ace-high and overcards that fold to any raise. Raise SMALL — your bluffs are cheaper and you lose less when called."
+  },
+  // ── Check-Raise Defense ──
+  {
+    tag: "Check-Raise",
+    q: "You c-bet and get check-raised. In most small/medium stakes games, your opponent is likely:",
+    choices: [
+      "Balanced with a polarized range",
+      "Very value-heavy — they rarely check-raise without a strong hand",
+      "Pure bluffing to test you",
+      "Using an optimal GTO strategy"
+    ],
+    answer: 1,
+    hint: "Think about what you observe at low-medium stakes tables.",
+    explain: "Most small/medium stakes players are very value-heavy when check-raising. They rarely bluff enough. This means you can profitably fold marginal hands and c-bet wide, knowing they won't check-raise light."
+  },
+  {
+    tag: "Check-Raise",
+    q: "Against a polarized check-raiser (GTO-type), your primary defense in position should be:",
+    choices: [
+      "3-bet (re-raise) aggressively",
+      "Call with best hands, draws, and some marginals — very few re-raises",
+      "Fold everything below top pair",
+      "Always re-raise with overpairs"
+    ],
+    answer: 1,
+    hint: "You're IP, closing the action. What's the natural response?",
+    explain: "In position vs a polarized check-raiser, you primarily CALL. You close the action (no one left to act), and calling lets you realize equity on the turn with position."
+  },
+  // ── 3-Bet Pots ──
+  {
+    tag: "3-Bet Pots",
+    q: "In 3-bet pots, the SPR drops to approximately:",
+    choices: ["~15", "~10", "~4-5", "~1"],
+    answer: 2,
+    hint: "Raise to 3bb, they 3-bet to 10bb, you call. Pot ~20bb, stack ~90bb behind.",
+    explain: "In 3-bet pots, SPR is roughly 4-5 (about 90bb behind / ~20bb pot). This is much shallower than the ~15 SPR in single-raised pots."
+  },
+  {
+    tag: "3-Bet Pots",
+    q: "As the 3-bet aggressor, what is a typical c-bet size in 3-bet pots?",
+    choices: ["66% pot", "50% pot", "25-33% pot", "Overbet"],
+    answer: 2,
+    hint: "Lower SPR means smaller bets work effectively.",
+    explain: "In 3-bet pots with lower SPR, c-bet sizes drop to about 25-33% pot. Both ranges are stronger and better defined, so smaller bets are sufficient."
+  },
+  {
+    tag: "3-Bet Pots",
+    q: "As the 3-bet caller IN POSITION facing a c-bet, approximately what percentage of the time should you raise?",
+    choices: ["25-30%", "15-20%", "Less than 7%", "Never"],
+    answer: 2,
+    hint: "IP in 3-bet pots, you do a LOT of calling.",
+    explain: "Less than 7% raising frequency when IP as the 3-bet caller. You do a huge amount of calling because your equity realization is high in position."
+  },
+  {
+    tag: "3-Bet Pots",
+    q: "When checked to as the 3-bet caller IP, the opponent's checking range should be:",
+    choices: [
+      "Very weak and easy to attack",
+      "Well-protected with traps, showdown hands, and some give-ups",
+      "Entirely bluffs",
+      "Only the absolute nuts"
+    ],
+    answer: 1,
+    hint: "A good 3-bettor protects their checking range.",
+    explain: "A competent 3-bettor's checking range is well-protected with strong showdown hands, some traps (slow-played premium hands), and only a few give-ups. Don't blindly blast into it."
+  },
+  // ── 4-Bet Pots ──
+  {
+    tag: "4-Bet Pots",
+    q: "As the 4-bet aggressor on A-x-x or K-x-x boards, your typical strategy is:",
+    choices: [
+      "Check everything — the caller might have traps",
+      "Bet 100% of your range small (25% pot)",
+      "Bet big with premiums, check bluffs",
+      "Mix between big bets and checks"
+    ],
+    answer: 1,
+    hint: "Your range (AA, KK, AKs) dominates on Ace-high and King-high boards.",
+    explain: "On A-x-x and K-x-x boards, the 4-bettor has 65-70% equity. Bet 100% of range using a small size (25% pot). Your range simply dominates."
+  },
+  {
+    tag: "4-Bet Pots",
+    q: "In a 4-bet pot, you called with QQ. Opponent bets 25% pot on K-J-3. What should you do?",
+    choices: [
+      "Call — you have an overpair-ish hand",
+      "Raise for protection",
+      "Fold — opponent's range has you crushed on this board",
+      "Call, planning to fold the turn"
+    ],
+    answer: 2,
+    hint: "Think about what the 4-bettor's range looks like on KJ3.",
+    explain: "FOLD. The 4-bettor's range (AA, KK, AK, KQ, KJ, KT) absolutely crushes QQ on KJ3. Queens is drawing to 2 outs. Even against the bluffs (AXs), you block their folding range. This is a counter-intuitive but correct fold."
+  },
+  {
+    tag: "4-Bet Pots",
+    q: "When should the 4-bet aggressor consider slow-playing (checking) the super nuts like top set?",
+    choices: [
+      "Never — always bet for value",
+      "When stacks are shallow and it's hard for the opponent to have anything",
+      "Only on monotone boards",
+      "Only in position"
+    ],
+    answer: 1,
+    hint: "In 4-bet pots, the pot is already huge and stacks are shallow.",
+    explain: "Slow-play top set in 4-bet pots because (1) stacks are already shallow relative to the pot, (2) you don't need to build the pot, and (3) it's hard for the opponent to have anything worth paying you off."
+  },
+  // ── Multi-Way ──
+  {
+    tag: "Multi-Way",
+    q: "In a 5-way pot on T-9-7, you have pocket aces. What should you do?",
+    choices: [
+      "Bet big for protection — aces is still the best hand",
+      "Check-call — aces becomes a marginal made hand multi-way on this board",
+      "Check-raise to thin the field",
+      "Bet small to see where you stand"
+    ],
+    answer: 1,
+    hint: "Multi-way on a coordinated board, premium hands get downgraded.",
+    explain: "CHECK-CALL. In a 5-way pot on T-9-7, someone very likely has two pair, a set, or a strong draw. Aces gets downgraded to a marginal made hand. Betting opens you to raises that put you in a terrible spot."
+  },
+  {
+    tag: "Multi-Way",
+    q: "In multi-way pots, your c-bet frequency should:",
+    choices: [
+      "Stay the same as heads-up",
+      "Increase because more opponents means more value",
+      "Decrease dramatically — bet only a very polarized range",
+      "Depend entirely on position"
+    ],
+    answer: 2,
+    hint: "More opponents = someone is more likely to have something.",
+    explain: "Decrease dramatically. With more opponents, someone is likely to have a strong hand. Bet only with a very polarized range (strong value + premium draws)."
+  },
+  {
+    tag: "Multi-Way",
+    q: "You have 7-6 on a T-9-7 board in a 4-way pot. You should:",
+    choices: [
+      "Call any bet — you have a pair and a gutshot",
+      "Raise for value — pair plus straight draw is strong",
+      "Fold to any bet — bottom pair with a bad gutshot has reverse implied odds multi-way",
+      "Bet if checked to"
+    ],
+    answer: 2,
+    hint: "If you hit the 8 for a straight, who has the jack?",
+    explain: "FOLD. Bottom pair + bad gutshot is a clear fold multi-way. If you hit the 8 for a straight, someone likely has a jack for a higher straight. You're also often against a better pair and better draw."
+  },
+  // ── Limped Pots ──
+  {
+    tag: "Limped Pots",
+    q: "In limped pots, why is rake awareness especially important?",
+    choices: [
+      "Rake doesn't matter in limped pots",
+      "Limped pots are small, so a high rake can take 40%+ of the pot, making everyone lose",
+      "You should always tip extra in limped pots",
+      "Rake only affects raised pots"
+    ],
+    answer: 1,
+    hint: "If 4 people limp and the pot is $12, how much does a $5 rake take?",
+    explain: "Limped pots are small. A standard casino rake of $5 from a $12 pot is ~42% — nobody can beat that. Limping is only viable when rake is manageable or there's an ante."
+  },
+  {
+    tag: "Limped Pots",
+    q: "In a limped pot, you're on the button and it checks to you. Both blinds seem disinterested. What should you do?",
+    choices: [
+      "Always check — you have no range advantage",
+      "Bet with a very strong polarized range only",
+      "Bet with nearly anything — exploit their weak, unprotected ranges",
+      "Raise pot-sized"
+    ],
+    answer: 2,
+    hint: "If the blinds checked and seem done with it, what does that tell you about their ranges?",
+    explain: "Exploit their weakness. In limped pots with no PFR, when opponents are clearly done with the hand, bet with almost anything. Their ranges are weak and unprotected since they would have bet if they had something."
+  },
+  // ── Donk Leads ──
+  {
+    tag: "Donk Leads",
+    q: "When your opponent leads into you (donk bet) at deep stacks, this almost never happens in GTO. What does it typically indicate?",
+    choices: [
+      "They have the absolute nuts",
+      "They are a very skilled, balanced player",
+      "They are likely unskilled, or they think you'll make mistakes",
+      "You should always fold"
+    ],
+    answer: 2,
+    hint: "Leading deep-stacked is almost never part of a GTO strategy.",
+    explain: "Donk leading deep-stacked indicates the player is likely unskilled (hasn't studied) or thinks you'll mess up. Their range is usually capped — most players don't lead with the nuts."
+  },
+  {
+    tag: "Donk Leads",
+    q: "Your opponent ALWAYS leads with draws. What should you do?",
+    choices: [
+      "Fold — draws have good equity",
+      "Call and see what happens",
+      "Raise with everything and keep betting safe turns",
+      "Only call with the nuts"
+    ],
+    answer: 2,
+    hint: "If they have jack-high or king-high (a draw), you have the equity advantage with any pair.",
+    explain: "RAISE with everything. Your opponent has jack-high, king-high, etc. Ace-high has 55-60% equity against draws. Make the pot big when you're the favorite, and fold out their equity."
+  },
+  // ── Position & Defense ──
+  {
+    tag: "Position",
+    q: "Why do you raise MORE from out of position and CALL more from in position when facing a bet?",
+    choices: [
+      "OOP raises are cheaper",
+      "OOP, weak draws can't profitably call and play turns; IP, you can float and bet when they check the turn",
+      "It's just a convention",
+      "IP you have better cards"
+    ],
+    answer: 1,
+    hint: "Think about what happens on the turn with a weak draw from each position.",
+    explain: "OOP with a weak draw: if you call the flop and miss the turn, you face another bet and must fold. IP: if you call the flop and they check the turn, you can bet and win. So OOP you raise now or fold; IP you call and play later streets."
+  },
+  {
+    tag: "Position",
+    q: "Which of these boards is one of the RARE spots where the OOP raiser gets to c-bet very frequently?",
+    choices: ["8-4-3 rainbow", "6-5-4 two-tone", "K-J-2 rainbow", "T-8-6 two-tone"],
+    answer: 2,
+    hint: "King-high boards are special for the OOP raiser.",
+    explain: "King-high boards like K-J-2 are among the rare boards where the OOP raiser still gets to c-bet very frequently. They have strong kings, and the caller's range doesn't connect as well."
+  },
+  // ── Without Range Advantage ──
+  {
+    tag: "No Range Advantage",
+    q: "When you do NOT have the range advantage (~55% equity or less), your betting range should be:",
+    choices: [
+      "Everything — bet wide with small sizing",
+      "Very polarized — only premium made hands + draws",
+      "Only marginal made hands for protection",
+      "Don't bet at all ever"
+    ],
+    answer: 1,
+    hint: "Weak advantage = very selective betting.",
+    explain: "Without range advantage, bet VERY POLARIZED — only premium made hands and draws. As equity approaches 50% or below, betting frequency drops to nearly zero."
+  },
+  {
+    tag: "No Range Advantage",
+    q: "When you lack the range advantage, your checking range should contain more marginal made hands than usual. What percentage?",
+    choices: ["50-60%", "70%", "80-85%", "100%"],
+    answer: 2,
+    hint: "You'll face a LOT of opponent bets, so your checking range must be extra strong.",
+    explain: "80-85% marginal made hands in your checking range when you lack the range advantage. This extra protection is needed because opponents will bet aggressively when they sense weakness."
+  },
+];
+
+let state = { idx: 0, correct: 0, wrong: 0, missed: new Set(), order: [], answered: false, mode: 'all' };
+
+function shuffle(a) { for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; }
+
+function startQuiz(mode) {
+  document.querySelectorAll('.controls .btn').forEach(b => b.classList.remove('active'));
+  event && event.target && event.target.classList.add('active');
+  state.mode = mode;
+  state.idx = 0; state.correct = 0; state.wrong = 0; state.answered = false;
+  if (mode === 'missed') {
+    state.order = [...state.missed];
+    if (state.order.length === 0) { document.getElementById('quiz-area').innerHTML = '<div class="summary"><h2>No missed questions</h2><p>Try "All Questions" or "Shuffle" mode.</p></div>'; updateProgress(); return; }
+    shuffle(state.order);
+  } else if (mode === 'shuffle') {
+    state.order = shuffle([...Array(Q.length).keys()]);
+  } else {
+    state.order = [...Array(Q.length).keys()];
+  }
+  state.missed = new Set();
+  showQuestion();
+}
+
+function updateProgress() {
+  const total = state.order.length;
+  const done = Math.min(state.idx + (state.answered ? 1 : 0), total);
+  document.getElementById('progress').innerHTML =
+    `Question ${Math.min(state.idx + 1, total)} / ${total} &mdash; <span class="score">${state.correct} correct</span> &bull; <span class="missed">${state.wrong} missed</span>`;
+}
+
+function showQuestion() {
+  if (state.idx >= state.order.length) { showSummary(); return; }
+  state.answered = false;
+  const qi = state.order[state.idx];
+  const q = Q[qi];
+  updateProgress();
+  let html = `<div class="q-tag">${q.tag}</div>`;
+  html += `<div class="q-text">${q.q}</div>`;
+  html += `<button class="hint-btn" onclick="toggleHint()">Show Hint (H)</button>`;
+  html += `<div class="hint" id="hint">${q.hint}</div>`;
+  html += `<div class="choices">`;
+  q.choices.forEach((c, i) => {
+    html += `<button class="choice" onclick="answer(${i})" data-idx="${i}">${c}</button>`;
+  });
+  html += `</div><div id="feedback"></div><div class="nav-row" id="nav-row" style="display:none"><button class="btn" onclick="nextQ()">Next (N)</button></div>`;
+  document.getElementById('quiz-area').innerHTML = html;
+}
+
+function toggleHint() { document.getElementById('hint').classList.toggle('show'); }
+
+function answer(idx) {
+  if (state.answered) return;
+  state.answered = true;
+  const qi = state.order[state.idx];
+  const q = Q[qi];
+  const btns = document.querySelectorAll('.choice');
+  btns.forEach(b => { b.disabled = true; });
+  const isCorrect = idx === q.answer;
+  btns[idx].classList.add(isCorrect ? 'correct' : 'wrong');
+  if (!isCorrect) { btns[q.answer].classList.add('reveal'); state.wrong++; state.missed.add(qi); }
+  else { state.correct++; }
+  const fb = document.getElementById('feedback');
+  fb.innerHTML = `<div class="feedback ${isCorrect ? 'correct-fb' : 'wrong-fb'}"><div class="fb-label">${isCorrect ? 'Correct' : 'Incorrect'}</div>${q.explain}</div>`;
+  document.getElementById('nav-row').style.display = 'flex';
+  updateProgress();
+}
+
+function nextQ() { state.idx++; showQuestion(); }
+
+function showSummary() {
+  const total = state.order.length;
+  const pct = total > 0 ? Math.round(state.correct / total * 100) : 0;
+  let html = `<div class="summary"><h2>Session Complete</h2>`;
+  html += `<div class="stat" style="color:var(--correct)">${state.correct} / ${total} correct (${pct}%)</div>`;
+  if (state.wrong > 0) html += `<div class="stat" style="color:var(--wrong)">${state.wrong} missed</div>`;
+  html += `<div style="margin-top:1.5rem">`;
+  if (state.missed.size > 0) html += `<button class="btn" onclick="startQuiz('missed')" style="margin-right:0.5rem">Review ${state.missed.size} Missed</button>`;
+  html += `<button class="btn" onclick="startQuiz('shuffle')">Shuffle All</button>`;
+  html += `</div></div>`;
+  document.getElementById('quiz-area').innerHTML = html;
+  updateProgress();
+}
+
+document.addEventListener('keydown', e => {
+  const k = e.key;
+  if (k >= '1' && k <= '5' && !state.answered) { const idx = parseInt(k) - 1; const btns = document.querySelectorAll('.choice'); if (idx < btns.length) answer(idx); }
+  if ((k === 'n' || k === 'N' || k === 'Enter') && state.answered) nextQ();
+  if (k === 'h' || k === 'H') toggleHint();
+  if (k === 'r' || k === 'R') startQuiz('all');
+});
+
+startQuiz('all');
+</script>
+</body>
+</html>

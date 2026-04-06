@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chapter 4: Postflop Deep-Stacked Adjustments -- Crash Course</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Source+Serif+4:ital,wght@0,400;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+  onload="renderMathInElement(document.body,{delimiters:[{left:'\\(',right:'\\)',display:false},{left:'$$',right:'$$',display:true}],throwOnError:false});"></script>
+<style>
+:root {
+  --bg: #FFFFFF;
+  --surface: #FFFFFF;
+  --surface2: #F5F5F5;
+  --accent: #000000;
+  --text: #000000;
+  --text-dim: #525252;
+  --correct: #1a7a5e;
+  --wrong: #b91c1c;
+  --orange: #8B6914;
+  --border: #000000;
+  --border-light: #E5E5E5;
+  --blue: #1e40af;
+  --purple: #6b21a8;
+  --red: #b91c1c;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'Source Serif 4', serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.7;
+  max-width: 780px;
+  margin: 0 auto;
+  padding: 40px 24px 80px;
+}
+
+h1, h2, h3 {
+  font-family: 'Playfair Display', serif;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+h1 {
+  font-size: 2.4rem;
+  font-weight: 900;
+  margin-bottom: 8px;
+  line-height: 1.15;
+}
+
+.subtitle {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.85rem;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 40px;
+}
+
+h2 {
+  font-size: 1.7rem;
+  margin-top: 56px;
+  margin-bottom: 16px;
+  padding-bottom: 6px;
+  border-bottom: 2px solid var(--border);
+}
+
+h3 {
+  font-size: 1.2rem;
+  margin-top: 32px;
+  margin-bottom: 10px;
+}
+
+p { margin-bottom: 14px; }
+
+.box {
+  padding: 20px 24px;
+  margin: 24px 0;
+  border-radius: 0px;
+  border: 2px solid;
+}
+
+.box-definition { border-color: var(--blue); }
+.box-definition .box-label { color: var(--blue); }
+
+.box-insight { border-color: var(--purple); }
+.box-insight .box-label { color: var(--purple); }
+
+.box-example { border-color: var(--orange); }
+.box-example .box-label { color: var(--orange); }
+
+.box-trap { border-color: var(--red); }
+.box-trap .box-label { color: var(--red); }
+
+.box-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 10px;
+  display: block;
+}
+
+.box p:last-child { margin-bottom: 0; }
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+  font-size: 0.95rem;
+}
+
+th, td {
+  padding: 8px 12px;
+  border: 1px solid var(--border-light);
+  text-align: left;
+}
+
+th {
+  background: var(--surface2);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-weight: 500;
+}
+
+code {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.88em;
+  background: var(--surface2);
+  padding: 2px 6px;
+  border-radius: 0px;
+}
+
+ul, ol { margin: 12px 0 12px 24px; }
+li { margin-bottom: 6px; }
+
+.toc {
+  background: var(--surface2);
+  padding: 24px 28px;
+  margin: 32px 0;
+  border: 1px solid var(--border-light);
+}
+
+.toc-title {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 12px;
+  font-weight: 500;
+}
+
+.toc ol { margin: 0 0 0 20px; }
+.toc li { margin-bottom: 4px; font-size: 0.95rem; }
+.toc a { color: var(--text); text-decoration: none; border-bottom: 1px solid var(--border-light); }
+.toc a:hover { border-bottom-color: var(--border); }
+
+.katex-display { margin: 16px 0; overflow-x: auto; }
+
+hr {
+  border: none;
+  border-top: 1px solid var(--border-light);
+  margin: 48px 0;
+}
+</style>
+</head>
+<body>
+
+<h1>Postflop Deep-Stacked Adjustments</h1>
+<div class="subtitle">Advanced Cash Game Course -- Chapter 4 Crash Course</div>
+
+<div class="toc">
+  <div class="toc-title">Contents</div>
+  <ol>
+    <li><a href="#three-pillars">The Three Pillars of Deep-Stack Strategy</a></li>
+    <li><a href="#stackoff">Stack-Off Threshold</a></li>
+    <li><a href="#cbet-changes">Continuation Betting Changes</a></li>
+    <li><a href="#reopening">The Cost of Reopening the Action</a></li>
+    <li><a href="#bet-bet-check">Pushing Equity: The Bet-Bet-Check Line</a></li>
+    <li><a href="#nut-advantage">Nut Advantage and Over-Realizing Equity</a></li>
+    <li><a href="#position-value">The Increased Value of Position</a></li>
+    <li><a href="#three-bet-pots">Three-Bet Pots with Deep Stacks</a></li>
+    <li><a href="#applied-examples">Applied Deep-Stack Examples</a></li>
+    <li><a href="#traps">Common Traps</a></li>
+  </ol>
+</div>
+
+<!-- ============================================================ -->
+<h2 id="three-pillars">1. The Three Pillars of Deep-Stack Strategy</h2>
+
+<p>As stacks get deeper, your entire postflop strategy should change. There are three fundamental reasons for this, and nearly all strategic adjustments in this chapter derive from them.</p>
+
+<div class="box box-definition">
+  <span class="box-label">Pillar 1 -- Position Becomes More Valuable</span>
+  <p>Equity realization shifts to the in-position player more and more as stacks get deeper. The IP player gets to <strong>decide when they want to play a big pot</strong> and when they do not. This control is extremely powerful with 200+ big blinds behind.</p>
+</div>
+
+<div class="box box-definition">
+  <span class="box-label">Pillar 2 -- Nut Advantage Drives Strategy</span>
+  <p>If you make the nuts, you can get your opponent all-in with almost no equity -- and that's obviously fantastic. The <strong>ability to make the nuts</strong> on different turns and rivers goes up in value. This is why offsuit broadways like KJo go way down in value at 200bb compared to 25bb. You also start playing <strong>mixed preflop strategies</strong> so you have some super nuts on all runouts.</p>
+</div>
+
+<div class="box box-definition">
+  <span class="box-label">Pillar 3 -- Stack-Off Threshold Rises</span>
+  <p>The amount of equity you need to get all-in is <strong>substantially higher</strong> as stacks get deeper. At 200bb on almost any flop, only the nuts and perhaps the second or third nuts are happy getting all the money in immediately.</p>
+</div>
+
+<!-- ============================================================ -->
+<h2 id="stackoff">2. Stack-Off Threshold</h2>
+
+<p>The stack-off threshold is the point at which your hand is strong enough that you're happy getting all the money in. This threshold changes <strong>dramatically</strong> with stack depth.</p>
+
+<h3>Concrete Example: K9 on K-7-2</h3>
+
+<p><strong>20bb deep (tournament):</strong> K9 is one of the best hands you can have. Check-raise aggressively -- winning the pot immediately is very valuable. If you're beat, you lose 20bb. Such is life.</p>
+
+<p><strong>200bb deep (cash game):</strong> K9 becomes a marginal hand. If you check-raise and get called or re-raised, you're in a miserably bad scenario where you'll be beat a large chunk of the time. Your opponent could also be sticking around with draws, putting you in a rough situation. <strong>The correct play is to check and call.</strong></p>
+
+<div class="box box-insight">
+  <span class="box-label">Key Insight</span>
+  <p>Even KQ on K-7-2 at 200bb deep cannot happily check-raise. If you get a lot of action, your opponent could easily have all the sets, K7 suited, K2 suited. As you get deeper, you play far more cautiously with medium-strength hands.</p>
+</div>
+
+<p>At deeper stack depths, two main adjustments occur:</p>
+<ol>
+  <li><strong>More premium hands get downgraded</strong> to marginal-made hands on later betting rounds</li>
+  <li><strong>When you lack the nut advantage,</strong> you continuation bet and check-raise way less often</li>
+</ol>
+
+<!-- ============================================================ -->
+<h2 id="cbet-changes">3. Continuation Betting Changes</h2>
+
+<p>At 100bb, the <strong>range advantage</strong> primarily determines whether you should c-bet. At 200bb, the <strong>nut advantage</strong> becomes a much more dominant factor.</p>
+
+<h3>Button vs Big Blind on T-8-6</h3>
+
+<table>
+  <tr><th>Metric</th><th>100bb Deep</th><th>200bb Deep</th></tr>
+  <tr><td>Overall betting frequency</td><td>Higher</td><td>Much lower (check more often)</td></tr>
+  <tr><td>Bet sizing when betting</td><td>Smaller, wider</td><td>Bigger, more polarized</td></tr>
+  <tr><td>Medium hands (e.g., Q6, J6)</td><td>Bet ~50% of the time</td><td>Check almost always</td></tr>
+  <tr><td>Pocket Aces</td><td>Bet frequently</td><td>Check more (not vulnerable, don't love a check-raise)</td></tr>
+  <tr><td>Bluff frequency</td><td>More bluffs (wider range)</td><td>Fewer bluffs (betting less overall)</td></tr>
+</table>
+
+<h3>Dynamic Boards: LJ vs BB on T-6-4</h3>
+
+<p>At 100bb, you're happy betting with top pair and overpairs on this dynamic board. At 200bb, the picture changes:</p>
+<ul>
+  <li>If you make a 2/3 pot bet, you haven't diminished the stack-to-pot ratio much</li>
+  <li>Future cards will often be bad for you (middle cards favor the big blind)</li>
+  <li>When the board runs out badly, it's <strong>really bad</strong> -- your strong hands are downgraded to marginal</li>
+  <li>Result: bet still decently often, but use a <strong>small size</strong></li>
+</ul>
+
+<h3>Check-Raising Frequency Drops Dramatically</h3>
+
+<div class="box box-example">
+  <span class="box-label">Example -- LJ vs BTN on T-6-4</span>
+  <p>LJ checks, Button bets 33% pot. At 100bb, LJ raises <strong>17% of the time</strong> with overpairs, top pair good kicker, and draws. At 200bb, LJ <strong>barely raises at all</strong>. Even hands like JJ or KK don't want the pot to balloon because the opponent will have sets and high equity draws when they continue.</p>
+</div>
+
+<!-- ============================================================ -->
+<h2 id="reopening">4. The Cost of Reopening the Action</h2>
+
+<p>This concept is critical to deep-stack river play and is one of the most misunderstood topics in poker.</p>
+
+<div class="box box-definition">
+  <span class="box-label">Definition -- Cost of Reopening</span>
+  <p>When you check back the river in position, you realize <strong>100% of your equity</strong> every time. When you bet, there is a cost: sometimes you'll get check-raised and bluffed into folding, which <strong>takes away your equity</strong>. As stacks get deeper, this cost gets higher because the OOP player can check-raise huge and give you terrible odds.</p>
+</div>
+
+<p>This means you need your hand to have <strong>more equity</strong> on the river as you get deeper in order to profitably value bet. Many hands that are clear value bets at 100bb become checks at 200bb.</p>
+
+<h3>Example: KQ of Hearts, 250bb Deep</h3>
+
+<p>You raise on the button, big blind calls. King-jack-seven flop, you c-bet. Turn five of diamonds, you bet pot. River eight of diamonds, opponent checks.</p>
+
+<p>If you were shallower, you could reasonably value bet here. But at 250bb deep, if you bet and get raised, it's horrible -- the opponent can blast you with a gigantic check-raise. <strong>You absolutely cannot value bet this river</strong> unless your opponent is a straightforward calling station.</p>
+
+<div class="box box-trap">
+  <span class="box-label">Common Trap -- Thin Value Betting Deep-Stacked</span>
+  <p>Many players value bet the same hands at 200bb that they would at 100bb. Against competent opponents who will check-raise bluff you, this is a significant leak. Check back more rivers in position when deep.</p>
+</div>
+
+<h3>Exploitative Counterplay: The Monster Check-Raise</h3>
+
+<p>If your opponents value bet too thinly on deep-stacked rivers, punish them from out of position:</p>
+<ol>
+  <li>Check to them (as you should)</li>
+  <li>When they bet, put in a <strong>massive check-raise</strong></li>
+  <li>Example: J-T on a board where opponent checked the turn (removing flushes and straights from their range), then bets river small -- check-raise to \(\approx 3.5\times\) pot</li>
+  <li>The key: your blockers must be excellent (blocking straights, flushes, two pair, sets)</li>
+</ol>
+
+<div class="box box-insight">
+  <span class="box-label">Polarized Check-Raise Sizing</span>
+  <p>When check-raising the river out of position, you are saying "I have a very good hand or nothing." You cannot go for thin check-raises OOP -- it does not work. Be very polarized: either a hand that's always good, or a hand that always loses when called. Sizing should be <strong>huge</strong> -- 3x-4x pot is standard.</p>
+</div>
+
+<!-- ============================================================ -->
+<h2 id="bet-bet-check">5. Pushing Equity: The Bet-Bet-Check Line</h2>
+
+<p>A common mistake players make is thinking "my hand isn't worth three streets, so I'll check the turn." This is not a sound deep-stack strategy. Instead, learn the <strong>bet-bet-check</strong> line.</p>
+
+<div class="box box-definition">
+  <span class="box-label">Definition -- Bet-Bet-Check</span>
+  <p>Bet the flop, bet the turn, then check back the river. Use this line when: (1) you clean up equity by making opponent fold hands that have decent equity against you, (2) you won't get raised often because you have nuts in your range, and (3) you take away your opponent's ability to bluff rivers after a check-check turn.</p>
+</div>
+
+<h3>Turn Betting: Improvement Potential Over Hand Strength</h3>
+
+<p>On a J-7-6-5 board (button vs big blind, 200bb), the turn betting decisions are counterintuitive:</p>
+
+<table>
+  <tr><th>Hand</th><th>Action</th><th>Reason</th></tr>
+  <tr><td>J9, J8</td><td><strong>Bet almost always</strong></td><td>Can improve to a straight (nut potential)</td></tr>
+  <tr><td>KJ, QJ</td><td><strong>Check</strong></td><td>Better made hand but cannot improve to a straight ever</td></tr>
+  <tr><td>K8, Q8</td><td><strong>Bet</strong></td><td>Gut shot to the straight despite being weaker raw hand</td></tr>
+  <tr><td>QT (no draw)</td><td><strong>Check</strong></td><td>No straight draw, no ability to make nuts</td></tr>
+  <tr><td>6x hands</td><td><strong>Bet almost always</strong></td><td>Pair that can get better hands to fold, opponent folds equity</td></tr>
+</table>
+
+<div class="box box-insight">
+  <span class="box-label">Key Insight -- Why Weaker Hands Bet More</span>
+  <p>J9 (weaker pair) bets while KJ (stronger pair) checks because J9 can improve to a straight. Deep-stacked, your ability to make the nuts matters more than your current hand strength. This is the fundamental shift from shallow-stack thinking.</p>
+</div>
+
+<h3>What Happens After the Turn Bet</h3>
+
+<p>When you bet the turn with a hand like J9, Q6, or K6:</p>
+<ul>
+  <li>Opponent folds equity (A7 folds, A10 folds, 6x folds) -- this is extremely valuable</li>
+  <li>If called and the river doesn't improve your hand: <strong>check back</strong></li>
+  <li>If called and the river does improve your hand: <strong>keep betting for value</strong></li>
+  <li>The opponent never knows which type of hand you have -- sets and straights take the same line</li>
+</ul>
+
+<h3>Third Flush Card on the Turn</h3>
+
+<p>When the third flush card arrives (e.g., K-7-4 board, turn brings third spade):</p>
+<ul>
+  <li><strong>Do NOT bet</strong> KJ, K9, K8 -- these cannot improve to a flush (the King is on the board)</li>
+  <li><strong>DO bet</strong> AJ, AQ with a spade -- these can improve to the nut flush</li>
+  <li>Even though KJ has 60% equity, it still checks because it has no path to the nuts</li>
+  <li>Shallower stacked, you could get away with betting KJ; deep-stacked, you must have nut potential</li>
+</ul>
+
+<!-- ============================================================ -->
+<h2 id="nut-advantage">6. Nut Advantage and Over-Realizing Equity</h2>
+
+<p>The nut advantage is the engine that drives deep-stack strategy. When you have hands the opponent cannot have, you get to extract far more than your "fair share" of the pot.</p>
+
+<h3>Core Principles</h3>
+
+<table>
+  <tr><th>Principle</th><th>Application</th></tr>
+  <tr><td>With nut advantage: bluff big</td><td>Use large/over-pot sizes and you will over-realize your equity</td></tr>
+  <tr><td>Draw selection: prefer nut draws</td><td>Combo draws, strong flush draws, nut straight draws</td></tr>
+  <tr><td>Facing aggression with non-nut draws</td><td>Be cautious -- reverse implied odds increase dramatically</td></tr>
+  <tr><td>Deeper stacks = effective nuts is the actual nuts</td><td>Second-best hand is not good enough</td></tr>
+</table>
+
+<h3>Over-Realizing Equity: A Quantified Example</h3>
+
+<p>Big blind check-raises on 9-7-3 (lowjack opens, big blind check-raises with strong hands plus nut draws). After the check-raise is called:</p>
+
+<div class="box box-example">
+  <span class="box-label">Example -- Equity vs Expected Value</span>
+  <p><strong>After check-raise + call:</strong> Big blind has 46% equity but realizes 49.9% of pot (over-realizes by 3.9%)</p>
+  <p><strong>On a 6 turn:</strong> Big blind has 55% equity but realizes <strong>70%</strong> of pot -- because BB has straights and two pairs that the opponent cannot have</p>
+  <p><strong>On a 5 river (after 150% pot turn bet):</strong> Big blind bets all-in, opponent must fold 81% of the time</p>
+</div>
+
+<h3>Turn Sizing with Nut Advantage</h3>
+
+<p>When the turn gives you a large nut advantage (e.g., you have straights and two pairs opponent cannot have):</p>
+<ul>
+  <li>Bet <strong>150% pot or full pot</strong> with your entire continuing range</li>
+  <li>Do not be afraid of big sizes -- this is what allows you to over-realize equity</li>
+  <li>Opponent folds their marginal stuff, keeping only strong hands</li>
+  <li>On favorable rivers: blast again (all-in, even 4x pot)</li>
+</ul>
+
+<h3>River All-In When Deep</h3>
+
+<p>On a favorable river after building the pot with nut advantage:</p>
+<ul>
+  <li>Shove all-in with your strong hands (straights, sets) AND bluffs</li>
+  <li>Bluff candidates: busted draws, ace-high, queen-high -- hands most people don't find as shoves</li>
+  <li>Opponent must fold \(\approx 81\%\) of the time</li>
+  <li>Even hands like Q8, low Qx suited are profitable shove-bluffs</li>
+  <li>Exploitatively: opponents fold even <em>more</em> than they should (they can't hero-call with one pair on scary boards)</li>
+</ul>
+
+<h3>When the Current Nuts Changes</h3>
+
+<div class="box box-trap">
+  <span class="box-label">Critical Warning -- Losing Nut Advantage</span>
+  <p>If a river card gives the <strong>opponent</strong> the nut advantage (e.g., a flush-completing card when they have flush draws in their range), you must dramatically reduce your betting. Checking frequency might jump from 24% to 54%. Even busted flush draws in your range (like A2 of spades) literally never bluff this river because you block opponent's auto-folds.</p>
+</div>
+
+<h3>Button vs Big Blind on J-7-6 (Dynamic Board)</h3>
+
+<p>After button c-bets and gets called:</p>
+<ul>
+  <li>IP has 45% equity but 54.6% expected value (over-realizes by ~10%)</li>
+  <li>Best turns for IP: K, Q, 9 -- these give IP many nut hands opponent lacks</li>
+  <li>On a K turn, IP keeps betting big with high frequency</li>
+  <li>On a 9 river (after big turn bet): IP shoves all-in with 30% of range</li>
+  <li>Opponent calls with only sets and some two pair -- folds 81% of the time</li>
+</ul>
+
+<!-- ============================================================ -->
+<h2 id="position-value">7. The Increased Value of Position</h2>
+
+<p>As stacks increase, position becomes more valuable because the in-position player gets to decide whether to put in one additional bet -- and when deep-stacked, that bet can be gigantic.</p>
+
+<h3>Out-of-Position C-Bet Frequency at 200bb</h3>
+
+<table>
+  <tr><th>Board (LJ vs BTN)</th><th>100bb Check%</th><th>200bb Check%</th><th>Why the Difference</th></tr>
+  <tr><td>A-8-3 (two hearts)</td><td>~40%</td><td><strong>91%</strong></td><td>TPTK not the nuts by river; flush draws threaten</td></tr>
+  <tr><td>K-7-4 (two spades)</td><td>~35%</td><td><strong>60%</strong></td><td>King-high slightly better but still vulnerable</td></tr>
+  <tr><td>K-5-5</td><td>~25%</td><td><strong>37%</strong></td><td>Paired board; less dynamic, stronger range</td></tr>
+</table>
+
+<div class="box box-insight">
+  <span class="box-label">Key Insight</span>
+  <p>On A-8-3 with two hearts at 200bb, you check <strong>91% of the time</strong> from out of position -- even with hands like AK. The reason: at 200bb deep, ace-king will often not be the nuts by the river. Your opponent's various Ax hands make two pair sometimes, and flushes arrive. You must protect your checking range by including these strong hands.</p>
+</div>
+
+<h3>Why OOP Must Check So Much</h3>
+
+<ol>
+  <li>Top pair hands won't be the nuts by the river at this stack depth</li>
+  <li>Opponent can raise your flop bet, bet the turn, then blast the river</li>
+  <li>Almost no hands want to be getting it in against a reasonable range in this scenario</li>
+  <li>You need to protect your checking range with strong hands so opponent can't blast freely</li>
+</ol>
+
+<h3>Flop Sizing When OOP at 200bb</h3>
+
+<p>When you do bet from out of position at 200bb, use <strong>smaller sizes</strong> than at 100bb. Especially on boards with flush draws or that are likely to change. Small bets keep the pot manageable for when the board runs out badly for you.</p>
+
+<!-- ============================================================ -->
+<h2 id="three-bet-pots">8. Three-Bet Pots with Deep Stacks</h2>
+
+<p>Three-bet pots start bigger, so all the deep-stack effects are magnified. The same principles apply but the leaks cost you even more.</p>
+
+<h3>OOP in 3-Bet Pots</h3>
+
+<p>You may be accustomed to 3-betting from the blinds and c-betting a good amount. At 100bb, over-betting the flop is not that bad. At 200bb, it's often a blunder. Check far more often.</p>
+
+<div class="box box-example">
+  <span class="box-label">Example -- SB 3-Bets vs BTN, Flop J-9-5</span>
+  <p><strong>100bb deep:</strong> Bet 60% of the time with a nice polarized range.</p>
+  <p><strong>200bb deep:</strong> Check significantly more often. Even AA, KK, QQ need to check sometimes because on many turns, these hands won't love it. At 100bb you can make the pot huge and stack off; at 200bb you can't.</p>
+</div>
+
+<h3>The Under-Realization Problem</h3>
+
+<p>After SB 3-bets, BTN calls, flop J-9-5, SB check-calls:</p>
+
+<table>
+  <tr><th>Metric</th><th>Value</th></tr>
+  <tr><td>OOP equity across all turns</td><td>53.5%</td></tr>
+  <tr><td>OOP expected value (what they actually realize)</td><td><strong>43.6%</strong></td></tr>
+  <tr><td>Under-realization gap</td><td>~10 percentage points</td></tr>
+</table>
+
+<p>Even with a strong, well-protected range, you under-realize by 10% from out of position. The IP player gets to blast the turn and river, forcing you to fold hands that have real equity.</p>
+
+<div class="box box-example">
+  <span class="box-label">Example -- Getting Blasted Deep in a 3-Bet Pot</span>
+  <p>Board runs out J-9-5-4-2 with three diamonds. You check-call a third pot on the flop, check-call pot on the turn, check the river. Opponent <strong>shoves all-in</strong>. Overpairs and top pairs must fold a large chunk of the time. This is the raw power of position when deep-stacked.</p>
+</div>
+
+<h3>Turn Bluff Selection by Stack Depth</h3>
+
+<p>The type of hands you bluff with on the turn changes based on whether you'll face a shove:</p>
+
+<table>
+  <tr><th>Stack Depth</th><th>Bluff Hands</th><th>Reason</th></tr>
+  <tr><td>100bb (will get jammed on)</td><td>Low equity hands</td><td>You'll bet-fold anyway; minimize equity you fold away</td></tr>
+  <tr><td>200bb+ (won't get jammed on)</td><td>High equity hands</td><td>You don't have to fold to a raise; equity helps if called</td></tr>
+</table>
+
+<div class="box box-insight">
+  <span class="box-label">Key Insight</span>
+  <p>At 200bb in a 3-bet pot (e.g., K-T-6-5), IP bets roughly the same frequency and sizing on the turn as at 100bb, but with a <strong>different range</strong>. Hands like AQ, QJ, and T9 (which have draws) bet more at 200bb. Low-equity junk bluffs decrease. The range shifts toward higher equity bluffs because the threat of getting jammed on is much lower.</p>
+</div>
+
+<!-- ============================================================ -->
+<h2 id="applied-examples">9. Applied Deep-Stack Examples</h2>
+
+<h3>3-Bet Sizing from OOP</h3>
+
+<p>When deep-stacked and out of position, 3-bet to a <strong>larger size</strong>. At \$5/\$10 with 200bb, 3-bet to \$150 instead of \$90. This discourages your opponent from giving you action and maintains your equity advantage. Only 3-bet with strong, suited hands.</p>
+
+<h3>The Power of High-Equity Turn Bets</h3>
+
+<div class="box box-example">
+  <span class="box-label">Example -- QJs, 3-Bet Pot, Turn Flush Draw</span>
+  <p>You 3-bet QJ of spades from the small blind, flop a draw, c-bet, get called. Turn gives you a flush draw (high equity). Bet large -- you won't get shoved on at this stack depth. If you miss the river, <strong>give up</strong>. Specifically with busted flush draws, you block opponent's auto-folds (their busted flush draws). This is not weak play -- it's correct deep-stack strategy.</p>
+</div>
+
+<h3>Overbetting Deep</h3>
+
+<p>Use overbets on the turn and river far more often than at 100bb:</p>
+<ul>
+  <li>"Big" does not mean pot-sized. Big means <strong>over pot</strong>: 1.5x, 2x, even 3x pot.</li>
+  <li>When you have many nuts and opponent does not: overbet</li>
+  <li>Example: Q7s on 8-5-3, turn K (gives you nothing but opponent lacks kings), you overbet turn and if called, overbet river (2x pot) on a favorable runout</li>
+  <li>Exploitatively: people fold far too often to overbets</li>
+</ul>
+
+<h3>Protecting the Checking Range</h3>
+
+<div class="box box-example">
+  <span class="box-label">Example -- K7 Trips on 7-7-x</span>
+  <p>You check-raise trips on the flop. Turn creates draws. Instead of betting all your Kings, <strong>check K7</strong> (weaker trips) and bet your best Kings (that get called by worse). K7 protects your checking range -- if opponent attacks your check, you call comfortably. Without this protection, loose-aggressive opponents will run you over with consistent aggression.</p>
+</div>
+
+<h3>Aces on Low Boards</h3>
+
+<p>On a 10-high board when deep-stacked:</p>
+<ul>
+  <li><strong>Check</strong> with aces (even more than at 100bb)</li>
+  <li>If opponent bets: check-call only (do not raise)</li>
+  <li>Prefer to raise with JJ, AT -- hands that are almost always good but <strong>vulnerable</strong></li>
+  <li>AA is almost always good but <strong>not vulnerable</strong> -- can afford to slow play</li>
+  <li>Check-call all three streets, even facing an overbet on the river</li>
+  <li><strong>Never fold AA</strong> in this line against competent opponents</li>
+</ul>
+
+<h3>Nut Blockers for Bluffing</h3>
+
+<p>Holding the ace of the flush suit is extremely valuable deep-stacked:</p>
+<ul>
+  <li>On two-flush boards: bet with the ace blocker (you block the nut flush on future streets)</li>
+  <li>When the flush completes: blast it -- opponent cannot have the nut flush</li>
+  <li>Without the relevant blocker: do not bluff (you don't block their best hands)</li>
+  <li>"Big, big, big" -- when you have the nut blocker and your range has lots of nuts: go over pot</li>
+</ul>
+
+<!-- ============================================================ -->
+<h2 id="traps">10. Common Traps</h2>
+
+<div class="box box-trap">
+  <span class="box-label">Trap 1 -- Playing 200bb Like 100bb</span>
+  <p>The most common mistake. Players apply their 100bb strategies at deeper stacks. This means c-betting too often, value betting rivers too thinly, and check-raising with hands that can't withstand the action. Every concept in this chapter exists because 200bb strategy is fundamentally different.</p>
+</div>
+
+<div class="box box-trap">
+  <span class="box-label">Trap 2 -- "My Hand Isn't Worth Three Streets, So Check the Turn"</span>
+  <p>This passive approach lets opponents realize all their equity for free. Use the bet-bet-check line instead: bet the turn to deny equity, then check the river. You push equity and prevent opponents from bluffing rivers after a check-check turn.</p>
+</div>
+
+<div class="box box-trap">
+  <span class="box-label">Trap 3 -- Betting Hands Without Nut Potential</span>
+  <p>At 200bb, it's not enough for a hand to have 60% equity. If it cannot improve to the nuts on future streets, it should often check. KJ with 60% equity on a three-flush board checks because it has no flush draw. AQ with 45% equity and a flush draw bets because it can make the nuts.</p>
+</div>
+
+<div class="box box-trap">
+  <span class="box-label">Trap 4 -- Not Protecting the Checking Range OOP</span>
+  <p>If you always bet your strong hands and check your weak hands from out of position, opponents will blast your checks with impunity. Include strong hands (AA, trips, top pair) in your checking range, especially when deep. This is critical to prevent loose-aggressive players from running you over.</p>
+</div>
+
+<div class="box box-trap">
+  <span class="box-label">Trap 5 -- Bluffing with Busted Flush Draws on the River</span>
+  <p>When your flush draw misses on the river, you often block your opponent's auto-folds (their busted flush draws). Bluffing here is usually a mistake. It's OK to push equity on the turn and give up when you miss -- this is not weak play.</p>
+</div>
+
+<div class="box box-trap">
+  <span class="box-label">Trap 6 -- Not Going Big Enough</span>
+  <p>When you have a nut advantage deep-stacked, "big" doesn't mean pot-sized. It means over-pot: 1.5x, 2x, 3x pot on the turn and river. Players who bet "big" at 75% pot leave enormous value on the table. When opponent can't have the nuts, blast them.</p>
+</div>
+
+<hr>
+
+<p style="font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; color: var(--text-dim); text-align: center;">
+  Source: PokerCoaching.com by Jonathan Little
+</p>
+
+</body>
+</html>

@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chapter 1: Introduction to Cash Games -- Crash Course</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Source+Serif+4:ital,wght@0,400;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+  onload="renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'\(',right:'\)',display:false}]});"></script>
+<style>
+:root {
+  --bg: #FFFFFF;
+  --surface: #FFFFFF;
+  --surface2: #F5F5F5;
+  --accent: #000000;
+  --text: #000000;
+  --text-dim: #525252;
+  --correct: #1a7a5e;
+  --wrong: #b91c1c;
+  --orange: #8B6914;
+  --border: #000000;
+  --border-light: #E5E5E5;
+  --blue: #1e40af;
+  --purple: #6b21a8;
+  --red: #b91c1c;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'Source Serif 4', serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.7;
+  max-width: 780px;
+  margin: 0 auto;
+  padding: 40px 24px 80px;
+}
+
+h1, h2, h3 {
+  font-family: 'Playfair Display', serif;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+h1 {
+  font-size: 2.4rem;
+  font-weight: 900;
+  margin-bottom: 8px;
+  line-height: 1.15;
+}
+
+.subtitle {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.85rem;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 40px;
+}
+
+h2 {
+  font-size: 1.7rem;
+  margin-top: 56px;
+  margin-bottom: 16px;
+  padding-bottom: 6px;
+  border-bottom: 2px solid var(--border);
+}
+
+h3 {
+  font-size: 1.2rem;
+  margin-top: 32px;
+  margin-bottom: 10px;
+}
+
+p { margin-bottom: 14px; }
+
+.box {
+  padding: 20px 24px;
+  margin: 24px 0;
+  border-radius: 0px;
+  border: 2px solid;
+}
+
+.box-definition { border-color: var(--blue); }
+.box-definition .box-label { color: var(--blue); }
+
+.box-insight { border-color: var(--purple); }
+.box-insight .box-label { color: var(--purple); }
+
+.box-example { border-color: var(--orange); }
+.box-example .box-label { color: var(--orange); }
+
+.box-trap { border-color: var(--red); }
+.box-trap .box-label { color: var(--red); }
+
+.box-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 10px;
+  display: block;
+}
+
+.box p:last-child { margin-bottom: 0; }
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+  font-size: 0.95rem;
+}
+
+th, td {
+  padding: 8px 12px;
+  border: 1px solid var(--border-light);
+  text-align: left;
+}
+
+th {
+  background: var(--surface2);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-weight: 500;
+}
+
+code {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.88em;
+  background: var(--surface2);
+  padding: 2px 6px;
+  border-radius: 0px;
+}
+
+ul, ol { margin: 12px 0 12px 24px; }
+li { margin-bottom: 6px; }
+
+.toc {
+  background: var(--surface2);
+  padding: 24px 28px;
+  margin: 32px 0;
+  border: 1px solid var(--border-light);
+}
+
+.toc-title {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 12px;
+  font-weight: 500;
+}
+
+.toc ol { margin: 0 0 0 20px; }
+.toc li { margin-bottom: 4px; font-size: 0.95rem; }
+.toc a { color: var(--text); text-decoration: none; border-bottom: 1px solid var(--border-light); }
+.toc a:hover { border-bottom-color: var(--border); }
+
+.katex-display { margin: 16px 0; overflow-x: auto; }
+
+hr {
+  border: none;
+  border-top: 1px solid var(--border-light);
+  margin: 48px 0;
+}
+</style>
+</head>
+<body>
+
+<h1>Introduction to Cash Games</h1>
+<div class="subtitle">Cash Game Masterclass -- Chapter 1 Crash Course</div>
+
+<div class="toc">
+  <div class="toc-title">Contents</div>
+  <ol>
+    <li><a href="#mindset">Course Mindset & Structure</a></li>
+    <li><a href="#equity">Equity & Expected Value</a></li>
+    <li><a href="#pot-odds">Pot Odds</a></li>
+    <li><a href="#ranges">Ranges</a></li>
+    <li><a href="#combined">Putting It Together: Equity + Pot Odds + Ranges</a></li>
+    <li><a href="#combos">Counting Combinations & Blockers</a></li>
+    <li><a href="#gto">GTO vs Implementable Strategies</a></li>
+    <li><a href="#traps">Common Traps</a></li>
+  </ol>
+</div>
+
+<!-- ============================================================ -->
+<h2 id="mindset">1. Course Mindset & Structure</h2>
+
+<p>The Cash Game Masterclass applies to <strong>all stakes</strong>, online and live, from micro-stakes to high-stakes. The course assumes an <strong>8-handed table</strong> with a small blind and big blind. For 6-max, simply imagine the first two seats (UTG, UTG+1) have folded.</p>
+
+<div class="box box-insight">
+  <span class="box-label">Key Insight</span>
+  <p>You make money when your opponents make mistakes that you do not also make. Most profit comes from fundamentally sound play <em>plus</em> exploiting opponents' specific errors.</p>
+</div>
+
+<p>The approach requires <strong>paying attention</strong> to your opponents. When you identify what someone does incorrectly, you adjust to exploit it. For example, if an opponent always bets when checked to, you check strong hands to them (they'll over-bluff) and bet your bluffs directly (they'll fold assuming you have it).</p>
+
+<div class="box box-definition">
+  <span class="box-label">Definition -- Effective Stack</span>
+  <p>The <strong>effective stack</strong> is the shortest stack relevant in the hand. If you have 150bb and your opponent has 80bb, you are playing an 80bb effective stack because that's the most either player can win or lose in the hand.</p>
+</div>
+
+<p><strong>Tools you need:</strong></p>
+<ul>
+  <li><strong>Equilab</strong> (Windows) or <strong>Poker Cruncher</strong> (Mac) -- free equity calculators</li>
+  <li><strong>PokerCoaching Preflop App</strong> -- GTO preflop charts</li>
+  <li><strong>Range Analyzer</strong> -- in the PokerCoaching tools section</li>
+</ul>
+
+<!-- ============================================================ -->
+<h2 id="equity">2. Equity & Expected Value</h2>
+
+<div class="box box-definition">
+  <span class="box-label">Definition -- Equity</span>
+  <p><strong>Equity</strong> is your share of the pot based on how often you expect to win. If you have 60% equity in a $100 pot, you "own" $60 of it on average.</p>
+</div>
+
+<div class="box box-definition">
+  <span class="box-label">Definition -- Expected Value (EV)</span>
+  <p><strong>Expected Value</strong> is how much you win or lose on average from a decision. When there is no more future betting (all-in situations), EV is calculated directly from win probability and amounts.</p>
+</div>
+
+<h3>The EV Formula</h3>
+
+<p>For situations with no future betting (all-in or river calls):</p>
+
+$$EV = (P_{\text{win}} \times \text{Amount Won}) + (P_{\text{lose}} \times \text{Amount Lost})$$
+
+<p>Where Amount Lost is negative.</p>
+
+<div class="box box-example">
+  <span class="box-label">Worked Example -- Coin Flip</span>
+  <p><strong>Scenario:</strong> Fair coin flip. Win $100 when heads, lose $100 when tails.</p>
+  $$EV = (0.50 \times 100) + (0.50 \times -100) = 50 - 50 = \$0$$
+  <p>Exactly break-even, as expected.</p>
+</div>
+
+<div class="box box-example">
+  <span class="box-label">Worked Example -- Weighted Payoff</span>
+  <p><strong>Scenario:</strong> Fair coin flip. Win $200 when heads, lose $100 when tails.</p>
+  $$EV = (0.50 \times 200) + (0.50 \times -100) = 100 - 50 = +\$50$$
+  <p>You profit $50 per flip on average despite winning only half the time.</p>
+</div>
+
+<div class="box box-example">
+  <span class="box-label">Worked Example -- Poker All-In</span>
+  <p><strong>Scenario:</strong> Opponent goes all-in for $100 into a $300 pot. You know you'll win 30% of the time.</p>
+  <p>If you win: you collect $300 (pot) + $100 (their bet) = $400. If you lose: you lose $100 (your call).</p>
+  $$EV = (0.30 \times 400) + (0.70 \times -100) = 120 - 70 = +\$50$$
+  <p>Despite winning only 30% of the time, calling is profitable because the pot gives you a large payout when you do win.</p>
+</div>
+
+<h3>Equity Share of a Pot</h3>
+
+$$\text{Your Equity Share} = \text{Your Equity \%} \times \text{Total Pot}$$
+$$\text{Profit} = \text{Equity Share} - \text{Amount You Invested}$$
+
+<div class="box box-example">
+  <span class="box-label">Worked Example -- AKo vs JTs</span>
+  <p>You get all-in preflop with AKo vs JTs. Total pot is $10,000. AKo wins ~59.5% of the time.</p>
+  $$\text{Your Share} = 0.595 \times 10{,}000 = \$5{,}948$$
+  <p>If you invested $4,500 into the pot:</p>
+  $$\text{Profit} = 5{,}948 - 4{,}500 = +\$1{,}448$$
+  <p>JTs would lose: $(0.405 \times 10{,}000) - 4{,}500 = -\$448$</p>
+</div>
+
+<div class="box box-insight">
+  <span class="box-label">Key Insight</span>
+  <p>Once money goes into the pot, it is no longer yours. Your only decision is whether your equity share of the total pot justifies the additional investment required.</p>
+</div>
+
+<!-- ============================================================ -->
+<h2 id="pot-odds">3. Pot Odds</h2>
+
+<div class="box box-definition">
+  <span class="box-label">Definition -- Pot Odds</span>
+  <p><strong>Pot odds</strong> express the ratio of what you can win to what you must risk. They tell you the minimum win percentage needed to justify a call.</p>
+</div>
+
+<h3>Traditional Ratio Format</h3>
+
+$$\text{Pot Odds} = (\text{Pot} + \text{Opponent's Bet}) \;:\; \text{Your Call}$$
+
+<p>Simplify by dividing both sides by the right number.</p>
+
+<h3>Converting to Required Win Percentage</h3>
+
+$$\text{Required Win\%} = \frac{\text{Your Call}}{\text{Pot} + \text{Opponent's Bet} + \text{Your Call}}$$
+
+<p>Think of it as: <strong>your call divided by the total pot after you call</strong>.</p>
+
+<div class="box box-example">
+  <span class="box-label">Worked Example -- Half-Pot Bet</span>
+  <p><strong>Scenario:</strong> Opponent bets $10 into a $10 pot.</p>
+  <p>Pot odds: ($10 + $10) : $10 = 2:1</p>
+  $$\text{Required Win\%} = \frac{10}{10 + 10 + 10} = \frac{10}{30} = 33.3\%$$
+</div>
+
+<div class="box box-example">
+  <span class="box-label">Worked Example -- Third-Pot Bet</span>
+  <p><strong>Scenario:</strong> Opponent bets $100 into a $300 pot.</p>
+  $$\text{Required Win\%} = \frac{100}{300 + 100 + 100} = \frac{100}{500} = 20\%$$
+  <p>Against a small bet, you only need to win 1 in 5 times.</p>
+</div>
+
+<div class="box box-example">
+  <span class="box-label">Worked Example -- Overbet</span>
+  <p><strong>Scenario:</strong> Opponent bets $1,000 into a $700 pot (overbet).</p>
+  $$\text{Required Win\%} = \frac{1{,}000}{700 + 1{,}000 + 1{,}000} = \frac{1{,}000}{2{,}700} = 37\%$$
+  <p>Even against an overbet, you never need more than ~50% to call.</p>
+</div>
+
+<h3>Essential Pot Odds Reference</h3>
+
+<table>
+  <tr><th>Bet Size</th><th>Pot Odds</th><th>Required Win%</th></tr>
+  <tr><td>25% pot (1/4)</td><td>5:1</td><td>16.7%</td></tr>
+  <tr><td>33% pot (1/3)</td><td>4:1</td><td>20.0%</td></tr>
+  <tr><td>50% pot (1/2)</td><td>3:1</td><td>25.0%</td></tr>
+  <tr><td>67% pot (2/3)</td><td>2.5:1</td><td>28.6%</td></tr>
+  <tr><td>75% pot (3/4)</td><td>2.33:1</td><td>30.0%</td></tr>
+  <tr><td>100% pot</td><td>2:1</td><td>33.3%</td></tr>
+  <tr><td>150% pot</td><td>1.67:1</td><td>37.5%</td></tr>
+  <tr><td>200% pot</td><td>1.5:1</td><td>40.0%</td></tr>
+</table>
+
+<div class="box box-insight">
+  <span class="box-label">Key Insight -- The 50% Ceiling</span>
+  <p>When facing a bet, you <strong>never</strong> need more than ~50% equity to call. Because you're always matching your opponent's bet, the formula is always $\frac{\text{call}}{\text{call} + \text{call} + \text{pot}}$. Even if they bet a million into a $10 pot, you need just under 50%.</p>
+</div>
+
+<div class="box box-insight">
+  <span class="box-label">Key Insight -- Bet Size and Defense</span>
+  <p><strong>Smaller bets</strong> = continue more often (you need to win less). <strong>Larger bets</strong> = continue less often (you need to win more). This is why small c-bets on the flop often get called -- the defender's pot odds are too good to fold most hands.</p>
+</div>
+
+<!-- ============================================================ -->
+<h2 id="ranges">4. Ranges</h2>
+
+<div class="box box-definition">
+  <span class="box-label">Definition -- Range</span>
+  <p>A <strong>range</strong> is all the hands someone could realistically hold at a given point in the hand. You never try to put an opponent on one specific hand; you think about which hands are consistent with every action they've taken.</p>
+</div>
+
+<h3>The Hand Grid</h3>
+<p>The standard 13x13 grid represents all 169 distinct starting hands:</p>
+<ul>
+  <li><strong>Diagonal</strong> (top-left to bottom-right): Pocket pairs -- AA, KK, ... 22</li>
+  <li><strong>Above diagonal</strong>: Suited hands (e.g., AKs, QJs)</li>
+  <li><strong>Below diagonal</strong>: Offsuit hands (e.g., AKo, QJo)</li>
+</ul>
+
+<h3>How Ranges Narrow</h3>
+
+<p>Every action an opponent takes removes hands from their range:</p>
+
+<ol>
+  <li><strong>Preflop:</strong> A tight player raises only premium hands. A loose player raises many hands. Their raise/limp/fold decision narrows their range immediately.</li>
+  <li><strong>Flop:</strong> If they continuation-bet with everything, their range doesn't narrow. If they only bet strong hands, a bet removes weak hands and a check removes strong hands.</li>
+  <li><strong>Turn/River:</strong> Each action further narrows the range.</li>
+</ol>
+
+<div class="box box-example">
+  <span class="box-label">Worked Example -- Exploiting a Weak-Tight Player</span>
+  <p><strong>Setup:</strong> Weak-tight player raises preflop with premium hands only, c-bets flop 100% of the time, then only bets turn with strong hands (top pair+).</p>
+  <p><strong>Board:</strong> K-7-6-Q. They check the turn.</p>
+  <p><strong>Analysis:</strong> Their check means they do NOT have AA, KK, QQ, AK, KQ (they'd bet these). They only have marginal hands like AQ, JJ, TT, 99, 88.</p>
+  <p>Of these remaining hands, only AQ will call a bet. JJ-88 will fold. That means they fold approximately <strong>67% of the time</strong> when they check turn.</p>
+  <p><strong>Action:</strong> Bet aggressively when they check -- they'll fold most of their range.</p>
+</div>
+
+<h3>Range vs Range Thinking</h3>
+
+<p>Rather than asking "how do I play my specific hand?", the right question is "how does my <em>range</em> compare to my opponent's <em>range</em> on this board?"</p>
+
+<div class="box box-example">
+  <span class="box-label">Worked Example -- Range Advantage by Board</span>
+  <p><strong>Your range (UTG raiser):</strong> 77+, ATs+, KJs+, AJo+</p>
+  <p><strong>Opponent's range (BB caller):</strong> TT-33, suited connectors, suited aces -- no AA/KK/QQ/JJ/AKs (would have 3-bet)</p>
+  <p><strong>Board A-J-4:</strong> Your range has ~69.5% equity. You connect with this board heavily (many aces, AJ, etc.) while opponent is missing their best hands. <strong>Bet frequently.</strong></p>
+  <p><strong>Board 7-6-5:</strong> Your range has ~50.3% equity. Opponent has many two-pairs and straights. <strong>Be cautious.</strong></p>
+</div>
+
+<div class="box box-insight">
+  <span class="box-label">Key Insight -- Balanced Ranges</span>
+  <p>You should have <strong>strong hands in both your betting range and checking range</strong>. If you always bet your strong hands and check your weak hands, observant opponents will exploit you by folding to your bets and bluffing your checks.</p>
+</div>
+
+<!-- ============================================================ -->
+<h2 id="combined">5. Putting It Together</h2>
+
+<h3>The Decision Framework</h3>
+<ol>
+  <li><strong>Calculate pot odds</strong> -- what is the minimum win% needed?</li>
+  <li><strong>Estimate opponent's range</strong> -- based on position, actions, tendencies</li>
+  <li><strong>Calculate your equity</strong> vs that range (use Equilab/Poker Cruncher)</li>
+  <li><strong>Compare:</strong> Equity &gt; Required Win% = Call. Equity &lt; Required Win% = Fold.</li>
+</ol>
+
+<div class="box box-example">
+  <span class="box-label">Worked Example -- 4-Bet All-In Decision (100bb Deep)</span>
+  <p><strong>Setup:</strong> You raise to 3bb from HJ. SB 3-bets to 10bb. You 4-bet to 22bb. SB shoves 100bb.</p>
+  <p><strong>Step 1 -- Pot Odds:</strong> You must call 78bb more (100 - 22) into a total pot of 201bb (your 100 + their 100 + SB).</p>
+  $$\text{Required Win\%} = \frac{78}{201} = 38.8\%$$
+  <p><strong>Step 2 -- Opponent's Range:</strong> Estimated as QQ+, AKs, AKo (maybe AQs, A5s).</p>
+  <p><strong>Step 3 -- Your Equity:</strong></p>
+  <table>
+    <tr><th>Your Hand</th><th>Equity vs Range</th><th>Decision</th></tr>
+    <tr><td>AKo</td><td>~46%</td><td>Call</td></tr>
+    <tr><td>AQs</td><td>~41%</td><td>Call</td></tr>
+    <tr><td>AQo</td><td>~38.6%</td><td>Fold (just barely)</td></tr>
+    <tr><td>TT</td><td>~42%</td><td>Call</td></tr>
+    <tr><td>99</td><td>~39.1%</td><td>Call (barely)</td></tr>
+    <tr><td>88</td><td>~39.1%</td><td>Call (barely)</td></tr>
+    <tr><td>77</td><td>~37.5%</td><td>Fold</td></tr>
+  </table>
+  <p><strong>Result:</strong> Call with 88+, AQs+, AKo. Fold 77-, AQo, AJs-.</p>
+</div>
+
+<h3>Key Relationships</h3>
+
+<table>
+  <tr><th>If This Changes...</th><th>Then Your Calling Range...</th></tr>
+  <tr><td>Opponent's range gets wider</td><td>Gets wider (you beat more hands)</td></tr>
+  <tr><td>Opponent's range gets tighter</td><td>Gets tighter (you beat fewer hands)</td></tr>
+  <tr><td>Pot odds improve (smaller bet / more dead money)</td><td>Gets wider (need to win less often)</td></tr>
+  <tr><td>Pot odds worsen (bigger bet / less dead money)</td><td>Gets tighter (need to win more often)</td></tr>
+  <tr><td>Effective stacks are shorter</td><td>Gets wider (better pot odds on all-ins)</td></tr>
+  <tr><td>Effective stacks are deeper</td><td>Gets tighter (worse pot odds on all-ins)</td></tr>
+</table>
+
+<div class="box box-example">
+  <span class="box-label">Worked Example -- Short Stack vs Maniac (25bb)</span>
+  <p><strong>Setup:</strong> You raise to 2.2bb on BTN. BB (a maniac) shoves 25bb with an extremely wide range including hands like J8s, 97s, K5o, etc.</p>
+  <p><strong>Pot Odds:</strong> Call 22.8bb into ~50.5bb total = 45.1% needed.</p>
+  <p><strong>Calling Range:</strong> 22+, A5o+, A2s+, K9s+, QTs+, KTo+ -- much wider than normal because the opponent's range is so wide.</p>
+  <p>Against a tight shove range in the same spot: only TT+, AQs+, AKo.</p>
+</div>
+
+<!-- ============================================================ -->
+<h2 id="combos">6. Counting Combinations & Blockers</h2>
+
+<div class="box box-definition">
+  <span class="box-label">Definition -- Combinations (Combos)</span>
+  <p>The number of specific card arrangements that make up a given hand. Counting combos tells you how <em>likely</em> an opponent is to hold a particular hand.</p>
+</div>
+
+<h3>Base Combo Counts (No Cards Removed)</h3>
+
+<table>
+  <tr><th>Hand Type</th><th>Total</th><th>Suited</th><th>Offsuit</th></tr>
+  <tr><td>Unpaired (e.g., AK)</td><td>16</td><td>4</td><td>12</td></tr>
+  <tr><td>Pocket Pair (e.g., QQ)</td><td>6</td><td>--</td><td>--</td></tr>
+</table>
+
+<h3>Counting Unpaired Combos</h3>
+
+$$\text{Combos} = \text{unseen cards of rank A} \times \text{unseen cards of rank B}$$
+
+<div class="box box-example">
+  <span class="box-label">Worked Example -- AK on A-6-4 Board</span>
+  <p>One Ace is on the board. No Kings visible.</p>
+  $$\text{AK combos} = 3 \text{ (aces left)} \times 4 \text{ (kings left)} = 12$$
+  <p>Down from 16 preflop to 12 on this board.</p>
+  <p>Suited combos: only 3 (the A<span style="color:red">&hearts;</span>K<span style="color:red">&hearts;</span> combo is gone since A<span style="color:red">&hearts;</span> is on board).</p>
+</div>
+
+<div class="box box-example">
+  <span class="box-label">Worked Example -- A6 Two-Pair on A-6-4</span>
+  <p>One Ace gone, one 6 gone.</p>
+  $$\text{A6 combos} = 3 \times 3 = 9$$
+  <p>If opponent only plays <strong>suited</strong> A6: only 2 combos remain (A&diams;6&diams; and A&spades;6&spades;, since A<span style="color:red">&hearts;</span> and 6&clubs; are on board).</p>
+</div>
+
+<div class="box box-example">
+  <span class="box-label">Worked Example -- You Hold an Ace</span>
+  <p>Board: A<span style="color:red">&hearts;</span>-6&clubs;-4&diams;. You hold A&diams;.</p>
+  $$\text{Opponent's A6 combos} = 2 \text{ (aces left)} \times 3 \text{ (sixes left)} = 6$$
+  <p>If they only play A6 suited: <strong>1 combo</strong> (only A&spades;6&spades; is possible).</p>
+</div>
+
+<h3>Counting Pair Combos</h3>
+
+<table>
+  <tr><th>Cards of Rank Seen</th><th>Cards Left</th><th>Combos</th></tr>
+  <tr><td>0</td><td>4</td><td>6</td></tr>
+  <tr><td>1 (on board or in your hand)</td><td>3</td><td>3</td></tr>
+  <tr><td>2</td><td>2</td><td>1</td></tr>
+</table>
+
+<h3>Sets on a Flop</h3>
+
+<div class="box box-example">
+  <span class="box-label">Worked Example -- Sets on 9-7-3</span>
+  <p>Each rank has 1 card on board, leaving 3 of each rank.</p>
+  <p>99: 3 combos. 77: 3 combos. 33: 3 combos. Total: <strong>9 set combos</strong>.</p>
+  <p>On a paired board like 9-9-6: 99 has only <strong>1 combo</strong> (2 cards visible). 66 has <strong>3 combos</strong>. Total: only 4.</p>
+</div>
+
+<div class="box box-definition">
+  <span class="box-label">Definition -- Set vs Trips</span>
+  <p><strong>Set:</strong> You hold a pocket pair and one matching card is on the board (e.g., you have 77 on a 7-K-2 board). More disguised.</p>
+  <p><strong>Trips:</strong> You hold one card matching a pair on the board (e.g., you have K7 on a 7-7-2 board). Less disguised, harder to get paid off.</p>
+</div>
+
+<h3>Blockers</h3>
+
+<div class="box box-definition">
+  <span class="box-label">Definition -- Blocker</span>
+  <p>A <strong>blocker</strong> is a card in your hand that reduces the number of combinations of a specific holding your opponent can have.</p>
+</div>
+
+<div class="box box-example">
+  <span class="box-label">Worked Example -- Nut Flush Blocker</span>
+  <p>Board has three spades. You hold A&spades; (but no other spade).</p>
+  <p>Your opponent <strong>cannot</strong> have the nut flush. Their possible flushes drop by ~33% because all Ax-spade combos are eliminated. This makes bluff-catching more profitable since fewer of their bets represent the nuts.</p>
+</div>
+
+<div class="box box-example">
+  <span class="box-label">Worked Example -- 3-Bet Blockers</span>
+  <p>You hold A5o and 3-bet. Your opponent now has:</p>
+  <ul>
+    <li>AA: <strong>3 combos</strong> instead of 6 (you block one Ace)</li>
+    <li>AK: <strong>12 combos</strong> instead of 16 (3 aces x 4 kings)</li>
+  </ul>
+  <p>This is one reason suited aces are good 3-bet bluffs -- they block the opponent's strongest hands.</p>
+</div>
+
+<div class="box box-insight">
+  <span class="box-label">Key Insight -- Suited vs Offsuit in Ranges</span>
+  <p>Many players only play the <strong>suited</strong> version of marginal hands (e.g., 75s but not 75o). This means instead of 16 combos, they have only 4. When a board makes a straight possible with a hand like 7-5, ask: does my opponent even play 75o? If not, there are only 4 possible combos of straights, not 16.</p>
+</div>
+
+<!-- ============================================================ -->
+<h2 id="gto">7. GTO vs Implementable Strategies</h2>
+
+<div class="box box-definition">
+  <span class="box-label">Definition -- Game Theory Optimal (GTO)</span>
+  <p>A strategy where if your opponent knows your exact strategy and plays perfectly against it, they <strong>break even at best</strong> (and lose the rake in cash games). It is the mathematically unexploitable strategy, computed by solvers.</p>
+</div>
+
+<h3>Why Pure GTO Fails for Humans</h3>
+<ul>
+  <li>Requires <strong>mixed strategies</strong>: "4-bet AKo 68% of the time, call 32%"</li>
+  <li>Nearly identical hands get different frequencies (AKs: 4-bet 42%, AKo: 4-bet 68%)</li>
+  <li>Tiny board texture differences change the strategy completely</li>
+  <li>Impossible to memorize or execute precisely at the table</li>
+</ul>
+
+<div class="box box-definition">
+  <span class="box-label">Definition -- Implementable Strategy</span>
+  <p>A <strong>simplified</strong> version of the GTO strategy that humans can actually execute. It assigns pure actions to hands (always raise OR always call, not a mix) while maintaining approximately correct overall frequencies.</p>
+</div>
+
+<h3>How to Build an Implementable Strategy</h3>
+<ol>
+  <li>Study the GTO solver output to understand <strong>what</strong> it does and <strong>why</strong></li>
+  <li>Look at the overall <strong>percentages</strong> of hands in each action (raise / call / fold)</li>
+  <li><strong>Assign hands to pure actions</strong> to match those percentages approximately</li>
+  <li>Accept small deviations -- slightly too many value hands can be offset by slightly too many bluffs</li>
+</ol>
+
+<div class="box box-example">
+  <span class="box-label">Worked Example -- Facing a 3-Bet (HJ vs SB)</span>
+  <table>
+    <tr><th>Hand</th><th>GTO</th><th>Implementable</th></tr>
+    <tr><td>AA</td><td>4-bet 100%</td><td>4-bet 100%</td></tr>
+    <tr><td>KK</td><td>4-bet 54%, call 46%</td><td>4-bet 100%</td></tr>
+    <tr><td>AKs</td><td>4-bet 42%, call 58%</td><td>Call 100%</td></tr>
+    <tr><td>AKo</td><td>4-bet 68%, call 32%</td><td>4-bet 100%</td></tr>
+    <tr><td>A3s</td><td>4-bet 43%</td><td>4-bet 100% (bluff)</td></tr>
+    <tr><td>A5s</td><td>Fold</td><td>4-bet 100% (bluff)</td></tr>
+  </table>
+  <p>The implementable version has ~2 extra value combos AND ~2 extra bluff combos, which roughly cancel out. The frequencies are close enough while being dramatically easier to execute.</p>
+</div>
+
+<h3>Exploitative Adjustments Over GTO</h3>
+
+<table>
+  <tr><th>Opponent Tendency</th><th>Your Adjustment</th></tr>
+  <tr><td>Only 3-bets premium hands</td><td>Stop bluffing; call tighter</td></tr>
+  <tr><td>3-bets too wide (junk)</td><td>Add many more bluffs; re-bluff them</td></tr>
+  <tr><td>3-bets AND 5-bets too wide</td><td>Stop bluffing; add value hands (e.g., 4-bet TT for value)</td></tr>
+</table>
+
+<div class="box box-insight">
+  <span class="box-label">Key Insight -- Why Call with Kings/Queens Preflop?</span>
+  <p>In GTO, you sometimes just call with KK/QQ/JJ facing a 3-bet so your <strong>calling range stays strong</strong>. If you always 4-bet your big pairs, your calling range becomes weak (only medium pairs and suited connectors), and your opponent can exploit you by bluffing your calls aggressively.</p>
+</div>
+
+<div class="box box-insight">
+  <span class="box-label">Key Insight -- Implementable Beats Imperfect GTO</span>
+  <p>A well-executed implementable strategy will outperform an imperfectly-executed GTO strategy. Your opponents who try to play "solver poker" but mix incorrectly will have wrong frequencies. Your pure-action strategy has the right frequencies and is easy to execute consistently.</p>
+</div>
+
+<!-- ============================================================ -->
+<h2 id="traps">8. Common Traps</h2>
+
+<div class="box box-trap">
+  <span class="box-label">Trap -- "I'm Supposed to Win"</span>
+  <p>Remove the concept of "supposed to" from your poker thinking. If you have 60% equity, you are "supposed" to win 60% and lose 40%. Losing 40% of the time is <strong>normal</strong>, not bad luck. Variance is inherent -- even 10 losses in a row at 60% equity is possible (probability ~0.01%).</p>
+</div>
+
+<div class="box box-trap">
+  <span class="box-label">Trap -- Wrong Pot Odds Calculation</span>
+  <p>Many players calculate pot odds by dividing their call by the pot <em>before</em> their call (e.g., $1000 / $1700 = 59%). The correct calculation includes your call in the denominator: $1000 / ($700 + $1000 + $1000) = 37%. The first method dramatically overestimates how often you need to win.</p>
+</div>
+
+<div class="box box-trap">
+  <span class="box-label">Trap -- Ignoring Pot Odds When "Flipping"</span>
+  <p>Players often fold AQs preflop because "I'm just flipping against his range." But if you have 49% equity and only need 39% to call profitably, folding is a massive mistake. <strong>Always compare equity to the required win percentage</strong>, not to 50%.</p>
+</div>
+
+<div class="box box-trap">
+  <span class="box-label">Trap -- Putting Opponent on One Hand</span>
+  <p>"I put him on AK." This is fundamentally wrong thinking. You should always think in <strong>ranges</strong>. Your opponent could have dozens of possible hands. Assigning a single hand is a guess; assigning a range is analysis.</p>
+</div>
+
+<div class="box box-trap">
+  <span class="box-label">Trap -- Betting = Strong, Checking = Weak</span>
+  <p>Many players (especially at low/mid stakes) bet all their good hands and check all their weak hands. This makes them extremely exploitable because when they check, opponents know they have junk and can bluff aggressively. <strong>Keep strong hands in both your betting and checking ranges.</strong></p>
+</div>
+
+<div class="box box-trap">
+  <span class="box-label">Trap -- Fearing Unlikely Hands</span>
+  <p>Players panic when a "scary" card comes: "He could have 7-5 for a straight!" But if your opponent raised from UTG, they almost certainly don't play 7-5 offsuit (0 combos) and probably not even 7-5 suited (4 combos at most). Use combo counting to assess <em>actual</em> likelihood before panicking.</p>
+</div>
+
+<div class="box box-trap">
+  <span class="box-label">Trap -- Trying to Memorize Solver Output</span>
+  <p>Memorizing "4-bet AKo 68% of the time" is futile. You cannot execute mixed strategies accurately at the table. Instead, understand <strong>why</strong> the solver does what it does and build pure-action implementable strategies that maintain the correct overall frequencies.</p>
+</div>
+
+<div class="box box-trap">
+  <span class="box-label">Trap -- Forgetting the Rake</span>
+  <p>In marginal spots, rake can turn a slightly profitable call into a losing one. A pot that's $201 before rake might be $191 after rake. Always factor in your casino's rake structure, especially in small pots where rake takes a larger percentage.</p>
+</div>
+
+<hr>
+
+<p style="text-align:center; color:var(--text-dim); font-family:'JetBrains Mono',monospace; font-size:0.8rem;">
+  Cash Game Masterclass -- Chapter 1 Crash Course<br>
+  Source: PokerCoaching.com by Jonathan Little
+</p>
+
+</body>
+</html>

@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chapter 5: Playing the River -- Crash Course</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;1,400;1,600&family=Source+Serif+4:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'\(',right:'\)',display:false}]})"></script>
+<style>
+:root {
+  --bg: #FFFFFF; --surface: #FFFFFF; --surface2: #F5F5F5;
+  --accent: #000000; --text: #000000; --text-dim: #525252;
+  --correct: #1a7a5e; --wrong: #b91c1c; --orange: #8B6914;
+  --border: #000000; --border-light: #E5E5E5;
+  --blue: #1e40af; --purple: #6b21a8; --red: #b91c1c;
+}
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; border-radius:0 !important; }
+body { font-family:'Source Serif 4','Georgia',serif; background:var(--bg); color:var(--text); line-height:1.7; -webkit-font-smoothing:antialiased; }
+.container { max-width:780px; margin:0 auto; padding:0 1.5rem 4rem; }
+
+header { padding:4rem 0 2rem; text-align:center; border-bottom:4px solid var(--accent); margin-bottom:2.5rem; }
+header h1 { font-family:'Playfair Display',serif; font-weight:800; font-size:2.6rem; letter-spacing:-0.02em; line-height:1.15; margin-bottom:0.5rem; }
+header .sub { font-family:'JetBrains Mono',monospace; font-size:0.75rem; font-weight:500; text-transform:uppercase; letter-spacing:0.15em; color:var(--text-dim); }
+
+h2 { font-family:'Playfair Display',serif; font-weight:700; font-size:1.7rem; margin:2.5rem 0 1rem; padding-bottom:0.4rem; border-bottom:2px solid var(--accent); }
+h3 { font-family:'Playfair Display',serif; font-weight:600; font-size:1.25rem; margin:1.8rem 0 0.6rem; }
+h4 { font-family:'JetBrains Mono',monospace; font-weight:600; font-size:0.85rem; text-transform:uppercase; letter-spacing:0.08em; margin:1.2rem 0 0.4rem; }
+
+p, li { font-size:1.02rem; margin-bottom:0.5rem; }
+ul, ol { padding-left:1.5rem; margin-bottom:1rem; }
+strong { font-weight:700; }
+
+/* Colored boxes */
+.box { padding:1rem 1.25rem; margin:1rem 0; border-left:4px solid; background:var(--surface2); }
+.box-blue { border-color:var(--blue); }
+.box-purple { border-color:var(--purple); }
+.box-orange { border-color:var(--orange); }
+.box-red { border-color:var(--red); }
+.box .label { font-family:'JetBrains Mono',monospace; font-size:0.7rem; font-weight:600; text-transform:uppercase; letter-spacing:0.1em; margin-bottom:0.4rem; display:block; }
+.box-blue .label { color:var(--blue); }
+.box-purple .label { color:var(--purple); }
+.box-orange .label { color:var(--orange); }
+.box-red .label { color:var(--red); }
+
+table { width:100%; border-collapse:collapse; margin:1rem 0; font-size:0.92rem; }
+th, td { text-align:left; padding:0.5rem 0.75rem; border:1px solid var(--border-light); }
+th { background:var(--accent); color:#fff; font-family:'JetBrains Mono',monospace; font-size:0.75rem; text-transform:uppercase; letter-spacing:0.08em; font-weight:600; }
+
+code { font-family:'JetBrains Mono',monospace; font-size:0.88em; background:var(--surface2); padding:0.1em 0.35em; border:1px solid var(--border-light); }
+
+.toc { background:var(--surface2); padding:1.5rem 2rem; margin-bottom:2rem; border:1px solid var(--border); }
+.toc h3 { margin-top:0; }
+.toc ol { margin-bottom:0; }
+.toc li { font-size:0.95rem; margin-bottom:0.25rem; }
+.toc a { color:var(--text); text-decoration:none; border-bottom:1px solid var(--border-light); }
+.toc a:hover { border-color:var(--accent); }
+
+.katex-display { margin:1rem 0; }
+</style>
+</head>
+<body>
+<div class="container">
+
+<header>
+  <h1>Playing the River</h1>
+  <div class="sub">Cash Game Masterclass -- Chapter 5 Crash Course</div>
+</header>
+
+<nav class="toc">
+  <h3>Contents</h3>
+  <ol>
+    <li><a href="#foundations">River Foundations: Value vs Bluffs</a></li>
+    <li><a href="#range-analysis">Analyzing Your Range</a></li>
+    <li><a href="#exact-hand">Analyzing Your Exact Hand</a></li>
+    <li><a href="#position">Positional Adjustments (IP vs OOP)</a></li>
+    <li><a href="#facing-bet">Facing a River Bet</a></li>
+    <li><a href="#raising">Raising the River (Value & Bluff)</a></li>
+    <li><a href="#bet-raised">When You Bet and Get Raised</a></li>
+    <li><a href="#ip-examples">Betting IP: Solver Examples</a></li>
+    <li><a href="#oop-examples">Betting OOP: Solver Examples</a></li>
+    <li><a href="#facing-examples">Facing Bets: Solver Examples</a></li>
+  </ol>
+</nav>
+
+<!-- ═══════════════════════════════════════════════ -->
+<h2 id="foundations">1. River Foundations: Value vs Bluffs</h2>
+
+<div class="box box-blue">
+  <span class="label">Definition</span>
+  <strong>Value bet:</strong> You expect to win at showdown &gt;50% of the time <em>when called</em>.<br>
+  <strong>Bluff:</strong> You expect to lose at showdown ~100% of the time <em>when called</em>.
+</div>
+
+<p>Unlike earlier streets, the river has <strong>no draws or semi-bluffs</strong>. Your range is purely a mixture of value hands and bluffs. The goal:</p>
+<ul>
+  <li><strong>Value betting</strong>: extract maximum from worse hands as often as possible</li>
+  <li><strong>Bluffing</strong>: force better hands to fold, while ensuring your value bets get called</li>
+</ul>
+
+<div class="box box-purple">
+  <span class="label">Insight</span>
+  Sometimes your value bet gets called by a better hand -- that's okay. Sometimes your bluff gets called -- that's also okay. If your range is balanced, you are <strong>unexploitable</strong>.
+</div>
+
+<h3>Key Questions Before Every River Bet</h3>
+<ol>
+  <li>How many bet sizes should I use for value?</li>
+  <li>What should those sizes be?</li>
+  <li>Which hands go into each size (value and bluff)?</li>
+  <li>What percentage of bluffs do I need per size?</li>
+  <li>How did the river card impact my range and equity?</li>
+</ol>
+
+<!-- ═══════════════════════════════════════════════ -->
+<h2 id="range-analysis">2. Analyzing Your Range</h2>
+
+<h3>The Two-Bet-Size Framework</h3>
+<p>On the river, utilize <strong>two distinct bet sizes</strong>. This strategy lets you:</p>
+<ul>
+  <li>Extract maximum value with premium hands (big bet)</li>
+  <li>Extract some value with marginal winners (small bet)</li>
+</ul>
+
+<table>
+  <tr><th>Bet Category</th><th>Typical Size</th><th>Composition</th></tr>
+  <tr><td>Small bet</td><td>10%-50% pot</td><td>Thin value + few bluffs + some nuts for protection</td></tr>
+  <tr><td>Large bet</td><td>67%-500% pot</td><td>Premium hands + proportional bluffs</td></tr>
+</table>
+
+<h3>Hand Spectrum on the River</h3>
+<p>Classify every hand in your range into one of four categories:</p>
+
+<table>
+  <tr><th>Category</th><th>Examples</th><th>Default Action</th></tr>
+  <tr><td>Premium value</td><td>Straights, sets, strong two-pair</td><td>Bet large</td></tr>
+  <tr><td>Thin value</td><td>Top pair top kicker, weak two-pair</td><td>Bet small</td></tr>
+  <tr><td>Some showdown value</td><td>Middle pair, Ace-high</td><td>Check (or small bluff candidate)</td></tr>
+  <tr><td>No showdown value</td><td>Busted draws, low cards</td><td>Bluff or give up</td></tr>
+</table>
+
+<h3>Perfect Polarization</h3>
+
+<div class="box box-blue">
+  <span class="label">Definition</span>
+  <strong>Perfect polarization</strong> occurs when your betting range contains only hands that always win (nuts) and hands that always lose (bluffs). This puts your opponent in a spot where calling and folding are both break-even.
+</div>
+
+<p>When perfectly polarized, you <strong>win the existing pot on average</strong> regardless of what your opponent does.</p>
+
+<h3>Bluff Percentage Formula</h3>
+$$\text{Bluff\%} = \frac{\text{Amount Opponent Calls}}{\text{Pot} + \text{Your Bet} + \text{Opponent's Call}}$$
+
+<table>
+  <tr><th>Bet Size</th><th>Max Bluff %</th><th>Value : Bluff Ratio</th></tr>
+  <tr><td>33% pot</td><td>20%</td><td>4 : 1</td></tr>
+  <tr><td>50% pot</td><td>25%</td><td>3 : 1</td></tr>
+  <tr><td>75% pot</td><td>30%</td><td>2.3 : 1</td></tr>
+  <tr><td>100% pot</td><td>33%</td><td>2 : 1</td></tr>
+  <tr><td>200% pot</td><td>40%</td><td>1.5 : 1</td></tr>
+  <tr><td>500% pot</td><td>45%</td><td>1.2 : 1</td></tr>
+</table>
+
+<div class="box box-red">
+  <span class="label">Trap</span>
+  These percentages assume perfect polarization. When your value bets don't always win (opponent has traps), reduce your bluff percentage accordingly.
+</div>
+
+<h3>Factors That Increase Opponent's Traps</h3>
+<ul>
+  <li>Opponent has a large nut advantage</li>
+  <li>Opponent's range is so weak they check everything (including nuts)</li>
+  <li>You use small bet sizes (random rivered two-pair in their range)</li>
+  <li>Opponent is prone to slow-playing</li>
+</ul>
+
+<h3>River Card Impact</h3>
+<table>
+  <tr><th>River Type</th><th>Your Bet Frequency</th><th>Your Bet Size</th><th>Bluff Amount</th></tr>
+  <tr><td>Good + nut advantage</td><td>High</td><td>Large</td><td>More bluffs</td></tr>
+  <tr><td>Good + equity bump only</td><td>High</td><td>Small</td><td>Slightly more</td></tr>
+  <tr><td>Bad + opponent gains equity</td><td>Low</td><td>Large (polarized)</td><td>Fewer bluffs</td></tr>
+  <tr><td>Bad + opponent gains traps</td><td>Low</td><td>Large (polarized)</td><td>Much fewer</td></tr>
+</table>
+
+<!-- ═══════════════════════════════════════════════ -->
+<h2 id="exact-hand">3. Analyzing Your Exact Hand</h2>
+
+<h3>Value Betting Decision</h3>
+<ol>
+  <li><strong>Premium hand</strong> (65%+ equity when called)? &rarr; Bet large if opponent can call large bets</li>
+  <li><strong>Thin value</strong> (51-64% equity when called)? &rarr; Bet small</li>
+  <li><strong>Neither</strong>? &rarr; Use the Bluffing Decision Flowchart</li>
+</ol>
+
+<div class="box box-purple">
+  <span class="label">Insight</span>
+  Always move some premium hands into your small bet range for balance. Otherwise your small bets are all marginal and get demolished by raises.
+</div>
+
+<h3>Bluffing Decision Flowchart</h3>
+<p>Answer each question. More "yes" answers = more inclined to bluff:</p>
+<ol>
+  <li><strong>Is my opponent capable of folding?</strong> (Calling station? Don't bluff.)</li>
+  <li><strong>Do I lack showdown value?</strong> (10-high = yes, Ace-high = maybe not)</li>
+  <li><strong>Do I have many value hands in my range?</strong> (More value = more bluffs needed)</li>
+  <li><strong>Are my blockers highly relevant?</strong> (Block auto-calls = good)</li>
+  <li><strong>Do I unblock opponent's auto-folds?</strong> (Don't hold cards they'd fold)</li>
+  <li><strong>Does my bluff tell a credible story?</strong> (Would you play your good hands this way?)</li>
+</ol>
+
+<h3>Bluff Sizing Flowchart</h3>
+<p>After deciding to bluff, determine big or small:</p>
+
+<table>
+  <tr><th>Factor</th><th>"Yes" &rarr; Bet Big</th><th>"No" &rarr; Bet Small</th></tr>
+  <tr><td>Zero showdown value?</td><td>5-high, complete air</td><td>Bottom pair, Ace-high</td></tr>
+  <tr><td>Opponent has marginal hands that call small?</td><td>Many one-pairs</td><td>Mostly busted draws</td></tr>
+  <tr><td>Block many nut hands?</td><td>Hold flush/straight blockers</td><td>No relevant blockers</td></tr>
+  <tr><td>Trying to get them off a strong hand?</td><td>Fold out top pair+</td><td>Fold out busted draws</td></tr>
+  <tr><td>Representing a nutted hand?</td><td>Polarized line</td><td>Thin value line</td></tr>
+</table>
+
+<h3>Blocker Logic for Bluffing</h3>
+
+<div class="box box-orange">
+  <span class="label">Example</span>
+  Board: 10-9-4 (two diamonds) -- 9 -- 2. You hold Q&#9830;J&#9830; (busted flush draw).<br>
+  <strong>Bad bluff</strong>: Q-J blocks opponent's K-Q, K-J, A-Q, A-J -- hands they'd auto-fold.<br>
+  Blocking folds means opponent is <em>more likely</em> to have a pair they won't fold.
+</div>
+
+<div class="box box-orange">
+  <span class="label">Example</span>
+  Same board, you hold 7&#9830;6&#9830; (busted flush draw).<br>
+  <strong>Better bluff</strong>: 7-6 does NOT block any of the high-card hands opponent would fold.<br>
+  Their range contains more auto-folds &rarr; your bluff succeeds more often.
+</div>
+
+<h3>The River is Under-Bluffed</h3>
+<p>Two critical truths about small/medium stakes:</p>
+<ol>
+  <li>Most players are afraid to bluff the river (especially overbets)</li>
+  <li>Most players are afraid to overbet when bluffing</li>
+</ol>
+
+<div class="box box-red">
+  <span class="label">Trap</span>
+  Players who "call with everything" on the flop often <strong>overfold</strong> the river after being barreled on flop + turn + river. Don't confuse flop stations with river stations.
+</div>
+
+<!-- ═══════════════════════════════════════════════ -->
+<h2 id="position">4. Positional Adjustments</h2>
+
+<h3>In Position (IP): Betting vs Checking</h3>
+<p>Betting in position <strong>reopens the action</strong> -- opponent can check-raise you.</p>
+
+<h4>When SPR &le; 1 (Shallow)</h4>
+<ul>
+  <li>Use <strong>one bet size only: all-in</strong></li>
+  <li>Do NOT go for thin value with small bets</li>
+  <li>Top pair should check behind (disaster if raised)</li>
+</ul>
+
+<h4>When SPR > 1 (Deeper)</h4>
+<ul>
+  <li>Two bet sizes: ~50% pot (small) + all-in/overbet (large)</li>
+  <li>IP "small" bet is actually medium (~50% pot, not 10-33% like OOP)</li>
+</ul>
+
+<h3>Out of Position (OOP): Four Major Adjustments</h3>
+
+<div class="box box-blue">
+  <span class="label">Definition</span>
+  <strong>OOP thin value betting:</strong> From OOP, a bet just needs to be more profitable than checking. This leads to betting very small (10-33% pot) with hands as weak as bottom pair or third pair.
+</div>
+
+<ol>
+  <li><strong>Bet small with very thin value</strong> (52-55% equity: third pair, bottom pair for 10-33% pot)</li>
+  <li><strong>On great rivers</strong> (big range advantage): single small size, bet frequently</li>
+  <li><strong>Check some nuts</strong> to protect your checking range (for check-raise value)</li>
+  <li><strong>Check some weak pairs</strong> for check-raise bluffs (block opponent's calls)</li>
+</ol>
+
+<h3>OOP Check-Raise Strategy</h3>
+
+<table>
+  <tr><th>Check-Raise Type</th><th>Ideal Hands</th><th>Why</th></tr>
+  <tr><td>For value</td><td>Literal nuts, second nuts</td><td>Build max pot with unbeatable hand</td></tr>
+  <tr><td>As a bluff</td><td>Bottom pair, weak fourth pair</td><td>Wins if check-check; blocks sets/two-pair calls</td></tr>
+</table>
+
+<div class="box box-purple">
+  <span class="label">Insight</span>
+  Check-raise bluffing the river is something <strong>almost no one does</strong> at small/medium stakes. This makes it extremely profitable when executed with proper blockers.
+</div>
+
+<!-- ═══════════════════════════════════════════════ -->
+<h2 id="facing-bet">5. Facing a River Bet</h2>
+
+<h3>Bluff Catching</h3>
+
+<div class="box box-blue">
+  <span class="label">Definition</span>
+  A <strong>bluff catcher</strong> beats all of opponent's bluffs and loses to all of opponent's value hands. The decision to call depends entirely on whether opponent has enough bluffs.
+</div>
+
+<h3>Bluff Catching Decision Flowchart</h3>
+<ol>
+  <li><strong>Are you beating any value hands?</strong> Yes &rarr; Just call (not a bluff catcher)</li>
+  <li><strong>Does opponent's range have enough obvious bluffs?</strong> (Busted draws = yes)</li>
+  <li><strong>Is opponent capable of finding the right bluffs?</strong> (Tight rec = no)</li>
+  <li><strong>Will opponent turn weak showdown value into a bluff?</strong></li>
+  <li><strong>Does my hand unblock the most obvious bluffs?</strong></li>
+</ol>
+
+<div class="box box-orange">
+  <span class="label">Example</span>
+  Board: A-4-4-3-K&#9830;. You hold Q&#9830;J&#9830; facing a 110% pot overbet from a tight recreational player.<br>
+  <strong>Fold</strong>. Your hand blocks diamond flush draws (the most obvious bluffs). Tight player is almost always showing you an ace or a four.
+</div>
+
+<div class="box box-orange">
+  <span class="label">Example</span>
+  Board: K-8-7-5&#9830;-10. You hold Q&#9830;J&#9830; facing 110% pot overbet from a semi-pro.<br>
+  <strong>Closer to a call</strong>. Opponent has many straight draw bluffs (10-9, J-10, 6-5, 5-4). Semi-pros find these bluffs. Your hand doesn't block most of them.
+</div>
+
+<h3>Blocker-Based Calling</h3>
+<p>When opponent is polarized (nuts or nothing), <strong>raw equity matters less than blockers</strong>:</p>
+<ul>
+  <li>Block opponent's value hands &rarr; more inclined to call</li>
+  <li>Block opponent's bluffs &rarr; less inclined to call</li>
+</ul>
+
+<div class="box box-red">
+  <span class="label">Trap</span>
+  A-2 can be a <strong>better call</strong> than 10-9 (trips!) when opponent's bluffs are J-10 combinations. 10-9 blocks the bluffs; A-2 does not. When opponent is perfectly polarized, all bluff catchers have the same equity.
+</div>
+
+<!-- ═══════════════════════════════════════════════ -->
+<h2 id="raising">6. Raising the River (Value & Bluff)</h2>
+
+<h3>Value Raising</h3>
+<p>Raise wider for value when:</p>
+<ul>
+  <li>Facing a <strong>smaller</strong> bet (opponent's range is more marginal)</li>
+  <li>Opponent is <strong>laggy</strong> (calls raises wider)</li>
+  <li>You have one of the <strong>very best</strong> hands in your range</li>
+</ul>
+<p>Raise tighter for value when:</p>
+<ul>
+  <li>Facing a <strong>large</strong> bet (opponent is polarized)</li>
+  <li>Opponent folds all non-nut hands to a raise</li>
+</ul>
+
+<h3>Bluff Raising</h3>
+
+<div class="box box-purple">
+  <span class="label">Insight</span>
+  River bluff raising is one of the most under-utilized plays in poker. Use sizes of <strong>2-5x pot</strong> to maximize fold equity. If you raise 300% pot, you get to have ~43% bluffs.
+</div>
+
+<h4>Bluff Raise Factors</h4>
+<ol>
+  <li>Facing a <strong>small</strong> bet? &rarr; More inclined to bluff raise</li>
+  <li>Opponent <strong>capable of folding</strong>? &rarr; More inclined</li>
+  <li>Your hand has <strong>no showdown value</strong>? &rarr; More inclined</li>
+  <li>You have <strong>many value raise hands</strong>? &rarr; More inclined</li>
+  <li>Your <strong>blockers</strong> block auto-calls? &rarr; More inclined</li>
+  <li>Your bluff tells a <strong>credible story</strong>? &rarr; More inclined</li>
+</ol>
+
+<table>
+  <tr><th>Facing...</th><th>Raise Size</th><th>Reasoning</th></tr>
+  <tr><td>Small bet (33% pot)</td><td>Raise huge (4-5x)</td><td>Get marginal made hands to fold</td></tr>
+  <tr><td>Large bet (100%+ pot)</td><td>Raise smaller or don't raise</td><td>Nuts never fold; bluffs always fold anyway</td></tr>
+</table>
+
+<!-- ═══════════════════════════════════════════════ -->
+<h2 id="bet-raised">7. When You Bet and Get Raised</h2>
+
+<div class="box box-red">
+  <span class="label">Trap</span>
+  <strong>FOLD A LOT.</strong> This is the single most straightforward spot in poker. Your opponents at small/medium stakes almost <em>never</em> bluff enough when raising the river.
+</div>
+
+<h3>OOP: You Bet, IP Raises</h3>
+<ul>
+  <li>Fold all bluffs and bluff catchers</li>
+  <li>Fold most marginal made hands (unless they block opponent's value)</li>
+  <li>Call only with your very best hands</li>
+</ul>
+
+<h3>IP: You Bet, OOP Check-Raises</h3>
+
+<table>
+  <tr><th>Your Bet Size</th><th>Response to Raise</th></tr>
+  <tr><td>Large (polarized)</td><td>Overfold. Opponent is never bluffing enough.</td></tr>
+  <tr><td>Small (thin value)</td><td>Defend closer to MDF. Small bet may have induced bluffs.</td></tr>
+</table>
+
+<p><strong>Key question:</strong> "Did I induce my opponent to bluff me?" If yes, call wider. If no (normal spot), overfold.</p>
+
+<!-- ═══════════════════════════════════════════════ -->
+<h2 id="ip-examples">8. Betting IP: Solver Patterns</h2>
+
+<h3>Pattern 1: Bet Flop + Bet Turn Big &rarr; Jam or Check River</h3>
+
+<div class="box box-orange">
+  <span class="label">Example</span>
+  BTN raises, BB calls. A&#9824;-J&#9829;-5&#9824; flop. Bet 67% flop, overbet turn on 2&#9829;, BB calls.<br>
+  <strong>River (8&#9830;):</strong> Jam all-in (~1.5x pot) or check. Almost no small betting range.<br>
+  Value: A-J, sets, two-pair, A-5. Bluffs: hands with 3 or 4 blockers (block straights).<br>
+  ~33% bluffs in the jamming range.
+</div>
+
+<h3>Pattern 2: Bet Flop + Check Turn &rarr; Small/Medium Bets Only</h3>
+
+<div class="box box-orange">
+  <span class="label">Example</span>
+  LJ raises, BB calls. J&#9824;-6&#9829;-6&#9827;-4&#9824; (bet flop small, check-check turn).<br>
+  <strong>Ace river:</strong> Bet ~50% pot. Value = pocket aces, pocket jacks, aces. No weak ace value bets.<br>
+  No overbets because you lack super nuts after check-check turn.
+</div>
+
+<h3>Pattern 3: Check Flop + Overbet Turn &rarr; Cautious River</h3>
+
+<div class="box box-orange">
+  <span class="label">Example</span>
+  LJ raises, BTN calls. 10&#9830;-8&#9827;-6&#9829; (check-check flop, overbet Q&#9829; turn, call).<br>
+  <strong>Ace river:</strong> Sets overbet; bluffs with 9-8, 5-4 (low pairs). Q-10 two-pair does NOT value bet.<br>
+  Opponent called an overbet = their range is strong. Be very cautious with thin value.
+</div>
+
+<div class="box box-red">
+  <span class="label">Trap</span>
+  When you overbet the turn and opponent calls, their range is condensed and strong. Do NOT thin-value-bet top pair on the river in these spots -- check it behind.
+</div>
+
+<!-- ═══════════════════════════════════════════════ -->
+<h2 id="oop-examples">9. Betting OOP: Solver Patterns</h2>
+
+<h3>Pattern: Range Advantage &rarr; Bet Frequently, Small</h3>
+
+<div class="box box-orange">
+  <span class="label">Example</span>
+  BB vs BTN. 9&#9830;-7&#9827;-5&#9824;-2&#9829; (check-check flop, BB overbets turn, BTN calls).<br>
+  <strong>8 river (great for BB):</strong> Bet frequently (~67%), mostly 25% pot. 9s bet for thin value.<br>
+  Straights overbet. Check J-10 sometimes for check-raise trap.<br>
+  <strong>9 river (bad for BB):</strong> Bet infrequently. When betting, use 4x pot all-in (super polarized).<br>
+  Bluffs: K-x, Q-x, J-x that block opponent's 9s. ~41% bluffs when jamming.
+</div>
+
+<h3>Pattern: Paired Board OOP</h3>
+
+<div class="box box-orange">
+  <span class="label">Example</span>
+  BB vs LJ. K&#9824;-K&#9829;-6&#9830;-2&#9824; (check, LJ bets flop, check-check turn).<br>
+  <strong>Ace river:</strong> Bet infrequently (25%), large (120% pot). Value = kings. Bluffs = ace blockers (A-Q, A-J) + low pairs (9-8, 8-7 blocking draws).<br>
+  <strong>Low rivers:</strong> Bet very frequently, small. Range advantage. Almost no bluffs in small bet range.
+</div>
+
+<h3>OOP Key Rules</h3>
+<ul>
+  <li>Always protect checking range with some nuts (for check-raise)</li>
+  <li>Give up with <strong>highest showdown value</strong> busted draws (K-Q checks, Q-J bluffs)</li>
+  <li>Bigger bet sizes OOP = more polarized range</li>
+  <li>Sets sometimes check OOP to protect check-raising range</li>
+</ul>
+
+<!-- ═══════════════════════════════════════════════ -->
+<h2 id="facing-examples">10. Facing Bets: Solver Patterns</h2>
+
+<h3>IP Facing a Bet</h3>
+
+<h4>Facing a small bet (25% pot)</h4>
+<ul>
+  <li>Raise with nuts + hands that block opponent's auto-calls</li>
+  <li>Bluff raises: every hand containing J or 10 (blocks J-10 for nuts) on a 9-7-5-2-8 board</li>
+  <li>Call with aces, kings that don't block bluffs</li>
+  <li>Even ace-high can call facing small bets</li>
+</ul>
+
+<h4>Facing a large all-in (3x+ pot)</h4>
+<ul>
+  <li>Fold ~79% of hands</li>
+  <li>Call with trips that DON'T block opponent's bluffs</li>
+  <li>A-2 can be a better call than 10-9 (trips) because blockers matter more than raw hand strength</li>
+</ul>
+
+<div class="box box-purple">
+  <span class="label">Insight</span>
+  Against polarized opponents, <strong>all bluff catchers have roughly the same equity</strong>. The only thing that differentiates them is blockers. Always ask: "Do I block bluffs (bad) or value (good)?"
+</div>
+
+<h3>OOP Facing a Bet</h3>
+
+<h4>After calling flop + turn bets (strong range)</h4>
+<ul>
+  <li>You typically have a range advantage but lack the nut advantage</li>
+  <li>Facing overbet all-in: low aces (A-3, A-4) are better calls than A-10, A-J</li>
+  <li>High aces block opponent's bluffs (10-9 type straight draws)</li>
+</ul>
+
+<h4>When flush completes on the river</h4>
+<ul>
+  <li>Call with all flushes</li>
+  <li>One-pair + flush blocker (spade) = call</li>
+  <li>One-pair without flush blocker = fold</li>
+</ul>
+
+<h4>Approximate fold frequencies OOP</h4>
+<table>
+  <tr><th>Opponent Bet Size</th><th>Fold %</th></tr>
+  <tr><td>25% pot</td><td>~24%</td></tr>
+  <tr><td>66% pot</td><td>~38%</td></tr>
+  <tr><td>85% pot</td><td>~55%</td></tr>
+  <tr><td>All-in (3x+ pot)</td><td>~79%</td></tr>
+</table>
+
+<!-- ═══════════════════════════════════════════════ -->
+<h2>Summary: Universal River Principles</h2>
+
+<div class="box box-blue">
+  <span class="label">Definition</span>
+  <strong>Minimum Defense Frequency (MDF):</strong> The minimum % of your range you must continue with to prevent opponent from profitably bluffing with any two cards.<br>
+  $\text{MDF} = \frac{\text{Pot}}{\text{Pot} + \text{Bet}}$
+</div>
+
+<h3>The Five Pillars of River Play</h3>
+<ol>
+  <li><strong>The river is under-bluffed</strong> -- exploit by over-folding to aggression; self-correct by bluffing more</li>
+  <li><strong>Blockers are everything</strong> -- when bluffing: block calls, unblock folds. When calling: block value, unblock bluffs</li>
+  <li><strong>Bigger bets = more polarized = more bluffs allowed</strong></li>
+  <li><strong>Protect every bet size with nuts</strong> -- small bets, large bets, and checking ranges all need some nut hands</li>
+  <li><strong>When raised on the river: fold a lot</strong> -- this is the most under-bluffed spot in all of poker</li>
+</ol>
+
+<h3>IP vs OOP Quick Reference</h3>
+<table>
+  <tr><th>Factor</th><th>In Position</th><th>Out of Position</th></tr>
+  <tr><td>Small bet size</td><td>~50% pot</td><td>10-33% pot</td></tr>
+  <tr><td>Thin value betting</td><td>Cautious (reopens action)</td><td>Aggressive (just needs to beat checking EV)</td></tr>
+  <tr><td>Nut hands</td><td>Always bet (never check behind nuts)</td><td>Sometimes check for check-raise</td></tr>
+  <tr><td>SPR &le; 1</td><td>All-in or check only</td><td>All-in or check only</td></tr>
+  <tr><td>Check-raise bluffing</td><td>N/A</td><td>Use weak pairs that block calls</td></tr>
+</table>
+
+</div>
+</body>
+</html>

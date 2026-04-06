@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chapter 2: Preflop Play -- Revision Guide</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Source+Serif+4:ital,wght@0,400;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+  onload="renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'\\(',right:'\\)',display:false}]});"></script>
+<style>
+:root {
+  --bg: #FFFFFF; --surface: #FFFFFF; --surface2: #F5F5F5; --accent: #000000;
+  --text: #000000; --text-dim: #525252; --correct: #1a7a5e; --wrong: #b91c1c;
+  --orange: #8B6914; --border: #000000; --border-light: #E5E5E5;
+  --blue: #1e40af; --purple: #6b21a8; --red: #b91c1c;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Source Serif 4', serif; background: var(--bg); color: var(--text); line-height: 1.7; max-width: 780px; margin: 0 auto; padding: 40px 24px 80px; }
+a { color: var(--text); }
+.back-link { font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 32px; display: inline-block; color: var(--text-dim); text-decoration: none; border-bottom: 1px solid var(--border-light); }
+.back-link:hover { border-bottom-color: var(--border); color: var(--text); }
+h1, h2, h3 { font-family: 'Playfair Display', serif; font-weight: 700; letter-spacing: -0.01em; }
+h1 { font-size: 2.4rem; font-weight: 900; margin-bottom: 8px; line-height: 1.15; }
+.subtitle { font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 40px; }
+h2 { font-size: 1.7rem; margin-top: 56px; margin-bottom: 16px; padding-bottom: 6px; border-bottom: 4px solid var(--border); }
+h3 { font-size: 1.2rem; margin-top: 32px; margin-bottom: 10px; }
+p { margin-bottom: 14px; }
+.box { padding: 16px 20px; margin: 20px 0; border-radius: 0px; border-left: 3px solid; background: var(--surface2); }
+.box-blue { border-left-color: #2563eb; } .box-blue .box-label { color: #2563eb; }
+.box-purple { border-left-color: #7c3aed; } .box-purple .box-label { color: #7c3aed; }
+.box-orange { border-left-color: #d97706; } .box-orange .box-label { color: #d97706; }
+.box-red { border-left-color: #dc2626; } .box-red .box-label { color: #dc2626; }
+.box-label { font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 8px; display: block; }
+.box p:last-child, .box ul:last-child { margin-bottom: 0; }
+table { width: 100%; border-collapse: collapse; margin: 20px 0; font-size: 0.95rem; }
+th, td { padding: 8px 12px; border: 1px solid var(--border); text-align: left; }
+th { background: var(--accent); color: #FFFFFF; font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.05em; font-weight: 500; }
+code { font-family: 'JetBrains Mono', monospace; font-size: 0.88em; background: var(--surface2); padding: 2px 6px; border-radius: 0px; }
+ul, ol { margin: 12px 0 12px 24px; } li { margin-bottom: 6px; }
+.toc { background: var(--surface2); padding: 24px 28px; margin: 32px 0; border: 1px solid var(--border-light); }
+.toc-title { font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 12px; font-weight: 500; }
+.toc ol { margin: 0 0 0 20px; } .toc li { margin-bottom: 4px; font-size: 0.95rem; }
+.toc a { color: var(--text); text-decoration: none; border-bottom: 1px solid var(--border-light); } .toc a:hover { border-bottom-color: var(--border); }
+.topic-tag { font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-dim); display: inline-block; margin-bottom: 4px; }
+.katex-display { margin: 16px 0; overflow-x: auto; }
+hr { border: none; border-top: 1px solid var(--border-light); margin: 48px 0; }
+pre.tree { font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; background: var(--surface2); padding: 16px 20px; margin: 16px 0; line-height: 1.5; overflow-x: auto; white-space: pre; border: 1px solid var(--border-light); }
+@media print {
+  body { padding: 20px; max-width: 100%; font-size: 11pt; }
+  .back-link { display: none; }
+  h1 { font-size: 22pt; } h2 { font-size: 16pt; margin-top: 28px; break-after: avoid; } h3 { font-size: 13pt; break-after: avoid; }
+  .box { break-inside: avoid; } table { break-inside: avoid; font-size: 9pt; }
+  th { background: #000 !important; color: #fff !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .toc { break-inside: avoid; } a { text-decoration: none; color: var(--text); }
+}
+</style>
+</head>
+<body>
+
+<a href="index.html" class="back-link">&larr; Back to Chapter 2</a>
+
+<h1>Preflop Play</h1>
+<div class="subtitle">Cash Game Masterclass -- Chapter 2 Revision Guide</div>
+
+<div class="toc">
+  <div class="toc-title">Topic Map</div>
+  <ol>
+    <li><a href="#stack-depth">Stack Depth Matters</a></li>
+    <li><a href="#position">Position</a></li>
+    <li><a href="#sizing">Preflop Bet Sizing</a></li>
+    <li><a href="#range-comp">Range Composition</a></li>
+    <li><a href="#implied-odds">Implied Odds &amp; Reverse Implied Odds</a></li>
+    <li><a href="#mdf">Minimum Defense Frequency</a></li>
+    <li><a href="#rfi">RFI Ranges (100bb)</a></li>
+    <li><a href="#facing-raise">Facing a Preflop Raise (100bb)</a></li>
+    <li><a href="#facing-3bet">When Your Raise Gets 3-Bet (100bb)</a></li>
+    <li><a href="#call-3bet">When You Call and Get 3-Bet (100bb)</a></li>
+    <li><a href="#limpers">Facing Limpers (100bb)</a></li>
+    <li><a href="#raise-3bet">Facing a Raise and a 3-Bet (100bb)</a></li>
+    <li><a href="#facing-4bet">Facing a 4-Bet (100bb)</a></li>
+    <li><a href="#deep">200bb Deep Adjustments</a></li>
+  </ol>
+</div>
+
+<!-- ============================================================ -->
+<h2 id="stack-depth">1. Stack Depth Matters</h2>
+<div class="topic-tag">Lesson: stack-depth-matters-2</div>
+
+<div class="box box-blue">
+  <span class="box-label">Core Principle</span>
+  <p>You always play the <strong>effective stack</strong> -- the shortest stack involved in the hand.</p>
+</div>
+
+<h3>Deep-Stacked Adjustments (200bb+)</h3>
+<ul>
+  <li><strong>Go up in value:</strong> Suited aces, suited connectors, small/medium pairs (big implied odds)</li>
+  <li><strong>Go down in value:</strong> Offsuit broadways (KJo, QTo), unimproved pocket pairs</li>
+  <li>Reason: Deep stacks mean more money behind. If you make top pair marginal kicker and opponent wants to put in 200bb, you are in trouble.</li>
+</ul>
+
+<h3>Shallow-Stacked Adjustments (20-30bb)</h3>
+<ul>
+  <li>All pairs and big cards become powerful (one pair is often enough)</li>
+  <li>Going all-in over initial raise is strong when you have ~10x the raise or fewer</li>
+  <li>If a raise puts in &gt;30% of your stack, just go all-in instead (you're pot-committed anyway)</li>
+</ul>
+
+<!-- ============================================================ -->
+<h2 id="position">2. Position</h2>
+<div class="topic-tag">Lesson: position-2</div>
+
+<h3>Why Position Is Vital</h3>
+<ol>
+  <li><strong>Information:</strong> See opponent's action before you decide</li>
+  <li><strong>Pot control:</strong> Can always add one more bet (raise on river with nuts)</li>
+  <li><strong>Equity realization:</strong> IP realizes more equity because you see more streets cheaply</li>
+</ol>
+
+<div class="box box-purple">
+  <span class="box-label">Position Hierarchy</span>
+  <p><strong>BTN &gt; CO &gt; HJ &gt; LJ &gt; BB &gt; SB</strong></p>
+</div>
+
+<h3>Key Rules</h3>
+<ul>
+  <li>From early position: play <strong>very tightly</strong> (strong hands only)</li>
+  <li>From BTN: play <strong>substantially wider</strong> (43%+ of hands at 100bb)</li>
+  <li>From blinds: positional disadvantage is <strong>permanent</strong> (flop/turn/river OOP)</li>
+  <li>BB closing action preflop does NOT justify playing any two cards</li>
+  <li>Positional disadvantage grows as stacks get <strong>deeper</strong></li>
+</ul>
+
+<!-- ============================================================ -->
+<h2 id="sizing">3. Preflop Bet Sizing</h2>
+<div class="topic-tag">Lesson: preflop-bet-sizing-2</div>
+
+<div class="box box-orange">
+  <span class="box-label">Universal Formula: Pot-Sized Raise</span>
+  $$\text{Pot-Sized Raise} = 3 \times \text{Last Bet} + \text{Dead Money in Pot}$$
+</div>
+
+<h3>Recommended Sizes (100bb+)</h3>
+
+<table>
+  <tr><th>Scenario</th><th>In Position</th><th>Out of Position</th></tr>
+  <tr><td>When folded to</td><td>3.5bb</td><td>3.5bb</td></tr>
+  <tr><td>Over 1 limper</td><td>5bb</td><td>5bb</td></tr>
+  <tr><td>Over N limpers</td><td>5 + 1bb per extra limper</td><td>+1bb more</td></tr>
+  <tr><td>Facing a raise</td><td>3.3x the raise</td><td>4.3x the raise</td></tr>
+  <tr><td>Facing a 3-bet (you raised)</td><td>~3x the 3-bet</td><td>~3.5x the 3-bet</td></tr>
+</table>
+
+<div class="box box-red">
+  <span class="box-label">Key Sizing Rules</span>
+  <ul>
+    <li>As stacks get <strong>shallower</strong>, all raise sizes decrease</li>
+    <li>If raise puts in &gt;30% of your stack, go all-in instead</li>
+    <li>With ~10x the initial raise or fewer chips, all-in over initial raise is usually best</li>
+    <li>With &gt;10x the initial raise, use a non-all-in re-raise</li>
+  </ul>
+</div>
+
+<h3>Exploitative Sizing</h3>
+<ul>
+  <li>Against strong players: <strong>same size with all hands</strong> (don't give away information)</li>
+  <li>Against calling stations: raise bigger with premiums, smaller with speculative hands</li>
+  <li>Against players who fold to big raises: raise big as a bluff over limpers</li>
+</ul>
+
+<!-- ============================================================ -->
+<h2 id="range-comp">4. Range Composition</h2>
+<div class="topic-tag">Lesson: preflop-range-composition-2</div>
+
+<h3>Three Types of Preflop Ranges</h3>
+
+<table>
+  <tr><th>Type</th><th>Definition</th><th>When Used</th></tr>
+  <tr><td><strong>Linear</strong></td><td>Best hands in descending order (AA, KK, QQ, AK, AQ...)</td><td>Open-raising; 3-betting OOP; vs weak/tight opponents</td></tr>
+  <tr><td><strong>Polarized</strong></td><td>Best hands + bluffs, skipping middle</td><td>3-betting IP; 4-betting; 5-betting</td></tr>
+  <tr><td><strong>Condensed</strong></td><td>Medium-strength hands only (no premiums, no junk)</td><td>Calling a raise (callers are almost always condensed)</td></tr>
+</table>
+
+<h3>Capped vs Uncapped Ranges</h3>
+<ul>
+  <li><strong>Capped:</strong> Range missing nut hands (e.g., caller who would have 3-bet all aces)</li>
+  <li><strong>Uncapped:</strong> Range contains nut hands</li>
+  <li>Pre-flop caller is usually <strong>capped</strong> on high-card boards</li>
+  <li>UTG raiser is usually <strong>capped</strong> on low, connected boards (e.g., 7-6-5)</li>
+</ul>
+
+<!-- ============================================================ -->
+<h2 id="implied-odds">5. Implied Odds &amp; Reverse Implied Odds</h2>
+<div class="topic-tag">Lesson: implied-odds-and-reverse-implied-odds</div>
+
+<div class="box box-orange">
+  <span class="box-label">Implied Odds Formula</span>
+  $$\text{Implied Odds} = \frac{\text{Remaining Stacks} + \text{Current Pot}}{\text{Amount to Call}}$$
+</div>
+
+<h3>Thresholds for Continuing</h3>
+
+<table>
+  <tr><th>Hand Type</th><th>Required Implied Odds</th><th>Notes</th></tr>
+  <tr><td>Small pairs (22-66)</td><td>10:1</td><td>Make set ~1 in 9 times</td></tr>
+  <tr><td>Suited connectors &amp; suited aces</td><td>20:1</td><td>Need nutted hands to get paid</td></tr>
+</table>
+
+<h3>Key Adjustments</h3>
+<ul>
+  <li><strong>In position:</strong> Accept slightly worse implied odds (better equity realization)</li>
+  <li><strong>Out of position:</strong> Need the full 20:1 for suited connectors</li>
+  <li>You will <strong>never fully realize</strong> implied odds -- discount accordingly</li>
+  <li>Against maniacs: realize more IO (they'll pay off)</li>
+  <li>Against tight players: realize more IO (they only have premiums to pay you with)</li>
+</ul>
+
+<div class="box box-red">
+  <span class="box-label">Reverse Implied Odds</span>
+  <p>Hands that tend to be <strong>dominated</strong> when they hit (top pair bad kicker).</p>
+  <ul>
+    <li><strong>Offsuit broadways</strong> (KJo, QTo, ATo): top pair + opponent money in = often behind</li>
+    <li><strong>Suited hands</strong> inherently have better IO than offsuit (can make flushes)</li>
+    <li>As stacks get <strong>deeper</strong>, reverse implied odds hands get <strong>worse</strong></li>
+    <li>As stacks get <strong>shallower</strong>, reverse implied odds hands get <strong>better</strong></li>
+  </ul>
+</div>
+
+<!-- ============================================================ -->
+<h2 id="mdf">6. Minimum Defense Frequency (MDF)</h2>
+<div class="topic-tag">Lesson: minimum-defense-frequency-2</div>
+
+<div class="box box-orange">
+  <span class="box-label">Formula</span>
+  $$\text{MDF} = 1 - \frac{\text{Opponent's Bet}}{\text{Opponent's Bet} + \text{Pot}}$$
+</div>
+
+<h3>Key Points</h3>
+<ul>
+  <li>MDF tells you the <strong>minimum</strong> % of hands to continue with to prevent opponent from auto-profiting with bluffs</li>
+  <li>Before the flop: strive to <strong>over-defend</strong> compared to MDF</li>
+  <li>MDF is <strong>divided</strong> among all players remaining in the pot</li>
+  <li>MDF does <strong>NOT always apply</strong> post-flop (especially OOP deep-stacked where you under-realize equity)</li>
+  <li>Typical MDF facing a 3-bet: ~30-40%</li>
+</ul>
+
+<div class="box box-orange">
+  <span class="box-label">Worked Example</span>
+  <ul>
+    <li>You raise to 3bb from LJ, HJ 3-bets to 10bb</li>
+    <li>MDF = 1 - 10/(10 + 3 + 0.5 + 1) = 1 - 10/14.5 = <strong>31%</strong></li>
+    <li>Must continue with at least 31% of raising range</li>
+  </ul>
+</div>
+
+<!-- ============================================================ -->
+<h2 id="rfi">7. Raise First In (RFI) Ranges -- 100bb Deep, 6-Handed</h2>
+
+<h3>Opening Percentages by Position</h3>
+
+<table>
+  <tr><th>Position</th><th>% of Hands</th><th>Notable Hands Included</th></tr>
+  <tr><td>LJ (UTG 6-max)</td><td>~17%</td><td>Pairs 55+, ATs+, KJs+, QJs, JTs, T9s, 98s, A2s-A5s, AJo+, KQo</td></tr>
+  <tr><td>HJ</td><td>~21%</td><td>Add: A2s, K7s+, Q8s, more suited connectors, KTo, QTo</td></tr>
+  <tr><td>CO</td><td>~28%</td><td>Add: K5s+, Q6s+, J8s+, 87s-54s, A9o, KJo</td></tr>
+  <tr><td>BTN</td><td>~43%</td><td>Add: K2s+, Q2s+, J4s+, most suited connectors, A3o+, KTo+</td></tr>
+  <tr><td>SB (raise/fold)</td><td>~43%</td><td>Similar to BTN, raise to 3.5bb or fold (no limping with rake)</td></tr>
+</table>
+
+<div class="box box-red">
+  <span class="box-label">Critical Rules</span>
+  <ul>
+    <li><strong>Never open-limp</strong> when folded to you (especially with rake)</li>
+    <li><strong>Do not play obviously bad cards</strong> for randomness</li>
+    <li>Widen range if opponents rarely 3-bet; tighten if they 3-bet frequently</li>
+    <li>6-handed vs 9-handed: add ~2-3 tighter positions before LJ</li>
+  </ul>
+</div>
+
+<!-- ============================================================ -->
+<h2 id="facing-raise">8. Facing a Preflop Raise (100bb)</h2>
+<div class="topic-tag">Lesson: facing-a-preflop-raise</div>
+
+<h3>Facing Early Position Raise</h3>
+
+<table>
+  <tr><th>Your Position</th><th>Strategy</th></tr>
+  <tr><td>HJ, CO</td><td><strong>3-bet or fold only</strong> (no calling range with rake vs good players)</td></tr>
+  <tr><td>BTN</td><td>3-bet strong hands + bluffs; <strong>call</strong> with implied odds hands (pairs, suited connectors)</td></tr>
+  <tr><td>SB</td><td><strong>3-bet or fold</strong> (avoid playing 3-way OOP with worst relative position)</td></tr>
+  <tr><td>BB</td><td><strong>3-bet linear range</strong> + <strong>call wide</strong> (closing action, getting good odds)</td></tr>
+</table>
+
+<div class="box box-red">
+  <span class="box-label">Common Mistake</span>
+  <ul>
+    <li><strong>No offsuit calling</strong> in most positions (8-7o, 9-8o, T-9o on BTN = torching money)</li>
+    <li>BB can call wider but still fold junk offsuit hands (K9o, A8o, Q9o)</li>
+    <li>SB should 3-bet to avoid poor relative position (3-way, first to act post-flop)</li>
+  </ul>
+</div>
+
+<!-- ============================================================ -->
+<h2 id="facing-3bet">9. When Your Raise Gets 3-Bet (100bb)</h2>
+<div class="topic-tag">Lesson: when-your-raise-gets-3bet</div>
+
+<h3>Default Strategy</h3>
+<ul>
+  <li><strong>4-bet</strong> with: Premium hands (AA, KK, QQ, AKs, AKo for value) + blocker bluffs (A5s, K9s)</li>
+  <li><strong>Call</strong> with: Hands that flop well (suited connectors, medium pairs, suited aces)</li>
+  <li><strong>Fold</strong>: Offsuit broadways (AJo, KQo, KJo) -- reverse implied odds</li>
+</ul>
+
+<h3>Position Matters</h3>
+<ul>
+  <li><strong>In position:</strong> Call more, 4-bet less (realize equity better)</li>
+  <li><strong>Out of position:</strong> Fold more, 4-bet bluff more (can't realize equity well by calling)</li>
+</ul>
+
+<div class="box box-orange">
+  <span class="box-label">Implementable 4-Bet Ranges (vs CO 3-bet)</span>
+  <ul>
+    <li><strong>4-bet for value:</strong> AA, KK, QQ, JJ, TT, AKs, AKo</li>
+    <li><strong>4-bet as bluff:</strong> AQo (fold to 5-bet), A5s (fold to 5-bet), K9s</li>
+    <li><strong>Call:</strong> 99-22, 76s-JTs, AJs, KQs, A4s-A3s</li>
+    <li><strong>Fold:</strong> Big offsuit hands, weak kings</li>
+  </ul>
+</div>
+
+<!-- ============================================================ -->
+<h2 id="call-3bet">10. When You Call and Get 3-Bet (100bb)</h2>
+<div class="topic-tag">Lesson: when-you-call-and-get-3bet</div>
+
+<h3>Decision Factors</h3>
+<ol>
+  <li><strong>Are you closing the action?</strong> If yes, call more freely</li>
+  <li><strong>How many players?</strong> More players = better for IO hands</li>
+  <li><strong>3-bet size?</strong> Bigger = fold more; smaller = call more</li>
+  <li><strong>Risk of back 4-bet?</strong> If someone can still 4-bet behind, fold weaker IO hands</li>
+</ol>
+
+<h3>Default Approach</h3>
+<ul>
+  <li>Your calling range is mostly <strong>implied odds hands</strong> -- you generally want to see a flop</li>
+  <li>With pairs, suited connectors, suited aces: <strong>call</strong> (unless 3-bet is very large)</li>
+  <li>With offsuit broadways (KQo, AJo): <strong>fold</strong> unless getting excellent odds heads-up</li>
+</ul>
+
+<!-- ============================================================ -->
+<h2 id="limpers">11. Facing Limpers (100bb)</h2>
+<div class="topic-tag">Lesson: facing-limpers</div>
+
+<h3>Two Types of Limpers</h3>
+
+<table>
+  <tr><th>Type</th><th>Strategy Against</th></tr>
+  <tr><td><strong>Tricky</strong> (limp with premiums to trap)</td><td>Limp behind with IO hands; raise offsuit broadways (fold to limp-reraise)</td></tr>
+  <tr><td><strong>Straightforward</strong> (limp = not good enough to raise)</td><td>Raise similar to RFI range; limp behind with IO hands</td></tr>
+</table>
+
+<div class="box box-red">
+  <span class="box-label">Warning: Limp-Reraise</span>
+  <p>A limp-reraise from a tricky limper almost always means <strong>the nuts</strong> (AA, KK). Do not call with IO hands if you might get back-raised before seeing the flop.</p>
+</div>
+
+<!-- ============================================================ -->
+<h2 id="raise-3bet">12. Facing a Raise and a 3-Bet (100bb)</h2>
+<div class="topic-tag">Lesson: facing-a-raise-and-a-3bet</div>
+
+<div class="box box-purple">
+  <span class="box-label">Core Rule</span>
+  <p><strong>4-bet or fold. No calling range at 100bb.</strong> If you call, initial raiser will 4-bet often enough to destroy your implied odds.</p>
+</div>
+
+<h3>Cold 4-Bet Ranges</h3>
+
+<table>
+  <tr><th>Scenario</th><th>Get It In With</th><th>Bluff With</th></tr>
+  <tr><td>EP raise + EP 3-bet</td><td>QQ+, AK</td><td>KQs (fold to 5-bet)</td></tr>
+  <tr><td>CO raise + BTN 3-bet</td><td>JJ+, AK, AQs</td><td>AQo, KJs (fold to 5-bet)</td></tr>
+  <tr><td>BTN raise + SB 3-bet</td><td>JJ+, AK, AQs, TT</td><td>AQo, A5s, KTs</td></tr>
+</table>
+
+<!-- ============================================================ -->
+<h2 id="facing-4bet">13. Facing a 4-Bet (100bb)</h2>
+<div class="topic-tag">Lesson: facing-a-4bet</div>
+
+<div class="box box-purple">
+  <span class="box-label">Key Insight</span>
+  <p>Most players 4-bet <strong>way too tightly</strong> and <strong>way too large</strong>. Against most opponents: <strong>no calling range</strong> at 100bb (fold or 5-bet). 5-bet only: AA, KK (maybe QQ, AKs).</p>
+</div>
+
+<div class="box box-red">
+  <span class="box-label">Common Mistake</span>
+  <ul>
+    <li>AQo facing a 4-bet: <strong>fold</strong> (even IP in most games)</li>
+    <li>King-X suited: <strong>bad</strong> -- dominated by AK in 4-bet range</li>
+    <li>Big offsuit hands: fold</li>
+  </ul>
+</div>
+
+<!-- ============================================================ -->
+<h2 id="deep">14. 200bb Deep Adjustments -- Summary</h2>
+
+<div class="box box-blue">
+  <span class="box-label">Universal Principle</span>
+  <ul>
+    <li><strong>Implied odds hands UP:</strong> Suited aces, suited connectors, pairs</li>
+    <li><strong>Reverse implied odds hands DOWN:</strong> Offsuit broadways, unimproved pairs</li>
+  </ul>
+</div>
+
+<h3>When Facing a 3-Bet (200bb)</h3>
+<ul>
+  <li><strong>IP:</strong> Call much wider -- 5-4s, pocket 2s, Q8s, 97s all become playable</li>
+  <li><strong>OOP:</strong> 4-bet bluffs come from suited connectors (87s, 76s) more often</li>
+  <li>More linear 3-betting OOP (hands with post-flop playability)</li>
+  <li>King-X suited still bad vs 4-bets (dominated by AK)</li>
+</ul>
+
+<h3>Facing a 4-Bet (200bb)</h3>
+<ul>
+  <li>Call more IP with IO hands (getting 10-12:1 implied odds)</li>
+  <li>5-bet very rarely: only AA + a few Axs blocker bluffs</li>
+  <li>Pairs: can usually call in position</li>
+</ul>
+
+<hr>
+
+<h2>Quick-Reference Decision Trees</h2>
+
+<h3>Everyone Folds to You</h3>
+<pre class="tree">Folded to you?
+  +-- Good hand (in range for position)? -> RAISE to 3.5bb
+  +-- Bad hand? -> FOLD (never open-limp)</pre>
+
+<h3>Someone Raised</h3>
+<pre class="tree">Someone raised -> Check your position
+  +-- EP/MP (not BTN): -> 3-bet or fold only (no calling with rake)
+  +-- BTN: -> 3-bet strong/bluffs + call IO hands
+  +-- SB: -> 3-bet or fold (worst relative position)
+  +-- BB: -> 3-bet linear + call wide (closing action)</pre>
+
+<h3>Your Raise Gets 3-Bet</h3>
+<pre class="tree">You raised, got 3-bet
+  +-- In position? -> Call wider (pairs, suited connectors, suited aces)
+  +-- Out of position? -> 4-bet or fold (less calling)
+  +-- Big offsuit hand (AJo, KQo)? -> FOLD (reverse IO)
+  +-- Small pair? -> CALL (set-mining)</pre>
+
+<h3>Facing Limpers</h3>
+<pre class="tree">Facing limpers
+  +-- First limper tricky? -> Limp behind IO hands; raise big offsuit for value
+  +-- First limper straightforward? -> Raise normal range; limp behind IO hands
+  +-- Multiple limpers, all straightforward? -> Big raise strong hands; bluff occasionally</pre>
+
+<hr>
+
+<h2>Key Numbers to Memorize</h2>
+
+<table>
+  <tr><th>Metric</th><th>Value</th></tr>
+  <tr><td>Pot-sized raise formula</td><td>3x last bet + dead money</td></tr>
+  <tr><td>RFI from LJ (6-max)</td><td>~17%</td></tr>
+  <tr><td>RFI from BTN</td><td>~43%</td></tr>
+  <tr><td>IO threshold for pairs</td><td>10:1</td></tr>
+  <tr><td>IO threshold for suited connectors/aces</td><td>20:1</td></tr>
+  <tr><td>MDF formula</td><td>1 - bet/(bet + pot)</td></tr>
+  <tr><td>Typical MDF vs 3-bet</td><td>~30-35%</td></tr>
+  <tr><td>If raise puts in &gt;30% of stack</td><td>Go all-in instead</td></tr>
+  <tr><td>With 10x initial raise or fewer</td><td>Consider all-in over raise</td></tr>
+  <tr><td>Set-mining odds (flop a set)</td><td>~1 in 8.5 (12%)</td></tr>
+</table>
+
+<hr>
+
+<h2>Common Errors to Avoid</h2>
+
+<div class="box box-red">
+  <span class="box-label">Top 10 Preflop Mistakes</span>
+  <ol>
+    <li><strong>Open-limping</strong> when folded to you (especially with rake)</li>
+    <li><strong>Calling too wide from the blinds</strong> with offsuit junk (K9o, Q8o, 87o)</li>
+    <li><strong>Calling 3-bets with offsuit broadways</strong> (AJo, KQo) -- reverse implied odds</li>
+    <li><strong>Not 3-betting enough from SB</strong> (playing 3-way OOP is a disaster)</li>
+    <li><strong>Copying small-stakes players' sizing</strong> (raising to 8bb because "they'll call anything")</li>
+    <li><strong>Attacking tricky limpers</strong> who limp-reraise with the nuts</li>
+    <li><strong>Never bluffing over limpers</strong> (miss free pots)</li>
+    <li><strong>Calling cold 4-bets</strong> at 100bb (just 5-bet or fold)</li>
+    <li><strong>4-betting King-X suited</strong> facing a 4-bet (dominated by AK)</li>
+    <li><strong>Not adjusting for stack depth</strong> (playing 200bb strategy at 100bb or vice versa)</li>
+  </ol>
+</div>
+
+</body>
+</html>

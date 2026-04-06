@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ch 2: Preflop Play -- Crash Course</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Source+Serif+4:wght@400;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'\(',right:'\)',display:false}]})"></script>
+<style>
+:root {
+  --bg: #FFFFFF; --surface: #FFFFFF; --surface2: #F5F5F5;
+  --accent: #000000; --text: #000000; --text-dim: #525252;
+  --correct: #1a7a5e; --wrong: #b91c1c; --orange: #8B6914;
+  --border: #000000; --border-light: #E5E5E5;
+  --blue: #1e40af; --blue-bg: #eff6ff; --blue-border: #bfdbfe;
+  --purple: #6b21a8; --purple-bg: #faf5ff; --purple-border: #e9d5ff;
+  --orange-bg: #fffbeb; --orange-border: #fde68a;
+  --red: #991b1b; --red-bg: #fef2f2; --red-border: #fecaca;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Source Serif 4', Georgia, serif; color: var(--text); background: var(--bg); line-height: 1.7; max-width: 860px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
+h1 { font-family: 'Playfair Display', serif; font-size: 2.2rem; font-weight: 700; margin-bottom: 0.5rem; border-bottom: 3px solid var(--accent); padding-bottom: 0.5rem; }
+h2 { font-family: 'Playfair Display', serif; font-size: 1.6rem; font-weight: 700; margin: 2.5rem 0 1rem; border-bottom: 1px solid var(--border-light); padding-bottom: 0.3rem; }
+h3 { font-family: 'Source Serif 4', serif; font-size: 1.2rem; font-weight: 600; margin: 1.5rem 0 0.5rem; }
+p { margin-bottom: 1rem; }
+code { font-family: 'JetBrains Mono', monospace; font-size: 0.9em; background: var(--surface2); padding: 0.15em 0.4em; }
+.subtitle { color: var(--text-dim); font-size: 1.1rem; margin-bottom: 2rem; }
+.toc { background: var(--surface2); padding: 1.5rem 2rem; margin-bottom: 2rem; }
+.toc ol { padding-left: 1.5rem; }
+.toc li { margin-bottom: 0.3rem; }
+.toc a { color: var(--text); text-decoration: none; border-bottom: 1px dotted var(--text-dim); }
+.toc a:hover { border-bottom-color: var(--accent); }
+
+/* Boxes */
+.box { padding: 1.2rem 1.5rem; margin: 1.5rem 0; border-left: 4px solid; }
+.box-title { font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.5rem; }
+.box-blue { background: var(--blue-bg); border-color: var(--blue); }
+.box-blue .box-title { color: var(--blue); }
+.box-purple { background: var(--purple-bg); border-color: var(--purple); }
+.box-purple .box-title { color: var(--purple); }
+.box-orange { background: var(--orange-bg); border-color: var(--orange); }
+.box-orange .box-title { color: var(--orange); }
+.box-red { background: var(--red-bg); border-color: var(--red); }
+.box-red .box-title { color: var(--red); }
+
+table { width: 100%; border-collapse: collapse; margin: 1rem 0 1.5rem; font-size: 0.95rem; }
+th, td { padding: 0.5rem 0.8rem; border: 1px solid var(--border-light); text-align: left; }
+th { background: var(--surface2); font-weight: 600; }
+ul, ol { padding-left: 1.5rem; margin-bottom: 1rem; }
+li { margin-bottom: 0.3rem; }
+strong { font-weight: 600; }
+
+/* Hand matrix */
+.matrix-container { margin: 1.5rem 0; overflow-x: auto; }
+.matrix-grid { display: grid; grid-template-columns: repeat(13, 1fr); gap: 2px; max-width: 600px; margin: 0 auto; }
+.matrix-cell { aspect-ratio: 1; display: flex; align-items: center; justify-content: center; font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; font-weight: 500; }
+.matrix-legend { display: flex; gap: 1.5rem; justify-content: center; margin-top: 0.8rem; font-size: 0.85rem; }
+.legend-item { display: flex; align-items: center; gap: 0.4rem; }
+.legend-swatch { width: 14px; height: 14px; display: inline-block; }
+
+@media (max-width: 640px) {
+  body { padding: 1rem; }
+  h1 { font-size: 1.6rem; }
+  .matrix-cell { font-size: 0.5rem; }
+}
+</style>
+</head>
+<body>
+
+<h1>Preflop Play</h1>
+<p class="subtitle">Cash Game Masterclass -- Chapter 2 Crash Course</p>
+
+<nav class="toc">
+<strong>Contents</strong>
+<ol>
+<li><a href="#stack-depth">Stack Depth</a></li>
+<li><a href="#position">Position</a></li>
+<li><a href="#sizing">Bet Sizing</a></li>
+<li><a href="#ranges">Range Composition</a></li>
+<li><a href="#implied-odds">Implied Odds & Reverse Implied Odds</a></li>
+<li><a href="#mdf">Minimum Defense Frequency</a></li>
+<li><a href="#rfi">Raise First In Ranges</a></li>
+<li><a href="#facing-raise">Facing a Raise</a></li>
+<li><a href="#facing-3bet">When Your Raise Gets 3-Bet</a></li>
+<li><a href="#limpers">Facing Limpers</a></li>
+<li><a href="#cold-4bet">Cold 4-Bets & Facing 4-Bets</a></li>
+<li><a href="#deep-stack">200bb Deep Adjustments</a></li>
+</ol>
+</nav>
+
+<!-- ============ SECTION 1 ============ -->
+<h2 id="stack-depth">1. Stack Depth</h2>
+
+<p>You always play the <strong>effective stack</strong> -- the shortest stack in the hand. This course primarily covers 100bb play, with adjustments for 200bb.</p>
+
+<div class="box box-blue">
+<div class="box-title">Definition: Effective Stack</div>
+The effective stack is the smaller of your stack and your opponent's stack. If you have 500bb and they have 25bb, you are playing 25bb poker.
+</div>
+
+<div class="box box-purple">
+<div class="box-title">Key Insight</div>
+<strong>Deep stacked (200bb+):</strong> Suited aces, suited connectors, and small pairs go <em>up</em> in value (big implied odds). Offsuit broadways (KJo, QTo) and unimproved pocket pairs go <em>down</em> in value.<br><br>
+<strong>Shallow stacked (20-30bb):</strong> All pairs and big cards become powerful. Top pair is often good enough to stack off happily.
+</div>
+
+<div class="box box-red">
+<div class="box-title">Common Trap</div>
+Playing deep-stacked as if you were at 100bb. If you have KJo and make top pair when 200bb deep, and your opponent wants to put all the money in -- you are in serious trouble. Deep stacks demand nutted hands.
+</div>
+
+<!-- ============ SECTION 2 ============ -->
+<h2 id="position">2. Position</h2>
+
+<p>Position determines how many hands you can profitably play. Being last to act gives you <strong>information</strong> and <strong>pot control</strong>.</p>
+
+<table>
+<tr><th>Position</th><th>Advantage</th><th>Rough RFI %</th></tr>
+<tr><td>BTN</td><td>Best -- always last post-flop</td><td>~43%</td></tr>
+<tr><td>CO</td><td>Great -- only BTN behind</td><td>~28%</td></tr>
+<tr><td>HJ</td><td>Decent</td><td>~21%</td></tr>
+<tr><td>LJ (UTG 6-max)</td><td>Worst of openers</td><td>~17%</td></tr>
+<tr><td>BB</td><td>Closing action preflop only</td><td>Defend ~40-65%</td></tr>
+<tr><td>SB</td><td>Worst -- OOP entire hand</td><td>~43% (raise/fold)</td></tr>
+</table>
+
+<div class="box box-red">
+<div class="box-title">Common Trap</div>
+Thinking BB closing action preflop justifies playing any two cards. You are OOP on every post-flop street. Against a 3-4bb raise, you are NOT getting good enough odds to play 72o.
+</div>
+
+<!-- ============ SECTION 3 ============ -->
+<h2 id="sizing">3. Bet Sizing</h2>
+
+<div class="box box-blue">
+<div class="box-title">Definition: Pot-Sized Raise Formula</div>
+$$\text{Pot-Sized Raise} = 3 \times \text{Last Bet} + \text{Dead Money}$$
+<em>Dead money</em> = everything already in the pot excluding the last bet.
+</div>
+
+<div class="box box-orange">
+<div class="box-title">Worked Example: Facing 3 Limpers</div>
+Three players limp for 1bb each. You want to raise.<br>
+$3 \times 1\text{bb} + (1 + 1 + 0.5 + 1) = 3 + 3.5 = 6.5\text{bb}$<br>
+Raise to <strong>6.5bb</strong>. Not 3bb. Not 20bb.
+</div>
+
+<div class="box box-orange">
+<div class="box-title">Worked Example: 3-Betting</div>
+Opponent raises to 4bb, one caller. You want to 3-bet in position.<br>
+$3 \times 4\text{bb} + (4 + 0.5 + 1) = 12 + 5.5 = 17.5\text{bb}$<br>
+Add ~1 unit (4bb) if you are out of position: <strong>~21.5bb</strong>.
+</div>
+
+<h3>Quick-Reference Sizes (100bb+)</h3>
+<table>
+<tr><th>Situation</th><th>IP Size</th><th>OOP Size</th></tr>
+<tr><td>Folded to you</td><td colspan="2">3-3.5bb</td></tr>
+<tr><td>Over 1 limper</td><td colspan="2">~5bb</td></tr>
+<tr><td>Over N limpers</td><td colspan="2">5 + 1bb per extra limper</td></tr>
+<tr><td>3-bet vs raise</td><td>3.3x raise</td><td>4.3x raise</td></tr>
+<tr><td>4-bet vs 3-bet</td><td>~3x 3-bet</td><td>~3.5x 3-bet</td></tr>
+</table>
+
+<div class="box box-purple">
+<div class="box-title">Key Insight</div>
+If your raise puts in <strong>&gt;30% of your stack</strong>, just go all-in. You are pot-committed anyway (getting ~2:1 odds if opponent shoves).
+</div>
+
+<!-- ============ SECTION 4 ============ -->
+<h2 id="ranges">4. Range Composition</h2>
+
+<div class="box box-blue">
+<div class="box-title">Definition: Linear Range</div>
+The best hands in descending order. Used when <strong>open-raising</strong> and when <strong>3-betting OOP</strong>. Example: AA, KK, QQ, AK, AQ, JJ, KQ, AJ...
+</div>
+
+<div class="box box-blue">
+<div class="box-title">Definition: Polarized Range</div>
+The best hands (for value) + weak hands (as bluffs), skipping medium hands. Used when <strong>3-betting IP</strong> and <strong>4-betting</strong>. Example: AA, KK, AKs for value + A5s, K9s as bluffs.
+</div>
+
+<div class="box box-blue">
+<div class="box-title">Definition: Condensed Range</div>
+Medium-strength hands only -- no premiums and no junk. This is what <strong>callers almost always have</strong>. Callers would have 3-bet their best hands, so their range is capped.
+</div>
+
+<div class="box box-purple">
+<div class="box-title">Key Insight: Capped vs Uncapped</div>
+A caller's range is <strong>capped</strong> (missing nut hands they would have re-raised). On broadway-heavy boards (K-Q-7), the raiser is uncapped and has a huge advantage. On low connected boards (7-6-5), the caller is uncapped with all the straights and sets the raiser doesn't have.
+</div>
+
+<!-- ============ SECTION 5 ============ -->
+<h2 id="implied-odds">5. Implied Odds & Reverse Implied Odds</h2>
+
+<div class="box box-blue">
+<div class="box-title">Definition: Implied Odds</div>
+$$\text{Implied Odds} = \frac{\text{Remaining Stacks} + \text{Current Pot}}{\text{Call Amount}}$$
+How much you can potentially win relative to what you must invest.
+</div>
+
+<div class="box box-orange">
+<div class="box-title">Worked Example</div>
+Opponent raises to 3bb (100bb effective). You're on BTN calling 3bb.<br>
+Pot after call = 7.5bb. Remaining stacks = 97bb.<br>
+$\text{IO} = \frac{97 + 7.5}{3} = 34.8:1$<br>
+More than enough for any speculative hand.
+</div>
+
+<h3>Continuation Thresholds</h3>
+<table>
+<tr><th>Hand Type</th><th>Required IO</th><th>Hit Rate</th></tr>
+<tr><td>Small pairs (22-66)</td><td>10:1</td><td>Flop set ~1 in 8.5</td></tr>
+<tr><td>Suited connectors / suited aces</td><td>20:1</td><td>Need nut hands to get paid</td></tr>
+</table>
+
+<div class="box box-purple">
+<div class="box-title">Key Insight: Position Discount</div>
+<strong>In position:</strong> Accept slightly worse implied odds (you realize equity better).<br>
+<strong>Out of position:</strong> Need the full 20:1 for suited connectors. This is why OOP you fold suited aces to a 3-bet but IP you call.
+</div>
+
+<div class="box box-blue">
+<div class="box-title">Definition: Reverse Implied Odds</div>
+Hands that are often <strong>dominated</strong> when they hit. KJo makes top pair, but if opponent puts in lots of money, you're usually behind. Suited hands have better IO because they can make flushes. Offsuit hands have reverse IO.
+</div>
+
+<div class="box box-red">
+<div class="box-title">Common Trap: Offsuit Broadways Deep</div>
+Playing KTo, QTo, ATo deep-stacked and then making top pair -- your opponent only puts in big money when they have you beat. These hands should be the <em>first</em> to fold to 3-bets, not the last.
+</div>
+
+<!-- ============ SECTION 6 ============ -->
+<h2 id="mdf">6. Minimum Defense Frequency</h2>
+
+$$\text{MDF} = 1 - \frac{\text{Opponent's Bet}}{\text{Opponent's Bet} + \text{Pot}}$$
+
+<div class="box box-orange">
+<div class="box-title">Worked Example</div>
+You raise to 3bb from LJ. HJ 3-bets to 10bb.<br>
+$\text{MDF} = 1 - \frac{10}{10 + 3 + 0.5 + 1} = 1 - \frac{10}{14.5} = 31\%$<br>
+You must continue with at least <strong>31%</strong> of your range.
+</div>
+
+<p>Key caveats:</p>
+<ul>
+<li>Preflop: strive to <strong>over-defend</strong> compared to MDF</li>
+<li>MDF is <strong>divided</strong> among all remaining players -- multi-way, each player defends less</li>
+<li>MDF does NOT always apply post-flop (OOP you under-realize equity)</li>
+<li>Against a strong range, fold more than MDF suggests. Against a weak range, defend wider.</li>
+</ul>
+
+<!-- ============ SECTION 7 ============ -->
+<h2 id="rfi">7. Raise First In Ranges</h2>
+
+<p>Here is the implementable Button open-raise range at 100bb (8-handed). <strong>Red = raise, dark gray = fold.</strong> Above the diagonal = suited, below = offsuit, diagonal = pairs.</p>
+
+<div class="matrix-container">
+<div class="matrix-grid">
+<div class="matrix-cell" style="background:#e74c3c;color:#fff">AA</div>
+<div class="matrix-cell" style="background:#e74c3c;color:#fff">AKs</div>
+<div class="matrix-cell" style="background:#e74c3c;color:#fff">AQs</div>
+<div class="matrix-cell" style="background:#e74c3c;color:#fff">AJs</div>
+<div class="matrix-cell" style="background:#e74c3c;color:#fff">ATs</div>
+<div class="matrix-cell" style="background:#e74c3c;color:#fff">A9s</div>
+<div class="matrix-cell" style="background:#e74c3c;color:#fff">A8s</div>
+<div class="matrix-cell" style="background:#e74c3c;color:#fff">A7s</div>
+<div class="matrix-cell" style="background:#e74c3c;color:#fff">A6s</div>
+<div class="matrix-cell" style="background:#e74c3c;color:#fff">A5s</div>
+<div class="matrix-cell" style="background:#e74c3c;color:#fff">A4s</div>
+<div class="matrix-cell" style="background:#e74c3c;color:#fff">A3s</div>
+<div class="matrix-cell" style="background:#e74c3c;color:#fff">A2s</div>
+<div class="matrix-cell" style="background:#e74c3c;color:#fff">AKo</div>
+<div class="matrix-cell" style="background:#e74c3c;color:#fff">KK</div>
+<div class="matrix-cell" style="background:#e74c3c;color:#fff">KQs</div>
+<div class="matrix-cell" style="background:#e74c3c;color:#fff">KJs</div>
+<div class="matrix-cell" style="background:#e74c3c;color:#fff">KTs</div>
+<div class="matrix-cell" style="background:#e74c3c;color:#fff">K9s</div>
+<div class="matrix-cell" style="background:#e74c3c;color:#fff">K8s</div>
+<div class="matrix-cell" style="background:#e74c3c;color:#fff">K7s</div>
+<div class="matrix-cell" style="background:#e74c3c;color:#fff">K6s</div>
+<div class="matrix-cell" style="background:#e74c3c;color:#fff">K5s</div>
+<div class="matrix-cell" style="background:#e74c3c;color:#fff">K4s</div>
+<div class="matrix-cell" style="background:#e74c3c;color:#fff">K3s</div>
+<div class="matrix-cell" style="background:#e74c3c;color:#fff">K2s</div>
+<div class="matrix-cell" style="background:#e74c3c;color:#fff">AQo</div>
+<div class="matrix-cell" style="background:#e74c3c;color:#fff">KQo</div>
+<div class="matrix-cell" style="background:#e74c3c;color:#fff">QQ</div>
+<div class="matrix-cell" style="background:#e74c3c;color:#fff">QJs</div>
+<div class="matrix-cell" style="background:#e74c3c;color:#fff">QTs</div>
+<div class="matrix-cell" style="background:#e74c3c;color:#fff">Q9s</div>
+<div class="matrix-cell" style="background:#e74c3c;color:#fff">Q8s</div>
+<div class="matrix-cell" style="background:#e74c3c;color:#fff">Q7s</div>
+<div class="matrix-cell" style="background:#e74c3c;color:#fff">Q6s</div>
+<div class="matrix-cell" style="background:#e74c3c;color:#fff">Q5s</div>
+<div class="matrix-cell" style="background:#e74c3c;color:#fff">Q4s</div>
+<div class="matrix-cell" style="background:#e74c3c;color:#fff">Q3s</div>
+<div class="matrix-cell" style="background:#e74c3c;color:#fff">Q2s</div>
+<div class="matrix-cell" style="background:#e74c3c;color:#fff">AJo</div>
+<div class="matrix-cell" style="background:#e74c3c;color:#fff">KJo</div>
+<div class="matrix-cell" style="background:#e74c3c;color:#fff">QJo</div>
+<div class="matrix-cell" style="background:#e74c3c;color:#fff">JJ</div>
+<div class="matrix-cell" style="background:#e74c3c;color:#fff">JTs</div>
+<div class="matrix-cell" style="background:#e74c3c;color:#fff">J9s</div>
+<div class="matrix-cell" style="background:#e74c3c;color:#fff">J8s</div>
+<div class="matrix-cell" style="background:#e74c3c;color:#fff">J7s</div>
+<div class="matrix-cell" style="background:#e74c3c;color:#fff">J6s</div>
+<div class="matrix-cell" style="background:#2c2c2c;color:#666">J5s</div>
+<div class="matrix-cell" style="background:#2c2c2c;color:#666">J4s</div>
+<div class="matrix-cell" style="background:#2c2c2c;color:#666">J3s</div>
+<div class="matrix-cell" style="background:#2c2c2c;color:#666">J2s</div>
+<div class="matrix-cell" style="background:#e74c3c;color:#fff">ATo</div>
+<div class="matrix-cell" style="background:#e74c3c;color:#fff">KTo</div>
+<div class="matrix-cell" style="background:#e74c3c;color:#fff">QTo</div>
+<div class="matrix-cell" style="background:#e74c3c;color:#fff">JTo</div>
+<div class="matrix-cell" style="background:#e74c3c;color:#fff">TT</div>
+<div class="matrix-cell" style="background:#e74c3c;color:#fff">T9s</div>
+<div class="matrix-cell" style="background:#e74c3c;color:#fff">T8s</div>
+<div class="matrix-cell" style="background:#e74c3c;color:#fff">T7s</div>
+<div class="matrix-cell" style="background:#e74c3c;color:#fff">T6s</div>
+<div class="matrix-cell" style="background:#2c2c2c;color:#666">T5s</div>
+<div class="matrix-cell" style="background:#2c2c2c;color:#666">T4s</div>
+<div class="matrix-cell" style="background:#2c2c2c;color:#666">T3s</div>
+<div class="matrix-cell" style="background:#2c2c2c;color:#666">T2s</div>
+<div class="matrix-cell" style="background:#e74c3c;color:#fff">A9o</div>
+<div class="matrix-cell" style="background:#e74c3c;color:#fff">K9o</div>
+<div class="matrix-cell" style="background:#e74c3c;color:#fff">Q9o</div>
+<div class="matrix-cell" style="background:#e74c3c;color:#fff">J9o</div>
+<div class="matrix-cell" style="background:#e74c3c;color:#fff">T9o</div>
+<div class="matrix-cell" style="background:#e74c3c;color:#fff">99</div>
+<div class="matrix-cell" style="background:#e74c3c;color:#fff">98s</div>
+<div class="matrix-cell" style="background:#e74c3c;color:#fff">97s</div>
+<div class="matrix-cell" style="background:#e74c3c;color:#fff">96s</div>
+<div class="matrix-cell" style="background:#2c2c2c;color:#666">95s</div>
+<div class="matrix-cell" style="background:#2c2c2c;color:#666">94s</div>
+<div class="matrix-cell" style="background:#2c2c2c;color:#666">93s</div>
+<div class="matrix-cell" style="background:#2c2c2c;color:#666">92s</div>
+<div class="matrix-cell" style="background:#e74c3c;color:#fff">A8o</div>
+<div class="matrix-cell" style="background:#e74c3c;color:#fff">K8o</div>
+<div class="matrix-cell" style="background:#e74c3c;color:#fff">Q8o</div>
+<div class="matrix-cell" style="background:#e74c3c;color:#fff">J8o</div>
+<div class="matrix-cell" style="background:#e74c3c;color:#fff">T8o</div>
+<div class="matrix-cell" style="background:#e74c3c;color:#fff">98o</div>
+<div class="matrix-cell" style="background:#e74c3c;color:#fff">88</div>
+<div class="matrix-cell" style="background:#e74c3c;color:#fff">87s</div>
+<div class="matrix-cell" style="background:#e74c3c;color:#fff">86s</div>
+<div class="matrix-cell" style="background:#e74c3c;color:#fff">85s</div>
+<div class="matrix-cell" style="background:#2c2c2c;color:#666">84s</div>
+<div class="matrix-cell" style="background:#2c2c2c;color:#666">83s</div>
+<div class="matrix-cell" style="background:#2c2c2c;color:#666">82s</div>
+<div class="matrix-cell" style="background:#e74c3c;color:#fff">A7o</div>
+<div class="matrix-cell" style="background:#e74c3c;color:#fff">K7o</div>
+<div class="matrix-cell" style="background:#2c2c2c;color:#666">Q7o</div>
+<div class="matrix-cell" style="background:#2c2c2c;color:#666">J7o</div>
+<div class="matrix-cell" style="background:#2c2c2c;color:#666">T7o</div>
+<div class="matrix-cell" style="background:#e74c3c;color:#fff">97o</div>
+<div class="matrix-cell" style="background:#e74c3c;color:#fff">87o</div>
+<div class="matrix-cell" style="background:#e74c3c;color:#fff">77</div>
+<div class="matrix-cell" style="background:#e74c3c;color:#fff">76s</div>
+<div class="matrix-cell" style="background:#e74c3c;color:#fff">75s</div>
+<div class="matrix-cell" style="background:#e74c3c;color:#fff">74s</div>
+<div class="matrix-cell" style="background:#2c2c2c;color:#666">73s</div>
+<div class="matrix-cell" style="background:#2c2c2c;color:#666">72s</div>
+<div class="matrix-cell" style="background:#e74c3c;color:#fff">A6o</div>
+<div class="matrix-cell" style="background:#2c2c2c;color:#666">K6o</div>
+<div class="matrix-cell" style="background:#2c2c2c;color:#666">Q6o</div>
+<div class="matrix-cell" style="background:#2c2c2c;color:#666">J6o</div>
+<div class="matrix-cell" style="background:#2c2c2c;color:#666">T6o</div>
+<div class="matrix-cell" style="background:#2c2c2c;color:#666">96o</div>
+<div class="matrix-cell" style="background:#2c2c2c;color:#666">86o</div>
+<div class="matrix-cell" style="background:#e74c3c;color:#fff">76o</div>
+<div class="matrix-cell" style="background:#e74c3c;color:#fff">66</div>
+<div class="matrix-cell" style="background:#e74c3c;color:#fff">65s</div>
+<div class="matrix-cell" style="background:#e74c3c;color:#fff">64s</div>
+<div class="matrix-cell" style="background:#2c2c2c;color:#666">63s</div>
+<div class="matrix-cell" style="background:#2c2c2c;color:#666">62s</div>
+<div class="matrix-cell" style="background:#e74c3c;color:#fff">A5o</div>
+<div class="matrix-cell" style="background:#2c2c2c;color:#666">K5o</div>
+<div class="matrix-cell" style="background:#2c2c2c;color:#666">Q5o</div>
+<div class="matrix-cell" style="background:#2c2c2c;color:#666">J5o</div>
+<div class="matrix-cell" style="background:#2c2c2c;color:#666">T5o</div>
+<div class="matrix-cell" style="background:#2c2c2c;color:#666">95o</div>
+<div class="matrix-cell" style="background:#2c2c2c;color:#666">85o</div>
+<div class="matrix-cell" style="background:#2c2c2c;color:#666">75o</div>
+<div class="matrix-cell" style="background:#2c2c2c;color:#666">65o</div>
+<div class="matrix-cell" style="background:#e74c3c;color:#fff">55</div>
+<div class="matrix-cell" style="background:#e74c3c;color:#fff">54s</div>
+<div class="matrix-cell" style="background:#e74c3c;color:#fff">53s</div>
+<div class="matrix-cell" style="background:#2c2c2c;color:#666">52s</div>
+<div class="matrix-cell" style="background:#e74c3c;color:#fff">A4o</div>
+<div class="matrix-cell" style="background:#2c2c2c;color:#666">K4o</div>
+<div class="matrix-cell" style="background:#2c2c2c;color:#666">Q4o</div>
+<div class="matrix-cell" style="background:#2c2c2c;color:#666">J4o</div>
+<div class="matrix-cell" style="background:#2c2c2c;color:#666">T4o</div>
+<div class="matrix-cell" style="background:#2c2c2c;color:#666">94o</div>
+<div class="matrix-cell" style="background:#2c2c2c;color:#666">84o</div>
+<div class="matrix-cell" style="background:#2c2c2c;color:#666">74o</div>
+<div class="matrix-cell" style="background:#2c2c2c;color:#666">64o</div>
+<div class="matrix-cell" style="background:#2c2c2c;color:#666">54o</div>
+<div class="matrix-cell" style="background:#e74c3c;color:#fff">44</div>
+<div class="matrix-cell" style="background:#e74c3c;color:#fff">43s</div>
+<div class="matrix-cell" style="background:#2c2c2c;color:#666">42s</div>
+<div class="matrix-cell" style="background:#e74c3c;color:#fff">A3o</div>
+<div class="matrix-cell" style="background:#2c2c2c;color:#666">K3o</div>
+<div class="matrix-cell" style="background:#2c2c2c;color:#666">Q3o</div>
+<div class="matrix-cell" style="background:#2c2c2c;color:#666">J3o</div>
+<div class="matrix-cell" style="background:#2c2c2c;color:#666">T3o</div>
+<div class="matrix-cell" style="background:#2c2c2c;color:#666">93o</div>
+<div class="matrix-cell" style="background:#2c2c2c;color:#666">83o</div>
+<div class="matrix-cell" style="background:#2c2c2c;color:#666">73o</div>
+<div class="matrix-cell" style="background:#2c2c2c;color:#666">63o</div>
+<div class="matrix-cell" style="background:#2c2c2c;color:#666">53o</div>
+<div class="matrix-cell" style="background:#2c2c2c;color:#666">43o</div>
+<div class="matrix-cell" style="background:#e74c3c;color:#fff">33</div>
+<div class="matrix-cell" style="background:#e74c3c;color:#fff">32s</div>
+<div class="matrix-cell" style="background:#e74c3c;color:#fff">A2o</div>
+<div class="matrix-cell" style="background:#2c2c2c;color:#666">K2o</div>
+<div class="matrix-cell" style="background:#2c2c2c;color:#666">Q2o</div>
+<div class="matrix-cell" style="background:#2c2c2c;color:#666">J2o</div>
+<div class="matrix-cell" style="background:#2c2c2c;color:#666">T2o</div>
+<div class="matrix-cell" style="background:#2c2c2c;color:#666">92o</div>
+<div class="matrix-cell" style="background:#2c2c2c;color:#666">82o</div>
+<div class="matrix-cell" style="background:#2c2c2c;color:#666">72o</div>
+<div class="matrix-cell" style="background:#2c2c2c;color:#666">62o</div>
+<div class="matrix-cell" style="background:#2c2c2c;color:#666">52o</div>
+<div class="matrix-cell" style="background:#2c2c2c;color:#666">42o</div>
+<div class="matrix-cell" style="background:#2c2c2c;color:#666">32o</div>
+<div class="matrix-cell" style="background:#e74c3c;color:#fff">22</div>
+</div>
+<div class="matrix-legend">
+<span class="legend-item"><span class="legend-swatch" style="background:#e74c3c"></span> Raise</span>
+<span class="legend-item"><span class="legend-swatch" style="background:#2c2c2c"></span> Fold</span>
+</div>
+<p style="text-align:center;color:var(--text-dim);font-size:0.85rem;margin-top:0.5rem">BTN open-raise range, 100bb, implementable (~60% of hands)</p>
+</div>
+
+<p>Notice the pattern: all pairs, all suited aces, all suited kings, all suited queens, suited jacks down to J6s, strong suited connectors down to 32s, and many broadway offsuit combos including A2o+. The implementable chart is wider than a pure GTO range because it eliminates mixed-frequency decisions.</p>
+
+<div class="box box-purple">
+<div class="box-title">Key Insight</div>
+<strong>Never open-limp.</strong> When folded to you, raise or fold. Limping with rake costs you money -- the house takes a cut of every pot you see. By raising, sometimes everyone folds and you win the blinds rake-free.
+</div>
+
+<!-- ============ SECTION 8 ============ -->
+<h2 id="facing-raise">8. Facing a Raise</h2>
+
+<h3>From HJ/CO (not BTN or blinds): 3-bet or fold</h3>
+<p>With rake and competent opponents, there is no profitable calling range from middle positions. If you call, the BTN can overcall, someone can squeeze, and you're stuck OOP multi-way. Instead: 3-bet a strong linear range or fold.</p>
+
+<h3>From BTN: 3-bet + call</h3>
+<p>The button is the main position where you develop a calling range. You're closing the action and will be IP throughout the hand. Call with implied odds hands (pairs, suited connectors, suited aces). 3-bet with premiums + blocker bluffs (AJo, KQo as bluffs).</p>
+
+<h3>From SB: 3-bet or fold (almost always)</h3>
+<p>Worst relative position in the game. If you call, BB gets good odds to come along, making it 3-way with you first to act on every street. 3-bet to win the pot or get heads-up.</p>
+
+<h3>From BB: 3-bet linear + call wide</h3>
+<p>You're closing the action and getting good odds. 3-bet with a strong linear range (not polarized -- your opponent is incentivized to call you because they have position). Call with suited connectors, suited broadways, pairs, and broadway offsuit.</p>
+
+<div class="box box-red">
+<div class="box-title">Common Trap: Calling Offsuit Junk on the Button</div>
+T9o, 98o, 87o on the button facing a raise = <strong>torching money</strong>. Suited versions are fine because they can make flushes. Offsuit versions cannot and have reverse implied odds.
+</div>
+
+<!-- ============ SECTION 9 ============ -->
+<h2 id="facing-3bet">9. When Your Raise Gets 3-Bet</h2>
+
+<h3>In Position</h3>
+<ul>
+<li><strong>4-bet for value:</strong> AA, KK, QQ, JJ (sometimes TT), AKs, AKo</li>
+<li><strong>4-bet as bluff:</strong> AQo (fold to 5-bet), A5s, K9s (blockers)</li>
+<li><strong>Call:</strong> Pairs 22-99, suited connectors (76s-JTs), suited aces, KQs, AJs</li>
+<li><strong>Fold:</strong> AJo, KQo, KJo, ATo, all weak offsuit hands</li>
+</ul>
+
+<h3>Out of Position</h3>
+<ul>
+<li>Call less, 4-bet bluff more (can't realize equity by calling OOP)</li>
+<li>Fold suited connectors and suited aces that you'd call IP</li>
+<li>Fold more dominated hands -- they under-realize equity OOP</li>
+</ul>
+
+<div class="box box-purple">
+<div class="box-title">Key Insight</div>
+76s is often better to call than QJs when facing a 3-bet. Why? 76s is far less likely to be <strong>dominated</strong>. QJs runs into AQ, KQ, AJ, KJ constantly. When 76s makes a hand (straight, flush), it's usually the nuts.
+</div>
+
+<!-- ============ SECTION 10 ============ -->
+<h2 id="limpers">10. Facing Limpers</h2>
+
+<h3>Two Types of Limpers</h3>
+<table>
+<tr><th>Type</th><th>Tell</th><th>Your Strategy</th></tr>
+<tr><td><strong>Tricky</strong></td><td>Limps rarely, especially from EP</td><td>Limp behind with IO hands. Raise big offsuit for thin value (fold to limp-reraise).</td></tr>
+<tr><td><strong>Straightforward</strong></td><td>Limps frequently, would have raised good hands</td><td>Raise your normal range. C-bet frequently post-flop.</td></tr>
+</table>
+
+<div class="box box-red">
+<div class="box-title">Common Trap: Raising Tricky Limpers with 88</div>
+If the tricky limper limp-reraises, you're in a disaster. They almost certainly have AA or KK. Even with 10:1 implied odds, if there's a risk of further action before the flop (back-raises), your implied odds evaporate because you might not see a flop.
+</div>
+
+<div class="box box-orange">
+<div class="box-title">Worked Example: Bluffing Over Limpers</div>
+HJ limps (straightforward), CO limps, BTN limps, SB limps, you're in BB with J2o.<br>
+Normally: check and lose. But if you know all limpers are straightforward with weak hands, raise to 12-14bb. They all fold. You collect 4-5bb for free. Don't do this every orbit -- once every few hours is plenty.
+</div>
+
+<!-- ============ SECTION 11 ============ -->
+<h2 id="cold-4bet">11. Cold 4-Bets & Facing 4-Bets</h2>
+
+<h3>Cold 4-Betting (Raise + 3-bet before you act)</h3>
+<p>At 100bb: <strong>4-bet or fold only.</strong> No calling range. If you call, the initial raiser will 4-bet often enough to destroy your implied odds.</p>
+
+<table>
+<tr><th>Scenario</th><th>Get It In</th><th>Bluff (fold to 5-bet)</th></tr>
+<tr><td>EP raise + EP 3-bet</td><td>QQ+, AK</td><td>KQs</td></tr>
+<tr><td>Late raise + late 3-bet</td><td>JJ+, AK, AQs</td><td>AQo, KJs, A5s</td></tr>
+</table>
+
+<h3>Facing a 4-Bet</h3>
+<p>Most opponents 4-bet <strong>way too tightly</strong>. Exploitatively: have no calling range at 100bb. Just 5-bet AA-KK or fold.</p>
+
+<div class="box box-purple">
+<div class="box-title">Key Insight</div>
+AQo facing a 4-bet = <strong>fold</strong>. Even in position. This is one of the biggest leaks in small-stakes games -- people cannot release AQ to heavy action. If they want to 4-bet you, let them have it.
+</div>
+
+<!-- ============ SECTION 12 ============ -->
+<h2 id="deep-stack">12. 200bb Deep Adjustments</h2>
+
+<p>Everything from 100bb applies, with these modifications:</p>
+
+<h3>Hands That Go Up</h3>
+<ul>
+<li>Suited aces (A2s-A9s)</li>
+<li>Suited connectors (54s-JTs, plus gappers like 86s, T8s)</li>
+<li>Small/medium pairs</li>
+</ul>
+
+<h3>Hands That Go Down</h3>
+<ul>
+<li>Offsuit broadways (KJo, QTo, ATo)</li>
+<li>Unimproved overpairs (hard to play for 200bb)</li>
+<li>KXs facing 4-bets (dominated by AK)</li>
+</ul>
+
+<h3>Strategy Shifts</h3>
+<ul>
+<li>BTN RFI: ~46% (vs ~41% at 100bb), adding suited connectors and gappers</li>
+<li>SB RFI: slightly fewer hands (positional disadvantage bigger when deep)</li>
+<li>Facing 3-bets IP: call <strong>much wider</strong> -- 54s, 22, Q8s all become playable</li>
+<li>4-bet bluffs: come from suited connectors (87s, 76s) instead of just blockers</li>
+<li>Facing 4-bets: more calling IP (getting good IO), but KXs still bad</li>
+<li>5-betting: only AA + a few Axs blocker bluffs</li>
+</ul>
+
+<div class="box box-purple">
+<div class="box-title">Key Insight</div>
+The deeper you go, the more linear your 3-betting becomes from OOP. At 100bb you 3-bet polarized from the CO. At 200bb you 3-bet more linearly with hands that have post-flop playability (suited aces, good suited connectors), because your opponent is more incentivized to call.
+</div>
+
+<hr style="margin:3rem 0">
+<p style="color:var(--text-dim);font-size:0.85rem">Cash Game Masterclass -- Chapter 2 Crash Course. Based on 23 lessons by Jonathan Little.</p>
+
+</body>
+</html>

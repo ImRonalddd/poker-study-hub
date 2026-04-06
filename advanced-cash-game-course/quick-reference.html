@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Advanced Cash Game Course — Quick Reference</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;1,400;1,600&family=Source+Serif+4:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #FFFFFF;
+  --surface: #FFFFFF;
+  --surface2: #F5F5F5;
+  --accent: #000000;
+  --text: #000000;
+  --text-dim: #525252;
+  --correct: #1a7a5e;
+  --wrong: #b91c1c;
+  --orange: #8B6914;
+  --border: #000000;
+  --border-light: #E5E5E5;
+}
+
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  border-radius: 0 !important;
+}
+
+body {
+  font-family: 'Source Serif 4', 'Georgia', serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  opacity: 0.02;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 400px 400px;
+  pointer-events: none;
+}
+
+.container {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+/* -- Header -- */
+header {
+  padding: 4rem 0 2.5rem;
+  text-align: center;
+}
+
+header h1 {
+  font-family: 'Playfair Display', serif;
+  font-weight: 800;
+  font-size: 2.8rem;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+  margin-bottom: 0.75rem;
+}
+
+header .subtitle {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.8rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--text-dim);
+}
+
+.back-link {
+  display: inline-block;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--text-dim);
+  text-decoration: none;
+  margin-bottom: 2rem;
+  padding: 0.5rem 0;
+  transition: color 100ms;
+}
+
+.back-link:hover {
+  color: var(--text);
+}
+
+/* -- Divider -- */
+.divider {
+  border: none;
+  border-top: 4px solid var(--accent);
+  margin: 0;
+}
+
+/* -- Section -- */
+.ref-section {
+  padding: 2.5rem 0;
+  border-bottom: 1px solid var(--border-light);
+}
+
+.ref-section:last-of-type {
+  border-bottom: none;
+}
+
+.ref-section h2 {
+  font-family: 'Playfair Display', serif;
+  font-weight: 700;
+  font-size: 1.6rem;
+  margin-bottom: 0.3rem;
+}
+
+.ref-section .section-source {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.6rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--text-dim);
+  margin-bottom: 1.25rem;
+}
+
+.ref-section h3 {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  margin-top: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.ref-section p {
+  font-size: 0.95rem;
+  line-height: 1.7;
+  color: var(--text-dim);
+  margin-bottom: 0.75rem;
+}
+
+.ref-section ul {
+  list-style: none;
+  margin-bottom: 0.75rem;
+}
+
+.ref-section ul li {
+  font-size: 0.95rem;
+  line-height: 1.7;
+  color: var(--text-dim);
+  padding-left: 1.25rem;
+  position: relative;
+}
+
+.ref-section ul li::before {
+  content: '\2014';
+  position: absolute;
+  left: 0;
+  color: var(--text-dim);
+}
+
+/* -- Concept Card -- */
+.concept-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.concept-card {
+  border: 1px solid var(--border);
+  padding: 1.25rem 1.5rem;
+  transition: background 100ms, color 100ms;
+}
+
+.concept-card:hover {
+  background: var(--accent);
+  color: #FFFFFF;
+}
+
+.concept-card:hover .concept-label {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.concept-card:hover .concept-desc {
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.concept-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.6rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--text-dim);
+  margin-bottom: 0.25rem;
+  transition: color 100ms;
+}
+
+.concept-title {
+  font-family: 'Playfair Display', serif;
+  font-weight: 700;
+  font-size: 1.1rem;
+  margin-bottom: 0.4rem;
+}
+
+.concept-desc {
+  font-size: 0.88rem;
+  line-height: 1.6;
+  color: var(--text-dim);
+  transition: color 100ms;
+}
+
+/* -- Checklist -- */
+.checklist {
+  list-style: none;
+  margin-top: 0.75rem;
+}
+
+.checklist li {
+  font-size: 0.95rem;
+  line-height: 1.8;
+  color: var(--text-dim);
+  padding-left: 1.5rem;
+  position: relative;
+}
+
+.checklist li::before {
+  content: '\25A1';
+  position: absolute;
+  left: 0;
+  color: var(--text);
+  font-size: 0.85rem;
+}
+
+/* -- Table -- */
+.ref-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+  font-size: 0.9rem;
+}
+
+.ref-table th {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.6rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  text-align: left;
+  padding: 0.6rem 0.75rem;
+  border-bottom: 2px solid var(--accent);
+  color: var(--text);
+}
+
+.ref-table td {
+  padding: 0.6rem 0.75rem;
+  border-bottom: 1px solid var(--border-light);
+  color: var(--text-dim);
+  vertical-align: top;
+}
+
+.ref-table tr:last-child td {
+  border-bottom: none;
+}
+
+/* -- Footer -- */
+footer {
+  padding: 3rem 0;
+  text-align: center;
+  border-top: 4px solid var(--accent);
+}
+
+footer p {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text-dim);
+  line-height: 1.8;
+}
+
+/* -- Responsive -- */
+@media (max-width: 640px) {
+  header { padding: 3rem 0 2rem; }
+  header h1 { font-size: 2rem; }
+  .concept-grid { grid-template-columns: 1fr; }
+  .ref-table { font-size: 0.8rem; }
+}
+
+/* -- Print Styles -- */
+@media print {
+  body::before { display: none; }
+
+  body {
+    font-size: 10pt;
+    line-height: 1.4;
+    color: #000;
+  }
+
+  .container {
+    max-width: 100%;
+    padding: 0;
+  }
+
+  header {
+    padding: 1rem 0;
+  }
+
+  header h1 {
+    font-size: 20pt;
+  }
+
+  .back-link {
+    display: none;
+  }
+
+  .divider {
+    border-top-width: 2px;
+  }
+
+  .ref-section {
+    padding: 1rem 0;
+    page-break-inside: avoid;
+  }
+
+  .ref-section h2 {
+    font-size: 14pt;
+  }
+
+  .concept-grid {
+    gap: 0.5rem;
+  }
+
+  .concept-card {
+    padding: 0.75rem 1rem;
+    page-break-inside: avoid;
+  }
+
+  .concept-card:hover {
+    background: transparent;
+    color: inherit;
+  }
+
+  .concept-card:hover .concept-label,
+  .concept-card:hover .concept-desc {
+    color: var(--text-dim);
+  }
+
+  .ref-table {
+    font-size: 8pt;
+  }
+
+  footer {
+    padding: 1rem 0;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="container">
+    <a href="./index.html" class="back-link">&larr; Back to Course Hub</a>
+    <h1>Quick Reference Card</h1>
+    <div class="subtitle">Advanced Cash Game Course — Printable Cheat Sheet</div>
+  </div>
+</header>
+
+<hr class="divider">
+
+<!-- Section 1: Advanced Preflop Concepts -->
+<section class="ref-section">
+  <div class="container">
+    <h2>Advanced Preflop Concepts</h2>
+    <div class="section-source">Module 1 — Jonathan Little</div>
+
+    <h3>8-Max Live vs 6-Max Online</h3>
+    <ul>
+      <li>8-max live (no rake): wider RFI ranges, small blind can limp. 6-max with rake: tighter across all positions</li>
+      <li>100bb deep: high cards and pairs dominate. 200bb deep: suited connectors and suited aces gain value due to postflop playability</li>
+      <li>Never limp from any position except SB in no-rake games. With rake, never limp from any position</li>
+    </ul>
+
+    <h3>Squeezing</h3>
+    <ul>
+      <li>Vs 1 caller: squeeze wider with suited broadways, medium pairs, suited aces. Fold equity is high against capped flatting ranges</li>
+      <li>Vs multiple callers: tighten significantly. Use larger sizing (4-5x the open) but restrict to premium hands and strong suited combos</li>
+      <li>Online 6-max squeezing is more frequent due to tighter opening ranges creating more defined caller ranges</li>
+    </ul>
+
+    <h3>Cold 4-Betting</h3>
+    <ul>
+      <li>Live: narrow your cold 4-bet range to QQ+, AKs, and select bluffs (A5s, A4s). Opponents rarely fold 3-bets light</li>
+      <li>Online 6-max: wider cold 4-bet range viable because opponents 3-bet lighter. Include more suited aces as bluffs</li>
+      <li>Facing a 4-bet: with 100bb, jam range is narrow (QQ+, AKs). At 200bb, more calling and 5-bet bluffing enters the strategy</li>
+    </ul>
+  </div>
+</section>
+
+<!-- Section 2: Bet Sizing Framework -->
+<section class="ref-section">
+  <div class="container">
+    <h2>Bet Sizing Framework</h2>
+    <div class="section-source">Module 2 — Jonathan Little</div>
+
+    <div class="concept-grid">
+      <div class="concept-card">
+        <div class="concept-label">Small (25-33% pot)</div>
+        <div class="concept-title">Low Nut Advantage</div>
+        <div class="concept-desc">Use on boards where your range lacks strong nut hands relative to opponent. Connected boards like T-9-7 where opponent has more straights and two pair. Also when opponent's range connects poorly (lots of air).</div>
+      </div>
+      <div class="concept-card">
+        <div class="concept-label">Medium (50-67% pot)</div>
+        <div class="concept-title">Clear Nut Advantage</div>
+        <div class="concept-desc">Use on dry boards where you hold the overpair and set advantage. Boards like 8-5-2 rainbow where no straights or flushes exist and your range has all the premiums.</div>
+      </div>
+      <div class="concept-card">
+        <div class="concept-label">Large (75-100% pot)</div>
+        <div class="concept-title">Nut Advantage + Connected Range</div>
+        <div class="concept-desc">Use when you have the nut advantage AND opponent's range connects well with the board (many pairs and draws). They will call with more hands, so you get paid with your value bets.</div>
+      </div>
+      <div class="concept-card">
+        <div class="concept-label">Overbet (125%+ pot)</div>
+        <div class="concept-title">Extreme Polarization</div>
+        <div class="concept-desc">Use on rivers where your range is heavily polarized between nuts and air while opponent's range is capped at bluff catchers. Also viable on dynamic turns where you can push equity hard.</div>
+      </div>
+    </div>
+
+    <h3>Key Sizing Drivers</h3>
+    <ul>
+      <li>Nut advantage: who has more premium combos? That player bets bigger</li>
+      <li>Range connectivity: how well does opponent's range hit the board? Better connection = bigger sizing</li>
+      <li>Stack depth: deeper stacks allow more streets of betting, so individual bet sizes can be smaller early</li>
+      <li>Board dynamism: boards likely to change favor smaller, more frequent bets to lock in equity</li>
+    </ul>
+  </div>
+</section>
+
+<!-- Section 3: Multiway Pot Adjustments -->
+<section class="ref-section">
+  <div class="container">
+    <h2>Multiway Pot Adjustments</h2>
+    <div class="section-source">Module 3 — Jonathan Little</div>
+
+    <h3>Core Principle</h3>
+    <p>
+      In heads-up pots you may have 58% equity; in multiway pots you rarely exceed 40%.
+      You almost never have a meaningful range or nut advantage against multiple opponents.
+      This drives every adjustment below.
+    </p>
+
+    <h3>Betting Adjustments</h3>
+    <ul>
+      <li>Check far more often — you cannot profitably bet your entire range multiway</li>
+      <li>Use smaller bet sizes when you do bet</li>
+      <li>Value bets shift toward made hands (middle pair, bottom pair) rather than high-equity semi-bluffs</li>
+      <li>Large bets are extremely rare on the flop multiway; reserve them for clear nut advantage spots</li>
+    </ul>
+
+    <h3>Defense Adjustments</h3>
+    <ul>
+      <li>Minimum defense frequency is split among all remaining players. With 2 opponents: ~35% each. With 6: ~10% each</li>
+      <li>Equity realization drops significantly out of position with multiple opponents</li>
+      <li>Drawing hands lose value because implied odds decrease when more players can have the nuts</li>
+    </ul>
+  </div>
+</section>
+
+<!-- Section 4: Deep-Stacked Adjustments -->
+<section class="ref-section">
+  <div class="container">
+    <h2>Deep-Stacked Adjustments</h2>
+    <div class="section-source">Module 4 — Jonathan Little</div>
+
+    <h3>Three Principles of Deep Play</h3>
+    <table class="ref-table">
+      <thead>
+        <tr>
+          <th>Principle</th>
+          <th>Effect</th>
+          <th>Practical Adjustment</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Position scales with depth</td>
+          <td>IP player controls pot size and decides when to play big</td>
+          <td>Be far more cautious OOP. Call more, raise less with marginal hands</td>
+        </tr>
+        <tr>
+          <td>Nut advantage drives strategy</td>
+          <td>Hands that can make the nuts become critical; big offsuit hands lose value</td>
+          <td>Prefer suited hands and connectors. KJo drops dramatically at 200bb vs 25bb</td>
+        </tr>
+        <tr>
+          <td>Stack-off threshold rises</td>
+          <td>Top pair is no longer a stack-off hand; you need the nuts or near-nuts</td>
+          <td>KQ on K-7-2 is a check-call at 200bb, not a check-raise</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3>SPR Reference</h3>
+    <ul>
+      <li>Low SPR (under 4): top pair is often good enough to stack off. Overpairs are near-nut</li>
+      <li>Medium SPR (4-10): two pair and better for comfortable stack-offs. Top pair check-calls</li>
+      <li>High SPR (10+): only sets, straights, and flushes for confident stack-offs. Premium hands play cautiously</li>
+    </ul>
+  </div>
+</section>
+
+<!-- Section 5: GTO vs Exploitative -->
+<section class="ref-section">
+  <div class="container">
+    <h2>GTO vs Exploitative Decision Framework</h2>
+    <div class="section-source">Modules 5 &amp; 6 — Justin Saliba / Chris Brewer</div>
+
+    <h3>When to Play GTO</h3>
+    <ul>
+      <li>Against unknown opponents or strong regulars</li>
+      <li>In spots with high pressure where execution errors are costly</li>
+      <li>When you lack reliable reads or HUD data</li>
+      <li>As a baseline — understand GTO first so deviations are intentional</li>
+    </ul>
+
+    <h3>When to Exploit</h3>
+    <ul>
+      <li>When you have a clear, reliable read on opponent tendencies</li>
+      <li>Against recreational players with obvious leaks (too loose, too passive, too sticky)</li>
+      <li>In spots where the EV gain from exploitation outweighs the risk of being counter-exploited</li>
+      <li>Chris Brewer's rule: the best live cash players use simple strategies executed at a very high level, not complex GTO trees</li>
+    </ul>
+
+    <h3>Saliba's Three Focus Areas</h3>
+    <ul>
+      <li>Defending vs aggression on flops and turns — know your correct defense frequency</li>
+      <li>Identifying nut advantage spots to over-realize equity with big sizing</li>
+      <li>Playing OOP in passive lines — know when to spring traps and when to defend</li>
+    </ul>
+  </div>
+</section>
+
+<!-- Section 6: High-Stakes Mindset -->
+<section class="ref-section">
+  <div class="container">
+    <h2>High-Stakes Mindset Principles</h2>
+    <div class="section-source">Module 6 — Chris Brewer</div>
+
+    <ul>
+      <li>Use solvers to understand mechanics and underlying principles, not to memorize output</li>
+      <li>When pressure is highest, simpler strategies executed well beat complex strategies executed poorly</li>
+      <li>Find implementable strategies that lose almost no EV compared to full solver solutions</li>
+      <li>The biggest edges come from massive exploits against clear tendencies, not from marginal GTO precision</li>
+      <li>Study a few key hands deeply rather than hundreds of hands superficially</li>
+      <li>Every hand is a data point about your opponent — observe even when not in the pot</li>
+    </ul>
+  </div>
+</section>
+
+<!-- Section 7: 6-Max Exploit Identification -->
+<section class="ref-section">
+  <div class="container">
+    <h2>6-Max Exploit Identification Checklist</h2>
+    <div class="section-source">Module 7 — Brad Wilson</div>
+
+    <h3>Player Tagging System</h3>
+    <p>
+      Quickly categorize opponents to determine your default exploit strategy.
+      Brad Wilson uses a belt system where recreational players ("white belts") receive
+      the widest exploits and strong regs require subtler adjustments.
+    </p>
+
+    <ul class="checklist">
+      <li>VPIP/PFR ratio: is the player too loose preflop? (VPIP over 30 = likely recreational)</li>
+      <li>3-bet frequency: too low (&lt;5%) means 3-bet them wider; too high (&gt;12%) means trap them</li>
+      <li>Fold to c-bet: over 60% means barrel relentlessly; under 40% means tighten value range</li>
+      <li>Aggression factor: passive players (&lt;1.5) rarely bluff — believe their raises. Maniacs (&gt;3.5) overbluff — call down wider</li>
+      <li>WTSD%: showdown-bound players (&gt;28%) never fold — value bet thin. Low WTSD (&lt;22%) means they overfold rivers</li>
+      <li>Positional awareness: do they adjust ranges by position? If not, their EP range is too wide — 3-bet it</li>
+      <li>Bet sizing tells: do they size differently with value vs bluffs? Exploit the pattern</li>
+    </ul>
+
+    <h3>Attacking Imbalance</h3>
+    <ul>
+      <li>Node lock their deviation in the solver to see the optimal counter-strategy</li>
+      <li>Preflop vs white belts: widen isolation raises, tighten calling ranges, increase 3-bet sizing</li>
+      <li>Reg exploits: identify the one or two spots where even good players have systematic leaks</li>
+    </ul>
+  </div>
+</section>
+
+<!-- Section 8: Heads-Up Adjustments -->
+<section class="ref-section">
+  <div class="container">
+    <h2>Heads-Up Key Adjustments</h2>
+    <div class="section-source">Module 8 — Jon Jaffe</div>
+
+    <h3>Core HUNL Principles</h3>
+    <ul>
+      <li>No hiding: you play every hand. Range construction discipline is everything</li>
+      <li>Huge win rates are achievable — better ranges compound over thousands of hands</li>
+      <li>Simple, logical, robust ranges beat complex mixed strategies that you cannot execute</li>
+    </ul>
+
+    <h3>Stack Depth Differences</h3>
+    <table class="ref-table">
+      <thead>
+        <tr>
+          <th>Depth</th>
+          <th>Preflop</th>
+          <th>Postflop</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>100bb</td>
+          <td>Standard open sizing. 3-bet/fold and 3-bet/call ranges are clearly defined</td>
+          <td>More all-in spots on flop and turn. Top pair is a strong hand. Fewer streets to navigate</td>
+        </tr>
+        <tr>
+          <td>200bb</td>
+          <td>Wider opens, more calling of 3-bets. Mixed strategies appear more</td>
+          <td>More postflop maneuvering. Nut hands become critical. Position value increases dramatically</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3>HUNL-Specific Spots</h3>
+    <ul>
+      <li>3-bet pots on monotone boards: check more as the preflop aggressor. Nut flush draws control the action</li>
+      <li>Button vs BB dynamics: button raises nearly everything, BB defends very wide — small pot poker dominates early streets</li>
+      <li>Adaptation: observe opponent's patterns over the session. HUNL is a constant adjustment battle — whoever adapts faster wins</li>
+    </ul>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <p>Advanced Cash Game Course — Quick Reference</p>
+    <p>Jonathan Little / Justin Saliba / Chris Brewer / Brad Wilson / Jon Jaffe</p>
+    <p>Study materials generated from PokerCoaching.com course content</p>
+  </div>
+</footer>
+
+</body>
+</html>

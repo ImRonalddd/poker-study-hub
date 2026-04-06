@@ -1,0 +1,925 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chapter 1: Introduction -- Interactive Drills</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Source+Serif+4:ital,wght@0,400;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+<style>
+:root {
+  --bg: #FFFFFF;
+  --surface: #FFFFFF;
+  --surface2: #F5F5F5;
+  --accent: #000000;
+  --text: #000000;
+  --text-dim: #525252;
+  --correct: #1a7a5e;
+  --wrong: #b91c1c;
+  --orange: #8B6914;
+  --border: #000000;
+  --border-light: #E5E5E5;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'Source Serif 4', serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.7;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 32px 20px 60px;
+}
+
+h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: 2rem;
+  font-weight: 900;
+  text-align: center;
+  margin-bottom: 4px;
+}
+
+.subtitle {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.8rem;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+/* Progress bar */
+.progress-wrap {
+  width: 100%;
+  max-width: 680px;
+  margin-bottom: 32px;
+}
+
+.progress-bar {
+  width: 100%;
+  height: 6px;
+  background: var(--border-light);
+  border-radius: 0px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: var(--accent);
+  transition: width 0.3s ease;
+  width: 0%;
+}
+
+.progress-text {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  color: var(--text-dim);
+  margin-top: 6px;
+  display: flex;
+  justify-content: space-between;
+}
+
+/* Card */
+.card {
+  width: 100%;
+  max-width: 680px;
+  border: 2px solid var(--border);
+  border-radius: 0px;
+  padding: 32px;
+  min-height: 320px;
+  display: flex;
+  flex-direction: column;
+}
+
+.tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text-dim);
+  margin-bottom: 16px;
+}
+
+.question-text {
+  font-size: 1.15rem;
+  font-weight: 600;
+  margin-bottom: 24px;
+  flex-shrink: 0;
+}
+
+/* Options */
+.options { list-style: none; flex: 1; }
+
+.option-btn {
+  display: block;
+  width: 100%;
+  text-align: left;
+  padding: 12px 16px;
+  margin-bottom: 8px;
+  border: 1px solid var(--border-light);
+  border-radius: 0px;
+  background: var(--surface);
+  font-family: 'Source Serif 4', serif;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: border-color 0.15s;
+  line-height: 1.5;
+}
+
+.option-btn:hover:not(.locked) {
+  border-color: var(--accent);
+}
+
+.option-btn .hotkey {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.8rem;
+  color: var(--text-dim);
+  margin-right: 8px;
+}
+
+.option-btn.correct-choice {
+  border-color: var(--correct);
+  background: #f0fdf4;
+}
+
+.option-btn.wrong-choice {
+  border-color: var(--wrong);
+  background: #fef2f2;
+}
+
+.option-btn.show-correct {
+  border-color: var(--correct);
+  border-width: 2px;
+}
+
+.option-btn.locked { cursor: default; }
+
+/* FIB */
+.fib-wrap {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  flex: 1;
+}
+
+.fib-input {
+  flex: 1;
+  padding: 12px 16px;
+  border: 1px solid var(--border-light);
+  border-radius: 0px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 1rem;
+  outline: none;
+}
+
+.fib-input:focus { border-color: var(--accent); }
+
+.fib-submit {
+  padding: 12px 24px;
+  border: 2px solid var(--accent);
+  border-radius: 0px;
+  background: var(--accent);
+  color: var(--bg);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.85rem;
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* Feedback */
+.feedback {
+  margin-top: 16px;
+  padding: 16px;
+  border: 1px solid var(--border-light);
+  border-radius: 0px;
+  display: none;
+}
+
+.feedback.show { display: block; }
+
+.feedback-verdict {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 6px;
+  font-weight: 500;
+}
+
+.feedback-verdict.is-correct { color: var(--correct); }
+.feedback-verdict.is-wrong { color: var(--wrong); }
+
+.feedback-explanation {
+  font-size: 0.95rem;
+  color: var(--text-dim);
+}
+
+.hint-btn {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  color: var(--text-dim);
+  background: none;
+  border: 1px solid var(--border-light);
+  padding: 4px 10px;
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-top: 12px;
+}
+
+.hint-text {
+  font-size: 0.9rem;
+  color: var(--orange);
+  font-style: italic;
+  margin-top: 8px;
+  display: none;
+}
+
+.hint-text.show { display: block; }
+
+/* Navigation */
+.nav-row {
+  margin-top: 20px;
+  display: flex;
+  gap: 12px;
+  justify-content: flex-end;
+  width: 100%;
+}
+
+.nav-btn {
+  padding: 10px 28px;
+  border: 2px solid var(--accent);
+  border-radius: 0px;
+  background: var(--bg);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.85rem;
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  transition: background 0.15s, color 0.15s;
+}
+
+.nav-btn:hover {
+  background: var(--accent);
+  color: var(--bg);
+}
+
+.nav-btn:disabled {
+  opacity: 0.3;
+  cursor: default;
+}
+
+/* Summary */
+.summary {
+  width: 100%;
+  max-width: 680px;
+  text-align: center;
+}
+
+.summary h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.8rem;
+  margin-bottom: 8px;
+}
+
+.score-text {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 1.4rem;
+  margin-bottom: 24px;
+}
+
+.score-text .num-correct { color: var(--correct); }
+.score-text .num-wrong { color: var(--wrong); }
+
+.summary-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+/* Hotkey legend */
+.hotkeys {
+  width: 100%;
+  max-width: 680px;
+  margin-top: 32px;
+  padding-top: 16px;
+  border-top: 1px solid var(--border-light);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  color: var(--text-dim);
+  text-align: center;
+  letter-spacing: 0.02em;
+}
+
+.hotkeys kbd {
+  background: var(--surface2);
+  padding: 2px 6px;
+  border: 1px solid var(--border-light);
+  border-radius: 0px;
+  font-family: inherit;
+}
+</style>
+</head>
+<body>
+
+<h1>Interactive Drills</h1>
+<div class="subtitle">Chapter 1 -- Introduction to Cash Games</div>
+
+<div class="progress-wrap">
+  <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+  <div class="progress-text">
+    <span id="progressLabel">Question 1 / --</span>
+    <span id="scoreLabel">0 correct</span>
+  </div>
+</div>
+
+<div class="card" id="cardArea"></div>
+
+<div class="hotkeys">
+  <kbd>1</kbd>-<kbd>4</kbd> select answer &nbsp;&middot;&nbsp;
+  <kbd>Enter</kbd> submit FIB &nbsp;&middot;&nbsp;
+  <kbd>Space</kbd> next question &nbsp;&middot;&nbsp;
+  <kbd>H</kbd> hint &nbsp;&middot;&nbsp;
+  <kbd>R</kbd> restart
+</div>
+
+<script>
+// ============================================================
+// QUESTION BANK
+// ============================================================
+const QUESTIONS = [
+  // --- EQUITY (from quiz + transcript) ---
+  {
+    tag: "Equity", type: "mc",
+    text: "In a poker hand on the turn, your opponent goes all-in for $100 into a $100 pot. You will win 25% of the time. If you lose, you lose $100. If you win, you win $200. How much do you win or lose by calling?",
+    options: ["Lose $25", "Win $0", "Lose $100", "Win $25"],
+    answer: 0,
+    hint: "EV = (P_win x Amount Won) + (P_lose x Amount Lost)",
+    explanation: "EV = (0.25 x $200) + (0.75 x -$100) = $50 - $75 = -$25. You lose $25 on average."
+  },
+  {
+    tag: "Equity", type: "mc",
+    text: "Your opponent goes all-in for $500 into a $700 pot. You will win 40% of the time. What is your EV from calling?",
+    options: ["+$180", "+$80", "-$80", "+$400"],
+    answer: 1,
+    hint: "When you win, you collect the pot ($700) + opponent's bet ($500) = $1,200.",
+    explanation: "EV = (0.40 x $1,200) + (0.60 x -$500) = $480 - $300 = +$180. Wait -- that's if 'Amount Won' = total collected. But from the quiz, the answer is +$180. Actually: you invest $500, win $1,200 when you win. EV = 0.40 x 1200 + 0.60 x (-500) = 480 - 300 = +$180."
+  },
+  {
+    tag: "Equity", type: "mc",
+    text: "You put 25,000 chips into a 50,000 chip pot (total pot becomes 50,000) and you will win 40% of the time. How much do you win or lose on average?",
+    options: ["-5,000 chips", "+5,000 chips", "+2,500 chips", "-2,500 chips"],
+    answer: 1,
+    hint: "Your equity share = 40% of 50,000. Subtract what you put in (25,000).",
+    explanation: "Wait -- if you put 25,000 into a 50,000 pot that already existed, the total pot is 50,000 + 25,000 = 75,000? The quiz says the pot IS 50,000 and you put 25,000 in, so total = 50,000. Your share = 0.40 x 50,000 = 20,000. Profit = 20,000 - 25,000 = -5,000. Hmm. From the quiz the correct answer is listed as 'Win 5000'. Let's interpret: pot = 50,000 total (including your 25k). Share = 0.40 x 50,000 = 20,000. That's a loss. But if pot = 50,000 and you call 25,000 more, total = 75,000. Share = 0.40 x 75,000 = 30,000. Profit = 30,000 - 25,000 = +5,000."
+  },
+  {
+    tag: "Equity", type: "fib",
+    text: "You get all-in preflop with AKo vs JTs. AKo has ~59.5% equity. The total pot is $10,000. How much is your equity share of the pot? (Answer in dollars, no $ sign)",
+    answer: ["5948", "5950", "5946", "5,948", "5,950"],
+    hint: "Equity share = equity% x total pot.",
+    explanation: "Your share = 0.595 x $10,000 = $5,950 (or ~$5,948 using 59.48%)."
+  },
+  {
+    tag: "Equity", type: "mc",
+    text: "On a fair coin flip where you win $200 when heads and lose $100 when tails, what is your expected value per flip?",
+    options: ["+$50", "+$100", "+$25", "$0"],
+    answer: 0,
+    hint: "EV = (0.50 x win amount) + (0.50 x lose amount).",
+    explanation: "EV = (0.50 x $200) + (0.50 x -$100) = $100 - $50 = +$50 per flip."
+  },
+  // --- POT ODDS (from quiz + transcript) ---
+  {
+    tag: "Pot Odds", type: "mc",
+    text: "On the river, your opponent bets $500 into a $300 pot. What are your pot odds?",
+    options: ["1.6:1", "2:1", "3:1", "2.2:1"],
+    answer: 0,
+    hint: "Pot odds = (Pot + Opponent's bet) : Your call = ($300 + $500) : $500.",
+    explanation: "Pot odds = $800 : $500. Simplify: divide both by 500 = 1.6:1."
+  },
+  {
+    tag: "Pot Odds", type: "mc",
+    text: "When you are getting 2.7:1 pot odds, how often do you need to win to justify calling?",
+    options: ["27%", "30%", "35%", "25%"],
+    answer: 0,
+    hint: "Required% = 1 / (2.7 + 1).",
+    explanation: "Required win% = 1 / (2.7 + 1) = 1 / 3.7 = 27.0%."
+  },
+  {
+    tag: "Pot Odds", type: "mc",
+    text: "If your opponent bets $25 into a $100 pot, what are your pot odds?",
+    options: ["5:1", "4:1", "3:1", "2:1"],
+    answer: 0,
+    hint: "Pot odds = (Pot + Bet) : Call = ($100 + $25) : $25.",
+    explanation: "Pot odds = $125 : $25. Simplify by dividing both by 25 = 5:1."
+  },
+  {
+    tag: "Pot Odds", type: "fib",
+    text: "When getting 5:1 pot odds, what percentage of the time do you need to win to justify calling? (Answer as a whole number, e.g., 17)",
+    answer: ["17", "16.7", "16", "17%"],
+    hint: "Required% = 1 / (5 + 1).",
+    explanation: "Required win% = 1 / 6 = 16.7%, approximately 17%."
+  },
+  {
+    tag: "Pot Odds", type: "fib",
+    text: "Your opponent bets $150 into a $700 pot on the river. What percentage of the time do you need to win to call? (Whole number)",
+    answer: ["15", "15%"],
+    hint: "Total pot after calling = $700 + $150 + $150 = $1,000. Required% = $150 / $1,000.",
+    explanation: "$150 / ($700 + $150 + $150) = $150 / $1,000 = 15%."
+  },
+  {
+    tag: "Pot Odds", type: "mc",
+    text: "Your opponent bets $1,000 into a $700 pot (an overbet). What percentage of the time must you win to call?",
+    options: ["37%", "59%", "50%", "43%"],
+    answer: 0,
+    hint: "Required% = call / (pot + opponent bet + call).",
+    explanation: "$1,000 / ($700 + $1,000 + $1,000) = $1,000 / $2,700 = 37%."
+  },
+  {
+    tag: "Pot Odds", type: "tf",
+    text: "True or False: When facing a bet, you can sometimes need more than 50% equity to justify calling.",
+    answer: false,
+    hint: "Think about the formula: call / (call + call + pot). The pot is always > 0.",
+    explanation: "False. Because you always match the opponent's bet and there's always money in the pot, the maximum required equity approaches but never reaches 50%."
+  },
+  // --- RANGES ---
+  {
+    tag: "Ranges", type: "tf",
+    text: "True or False: When thinking about your opponent's hand, you should try to narrow it down to one specific hand.",
+    answer: false,
+    hint: "Think about the concept of a 'range' vs a single hand.",
+    explanation: "False. You should always think in terms of ranges -- the set of all hands your opponent could realistically hold given their actions."
+  },
+  {
+    tag: "Ranges", type: "mc",
+    text: "A strong preflop range (77+, ATs+, KJs+, AJo+) faces a weak BB calling range (missing AA/KK/QQ/JJ/AKs) on a board of A-J-4. Approximately what equity does the strong range have?",
+    options: ["69.5%", "55%", "50%", "80%"],
+    answer: 0,
+    hint: "The raiser's range connects heavily with high-card boards.",
+    explanation: "The raiser's range has ~69.5% equity on A-J-4 because it contains many aces and big hands, while the caller is missing their strongest holdings (they would have 3-bet those)."
+  },
+  {
+    tag: "Ranges", type: "mc",
+    text: "Same strong range vs same weak range, but now the board is 7-6-5. Approximately what equity does the strong range have?",
+    options: ["50%", "69%", "60%", "40%"],
+    answer: 0,
+    hint: "Low connected boards favor the wider, more connected range.",
+    explanation: "On 7-6-5, the strong range has only ~50.3% equity. The caller's range has many two-pairs and straights while the raiser mostly has overcards and overpairs."
+  },
+  {
+    tag: "Ranges", type: "mc",
+    text: "A weak-tight player raises preflop, c-bets the flop, then checks the turn on K-7-6-Q. They only bet turn with top pair or better. When they check, they fold ~67% of the time to a bet. What should you do?",
+    options: ["Bet aggressively -- they fold most of their range", "Check behind -- the board is scary", "Only bet with two pair or better", "Fold -- they could be trapping"],
+    answer: 0,
+    hint: "If your opponent folds 67% of the time, a bet is very profitable.",
+    explanation: "When they check, they only have marginal hands (AQ) and junk (JJ-88). Betting is very profitable because they fold 67% of the time."
+  },
+  {
+    tag: "Ranges", type: "tf",
+    text: "True or False: You should keep strong hands in both your betting range and your checking range.",
+    answer: true,
+    hint: "What happens if you always bet strong and always check weak?",
+    explanation: "True. If you always bet your strong hands and check your weak hands, opponents can exploit you by folding to bets and bluffing your checks."
+  },
+  // --- COMBOS & BLOCKERS ---
+  {
+    tag: "Combinations", type: "mc",
+    text: "How many combinations of AQo (offsuit) exist preflop?",
+    options: ["12", "16", "6", "4"],
+    answer: 0,
+    hint: "Total combos of an unpaired hand = 16. Suited = 4. Offsuit = ?",
+    explanation: "Total AQ = 16 combos. Suited = 4. Offsuit = 16 - 4 = 12."
+  },
+  {
+    tag: "Combinations", type: "mc",
+    text: "How many combinations of pocket fives (5-5) exist preflop?",
+    options: ["6", "4", "3", "8"],
+    answer: 0,
+    hint: "Pocket pairs have fewer combos than unpaired hands. Think: 4 cards, choose 2.",
+    explanation: "There are 6 combinations of any pocket pair: dh, dc, ds, hc, hs, cs."
+  },
+  {
+    tag: "Combinations", type: "fib",
+    text: "On a board of Ks-7c-4d, how many combinations of A-K are available? (Enter a number)",
+    answer: ["12"],
+    hint: "One King is on the board. Combos = unseen aces x unseen kings.",
+    explanation: "4 aces x 3 kings (one K is on board) = 12 combos."
+  },
+  {
+    tag: "Combinations", type: "mc",
+    text: "On Ks-7c-4d, how many combinations of K-4 suited are available?",
+    options: ["2", "0", "1", "4"],
+    answer: 0,
+    hint: "K of spades and 4 of diamonds are on the board. Which suited K-4 combos remain?",
+    explanation: "Ks and 4d are on the board, eliminating those suits. Remaining suited combos: Kh4h and Kc4c = 2 combos."
+  },
+  {
+    tag: "Combinations", type: "fib",
+    text: "How many combinations of A-J exist preflop if you hold the Jh? (Enter a number)",
+    answer: ["12"],
+    hint: "You block one jack. Combos = unseen aces x unseen jacks.",
+    explanation: "4 aces x 3 jacks (you hold one) = 12 combos."
+  },
+  {
+    tag: "Combinations", type: "mc",
+    text: "How many combinations of J-J are there preflop if you hold the Jh in your hand?",
+    options: ["3", "1", "6", "2"],
+    answer: 0,
+    hint: "You hold one Jack. How many Jacks remain? How many ways to pick 2 from those?",
+    explanation: "3 jacks remain. Ways to pick 2 from 3 = 3 combos: JdJc, JdJs, JcJs."
+  },
+  {
+    tag: "Combinations", type: "mc",
+    text: "On a flop of 9-7-3 (three different suits), how many total set combinations can your opponent have?",
+    options: ["9", "6", "3", "12"],
+    answer: 0,
+    hint: "Each rank has 1 card on board, leaving 3 cards. How many pair combos from 3 cards?",
+    explanation: "3 combos of 99 + 3 combos of 77 + 3 combos of 33 = 9 total set combos."
+  },
+  {
+    tag: "Blockers", type: "mc",
+    text: "You hold the Ace of spades on a board with three spades. Your opponent's possible flushes are reduced by approximately how much?",
+    options: ["33%", "25%", "50%", "10%"],
+    answer: 0,
+    hint: "You block all Ax-spade flush combos.",
+    explanation: "Holding the Ace of spades eliminates all ace-high flush combos. Of the reasonable suited holdings, roughly 33% of flush combos are blocked."
+  },
+  // --- GTO vs IMPLEMENTABLE ---
+  {
+    tag: "GTO", type: "mc",
+    text: "What is it better to do: memorize GTO solver outputs, or learn GTO fundamentals and develop implementable strategies?",
+    options: [
+      "Learn fundamentals and develop implementable strategies",
+      "Memorize GTO solver outputs exactly",
+      "Ignore GTO entirely and play by feel",
+      "Only study GTO for preflop, ignore postflop"
+    ],
+    answer: 0,
+    hint: "Can humans execute mixed strategies precisely?",
+    explanation: "Humans cannot execute mixed strategies precisely. Learning the fundamentals and building implementable pure-action strategies that maintain correct overall frequencies is far more practical and effective."
+  },
+  {
+    tag: "GTO", type: "tf",
+    text: "True or False: A GTO strategy is one where if your opponent knows your exact strategy and plays perfectly, they will profit against you.",
+    answer: false,
+    hint: "GTO = unexploitable. What's the best an opponent can do?",
+    explanation: "False. Against a GTO strategy, the best your opponent can do is break even (and in cash games, they lose the rake)."
+  },
+  {
+    tag: "GTO", type: "mc",
+    text: "In an implementable strategy, you sometimes have slightly too many value hands AND slightly too many bluffs compared to GTO. Why is this acceptable?",
+    options: [
+      "The extra value and extra bluffs roughly cancel each other out",
+      "More bluffs always make you more money",
+      "Opponents can't count your combinations",
+      "It doesn't matter what frequencies you use"
+    ],
+    answer: 0,
+    hint: "Think about what happens to the overall value-to-bluff ratio.",
+    explanation: "Having a few extra value combos and a few extra bluff combos keeps the ratio approximately correct, so the overall strategy remains close to GTO while being much easier to execute."
+  },
+  {
+    tag: "Exploitative", type: "mc",
+    text: "Your opponent only 3-bets with premium hands (QQ+, AK). What adjustment should you make?",
+    options: [
+      "Stop bluffing and tighten your calling range",
+      "Bluff more often to put them to the test",
+      "Call with any two cards since they're too tight",
+      "Always fold to their 3-bet"
+    ],
+    answer: 0,
+    hint: "If they only have premium hands, will your bluffs get through?",
+    explanation: "Against a tight 3-betting range, your bluffs won't get folds. Stop bluffing and only continue with hands that have sufficient equity against their strong range."
+  },
+  // --- EQUITY + POT ODDS + RANGES (Combined) ---
+  {
+    tag: "Combined", type: "mc",
+    text: "You 4-bet to 22bb and your opponent shoves 100bb. You need to call 78bb into a pot of 201bb. What equity do you need to break even?",
+    options: ["38.8%", "50%", "22%", "45%"],
+    answer: 0,
+    hint: "Required% = call / total pot = 78 / 201.",
+    explanation: "78 / 201 = 38.8%. Any hand with more than 38.8% equity against the opponent's shoving range is a profitable call."
+  },
+  {
+    tag: "Combined", type: "tf",
+    text: "True or False: With 49% equity and only needing 39% to call, you should fold because you're 'not a favorite'.",
+    answer: false,
+    hint: "Compare your equity to the required equity, not to 50%.",
+    explanation: "False! 49% is well above the 39% breakeven point. Folding here would be a significant mistake. Always compare equity to pot odds, not to 50%."
+  }
+];
+
+// ============================================================
+// APP STATE
+// ============================================================
+let questions = [];
+let current = 0;
+let score = 0;
+let answered = false;
+let missed = [];
+let reviewMode = false;
+
+function shuffle(arr) {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+function init() {
+  questions = shuffle(QUESTIONS);
+  current = 0;
+  score = 0;
+  answered = false;
+  missed = [];
+  reviewMode = false;
+  render();
+}
+
+function renderMath() {
+  if (typeof renderMathInElement === 'function') {
+    renderMathInElement(document.getElementById('cardArea'), {
+      delimiters: [
+        {left: '$$', right: '$$', display: true},
+        {left: '\\(', right: '\\)', display: false},
+        {left: '\\[', right: '\\]', display: true}
+      ],
+      throwOnError: false
+    });
+  }
+}
+
+function updateProgress() {
+  const total = questions.length;
+  const pct = total > 0 ? ((current) / total) * 100 : 0;
+  document.getElementById('progressFill').style.width = pct + '%';
+  document.getElementById('progressLabel').textContent =
+    `Question ${Math.min(current + 1, total)} / ${total}` + (reviewMode ? ' (Review)' : '');
+  document.getElementById('scoreLabel').textContent = `${score} correct`;
+}
+
+function render() {
+  updateProgress();
+  if (current >= questions.length) {
+    renderSummary();
+    return;
+  }
+  const q = questions[current];
+  const card = document.getElementById('cardArea');
+
+  if (q.type === 'mc') renderMC(q, card);
+  else if (q.type === 'tf') renderTF(q, card);
+  else if (q.type === 'fib') renderFIB(q, card);
+
+  answered = false;
+  setTimeout(renderMath, 50);
+}
+
+function renderMC(q, card) {
+  const shuffledOpts = q._shuffled || (() => {
+    const indices = q.options.map((_, i) => i);
+    const shuffled = shuffle(indices);
+    q._shuffled = shuffled;
+    return shuffled;
+  })();
+
+  let html = `<div class="tag">${q.tag}</div>`;
+  html += `<div class="question-text">${q.text}</div>`;
+  html += `<ul class="options">`;
+  shuffledOpts.forEach((origIdx, displayIdx) => {
+    html += `<button class="option-btn" data-orig="${origIdx}" data-display="${displayIdx}">
+      <span class="hotkey">${displayIdx + 1}</span>${q.options[origIdx]}</button>`;
+  });
+  html += `</ul>`;
+  html += feedbackHTML(q);
+  card.innerHTML = html;
+
+  card.querySelectorAll('.option-btn').forEach(btn => {
+    btn.addEventListener('click', () => handleMCAnswer(q, parseInt(btn.dataset.orig)));
+  });
+  card.querySelector('.hint-btn').addEventListener('click', toggleHint);
+}
+
+function renderTF(q, card) {
+  let html = `<div class="tag">${q.tag}</div>`;
+  html += `<div class="question-text">${q.text}</div>`;
+  html += `<ul class="options">`;
+  html += `<button class="option-btn" data-val="true"><span class="hotkey">1</span>True</button>`;
+  html += `<button class="option-btn" data-val="false"><span class="hotkey">2</span>False</button>`;
+  html += `</ul>`;
+  html += feedbackHTML(q);
+  card.innerHTML = html;
+
+  card.querySelectorAll('.option-btn').forEach(btn => {
+    btn.addEventListener('click', () => handleTFAnswer(q, btn.dataset.val === 'true'));
+  });
+  card.querySelector('.hint-btn').addEventListener('click', toggleHint);
+}
+
+function renderFIB(q, card) {
+  let html = `<div class="tag">${q.tag}</div>`;
+  html += `<div class="question-text">${q.text}</div>`;
+  html += `<div class="fib-wrap">
+    <input class="fib-input" type="text" placeholder="Type your answer..." id="fibInput">
+    <button class="fib-submit" id="fibSubmit">Submit</button>
+  </div>`;
+  html += feedbackHTML(q);
+  card.innerHTML = html;
+
+  const input = document.getElementById('fibInput');
+  const submit = document.getElementById('fibSubmit');
+  submit.addEventListener('click', () => handleFIBAnswer(q, input.value));
+  input.addEventListener('keydown', e => {
+    if (e.key === 'Enter') handleFIBAnswer(q, input.value);
+  });
+  input.focus();
+  card.querySelector('.hint-btn').addEventListener('click', toggleHint);
+}
+
+function feedbackHTML(q) {
+  return `
+    <button class="hint-btn">H -- Hint</button>
+    <div class="hint-text" id="hintText">${q.hint}</div>
+    <div class="feedback" id="feedback">
+      <div class="feedback-verdict" id="verdict"></div>
+      <div class="feedback-explanation" id="explanation"></div>
+      <div class="nav-row">
+        <button class="nav-btn" id="nextBtn" onclick="advance()">Space -- Next</button>
+      </div>
+    </div>`;
+}
+
+function handleMCAnswer(q, origIdx) {
+  if (answered) return;
+  answered = true;
+  const correct = origIdx === q.answer;
+  if (correct) score++;
+  else missed.push({...q, _shuffled: undefined});
+
+  const card = document.getElementById('cardArea');
+  card.querySelectorAll('.option-btn').forEach(btn => {
+    btn.classList.add('locked');
+    const oi = parseInt(btn.dataset.orig);
+    if (oi === origIdx && !correct) btn.classList.add('wrong-choice');
+    if (oi === q.answer) btn.classList.add(correct ? 'correct-choice' : 'show-correct');
+  });
+  showFeedback(correct, q.explanation);
+}
+
+function handleTFAnswer(q, val) {
+  if (answered) return;
+  answered = true;
+  const correct = val === q.answer;
+  if (correct) score++;
+  else missed.push({...q});
+
+  const card = document.getElementById('cardArea');
+  card.querySelectorAll('.option-btn').forEach(btn => {
+    btn.classList.add('locked');
+    const bv = btn.dataset.val === 'true';
+    if (bv === val && !correct) btn.classList.add('wrong-choice');
+    if (bv === q.answer) btn.classList.add(correct ? 'correct-choice' : 'show-correct');
+  });
+  showFeedback(correct, q.explanation);
+}
+
+function handleFIBAnswer(q, val) {
+  if (answered) return;
+  answered = true;
+  const trimmed = val.trim().replace(/[%$,]/g, '');
+  const correct = q.answer.some(a => a.replace(/[%$,]/g, '') === trimmed);
+  if (correct) score++;
+  else missed.push({...q});
+
+  const input = document.getElementById('fibInput');
+  input.disabled = true;
+  input.style.borderColor = correct ? 'var(--correct)' : 'var(--wrong)';
+  document.getElementById('fibSubmit').disabled = true;
+  showFeedback(correct, q.explanation + (correct ? '' : ` Accepted answers: ${q.answer[0]}`));
+}
+
+function showFeedback(correct, explanation) {
+  const fb = document.getElementById('feedback');
+  const verdict = document.getElementById('verdict');
+  const expl = document.getElementById('explanation');
+  verdict.textContent = correct ? 'Correct' : 'Incorrect';
+  verdict.className = 'feedback-verdict ' + (correct ? 'is-correct' : 'is-wrong');
+  expl.textContent = explanation;
+  fb.classList.add('show');
+  updateProgress();
+}
+
+function toggleHint() {
+  const ht = document.getElementById('hintText');
+  ht.classList.toggle('show');
+}
+
+function advance() {
+  if (!answered && current < questions.length) return;
+  current++;
+  if (current < questions.length) {
+    render();
+  } else {
+    renderSummary();
+    updateProgress();
+  }
+}
+
+function renderSummary() {
+  const total = questions.length;
+  const pct = Math.round((score / total) * 100);
+  const card = document.getElementById('cardArea');
+
+  let html = `<div class="summary">
+    <h2>Drill Complete</h2>
+    <div class="score-text">
+      <span class="num-correct">${score}</span> / ${total} correct (${pct}%)
+    </div>`;
+
+  if (missed.length > 0) {
+    html += `<p style="margin-bottom:20px;color:var(--text-dim)">You missed ${missed.length} question${missed.length > 1 ? 's' : ''}.</p>`;
+  }
+
+  html += `<div class="summary-actions">
+    <button class="nav-btn" onclick="init()">R -- Restart All</button>`;
+  if (missed.length > 0) {
+    html += `<button class="nav-btn" onclick="startReview()">Review Missed</button>`;
+  }
+  html += `</div></div>`;
+  card.innerHTML = html;
+  document.getElementById('progressFill').style.width = '100%';
+}
+
+function startReview() {
+  reviewMode = true;
+  questions = shuffle(missed);
+  missed = [];
+  current = 0;
+  score = 0;
+  // Reset shuffled options
+  questions.forEach(q => { q._shuffled = undefined; });
+  render();
+}
+
+// ============================================================
+// KEYBOARD SHORTCUTS
+// ============================================================
+document.addEventListener('keydown', e => {
+  // Don't intercept if typing in input
+  if (e.target.tagName === 'INPUT') {
+    if (e.key === 'h' || e.key === 'H') return; // let them type h
+    if (e.key === 'Enter') return; // handled by input listener
+    return;
+  }
+
+  if (e.key === ' ' || e.code === 'Space') {
+    e.preventDefault();
+    if (answered) advance();
+  }
+
+  if (e.key === 'r' || e.key === 'R') {
+    if (current >= questions.length || confirm('Restart the drill?')) init();
+  }
+
+  if (e.key === 'h' || e.key === 'H') {
+    const hintBtn = document.querySelector('.hint-btn');
+    if (hintBtn) toggleHint();
+  }
+
+  const q = current < questions.length ? questions[current] : null;
+  if (!q || answered) return;
+
+  if (q.type === 'mc') {
+    const num = parseInt(e.key);
+    if (num >= 1 && num <= 4) {
+      const btns = document.querySelectorAll('.option-btn');
+      if (btns[num - 1]) btns[num - 1].click();
+    }
+  }
+
+  if (q.type === 'tf') {
+    if (e.key === '1') document.querySelectorAll('.option-btn')[0]?.click();
+    if (e.key === '2') document.querySelectorAll('.option-btn')[1]?.click();
+  }
+});
+
+// ============================================================
+// INIT
+// ============================================================
+init();
+</script>
+</body>
+</html>

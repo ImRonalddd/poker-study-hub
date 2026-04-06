@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chapter 7: Hand Reviews -- Revision Guide</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Source+Serif+4:ital,wght@0,400;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #FFFFFF; --surface: #FFFFFF; --surface2: #F5F5F5; --accent: #000000;
+  --text: #000000; --text-dim: #525252; --correct: #1a7a5e; --wrong: #b91c1c;
+  --orange: #8B6914; --border: #000000; --border-light: #E5E5E5;
+  --blue: #1e40af; --purple: #6b21a8; --red: #b91c1c;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Source Serif 4', serif; background: var(--bg); color: var(--text); line-height: 1.7; max-width: 780px; margin: 0 auto; padding: 40px 24px 80px; }
+a { color: var(--text); }
+.back-link { font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 32px; display: inline-block; color: var(--text-dim); text-decoration: none; border-bottom: 1px solid var(--border-light); }
+.back-link:hover { border-bottom-color: var(--border); color: var(--text); }
+h1, h2, h3 { font-family: 'Playfair Display', serif; font-weight: 700; letter-spacing: -0.01em; }
+h1 { font-size: 2.4rem; font-weight: 900; margin-bottom: 8px; line-height: 1.15; }
+.subtitle { font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 40px; }
+h2 { font-size: 1.7rem; margin-top: 56px; margin-bottom: 16px; padding-bottom: 6px; border-bottom: 4px solid var(--border); }
+h3 { font-size: 1.2rem; margin-top: 32px; margin-bottom: 10px; }
+p { margin-bottom: 14px; }
+.box { padding: 16px 20px; margin: 20px 0; border-radius: 0px; border-left: 3px solid; background: var(--surface2); }
+.box-blue { border-left-color: #2563eb; } .box-blue .box-label { color: #2563eb; }
+.box-purple { border-left-color: #7c3aed; } .box-purple .box-label { color: #7c3aed; }
+.box-orange { border-left-color: #d97706; } .box-orange .box-label { color: #d97706; }
+.box-red { border-left-color: #dc2626; } .box-red .box-label { color: #dc2626; }
+.box-label { font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 8px; display: block; }
+.box p:last-child, .box ul:last-child, .box ol:last-child { margin-bottom: 0; }
+table { width: 100%; border-collapse: collapse; margin: 20px 0; font-size: 0.95rem; }
+th, td { padding: 8px 12px; border: 1px solid var(--border); text-align: left; }
+th { background: var(--accent); color: #FFFFFF; font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.05em; font-weight: 500; }
+code { font-family: 'JetBrains Mono', monospace; font-size: 0.88em; background: var(--surface2); padding: 2px 6px; border-radius: 0px; }
+ul, ol { margin: 12px 0 12px 24px; } li { margin-bottom: 6px; }
+.toc { background: var(--surface2); padding: 24px 28px; margin: 32px 0; border: 1px solid var(--border-light); }
+.toc-title { font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 12px; font-weight: 500; }
+.toc ol { margin: 0 0 0 20px; } .toc li { margin-bottom: 4px; font-size: 0.95rem; }
+.toc a { color: var(--text); text-decoration: none; border-bottom: 1px solid var(--border-light); } .toc a:hover { border-bottom-color: var(--border); }
+.topic-tag { font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-dim); display: inline-block; margin-bottom: 4px; }
+hr { border: none; border-top: 1px solid var(--border-light); margin: 48px 0; }
+blockquote { border-left: 3px solid var(--border-light); padding-left: 16px; margin: 16px 0; color: var(--text-dim); font-style: italic; }
+@media print {
+  body { padding: 20px; max-width: 100%; font-size: 11pt; }
+  .back-link { display: none; }
+  h1 { font-size: 22pt; } h2 { font-size: 16pt; margin-top: 28px; break-after: avoid; } h3 { font-size: 13pt; break-after: avoid; }
+  .box { break-inside: avoid; } table { break-inside: avoid; font-size: 9pt; }
+  th { background: #000 !important; color: #fff !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .toc { break-inside: avoid; } a { text-decoration: none; color: var(--text); }
+}
+</style>
+</head>
+<body>
+
+<a href="index.html" class="back-link">&larr; Back to Chapter 7</a>
+
+<h1>Hand Reviews</h1>
+<div class="subtitle">Cash Game Masterclass -- Chapter 7 Revision Guide</div>
+
+<p>Jonathan Little reviews hands played by Michael Clifford, a PokerCoaching member crushing 1/1/3 and similar small stakes games. These reviews extract general principles about bet sizing, exploitative play, reading opponents, and common mistakes at small stakes.</p>
+
+<div class="toc">
+  <div class="toc-title">Topic Map</div>
+  <ol>
+    <li><a href="#review1">Hand Review #1 (Hands 1-4)</a></li>
+    <li><a href="#review2">Hand Review #2 (Hands 5-7)</a></li>
+    <li><a href="#review3">Hand Review #3 (Hands 8-13)</a></li>
+    <li><a href="#review4">Hand Review #4 (Hands 14-20)</a></li>
+    <li><a href="#universal">Universal Principles</a></li>
+  </ol>
+</div>
+
+<!-- ============================================================ -->
+<h2 id="review1">Hand Review #1</h2>
+
+<h3>Hand 1: A7s -- Nut Flush on Monotone Board</h3>
+<div class="box box-orange">
+  <span class="box-label">Key Takeaways</span>
+  <ol>
+    <li><strong>Bet small with the nuts multiway:</strong> Ask "how much will a K/Q/J of clubs call?" -- $20 every time. Don't bet so big that you fold out draws.</li>
+    <li><strong>When check-raised, just call with the nuts:</strong> Keep the opponent in with their bluffs and worse hands.</li>
+    <li><strong>Against stuck (tilting) opponents, bet small on the river:</strong> Give them room to make a mistake. $70-100 is better than all-in because it may induce a bluff-raise.</li>
+    <li><strong>Pot odds matter for hero calls:</strong> When you need to be good only 18-20% of the time, it's usually a call.</li>
+  </ol>
+</div>
+
+<blockquote>"Whenever you have someone who is stuck piles, you want to do everything you can to give them a chance to make a blunder."</blockquote>
+
+<h3>Hand 2: AQs -- 3-Bet Pot on T-6-4</h3>
+<div class="box box-orange">
+  <span class="box-label">Key Takeaways</span>
+  <ol>
+    <li><strong>On connected boards in 3-bet pots, bet medium to small:</strong> Both callers connect well.</li>
+    <li><strong>If bet-raise-call or bet-raise-all-in happens, find a fold:</strong> Your overcards aren't strong enough.</li>
+    <li><strong>Don't blast the turn when a bad card comes</strong> (like a 5 making straights possible).</li>
+    <li><strong>When getting good odds and beating the bluffs, call.</strong></li>
+  </ol>
+</div>
+
+<h3>Hand 3: Pocket 5s -- Set Mining Multiway</h3>
+<div class="box box-orange">
+  <span class="box-label">Key Takeaways</span>
+  <ol>
+    <li><strong>Call preflop with pairs in position:</strong> Especially when you don't expect 3-bets.</li>
+    <li><strong>When an opponent leads small with a set, JUST CALL:</strong> Keep other players in. Don't raise and isolate.</li>
+    <li><strong>Sometimes the button raises for you:</strong> Let others build the pot, then spring the trap.</li>
+    <li><strong>Getting set-over-set is part of the game.</strong> Don't play scared because of it.</li>
+  </ol>
+</div>
+
+<blockquote>"You need to make sure you're properly bankrolled. Sometimes playing well implies that you're going to get stacked."</blockquote>
+
+<h3>Hand 4: Straddle with AA</h3>
+<ul>
+  <li>Against straddlers who attack limps: consider limping with premium hands to induce their aggression</li>
+  <li>Default play is still to raise 4-5 big blinds unless you have a specific read</li>
+  <li>Against shallow straddlers (~50bb): getting it all in preflop is perfectly fine</li>
+</ul>
+
+<!-- ============================================================ -->
+<h2 id="review2">Hand Review #2</h2>
+
+<h3>Hand 5: Q7s -- Flopping Two Pair in a Limped Pot</h3>
+<div class="box box-orange">
+  <span class="box-label">Key Takeaways</span>
+  <ol>
+    <li><strong>Limping with IO hands is correct:</strong> Small pairs, suited connectors, marginal suited aces.</li>
+    <li><strong>Raise the flop on connected boards:</strong> Opponents have many pairs and draws that call.</li>
+    <li><strong>On the river with top two pair, shove for thin value:</strong> Opponent calls with worse (KQ, KT).</li>
+    <li><strong>Don't classify opponents as just "fish":</strong> Fish can be loose calling stations, aggressive maniacs, or weak tight nits. Know which type.</li>
+  </ol>
+</div>
+
+<h3>Hand 6: AJs -- Multiway Facing a 3-Bet</h3>
+
+<div class="box box-red">
+  <span class="box-label">Warning</span>
+  <ul>
+    <li><strong>AJs facing a 3-bet and a call = FOLD:</strong> Reverse implied odds are enormous.</li>
+    <li><strong>Suited broadways are NOT mandatory continues:</strong> Equity realization is terrible multiway OOP.</li>
+    <li><strong>Never shove as a bluff without blockers to the nuts.</strong></li>
+  </ul>
+</div>
+
+<blockquote>"When someone bets and someone calls, you should be very quick to get out of the way."</blockquote>
+
+<h3>Hand 7: Review Your Bluffs Too</h3>
+
+<div class="box box-purple">
+  <span class="box-label">Meta-Lesson</span>
+  <p>When submitting hands for coaching, always include bluffs and losses -- not just big pots won. Selection bias in hand review leads to incomplete feedback.</p>
+</div>
+
+<!-- ============================================================ -->
+<h2 id="review3">Hand Review #3</h2>
+
+<h3>Hand 8: AJ on Button -- Flatting a Laggy Player</h3>
+<div class="box box-orange">
+  <span class="box-label">Key Takeaways</span>
+  <ol>
+    <li><strong>Against laggy opponents who bet small, just call:</strong> Preserve their bluffing range.</li>
+    <li><strong>Small bets usually indicate marginal made hands:</strong> Not polarized ranges.</li>
+    <li><strong>On bad rivers (like an 8), check back:</strong> Too many straights and two-pairs got there.</li>
+  </ol>
+</div>
+
+<h3>Hand 9: A8s -- Trips vs. KK</h3>
+<ul>
+  <li>When an opponent leads small, consider raising: it often indicates a marginal hand</li>
+  <li>Don't use bet sizes containing the trip card (if you have trip 8s, don't bet 80 -- bet 90 instead)</li>
+  <li>When opponents jam and you have trips, assess: do you beat overvalued hands? Are bluffs available?</li>
+</ul>
+
+<h3>Hand 10: 5-3s -- Two Pair from Cheap Flop</h3>
+<ul>
+  <li>Raising with junky suited hands on the button is fine for image</li>
+  <li>When opponents check-call then lead the turn: they usually have something okay</li>
+  <li><strong>Ask "what am I trying to get called by?"</strong> when sizing raises</li>
+</ul>
+
+<h3>Hand 11: A9 -- Flop Top Two, Get Raised</h3>
+
+<div class="box box-purple">
+  <span class="box-label">Key Insight</span>
+  <p>When shallow-stacked with near-nuts, <strong>just jam</strong>. Don't try to be fancy with small raises. Running into the 5 combos of sets happens -- feel worse if T7o gets there because you let them stay in cheaply.</p>
+</div>
+
+<h3>Hand 12: Q3s -- Facing Min-Click Reraise</h3>
+<ul>
+  <li>When you need to be good only 27% of the time, lean toward calling</li>
+  <li>Min-click reraises from bad players are unpredictable -- don't assume they always mean the nuts</li>
+  <li>Promotions (royal flush, bad beat) change opponent behavior</li>
+</ul>
+
+<h3>Hand 13: QQ vs. 3-Bet All-In (KK)</h3>
+
+<div class="box box-red">
+  <span class="box-label">Warning</span>
+  <ul>
+    <li>Against tight, straightforward players who 3-bet small: their range may be exactly AA, KK, QQ, maybe JJ. <strong>Consider folding QQ.</strong></li>
+    <li>Against loose or unknown players: QQ is too good to fold preflop for 100bb</li>
+    <li><strong>Don't shove over a small 4-bet:</strong> Just call. If an A or K comes, you can escape.</li>
+  </ul>
+</div>
+
+<!-- ============================================================ -->
+<h2 id="review4">Hand Review #4</h2>
+
+<h3>Hand 14: QQ -- Facing a Straddle Donk-Bet</h3>
+<ul>
+  <li>Against big polarized flop donk-bets, just call and proceed cautiously</li>
+  <li>On safe turns, jam: draws get free equity, jacks call a shove, flush draws fold (which is fine)</li>
+</ul>
+
+<h3>Hand 15: AK -- Flush Draw, Check the Turn</h3>
+
+<div class="box box-red">
+  <span class="box-label">Warning</span>
+  <p><strong>Don't check the turn with the nut flush.</strong> Bet to get value from sets, kings, queens, and one-pair hands. Small-stakes opponents rarely bluff into multiple players on the river.</p>
+</div>
+
+<h3>Hand 16: 86c -- Triple Barrel Bluff</h3>
+
+<div class="box box-purple">
+  <span class="box-label">Key Insight</span>
+  <ul>
+    <li><strong>When bluffing, bet SMALL on the flop</strong> to keep ranges wide, then barrel bigger on turns and rivers for maximum fold equity.</li>
+    <li>Big flop bets strengthen opponent's calling range, making subsequent barrels less effective.</li>
+    <li>Set up stack-to-pot ratios for a river jam: plan sizing across all three streets.</li>
+  </ul>
+</div>
+
+<h3>Hand 17: Bet Sizing -- The Consistent Theme</h3>
+
+<table>
+  <tr><th>Principle</th><th>Good Sizing</th><th>Bad Sizing</th></tr>
+  <tr><td>Get called by middle pair</td><td>Small (1/3 pot)</td><td>Pot-sized</td></tr>
+  <tr><td>Get called by top pair</td><td>Medium-big (2/3-3/4 pot)</td><td>Tiny or massive</td></tr>
+  <tr><td>Fold out top pair</td><td>All-in or near-pot</td><td>Half pot</td></tr>
+  <tr><td>Flush draw on board</td><td>Big enough to charge</td><td>Small "see what happens"</td></tr>
+</table>
+
+<div class="box box-blue">
+  <span class="box-label">Always Ask</span>
+  <p>"What am I trying to accomplish? What hands do I want to call/fold?"</p>
+</div>
+
+<h3>Hand 18: AJ -- Check-Raise Missed Opportunity</h3>
+<ul>
+  <li><strong>From OOP with one of your best hands, CHECK-RAISE the flop:</strong> AJ on A-Q-J is one of your best possible hands</li>
+  <li>Not check-raising lets opponents off the hook -- they'll bet one street and check back</li>
+</ul>
+
+<h3>Hand 19: 65 -- Flush Draw, Bet the Flop</h3>
+<ul>
+  <li>In limped pots, bet your good draws from OOP -- it's likely to check through otherwise</li>
+  <li>Bet and call a raise with flush draws: you have equity and can improve</li>
+  <li>When you make your hand, go for thin value on the river</li>
+</ul>
+
+<h3>Hand 20: KK vs. AK -- Triple Barrel Bluff by the Numbers</h3>
+
+<div class="box box-purple">
+  <span class="box-label">Key Insight</span>
+  <p>When you have no bluffs in your range, take the ones you have. If your hand can't win at showdown and you have some equity/blockers, barrel off. The best bluffs are the ones you "shouldn't" have.</p>
+</div>
+
+<hr>
+
+<!-- ============================================================ -->
+<h2 id="universal">Universal Principles from All Reviews</h2>
+
+<h3>Bet Sizing Framework</h3>
+<ol>
+  <li><strong>Ask "what am I trying to get called by?"</strong> before choosing a size</li>
+  <li>In small stakes games: weak players call with anything for $20 but start folding at $80</li>
+  <li>Set up stack-to-pot ratios across streets -- don't end up with awkward remaining stacks</li>
+</ol>
+
+<h3>Reading Opponents</h3>
+
+<table>
+  <tr><th>Pattern</th><th>Likely Meaning</th></tr>
+  <tr><td>Small bets</td><td>Marginal made hands (not the nuts, not air)</td></tr>
+  <tr><td>Big donk bets</td><td>Polarized (very strong or drawing)</td></tr>
+  <tr><td>Check-call, check-call, lead river</td><td>Usually very strong or very weak</td></tr>
+  <tr><td>Abnormal lines</td><td>Unbalanced -- exploit accordingly</td></tr>
+</table>
+
+<div class="box box-blue">
+  <span class="box-label">Tag Opponents Specifically</span>
+  <p>"Laggy reg," "action fish," "tight passive" -- not just "fish." Know what type of player you're facing and adjust your strategy accordingly.</p>
+</div>
+
+<h3>When to Stack Off vs. Fold</h3>
+
+<table>
+  <tr><th>Lean Toward Calling</th><th>Lean Toward Folding</th></tr>
+  <tr><td>Need to be good less than 25%</td><td>Multiple players in the pot</td></tr>
+  <tr><td>Beat bluffs AND overvalued hands</td><td>Opponent's range almost all beats you</td></tr>
+  <tr><td>Opponent is loose, aggressive, or tilting</td><td>Opponent is tight, straightforward, passive</td></tr>
+  <tr><td>Many possible bluff combos</td><td>Not getting good pot odds</td></tr>
+</table>
+
+<div class="box box-purple">
+  <span class="box-label">The "Gift" Economy of Small Stakes</span>
+  <p>Small stakes opponents constantly gift you pots through terrible play. This inflates your win rate; don't attribute it to skill alone. As you move up, gifts become rarer, and your win rate drops. This is normal -- game select to find the softest games at every stake.</p>
+</div>
+
+<hr>
+
+<h2>Common Mistakes to Avoid</h2>
+
+<div class="box box-red">
+  <span class="box-label">Top 5 Mistakes from Hand Reviews</span>
+  <ol>
+    <li><strong>Betting too small when trying to get value</strong> -- always ask "how much will X call?"</li>
+    <li><strong>Not check-raising from OOP with premium hands</strong></li>
+    <li><strong>Shoving over 4-bets with QQ</strong> instead of calling and playing postflop</li>
+    <li><strong>Not folding two-pair multiway</strong> when the raise range is heavily weighted toward flushes</li>
+    <li><strong>Inconsistent raise sizes</strong> (min-raising one hand, 5x another) -- can telegraph hand strength</li>
+  </ol>
+</div>
+
+</body>
+</html>

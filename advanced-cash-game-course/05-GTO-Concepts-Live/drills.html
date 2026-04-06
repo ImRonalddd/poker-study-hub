@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chapter 5: GTO Concepts for Live Cash Games -- Interactive Drills</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Source+Serif+4:ital,wght@0,400;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+<style>
+:root {
+  --bg: #FFFFFF;
+  --surface: #FFFFFF;
+  --surface2: #F5F5F5;
+  --accent: #000000;
+  --text: #000000;
+  --text-dim: #525252;
+  --correct: #1a7a5e;
+  --wrong: #b91c1c;
+  --orange: #8B6914;
+  --border: #000000;
+  --border-light: #E5E5E5;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'Source Serif 4', serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.7;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 32px 20px 60px;
+}
+
+h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: 2rem;
+  font-weight: 900;
+  text-align: center;
+  margin-bottom: 4px;
+}
+
+.subtitle {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.8rem;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.progress-wrap {
+  width: 100%;
+  max-width: 680px;
+  margin-bottom: 32px;
+}
+
+.progress-bar {
+  width: 100%;
+  height: 6px;
+  background: var(--border-light);
+  border-radius: 0px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: var(--accent);
+  transition: width 0.3s ease;
+  width: 0%;
+}
+
+.progress-text {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  color: var(--text-dim);
+  margin-top: 6px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.card {
+  width: 100%;
+  max-width: 680px;
+  border: 2px solid var(--border);
+  border-radius: 0px;
+  padding: 32px;
+  min-height: 320px;
+  display: flex;
+  flex-direction: column;
+}
+
+.tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text-dim);
+  margin-bottom: 16px;
+}
+
+.question-text {
+  font-size: 1.15rem;
+  font-weight: 600;
+  margin-bottom: 24px;
+  flex-shrink: 0;
+}
+
+.options { list-style: none; flex: 1; }
+
+.option-btn {
+  display: block;
+  width: 100%;
+  text-align: left;
+  padding: 12px 16px;
+  margin-bottom: 8px;
+  border: 1px solid var(--border-light);
+  border-radius: 0px;
+  background: var(--surface);
+  font-family: 'Source Serif 4', serif;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: border-color 0.15s;
+  line-height: 1.5;
+}
+
+.option-btn:hover:not(.locked) {
+  border-color: var(--accent);
+}
+
+.option-btn .hotkey {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.8rem;
+  color: var(--text-dim);
+  margin-right: 8px;
+}
+
+.option-btn.correct-choice {
+  border-color: var(--correct);
+  background: #f0fdf4;
+}
+
+.option-btn.wrong-choice {
+  border-color: var(--wrong);
+  background: #fef2f2;
+}
+
+.option-btn.show-correct {
+  border-color: var(--correct);
+  border-width: 2px;
+}
+
+.option-btn.locked { cursor: default; }
+
+.fib-wrap {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  flex: 1;
+}
+
+.fib-input {
+  flex: 1;
+  padding: 12px 16px;
+  border: 1px solid var(--border-light);
+  border-radius: 0px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 1rem;
+  outline: none;
+}
+
+.fib-input:focus { border-color: var(--accent); }
+
+.fib-submit {
+  padding: 12px 24px;
+  border: 2px solid var(--accent);
+  border-radius: 0px;
+  background: var(--accent);
+  color: var(--bg);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.85rem;
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.feedback {
+  margin-top: 16px;
+  padding: 16px;
+  border: 1px solid var(--border-light);
+  border-radius: 0px;
+  display: none;
+}
+
+.feedback.show { display: block; }
+
+.feedback-verdict {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 6px;
+  font-weight: 500;
+}
+
+.feedback-verdict.is-correct { color: var(--correct); }
+.feedback-verdict.is-wrong { color: var(--wrong); }
+
+.feedback-explanation {
+  font-size: 0.95rem;
+  color: var(--text-dim);
+}
+
+.hint-btn {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  color: var(--text-dim);
+  background: none;
+  border: 1px solid var(--border-light);
+  padding: 4px 10px;
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-top: 12px;
+}
+
+.hint-text {
+  font-size: 0.9rem;
+  color: var(--orange);
+  font-style: italic;
+  margin-top: 8px;
+  display: none;
+}
+
+.hint-text.show { display: block; }
+
+.nav-row {
+  margin-top: 20px;
+  display: flex;
+  gap: 12px;
+  justify-content: flex-end;
+  width: 100%;
+}
+
+.nav-btn {
+  padding: 10px 28px;
+  border: 2px solid var(--accent);
+  border-radius: 0px;
+  background: var(--bg);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.85rem;
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  transition: background 0.15s, color 0.15s;
+}
+
+.nav-btn:hover {
+  background: var(--accent);
+  color: var(--bg);
+}
+
+.nav-btn:disabled {
+  opacity: 0.3;
+  cursor: default;
+}
+
+.summary {
+  width: 100%;
+  max-width: 680px;
+  text-align: center;
+}
+
+.summary h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.8rem;
+  margin-bottom: 8px;
+}
+
+.score-text {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 1.4rem;
+  margin-bottom: 24px;
+}
+
+.score-text .num-correct { color: var(--correct); }
+.score-text .num-wrong { color: var(--wrong); }
+
+.summary-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.hotkeys {
+  width: 100%;
+  max-width: 680px;
+  margin-top: 32px;
+  padding-top: 16px;
+  border-top: 1px solid var(--border-light);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  color: var(--text-dim);
+  text-align: center;
+  letter-spacing: 0.02em;
+}
+
+.hotkeys kbd {
+  background: var(--surface2);
+  padding: 2px 6px;
+  border: 1px solid var(--border-light);
+  border-radius: 0px;
+  font-family: inherit;
+}
+</style>
+</head>
+<body>
+
+<h1>Interactive Drills</h1>
+<div class="subtitle">Chapter 5 -- GTO Concepts for Live Cash Games</div>
+
+<div class="progress-wrap">
+  <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+  <div class="progress-text">
+    <span id="progressLabel">Question 1 / --</span>
+    <span id="scoreLabel">0 correct</span>
+  </div>
+</div>
+
+<div class="card" id="cardArea"></div>
+
+<div class="hotkeys">
+  <kbd>1</kbd>-<kbd>4</kbd> select answer &middot;
+  <kbd>Enter</kbd> submit FIB &middot;
+  <kbd>Space</kbd> next question &middot;
+  <kbd>H</kbd> hint &middot;
+  <kbd>R</kbd> restart
+</div>
+
+<script>
+const QUESTIONS = [
+  // --- Defending vs Aggression ---
+  {
+    tag: "Defending vs Aggression", type: "mc",
+    text: "You hold J\u2660T\u2660 on Q\u2663J\u2665T\u26602\u2666 facing a turn overbet (1.5x pot) from the HJ. JT has top two pair but blocks opponent's KT/T9 bluffs. What should you do?",
+    options: ["Fold -- blocking bluffs is devastating here", "Call -- we have top two pair", "Raise all-in for value", "Call only if we have a spade"],
+    answer: 0,
+    hint: "Think about what hands you're blocking: are they value hands or bluff hands?",
+    explanation: "JTo blocks the opponent's key bluff combos (KT, T9) while being crushed by their value (AK, KQ, sets). Blocking bluffs is far worse than blocking value when deciding to call. Hands like K7hh with flush equity and no blocker issues are better continues."
+  },
+  {
+    tag: "Defending vs Aggression", type: "mc",
+    text: "On A\u2665K\u26605\u2663 (HJ vs BB, 100 BB deep), villain c-bets 65% pot. You hold K\u2665J\u2665 vs K\u2660J\u2663. Which is a significantly better continue?",
+    options: ["K\u2665J\u2665 (backdoor hearts)", "K\u2660J\u2663 (no backdoor)", "Both are identical -- same pair strength", "Neither should continue"],
+    answer: 0,
+    hint: "How much is a backdoor flush draw worth in EV?",
+    explanation: "The backdoor flush draw (hearts) is worth roughly 0.5-1.2 BB more than the same hand without it. On any heart turn, you gain an easy continue with nut flush draw potential. KJhh is a clear call; KJo without backdoors is marginal at best."
+  },
+  {
+    tag: "Defending vs Aggression", type: "mc",
+    text: "Villain raises HJ and c-bets 85% pot on A\u2663K\u26605\u2665. Compared to a 65% pot c-bet, approximately how much more folding is required?",
+    options: ["~8% more folding", "~2% more folding", "~15% more folding", "No difference -- both are 'big bets'"],
+    answer: 0,
+    hint: "Don't bucket bet sizes. 65% and 85% produce meaningfully different defense frequencies.",
+    explanation: "Going from 65% to 85% pot causes roughly 8% more folding. Hands like small pocket pairs and AQo go from continuing to folding. Suited broadway with backdoors survives both sizes, which is exactly why those hands are so valuable."
+  },
+  {
+    tag: "Defending vs Aggression", type: "tf",
+    text: "True or False: On double flush draw boards, you should call wider because your opponent has many more draws and bluffs.",
+    answer: false,
+    hint: "Think about YOUR range, not just theirs.",
+    explanation: "False. The correct framing is: on double flush draw boards, YOU have so many clean continues (suited aces, suited connectors with flush draws, nut-draw combos) that you can afford to fold marginal top pair without backdoors. The key is that your good continues are plentiful, not that villain has more draws."
+  },
+  {
+    tag: "Defending vs Aggression", type: "mc",
+    text: "You face a turn barrel on K\u2660J\u26638\u26633\u2663 (double flush draw). You hold Q\u2665Q\u2660 (no club, no diamond). What should you do?",
+    options: ["Fold -- you have too many better continues", "Call -- overpair is too strong to fold", "Raise -- punish the draws", "Call if you have position, fold if OOP"],
+    answer: 0,
+    hint: "How many hands in your range have flush draws, backdoors, or nut potential?",
+    explanation: "On a double flush draw board, you have AQ suited, AT suited, suited jacks with clubs, suited kings with hearts, ace-x hands with flush draws -- tons of clean continues. QQ without any flush draw or nut potential is a fold. You have better hands to defend with."
+  },
+  // --- Nut Potential ---
+  {
+    tag: "Nut Potential", type: "mc",
+    text: "Why is 5\u26633\u2663 roughly as good a continue as J\u2660T\u2660 on A\u2665K\u26605\u2663 facing a turn bet? (Both are calling from the BB.)",
+    options: ["5-3 has cleaner outs -- rivering a 3 or 5 never completes villain's draws", "5-3 has more raw equity right now", "J-T has better implied odds", "They are not similar -- JT is always better"],
+    answer: 0,
+    hint: "Think about what happens when each hand improves on the river.",
+    explanation: "When 53 makes a pair (3 or 5), the outs are 'clean' -- villain rarely has threes or fives, no straights complete. When JT makes two pair (J or T), villain can make straights (Q9), and spade outs can complete flushes. Clean outs vs dirty outs is the key distinction."
+  },
+  {
+    tag: "Nut Potential", type: "tf",
+    text: "True or False: In deep-stack cash games, having more raw equity right now is more important than being able to make the nuts on future streets.",
+    answer: false,
+    hint: "Think about what deep stacks amplify.",
+    explanation: "False. Deep-stack no-limit poker is fundamentally about being able to make the nuts. Nut potential drives equity realization -- a hand that can make the nuts over-realizes equity massively, while a hand with raw equity but no nut potential under-realizes, especially out of position."
+  },
+  // --- Check-Raise Construction ---
+  {
+    tag: "Check-Raise Strategy", type: "mc",
+    text: "On K\u26634\u26653\u2660 (BTN vs BB, 200 BB deep), you want to build a check-raise range against a small c-bet. What is the correct value threshold?",
+    options: ["Two pair and sets only", "Top pair (KQ+) and better", "Any pair and a draw", "Only sets"],
+    answer: 0,
+    hint: "At 200 BB deep, how thin can you go for value when check-raising?",
+    explanation: "At 200 BB deep, you don't want to be check-raising top pair. When you check-raise, you're saying 'I have two pair+, sets, and draws.' KQo goes into check-call. Your value foundation is K4, K3, 43, sets -- then build bluffs around them with flush draws, straight draws, and board-wrapping hands."
+  },
+  {
+    tag: "Check-Raise Strategy", type: "mc",
+    text: "On K\u26634\u26653\u2660, which bluff type is most important to include in your check-raise range?",
+    options: ["A\u2663x hands that wrap the 3 and 4 (covers nut flush runouts)", "Random high cards like QJo", "Any two suited cards", "Only open-ended straight draws"],
+    answer: 0,
+    hint: "Think about what runouts would leave you with zero bluffs.",
+    explanation: "If you only check-raise with straight draws and flush draws, what bluffs do you have on a 6\u2663 turn (straight + flush complete)? A\u2663x hands that wrap the board give you bluffs on nut flush runouts where you'd otherwise have nothing. Bottom pair that wraps (53s, 63s) serves a similar purpose."
+  },
+  {
+    tag: "Check-Raise Strategy", type: "mc",
+    text: "Villain is auto-c-betting K\u26634\u26653\u2660 (betting 100% instead of GTO ~60%). How should you adjust your check-raise?",
+    options: ["Same hand types, roughly 2x the frequency", "Add weaker hands like J9o and 77", "Keep the same frequency but use bigger sizes", "Stop check-raising -- just call everything"],
+    answer: 0,
+    hint: "Justin recommends increasing frequency, not changing hand selection.",
+    explanation: "Take your GTO check-raise range and roughly double all frequencies. If 65o was check-raising 30% of the time, now do it 60%. If A5 with a spade was raising sometimes, now raise always. Don't add new hand types -- you'd get to the turn with unmanageable ranges. Same hands, more often."
+  },
+  // --- Nut Advantage / Turn Barreling ---
+  {
+    tag: "Nut Advantage", type: "mc",
+    text: "After check-raising K\u26634\u26653\u2660 and villain calling, the turn is 6\u2663. You have 49% equity but massive high-end advantage (all straights, sets). What size should you use?",
+    options: ["Pot-size bet at high frequency (~75%)", "Small bet (33% pot) to keep them in", "Check -- we only have 49% equity", "Overbet 2x pot"],
+    answer: 0,
+    hint: "What matters more: raw equity or the equity distribution (where your equity comes from)?",
+    explanation: "Despite having only 49% equity, you have a MASSIVE nut advantage -- all the straights (75, 52), all the sets, all the two pairs. This high-end equity gap is what allows you to pot the turn at very high frequency, folding out their kings, queens, jacks, and pocket pairs. Over-realizing equity despite being at 49% raw."
+  },
+  {
+    tag: "Nut Advantage", type: "mc",
+    text: "Same situation (check-raise flop, pot turn on K-4-3-6), but the river is 7\u2660 completing flush draws. You have a set of fours. What should you do?",
+    options: ["Block bet -- nuts are now shared", "Jam all-in -- we have a set", "Check-fold -- flush is out", "Bet 2/3 pot for value"],
+    answer: 0,
+    hint: "When the nuts change from turn to river, does your nut advantage persist?",
+    explanation: "When the flush completes, the opponent also has many flushes (they called your pot bet with flush draws). Your high-end equity advantage has shifted -- you now share the top of the range. Block-betting lets you extract value from worse hands while allowing villain to develop a raise range rather than getting jammed on when you're behind."
+  },
+  {
+    tag: "Nut Advantage", type: "mc",
+    text: "Same spot but the river is 2\u2666 (total brick). You have a straight (7-5). What should you do?",
+    options: ["Jam -- nut advantage is preserved", "Block bet -- pots are scary", "Check to induce bluffs", "Bet 50% pot"],
+    answer: 0,
+    hint: "Did the nuts change from the turn? Do you still have the massive high-end equity gap?",
+    explanation: "On a brick river, the nuts stay the same. You still have the massive nut advantage from the turn -- all the straights and sets. You can jam profitably because ~30% of your range is nutted (sets + straights). Even with 5x pot behind, jamming is correct when you have this much nut advantage."
+  },
+  // --- OOP as PFR ---
+  {
+    tag: "OOP Strategy", type: "mc",
+    text: "You open the lojack, the button calls. Flop is T\u26656\u26635\u2660 (ten-high). What is your c-bet strategy?",
+    options: ["Pure check entire range", "Small c-bet with 50% of range", "Large c-bet with top pair+", "Range bet for 33% pot"],
+    answer: 0,
+    hint: "What is Justin's rule for ten-high and lower boards OOP?",
+    explanation: "On ten-high and lower boards out of position, Justin recommends pure checking your entire range. You have a range disadvantage or very close equities, the board will change often, and you share most of the strong hands. Starting with a pure check lets you develop aggressive check-raise and delayed c-bet strategies."
+  },
+  {
+    tag: "OOP Strategy", type: "mc",
+    text: "You open the lojack, button calls. Flop is J\u2665T\u26635\u2660 (two high cards). What is your c-bet approach?",
+    options: ["Develop ~25% c-bets with small sizing", "Pure check -- same as ten-high boards", "Range bet for 65% pot", "Only bet sets and two pair"],
+    answer: 0,
+    hint: "Two high card boards are different from ten-high and lower. Your offsuit combos connect.",
+    explanation: "On two high card boards (JT5, QJ9, etc.), you develop some c-bets (~25% frequency, small size) because your offsuit combos (KJo, QJo, KTo) connect with the board. This is different from ten-high boards where you pure check. The more connected the board to your range, the more bets you develop."
+  },
+  {
+    tag: "OOP Strategy", type: "mc",
+    text: "You open CO, button calls. Flop is A\u26609\u26653\u2666 (ace-high dry). What is your strategy?",
+    options: ["Very passive -- high check frequency, no check-raises vs bets", "Aggressive -- bet AK/AQ for big sizes", "Range bet 33% pot", "Check-raise aces aggressively"],
+    answer: 0,
+    hint: "What happens with ace-high dry boards? Are equities dynamic or static?",
+    explanation: "Ace-high dry boards have very static equities -- you're either way ahead or way behind with single-pair aces. Don't develop check-raise strategies with AK/AQ. Don't try to get three streets of value. Play very passively: high check frequency, check-call vs bets, and even check aces on many rivers."
+  },
+  // --- Sliding Scale ---
+  {
+    tag: "Sliding Scale", type: "mc",
+    text: "You pure check the flop OOP on T-6-5. Villain also checks. The turn is a brick. What strategy should you use?",
+    options: ["Pot-size bet with polarized range (overpairs + bluffs)", "Small bet with 50% of range", "Check again -- we checked flop for a reason", "Range bet for 33% pot"],
+    answer: 0,
+    hint: "After pure checking, you retained all your nutted hands. What does that allow?",
+    explanation: "The Sliding Scale: the more you check on the flop, the more aggressive you can be on future streets. After pure checking, you have ALL overpairs, ALL sets, ALL strong draws still in your range. On a brick turn, you pot-bet with a polarized range -- overpairs and sets for value, queen-jack and king-jack type hands for bluffs."
+  },
+  {
+    tag: "Sliding Scale", type: "mc",
+    text: "You bet 33% pot with 25% of your range on J\u2665T\u26635\u2660. Villain calls. Now you check. How should villain respond to your check?",
+    options: ["Bet big with a polarized range", "Bet small with a linear range", "Check behind -- you might be trapping", "Only bet with the nuts"],
+    answer: 0,
+    hint: "After you bet some hands and then check, what happened to your checking range?",
+    explanation: "When you develop bets then check, your checking range is CONDENSED -- you moved many strong hands into your betting range. Now in position, villain should bet big with a polarized range (nuts + bluffs) against your medium-strength capped range. This is the inverse of the pure-check scenario where IP bets small."
+  },
+  {
+    tag: "Sliding Scale", type: "tf",
+    text: "True or False: When an OOP player develops more flop c-bets, their check-raise frequency should increase.",
+    answer: false,
+    hint: "What happens to the checking range as more hands go into the betting range?",
+    explanation: "False. It's the opposite. The more the OOP player bets, the fewer nutted hands remain in their checking range. With a condensed checking range, check-raise frequency drops dramatically. On the two high card J-T-5 spot with 25% c-bets, check-raise frequency is almost zero."
+  },
+  // --- Exploits ---
+  {
+    tag: "Exploits", type: "mc",
+    text: "You're OOP on T-7-2 with KK against a player who never barrels turns or rivers when checked to. What should you do?",
+    options: ["Bet the flop for a big size -- fast-play against passive opponents", "Check to protect your checking range", "Check-raise if they bet", "Check and plan to check-call three streets"],
+    answer: 0,
+    hint: "If villain won't punish your weak checking range, should you still protect it?",
+    explanation: "Against opponents who won't barrel turns and rivers, you don't need to protect your checking range. Fast-play overpairs by betting the flop directly. They won't put enough money in with marginal hands via passive play, so you need to build the pot yourself. Bet big -- they'll call with ace highs, pocket pairs, etc."
+  },
+  // --- Deuce-Seven Game ---
+  {
+    tag: "Deuce-Seven Game", type: "mc",
+    text: "You have 7\u26602\u2663 in the cutoff. Two players have limped. The bounty is $200 total ($25/player). What is the optimal pre-flop approach?",
+    options: ["Over-limp to keep the pot small", "Raise to $80 to fold out the limpers", "3-bet squeeze to $200", "Fold -- 72o is too weak"],
+    answer: 0,
+    hint: "What is the biggest mistake with deuce-seven? Think about risk vs reward.",
+    explanation: "The bounty is ~4-5 BB per player. Over-limping keeps the pot small and minimizes your loss rate with the hand. Raising to $80 builds a pot where your EV loss when called is much larger than the bounty. The baseline deuce-seven strategy is loose-passive pre-flop: see cheap flops and find small bluff spots post-flop."
+  },
+  {
+    tag: "Deuce-Seven Game", type: "mc",
+    text: "You have 7-2 on a Q-Q-T-6 board after betting small on the flop and getting called. The turn is a brick. What is the most deceptive line?",
+    options: ["Check the turn, then block-bet small on the river", "Bomb the turn for 1.5x pot", "Check-fold the turn", "Bet 75% pot on the turn"],
+    answer: 0,
+    hint: "Opponents expect aggression with 7-2. How can you subvert that expectation?",
+    explanation: "Check-check on the turn, then block-bet small on the river is extremely deceptive. Opponents expect 7-2 players to pile money in aggressively. A passive line followed by a small river bet looks like thin value with A-T or pocket jacks. This subverts expectations and folds out floats and weak pocket pairs cheaply."
+  },
+  {
+    tag: "Deuce-Seven Game", type: "mc",
+    text: "How does the deuce-seven game affect your strategy with NON-7-2 hands?",
+    options: ["Overbet for value more -- opponents hero-call thinking you have 7-2", "Play tighter -- you lose money on 7-2 hands", "No effect on other hands", "Bluff more -- opponents give you credit"],
+    answer: 0,
+    hint: "The 7-2 game adds ~12 perceived bluff combos to your range at all times.",
+    explanation: "The 7-2 game adds ~12 perceived bluff combos to your range. Opponents will hero-call more thinking you could have 7-2. This means you should use BIGGER value bet sizes with strong hands -- your aces, sets, and top two pair get paid off more because opponents can't let you win the 7-2 bounty."
+  },
+  // --- Stand-Up Game ---
+  {
+    tag: "Stand-Up Game", type: "mc",
+    text: "In a stand-up game with 7 players still standing, how should you conceptualize the game?",
+    options: ["Each standing player puts ~1 BB pseudo-ante in every pot", "Play your normal strategy -- the side game doesn't matter", "Only play premium hands to avoid the penalty", "Go all-in pre-flop every hand to win quickly"],
+    answer: 0,
+    hint: "Think about the stand-up penalty as extra money in the pot.",
+    explanation: "Think of each standing player as putting a pseudo-ante of ~1 BB in every pot. This means there's extra value in winning pots, so you should see more flops with wider ranges. Even weak suited hands (K2s) become profitable calls from the small blind. As players sit down, this effective ante shrinks."
+  },
+  {
+    tag: "Stand-Up Game", type: "mc",
+    text: "You're one of the last two standing in the stand-up game. You hold AQo in early position. Villain 4-bets you. The penalty for last-standing is $200. What should you do?",
+    options: ["5-bet all-in -- AQo crushes villain's wide range", "Fold -- AQo can't handle a 4-bet", "Flat call and play post-flop", "Fold unless you have AKs+"],
+    answer: 0,
+    hint: "When only two remain, how wide is villain trying to win?",
+    explanation: "When two players remain, both are massively incentivized to win pots. Villain's 4-bet range is extremely wide (AJo, ATs, A9s, A8s, etc.) because they're also desperate to avoid the penalty. AQo dominates this range heavily -- it's a clear all-in."
+  },
+  // --- Live to Online Transition ---
+  {
+    tag: "Live to Online", type: "mc",
+    text: "You normally play 2/5 live. You want to start playing online. Which stakes should you start at?",
+    options: ["Move down -- online 2/5 is much tougher than live 2/5", "Same stakes -- 2/5 is 2/5", "Move up -- online players are tighter and easier to bluff", "Play the smallest stakes available"],
+    answer: 0,
+    hint: "Who populates online 2/5 games vs live 2/5 games?",
+    explanation: "Online 2/5 is populated by professional grinders who track data, study extensively, and play for a living. Live 2/5 has far more recreational players. Always move down when transitioning to online. The skill gap at equivalent stakes is enormous."
+  },
+];
+</script>
+
+<script>
+// ============================================================
+// ENGINE
+// ============================================================
+let cur = 0, score = 0, answered = Array(QUESTIONS.length).fill(false);
+
+function render() {
+  const q = QUESTIONS[cur];
+  const area = document.getElementById('cardArea');
+  document.getElementById('progressFill').style.width = ((cur) / QUESTIONS.length * 100) + '%';
+  document.getElementById('progressLabel').textContent = 'Question ' + (cur + 1) + ' / ' + QUESTIONS.length;
+  document.getElementById('scoreLabel').textContent = score + ' correct';
+
+  let html = '<div class="tag">' + q.tag + '</div>';
+  html += '<div class="question-text">' + q.text + '</div>';
+
+  if (q.type === 'mc') {
+    html += '<ul class="options">';
+    const keys = ['1','2','3','4'];
+    q.options.forEach((o, i) => {
+      html += '<button class="option-btn" data-idx="' + i + '"><span class="hotkey">' + keys[i] + '</span>' + o + '</button>';
+    });
+    html += '</ul>';
+  } else if (q.type === 'tf') {
+    html += '<ul class="options">';
+    html += '<button class="option-btn" data-idx="0"><span class="hotkey">1</span>True</button>';
+    html += '<button class="option-btn" data-idx="1"><span class="hotkey">2</span>False</button>';
+    html += '</ul>';
+  } else if (q.type === 'fib') {
+    html += '<div class="fib-wrap"><input class="fib-input" id="fibIn" placeholder="Type your answer..." autocomplete="off"><button class="fib-submit" id="fibBtn">Submit</button></div>';
+  }
+
+  html += '<button class="hint-btn" id="hintBtn">Hint</button>';
+  html += '<div class="hint-text" id="hintText">' + q.hint + '</div>';
+  html += '<div class="feedback" id="fb"><div class="feedback-verdict" id="fbVerdict"></div><div class="feedback-explanation" id="fbExpl"></div></div>';
+  html += '<div class="nav-row"><button class="nav-btn" id="prevBtn" ' + (cur === 0 ? 'disabled' : '') + '>Prev</button><button class="nav-btn" id="nextBtn">Next</button></div>';
+
+  area.innerHTML = html;
+
+  document.getElementById('hintBtn').onclick = () => document.getElementById('hintText').classList.toggle('show');
+  document.getElementById('prevBtn').onclick = () => { if (cur > 0) { cur--; render(); } };
+  document.getElementById('nextBtn').onclick = () => next();
+
+  if (q.type === 'mc' || q.type === 'tf') {
+    area.querySelectorAll('.option-btn').forEach(btn => {
+      btn.onclick = () => judge(parseInt(btn.dataset.idx));
+    });
+  } else if (q.type === 'fib') {
+    const fibIn = document.getElementById('fibIn');
+    const fibBtn = document.getElementById('fibBtn');
+    fibBtn.onclick = () => judgeFib(fibIn.value.trim());
+    fibIn.addEventListener('keydown', e => { if (e.key === 'Enter') judgeFib(fibIn.value.trim()); });
+  }
+}
+
+function judge(idx) {
+  const q = QUESTIONS[cur];
+  const btns = document.querySelectorAll('.option-btn');
+  const correctIdx = q.type === 'tf' ? (q.answer ? 0 : 1) : q.answer;
+  if (answered[cur]) return;
+  answered[cur] = true;
+  btns.forEach(b => b.classList.add('locked'));
+  if (idx === correctIdx) {
+    btns[idx].classList.add('correct-choice');
+    score++;
+    showFeedback(true, q.explanation);
+  } else {
+    btns[idx].classList.add('wrong-choice');
+    btns[correctIdx].classList.add('show-correct');
+    showFeedback(false, q.explanation);
+  }
+  document.getElementById('scoreLabel').textContent = score + ' correct';
+}
+
+function judgeFib(val) {
+  const q = QUESTIONS[cur];
+  if (answered[cur]) return;
+  answered[cur] = true;
+  const correct = q.answer.some(a => val.toLowerCase() === a.toLowerCase());
+  if (correct) { score++; }
+  const inp = document.getElementById('fibIn');
+  inp.style.borderColor = correct ? 'var(--correct)' : 'var(--wrong)';
+  inp.disabled = true;
+  document.getElementById('fibBtn').disabled = true;
+  showFeedback(correct, q.explanation);
+  document.getElementById('scoreLabel').textContent = score + ' correct';
+}
+
+function showFeedback(correct, text) {
+  const fb = document.getElementById('fb');
+  const v = document.getElementById('fbVerdict');
+  const e = document.getElementById('fbExpl');
+  v.textContent = correct ? 'Correct' : 'Incorrect';
+  v.className = 'feedback-verdict ' + (correct ? 'is-correct' : 'is-wrong');
+  e.textContent = text;
+  fb.classList.add('show');
+}
+
+function next() {
+  if (cur < QUESTIONS.length - 1) { cur++; render(); }
+  else { showSummary(); }
+}
+
+function showSummary() {
+  const area = document.getElementById('cardArea');
+  const wrong = QUESTIONS.length - score;
+  document.getElementById('progressFill').style.width = '100%';
+  document.getElementById('progressLabel').textContent = 'Complete';
+  area.innerHTML = '<div class="summary"><h2>Drill Complete</h2>' +
+    '<div class="score-text"><span class="num-correct">' + score + ' correct</span> / <span class="num-wrong">' + wrong + ' wrong</span></div>' +
+    '<div class="summary-actions"><button class="nav-btn" onclick="restart()">Restart</button>' +
+    '<a class="nav-btn" href="index.html" style="text-decoration:none;text-align:center;">Back to Chapter</a></div></div>';
+}
+
+function restart() {
+  cur = 0; score = 0; answered = Array(QUESTIONS.length).fill(false); render();
+}
+
+document.addEventListener('keydown', e => {
+  if (e.target.tagName === 'INPUT') return;
+  const q = QUESTIONS[cur];
+  if ((q.type === 'mc' || q.type === 'tf') && !answered[cur]) {
+    const maxKey = q.type === 'tf' ? 2 : q.options.length;
+    const num = parseInt(e.key);
+    if (num >= 1 && num <= maxKey) judge(num - 1);
+  }
+  if (e.key === ' ') { e.preventDefault(); next(); }
+  if (e.key === 'h' || e.key === 'H') { const h = document.getElementById('hintBtn'); if (h) h.click(); }
+  if (e.key === 'r' || e.key === 'R') restart();
+});
+
+render();
+</script>
+
+</body>
+</html>

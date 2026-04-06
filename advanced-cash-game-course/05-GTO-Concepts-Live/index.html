@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chapter 5: GTO Concepts for Live Cash Games</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Source+Serif+4:ital,wght@0,400;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #FFFFFF;
+  --surface: #FFFFFF;
+  --surface2: #F5F5F5;
+  --accent: #000000;
+  --text: #000000;
+  --text-dim: #525252;
+  --correct: #1a7a5e;
+  --wrong: #b91c1c;
+  --orange: #8B6914;
+  --border: #000000;
+  --border-light: #E5E5E5;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'Source Serif 4', serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.7;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 60px 24px 80px;
+}
+
+h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.6rem;
+  font-weight: 900;
+  text-align: center;
+  margin-bottom: 6px;
+  letter-spacing: -0.02em;
+}
+
+.chapter-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.8rem;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  text-align: center;
+  margin-bottom: 8px;
+}
+
+.instructor {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.8rem;
+  color: var(--text-dim);
+  text-align: center;
+  margin-bottom: 8px;
+}
+
+.description {
+  max-width: 600px;
+  text-align: center;
+  color: var(--text-dim);
+  margin-bottom: 48px;
+  font-size: 1.05rem;
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+  width: 100%;
+  max-width: 640px;
+}
+
+.card {
+  border: 2px solid var(--border);
+  border-radius: 0px;
+  padding: 28px 32px;
+  text-decoration: none;
+  color: var(--text);
+  transition: background 0.15s;
+  display: block;
+}
+
+.card:hover {
+  background: var(--surface2);
+}
+
+.card-step {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text-dim);
+  margin-bottom: 8px;
+}
+
+.card-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.35rem;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.card-desc {
+  font-size: 0.95rem;
+  color: var(--text-dim);
+  line-height: 1.6;
+}
+
+.topics {
+  max-width: 640px;
+  width: 100%;
+  margin-top: 48px;
+  padding-top: 32px;
+  border-top: 1px solid var(--border-light);
+}
+
+.topics h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.3rem;
+  margin-bottom: 16px;
+}
+
+.topic-list {
+  list-style: none;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px 24px;
+}
+
+.topic-list li {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.8rem;
+  color: var(--text-dim);
+  padding: 4px 0;
+  border-bottom: 1px solid var(--border-light);
+}
+
+.footer {
+  margin-top: 48px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  color: var(--text-dim);
+  text-align: center;
+}
+</style>
+</head>
+<body>
+
+<div class="chapter-label">Advanced Cash Game Course -- Chapter 5</div>
+<h1>GTO Concepts for Live Cash Games</h1>
+<div class="instructor">Instructor: Justin Saliba</div>
+<p class="description">
+  Extract game theory fundamentals from solver analysis and apply them as simple, executable strategies in live deep-stack cash games. Covers defending vs aggression, nut advantage exploitation, OOP play, and side games.
+</p>
+
+<div class="cards">
+  <a class="card" href="crash-course.html">
+    <div class="card-step">Step 1 -- Read</div>
+    <div class="card-title">Crash Course</div>
+    <div class="card-desc">A visual, scrollable summary of every key concept: defending ranges, nut advantage, OOP strategy, the sliding scale, deuce-seven, and live-to-online transition tips.</div>
+  </a>
+
+  <a class="card" href="revision-guide.html">
+    <div class="card-step">Step 2 -- Review</div>
+    <div class="card-title">Revision Guide</div>
+    <div class="card-desc">Detailed markdown reference covering all eight lessons with heuristics, board texture frameworks, check-raise construction, and exploitative adjustments.</div>
+  </a>
+
+  <a class="card" href="drills.html">
+    <div class="card-step">Step 3 -- Practice</div>
+    <div class="card-title">Interactive Drills</div>
+    <div class="card-desc">25 scenario-based questions testing defending frequencies, nut advantage identification, OOP board texture decisions, and side-game strategy.</div>
+  </a>
+</div>
+
+<div class="topics">
+  <h2>Lessons Covered</h2>
+  <ul class="topic-list">
+    <li>Introduction to GTO Concepts</li>
+    <li>Defending vs Aggression</li>
+    <li>Making the Nuts Matters</li>
+    <li>Attacking Small Bets</li>
+    <li>OOP as PFR Strategy</li>
+    <li>Nut Advantage & Equity</li>
+    <li>Deuce-Seven Game</li>
+    <li>Stand-Up Game</li>
+    <li>Live to Online Part 1</li>
+    <li>Live to Online Part 2</li>
+  </ul>
+</div>
+
+<div class="footer">
+  Advanced Cash Game Course -- PokerCoaching.com
+</div>
+
+</body>
+</html>

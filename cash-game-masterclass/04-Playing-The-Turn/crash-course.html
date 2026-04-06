@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chapter 4: Playing the Turn -- Crash Course</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;1,400;1,600&family=Source+Serif+4:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'\(',right:'\)',display:false}]})"></script>
+<style>
+:root {
+  --bg: #FFFFFF; --surface: #FFFFFF; --surface2: #F5F5F5;
+  --accent: #000000; --text: #000000; --text-dim: #525252;
+  --correct: #1a7a5e; --wrong: #b91c1c; --orange: #8B6914;
+  --border: #000000; --border-light: #E5E5E5;
+  --blue: #1e40af; --purple: #6b21a8; --red: #991b1b;
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;border-radius:0!important}
+body{font-family:'Source Serif 4','Georgia',serif;background:var(--bg);color:var(--text);line-height:1.7;-webkit-font-smoothing:antialiased}
+.container{max-width:780px;margin:0 auto;padding:2rem 1.5rem 4rem}
+h1{font-family:'Playfair Display',serif;font-weight:800;font-size:2.6rem;letter-spacing:-0.02em;line-height:1.15;margin:3rem 0 0.5rem;text-align:center}
+.subtitle{font-family:'JetBrains Mono',monospace;font-size:0.75rem;font-weight:500;text-transform:uppercase;letter-spacing:0.15em;color:var(--text-dim);text-align:center;margin-bottom:2rem}
+h2{font-family:'Playfair Display',serif;font-weight:700;font-size:1.7rem;margin:2.5rem 0 0.75rem;padding-bottom:0.3rem;border-bottom:3px solid var(--accent)}
+h3{font-family:'Source Serif 4',serif;font-weight:700;font-size:1.2rem;margin:1.8rem 0 0.5rem}
+p,li{margin-bottom:0.6rem}
+ul,ol{padding-left:1.5rem;margin-bottom:1rem}
+code{font-family:'JetBrains Mono',monospace;font-size:0.88em;background:var(--surface2);padding:0.1em 0.35em;border:1px solid var(--border-light)}
+strong{font-weight:700}
+table{width:100%;border-collapse:collapse;margin:1rem 0 1.5rem;font-size:0.92rem}
+th,td{padding:0.5rem 0.75rem;border:1px solid var(--border-light);text-align:left}
+th{background:var(--surface2);font-weight:600;font-family:'JetBrains Mono',monospace;font-size:0.82rem;text-transform:uppercase;letter-spacing:0.05em}
+hr{border:none;border-top:1px solid var(--border-light);margin:2rem 0}
+
+/* Colored boxes */
+.box{padding:1rem 1.25rem;margin:1.2rem 0;border-left:4px solid}
+.box-title{font-family:'JetBrains Mono',monospace;font-size:0.75rem;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.4rem}
+.box-blue{border-color:var(--blue);background:#eff6ff}.box-blue .box-title{color:var(--blue)}
+.box-purple{border-color:var(--purple);background:#faf5ff}.box-purple .box-title{color:var(--purple)}
+.box-orange{border-color:var(--orange);background:#fefce8}.box-orange .box-title{color:var(--orange)}
+.box-red{border-color:var(--red);background:#fef2f2}.box-red .box-title{color:var(--red)}
+.katex-display{margin:0.8rem 0}
+</style>
+</head>
+<body>
+<div class="container">
+
+<h1>Playing the Turn</h1>
+<div class="subtitle">Cash Game Masterclass -- Chapter 4 Crash Course</div>
+
+<!-- ═══════════════════════════════════════ -->
+<h2>1. The Turn Bluffing Ratio</h2>
+
+<div class="box box-blue">
+<div class="box-title">Definition</div>
+On the turn, you can have at most a <strong>1:1 ratio</strong> of premium made hands to draws/bluffs. This is down from the flop's 1:2 ratio because with one fewer card to come, draws complete less often.
+</div>
+
+<p>As bet size changes, so does the ratio:</p>
+<ul>
+<li><strong>Overbetting (125%+ pot)</strong>: Approximately 1:1 ratio (maximum bluffs)</li>
+<li><strong>Pot-sized bet</strong>: Roughly 1:1</li>
+<li><strong>Half-pot bet</strong>: Fewer bluffs allowed (opponent gets better odds)</li>
+<li><strong>Quarter-pot bet</strong>: Very few bluffs</li>
+</ul>
+
+<div class="box box-purple">
+<div class="box-title">Insight</div>
+The key shift from flop to turn: you must <strong>find additional hands to check</strong>. These are draws that got worse, premium hands that got downgraded, and medium-strength draws you'd hate to fold if raised.
+</div>
+
+<!-- ═══════════════════════════════════════ -->
+<h2>2. The Range/Nut Advantage Framework</h2>
+
+<p>Every turn decision starts with two questions:</p>
+<ol>
+<li><strong>Do I have the range advantage?</strong> (More overall equity)</li>
+<li><strong>Do I have the nut advantage?</strong> (More very strong hands)</li>
+</ol>
+
+<table>
+<tr><th>Range Adv?</th><th>Nut Adv?</th><th>Strategy</th></tr>
+<tr><td>Yes</td><td>Yes</td><td>Bet frequently, small-medium size</td></tr>
+<tr><td>Yes</td><td>No</td><td>Bet frequently, small size</td></tr>
+<tr><td>No</td><td>Yes</td><td>Medium frequency, <strong>big size</strong> (polarized)</td></tr>
+<tr><td>No</td><td>No</td><td>Bet infrequently, medium size</td></tr>
+</table>
+
+<div class="box box-orange">
+<div class="box-title">Example</div>
+<strong>A-J-5 flop, 6 turn</strong> (LJ vs BB, you bet flop, they called): You have no range advantage (opponent's check-call range is strong), but you have the nut advantage (AK, sets, two-pair). Strategy: bet medium amount using a <strong>big size</strong> (125% pot), very polarized.
+</div>
+
+<!-- ═══════════════════════════════════════ -->
+<h2>3. Turn Card Classification</h2>
+
+<h3>Good Turns for the Flop Aggressor</h3>
+<ul>
+<li><strong>Overcards (especially aces)</strong>: Your bluffs were ace-high, king-high -- they just became top pair</li>
+<li><strong>Cards that complete YOUR draws but not opponent's</strong>: When opponent check-raised their draws on flop, they don't have draws left</li>
+<li><strong>High cards matching your preflop range</strong>: K, Q, J often improve your overcards to pairs</li>
+</ul>
+
+<h3>Neutral Turns</h3>
+<ul>
+<li><strong>Top card pairs</strong> (e.g., K-8-4 then K): You both have some trips; mix betting and checking</li>
+<li><strong>Complete blanks</strong> (e.g., A-J-5-2): Whoever was ahead stays ahead; bet polarized</li>
+</ul>
+
+<h3>Bad Turns for the Flop Aggressor</h3>
+<ul>
+<li><strong>Middle/bottom card pairs</strong> (J-7-3-7): Opponent check-called with all their 7s; you checked yours</li>
+<li><strong>Cards completing opponent's draws</strong> (9-7-5-8): Opponent's range has tons of 6s and 8s</li>
+</ul>
+
+<div class="box box-red">
+<div class="box-title">Trap</div>
+Don't assume all low cards are bad for you. On dry boards like K-7-5, a low blank (2 or 3) actually preserves your nut advantage (overcards are still premium). Low cards are bad primarily on <strong>connected boards</strong> where they complete opponent's straights.
+</div>
+
+<!-- ═══════════════════════════════════════ -->
+<h2>4. Turn Continuation Betting</h2>
+
+<div class="box box-blue">
+<div class="box-title">Definition</div>
+A <strong>turn continuation bet</strong> is specifically when the flop aggressor continues betting on the turn. It is NOT a delayed c-bet or a probe.
+</div>
+
+<h3>Why Opponent's Range Is Stronger</h3>
+<p>When they check-call the flop, they shed all junk and some of their best hands (would have raised). Their range is now <strong>marginal made hands + draws + some premium</strong>. This forces you to be more selective.</p>
+
+<h3>Which Draws to Barrel</h3>
+<ul>
+<li><strong>Barrel:</strong> Best draws that can call a raise (nut flush draws, big combo draws)</li>
+<li><strong>Barrel:</strong> Worst draws happy folding to a raise (pure air with overcards)</li>
+<li><strong>Check:</strong> Medium draws you'd hate to fold (flush draw + pair, non-nut flush draw)</li>
+</ul>
+
+<div class="box box-purple">
+<div class="box-title">Insight</div>
+This "barbell" pattern with draws is unique to the turn. On the flop you can bet any draw. On the turn, with shallower SPR, you risk getting check-shoved. Bet draws that either <strong>happily continue</strong> or <strong>happily fold</strong> to a raise.
+</div>
+
+<h3>Pair + Straight Draw = Almost Always Bet</h3>
+<p>Across every example board (J-6-2, A-J-5, 9-7-5, K-7-5, K-K-6, Q-T-5), hands with a pair plus a straight draw consistently bet. Examples: 9-8 on 9-7-5, 6-5 on J-6-2-3, J-8 on 9-7-5-J. This is one of the most reliable turn patterns.</p>
+
+<!-- ═══════════════════════════════════════ -->
+<h2>5. Facing a Turn Continuation Bet</h2>
+
+<h3>Core Principle</h3>
+<p>Your opponent's turn c-bet is saying: <em>"I'm polarized. I have nuts or air."</em> Against a polarized range, you do a lot of <strong>calling</strong> and very little <strong>raising</strong>.</p>
+
+<h3>The Overbet Rule</h3>
+<div class="box box-red">
+<div class="box-title">Trap</div>
+When your opponent overbets the turn (100%+ pot), <strong>never raise from a GTO perspective</strong>. They are maximally polarized. Just call your strong hands and fold your junk. Many players raise their best hands against overbets -- this weakens their calling range catastrophically.
+</div>
+
+<h3>Minimum Defense Frequency</h3>
+$$\text{MDF} = 1 - \frac{\text{Bet Size}}{\text{Bet} + \text{Pot}}$$
+
+<table>
+<tr><th>Bet Size</th><th>MDF (must defend)</th></tr>
+<tr><td>25% pot</td><td>80%</td></tr>
+<tr><td>33% pot</td><td>75%</td></tr>
+<tr><td>50% pot</td><td>67%</td></tr>
+<tr><td>66% pot</td><td>60%</td></tr>
+<tr><td>100% pot</td><td>50%</td></tr>
+<tr><td>125% pot</td><td>45%</td></tr>
+</table>
+
+<p>In position, call <strong>more</strong> than MDF (you realize equity well). Out of position, call <strong>less</strong> than MDF (you under-realize equity).</p>
+
+<h3>Protect Your Calling Range</h3>
+<ul>
+<li>Don't raise every flush -- keep some as calls for river protection</li>
+<li>Don't raise every two-pair -- mix calls and raises</li>
+<li>If you raise all nuts, your calling range becomes marginal-only and collapses to river pressure</li>
+</ul>
+
+<!-- ═══════════════════════════════════════ -->
+<h2>6. Delayed Continuation Bets</h2>
+
+<h3>When You Have the Advantage After Check-Check</h3>
+<p>If you protected your flop checking range (kept some strong hands), you arrive at the turn with:</p>
+<ul>
+<li>Some nut hands (sets, top pair that you checked for deception)</li>
+<li>Marginal made hands (underpairs, middle pair)</li>
+<li>Opponent's range is condensed (they would have bet their best hands and draws on the flop)</li>
+</ul>
+
+<div class="box box-orange">
+<div class="box-title">Example</div>
+<strong>T-8-6 flop (OOP), check-check, K turn</strong>: The King is the best card in the deck for you. Opponent would have bet most king-high on the flop as a bluff. When they didn't, they lack kings. You have all kings. Bet <strong>frequently and small</strong> (25% pot) -- checking only ~14% of range.
+</div>
+
+<h3>Key Pattern</h3>
+<p>When opponent checks back the flop with a condensed range, and the turn is good for you, your top pairs become <strong>effective nuts</strong> because opponent lacks top pairs. This lets you value bet thinly with a small sizing.</p>
+
+<!-- ═══════════════════════════════════════ -->
+<h2>7. Turn Probes</h2>
+
+<div class="box box-blue">
+<div class="box-title">Definition</div>
+A <strong>probe bet</strong> is an OOP bet after the preflop aggressor checked behind on the flop. You (the caller) are betting into the raiser who declined to c-bet.
+</div>
+
+<h3>Two Critical Factors</h3>
+<ol>
+<li><strong>Your flop range disadvantage</strong>: How well does the board favor BB vs the raiser?</li>
+<li><strong>The turn card</strong>: Does it improve your range or your opponent's?</li>
+</ol>
+
+<h3>The 9-7-5 Pattern</h3>
+<p>On low connected boards, BB has many straights and two-pairs. When a 6 or 8 comes:</p>
+<ul>
+<li>BB has a <strong>massive nut advantage</strong> (opponent would have bet their 6s and 8s on the flop)</li>
+<li>Bet <strong>small and frequently</strong> (25% pot, 70% of range)</li>
+<li>Similar to when the flop aggressor has a big range advantage and bets small</li>
+</ul>
+
+<div class="box box-purple">
+<div class="box-title">Insight</div>
+When your opponent would have bet a card on the flop but didn't, and that card arrives on the turn, it's <strong>paradoxically great for you</strong>. The 8 on 9-7-5 is the most profitable probe card because opponent literally cannot have 8s (they would have bet them).
+</div>
+
+<!-- ═══════════════════════════════════════ -->
+<h2>8. Facing Turn Probes</h2>
+
+<h3>Protect Your Checkback Range</h3>
+<p>This is the #1 lesson. If you always c-bet your good hands, your check-back range is <strong>pure garbage</strong> and you bleed money against competent probers.</p>
+
+<h3>Response by Probe Size</h3>
+<ul>
+<li><strong>Small probe (25% pot)</strong>: Raise with best hands + bluffs; call very wide (80%)</li>
+<li><strong>Medium probe (60% pot)</strong>: Raise rarely; call near MDF</li>
+<li><strong>Large probe (overbet)</strong>: Never raise; call or fold</li>
+</ul>
+
+<div class="box box-orange">
+<div class="box-title">Example</div>
+<strong>9-7-5 flop, check-check, 8 turn, BB probes 25% pot</strong>: You should raise with straights (J-T, 6-x) and bluff with tens (open-enders). Even though the board looks scary, opponent's small bet means they have a wide range. You must punish that with raises.
+</div>
+
+<!-- ═══════════════════════════════════════ -->
+<h2>9. Flop Caller IP: Checked To on Turn</h2>
+
+<p>Someone raised, you called IP. They bet flop, you called. They check the turn.</p>
+
+<div class="box box-purple">
+<div class="box-title">Insight</div>
+When opponent bets flop and then checks turn, they're announcing a <strong>marginal range</strong>. You retained a well-protected range (you don't raise much IP). You now have a <strong>big range advantage</strong>.
+</div>
+
+<h3>Strategy</h3>
+<ul>
+<li>You're usually betting <strong>small and frequently</strong> (25% pot, ~60% of range)</li>
+<li>Unless equities are very close, in which case you bet big and polarized</li>
+<li>Protect your checking range -- don't bet every good hand</li>
+<li>Even hands like underpairs can bet small for thin value (opponent's range is weak)</li>
+</ul>
+
+<!-- ═══════════════════════════════════════ -->
+<h2>10. Multi-Way Pots</h2>
+
+<h3>When Money Goes In Multi-Way</h3>
+<ul>
+<li><strong>Tighten up dramatically</strong> -- multiple callers all have something</li>
+<li>Fold hands you'd normally continue with heads-up (e.g., fold T-9 with a pair + gutshot when facing a bet + call multi-way)</li>
+<li>Position is even more important (closing action = can call looser)</li>
+</ul>
+
+<h3>When Flop Checks Through Multi-Way</h3>
+<ul>
+<li>Preflop raiser is <strong>capped</strong> (would have bet strong hands)</li>
+<li>OOP players (blinds) retain entire range including nuts</li>
+<li><strong>BB should attack</strong> on low/connected turn cards with medium-sized bets</li>
+<li>If in position and everyone looks uninterested, <strong>make a big bet and steal</strong></li>
+</ul>
+
+<div class="box box-red">
+<div class="box-title">Trap</div>
+Don't assume multi-way pots play like heads-up. A hand like top pair no kicker that you'd happily call heads-up might need to be folded when there's a bet and a call in front of you. Each additional caller drastically narrows what they can have.
+</div>
+
+<!-- ═══════════════════════════════════════ -->
+<h2>11. 3-Bet and 4-Bet Pots</h2>
+
+<h3>Key Differences</h3>
+<ul>
+<li><strong>Tighter ranges</strong>: Fewer hand types, easier to categorize</li>
+<li><strong>Lower SPR</strong>: Jamming the turn is common and correct</li>
+<li><strong>Less overbetting</strong>: 66% pot is often the "large" size; pot is already big</li>
+<li><strong>Protection is paramount</strong>: Over pairs on coordinated boards should jam</li>
+</ul>
+
+<h3>Slow-Playing the Super Nuts</h3>
+<p>In 3-bet pots, you should start <strong>checking back top set</strong> on the turn sometimes. Example: A-9-3-8 in a 3-bet pot -- check back pocket aces to protect your checking range. Bet AK/A9/A8 as value instead.</p>
+
+<h3>4-Bet Pot Simplification</h3>
+<p>Your range is essentially AA, KK, AK (maybe QQ, JJ). On most turns:</p>
+<ul>
+<li><strong>Best turn card (usually K)</strong>: Bet frequently and small</li>
+<li><strong>All other turns</strong>: Mostly jam or check -- very binary</li>
+<li>KK needs more protection than AA, so KK jams more often</li>
+</ul>
+
+<!-- ═══════════════════════════════════════ -->
+<h2>12. Universal Turn Principles</h2>
+
+<h3>The Five Commandments</h3>
+<ol>
+<li><strong>Protect your checking/calling range</strong> -- the single most important theme</li>
+<li><strong>Never raise against overbets</strong> -- the opponent is maximally polarized</li>
+<li><strong>Bet small and frequently with range advantage</strong> -- nudge up equity across all hands</li>
+<li><strong>Bet big and polarized without range advantage</strong> -- use only nuts + draws</li>
+<li><strong>Always consider how the turn card changes equities</strong> -- reclassify your hand every street</li>
+</ol>
+
+<h3>The Hand Reclassification Process</h3>
+<p>Every turn card requires you to re-evaluate:</p>
+<ul>
+<li>Did my premium hand get downgraded to marginal? (Check it)</li>
+<li>Did my draw improve to premium? (Bet it)</li>
+<li>Did my draw get worse? (Move to junk, check-fold)</li>
+<li>Did my marginal hand become junk? (Fold to aggression)</li>
+</ul>
+
+<div class="box box-purple">
+<div class="box-title">Final Insight</div>
+The turn is where implementable strategy and GTO start to diverge most significantly. Don't try to perfectly replicate solver output. Instead, master the <strong>range advantage + nut advantage framework</strong>, keep your ratios reasonable, and always protect your checking range. If you do these three things, you'll be far ahead of the vast majority of opponents.
+</div>
+
+</div>
+</body>
+</html>

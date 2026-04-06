@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Revision Guide: Advanced Multiway Strategies</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Source+Serif+4:wght@300;400;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body,{delimiters:[{left:'\\(',right:'\\)',display:false},{left:'$$',right:'$$',display:true}],throwOnError:false});"></script>
+<style>
+:root{--bg:#FFFFFF;--surface:#FFFFFF;--surface2:#F5F5F5;--accent:#000000;--text:#000000;--text-dim:#525252;--correct:#1a7a5e;--wrong:#b91c1c;--orange:#8B6914;--border:#000000;--border-light:#E5E5E5;--blue:#1e40af;--blue-bg:#eff6ff;--purple:#6b21a8;--purple-bg:#faf5ff;--orange-bg:#fffbeb;--red:#991b1b;--red-bg:#fef2f2}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Source Serif 4',serif;color:var(--text);background:var(--bg);line-height:1.7;max-width:860px;margin:0 auto;padding:2rem 1.5rem 4rem}
+h1{font-family:'Playfair Display',serif;font-weight:900;font-size:2.4rem;margin-bottom:.3rem;letter-spacing:-.02em}
+h2{font-family:'Playfair Display',serif;font-weight:700;font-size:1.7rem;margin:2.8rem 0 1rem;padding-bottom:.5rem;border-bottom:4px solid var(--accent)}
+h3{font-family:'Playfair Display',serif;font-weight:700;font-size:1.25rem;margin:2rem 0 .8rem}
+h4{font-family:'Source Serif 4',serif;font-weight:700;font-size:1.05rem;margin:1.5rem 0 .5rem}
+p{margin-bottom:1rem}
+.subtitle{font-family:'Source Serif 4',serif;font-weight:300;font-size:1.1rem;color:var(--text-dim);margin-bottom:2rem}
+.back-link{font-family:'JetBrains Mono',monospace;font-size:.8rem;color:var(--text-dim);text-decoration:none;display:inline-block;margin-bottom:1.5rem;letter-spacing:.02em}
+.back-link:hover{color:var(--accent)}
+code,.mono{font-family:'JetBrains Mono',monospace;font-size:.88em;background:var(--surface2);padding:.15em .35em;border-radius:0}
+.toc{background:var(--surface2);padding:1.5rem 2rem;margin:1.5rem 0 2.5rem}
+.toc h3{margin-top:0}
+.toc ol{padding-left:1.5rem}
+.toc li{margin-bottom:.35rem}
+.toc a{color:var(--accent);text-decoration:none;border-bottom:1px solid var(--border-light)}
+.toc a:hover{border-color:var(--accent)}
+.box{padding:1.2rem 1.5rem;margin:1.2rem 0;border-left:4px solid}
+.box-blue{border-color:var(--blue);background:var(--blue-bg)}
+.box-blue .box-label{color:var(--blue)}
+.box-purple{border-color:var(--purple);background:var(--purple-bg)}
+.box-purple .box-label{color:var(--purple)}
+.box-orange{border-color:var(--orange);background:var(--orange-bg)}
+.box-orange .box-label{color:var(--orange)}
+.box-red{border-color:var(--red);background:var(--red-bg)}
+.box-red .box-label{color:var(--red)}
+.box-label{font-family:'JetBrains Mono',monospace;font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;margin-bottom:.4rem}
+.tag{font-family:'JetBrains Mono',monospace;font-size:.7rem;font-weight:500;text-transform:uppercase;letter-spacing:.08em;color:var(--text-dim);background:var(--surface2);padding:.2em .5em;display:inline-block;margin-bottom:.5rem}
+table{width:100%;border-collapse:collapse;margin:1rem 0 1.5rem;font-size:.92rem}
+th,td{padding:.5rem .7rem;text-align:left;border:1px solid var(--border-light)}
+th{font-weight:700;background:var(--accent);color:#fff;font-family:'JetBrains Mono',monospace;font-size:.8rem;text-transform:uppercase;letter-spacing:.04em;border-color:var(--accent)}
+ul,ol{margin-bottom:1rem;padding-left:1.5rem}
+li{margin-bottom:.3rem}
+.section-num{font-family:'JetBrains Mono',monospace;font-size:.8rem;color:var(--text-dim);margin-right:.3rem}
+hr{border:none;border-top:1px solid var(--border-light);margin:2rem 0}
+strong{font-weight:700}
+blockquote{border-left:3px solid var(--border-light);padding:.8rem 1.2rem;margin:1rem 0;color:var(--text-dim);font-style:italic}
+.flowchart{font-family:'JetBrains Mono',monospace;font-size:.85rem;background:var(--surface2);padding:1.2rem 1.5rem;margin:1rem 0 1.5rem;white-space:pre-wrap;line-height:1.6}
+.footer{text-align:center;color:var(--text-dim);font-size:.85rem;margin-top:3rem}
+@media print{body{max-width:100%;padding:1rem;font-size:11pt}h1{font-size:20pt}h2{font-size:16pt;margin-top:1.5rem;break-after:avoid}h3{font-size:13pt;break-after:avoid}.box{break-inside:avoid}table{break-inside:avoid;font-size:9pt}th{background:#000!important;color:#fff!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}.back-link{display:none}.toc{break-inside:avoid}}
+</style>
+</head>
+<body>
+
+<a href="index.html" class="back-link">&larr; Back to Chapter 3</a>
+
+<h1>Advanced Multiway Strategies</h1>
+<p class="subtitle">Revision Guide -- Jonathan Little -- Advanced Cash Game Course, Chapter 3</p>
+
+<div class="box box-blue">
+<div class="box-label">Scope</div>
+6 Lessons covering multiway postflop play for live and online cash games.
+</div>
+
+<div class="toc">
+<h3>Contents</h3>
+<ol>
+<li><a href="#core">Core Concepts</a></li>
+<li><a href="#cbet">C-Betting Strategy (as PFR)</a></li>
+<li><a href="#ip-checked">Playing In Position When Checked To</a></li>
+<li><a href="#big-bets">Spots to Use Big Bets Multiway</a></li>
+<li><a href="#facing-aggression">Facing Aggression Multiway</a></li>
+<li><a href="#examples">Key Hand Examples</a></li>
+<li><a href="#flowcharts">Quick-Reference Flowcharts</a></li>
+<li><a href="#mistakes">Common Mistakes</a></li>
+</ol>
+</div>
+
+<!-- CORE CONCEPTS -->
+<h2 id="core"><span class="section-num">1.</span> Core Concepts</h2>
+
+<h3>Diminished Advantages Multiway</h3>
+<p>In heads-up pots you often have 58%+ equity and a clear range/nut advantage. Multiway, these advantages shrink dramatically:</p>
+
+<table>
+<tr><th>Players in Pot</th><th>Your "Good" Equity</th><th>Typical Bet Frequency</th></tr>
+<tr><td>2 (heads-up)</td><td>~55-65%</td><td>60-100%</td></tr>
+<tr><td>3</td><td>~37-42%</td><td>30-60%</td></tr>
+<tr><td>4+</td><td>~25-35%</td><td>Rarely</td></tr>
+</table>
+
+<div class="box box-red">
+<div class="box-label">Key Rule</div>
+You are essentially <em>never</em> betting your entire range multiway. Even on boards that strongly favor you (like K-Q-5 for the cutoff), GTO bets only ~58% of the time.
+</div>
+
+<h3>Minimum Defense Frequency -- Shared</h3>
+<p>In heads-up, you defend ~70% vs a pot-sized bet. Multiway, this is <em>divided among all players</em>:</p>
+<ul>
+<li><strong>2 players to act after bet:</strong> ~35% each</li>
+<li><strong>7 players to act after bet:</strong> ~10% each (basically just the nuts)</li>
+</ul>
+
+<div class="box box-purple">
+<div class="box-label">Position Adjustment</div>
+The player closer to closing the action defends more (better equity realization). The first player to act after the bettor defends less.
+</div>
+
+<h3>Hand Strength Downgrade</h3>
+<table>
+<tr><th>Hand</th><th>Heads-Up</th><th>3-Way</th><th>5-Way</th></tr>
+<tr><td>AA on 8-7-5</td><td>Never folding to raise</td><td>Fold to bet + raise</td><td>Fold to any action</td></tr>
+<tr><td>J-high flush</td><td>Excellent</td><td>Marginal</td><td>Barely playable</td></tr>
+<tr><td>Top pair good kicker</td><td>Strong value bet</td><td>Thin value / check</td><td>Check-fold to aggression</td></tr>
+</table>
+
+<div class="box box-red">
+<div class="box-label">Critical Insight</div>
+When you bet multiway and get called + raised, your hand is almost certainly beaten. Top pair on a coordinated board facing a raise should be folded.
+</div>
+
+<h3>Bet Sizing -- Default Small, Sometimes Big</h3>
+<div class="box box-orange">
+<div class="box-label">Default</div>
+Default multiway bet size: <strong>~30% pot</strong>. You are using small sizes because you rarely have a significant nut advantage.
+</div>
+
+<p><strong>When to use bigger sizes (50-70% pot):</strong></p>
+<ul>
+<li>You have a clear nut advantage (e.g., A-T-5 from the cutoff vs blinds)</li>
+<li>Overpairs on uncoordinated low boards (8-3-2 from EP vs blinds)</li>
+<li>Turn/river when your range improves (e.g., overcards that pair up)</li>
+</ul>
+<p><strong>Never</strong> overbet on the flop multiway. Even 70% pot is considered "big" in these spots.</p>
+
+<h3>Linear Betting Ranges</h3>
+<p>Multiway, your betting range shifts from polarized (nuts + air) to <strong>linear</strong> (hands with good equity):</p>
+<ul>
+<li><strong>Bet:</strong> Top pair, middle pair needing protection, strong draws, flush draws</li>
+<li><strong>Check:</strong> Underpairs, overcards without draws, total trash, AND some slow-played strong hands</li>
+<li><strong>Bluffs are equity-driven:</strong> Backdoor flush draws, gutshots to the nuts, overcards with draws. Almost never pure air.</li>
+</ul>
+
+<h3>Protecting Your Checking Range</h3>
+<ul>
+<li>Always check back some strong hands (overpairs, sets) to protect your checking range</li>
+<li>If your checking range is too weak, competent opponents will run you over</li>
+<li>Hands that are "almost always good but not amazing if tons of money goes in" are ideal check-backs</li>
+<li>Example: QQ on 8-7-6 checks back to protect the range of 9s, 8s, under-pairs</li>
+</ul>
+
+<hr>
+
+<!-- C-BETTING -->
+<h2 id="cbet"><span class="section-num">2.</span> C-Betting Strategy (as PFR)</h2>
+
+<h3>When to Check Entire Range</h3>
+<p><strong>Board type:</strong> Medium-connected boards where button/caller has similar nut/range holdings.</p>
+
+<div class="box box-orange">
+<div class="box-label">Example: T-7-5 Two-Tone</div>
+Cutoff vs button + BB. Equity distribution: cutoff 37%, button 39%, BB 24%. Button has essentially the same nuts as cutoff &rarr; no nut advantage, no range advantage &rarr; check 100%.
+</div>
+
+<p><strong>On the turn after checking flop:</strong> If an overcard comes (e.g., Queen), you regain nut advantage and can bet frequently with Queens, flush draws, tens, strong draws. NOT pure trash -- always equity-driven bluffs.</p>
+
+<h3>When to Bet Frequently (~58%)</h3>
+<p><strong>Board type:</strong> High-card boards where you have all premium hands and opponents 3-bet most of theirs.</p>
+
+<div class="box box-orange">
+<div class="box-label">Example: K-Q-5</div>
+Cutoff vs button + BB. You have KK, QQ, AK, KQ -- opponents 3-bet these preflop. Clear nut + range advantage. Bet ~58% of range, still using mostly small sizes.
+</div>
+
+<h3>Heads-Up vs Multiway Comparison (K-Q-5)</h3>
+<table>
+<tr><th>Action</th><th>CO vs BTN+BB</th><th>CO vs BB Only</th><th>CO vs BTN Only</th></tr>
+<tr><td>Bet frequency</td><td>58%</td><td>~100%</td><td>~70%</td></tr>
+<tr><td>Big bets used</td><td>Rarely</td><td>Yes</td><td>Some</td></tr>
+<tr><td>A6 suited</td><td>Check always</td><td>Bet ~50%</td><td>Bet sometimes</td></tr>
+<tr><td>Kings</td><td>Check never</td><td>Bet always</td><td>Bet always</td></tr>
+</table>
+
+<hr>
+
+<!-- IP CHECKED TO -->
+<h2 id="ip-checked"><span class="section-num">3.</span> Playing In Position When Checked To</h2>
+
+<h3>Two Scenarios Based on PFR's Strategy</h3>
+<table>
+<tr><th>PFR Should...</th><th>Their Check Means...</th><th>You Have...</th><th>Bet Size</th></tr>
+<tr><td>Check entire range</td><td>They're uncapped (have nuts)</td><td>Range advantage only</td><td>Small (30% pot)</td></tr>
+<tr><td>Bet frequently</td><td>Weak range checked</td><td>Nut advantage</td><td>Big (70% pot)</td></tr>
+</table>
+
+<h4>Example: 8-7-6 (Check, Check to Button)</h4>
+<ul>
+<li>PFR checks everything &rarr; uncapped</li>
+<li>Button bets 60% at 30% pot</li>
+<li><strong>Bet:</strong> 10x, 9x, 7x, overcards (KJ, AJ, QJ, KQ, AQ)</li>
+<li><strong>Check back:</strong> QQ, JJ (almost always good, don't want raise), 76s (protect checking range), sets sometimes</li>
+</ul>
+
+<h4>Example: A-T-5 (Check, Check to Button after LJ Bets Frequently)</h4>
+<ul>
+<li>Lojack would bet strong hands &rarr; their check = bottom of range</li>
+<li>Button gains nut advantage &rarr; Bet bigger: 70% pot</li>
+<li><strong>Bet:</strong> Bottom pair + backdoor draws, JT/QT/T9 (middle pair), pocket 4s (protection)</li>
+<li><strong>Check back:</strong> Ace-x (no draw), 9x, underpairs -- hands good enough to call turn/river</li>
+</ul>
+
+<h3>Flush Turn Caution</h3>
+<div class="box box-red">
+<div class="box-label">Warning</div>
+When the flush completes on the turn: sets should check some of the time, top pair checks almost always, overpairs check almost always. Only bet with flushes and blocker bluffs (Ace/King of flush suit).
+</div>
+
+<hr>
+
+<!-- BIG BETS -->
+<h2 id="big-bets"><span class="section-num">4.</span> Spots to Use Big Bets Multiway</h2>
+
+<p><strong>Driving Factor:</strong> Nut Advantage. "Big" multiway = 50-70% pot (not overbets).</p>
+
+<h4>Board 1: A-T-5 (Cutoff vs Small Blind + Big Blind)</h4>
+<ul>
+<li>Cutoff has: AA, TT, 55, AT, A5s, AK, AQ, AJ</li>
+<li>Opponents 3-bet these preflop &rarr; they lack them</li>
+<li>Equity: 39% vs 32% vs 29% -- gigantic nut advantage</li>
+<li><strong>Big (70% pot):</strong> AK, AQ, AJ, AT, sets, K5, 65, 54, low pairs (protection), KQ/KJ/QJ (blocker bluffs)</li>
+<li><strong>Small (30% pot):</strong> Top set (AA), A9/A8 (medium Ax), Q10/J10 (middle pair)</li>
+<li>Bet 60% of range overall</li>
+</ul>
+
+<h4>Board 2: 8-3-2 (UTG+1 vs Small Blind + Big Blind)</h4>
+<ul>
+<li>EP range has ALL overpairs (AA-88), plus A8s, K8s</li>
+<li>Bet 70% pot with entire betting range (60% of hands)</li>
+<li><strong>Bet:</strong> All overpairs, K8+, A3, pocket 5s, overcards with backdoor flush draws, gutshots</li>
+<li><strong>Check:</strong> A9/K9 without backdoor draws, pure overcards without draws</li>
+</ul>
+
+<h4>Turn Play After Big Flop Bet</h4>
+<p>When overcards hit the turn (K, Q, A) that favor your range: keep betting big. Your range improves dramatically while opponent's stagnates.</p>
+
+<hr>
+
+<!-- FACING AGGRESSION -->
+<h2 id="facing-aggression"><span class="section-num">5.</span> Facing Aggression Multiway</h2>
+
+<div class="box box-red">
+<div class="box-label">Fundamental Rule</div>
+Fold WAY more multiway than you do heads-up.
+</div>
+
+<table>
+<tr><th>Scenario</th><th>Fold Frequency</th></tr>
+<tr><td>Heads-up vs bet</td><td>~30%</td></tr>
+<tr><td>3-way, bet to you, one behind</td><td>~45%</td></tr>
+<tr><td>3-way, bet + call to you</td><td>~55-65%</td></tr>
+<tr><td>Bet + raise before you</td><td>80%+</td></tr>
+</table>
+
+<h4>Example: J-8-5 (Big Blind Facing Cutoff Bet)</h4>
+
+<p><strong>Small blind folds:</strong> Fold 32%, call 57%, raise 11%</p>
+<p><strong>Small blind calls:</strong> Fold 55% (up from 32%), call 32%, raise 13%. Now folding pocket 7s, pocket 5s, Ax no draw, marginal gutshots. Raising more value-heavy.</p>
+
+<h4>Closing the Action Matters</h4>
+<ul>
+<li><strong>When you close the action (last to act after bet):</strong> Defend wider than shared MDF suggests -- but still much tighter than heads-up</li>
+<li><strong>When you do NOT close the action:</strong> Overfold compared to shared MDF. Risk of getting raised behind you is real.</li>
+</ul>
+
+<hr>
+
+<!-- EXAMPLES -->
+<h2 id="examples"><span class="section-num">6.</span> Key Hand Examples</h2>
+
+<h4>1. Pocket Jacks -- T-6-5 Multiway</h4>
+<p><strong>Flop:</strong> Check (multiway, check this board every time). <strong>Turn: King.</strong> Now we have nut + range advantage. Bet medium for value + protection. <strong>Lesson:</strong> The turn king gave us an advantage we didn't have on the flop.</p>
+
+<h4>2. King-Queen -- K-7-6 Facing Bet + Raise</h4>
+<div class="box box-red">
+<div class="box-label">Fold Immediately</div>
+Top pair facing a bet + raise multiway is a clear fold. Opponents have sets, two pair, and strong draws.
+</div>
+
+<h4>3. Kings -- K-K-6 Top Set Multiway</h4>
+<p><strong>Flop:</strong> Bet small (30% pot). <strong>Turn 6:</strong> Check! We block all Kx and the board paired. No one can pay us off. Let them bluff. <strong>Lesson:</strong> With the super nuts, don't blast every street.</p>
+
+<h4>4. Pocket Queens -- J-7-5 Check-Raise Gone Wrong</h4>
+<p><strong>Flop:</strong> Check-raise (almost always good but vulnerable). Both call (alarm bells!). <strong>Turn: A-spades (flush completes).</strong> Even with Q-spade for flush draw -- fold. <strong>Lesson:</strong> When both opponents call a check-raise and the flush comes in, your overpair + flush draw is worthless.</p>
+
+<h4>5. Ace-Four Suited -- River Blocker Decisions</h4>
+<div class="box box-purple">
+<div class="box-label">Blocker Logic</div>
+Holding the Ace of the flush suit blocks opponent's auto-folds (busted Ax flush draws). Do NOT bluff. Prefer bluffing with hands that DON'T block opponent's folding range.
+</div>
+
+<hr>
+
+<!-- FLOWCHARTS -->
+<h2 id="flowcharts"><span class="section-num">7.</span> Quick-Reference Flowcharts</h2>
+
+<h3>Multiway Flop Decision (as PFR)</h3>
+<div class="flowchart">Do I have range + nut advantage?
+  YES (e.g., KQ5, AT5) &rarr; Bet 30-70% pot, ~60% frequency
+  SOME (nut but no range) &rarr; Bet 70% pot, ~40% frequency
+  NO (e.g., T75) &rarr; Check entire range
+  After checking flop, TURN overcard hits?
+    Re-evaluate: likely gained advantage &rarr; bet</div>
+
+<h3>Facing a Bet Multiway</h3>
+<div class="flowchart">Am I closing the action?
+  YES &rarr; Defend closer to shared MDF
+    Good hand + draw &rarr; Call or raise
+    Marginal hand &rarr; Call if equity is there
+    Trash &rarr; Fold
+  NO (players behind)
+    Strong hand + draw &rarr; Call (sometimes raise)
+    Marginal &rarr; Lean fold
+    Trash &rarr; Always fold
+
+If facing BET + CALL:
+  Fold 55%+, only continue with strong hands + draws
+
+If facing BET + RAISE:
+  Fold almost everything (only continue with super nuts)</div>
+
+<h3>In Position When Checked To</h3>
+<div class="flowchart">Did PFR check their ENTIRE range?
+  YES &rarr; Range advantage yours
+    Bet 30% pot, ~60% frequency
+    Bet: pairs, draws, overcards
+    Check: overpairs, strong hands (protect range)
+  NO (PFR would normally bet)
+    Nut advantage is yours
+    Bet 70% pot, ~40% frequency
+    Bet: strong draws, pairs needing protection
+    Check: Ax hands that can call turn/river</div>
+
+<hr>
+
+<!-- COMMON MISTAKES -->
+<h2 id="mistakes"><span class="section-num">8.</span> Common Mistakes</h2>
+
+<ol>
+<li><strong>C-betting your entire range multiway</strong> -- You should check 40-100% of hands depending on the board</li>
+<li><strong>Using big bet sizes on the flop</strong> -- Default to ~30% pot; only go bigger with clear nut advantage</li>
+<li><strong>Calling too wide facing bet + call</strong> -- You fold 55%+ of your range, not 30%</li>
+<li><strong>Not protecting your checking range</strong> -- Always check back some strong hands (overpairs, sets)</li>
+<li><strong>Bluffing with pure air</strong> -- Multiway bluffs must have equity (flush draws, gutshots, overcards)</li>
+<li><strong>Treating top pair as premium multiway</strong> -- Top pair facing aggression from 2+ players is often a fold</li>
+<li><strong>Ignoring blocker effects on the river</strong> -- Don't bluff when you block opponent's folding range</li>
+<li><strong>Playing the same strategy heads-up and multiway</strong> -- These are fundamentally different games</li>
+<li><strong>Not adapting to turn texture</strong> -- An overcard turn can give you the advantage you lacked on the flop</li>
+<li><strong>Raising in position without nut advantage</strong> -- In position multiway, you mostly just call</li>
+</ol>
+
+<hr>
+
+<p class="footer">
+Advanced Cash Game Course -- Chapter 3 Revision Guide<br>
+Source: PokerCoaching.com -- Jonathan Little
+</p>
+
+</body>
+</html>

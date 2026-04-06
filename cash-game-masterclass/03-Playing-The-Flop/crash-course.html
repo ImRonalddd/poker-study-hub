@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chapter 3: Playing the Flop — Crash Course</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;1,400;1,600&family=Source+Serif+4:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body,{delimiters:[{left:'\(',right:'\)',display:false},{left:'$$',right:'$$',display:true}],throwOnError:false});"></script>
+<style>
+:root {
+  --bg: #FFFFFF; --surface: #FFFFFF; --surface2: #F5F5F5;
+  --accent: #000000; --text: #000000; --text-dim: #525252;
+  --correct: #1a7a5e; --wrong: #b91c1c; --orange: #8B6914;
+  --border: #000000; --border-light: #E5E5E5;
+  --blue: #1e40af; --blue-bg: #eff6ff; --blue-border: #bfdbfe;
+  --purple: #6b21a8; --purple-bg: #faf5ff; --purple-border: #e9d5ff;
+  --orange-bg: #fffbeb; --orange-border: #fde68a;
+  --red-bg: #fef2f2; --red-border: #fecaca;
+}
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; border-radius: 0 !important; }
+
+body {
+  font-family: 'Source Serif 4', Georgia, serif;
+  background: var(--bg); color: var(--text);
+  line-height: 1.7; -webkit-font-smoothing: antialiased;
+}
+
+.container { max-width: 780px; margin: 0 auto; padding: 0 1.5rem; }
+
+header { padding: 4rem 0 2rem; text-align: center; border-bottom: 2px solid var(--border); margin-bottom: 3rem; }
+header h1 { font-family: 'Playfair Display', serif; font-size: 2.4rem; font-weight: 700; letter-spacing: -0.02em; }
+header p { font-size: 1.05rem; color: var(--text-dim); margin-top: 0.5rem; }
+
+h2 { font-family: 'Playfair Display', serif; font-size: 1.8rem; font-weight: 700; margin: 3rem 0 1rem; padding-bottom: 0.5rem; border-bottom: 1px solid var(--border-light); }
+h3 { font-family: 'Playfair Display', serif; font-size: 1.3rem; font-weight: 600; margin: 2rem 0 0.75rem; }
+h4 { font-family: 'Source Serif 4', serif; font-size: 1.1rem; font-weight: 600; margin: 1.5rem 0 0.5rem; }
+
+p { margin-bottom: 1rem; }
+strong { font-weight: 600; }
+code { font-family: 'JetBrains Mono', monospace; font-size: 0.88em; background: var(--surface2); padding: 0.15em 0.4em; border: 1px solid var(--border-light); }
+
+ul, ol { margin: 0.5rem 0 1rem 1.5rem; }
+li { margin-bottom: 0.4rem; }
+
+table { width: 100%; border-collapse: collapse; margin: 1rem 0 1.5rem; font-size: 0.95rem; }
+th, td { padding: 0.6rem 0.8rem; border: 1px solid var(--border-light); text-align: left; }
+th { background: var(--surface2); font-weight: 600; font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; }
+
+.box { padding: 1.25rem 1.5rem; margin: 1.5rem 0; border-left: 4px solid; }
+.box-title { font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 0.5rem; }
+
+.def { background: var(--blue-bg); border-color: var(--blue); }
+.def .box-title { color: var(--blue); }
+
+.insight { background: var(--purple-bg); border-color: var(--purple); }
+.insight .box-title { color: var(--purple); }
+
+.example { background: var(--orange-bg); border-color: var(--orange); }
+.example .box-title { color: var(--orange); }
+
+.mistake { background: var(--red-bg); border-color: var(--wrong); }
+.mistake .box-title { color: var(--wrong); }
+
+.flowchart { background: var(--surface2); padding: 1.5rem; margin: 1.5rem 0; border: 1px solid var(--border-light); font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; white-space: pre-line; line-height: 1.8; }
+
+.card-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin: 1rem 0; }
+.card { background: var(--surface2); padding: 1rem 1.25rem; border: 1px solid var(--border-light); }
+.card h4 { margin: 0 0 0.4rem; font-size: 1rem; }
+.card p { margin: 0; font-size: 0.92rem; color: var(--text-dim); }
+
+.toc { background: var(--surface2); padding: 1.5rem 2rem; margin: 2rem 0; border: 1px solid var(--border-light); }
+.toc h3 { margin: 0 0 0.75rem; }
+.toc ol { margin-left: 1.25rem; }
+.toc a { color: var(--text); text-decoration: none; border-bottom: 1px solid var(--border-light); }
+.toc a:hover { border-color: var(--accent); }
+
+footer { margin: 4rem 0 2rem; padding-top: 1.5rem; border-top: 1px solid var(--border-light); text-align: center; color: var(--text-dim); font-size: 0.85rem; }
+</style>
+</head>
+<body>
+<div class="container">
+
+<header>
+  <h1>Playing the Flop</h1>
+  <p>Chapter 3 Crash Course &mdash; Cash Game Masterclass by Jonathan Little</p>
+</header>
+
+<nav class="toc">
+  <h3>Contents</h3>
+  <ol>
+    <li><a href="#hand-types">The Four Hand Types</a></li>
+    <li><a href="#cbet-frequency">C-Bet Frequency: Range Advantage</a></li>
+    <li><a href="#cbet-sizing">C-Bet Sizing: Nut Advantage &amp; Connectivity</a></li>
+    <li><a href="#position">Position Effects on C-Betting</a></li>
+    <li><a href="#board-textures">Board Texture Strategy</a></li>
+    <li><a href="#facing-bet">Facing a Bet: The Response Flowchart</a></li>
+    <li><a href="#check-raise">Facing a Check-Raise</a></li>
+    <li><a href="#three-bet">3-Bet Pots</a></li>
+    <li><a href="#four-bet">4-Bet Pots</a></li>
+    <li><a href="#multiway">Multi-Way Pots</a></li>
+    <li><a href="#limped">Limped Pots</a></li>
+    <li><a href="#mistakes">Common Mistakes</a></li>
+  </ol>
+</nav>
+
+<!-- ═══════════════════════════════════════════ -->
+<h2 id="hand-types">1. The Four Hand Types</h2>
+
+<div class="box def">
+  <div class="box-title">Definition</div>
+  Every hand on the flop falls into one of four categories that determine your default action: <strong>Premium Made Hand</strong>, <strong>Draw</strong>, <strong>Marginal Made Hand</strong>, or <strong>Junk</strong>.
+</div>
+
+<table>
+  <tr><th>Type</th><th>What It Is</th><th>Default Action</th></tr>
+  <tr><td>Premium Made</td><td>Strong top pair+ &mdash; happy getting lots of money in</td><td>Bet. Do not fold to a raise.</td></tr>
+  <tr><td>Draw</td><td>Flush draw, straight draw, backdoor combos</td><td>Bet. Fold weak draws if raised; continue strong draws.</td></tr>
+  <tr><td>Marginal Made</td><td>Weak top pair, middle pair, ace-high on dry boards</td><td>Check-call. Keep the pot small.</td></tr>
+  <tr><td>Junk</td><td>No pair, no meaningful draw</td><td>Check-fold (or bluff in high-advantage spots).</td></tr>
+</table>
+
+<div class="box insight">
+  <div class="box-title">Key Insight</div>
+  Hand types are <em>relative</em>. Pocket tens is a premium hand on T-7-2 but a marginal hand on K-J-4. Ace-high is marginal on Q-7-2 but junk on Q-9-7 with flush draws. Always recategorize as the board and situation change.
+</div>
+
+<h3>Betting Range Ratios</h3>
+<p>When you bet on the flop, your range must satisfy these constraints:</p>
+<ul>
+  <li><strong>Betting range:</strong> At most 1 premium made hand to 2 draws. Fewer draws is fine.</li>
+  <li><strong>Checking range:</strong> At least 70% marginal made hands, at most 30% junk. More marginals is always OK.</li>
+</ul>
+
+<div class="box example">
+  <div class="box-title">Board Example &mdash; J&spades; 8&hearts; 5&diams;</div>
+  <p>LoJack raises, BB calls. Categorize our range:</p>
+  <ul>
+    <li><strong>Premium:</strong> JJ+, J9s+, 88, 55 (good jacks and better) &mdash; 51 combos (26%)</li>
+    <li><strong>Draws:</strong> QTs (gutshot), 76s (OESD), T9s, backdoor flush draws with overcards &mdash; 36 combos</li>
+    <li><strong>Marginal:</strong> TT-99, AQ (overcards with showdown value) &mdash; ~45 combos</li>
+    <li><strong>Junk:</strong> K9&clubs; (no backdoor draw), low unpaired no-draw hands &mdash; ~11 combos</li>
+  </ul>
+  <p>Ratio check: 36/51 = 1.4:1 draws to premiums. Under the 2:1 max. We bet ~60% and check ~40% &mdash; matches GTO.</p>
+</div>
+
+<!-- ═══════════════════════════════════════════ -->
+<h2 id="cbet-frequency">2. C-Bet Frequency: Range Advantage</h2>
+
+<div class="box def">
+  <div class="box-title">Definition &mdash; Range Advantage</div>
+  The advantage one player's likely range has over their opponent's range on any individual board, measured by overall equity. The preflop raiser usually has the advantage because they start with better hands.
+</div>
+
+<table>
+  <tr><th>Equity</th><th>Classification</th><th>What to Bet (IP)</th></tr>
+  <tr><td>60%+</td><td>Strong</td><td>Everything &mdash; premiums, draws, marginals, junk</td></tr>
+  <tr><td>54-60%</td><td>Moderate</td><td>Premiums + draws + some bluffs (40-75% of range)</td></tr>
+  <tr><td>50-54%</td><td>Weak</td><td>Premiums + draws only</td></tr>
+  <tr><td>&lt;50%</td><td>None</td><td>Almost nothing (check nearly everything)</td></tr>
+</table>
+
+<div class="box insight">
+  <div class="box-title">Key Insight</div>
+  Range advantage is like a superpower. The bigger it is, the more hands you can profitably include in your betting range. A strong advantage lets you bet junk as a bluff because the "weight" of your premiums makes it profitable.
+</div>
+
+<!-- ═══════════════════════════════════════════ -->
+<h2 id="cbet-sizing">3. C-Bet Sizing: Nut Advantage &amp; Connectivity</h2>
+
+<div class="box def">
+  <div class="box-title">Definition &mdash; Nut Advantage</div>
+  A player has the <strong>nut advantage</strong> when they have more combinations of effective nut hands (two pair and better) than their opponent. You can have range advantage without nut advantage.
+</div>
+
+<div class="box def">
+  <div class="box-title">Definition &mdash; Range Connectivity</div>
+  How well the opponent's continuing range connects with the board. High connectivity = they have lots of clear pairs and strong hands. Low connectivity = they must continue with king-high, queen-high, backdoor draws.
+</div>
+
+<div class="flowchart"><strong>Sizing Decision Tree</strong>
+
+Do I have the nut advantage?
+├── NO  &rarr;  Bet SMALL (25-33% pot). Always.
+└── YES &rarr;  How well does opponent connect?
+    ├── WELL (lots of pairs)  &rarr;  Bet BIG (50-75% pot)
+    └── POORLY (mostly overcards)  &rarr;  Bet SMALL (25-33% pot)</div>
+
+<div class="box example">
+  <div class="box-title">Sizing Comparison</div>
+  <p><strong>A&spades; K&hearts; J&diams;</strong> (UTG vs BB): UTG has nut advantage + opponent connects well (any A/K/J isn't folding). <strong>Bet BIG.</strong></p>
+  <p><strong>J&spades; 6&hearts; 6&clubs;</strong> (UTG vs BB): UTG has range advantage but NO nut advantage (BB has the sixes). <strong>Bet SMALL.</strong></p>
+  <p><strong>J&spades; 6&clubs; 2&diams;</strong> (UTG vs BB): UTG has range + nut advantage, but opponent connects poorly (must call with backdoor draws, overcards). <strong>Bet SMALL.</strong></p>
+</div>
+
+<!-- ═══════════════════════════════════════════ -->
+<h2 id="position">4. Position Effects on C-Betting</h2>
+
+<h3>In Position (IP)</h3>
+<ul>
+  <li>Bet more often across the board</li>
+  <li>Naturally have bigger range advantage (BB's range is wider/weaker)</li>
+  <li>After checking, only face 2 more streets &mdash; less pressure on checking range</li>
+  <li>60%+ equity: bet 75-100%. Moderate: 40-75%. Weak: premiums + draws. None: almost never.</li>
+</ul>
+
+<h3>Out of Position (OOP)</h3>
+<ul>
+  <li>Bet less often &mdash; must protect checking range with strong hands</li>
+  <li>Range advantage is smaller (opponent in position has stronger range)</li>
+  <li>After checking, face up to 3 streets of aggression</li>
+  <li>On low-connected boards: check <strong>everything</strong> &mdash; even when you have decent hands</li>
+  <li>Rare high-frequency OOP boards: King-high (K-J-2, K-9-5)</li>
+</ul>
+
+<div class="box mistake">
+  <div class="box-title">Common Mistake</div>
+  C-betting 100% from out of position on every flop. On boards like 8-4-3, 7-5-4, or T-8-6, the GTO strategy OOP is to check your <strong>entire range</strong>. Betting here makes you exploitable through check-raises.
+</div>
+
+<!-- ═══════════════════════════════════════════ -->
+<h2 id="board-textures">5. Board Texture Strategy</h2>
+
+<h3>Board Classification for the PFR</h3>
+
+<table>
+  <tr><th>Board Type</th><th>PFR Equity (IP vs BB)</th><th>Frequency</th><th>Sizing</th></tr>
+  <tr><td>Ace-high (A-K-J, A-Q-5, A-8-7)</td><td>55-65%</td><td>Very high</td><td>Varies by connectivity</td></tr>
+  <tr><td>King-high (K-J-2, K-9-5)</td><td>52-60%</td><td>High</td><td>Small-medium</td></tr>
+  <tr><td>Paired (K-K-6, J-6-6)</td><td>52-60%</td><td>High (ace-high often good)</td><td>Small (usually no nut adv.)</td></tr>
+  <tr><td>Monotone (J-7-3 all spades)</td><td>52-58%</td><td>Moderate-high</td><td>Small-medium</td></tr>
+  <tr><td>Middle-connected (Q-9-8, J-T-8)</td><td>50-55%</td><td>Moderate</td><td>Medium-big</td></tr>
+  <tr><td>Low-connected (T-8-5, 8-6-5, 6-5-4)</td><td>48-52%</td><td>Low (often 0% OOP)</td><td>Big when betting</td></tr>
+</table>
+
+<div class="box example">
+  <div class="box-title">Board: K&spades; K&hearts; 6&diams; (Paired King-high)</div>
+  <p>Massive nut + range advantage for PFR. Opponent has lots of queen-high junk. Range connectivity is terrible.</p>
+  <p><strong>Strategy:</strong> Bet 100% of range, very small (25% pot). GTO checks only 4% of the time (just a few ace-highs).</p>
+</div>
+
+<div class="box example">
+  <div class="box-title">Board: T&diams; 8&clubs; 6&hearts; (Middle-connected)</div>
+  <p>This board connects well with BB's range (suited connectors, middle pairs). LoJack has ~53% equity IP.</p>
+  <p><strong>Strategy (IP vs BB):</strong> Bet very polarized &mdash; good top pairs, sets, some overpairs + junky draws. Check ~70%.</p>
+  <p><strong>Strategy (OOP vs BTN):</strong> Check everything. 0% c-bet frequency.</p>
+</div>
+
+<div class="box example">
+  <div class="box-title">Board: Q&spades; T&spades; 5&spades; (Monotone)</div>
+  <p>PFR has best flushes and best flush draws (nut suited hands). BB has fewer high-card flush draw combos.</p>
+  <p><strong>Key:</strong> Bet pairs <em>with a spade</em> more than pairs without. Pocket aces with A&spades; always bets; AA without a spade may check at 100bb depth. Use small sizing.</p>
+</div>
+
+<!-- ═══════════════════════════════════════════ -->
+<h2 id="facing-bet">6. Facing a Bet: The Response Flowchart</h2>
+
+<div class="box def">
+  <div class="box-title">Definition &mdash; Minimum Defense Frequency (MDF)</div>
+  $$\text{MDF} = 1 - \frac{\text{bet}}{\text{bet} + \text{pot}}$$
+  The minimum percentage of your range you must defend to prevent opponent from profiting with any bluff. <strong>From OOP, you should overfold compared to MDF</strong> because you under-realize equity.
+</div>
+
+<div class="flowchart"><strong>Bet Response Flowchart</strong>
+
+What hand type do I have?
+├── Junk &rarr; FOLD
+├── Marginal Made Hand &rarr; CALL
+└── Premium / Draw &rarr; Do I have the nut advantage?
+    ├── NO &rarr; Mostly CALL
+    │   IP: call almost everything, very few raises
+    │   OOP: still raise best hands + some weak draws
+    └── YES &rarr; RAISE more frequently
+        IP: raise to ~2.5x the bet
+        OOP: raise to ~3x the bet (more vs small bets)</div>
+
+<div class="box insight">
+  <div class="box-title">Key Insight</div>
+  <strong>IP = lots of calling. OOP = more raising.</strong> When you're in position, you can float flop bets and bet when they check the turn. When OOP, you can't &mdash; so you must raise weak draws now or fold them. This is why OOP always has a check-raising range on almost every board.
+</div>
+
+<h3>Raise Sizing</h3>
+<ul>
+  <li><strong>IP:</strong> ~2.5x the bet (unless bet is tiny, then raise more)</li>
+  <li><strong>OOP:</strong> ~3x the bet. If they bet 25% pot, raise to ~5x their bet</li>
+  <li><strong>High range connectivity board</strong> (K-J-4): raise large (70%+ pot)</li>
+  <li><strong>Low connectivity board</strong> (7-5-4): raise smaller (cheaper bluffs)</li>
+</ul>
+
+<!-- ═══════════════════════════════════════════ -->
+<h2 id="check-raise">7. Facing a Check-Raise</h2>
+
+<p>When you c-bet and get check-raised, most of your range becomes a bluff catcher.</p>
+
+<div class="box insight">
+  <div class="box-title">Key Insight</div>
+  Most small/medium stakes players do <strong>not</strong> check-raise aggressively enough. They are overwhelmingly value-heavy. Against these opponents: bet the flop super wide, and if they check-raise, just fold your non-premium hands. It's a huge exploit.
+</div>
+
+<h4>Against Polarized Check-Raisers (GTO-type)</h4>
+<ul>
+  <li>Call with best made hands + draws getting correct odds + marginal made hands</li>
+  <li>Slightly overfold compared to MDF</li>
+  <li>Very little 3-betting (you're IP, closing the action)</li>
+</ul>
+
+<h4>Against Linear Check-Raisers (thin value)</h4>
+<ul>
+  <li>3-bet with premium hands needing protection (overpairs, bottom two pair) + high-equity draws</li>
+  <li>Call with sets (don't need protection) + medium draws</li>
+  <li>As SPR decreases, increase 3-bet frequency</li>
+</ul>
+
+<!-- ═══════════════════════════════════════════ -->
+<h2 id="three-bet">8. 3-Bet Pots</h2>
+
+<div class="card-row">
+  <div class="card">
+    <h4>SPR drops to ~4-5</h4>
+    <p>From ~15 in single-raised pots. Use smaller bet sizes (25-33% pot).</p>
+  </div>
+  <div class="card">
+    <h4>Both ranges are stronger</h4>
+    <p>More clearly defined. PFR still usually has the range advantage (has AA, KK, QQ, AK).</p>
+  </div>
+</div>
+
+<h3>As the 3-Bet Aggressor</h3>
+<ul>
+  <li>Same range advantage flowcharts apply with minor adjustments</li>
+  <li>Bet small (30% pot) and frequently on Ace-high and King-high boards</li>
+  <li>More checking on lower boards (T-5-2 type): ~50% check frequency</li>
+  <li>OOP: more checking, more polarized, protect checking range (check some AA/KK)</li>
+  <li>Max draws in betting range: ~60% (down from 67% in SRP)</li>
+</ul>
+
+<h3>As the 3-Bet Caller</h3>
+<ul>
+  <li><strong>Checked to (IP):</strong> Bet very polarized, small. Opponent's check range has traps &mdash; don't blast into it.</li>
+  <li><strong>Facing a bet (IP):</strong> Mostly call. Raise less than 7% of the time.</li>
+  <li><strong>Facing a bet (OOP):</strong> More check-raising with vulnerable good hands.</li>
+  <li>Exploitative: many opponents c-bet 100% in 3-bet pots &mdash; defend wider and punish them.</li>
+</ul>
+
+<!-- ═══════════════════════════════════════════ -->
+<h2 id="four-bet">9. 4-Bet Pots</h2>
+
+<div class="card-row">
+  <div class="card">
+    <h4>SPR ≈ 1-4</h4>
+    <p>Very shallow. Consider all-in when SPR &le; 1.</p>
+  </div>
+  <div class="card">
+    <h4>Your Range: AA, KK, AKs + bluffs</h4>
+    <p>They have QQ, JJ, AQ, weaker AXs.</p>
+  </div>
+</div>
+
+<h3>As the 4-Bet Aggressor</h3>
+<ul>
+  <li><strong>A-x-x / K-x-x boards:</strong> Bet 100% small (25% pot). You have 65-70% equity.</li>
+  <li><strong>Middle-connected (J-T-8, T-7-6):</strong> Check more. Bet polarized when you do, sometimes all-in.</li>
+  <li><strong>Slow-play super nuts</strong> (top set) &mdash; stacks already shallow, hard for opponent to have anything.</li>
+  <li>Without range advantage: check a lot, protect checking range with overpairs.</li>
+</ul>
+
+<h3>As the 4-Bet Caller</h3>
+<ul>
+  <li>Some counter-intuitive folds are correct (e.g., AJ on KJ3 &mdash; opponent's range crushes you)</li>
+  <li>OOP: shove vulnerable but likely-best hands (overpairs, nut flush draws) &mdash; pot is huge</li>
+  <li>IP: mostly call, very little raising</li>
+  <li>When checked to: bet small and polarized (opponent's check has traps)</li>
+</ul>
+
+<div class="box example">
+  <div class="box-title">4-Bet Pot: K&hearts; J&diams; 3&clubs;</div>
+  <p>LoJack 4-bets, CO calls. CO's calling range: QQ, JJ, AQ, AT, A5s, etc.</p>
+  <p>On KJ3, opponent's <em>entire range</em> is crushed. Queens folds (drawing to 2 outs against KQ/KJ/KT/AK). Even AJ folds &mdash; loses to everything in the betting range and blocks the bluffs.</p>
+</div>
+
+<!-- ═══════════════════════════════════════════ -->
+<h2 id="multiway">10. Multi-Way Pots</h2>
+
+<div class="box mistake">
+  <div class="box-title">Common Mistake</div>
+  Playing multi-way pots the same as heads-up. In a 5-way pot on T-9-7, someone <strong>will</strong> have two pair or better. Your aces are no longer premium &mdash; they're marginal. Check-call, don't bet.
+</div>
+
+<h3>Key Adjustments</h3>
+<ul>
+  <li><strong>Betting frequency drops dramatically</strong> &mdash; only very polarized</li>
+  <li><strong>Premium hands get downgraded</strong> &mdash; overpairs become marginal made hands</li>
+  <li><strong>One-pair hands lose huge value</strong> &mdash; fold middle/bottom pair to any action</li>
+  <li><strong>MDF splits across all defenders</strong> &mdash; fold way more when someone bets</li>
+  <li><strong>Draw to the nuts only</strong> &mdash; non-nut flush draws and bottom-end straights have massive reverse implied odds</li>
+</ul>
+
+<h4>Coordinated Boards Multi-Way</h4>
+<p>Check-call overpairs. Premium = two pair+ or nut draws. If bet + raise happens, fold below two pair.</p>
+
+<h4>Uncoordinated Boards Multi-Way</h4>
+<p>Can bet more (especially 3-way). Top pair top kicker is reasonable. But still check marginal hands and protect checking range.</p>
+
+<!-- ═══════════════════════════════════════════ -->
+<h2 id="limped">11. Limped Pots</h2>
+
+<div class="box insight">
+  <div class="box-title">Key Insight</div>
+  <strong>Rake awareness is critical.</strong> If the casino rakes 40%+ of a limped pot, nobody wins except the house. Limping behind is only viable when rake is manageable or there's an ante. When in doubt, raise.
+</div>
+
+<ul>
+  <li><strong>Deep SPR</strong> &mdash; play for implied odds hands (small pairs, suited connectors)</li>
+  <li><strong>No preflop raiser</strong> &mdash; no one has "announced" strength, no one to check to</li>
+  <li><strong>Bet very polarized</strong> when checked to &mdash; premium hands + draws only</li>
+  <li><strong>Exploit weakness:</strong> If blinds are clearly done with the hand, bet with anything IP</li>
+  <li>Facing a bet: mostly call, rarely raise (no nut advantage typically)</li>
+  <li>Check-raise with sets and strong draws facing small bets</li>
+</ul>
+
+<div class="box example">
+  <div class="box-title">Limped Pot Example</div>
+  <p>Limp, limp, limp. You limp 3&hearts; 3&diams; on BTN. Flop: Q&spades; 5&hearts; 3&clubs;. Small bet, call.</p>
+  <p><strong>Raise.</strong> You have bottom set on a coordinated enough board with flush draw potential. Facing a tiny bet, raising is mandatory &mdash; you need protection and to build the pot. Go to ~$30-45 (small raise) because the tiny bet means you can raise cheap.</p>
+</div>
+
+<!-- ═══════════════════════════════════════════ -->
+<h2 id="mistakes">12. Common Mistakes</h2>
+
+<div class="box mistake">
+  <div class="box-title">Mistake #1 &mdash; Betting Marginal Hands Then Not Folding</div>
+  You bet K9 on Q-9-7, get raised, and call because "I have a pair." Your marginal hand was supposed to <em>check-call</em>, not bet. If you bet and get raised, you're crushed by everything that continues.
+</div>
+
+<div class="box mistake">
+  <div class="box-title">Mistake #2 &mdash; C-Betting 100% From OOP</div>
+  On 8-4-3 out of position vs the button, GTO checks <em>everything</em>. You have &lt;50% equity. Every c-bet is lighting money on fire and making you exploitable through check-raises.
+</div>
+
+<div class="box mistake">
+  <div class="box-title">Mistake #3 &mdash; Not Protecting Checking Range</div>
+  If you only check garbage OOP, your opponent will bet the turn every time and print money. Include strong hands (overpairs, sets) in your checking range when you're supposed to check frequently.
+</div>
+
+<div class="box mistake">
+  <div class="box-title">Mistake #4 &mdash; Raising Marginal Hands Facing a Bet</div>
+  The flowchart is clear: junk = fold, marginal = call, premium/draw = raise or call based on nut advantage. Many players raise middle pair "to find out where they stand" &mdash; this is a massive leak.
+</div>
+
+<div class="box mistake">
+  <div class="box-title">Mistake #5 &mdash; Drawing to Non-Nut Hands Multi-Way</div>
+  7-6 on T-9-7 (bottom pair + bad gutshot) looks playable heads-up but is a clear fold multi-way. If you hit the 8 for a straight, someone has the jack. Low flush draws face the same problem.
+</div>
+
+<div class="box mistake">
+  <div class="box-title">Mistake #6 &mdash; One Bet Size for All Boards</div>
+  A-K-J demands a big bet (high connectivity). J-6-2 demands a small bet (low connectivity). Using the same size on both boards costs significant EV.
+</div>
+
+<footer>
+  <p>Cash Game Masterclass &mdash; Chapter 3 Crash Course</p>
+  <p>Based on Jonathan Little's teachings. For study purposes only.</p>
+</footer>
+
+</div>
+</body>
+</html>

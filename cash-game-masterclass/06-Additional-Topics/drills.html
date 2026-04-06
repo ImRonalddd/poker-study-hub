@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Additional Topics — Interactive Drills</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;1,400;1,600&family=Source+Serif+4:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #FFFFFF; --surface: #FFFFFF; --surface2: #F5F5F5;
+  --accent: #000000; --text: #000000; --text-dim: #525252;
+  --correct: #1a7a5e; --wrong: #b91c1c; --orange: #8B6914;
+  --border: #000000; --border-light: #E5E5E5;
+}
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; border-radius:0!important; }
+body { font-family:'Source Serif 4','Georgia',serif; background:var(--bg); color:var(--text); line-height:1.6; }
+.container { max-width:700px; margin:0 auto; padding:2rem; }
+header { text-align:center; padding:2rem 0; }
+header h1 { font-family:'Playfair Display',serif; font-weight:800; font-size:2.2rem; margin-bottom:0.3rem; }
+header .subtitle { font-family:'JetBrains Mono',monospace; font-size:0.75rem; text-transform:uppercase; letter-spacing:0.15em; color:var(--text-dim); }
+.divider { border:none; border-top:4px solid var(--accent); margin:0 0 2rem; }
+
+/* ── Progress ── */
+.progress-bar { width:100%; height:6px; background:var(--surface2); border:1px solid var(--border-light); margin-bottom:1.5rem; }
+.progress-fill { height:100%; background:var(--accent); transition:width 0.3s; }
+.progress-text { font-family:'JetBrains Mono',monospace; font-size:0.8rem; color:var(--text-dim); margin-bottom:1rem; text-align:center; }
+
+/* ── Question ── */
+.question-num { font-family:'JetBrains Mono',monospace; font-size:0.75rem; text-transform:uppercase; letter-spacing:0.1em; color:var(--text-dim); margin-bottom:0.5rem; }
+.question-text { font-family:'Playfair Display',serif; font-size:1.35rem; font-weight:600; line-height:1.4; margin-bottom:1.5rem; }
+
+/* ── Options ── */
+.options { display:flex; flex-direction:column; gap:0.6rem; margin-bottom:1.5rem; }
+.option { padding:0.9rem 1.2rem; border:2px solid var(--border-light); cursor:pointer; font-size:1rem; text-align:left; background:var(--surface); transition:border-color 0.15s, background 0.15s; display:flex; align-items:baseline; gap:0.7rem; }
+.option:hover:not(.disabled) { border-color:var(--accent); background:var(--surface2); }
+.option .key { font-family:'JetBrains Mono',monospace; font-size:0.8rem; font-weight:600; min-width:1.5rem; }
+.option.correct { border-color:var(--correct); background:#f0fdf4; }
+.option.wrong { border-color:var(--wrong); background:#fef2f2; }
+.option.disabled { cursor:default; opacity:0.7; }
+.option.disabled:hover { border-color:var(--border-light); background:var(--surface); }
+.option.correct.disabled, .option.wrong.disabled { opacity:1; }
+
+/* ── Explanation ── */
+.explanation { padding:1rem 1.2rem; border-left:4px solid var(--accent); background:var(--surface2); margin-bottom:1.5rem; display:none; }
+.explanation.show { display:block; }
+.explanation p { font-size:0.95rem; margin-bottom:0.3rem; }
+.explanation strong { font-weight:700; }
+
+/* ── Controls ── */
+.controls { display:flex; gap:0.8rem; flex-wrap:wrap; }
+.btn { font-family:'JetBrains Mono',monospace; font-size:0.8rem; font-weight:600; text-transform:uppercase; letter-spacing:0.08em; padding:0.7rem 1.4rem; border:2px solid var(--accent); background:var(--surface); color:var(--text); cursor:pointer; transition:background 0.15s; }
+.btn:hover { background:var(--surface2); }
+.btn-primary { background:var(--accent); color:var(--bg); }
+.btn-primary:hover { background:#333; }
+.hotkey { font-size:0.65rem; opacity:0.6; margin-left:0.3rem; }
+
+/* ── Results ── */
+.results { text-align:center; display:none; }
+.results h2 { font-family:'Playfair Display',serif; font-size:2rem; margin-bottom:1rem; }
+.results .score { font-family:'JetBrains Mono',monospace; font-size:3rem; font-weight:700; margin:1rem 0; }
+.results .score.good { color:var(--correct); }
+.results .score.bad { color:var(--wrong); }
+.missed-list { text-align:left; margin:1.5rem 0; padding:1rem 1.2rem; background:var(--surface2); border:1px solid var(--border-light); }
+.missed-list h3 { font-family:'JetBrains Mono',monospace; font-size:0.8rem; text-transform:uppercase; letter-spacing:0.1em; margin-bottom:0.8rem; }
+.missed-item { margin-bottom:0.8rem; padding-bottom:0.8rem; border-bottom:1px solid var(--border-light); }
+.missed-item:last-child { margin-bottom:0; padding-bottom:0; border-bottom:none; }
+.missed-item .q { font-weight:600; margin-bottom:0.2rem; }
+.missed-item .a { font-size:0.9rem; color:var(--correct); }
+</style>
+</head>
+<body>
+<div class="container">
+<header>
+  <div class="subtitle">Cash Game Masterclass &middot; Chapter 6</div>
+  <h1>Additional Topics Drills</h1>
+  <div class="subtitle" style="margin-top:0.3rem;">20 Questions &middot; Hotkeys: 1-4 answer, Space next, R restart, H hint</div>
+</header>
+<hr class="divider">
+
+<div id="quiz-area">
+  <div class="progress-text" id="progress-text">Question 1 of 20</div>
+  <div class="progress-bar"><div class="progress-fill" id="progress-fill" style="width:0%"></div></div>
+  <div class="question-num" id="q-num">Question 1</div>
+  <div class="question-text" id="q-text"></div>
+  <div class="options" id="options"></div>
+  <div class="explanation" id="explanation"></div>
+  <div class="controls">
+    <button class="btn btn-primary" id="btn-next" style="display:none" onclick="nextQuestion()">Next <span class="hotkey">Space</span></button>
+    <button class="btn" id="btn-hint" onclick="showHint()">Hint <span class="hotkey">H</span></button>
+  </div>
+</div>
+
+<div class="results" id="results">
+  <h2>Drill Complete</h2>
+  <div class="score" id="final-score"></div>
+  <p id="final-text"></p>
+  <div class="missed-list" id="missed-list" style="display:none">
+    <h3>Review Missed Questions</h3>
+    <div id="missed-items"></div>
+  </div>
+  <div class="controls" style="justify-content:center; margin-top:1.5rem;">
+    <button class="btn btn-primary" onclick="restart()">Restart <span class="hotkey">R</span></button>
+    <button class="btn" id="btn-review" onclick="reviewMissed()" style="display:none">Review Missed <span class="hotkey">M</span></button>
+  </div>
+</div>
+</div>
+
+<script>
+const ALL_QUESTIONS = [
+  {
+    q: "Four-handed NLHE is dramatically different from six or nine-handed play.",
+    opts: ["True", "False"],
+    ans: 1,
+    exp: "Four-handed is NOT drastically different. The cutoff is now first to act, and ranges widen only slightly (~4-5% more hands). Just assume the first few players at a full table folded."
+  },
+  {
+    q: "In a 4-handed game, the button can raise approximately what percentage of hands?",
+    opts: ["35%", "41%", "45%", "55%"],
+    ans: 2,
+    exp: "The button can raise about 45% of hands 4-handed, compared to ~41% at an 8-handed table. Just a small bump due to less bunching effect."
+  },
+  {
+    q: "The bunching effect means that when players fold before you, the remaining players are MORE likely to have premium cards.",
+    opts: ["True", "False"],
+    ans: 0,
+    exp: "Correct. When players fold, they're folding weaker hands on average, which means the remaining players are slightly more likely to hold strong hands."
+  },
+  {
+    q: "In heads-up play (100bb), approximately what percentage of hands should you raise from the button/small blind?",
+    opts: ["52%", "69%", "76%", "81%"],
+    ans: 3,
+    exp: "You should raise about 81% of hands from the button in heads-up play — roughly double the normal button opening range."
+  },
+  {
+    q: "In heads-up play, you should have a limping range from the button.",
+    opts: ["True", "False"],
+    ans: 1,
+    exp: "No limping range. You raise everything you play from the button in heads-up at 100bb. Raise to about 3 big blinds."
+  },
+  {
+    q: "From the big blind facing a heads-up raise, approximately what percentage of hands should you play?",
+    opts: ["50%", "60%", "75%", "90%"],
+    ans: 2,
+    exp: "The big blind plays about 75% of hands — a mix of 3-betting with strong/linear hands and calling with hands that flop well."
+  },
+  {
+    q: "In heads-up, your 3-bet from the big blind should be to what size?",
+    opts: ["8 big blinds", "9 big blinds", "11-12 big blinds", "15 big blinds"],
+    ans: 2,
+    exp: "3-bet to 11-12 big blinds, not 9. If you make it 9 vs. a 3bb open, the button gets 2:1 odds and only needs 33% equity to call, which most hands have."
+  },
+  {
+    q: "Mixed strategies (using randomizers) are important in heads-up play because:",
+    opts: [
+      "It makes the game more fun",
+      "Against the same opponent repeatedly, pure strategies become exploitable",
+      "GTO requires randomization in all formats",
+      "It confuses recreational players"
+    ],
+    ans: 1,
+    exp: "Against the same opponent repeatedly, if you always 3-bet the same specific hands, they can identify your exact range and exploit you on specific board textures."
+  },
+  {
+    q: "What are the best 4-bet bluff hands from the button facing a heads-up 3-bet?",
+    opts: ["Suited connectors (87s, 76s)", "Small pairs (22-55)", "Ace-x suited blockers (A5s-A2s)", "Offsuit broadways (KJo, QJo)"],
+    ans: 2,
+    exp: "Ace-x suited blockers (A5s, A4s, A3s, A2s) are the highest frequency 4-bet bluffs because they block aces in the opponent's range."
+  },
+  {
+    q: "Straddling from UTG is a profitable play if your opponents are loose.",
+    opts: ["True", "False"],
+    ans: 1,
+    exp: "Straddling from UTG is always -EV. You're putting extra money in out of position voluntarily. If you want to liven the game, 3-bet more from better positions instead."
+  },
+  {
+    q: "When someone at your table straddles, it is generally good for the NON-straddling players.",
+    opts: ["True", "False"],
+    ans: 0,
+    exp: "Great for non-straddlers — you're essentially playing a bigger game without paying extra for it. The exception is if the straddler is on your immediate left."
+  },
+  {
+    q: "Against a wild straddler who re-raises frequently, what should you do with pocket aces when there's a raise and calls in front?",
+    opts: [
+      "3-bet immediately for value",
+      "Just call and let the straddler re-raise, then trap",
+      "Fold to avoid the variance",
+      "Limp and hope for a cheap flop"
+    ],
+    ans: 1,
+    exp: "Slow-play to let the maniac straddler re-raise. If you 3-bet, they fold even with garbage. You beat maniacs by letting them bluff you, not by forcing them to play straightforwardly."
+  },
+  {
+    q: "A Mississippi straddle is posted by which position?",
+    opts: ["Under the gun", "The button", "The small blind", "Any position"],
+    ans: 1,
+    exp: "The button posts the Mississippi straddle. This is the only position where straddling can be close to break-even, because you act last both preflop and postflop."
+  },
+  {
+    q: "In a Mississippi straddle game, which position is hurt the most?",
+    opts: ["Under the gun", "The button", "The small blind", "The cutoff"],
+    ans: 2,
+    exp: "The blinds get crushed, especially the small blind, who must act first before the entire table — effectively worse than UTG position."
+  },
+  {
+    q: "From the small blind facing a Mississippi straddle, the recommended strategy is to:",
+    opts: [
+      "Raise frequently to attack the straddle",
+      "Play normally as if no straddle existed",
+      "Fold often, limp some with a limp-reraise range",
+      "3-bet or fold exclusively"
+    ],
+    ans: 2,
+    exp: "Fold a lot, and limp your playable range. Include a limp-reraise range with your best hands (AA, KK, QQ, AK) plus blocker bluffs."
+  },
+  {
+    q: "In short-stacked cash games (20bb), which hands make the best bluffs?",
+    opts: ["Suited connectors (87s, 76s)", "Blocker hands (Ax, Kx)", "Small pairs (22-55)", "Any two suited cards"],
+    ans: 1,
+    exp: "At shallow stacks, blocker hands become the preferred bluffs. There's no room for playability, so hands that block the opponent's calling range (Ax, Kx) are strongest."
+  },
+  {
+    q: "When playing 20bb deep, AT offsuit is more valuable than T7 suited.",
+    opts: ["True", "False"],
+    ans: 0,
+    exp: "At 20bb, high card hands go UP in value and implied odds hands go DOWN. You can't profitably chase flushes with T7s when stacks are this shallow."
+  },
+  {
+    q: "In a three-blind game (e.g., $1/$2/$4), the small blind should primarily:",
+    opts: [
+      "Call frequently since there's more money in the pot",
+      "3-bet or fold — no calling range",
+      "Play the same as in a two-blind game",
+      "Limp with a wide range"
+    ],
+    ans: 1,
+    exp: "The small blind must 3-bet or fold. If they call, TWO players behind can overcall or re-raise, and on the flop they'll be first to act with terrible relative position."
+  },
+  {
+    q: "In a three-blind game, the middle blind's common mistake is:",
+    opts: [
+      "Folding too much",
+      "3-betting too often",
+      "Calling too loosely ('it's just a little bit more')",
+      "Raising too big"
+    ],
+    ans: 2,
+    exp: "The middle blind calls too loosely thinking 'it's just a little bit more.' But they're not closing the action, they're out of position, and they'll under-realize their equity."
+  },
+  {
+    q: "Adding a third blind to a $1/$2 game (making it $1/$2/$4) effectively does what to the stacks?",
+    opts: [
+      "No change — same dollar amounts",
+      "Doubles the effective stack",
+      "Halves the effective big blinds",
+      "Only affects the blinds' stacks"
+    ],
+    ans: 2,
+    exp: "The effective stack in big blinds is halved. If you had 100bb at 1/2 ($200), you now have 50bb at 1/2/4 with the same $200."
+  }
+];
+
+let questions = [], current = 0, score = 0, answered = false, missed = [];
+
+function shuffle(arr) {
+  for (let i = arr.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+  return arr;
+}
+
+function init() {
+  questions = shuffle([...ALL_QUESTIONS]);
+  current = 0; score = 0; missed = [];
+  document.getElementById('quiz-area').style.display = 'block';
+  document.getElementById('results').style.display = 'none';
+  render();
+}
+
+function render() {
+  answered = false;
+  const q = questions[current];
+  document.getElementById('progress-text').textContent = `Question ${current+1} of ${questions.length}`;
+  document.getElementById('progress-fill').style.width = `${(current/questions.length)*100}%`;
+  document.getElementById('q-num').textContent = `Question ${current+1}`;
+  document.getElementById('q-text').textContent = q.q;
+  const optsEl = document.getElementById('options');
+  optsEl.innerHTML = '';
+  q.opts.forEach((opt, i) => {
+    const div = document.createElement('div');
+    div.className = 'option';
+    div.innerHTML = `<span class="key">${i+1}</span><span>${opt}</span>`;
+    div.onclick = () => answer(i);
+    optsEl.appendChild(div);
+  });
+  document.getElementById('explanation').classList.remove('show');
+  document.getElementById('explanation').innerHTML = '';
+  document.getElementById('btn-next').style.display = 'none';
+  document.getElementById('btn-hint').style.display = 'inline-block';
+}
+
+function answer(idx) {
+  if (answered) return;
+  answered = true;
+  const q = questions[current];
+  const opts = document.querySelectorAll('.option');
+  opts.forEach((o, i) => {
+    o.classList.add('disabled');
+    if (i === q.ans) o.classList.add('correct');
+    if (i === idx && idx !== q.ans) o.classList.add('wrong');
+  });
+  if (idx === q.ans) { score++; }
+  else { missed.push({ q: q.q, a: q.opts[q.ans] }); }
+  const expEl = document.getElementById('explanation');
+  expEl.innerHTML = `<p><strong>${idx === q.ans ? 'Correct!' : 'Incorrect.'}</strong> ${q.exp}</p>`;
+  expEl.classList.add('show');
+  document.getElementById('btn-next').style.display = 'inline-block';
+  document.getElementById('btn-hint').style.display = 'none';
+}
+
+function nextQuestion() {
+  if (!answered) return;
+  current++;
+  if (current >= questions.length) { showResults(); return; }
+  render();
+}
+
+function showHint() {
+  if (answered) return;
+  const q = questions[current];
+  const expEl = document.getElementById('explanation');
+  const hints = [
+    "Think about what has actually changed in this format.",
+    "Consider how position and equity realization are affected.",
+    "Remember the core principle: ask what has changed?"
+  ];
+  expEl.innerHTML = `<p><em>${hints[Math.floor(Math.random()*hints.length)]}</em></p>`;
+  expEl.classList.add('show');
+}
+
+function showResults() {
+  document.getElementById('quiz-area').style.display = 'none';
+  const res = document.getElementById('results');
+  res.style.display = 'block';
+  const pct = Math.round((score/questions.length)*100);
+  const scoreEl = document.getElementById('final-score');
+  scoreEl.textContent = `${score}/${questions.length} (${pct}%)`;
+  scoreEl.className = 'score ' + (pct >= 70 ? 'good' : 'bad');
+  document.getElementById('final-text').textContent = pct >= 90 ? 'Excellent — you know your formats!' : pct >= 70 ? 'Good work. Review the missed questions below.' : 'Keep studying. Review the crash course and try again.';
+  if (missed.length > 0) {
+    document.getElementById('missed-list').style.display = 'block';
+    document.getElementById('btn-review').style.display = 'inline-block';
+    document.getElementById('missed-items').innerHTML = missed.map(m => `<div class="missed-item"><div class="q">${m.q}</div><div class="a">Answer: ${m.a}</div></div>`).join('');
+  } else {
+    document.getElementById('missed-list').style.display = 'none';
+    document.getElementById('btn-review').style.display = 'none';
+  }
+}
+
+function restart() { init(); }
+
+function reviewMissed() {
+  questions = missed.map(m => ALL_QUESTIONS.find(q => q.q === m.q)).filter(Boolean);
+  if (questions.length === 0) { restart(); return; }
+  questions = shuffle(questions);
+  current = 0; score = 0; missed = [];
+  document.getElementById('quiz-area').style.display = 'block';
+  document.getElementById('results').style.display = 'none';
+  render();
+}
+
+document.addEventListener('keydown', (e) => {
+  if (e.key >= '1' && e.key <= '4') { const idx = parseInt(e.key)-1; const opts = document.querySelectorAll('.option'); if (idx < opts.length) answer(idx); }
+  if (e.key === ' ' || e.key === 'Enter') { e.preventDefault(); if (answered) nextQuestion(); }
+  if (e.key === 'r' || e.key === 'R') restart();
+  if (e.key === 'h' || e.key === 'H') showHint();
+  if (e.key === 'm' || e.key === 'M') { if (document.getElementById('results').style.display !== 'none') reviewMissed(); }
+});
+
+init();
+</script>
+</body>
+</html>
