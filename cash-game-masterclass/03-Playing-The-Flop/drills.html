@@ -653,7 +653,7 @@ document.addEventListener('keydown', e => {
   const k = e.key;
   if (k >= '1' && k <= '5' && !state.answered) { const idx = parseInt(k) - 1; const btns = document.querySelectorAll('.choice'); if (idx < btns.length) answer(idx); }
   if ((k === 'n' || k === 'N' || k === 'Enter') && state.answered) nextQ();
-  if (k === 'h' || k === 'H') { const kb = document.querySelector('.keys'); kb.style.display = kb.style.display === 'none' ? 'block' : 'none'; }
+  if (k === 'h' || k === 'H') { toggleHint(); }
   if (k === 'r' || k === 'R') startQuiz('all');
 });
 
