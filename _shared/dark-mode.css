@@ -16,115 +16,235 @@
   --red: #F87171;
 }
 
+/* Global text and background override — catches ALL elements regardless of class names */
+[data-theme="dark"] body,
+[data-theme="dark"] body * {
+  color: inherit;
+}
+
 [data-theme="dark"] body {
   background: #0A0A0A;
   color: #E5E5E5;
 }
 
+/* Headings */
+[data-theme="dark"] h1,
+[data-theme="dark"] h2,
+[data-theme="dark"] h3,
+[data-theme="dark"] h4 {
+  color: #E5E5E5;
+}
+
+/* Dim text elements — any element using var(--text-dim) keeps working via variable override,
+   but hardcoded colors need explicit override */
+[data-theme="dark"] .subtitle,
+[data-theme="dark"] .course-number,
+[data-theme="dark"] .course-meta,
+[data-theme="dark"] .course-desc,
+[data-theme="dark"] .material-meta,
+[data-theme="dark"] .material-desc,
+[data-theme="dark"] .footer,
+[data-theme="dark"] .footer p,
+[data-theme="dark"] .back-link,
+[data-theme="dark"] .stat-label,
+[data-theme="dark"] .ep-dur,
+[data-theme="dark"] .ep-num,
+[data-theme="dark"] .section-label {
+  color: #999999;
+}
+
+/* Hub card hover inversion */
 [data-theme="dark"] .course-card:hover,
 [data-theme="dark"] .material-card:hover {
   background: #E5E5E5;
   color: #0A0A0A;
 }
 
-[data-theme="dark"] .course-card:hover .course-number,
-[data-theme="dark"] .course-card:hover .course-meta,
-[data-theme="dark"] .course-card:hover .course-desc,
-[data-theme="dark"] .course-card:hover .course-topics span,
-[data-theme="dark"] .material-card:hover .material-desc,
-[data-theme="dark"] .material-card:hover .material-meta,
-[data-theme="dark"] .material-card:hover .material-tag {
-  color: rgba(10,10,10,0.7);
+[data-theme="dark"] .course-card:hover *,
+[data-theme="dark"] .material-card:hover * {
+  color: rgba(10,10,10,0.85);
 }
 
 [data-theme="dark"] .course-card:hover .course-topics span,
 [data-theme="dark"] .material-card:hover .material-tag {
   border-color: rgba(10,10,10,0.3);
   background: rgba(10,10,10,0.1);
+  color: rgba(10,10,10,0.7);
 }
 
-[data-theme="dark"] .option:hover:not(.disabled) {
+/* All buttons/options in drills — covers .option, .opt-btn, .choice, .choice-btn and any other variant */
+[data-theme="dark"] button,
+[data-theme="dark"] [class*="opt"],
+[data-theme="dark"] [class*="choice"],
+[data-theme="dark"] [class*="option"] {
+  color: #E5E5E5;
+  background-color: #0A0A0A;
+  border-color: #333333;
+}
+
+[data-theme="dark"] button:hover:not(:disabled),
+[data-theme="dark"] [class*="opt"]:hover:not(:disabled),
+[data-theme="dark"] [class*="choice"]:hover:not(:disabled),
+[data-theme="dark"] [class*="option"]:hover:not(:disabled) {
+  background-color: #1A1A1A;
   border-color: #E5E5E5;
-  background: #1A1A1A;
 }
 
-[data-theme="dark"] .option.selected-correct {
-  border-color: #4ADE80;
-  background: #052E16;
-  color: #4ADE80;
+/* Correct/wrong answer states */
+[data-theme="dark"] .selected-correct,
+[data-theme="dark"] .correct,
+[data-theme="dark"] [class*="opt"].correct,
+[data-theme="dark"] [class*="option"].selected-correct {
+  border-color: #4ADE80 !important;
+  background: #052E16 !important;
+  color: #4ADE80 !important;
 }
 
-[data-theme="dark"] .option.selected-wrong {
-  border-color: #F87171;
-  background: #2A0A0A;
-  color: #F87171;
+[data-theme="dark"] .selected-wrong,
+[data-theme="dark"] .wrong,
+[data-theme="dark"] [class*="opt"].wrong,
+[data-theme="dark"] [class*="option"].selected-wrong {
+  border-color: #F87171 !important;
+  background: #2A0A0A !important;
+  color: #F87171 !important;
 }
 
-[data-theme="dark"] .option.show-correct {
-  border-color: #4ADE80;
-  background: #052E16;
+[data-theme="dark"] .show-correct,
+[data-theme="dark"] [class*="opt"].show-correct {
+  border-color: #4ADE80 !important;
+  background: #052E16 !important;
 }
 
-[data-theme="dark"] .q-text,
-[data-theme="dark"] .q-number,
-[data-theme="dark"] .q-situation,
-[data-theme="dark"] #explanation,
-[data-theme="dark"] .hint-btn,
-[data-theme="dark"] .hint,
-[data-theme="dark"] .hint-box,
-[data-theme="dark"] .review-item,
-[data-theme="dark"] .ri-explain,
-[data-theme="dark"] #score-display,
-[data-theme="dark"] .subtitle,
-[data-theme="dark"] p,
-[data-theme="dark"] li,
-[data-theme="dark"] td {
+/* Disabled options */
+[data-theme="dark"] button:disabled,
+[data-theme="dark"] [class*="opt"]:disabled,
+[data-theme="dark"] .disabled {
+  color: #666666;
+}
+
+/* Explanation/hint panels — covers #explanation, .explanation, .hint, .hint-box, .hint-text */
+[data-theme="dark"] [class*="explanation"],
+[data-theme="dark"] [id*="explanation"],
+[data-theme="dark"] [class*="hint"],
+[data-theme="dark"] [id*="hint"] {
   color: #E5E5E5;
-}
-
-[data-theme="dark"] .option {
-  color: #E5E5E5;
-  background: #0A0A0A;
-  border-color: #333333;
-}
-
-[data-theme="dark"] .option.disabled {
-  color: #999999;
-}
-
-[data-theme="dark"] #explanation {
-  background: #1A1A1A;
-  border-left-color: #E5E5E5;
-}
-
-[data-theme="dark"] .hint,
-[data-theme="dark"] .hint-box {
   background: #1A1A1A;
 }
 
-[data-theme="dark"] .review-item {
-  background: #1A1A1A;
-  border-color: #333333;
-}
-
-[data-theme="dark"] .box {
+/* Boxes (definition, insight, example, trap) */
+[data-theme="dark"] .box,
+[data-theme="dark"] [class*="box-"] {
   background: #141414;
 }
 
+/* Tables */
 [data-theme="dark"] th {
   background: #141414;
   border-bottom-color: #E5E5E5;
+  color: #E5E5E5;
 }
 
+[data-theme="dark"] td {
+  color: #E5E5E5;
+  border-color: #333333;
+}
+
+[data-theme="dark"] th,
+[data-theme="dark"] td {
+  border-color: #333333;
+}
+
+/* Next/restart/nav buttons — primary action buttons */
 [data-theme="dark"] #next-btn,
-[data-theme="dark"] .btn-restart {
+[data-theme="dark"] .btn-restart,
+[data-theme="dark"] .nav-btn,
+[data-theme="dark"] [class*="restart"] {
   background: #E5E5E5;
   color: #0A0A0A;
   border-color: #E5E5E5;
 }
 
+[data-theme="dark"] .nav-btn:hover,
+[data-theme="dark"] #next-btn:hover,
+[data-theme="dark"] .btn-restart:hover {
+  background: #FFFFFF;
+}
+
+/* Score/progress */
+[data-theme="dark"] [id*="score"],
+[data-theme="dark"] [class*="score"],
+[data-theme="dark"] .status {
+  color: #999999;
+}
+
+/* Review items */
+[data-theme="dark"] [class*="review"] {
+  background: #1A1A1A;
+  border-color: #333333;
+  color: #E5E5E5;
+}
+
+[data-theme="dark"] .ri-your,
+[data-theme="dark"] [class*="your-answer"] {
+  color: #F87171;
+}
+
+[data-theme="dark"] .ri-correct,
+[data-theme="dark"] [class*="correct-answer"] {
+  color: #4ADE80;
+}
+
+/* Keyboard hints bar */
+[data-theme="dark"] [class*="hotkey"] kbd,
+[data-theme="dark"] [class*="keys"] kbd,
 [data-theme="dark"] .hotkeys kbd {
   background: #1A1A1A;
+  border-color: #333333;
+  color: #E5E5E5;
+}
+
+/* Cards in drill-style layouts */
+[data-theme="dark"] .card,
+[data-theme="dark"] [class*="quiz-card"],
+[data-theme="dark"] [class*="drill-card"] {
+  background: #0A0A0A;
+  border-color: #333333;
+}
+
+/* Links */
+[data-theme="dark"] a {
+  color: #60A5FA;
+}
+
+[data-theme="dark"] a.back-link {
+  color: #999999;
+}
+
+[data-theme="dark"] a.back-link:hover {
+  color: #E5E5E5;
+}
+
+/* Progress bar */
+[data-theme="dark"] [id*="progress-bar"],
+[data-theme="dark"] .progress-bar {
+  background: #333333;
+}
+
+/* TOC */
+[data-theme="dark"] .toc {
+  border-color: #333333;
+}
+
+[data-theme="dark"] .toc a {
+  color: #E5E5E5;
+  border-bottom-color: #333333;
+}
+
+/* Input fields (for fill-in-blank drills) */
+[data-theme="dark"] input,
+[data-theme="dark"] textarea {
+  background: #1A1A1A;
+  color: #E5E5E5;
   border-color: #333333;
 }
 
@@ -157,6 +277,12 @@
 .theme-toggle .icon-moon { display: block; }
 [data-theme="dark"] .theme-toggle .icon-sun { display: block; }
 [data-theme="dark"] .theme-toggle .icon-moon { display: none; }
+
+[data-theme="dark"] .theme-toggle {
+  background: #0A0A0A;
+  color: #E5E5E5;
+  border-color: #333333;
+}
 
 @media print {
   .theme-toggle { display: none; }
