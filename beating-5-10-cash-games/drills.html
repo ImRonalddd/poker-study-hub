@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Beating $5/$10 Cash Games &mdash; Interactive Drills</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;1,400;1,600&family=Source+Serif+4:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+  onload="renderMathInElement(document.body,{delimiters:[{left:'\\(',right:'\\)',display:false},{left:'\\[',right:'\\]',display:true}],throwOnError:false});"></script>
+<style>
+:root{--bg:#FFFFFF;--surface:#FFFFFF;--surface2:#F5F5F5;--accent:#000;--text:#000;--text-dim:#525252;--correct:#1a7a5e;--wrong:#b91c1c;--border:#000;--border-light:#E5E5E5}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;border-radius:0!important}
+body{font-family:'Source Serif 4','Georgia',serif;background:var(--bg);color:var(--text);line-height:1.6;-webkit-font-smoothing:antialiased}
+.container{max-width:700px;margin:0 auto;padding:2rem 1.5rem 4rem}
+.back-link{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:0.75rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--text-dim);text-decoration:none;margin-bottom:1rem;transition:color 0.1s}
+.back-link:hover{color:var(--text)}
+h1{font-family:'Playfair Display',serif;font-weight:800;font-size:2.2rem;text-align:center;margin:1rem 0 0.3rem}
+.subtitle{font-family:'JetBrains Mono',monospace;font-size:0.72rem;font-weight:500;text-transform:uppercase;letter-spacing:0.15em;color:var(--text-dim);text-align:center;margin-bottom:0.5rem}
+.hotkeys{font-family:'JetBrains Mono',monospace;font-size:0.7rem;color:var(--text-dim);text-align:center;margin-bottom:2rem;line-height:1.8}
+.hotkeys kbd{display:inline-block;padding:0.1em 0.45em;border:1px solid var(--border-light);background:var(--surface2);font-weight:600;margin:0 0.1em}
+#progress-bar{width:100%;height:4px;background:var(--border-light);margin-bottom:1.5rem}
+#progress-fill{height:100%;background:var(--accent);transition:width 0.3s}
+#score-display{font-family:'JetBrains Mono',monospace;font-size:0.8rem;text-align:center;margin-bottom:1.5rem;color:var(--text-dim)}
+#question-area{min-height:350px}
+.q-number{font-family:'JetBrains Mono',monospace;font-size:0.72rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--text-dim);margin-bottom:0.5rem}
+.q-text{font-size:1.15rem;font-weight:600;margin-bottom:1.5rem;line-height:1.5}
+.option{display:block;width:100%;text-align:left;font-family:'Source Serif 4',serif;font-size:1rem;padding:0.85rem 1rem;margin-bottom:0.6rem;border:2px solid var(--border-light);background:var(--surface);cursor:pointer;transition:border-color 0.15s,background 0.15s}
+.option:hover:not(.disabled){border-color:var(--accent);background:var(--surface2)}
+.option.selected-correct{border-color:var(--correct);background:#f0fdf4;color:var(--correct);font-weight:600}
+.option.selected-wrong{border-color:var(--wrong);background:#fef2f2;color:var(--wrong)}
+.option.show-correct{border-color:var(--correct);background:#f0fdf4}
+.option.disabled{cursor:default;opacity:0.7}
+.option .opt-key{font-family:'JetBrains Mono',monospace;font-weight:700;margin-right:0.5rem;font-size:0.9rem}
+#explanation{margin-top:1.2rem;padding:1rem 1.25rem;border-left:4px solid var(--accent);background:var(--surface2);display:none;font-size:0.95rem;line-height:1.6}
+#explanation.visible{display:block}
+.hint-btn{font-family:'JetBrains Mono',monospace;font-size:0.78rem;color:var(--text-dim);background:none;border:none;cursor:pointer;margin-bottom:0.75rem;text-decoration:underline}
+.hint{font-size:0.9rem;color:var(--text-dim);margin-bottom:1rem;padding:0.6rem 0.8rem;background:var(--surface2);border-left:3px solid var(--border-light);display:none}
+.hint.show{display:block}
+#next-btn{display:none;margin-top:1.5rem;width:100%;padding:0.8rem;font-family:'JetBrains Mono',monospace;font-size:0.85rem;font-weight:600;text-transform:uppercase;letter-spacing:0.1em;border:2px solid var(--accent);background:var(--accent);color:var(--bg);cursor:pointer;transition:opacity 0.15s}
+#next-btn:hover{opacity:0.85}
+#results{display:none;text-align:center}
+#results h2{font-family:'Playfair Display',serif;font-size:1.8rem;margin-bottom:1rem}
+#results .score-big{font-family:'JetBrains Mono',monospace;font-size:3rem;font-weight:700;margin:1rem 0}
+#results .score-big .correct-n{color:var(--correct)}
+#results .score-big .wrong-n{color:var(--wrong)}
+#review-section{margin-top:2rem;text-align:left}
+#review-section h3{font-family:'Playfair Display',serif;font-size:1.3rem;margin-bottom:1rem}
+.review-item{padding:1rem;margin-bottom:1rem;border:1px solid var(--border-light);background:var(--surface2)}
+.review-item .ri-q{font-weight:600;margin-bottom:0.4rem}
+.review-item .ri-your{color:var(--wrong);font-size:0.9rem}
+.review-item .ri-correct{color:var(--correct);font-size:0.9rem}
+.ri-explain{font-size:0.88rem;color:var(--text-dim);margin-top:0.3rem}
+.btn-restart{margin-top:2rem;padding:0.8rem 2rem;font-family:'JetBrains Mono',monospace;font-size:0.85rem;font-weight:600;text-transform:uppercase;letter-spacing:0.1em;border:2px solid var(--accent);background:var(--accent);color:var(--bg);cursor:pointer}
+.btn-restart:hover{opacity:0.85}
+</style>
+</head>
+<body>
+<div class="container">
+
+<a href="index.html" class="back-link">&larr; Back to Beating $5/$10 Cash Games</a>
+
+<h1>Beating $5/$10 Cash Games</h1>
+<div class="subtitle">Jonathan Little &mdash; Interactive Drills &mdash; 27 Questions</div>
+<div class="hotkeys"><kbd>1</kbd><kbd>2</kbd><kbd>3</kbd><kbd>4</kbd> answer &nbsp; <kbd>H</kbd> hint &nbsp; <kbd>Space</kbd> next &nbsp; <kbd>R</kbd> restart</div>
+
+<div id="progress-bar"><div id="progress-fill" style="width:0%"></div></div>
+<div id="score-display"></div>
+
+<div id="question-area"></div>
+<div id="explanation"></div>
+<button id="next-btn">Next Question (Space)</button>
+
+<div id="results">
+<h2>Results</h2>
+<div class="score-big"><span class="correct-n" id="r-correct"></span> / <span id="r-total"></span></div>
+<p id="r-pct"></p>
+<div id="review-section"><h3>Review Missed</h3><div id="review-list"></div></div>
+<button class="btn-restart" onclick="restart()">Restart (R)</button>
+</div>
+</div>
+
+<script>
+const allQuestions = [
+  {
+    q: "You 3-bet from the BB with A-9 suited and the BTN calls. Flop comes 5-2-2 (pot $235). What is the best bet size?",
+    opts: [
+      "Bet around $100 (small bet, about 40% pot)",
+      "Bet around $160 (2/3 pot)",
+      "Check, then decide on the turn",
+      "Bet pot ($235) to protect your hand"
+    ],
+    ans: 0,
+    hint: "After a 3-bet, the BB should have a large range advantage on low paired boards because the BTN did not 4-bet.",
+    ex: "The BB's range is quite strong and the BTN's range is relatively weak (no 4-bet). On a 5-2-2 board, you can bet small (around $100) with your entire range: the BTN cannot have many deuces, and you will pick up the pot often while keeping bluff hands like A-9 in the mix cheaply."
+  },
+  {
+    q: "You open-raise and get called in position. The flop is K-8-3 (big card, little card, little card). As the preflop aggressor, what is the correct c-bet strategy?",
+    opts: [
+      "Bet large (2/3 to pot) to protect against draws",
+      "Bet small (roughly 1/3 pot) with your entire range",
+      "Check your entire range since the board is dry",
+      "Bet large only with top pair or better"
+    ],
+    ans: 1,
+    hint: "When the board has a big card and two low cards, the preflop raiser almost always has a range advantage because callers typically would have 3-bet their strongest hands.",
+    ex: "On big card-little card-little card boards, the preflop aggressor has a massive range advantage. The caller usually does not have their best hands (they would 3-bet). Bet small with your whole range: opponents drawing dead will fold, opponents with equity will call regardless of size, and you save money when your bluffs fail."
+  },
+  {
+    q: "You hold pocket 7s and call a 3-bet on the BTN. On the turn of a 5-2-2-6 board, your opponent (who 3-bet) bets $185. You are currently ahead. What is the best play?",
+    opts: [
+      "Raise to isolate and win now",
+      "Call and re-evaluate the river",
+      "Fold, since the 3-bettor likely has an overpair",
+      "Raise small as a blocking bet"
+    ],
+    ans: 1,
+    hint: "When you raise, what hands do you expect to call versus what hands do you fold out?",
+    ex: "When you raise with pocket 7s here, your opponent folds all bluffs (which are drawing thin anyway) and continues only with overpairs like AA/KK/QQ/JJ/TT that have you crushed. Calling is far better: you keep all bluffs in and avoid putting in more money as a big underdog when called by better hands. Let the opponent bluff into you."
+  },
+  {
+    q: "In a live $5/$10 cash game, what is the recommended raise size when raising over TWO limpers from the SB?",
+    opts: [
+      "$35 (3.5x the big blind)",
+      "$50 (5x the big blind)",
+      "$55 (add $10 per limper to a base of $35)",
+      "$75 (pot-sized raise)"
+    ],
+    ans: 2,
+    hint: "Jonathan recommends adding roughly one big blind for each limper on top of a base open size.",
+    ex: "The formula is: base raise of $35, plus $10 per limper. One limper: $45. Two limpers: $55. Three limpers: $65. From the BB (already $10 in), the formula shifts slightly upward. This sizing charges limpers appropriately and avoids giving them a cheap multiway flop."
+  },
+  {
+    q: "A tight-aggressive player opens UTG to $30. You are on the BTN with K-Jo. What is the best action?",
+    opts: [
+      "Call - K-J plays well in position",
+      "3-bet to $90 as a semi-bluff",
+      "Fold - K-Jo is often dominated vs a UTG range",
+      "Call and plan to raise any K-high flop"
+    ],
+    ans: 2,
+    hint: "Think about how K-Jo performs against the strongest hands a tight UTG player would open with.",
+    ex: "K-Jo is dominated by AK, KQ, AA, and often KK from UTG ranges. You will frequently be in a dominated spot facing hands like AK, where you have only about 30% equity. In high-stakes games, strong players fold K-10o and QJo from UTG and HJ to avoid playing dominated hands. Against a tighter UTG opener, fold K-Jo every time."
+  },
+  {
+    q: "In a cash game, you hold pocket aces and get the action to a river with a medium-sized pot. You are in position. Your opponent checks. You believe they hold second or third pair. What should you do?",
+    opts: [
+      "Check behind to avoid a bluff-catcher situation",
+      "Bet small (roughly 1/3 pot) to extract thin value",
+      "Bet pot to maximize value from weaker hands",
+      "Check behind, since betting risks a check-raise"
+    ],
+    ans: 1,
+    hint: "In a cash game you can always reload, so the threshold for a profitable value bet is lower than in a tournament.",
+    ex: "In cash games, you should bet the river any time a worse hand will call more than 50% of the time (and you are not worried about a raise). You can always reload, so there is no ICM pressure to conserve chips. If your opponent holds second or third pair and will call a small bet, make the small bet and capture that value. Not going for thin value on the river is one of the biggest leaks Jonathan identifies in cash game players."
+  },
+  {
+    q: "You have A-Ko in the BB. The BTN open-limps and you are heads-up. The flop comes A-9-5 rainbow. What is the best strategy?",
+    opts: [
+      "Check, then check-call to disguise your hand",
+      "Lead small (around 25% to 30% pot) to build a pot",
+      "Bet large (2/3 pot) to protect against straight draws",
+      "Check-raise if they bet, check-fold if they check"
+    ],
+    ans: 1,
+    hint: "Think about how many streets you can realistically get value across, and what your opponent does if you just check.",
+    ex: "In a limp pot, if you check top pair you risk your opponent checking through on multiple streets, leaving you with very little value. By leading small (e.g., $25 on the flop, $60 on the turn, $120 on the river), you can build a pot of 20+ big blinds with your strong hand. Checking and check-calling typically yields far less value, especially when opponents with wide limping ranges rarely bluff on all streets."
+  },
+  {
+    q: "You hold Q-6 suited and flop bottom two pair on Q-9-6. Your opponent bet $90 into a $145 pot. What should you do?",
+    opts: [
+      "Call and let opponent continue bluffing",
+      "Raise immediately to about $300 for value",
+      "Call the flop, then raise any turn",
+      "Fold - Q-6 is a dominated two-pair"
+    ],
+    ans: 1,
+    hint: "You have a very strong made hand and multiple draws exist on the board. When should you raise versus call?",
+    ex: "With bottom two pair on a coordinated board, raising immediately is generally correct. Your opponents likely have top pair type hands (AQ, KQ, AJ) that will not fold to a flop raise. If you wait, scare cards (like flush cards or straight-completing cards) could arrive and kill your action or even beat you. Raise now to build the pot and protect your equity."
+  },
+  {
+    q: "A player who has been very tight and has not voluntarily put a chip in the pot for 50 hands finally raises. Several opponents fold quickly. What does this illustrate?",
+    opts: [
+      "The tight player built a strong image that generates fold equity",
+      "The tight player is playing optimally since they win without a showdown",
+      "The tight player should have been bluffing more to get action on their big hands",
+      "All of the above"
+    ],
+    ans: 2,
+    hint: "Jonathan points out that a player who never bluffs or raises marginal hands will stop getting action even with premium holdings.",
+    ex: "While playing tight preserves your chips, never raising non-premium hands means opponents simply fold to your raises. When you finally raise with AQ, everyone folds instantly because your range is too polarized (only huge hands). You need to occasionally raise with suited connectors or semi-bluffs so that when you do raise with your best hands you still get action. The tight player won only the blinds with AQ, whereas a more balanced player would have gotten called."
+  },
+  {
+    q: "On a Q-9-7 board with a flush draw available, you hold an open-ended straight draw with 8-6. Your opponent bets into you from out of position. What is the correct assessment?",
+    opts: [
+      "Raise - you have 8 outs and good fold equity",
+      "Call - your draw has equity but raising gives up fold equity on a connected board",
+      "Fold - connected boards make your draw less valuable",
+      "Call only if you also have a flush draw to go with the straight draw"
+    ],
+    ans: 2,
+    hint: "On a very connected board, think about whether your outs are clean and whether you have fold equity if you raise.",
+    ex: "On Q-9-7 with a flush draw, an 8-6 straight draw has significant problems: if a 10 comes, you may be beaten by a better straight; if a 5 comes and it is also a flush card, you still lose; the board is wet enough that opponents will rarely fold to a raise. Jonathan recommends folding in this spot because you have no fold equity, your draw is 'junk,' and you are out of position. Sometimes the correct play with a draw is to fold."
+  },
+  {
+    q: "You hold K-Ts and raise from the SB over a limp. The pot is $570 on a J-J-4 turn. You bet $125 as a bluff but Jonathan thinks this is a mistake. Why?",
+    opts: [
+      "K-T has backdoor draws, so it should check instead",
+      "The bet is too small - you need a bigger bet to fold out made hands",
+      "Your opponent has almost all marginal or strong hands here, so a small bet is easy to call or raise with better",
+      "You should have checked the flop instead"
+    ],
+    ans: 1,
+    hint: "On a paired board out of position, what do your opponent's calling and raising ranges look like when you bet small versus large?",
+    ex: "When you are out of position on a J-J-4 board and your opponent's range is mostly marginal-to-strong made hands (they called a raise then called the flop), a small $125 bet into $570 is easy for them to call. You need to bet around $225-$275 or more to fold out marginal pairs and to make the bluff credible. Jonathan stresses that if you are going to bluff in this spot at all, you have to bet big - small bluffs just donate value when called."
+  },
+  {
+    q: "Pocket Kings on a K-high board (e.g., K-J-5). You 3-bet preflop and your opponent called. You check the flop. What is the main risk of jamming all-in on this flop if your opponent bets?",
+    opts: [
+      "You might fold out weaker kings, getting less value",
+      "Every ace-high hand will call you profitably",
+      "Your opponent will fold all hands you beat (queens, jacks, AK without ace), giving you only calls from better hands or unlikely bluffs",
+      "No risk - jamming with top set is always correct"
+    ],
+    ans: 2,
+    hint: "Ask: what hands will call a jam versus what hands you want to keep in the pot?",
+    ex: "When you jam all-in on a K-high flop with top set, your opponent folds pocket queens, jacks, and AK (unless they pair the ace), all of which are hands you dominate. They only call with sets and flushes (or big draws). Jonathan explicitly criticizes a player who jams top set on a K-high board, saying 'what's going to call you?' - a much better line is to check, give the opponent a chance to bluff or build a small pot, and then value bet on the river."
+  },
+  {
+    q: "You hold pocket aces in a 4-way limped pot. Everyone checks to you on the button on an A-5-3 board. What is the best play?",
+    opts: [
+      "Check behind to induce bluffs on the turn",
+      "Bet small (about $20-$30) to build the pot",
+      "Bet pot to protect against the straight draws",
+      "Bet 2/3 pot - no reason to be tricky with top set"
+    ],
+    ans: 1,
+    hint: "Think about what your bet accomplishes versus what checking gives up on this particular board texture.",
+    ex: "In a limp pot, you should bet small with top set on A-5-3. Opponents will have gutshot straight draws (2-4, 4-6) and backdoor draws that will call a small bet. Betting $20-$30 into a $35 pot is ideal: it builds the pot, keeps marginal hands around for later streets, and does not price out the gutshots you want to extract value from. Betting pot forces folds from hands you want to keep in."
+  },
+  {
+    q: "Your opponent has been playing very wide preflop (almost every hand) but folding too often after the flop. What strategy is best against this player type?",
+    opts: [
+      "Play a narrow, value-only range and wait for premium hands",
+      "Play wide yourself to match their action",
+      "3-bet aggressively with a wide linear range for value, and apply continued aggression on most flops",
+      "Only bluff - their wide range means they have weak hands"
+    ],
+    ans: 2,
+    hint: "Ed Miller's 'Poker's 1%' framework applies here: opponents with wide preflop ranges cannot defend them postflop.",
+    ex: "Players who play very wide preflop ranges cannot realistically defend those ranges on most flops and turns. If you 3-bet with a wide linear range (many value hands plus suited connectors), opponents cannot fold every time without being exploited. But on most flops they will check-fold or bet-fold. Continued aggression - bet-bet-bet with your whole range when you have an advantage - will print money against players who fold too often after the flop."
+  },
+  {
+    q: "You are in the SB with Q-9 suited facing a BTN raise. There is a very splashy player (Harry) in the BB who plays almost every hand. Should you 3-bet or call?",
+    opts: [
+      "3-bet to isolate the BTN and play heads-up in position",
+      "Call - you want Harry (the splashy player) in the pot",
+      "Fold - Q-9 is not strong enough from the SB",
+      "3-bet large to price out Harry"
+    ],
+    ans: 1,
+    hint: "Consider the EV of having a loose, poorly-playing opponent in the pot versus playing heads-up.",
+    ex: "When a weak player (Harry) is in the BB and almost always calls, you want him in the pot. His wide, weak range contributes money to pots you are likely to win. By calling with Q-9 suited instead of 3-betting, you keep Harry along for the ride. 3-betting would likely isolate to heads-up against the BTN, removing the profitable situation Harry creates. Call with your whole playable range when the goal is to play pots with weak players."
+  },
+  {
+    q: "You hold pocket jacks and call a raise from the BTN. The flop is A-9-2. The preflop raiser bets $55 into $95. What is the best play?",
+    opts: [
+      "Raise to $200 - protect your pair and see where you stand",
+      "Call - top pair with a good kicker type hands are in their range, but so are bluffs",
+      "Fold - an ace on the board means you are behind most of the time",
+      "Raise to $200 but fold if they 3-bet"
+    ],
+    ans: 1,
+    hint: "Think about all the hands in your opponent's range and what raising accomplishes against each of them.",
+    ex: "Against a continuation bet on A-9-2, calling is correct with pocket jacks. If you raise, your opponent folds all their bluffs and continues only with Ax hands, which beat you. By calling, you keep all bluffs in (they are drawing very thin), realize your equity cheaply, and can potentially check down or call a small river bet. Raising turns a marginal made hand into a semi-bluff with no real fold equity against better hands."
+  },
+  {
+    q: "You hold A-Ks in a 4-way pot and check-call a bet on a 6-5-4 board. On the river a queen comes, and the player in position bets $900 into a $1,330 pot. You have no sixes in your range. What should you do?",
+    opts: [
+      "Call - A-K is top pair and the pot odds demand a call",
+      "Fold - the river bet strongly represents a slow-played six",
+      "Raise all-in - your blocker to a six makes bluffs more likely",
+      "Call - your opponent is definitely bluffing with their king"
+    ],
+    ans: 1,
+    hint: "Ask: what hands does a player realistically have after calling the flop and betting the river on a paired-six board?",
+    ex: "You have no sixes in your range, but your opponent can easily have 6x. They called the flop (not raising), suggesting a calling hand such as a flopped six. The river queen completes very few draws. The $900 bet into $1,330 is large, and given your opponent can have 6x and you cannot, this is a correct fold. Jonathan praised the hero fold here: when you legitimately cannot beat what your opponent is representing and they have no incentive to bluff, fold top pair."
+  },
+  {
+    q: "You flop top pair (Q) in a limped multi-way pot and everyone checks to you. You are in a late position. What bet sizing is recommended?",
+    opts: [
+      "Bet pot to protect against all the draws",
+      "Bet small (around 1/3 pot) to keep in marginal hands",
+      "Check behind - no need to bet without a draw",
+      "Bet 2/3 pot as a standard postflop size"
+    ],
+    ans: 1,
+    hint: "In a multi-way limped pot, who has what kind of range?",
+    ex: "In a limped pot, all players have wide ranges and most will hold marginal hands or air. If you bet large, you fold out exactly the hands you want to keep in (second pair, gutshots). By betting small, you get called by a wide portion of their range. Small bets in these low-equity, multi-way pots extract value without pricing out marginal hands and save money when your bluffs fail."
+  },
+  {
+    q: "You 3-bet QQ preflop. The opponent calls. The flop comes A-J-5. Should you bet or check?",
+    opts: [
+      "Bet pot - you have an overpair and must protect it",
+      "Check - the ace dramatically reduces the equity of QQ and checking preserves your options",
+      "Bet small (about 1/3 pot) to see where you stand cheaply",
+      "Shove all-in to put maximum pressure on AK"
+    ],
+    ans: 1,
+    hint: "What hands call a bet on an ace-high board that are worse than QQ?",
+    ex: "On an A-J-5 board with QQ, the ace reduces your equity dramatically. Betting invites calls only from Ax hands that beat you. A check is much better: your opponent may check behind with hands like KJ or TT, giving you a free turn. If they bet, you can call once and evaluate. If they check behind, you may win a small pot without risk. With QQ on an A-high board, you are rarely ahead of hands that call a bet."
+  },
+  {
+    q: "You have a strong draw (flush draw + overcards) out of position and face a bet. Your stack is about 100bb. What should you generally do?",
+    opts: [
+      "Call and hope to check-raise the turn if you improve",
+      "Fold - draws out of position are rarely profitable",
+      "Raise or check-raise aggressively to get maximum equity in",
+      "Call on the flop, then check-fold the turn if you miss"
+    ],
+    ans: 2,
+    hint: "Jonathan frequently advocates playing strong draws aggressively to realize equity and maintain fold equity.",
+    ex: "Strong draws (flush draw + overcards or open-ended straight draw) should be played aggressively out of position. Raising or check-raising achieves two things: (1) you may win the pot now by folding out better made hands like AK or KQ; (2) when called, you still have significant equity. Simply calling with a strong draw from out of position leads to check-folding on blanks and only getting paid when you hit, which is a losing pattern over time."
+  },
+  {
+    q: "You have been playing very tight. A player opens and you want to re-raise (3-bet) from the BTN with Q-8 suited. What is a key benefit of 3-betting here specifically because you have been tight?",
+    opts: [
+      "Q-8 suited is a strong hand that 3-bets for value in all situations",
+      "Your tight image makes it likely opponents will fold to your 3-bet, giving you excellent fold equity",
+      "3-betting Q-8 disguises your range for future hands",
+      "You should always 3-bet Q-8 suited regardless of image"
+    ],
+    ans: 1,
+    hint: "Think about what your tight image communicates to opponents who have been watching your play.",
+    ex: "When you have a tight image, opponents credit your 3-bets with a very strong range and are likely to fold marginal hands like KJ, QJ, or medium pocket pairs. 3-betting Q-8 suited exploits this image directly. Jonathan praises Robocop for doing exactly this: after playing nothing for many hands, his 3-bet with Q-8 suited immediately wins the pot. The tight image creates fold equity that the hand itself does not have."
+  },
+  {
+    q: "In a live cash game, when the weakest (most splashy) player at the table takes a break, what should you do?",
+    opts: [
+      "Take a break yourself at the same time",
+      "Keep playing - other players are still beatable",
+      "Play more aggressively to compensate for the reduced action",
+      "Raise your stack size since the game is now tougher"
+    ],
+    ans: 0,
+    hint: "Think about win rate per hour when the best target at the table is present versus absent.",
+    ex: "Jonathan explicitly advises: take your break when the weak player takes their break. If you are winning $100/hour with Harry in the game and only $20/hour without him, you should take your bathroom break, food break, or any other break during the periods when Harry is away. You want to be at the table maximizing the time you spend playing against the worst opponent, and away from the table during the least profitable periods."
+  },
+  {
+    q: "You 3-bet pocket aces preflop. On a K-high board, your opponent checks. You have about $1,000 behind. What is a key mistake to avoid?",
+    opts: [
+      "Betting small on the flop",
+      "Jamming all-in immediately on the flop",
+      "Checking behind to give your opponent a chance to bluff",
+      "Betting 2/3 pot as a standard continuation bet"
+    ],
+    ans: 1,
+    hint: "On a K-high board after a 3-bet, which hands call a jam versus which hands fold?",
+    ex: "Jamming all-in on a K-high board after 3-betting gives your opponent a very easy decision: they call with any king (which beats you if you have AA only) and fold everything else. Jonathan criticizes a player who jams pocket kings on a K-high flop for exactly this reason - they gave their opponent the perfect fold with pocket queens and missed a large pot. Better to check, give them a turn, and then value-bet rivers."
+  },
+  {
+    q: "You have a made hand (second pair) but it is likely the best hand. Your opponent has been checking down. On the river they check again. You are in position. What is correct?",
+    opts: [
+      "Value bet small (about 1/3 pot) to extract thin value",
+      "Check behind to avoid being check-raised",
+      "Bet large to prevent them from outdrawing you",
+      "Check behind since thin value bets rarely get called"
+    ],
+    ans: 0,
+    hint: "In cash games, what is the threshold for a profitable value bet?",
+    ex: "In cash games, bet the river any time a worse hand will call more than 50% of the time (assuming no fear of a check-raise). Jonathan identifies 'not going for thin value' as a major leak in cash game players. If your opponent holds third pair or a weak pair and will call a $100-$150 bet into a $400 pot roughly 60-70% of the time, that bet is very profitable. You can always reload in cash games, so protect against thin-value paralysis."
+  },
+  {
+    q: "An opponent opens from UTG (a tight range). You are on the BTN with A-Js. What is the best play against this specific opponent?",
+    opts: [
+      "Call - A-J plays well in position",
+      "3-bet to $90 as a value raise",
+      "Fold - A-Js is dominated by UTG ranges too often",
+      "3-bet to $90, fold to a 4-bet"
+    ],
+    ans: 0,
+    hint: "Consider position, the strength of A-Js, and what happens across a range of UTG hands.",
+    ex: "Against a tight UTG opener, calling with A-Js in position is correct. A-Js is a strong hand but 3-betting opens you up to 4-bets (from AA/KK/AK) where you have to fold, or to being called by AK/AQ that dominate you. Calling in position preserves your equity on all flop textures, keeps the pot small when dominated, and lets you realize your full flush potential. 3-betting is possible but calling is safer and more profitable against a tight range."
+  },
+  {
+    q: "A player bets large on the flop to 'protect' their top pair in a cash game. Jonathan criticizes this repeatedly throughout the series. What is the correct reason to NOT bet large when you have a range advantage?",
+    opts: [
+      "Large bets only work in tournaments where there is ICM pressure",
+      "Large bets force opponents to play correctly: fold junk and call only strong hands, eliminating money from dominated hands staying in",
+      "Large bets look suspicious and will induce bluff-raises",
+      "You should only bet large on paired boards"
+    ],
+    ans: 1,
+    hint: "Think about what happens to your opponent's strategy when you bet large versus small.",
+    ex: "When you bet large, opponents play perfectly: they fold marginal hands (that would have called a small bet and lost) and only call with strong hands (that beat you or have good equity). A small bet forces opponents to call with second pair, weak draws, or overcards, which are all dominated by your top pair. Jonathan repeats throughout: 'bet small so opponents make mistakes by calling with worse hands.' Large bets eliminate profitable situations by inducing correct folds."
+  },
+  {
+    q: "You flop a nut flush draw on the turn of a multi-way pot. You are first to act. What is generally the best play?",
+    opts: [
+      "Check and hope to call cheaply",
+      "Lead out with a large bet to build the pot and apply pressure",
+      "Check-raise if someone bets to maximize fold equity",
+      "Check and fold to any bet since you only have a draw"
+    ],
+    ans: 1,
+    hint: "Strong draws with significant equity should be played aggressively, especially from out of position.",
+    ex: "With a nut flush draw out of position, leading with a large bet accomplishes multiple goals: you may win the pot now by folding out made hands with weak kickers, you get value from hands that call with weaker draws, and you build a pot you are favored to win. Jonathan consistently advocates playing strong draws aggressively rather than checking and hoping. Check-raising is an alternative, but leading is also fine and avoids the risk of a check-behind."
+  },
+  {
+    q: "A player who has called two streets with a flush draw raises all-in on the river when the flush does NOT complete (an off-suit blank river). You hold a strong made hand. What should your thought process be?",
+    opts: [
+      "Fold - any river raise is almost certainly the nuts",
+      "Call - the blank river makes it very unlikely they have a made flush, so this is likely an overvalued hand or bluff",
+      "Fold - a river raise always beats your made hand",
+      "Call only if you have top two pair or better"
+    ],
+    ans: 1,
+    hint: "Think about what hands in their range make sense on a blank river after two streets of calling.",
+    ex: "When a player calls the flop and turn, then raises all-in on a blank river, they are representing a very strong hand (set or two pair from the earlier streets). However, you should count combinations: how many sets, two pairs, or full houses are realistic? If their range contains mostly draws (flush draws, gutshots) that missed, and only a few value combos, calling can be correct. Jonathan demonstrates this math when JCW folds the nut flush to a river raise - you have to count whether the overvalue/bluff combos justify calling."
+  }
+];
+
+// ============================================================
+// DRILL ENGINE - Do not modify
+// ============================================================
+var current = 0, score = 0, answered = false;
+var missed = [];
+var qa = document.getElementById('question-area');
+var exEl = document.getElementById('explanation');
+var nextBtn = document.getElementById('next-btn');
+var progFill = document.getElementById('progress-fill');
+var scoreDisp = document.getElementById('score-display');
+var resultsDiv = document.getElementById('results');
+
+function showQuestion() {
+  if (current >= allQuestions.length) { showResults(); return; }
+  answered = false;
+  var q = allQuestions[current];
+  progFill.style.width = (current / allQuestions.length * 100) + '%';
+  scoreDisp.textContent = 'Score: ' + score + ' / ' + current;
+
+  var html = '<div class="q-number">Question ' + (current + 1) + ' of ' + allQuestions.length + '</div>';
+  html += '<div class="q-text">' + q.q + '</div>';
+  if (q.hint) {
+    html += '<button class="hint-btn" onclick="toggleHint()">Show Hint (H)</button>';
+    html += '<div class="hint" id="hint">' + q.hint + '</div>';
+  }
+  var keys = ['A', 'B', 'C', 'D'];
+  for (var i = 0; i < q.opts.length; i++) {
+    html += '<button class="option" data-idx="' + i + '" onclick="selectAnswer(' + i + ')">';
+    html += '<span class="opt-key">' + keys[i] + '</span>' + q.opts[i];
+    html += '</button>';
+  }
+  qa.innerHTML = html;
+  exEl.className = ''; exEl.style.display = 'none';
+  nextBtn.style.display = 'none';
+}
+
+function selectAnswer(idx) {
+  if (answered) return;
+  answered = true;
+  var q = allQuestions[current];
+  var btns = qa.querySelectorAll('.option');
+  for (var i = 0; i < btns.length; i++) {
+    btns[i].classList.add('disabled');
+    if (i === q.ans) btns[i].classList.add('show-correct');
+  }
+  if (idx === q.ans) {
+    btns[idx].classList.add('selected-correct');
+    score++;
+  } else {
+    btns[idx].classList.add('selected-wrong');
+    missed.push({q: q.q, yours: q.opts[idx], correct: q.opts[q.ans], ex: q.ex});
+  }
+  var hintBtn = qa.querySelector('.hint-btn');
+  if (hintBtn) hintBtn.style.display = 'none';
+  exEl.innerHTML = q.ex;
+  exEl.style.display = 'block';
+  exEl.className = 'visible';
+  nextBtn.style.display = 'block';
+}
+
+function nextQuestion() {
+  current++;
+  showQuestion();
+}
+
+function toggleHint() {
+  var el = document.getElementById('hint');
+  if (el) el.classList.toggle('show');
+}
+
+function showResults() {
+  qa.style.display = 'none';
+  exEl.style.display = 'none';
+  nextBtn.style.display = 'none';
+  progFill.style.width = '100%';
+  scoreDisp.textContent = '';
+  resultsDiv.style.display = 'block';
+  document.getElementById('r-correct').textContent = score;
+  document.getElementById('r-total').textContent = allQuestions.length;
+  var pct = Math.round(score / allQuestions.length * 100);
+  document.getElementById('r-pct').textContent = pct + '% correct';
+  var reviewHtml = '';
+  for (var i = 0; i < missed.length; i++) {
+    var m = missed[i];
+    reviewHtml += '<div class="review-item">';
+    reviewHtml += '<div class="ri-q">' + m.q + '</div>';
+    reviewHtml += '<div class="ri-your">Your answer: ' + m.yours + '</div>';
+    reviewHtml += '<div class="ri-correct">Correct: ' + m.correct + '</div>';
+    reviewHtml += '<div class="ri-explain">' + m.ex + '</div>';
+    reviewHtml += '</div>';
+  }
+  if (missed.length === 0) reviewHtml = '<p>Perfect score!</p>';
+  document.getElementById('review-list').innerHTML = reviewHtml;
+}
+
+function restart() {
+  current = 0; score = 0; missed.length = 0;
+  qa.style.display = 'block';
+  resultsDiv.style.display = 'none';
+  showQuestion();
+}
+
+document.addEventListener('keydown', function(e) {
+  if (e.key >= '1' && e.key <= '4' && !answered) selectAnswer(parseInt(e.key) - 1);
+  if ((e.key === ' ' || e.key === 'Enter') && answered) { e.preventDefault(); nextQuestion(); }
+  if (e.key === 'h' || e.key === 'H') toggleHint();
+  if (e.key === 'r' || e.key === 'R') { if (resultsDiv.style.display === 'block') restart(); }
+});
+
+nextBtn.addEventListener('click', nextQuestion);
+showQuestion();
+</script>
+</body>
+</html>

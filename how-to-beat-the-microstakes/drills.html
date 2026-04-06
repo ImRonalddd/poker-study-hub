@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>How to Beat the Microstakes &mdash; Interactive Drills</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;1,400;1,600&family=Source+Serif+4:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+  onload="renderMathInElement(document.body,{delimiters:[{left:'\\(',right:'\\)',display:false},{left:'\\[',right:'\\]',display:true}],throwOnError:false});"></script>
+<style>
+:root{--bg:#FFFFFF;--surface:#FFFFFF;--surface2:#F5F5F5;--accent:#000;--text:#000;--text-dim:#525252;--correct:#1a7a5e;--wrong:#b91c1c;--border:#000;--border-light:#E5E5E5}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;border-radius:0!important}
+body{font-family:'Source Serif 4','Georgia',serif;background:var(--bg);color:var(--text);line-height:1.6;-webkit-font-smoothing:antialiased}
+.container{max-width:700px;margin:0 auto;padding:2rem 1.5rem 4rem}
+.back-link{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:0.75rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--text-dim);text-decoration:none;margin-bottom:1rem;transition:color 0.1s}
+.back-link:hover{color:var(--text)}
+h1{font-family:'Playfair Display',serif;font-weight:800;font-size:2.2rem;text-align:center;margin:1rem 0 0.3rem}
+.subtitle{font-family:'JetBrains Mono',monospace;font-size:0.72rem;font-weight:500;text-transform:uppercase;letter-spacing:0.15em;color:var(--text-dim);text-align:center;margin-bottom:0.5rem}
+.hotkeys{font-family:'JetBrains Mono',monospace;font-size:0.7rem;color:var(--text-dim);text-align:center;margin-bottom:2rem;line-height:1.8}
+.hotkeys kbd{display:inline-block;padding:0.1em 0.45em;border:1px solid var(--border-light);background:var(--surface2);font-weight:600;margin:0 0.1em}
+#progress-bar{width:100%;height:4px;background:var(--border-light);margin-bottom:1.5rem}
+#progress-fill{height:100%;background:var(--accent);transition:width 0.3s}
+#score-display{font-family:'JetBrains Mono',monospace;font-size:0.8rem;text-align:center;margin-bottom:1.5rem;color:var(--text-dim)}
+#question-area{min-height:350px}
+.q-number{font-family:'JetBrains Mono',monospace;font-size:0.72rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--text-dim);margin-bottom:0.5rem}
+.q-text{font-size:1.15rem;font-weight:600;margin-bottom:1.5rem;line-height:1.5}
+.option{display:block;width:100%;text-align:left;font-family:'Source Serif 4',serif;font-size:1rem;padding:0.85rem 1rem;margin-bottom:0.6rem;border:2px solid var(--border-light);background:var(--surface);cursor:pointer;transition:border-color 0.15s,background 0.15s}
+.option:hover:not(.disabled){border-color:var(--accent);background:var(--surface2)}
+.option.selected-correct{border-color:var(--correct);background:#f0fdf4;color:var(--correct);font-weight:600}
+.option.selected-wrong{border-color:var(--wrong);background:#fef2f2;color:var(--wrong)}
+.option.show-correct{border-color:var(--correct);background:#f0fdf4}
+.option.disabled{cursor:default;opacity:0.7}
+.option .opt-key{font-family:'JetBrains Mono',monospace;font-weight:700;margin-right:0.5rem;font-size:0.9rem}
+#explanation{margin-top:1.2rem;padding:1rem 1.25rem;border-left:4px solid var(--accent);background:var(--surface2);display:none;font-size:0.95rem;line-height:1.6}
+#explanation.visible{display:block}
+.hint-btn{font-family:'JetBrains Mono',monospace;font-size:0.78rem;color:var(--text-dim);background:none;border:none;cursor:pointer;margin-bottom:0.75rem;text-decoration:underline}
+.hint{font-size:0.9rem;color:var(--text-dim);margin-bottom:1rem;padding:0.6rem 0.8rem;background:var(--surface2);border-left:3px solid var(--border-light);display:none}
+.hint.show{display:block}
+#next-btn{display:none;margin-top:1.5rem;width:100%;padding:0.8rem;font-family:'JetBrains Mono',monospace;font-size:0.85rem;font-weight:600;text-transform:uppercase;letter-spacing:0.1em;border:2px solid var(--accent);background:var(--accent);color:var(--bg);cursor:pointer;transition:opacity 0.15s}
+#next-btn:hover{opacity:0.85}
+#results{display:none;text-align:center}
+#results h2{font-family:'Playfair Display',serif;font-size:1.8rem;margin-bottom:1rem}
+#results .score-big{font-family:'JetBrains Mono',monospace;font-size:3rem;font-weight:700;margin:1rem 0}
+#results .score-big .correct-n{color:var(--correct)}
+#results .score-big .wrong-n{color:var(--wrong)}
+#review-section{margin-top:2rem;text-align:left}
+#review-section h3{font-family:'Playfair Display',serif;font-size:1.3rem;margin-bottom:1rem}
+.review-item{padding:1rem;margin-bottom:1rem;border:1px solid var(--border-light);background:var(--surface2)}
+.review-item .ri-q{font-weight:600;margin-bottom:0.4rem}
+.review-item .ri-your{color:var(--wrong);font-size:0.9rem}
+.review-item .ri-correct{color:var(--correct);font-size:0.9rem}
+.ri-explain{font-size:0.88rem;color:var(--text-dim);margin-top:0.3rem}
+.btn-restart{margin-top:2rem;padding:0.8rem 2rem;font-family:'JetBrains Mono',monospace;font-size:0.85rem;font-weight:600;text-transform:uppercase;letter-spacing:0.1em;border:2px solid var(--accent);background:var(--accent);color:var(--bg);cursor:pointer}
+.btn-restart:hover{opacity:0.85}
+</style>
+</head>
+<body>
+<div class="container">
+
+<a href="index.html" class="back-link">&larr; Back to How to Beat the Microstakes</a>
+
+<h1>Microstakes Drills</h1>
+<div class="subtitle">How to Beat the Microstakes &mdash; 30 Questions</div>
+<div class="hotkeys"><kbd>1</kbd><kbd>2</kbd><kbd>3</kbd><kbd>4</kbd> answer &nbsp; <kbd>H</kbd> hint &nbsp; <kbd>Space</kbd> next &nbsp; <kbd>R</kbd> restart</div>
+
+<div id="progress-bar"><div id="progress-fill" style="width:0%"></div></div>
+<div id="score-display"></div>
+
+<div id="question-area"></div>
+<div id="explanation"></div>
+<button id="next-btn">Next Question (Space)</button>
+
+<div id="results">
+<h2>Results</h2>
+<div class="score-big"><span class="correct-n" id="r-correct"></span> / <span id="r-total"></span></div>
+<p id="r-pct"></p>
+<div id="review-section"><h3>Review Missed</h3><div id="review-list"></div></div>
+<button class="btn-restart" onclick="restart()">Restart (R)</button>
+</div>
+</div>
+
+<script>
+// ============================================================
+// QUESTION DATA
+// ============================================================
+var allQuestions = [
+  {
+    q: "You are in the big blind (BB) with 5-6 offsuit. A player raises and there are 3 callers behind, giving you about 5:1 pot odds. What should you do?",
+    opts: [
+      "Call -- the pot odds are too good to fold",
+      "Fold -- suited connectors are better, but 5-6 offsuit is hard to make profitable multiway",
+      "Raise to isolate the original raiser",
+      "Call only if you are getting 10:1 or better"
+    ],
+    ans: 1,
+    hint: "Alexander says he keeps trying to find 5-6 offsuit profitable in databases from the BB multiway and can't prove it.",
+    ex: "Despite the attractive pot odds, 5-6 offsuit in multiway pots is very hard to make profitable. Database analysis shows players calling here often lose more than the -100 BB/100 baseline of folding. Suited connectors like 7-8o, 8-9o, 10-9o show some evidence of profitability; offsuit garbage connectors like 5-6o do not. Fold and preserve your chips for better spots."
+  },
+  {
+    q: "You have AJo out of position facing an early-position open from a player with no unusual stats. What is the recommended default play at microstakes?",
+    opts: [
+      "Call -- AJo is too strong to fold",
+      "3-bet to isolate and build a big pot",
+      "Fold -- playing AJo out of position vs an EP raiser with no reads is unprofitable",
+      "Limp behind to see a cheap flop"
+    ],
+    ans: 2,
+    hint: "The instructor folds this exact hand against an EP raiser with normal stats, saying there is no evidence to 3-bet without knowing the villain is opening garbage.",
+    ex: "Without strong reads indicating the opener is raising junk, folding AJo out of position to an early-position raise is the sound play. You are likely dominated by AQ, AK, or JJ-AA. The principle is: play big pots in position with generally superior hands. Out of position versus a tight EP range, AJo does not meet that threshold. Friends of Alexander who make a living at lower stakes fold this 100% of the time."
+  },
+  {
+    q: "A microstakes player (VP: 67%, PFR: 33%) raises. You are on the button with pocket 6s. What should you do?",
+    opts: [
+      "Fold -- pairs under 8s should not 3-bet loose players",
+      "Call -- set-mine and try to flop a set",
+      "3-bet -- you are almost certainly ahead of a 67% VP range",
+      "Shove all-in immediately"
+    ],
+    ans: 2,
+    hint: "The instructor explicitly 3-bets this hand: 'On average the cutoff player is going to be opening enough that your sixes are well ahead of his range.'",
+    ex: "Against a player opening 67% of hands, pocket 6s are a clear 3-bet. You are a big equity favorite over his wide range, and you want to play big pots in position with superior hands. Most microstakes players do not play well postflop, so getting them to put in money as a preflop underdog is exactly the strategy. When you check the 3-bet percentages to your left and they are all 0%, this is an even cleaner spot."
+  },
+  {
+    q: "You open from the BTN (Button) and the BB calls. The flop comes A-Q-9 rainbow. You have 66. Villain checks. What is the best play?",
+    opts: [
+      "Bet 75% pot for value and fold protection",
+      "Bet 25% pot -- microstakes players may call with anything",
+      "Check back -- you have showdown value but are behind most of villain's continuing range on this board",
+      "Shove to end the hand immediately"
+    ],
+    ans: 2,
+    hint: "The instructor checks back pocket 6s on A-Q-9, noting a loose passive player (VP 31%, PFR 14%) is unlikely to double-barrel bluff, so you can get to showdown cheaply.",
+    ex: "On A-Q-9, your pocket 6s are an underpair with little showdown value if villain has any piece. However, a passive 31/14 player will rarely bet twice as a bluff. Checking back protects your equity while keeping the pot small. If you bet and he calls, you have no real plan on most turn cards. A 31/14 will more or less tell you what he has -- let him do that cheaply."
+  },
+  {
+    q: "In a microstakes tournament, how often does a 25% pot-sized c-bet need to work as a pure bluff to be profitable?",
+    opts: [
+      "10% of the time",
+      "20% of the time",
+      "33% of the time",
+      "50% of the time"
+    ],
+    ans: 1,
+    hint: "Use the pot-odds formula: bet / (bet + pot). With a 25% pot bet, that is 0.25 / (0.25 + 1).",
+    ex: "A 25% pot-sized bet risks 0.25 to win 1. Break-even frequency = 0.25 / 1.25 = 20%. This means villain must defend (call or raise) 80% of the time for the bluff to fail. In multiway pots with an ace-high board, 80% defense is likely -- which is why c-betting these boards in multiway spots should be done carefully. But in heads-up pots at microstakes, opponents often cannot defend enough, making small c-bets highly profitable."
+  },
+  {
+    q: "You have 4-6o on the CO (Cutoff). You scan the table: every player to your left has a 3-bet percentage of 0%. What is the key takeaway for your open decision?",
+    opts: [
+      "You can open wider because nobody will 3-bet you -- your goal is to get to the BB",
+      "You should tighten up because your hand is weak",
+      "You should only open premium hands regardless of 3-bet stats",
+      "The 3-bet percentage is irrelevant -- focus only on your hand strength"
+    ],
+    ans: 0,
+    hint: "The instructor raises 4-6 hearts saying: 'When you're considering a raise, you're trying to get to the big blind... you've got to look to your left and see who's 3-betting me.'",
+    ex: "The primary filter for loose opens is the 3-bet percentage of players to your left. With zero 3-bet threat, you can open wide and target the BB, who plays 30-40% of hands out of position passively. The big blind is the weakest player at any table because it is socially acceptable for them to call wide with garbage. Scanning for 3-bet threats is the first step before any steal attempt."
+  },
+  {
+    q: "You raise from early position with a medium pair. Several players cold-call, creating a multiway pot. The flop comes Q-8-6 and it checks around. The turn is a blank. Why should you be cautious about leading the turn here?",
+    opts: [
+      "You have too much equity to bet -- check and let them bluff",
+      "Multiway pot-controllers with pairs or draws likely called to check-call, not fold; a lead may just build a pot where you are behind",
+      "You should always bet the turn after a checked flop in multiway pots",
+      "Leading is good because it narrows the pot to one opponent"
+    ],
+    ans: 1,
+    hint: "The instructor warns: 'pot-controlling' players at microstakes will call your bet with a hidden made hand and not fold, meaning a lead just inflates a pot you may be losing.",
+    ex: "At microstakes, many players check flops with made hands (pairs, two pair, sets) because they 'don't want to play a big pot' -- a basic pot-control line. If you lead the turn, these players call down, and you've built a big pot with the second-best hand. You should avoid leading here unless you have a strong read the villain is on a weak draw or pure air. Your check on the turn keeps the pot small and lets you see whether villain has something by their action."
+  },
+  {
+    q: "A tight player (VP: 16%, PFR: 5%) has been playing one hand per orbit for two orbits. He raises when you are in the BB with K-8s. What is the best play?",
+    opts: [
+      "3-bet to punish his tight range with aggression",
+      "Call and check-raise any flop",
+      "Call and fold to a c-bet on a board that misses you -- trust the nit",
+      "Fold preflop -- K-8s has no equity vs a tight 16/5 range"
+    ],
+    ans: 2,
+    hint: "The instructor says: 'Nits are pretty easy to play. You just have to trust them.' When the tight player fires a decent-sized c-bet, it is very likely a made hand.",
+    ex: "You can call K-8s preflop for pot odds value, but postflop you must trust the nit. On J-5-3 rainbow when the 16/5 fires 45k (a solid c-bet), the correct answer is fold. You have no draw, no pair, and this player has shown zero aggression. 'Could he be bluffing? Sure. Do you have any evidence to support that? No.' In court, you cannot prove the bluff case, so do not invest money in it."
+  },
+  {
+    q: "You open from the BTN and the BB calls with a loose passive range. The flop comes J-9-4 rainbow. You have AJo (top pair, top kicker). What bet size is most appropriate?",
+    opts: [
+      "Check back -- protect your hand vs draws",
+      "Bet 10-15% pot -- micro players will call any size with a pair",
+      "Bet 50-75% pot -- you want maximum value from pairs and draws in his wide range",
+      "Shove immediately"
+    ],
+    ans: 2,
+    hint: "The instructor bets large on this texture, arguing: 'If people like their hand, they're going to keep going. How do we get the most money? I don't think 7-8 is folding if you bet 57k here.'",
+    ex: "Against a BB who called with 30-40% of hands, top pair top kicker is a strong value hand. Bet large (50-75% pot) because: (1) weak pairs and draws will not fold regardless of size at microstakes, (2) you want to set up a large pot for turn and river, (3) loss aversion means players who call the flop feel 'pot committed' and often call turn too. Betting small just builds a smaller pot and reduces your EV."
+  },
+  {
+    q: "You raise with AJd from MP (Middle Position). Three passive players call. The flop comes Jh-9h-5h. Both opponents check. What is the key question to ask before betting?",
+    opts: [
+      "Do I have the nut flush draw?",
+      "'Does he do this with X?' -- would these passive players raise with the best hand I beat, like Kh or a pair?",
+      "What is the pot size?",
+      "Can I fold to a check-raise?"
+    ],
+    ans: 1,
+    hint: "The instructor's universal rule for big calls and tough spots: 'Always ask yourself -- does he do this with X? And X is the best hand that you beat.'",
+    ex: "The core framework is: whenever facing a potential big call or deciding to build a pot, ask 'does he do this with X?' where X is the best hand you beat. On a three-flush board vs passive 23/10 or 29/14 players, if they raise, they most likely have a flush. They are NOT raising Ah (nut flush draw) as a bluff, and they are NOT raising one pair. If they would only raise a flush and you cannot beat a flush, you should not invest more. This thinking protects you from building big pots as the underdog."
+  },
+  {
+    q: "A short-stacked player (15-20 BB) limps in from the small blind. You are in the big blind with pocket 4s. What is the recommended play?",
+    opts: [
+      "Raise 2x -- standard raise to deny equity",
+      "Check -- you are out of position with a marginal hand",
+      "Shove -- deny the limp-trap, and at 15-20 BB you are +EV jamming vs a limping range",
+      "Fold -- pocket 4s are too weak"
+    ],
+    ans: 2,
+    hint: "The instructor explains that a 28/16 player limping a short stack is likely setting up a limp-re-raise (limp-trap); shoving takes that play away and is +EV vs their limping range.",
+    ex: "A 15-20 BB player limping from the SB is a classic limp-trap setup at micro/lower stakes: they limp, you raise, they shove. By shoving preemptively, you deny them that option. You are +EV against a limping range at those stacks. If they are a passive 28/12 player with no 3-bet history, the shove is even cleaner because they are less likely to limp-trap. 'You can just take the jam away from them.'"
+  },
+  {
+    q: "You are considering calling a cold-call preflop from middle position in a 3-way raised pot. What does database analysis typically show about these calls?",
+    opts: [
+      "Cold calls from MP are highly profitable with suited connectors",
+      "Cold calls in EP/MP positions are often big leaks -- players frequently show negative EV worse than folding",
+      "Cold calls are neutral in EV -- it depends entirely on board texture",
+      "Cold calls are only unprofitable when you have fewer than 50 BBs"
+    ],
+    ans: 1,
+    hint: "The instructor says: 'If you want to see a grown man cry, just filter for your cold calls by position in a database -- you see negative 40, negative 70, never outperforming the fold.'",
+    ex: "Cold calls from early-to-middle positions are one of the biggest leaks in tournament poker. Database analysis consistently shows these players losing far more per 100 hands than simply folding. The reasons: (1) players behind you can squeeze, costing you the cold-call without seeing a flop, (2) when you do see a flop, you are out of position with a capped range, (3) speculative hands need implied odds to be profitable, but multiway pots with raises and re-raises have poor implied odds. Button cold calls can be defended; EP/MP cold calls nearly always lose money."
+  },
+  {
+    q: "At microstakes, a player with VP: 37%, PFR: 31% leads into you on an A-A-3 flop after calling your preflop raise. What does the instructor say about this donk-bet?",
+    opts: [
+      "Fold -- donk bets from loose players always indicate a made hand",
+      "Raise -- he likely has the ace and is betting for value",
+      "Call -- a 37/31 player is very likely leading many hands as a bluff, and will often give up on the turn",
+      "Call but fold to any turn bet"
+    ],
+    ans: 2,
+    hint: "The instructor calls the donk lead because the 37/31 player is 'out to fight' and very likely leading with nothing just to see what happens -- microstakes players often fire once then give up.",
+    ex: "Tight players donk-leading with nothing are rare -- their stats would not allow it. But a 37/31 player has a wide range full of hands that missed or have weak equity. He could be leading with any two cards just to see what you do. The key distinction: a tight player leading here means he has something (ace or flush draw). A very loose aggressive player could easily be leading K-J, two hearts, 5-6 suited. You call and plan to reassess the turn. At microstakes, these players often bet once and give up when their bluff gets called."
+  },
+  {
+    q: "You have pocket 9s and face a raise and re-raise before the action gets back to you. Another player still has to act behind. Villain 28 still has chips. What is the key question to ask before calling?",
+    opts: [
+      "Do I have enough chips to call?",
+      "'Does he do this with X?' -- does villain 13 shove with eights, sevens, or sixes (hands I beat)?",
+      "Am I in position?",
+      "What is the pot odds percentage?"
+    ],
+    ans: 1,
+    hint: "The instructor uses his framework: 'Does villain 13 do this with X? And X is the best hand I beat -- eights.'",
+    ex: "Before any big call, apply the framework: 'Does he do this with X?' where X is the best hand you beat. For pocket 9s facing a shove, X = pocket 8s. At microstakes with escalating blinds, short-stacked players often shove with 7s, 6s, 8s, and even worse hands when desperate. The instructor argues: 'You see so much goofy stuff as the blinds go up from short stacks.' While a fold is defensible (his tight friends fold here 100%), microstakes evidence supports a marginal call given the jammer's likely desperation range."
+  },
+  {
+    q: "You open from early position with pocket 10s. The BB (31/14) calls. The flop comes Q-10-2 rainbow and villain checks. You check back. The turn is a 10 (giving you quads). He checks again. What is the key reason to bet the turn for thin value?",
+    opts: [
+      "Bet to get value from worse sets or two-pairs",
+      "A 31/14 player will rarely double-barrel bluff -- if he fires twice he has it, so check back is safer",
+      "Bet because quads are the nuts and you should always bet the nuts",
+      "Bet to deny flush draw equity"
+    ],
+    ans: 1,
+    hint: "The instructor says of 31/14 players: 'This is not someone who double-barrel bluffs. Position is only as important as the number of streets you will play -- a 31/14 will more or less tell you what he has.'",
+    ex: "A 31/14 villain is a fit-or-fold, one-and-done player. If he fires twice, he has a strong hand. Therefore, checking back is actually correct because: (1) you are not getting value from hands you beat (they won't call a turn bet with a weak pair), and (2) a 31/14 is not building a bluff line. Your quads can check down to showdown and win the pot cheaply. The valuable lesson is: position is only important relative to the number of streets your villain will actually play."
+  },
+  {
+    q: "You are in the BB and villain limps from the SB. You have A-9 hearts. What should you do?",
+    opts: [
+      "Check -- you are out of position and should see a free flop",
+      "Raise to a larger size -- playing A-9 in position vs SB limper who likely has garbage",
+      "Fold -- A-9 is not strong enough to raise vs a limper",
+      "Limp back and check-fold most flops"
+    ],
+    ans: 1,
+    hint: "The instructor raises here: 'Most likely in low-stakes tournaments, even though this person is a 13/6, they are just going to be limping so much crap -- in position with a superior hand, you want to play a bigger pot.'",
+    ex: "A SB limper at microstakes has an extremely wide range full of junk. A-9 is a significant equity favorite. Raising builds the pot while you are ahead. The instructor emphasizes: 'You want to play as many pots in position with villain 39 as possible' -- the same logic applies here. Raise and bet most flops, especially if you have any pair or draw. Even a half-pot c-bet requires villain to defend 2/3 of his garbage limping range, which he will not."
+  },
+  {
+    q: "At microstakes, a player with a 'rejam stack' (10-20 BB) raises in front of you. You have 9-8 offsuit. What should you do?",
+    opts: [
+      "Call -- the implied odds are excellent if you connect",
+      "3-bet small to define your hand",
+      "Fold -- calling a rejam stack heads-up with nine-high has no implied odds and is unprofitable",
+      "Call only if you are on the button"
+    ],
+    ans: 2,
+    hint: "The instructor says: 'For the love of God, don't call. You are not going to make that profitable. Any database, if you look that up, you are not going to make it. There are no implied odds.'",
+    ex: "Calling a short-stack raiser with 9-8 offsuit is a major leak. You will almost always be heads up (bad implied odds for connectors), and against a 10-20 BB raising range, 9-8o has poor equity. The only profitable option is to fold or, if conditions are right (stack-to-bet ratio, read on player), re-raise/shove. Simply calling off chips with nine-high and no implied odds is -EV. This is one of the spots the instructor keeps flagging as where players silently lose big blinds without noticing."
+  },
+  {
+    q: "You open and get called by the BB. The flop comes 10-6-5 two-tone. Villain checks. You have pocket 8s (overpair). What should you do?",
+    opts: [
+      "Check back -- protect equity by keeping the pot small",
+      "Bet 1/3 pot -- value bet your overpair vs villain's wide calling range from the BB",
+      "Bet 75% pot immediately to deny equity from draws",
+      "Check-raise if he bets"
+    ],
+    ans: 1,
+    hint: "The instructor says: 'Your job is not messing up these spots -- 90% of low-stakes tournaments is when the big blind calls you. Get as much money out of him as possible.'",
+    ex: "When the BB calls your preflop raise, his range is 30-40% of hands -- lots of weak pairs, suited junk, and backdoor draws. On 10-6-5, you have an overpair and should value bet. Bet 1/3 pot or larger. The instructor: 'If you most likely have the best hand, and your first thought is how to make the pot as small as possible vs a guy who never turns a pair into a bluff, that is a problem.' Extract value -- do not let them see cheap turns and rivers."
+  },
+  {
+    q: "You have top pair top kicker on a board with a flush draw. Villain is a passive player (31/14). He check-calls your flop bet. The turn pairs the board (giving you two pair). He checks. What should you consider before betting?",
+    opts: [
+      "Bet pot -- you have two pair and should maximize value",
+      "Check -- a paired board can slow down calling from weaker hands like a flush draw, and you need to think about what worse hands actually call here",
+      "Bet 25% pot to keep him in with draws",
+      "Check-raise if he bets"
+    ],
+    ans: 1,
+    hint: "The instructor debates bet vs check on the paired turn, asking: 'What's going to call you? An Ace? A 10? How does a 10 feel with two over cards on the turn as his stack is dwindling?'",
+    ex: "When the board pairs, ask what weaker hands still call a turn bet. Against a passive 31/14, flush draws may just check-fold if a big card pairs above their draw. Weak pairs (tens, nines) feel uncomfortable with the paired board. The instructor ultimately checks back to preserve value and avoid inflating the pot vs a range that may have improved (villain flopped a set, now has a boat) or will fold the few hands you wanted to call. Check-calling also baits aggressive players to bluff the river."
+  },
+  {
+    q: "Which of the following best describes why you should NOT always try to balance your bet sizes for 'value' and 'bluff' at microstakes?",
+    opts: [
+      "Balance is important at all stakes because it prevents exploitation",
+      "At microstakes, opponents are not paying attention to your bet sizes -- betting bigger for value and smaller as a bluff is exploitative and profitable",
+      "You should always bet the same size regardless of hand strength",
+      "Balance only matters in cash games, not tournaments"
+    ],
+    ans: 1,
+    hint: "The instructor says: 'At $2 tournaments, do you think he knows what you are doing? Not at a $2 tournament. A lot of people think everybody watches training videos -- they don't.'",
+    ex: "GTO balance only matters when opponents are sophisticated enough to exploit imbalances. At microstakes, the vast majority of opponents have no idea whether you are betting big for value or as a bluff. Use exploitative sizing: bet large when you have value (villain won't fold anyway), bet small or nothing when bluffing (villain who will fold to small bets does not need a big bet). Trying to 'balance' at microstakes costs you significant EV by under-betting value hands."
+  },
+  {
+    q: "You have been very aggressive all tournament. You just lost a big pot getting caught bluffing. The next hand it is folded to you on the BTN. You have 10-4 offsuit. What does the instructor recommend?",
+    opts: [
+      "Open to rebuild your table image and show you are not on tilt",
+      "Fold -- after losing a pot, tight is right",
+      "Fold the BTN this one time -- showing a composed fold signals strength and can dissuade opponents from going after you",
+      "Shove all-in to demonstrate aggression"
+    ],
+    ans: 2,
+    hint: "The instructor says: 'Show one fold on the button when it gets folded around -- people love looking at one data point. If you fold, that will click in their head, especially if you can look relaxed and unaffected.'",
+    ex: "After a big loss, opponents become emboldened and watch you. Folding a marginal hand like 10-4o on the button while appearing calm and composed sends a powerful message: 'I am not tilting, and I have standards.' The instructor says to talk to the dealer, smile, appear unaffected. 'If you can fold and chat and be cool, a lot of people will back off. Whereas if you are pouting and desperate, they will go after you and they should.' One well-timed fold can restore your table image."
+  },
+  {
+    q: "On the BTN with Q-10s, you open and get called by a passive BB. The flop is Q-5-4 rainbow. Villain checks. You bet 1/3 pot. Villain check-raises. What should you do?",
+    opts: [
+      "Fold immediately -- any check-raise from a passive player means a set or two pair",
+      "Call and reassess the turn -- at microstakes, passive players check-raise small as a 'cheap shot' and will give up when called",
+      "Re-raise to represent a strong hand",
+      "Shove because top pair deserves protection"
+    ],
+    ans: 1,
+    hint: "The instructor calls, saying: 'In micro-6, the player doesn't calculate what they'd really be check-raising with at these stack sizes. He's not ready for it -- this is likely nothing.'",
+    ex: "At microstakes, players check-raise small with a surprising amount of weak holdings -- they just want to 'see what happens' with their second pair or weak draw. A passive BB who check-raises your 1/3 pot bet can easily have 5-6, 4-6, Q-9, or a pure bluff. The instructor calls and then value-bets the turn when villain checks: 'His play didn't work. Now he checks and gives up, and you bet 1/3 pot on the turn and get crying calls from whoever had middle pair or a draw that is now semi-committed.'"
+  },
+  {
+    q: "At microstakes, what is the key advantage of having a very large chip stack compared to short-stacked opponents?",
+    opts: [
+      "You can afford to call any all-in without risk",
+      "Your c-bets and 3-bets carry more credibility -- opponents know they cannot check-raise finesse you, so they fold more",
+      "You should always shove preflop with a big stack",
+      "A big stack means you should play tighter to protect your lead"
+    ],
+    ans: 1,
+    hint: "After a big pot win, the instructor notes: 'Our c-bets and 3-bets will work a lot more. A lot of people, maybe they cannot articulate that, but subconsciously they know -- and that helps us.'",
+    ex: "With a big chip lead, opponents subconsciously (or explicitly) recognize that check-raise bluffing or getting involved in marginal spots is dangerous -- you can call or re-shove with ease. Even players who cannot explain why will fold more often against the table chip leader. This chip leverage makes your bluffs more credible and your value bets harder to play back against. The instructor: 'Our three-bets, c-bets should work a little bit more just because people know they cannot really check-raise finesse most versus us.'"
+  },
+  {
+    q: "When should you apply a donk-lead bluff (leading into the preflop raiser from out of position) against a late-position opener?",
+    opts: [
+      "Whenever you miss the flop and want to take it down",
+      "Against a tight, experienced player who will fold most of his range to unexpected leads",
+      "Only with value hands -- donk leads as bluffs are always -EV",
+      "Against every opponent at microstakes"
+    ],
+    ans: 1,
+    hint: "The instructor uses a donk-lead with Q-9o against a 24/19 late position opener, saying: 'I very rarely do this move -- it needs to work 30% of the time. Developing regs, if they get confused, they fold.'",
+    ex: "The donk-lead bluff is most effective against developing regulars who default to calling or folding (not raising) unfamiliar lines. By donk-leading, you deny them the c-bet and force them to play a reactive, uncomfortable game. The instructor: 'Developing regs will fold if they get confused -- if you don't know what you are investing in, you should not put money into it.' This move should be used sparingly (not every hand) and is most profitable when opponent is range-wide opening late position with lots of high cards that miss most boards."
+  },
+  {
+    q: "On the money bubble or near a payout jump, microstakes players are generally ____________ compared to regulars at higher stakes.",
+    opts: [
+      "More aggressive -- they want to accumulate chips for the final table",
+      "Less likely to shove wide or make thin plays -- they are more passive and scared of busting",
+      "More sophisticated about ICM calculations",
+      "Identical in play style -- payout pressure affects all players the same"
+    ],
+    ans: 1,
+    hint: "The instructor says microstakes players 'want to see flops, don't want to jam, and getting close to the money or final table makes them tighter -- sunk cost of hours played makes them even more reluctant to bust.'",
+    ex: "At microstakes, most players are not experienced with deep final-table or bubble play. They have invested hours and do not want to bust. This produces extremely passive, fit-or-fold tendencies near the money. The instructor exploits this: 'When you start going off, everybody else gets the bright idea to let you take out everybody else -- they all just keep folding.' You can open nearly any two cards with a big stack near the bubble because opponents will not gamble without premium hands."
+  },
+  {
+    q: "You flop a set of eights on J-8-3 two-spade board. Two opponents shove in front of you. What is the most likely reason to shove over them rather than just call?",
+    opts: [
+      "Shoving maximizes fold equity to protect your set",
+      "Calling keeps the pot smaller -- sets should be slow-played",
+      "Shoving looks more like a draw (flush draw bluff) and may get a player behind you to call with top pair, increasing your profit",
+      "Shoving is the only legal option when two players are all-in"
+    ],
+    ans: 2,
+    hint: "The instructor says: 'There's an argument that if you shove, that looks more like a draw that said F-it -- which might get villain 21 to call with a jack.'",
+    ex: "With a set of eights, you want to maximize the pot. Shoving into two all-ins looks polarized -- it could be a big draw or a monster. A player behind with top pair (a jack) might call thinking 'he is shoving with a flush draw and I have top pair, let's go.' A mere call looks more like a strong hand. At microstakes, players are not likely to fold top pair anyway, so shoving 'looks like a draw' narrative can actually get you more chips in from hands you dominate."
+  },
+  {
+    q: "You raised preflop, the BB called. You have AJo. The flop is J-9-7 and the BB check-calls your bet. Turn is a Q. He checks. Why is checking back here often better than betting for value?",
+    opts: [
+      "Checking shows weakness and invites a bluff",
+      "On J-9-7-Q, a passive BB who check-called the flop likely has a jack, draw, or worse -- but the Q makes the board scarier and worse hands may fold, while you still win vs most calling ranges at showdown",
+      "You should always bet two streets with top pair",
+      "Checking gives a free card to flush draws"
+    ],
+    ans: 1,
+    hint: "The instructor explains: 'What are we trying to get value from? A 10 or a 9. How does a 10 or 9 feel when there is a king/queen on the turn and his stack is dwindling -- they may not call again.'",
+    ex: "On J-9-7-Q, the Q is a scare card for most hands that called the flop (straight draws got there, other hands feel worse about middle pair). Your bet on the turn may fold out the hands you were getting value from (tens, nines), while calling only from hands you cannot beat (straights, two pair). Checking back often allows you to bet a better river card, or win at showdown cheaply if villain has a hand like Qh-Xh (flush draw that bricked). The instructor: 'I do not think he is calling all that often with a 10 or nine if there are two overcards and his stack is dwindling.'"
+  },
+  {
+    q: "In heads-up play, the villain is opening very wide from the button. What is the instructor's recommended strategy to discourage this?",
+    opts: [
+      "Call wider from the BB to exploit his range",
+      "3-bet him one of the first times he opens to communicate that his button opens will be costly -- 'None of your preflop raises are safe'",
+      "Fold repeatedly to make him think you are tight",
+      "Shove over his opens whenever you have any pair"
+    ],
+    ans: 1,
+    hint: "The instructor explains a 3-bet with 10-6h early in the heads-up match: 'My bet needed to work 65% of the time. I want to teach this player -- your preflop raises in position are not safe.'",
+    ex: "Early in a heads-up match, Alexander recommends a 3-bet bluff against the first or second button open. The 3-bet serves a strategic purpose beyond just stealing the pot: it signals to the villain that button opens will be punished. If you can get the villain to limp buttons instead of raising (or tighten his opening range), you gain a massive edge -- you get to see flops cheaply from position instead of defending raises from the BB. The 3-bet does not need to win money in isolation; its value is in shaping the rest of the match."
+  },
+  {
+    q: "You flop a four-flush board (e.g., you raised preflop and the turn brings a fourth spade). You have no spade. The opponent check-called the flop with what you estimate are several pairs and draws. What does probability analysis show about his range on the turn?",
+    opts: [
+      "He almost always has a spade flush now -- you should give up immediately",
+      "He is unlikely to have a flush -- most of his check-calling combos are pairs with no spade, so you should often bet the four-flush turn",
+      "You should check back the four-flush turn 100% of the time",
+      "The four-flush board changes nothing about your strategy"
+    ],
+    ans: 1,
+    hint: "The instructor runs Flopzilla analysis: 'There are only 9 spades in the deck. When this four-flush comes, if the guy check-called a number of pairs, he does not have a flush -- like 47-64% of the time he has no flush, no draw.'",
+    ex: "The human brain vividly imagines flushes on four-flush boards, overweighting their probability. But if villain check-called with pairs and draws, most of those hands have no spade. The instructor shows via Flopzilla that on a four-flush turn, with a villain range of pairs and draws, 47-64% of the time villain has no spade at all. A half-pot bet needs to work only 33% of the time -- you are often forced to bet because villain is not calling enough of these boards with flushes. This is one of the most common spots where players incorrectly give up EV by checking the turn."
+  },
+  {
+    q: "You have pocket aces at a final table deep in a tournament. A known aggressive player has been jousting with you. He jams all-in over your raise. What is an optional tactic the instructor mentions to get maximum value?",
+    opts: [
+      "Immediately fold to represent a weak hand",
+      "Snap-call instantly without any theatrics",
+      "Instantly shove over his jam (or call instantly) -- aggressive gamblers often associate the instant all-in with AK, inducing calls from players who want to race",
+      "Tank for 5 minutes before calling"
+    ],
+    ans: 2,
+    hint: "The instructor says: 'The second I look down at aces, I will look up at the dealer and go -- I am all in. And for some reason, super aggressive players associate the instant all-in with ace-king, so they call.'",
+    ex: "This is a live/timing-tell exploit. Aggressive players who have been jousting often perceive an instant shove as AK (a hand they feel they can race against or beat). If you time-bank and make it look agonizing, they smell a trap and fold. By snap-shoving, you psychologically represent AK or a weaker hand. The instructor uses this to induce calls from hands he dominates. It is a small edge, but at final tables against gambling-minded opponents, it can add significant EV to your best hands."
+  },
+  {
+    q: "What is the most important financial reason to build your bankroll at microstakes before moving up?",
+    opts: [
+      "Microstakes has the best hourly rate of any stake level",
+      "The skills and habits formed at microstakes -- bankroll discipline, min-cash strategy, final-table play -- transfer directly and let you extract more EV at higher stakes once you move up",
+      "You should never move up from microstakes",
+      "Higher stakes are rigged against smaller bankrolls"
+    ],
+    ans: 1,
+    hint: "The instructor says: 'Once you start closing out tournaments -- when you learn how to cash a lot and win a lot -- your profits go up. And one of the greatest places to learn was micro stakes because the cost of education is almost nothing.'",
+    ex: "Microstakes offers a nearly free education in tournament poker. You learn: (1) the discipline of min-cashing first then going for the win, (2) heads-up and short-handed play under low financial pressure, (3) bankroll management habits that protect against variance. The instructor explicitly says he started with $30 (from a $50 loan) and every dollar he has online traces back to that. The skills acquired -- recognizing player types, exploiting passive ranges, managing ICM pressure -- apply directly to every stake level above."
+  }
+];
+
+// ============================================================
+// DRILL ENGINE
+// ============================================================
+var current = 0, score = 0, answered = false;
+var missed = [];
+var qa = document.getElementById('question-area');
+var exEl = document.getElementById('explanation');
+var nextBtn = document.getElementById('next-btn');
+var progFill = document.getElementById('progress-fill');
+var scoreDisp = document.getElementById('score-display');
+var resultsDiv = document.getElementById('results');
+
+function showQuestion() {
+  if (current >= allQuestions.length) { showResults(); return; }
+  answered = false;
+  var q = allQuestions[current];
+  progFill.style.width = (current / allQuestions.length * 100) + '%';
+  scoreDisp.textContent = 'Score: ' + score + ' / ' + current;
+
+  var html = '<div class="q-number">Question ' + (current + 1) + ' of ' + allQuestions.length + '</div>';
+  html += '<div class="q-text">' + q.q + '</div>';
+  if (q.hint) {
+    html += '<button class="hint-btn" onclick="toggleHint()">Show Hint (H)</button>';
+    html += '<div class="hint" id="hint">' + q.hint + '</div>';
+  }
+  var keys = ['A', 'B', 'C', 'D'];
+  for (var i = 0; i < q.opts.length; i++) {
+    html += '<button class="option" data-idx="' + i + '" onclick="selectAnswer(' + i + ')">';
+    html += '<span class="opt-key">' + keys[i] + '</span>' + q.opts[i];
+    html += '</button>';
+  }
+  qa.innerHTML = html;
+  exEl.className = ''; exEl.style.display = 'none';
+  nextBtn.style.display = 'none';
+}
+
+function selectAnswer(idx) {
+  if (answered) return;
+  answered = true;
+  var q = allQuestions[current];
+  var btns = qa.querySelectorAll('.option');
+  for (var i = 0; i < btns.length; i++) {
+    btns[i].classList.add('disabled');
+    if (i === q.ans) btns[i].classList.add('show-correct');
+  }
+  if (idx === q.ans) {
+    btns[idx].classList.add('selected-correct');
+    score++;
+  } else {
+    btns[idx].classList.add('selected-wrong');
+    missed.push({q: q.q, yours: q.opts[idx], correct: q.opts[q.ans], ex: q.ex});
+  }
+  var hintBtn = qa.querySelector('.hint-btn');
+  if (hintBtn) hintBtn.style.display = 'none';
+  exEl.innerHTML = q.ex;
+  exEl.style.display = 'block';
+  exEl.className = 'visible';
+  nextBtn.style.display = 'block';
+}
+
+function nextQuestion() {
+  current++;
+  showQuestion();
+}
+
+function toggleHint() {
+  var el = document.getElementById('hint');
+  if (el) el.classList.toggle('show');
+}
+
+function showResults() {
+  qa.style.display = 'none';
+  exEl.style.display = 'none';
+  nextBtn.style.display = 'none';
+  progFill.style.width = '100%';
+  scoreDisp.textContent = '';
+  resultsDiv.style.display = 'block';
+  document.getElementById('r-correct').textContent = score;
+  document.getElementById('r-total').textContent = allQuestions.length;
+  var pct = Math.round(score / allQuestions.length * 100);
+  document.getElementById('r-pct').textContent = pct + '% correct';
+  var reviewHtml = '';
+  for (var i = 0; i < missed.length; i++) {
+    var m = missed[i];
+    reviewHtml += '<div class="review-item">';
+    reviewHtml += '<div class="ri-q">' + m.q + '</div>';
+    reviewHtml += '<div class="ri-your">Your answer: ' + m.yours + '</div>';
+    reviewHtml += '<div class="ri-correct">Correct: ' + m.correct + '</div>';
+    reviewHtml += '<div class="ri-explain">' + m.ex + '</div>';
+    reviewHtml += '</div>';
+  }
+  if (missed.length === 0) reviewHtml = '<p>Perfect score!</p>';
+  document.getElementById('review-list').innerHTML = reviewHtml;
+}
+
+function restart() {
+  current = 0; score = 0; missed.length = 0;
+  qa.style.display = 'block';
+  resultsDiv.style.display = 'none';
+  showQuestion();
+}
+
+document.addEventListener('keydown', function(e) {
+  if (e.key >= '1' && e.key <= '4' && !answered) selectAnswer(parseInt(e.key) - 1);
+  if ((e.key === ' ' || e.key === 'Enter') && answered) { e.preventDefault(); nextQuestion(); }
+  if (e.key === 'h' || e.key === 'H') toggleHint();
+  if (e.key === 'r' || e.key === 'R') { if (resultsDiv.style.display === 'block') restart(); }
+});
+
+nextBtn.addEventListener('click', nextQuestion);
+showQuestion();
+</script>
+</body>
+</html>

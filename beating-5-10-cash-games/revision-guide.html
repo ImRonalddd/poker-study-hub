@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Beating $5/$10 Cash Games &mdash; Revision Guide</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Source+Serif+4:ital,wght@0,400;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+  onload="renderMathInElement(document.body,{delimiters:[{left:'\\(',right:'\\)',display:false},{left:'\\[',right:'\\]',display:true}],throwOnError:false});"></script>
+<style>
+:root {
+  --bg: #FFFFFF;
+  --text: #000000;
+  --text-dim: #525252;
+  --border: #000000;
+  --border-light: #E5E5E5;
+  --blue: #2563EB;
+  --purple: #7C3AED;
+  --orange: #EA580C;
+  --red: #DC2626;
+}
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; border-radius: 0 !important; }
+
+body {
+  font-family: 'Source Serif 4', Georgia, serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.7;
+  max-width: 780px;
+  margin: 0 auto;
+  padding: 40px 24px 80px;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3 { font-family: 'Playfair Display', serif; font-weight: 700; letter-spacing: -0.01em; }
+h1 { font-size: 2.4rem; font-weight: 900; margin-bottom: 8px; line-height: 1.15; }
+h2 { font-size: 1.7rem; margin-top: 56px; margin-bottom: 16px; padding-bottom: 6px; border-bottom: 2px solid var(--border); }
+h3 { font-size: 1.2rem; margin-top: 32px; margin-bottom: 10px; }
+
+.subtitle {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.85rem;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 40px;
+}
+
+.back-link {
+  display: inline-block;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text-dim);
+  text-decoration: none;
+  margin-bottom: 2rem;
+  transition: color 0.1s;
+}
+.back-link:hover { color: var(--text); }
+
+p { margin-bottom: 14px; }
+ul, ol { margin: 10px 0 14px 24px; }
+li { margin-bottom: 6px; }
+strong { font-weight: 700; }
+
+table { width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 0.95rem; }
+th, td { padding: 8px 12px; border: 1px solid var(--border-light); text-align: left; }
+th { background: var(--bg); font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; border-bottom: 2px solid var(--border); }
+
+/* === BOX TYPES === */
+.box {
+  padding: 20px 24px;
+  margin: 24px 0;
+  border-left: 4px solid;
+  background: #FAFAFA;
+}
+.box-label {
+  display: block;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.72rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 8px;
+}
+
+.box-definition { border-color: var(--blue); }
+.box-definition .box-label { color: var(--blue); }
+
+.box-insight { border-color: var(--purple); }
+.box-insight .box-label { color: var(--purple); }
+
+.box-example { border-color: var(--orange); }
+.box-example .box-label { color: var(--orange); }
+
+.box-trap { border-color: var(--red); }
+.box-trap .box-label { color: var(--red); }
+
+/* === TABLE OF CONTENTS === */
+.toc {
+  border: 1px solid var(--border-light);
+  padding: 20px 24px;
+  margin: 24px 0;
+}
+.toc-title {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 10px;
+}
+.toc ol { margin: 0; padding-left: 20px; }
+.toc li { font-size: 0.95rem; margin-bottom: 4px; }
+.toc a { color: var(--text); text-decoration: none; border-bottom: 1px solid var(--border-light); }
+.toc a:hover { border-color: var(--text); }
+
+.footer {
+  margin-top: 60px;
+  padding-top: 20px;
+  border-top: 1px solid var(--border-light);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  color: var(--text-dim);
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+</style>
+</head>
+<body>
+
+<a href="index.html" class="back-link">&larr; Back to Beating $5/$10 Cash Games</a>
+
+<h1>Revision Guide</h1>
+<div class="subtitle">Beating $5/$10 Cash Games &mdash; Jonathan Little &mdash; Live at the Bike Review &mdash; 78 Hands</div>
+
+<div class="toc">
+  <div class="toc-title">Contents</div>
+  <ol>
+    <li><a href="#preflop-ranges">Preflop Ranges &amp; Hand Selection</a></li>
+    <li><a href="#bet-sizing">Bet Sizing Fundamentals</a></li>
+    <li><a href="#postflop-strategy">Postflop Strategy by Board Texture</a></li>
+    <li><a href="#bluffing">Bluffing Framework</a></li>
+    <li><a href="#value-betting">Value Betting &amp; Thin Value</a></li>
+    <li><a href="#3bet-4bet">3-Bet and 4-Bet Dynamics</a></li>
+    <li><a href="#draws">Playing Draws</a></li>
+    <li><a href="#hand-examples">Complete Hand Analysis Archive</a></li>
+    <li><a href="#live-reads">Live Reads &amp; Table Dynamics</a></li>
+    <li><a href="#game-selection">Game Selection &amp; Exploitative Adjustments</a></li>
+  </ol>
+</div>
+
+<!-- ============================================================ -->
+<h2 id="preflop-ranges">1. Preflop Ranges &amp; Hand Selection</h2>
+
+<p>Position abbreviations used throughout: <strong>UTG</strong> (Under the Gun), <strong>UTG+1</strong>, <strong>UTG+2</strong>, <strong>MP</strong> (Middle Position), <strong>HJ</strong> (Hijack), <strong>LJ</strong> (LoJack &mdash; one seat right of HJ), <strong>CO</strong> (Cutoff), <strong>BTN</strong> (Button), <strong>SB</strong> (Small Blind), <strong>BB</strong> (Big Blind).</p>
+
+<p>At $5/$10, players commonly play far too many hands before the flop and then play far too tightly after the flop. The single largest leak observed across all 78 hands was entering pots with dominated, out-of-position garbage, then being unable to defend those ranges postflop.</p>
+
+<div class="box box-definition">
+  <span class="box-label">Definition &mdash; Range Domination Problem</span>
+  <p>When you play hands like K-10o, Q-Jo, and A-9o from early positions, your range is filled with hands that make second-best pairs. When the flop comes with a big card, you face multiway aggression from players holding the same top card with a better kicker. You also surrender positional advantage by playing out of position with marginal equity.</p>
+</div>
+
+<h3>Early Position Standards (UTG, UTG+1, UTG+2)</h3>
+<p>The best high-stakes online players fold hands like Q-Jo, K-10o, A-9o, A-10o from the LJ/HJ seats. These offsuit hands are often dominated and play poorly out of position. In live $5/$10 games where opponents play wide ranges, these hands are marginally more defensible because you will sometimes face opponents with 9-8o or 7-2o, but the principle holds: the offsuit dominated hands leak money over time.</p>
+
+<div class="box box-insight">
+  <span class="box-label">Key Insight &mdash; Suited vs. Offsuit Distribution</span>
+  <p>When building a loose but defensible opening range, weight it heavily toward suited hands. There are only 4 combinations of each suited hand versus 12 combinations of each offsuit hand, so adding suited hands to your range costs very few total combos while dramatically improving your equity realization. Add small suited connectors and suited aces rather than offsuit big cards like K-10o and Q-Jo.</p>
+</div>
+
+<h3>Limping Policy</h3>
+<p>Jonathan Little's firm recommendation: do not limp with garbage. Hands like 5-2o, 7-2o, 8-4s, Q-4s, and K-4s should be folded preflop, not limped. Limping sets up a sequence where you enter multiway pots with the worst hand, hit marginal pairs that can't withstand betting, and face opponents drawing live against you. If a hand is not good enough to raise, it is almost always correct to fold rather than limp. The only exception is some suited connectors from late position in certain straddle situations.</p>
+
+<div class="box box-trap">
+  <span class="box-label">Trap &mdash; The Garbage Limping Spiral</span>
+  <p>Players who limp garbage (5-2o, Q-4s, K-4s) and then call raises have the worst of both worlds: they pay more to see a flop with a hand they can't defend, and they enter the hand as the weakest player. Even when they flop top pair with a hand like Q-4 on Q-9-7, they have a top pair with a kicker so bad that any reasonable opponent who is betting has them crushed or has equity that's difficult to navigate.</p>
+</div>
+
+<h3>3-Betting vs. Calling vs. Folding</h3>
+<p>Against clearly splashy players opening wide ranges (observed: Harry opening 7-2o, 8-4s, Q-7s, 10-3o), the correct adjustment is to 3-bet a very wide linear value range rather than just calling. The wide linear 3-bet range against splashy players includes hands down to A-6s, K-Qs, Q-Js, and mid-pairs, because all these hands have substantial equity against a garbage opening range and you want to play bigger pots against bad players.</p>
+
+<div class="box box-insight">
+  <span class="box-label">Key Insight &mdash; 3-Betting Against Wide Openers</span>
+  <p>Against an opponent opening 6-3o and similar junk, use a wide linear 3-bet range: all pairs (maybe down to 66), all suited aces, all Broadway suited hands, and the better offsuit Broadway combinations. When 4-bet, fold everything below JJ/AK. This approach extracts maximum EV against weak openers because you build big pots as a significant equity favorite and force them to defend ranges they cannot profitably continue with.</p>
+</div>
+
+<!-- ============================================================ -->
+<h2 id="bet-sizing">2. Bet Sizing Fundamentals</h2>
+
+<p>The single most repeated theme across all 78 hands: players at $5/$10 consistently bet too large on boards where they should bet small, and fail to size up on boards where bigger bets are warranted. This is not a minor mistake &mdash; it is one of the primary reasons these games are beatable.</p>
+
+<div class="box box-definition">
+  <span class="box-label">Definition &mdash; The Two Board Types</span>
+  <p><strong>Type A (Bet Small):</strong> Big card &mdash; little card &mdash; little card boards (e.g., K-8-3, A-5-2, J-4-2). These boards favor the preflop raiser's range and disadvantage callers who would have 3-bet with premium hands. Since opponents are either drawing dead or cannot continue, a small bet extracts maximum value from their entire range while saving money when bluffing.</p>
+  <p><strong>Type B (Bet Bigger):</strong> Connected, middle-card-heavy boards (e.g., 9-8-7, K-Q-J, J-10-7). Everyone can have something: pairs, top pairs, two pairs, straights, draws. Betting larger denies equity and charges the draws a fair price. Against opponents who won't fold pairs and draws, you need size.</p>
+</div>
+
+<h3>Specific Sizing Guidelines</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>Situation</th>
+      <th>Recommended Bet Size</th>
+      <th>Rationale</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Flop as PFR on A/K-x-x or K/J-low-low board</td>
+      <td>25&ndash;35% pot</td>
+      <td>Opponents are folding garbage or have a piece that calls any reasonable size. Small bet maximizes EV vs. all hands.</td>
+    </tr>
+    <tr>
+      <td>Flop as PFR on coordinated middle board (9-8-7 type)</td>
+      <td>50&ndash;70% pot</td>
+      <td>Opponents have real equity with pairs, draws, and two-pair combinations. Need to charge them.</td>
+    </tr>
+    <tr>
+      <td>Turn with draws (overbetting opportunity)</td>
+      <td>Pot-sized or overbet</td>
+      <td>Strong draws on the turn with no showdown value want maximum fold equity. A 300 bet does not fold an ace, but a 600 overbet might.</td>
+    </tr>
+    <tr>
+      <td>River value bet (thin)</td>
+      <td>Slightly below your estimate of opponent's call threshold</td>
+      <td>If you think opponent calls up to $600, bet $550&ndash;580 to ensure you get called every time. Betting $750 risks him folding sometimes, losing EV.</td>
+    </tr>
+    <tr>
+      <td>River value bet (nut-type hand)</td>
+      <td>Medium-to-large depending on blocking effects</td>
+      <td>When you have a blocker (e.g., holding a queen on a board where opponent needs a queen), consider sizing slightly smaller to ensure calls from top pair hands.</td>
+    </tr>
+    <tr>
+      <td>Blind vs. blind or limp pot, out of position</td>
+      <td>25 flop / 60 turn / 120 river (building sequence)</td>
+      <td>Lead builds the pot across three streets. Check-calling in limp pots leaves money on the table and lets draws realize equity for free.</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="box box-insight">
+  <span class="box-label">Key Insight &mdash; Why Small Bets Win More in Spots Where You Have the Range Advantage</span>
+  <p>When you have a massive range advantage (e.g., you raised preflop and the board is A-5-2 against a caller who has no aces in their range), small bets achieve two goals simultaneously: (1) They price in your opponents' garbage draws, letting them put more money in drawing nearly dead. (2) They save money when you are bluffing, since the continuation bet only needs to work slightly more than break-even to be profitable. Betting large in these spots simply induces opponents to play correctly &mdash; they fold everything they were going to fold anyway, and nothing else.</p>
+</div>
+
+<h3>The Open Raise Sizing Rule (Live Games)</h3>
+<p>When raising over limpers, add one big blind per limper to a base of the standard open raise. Example: Standard open to $35. One limper: raise to $45. Two limpers: raise to $55. Three limpers: raise to $65. From the SB over limpers, add one more since you are out of position. This is stricter than the $50 open observed in the session, which is acceptable but slightly undersized.</p>
+
+<!-- ============================================================ -->
+<h2 id="postflop-strategy">3. Postflop Strategy by Board Texture</h2>
+
+<h3>Range Advantage and Who Should Bet</h3>
+
+<div class="box box-definition">
+  <span class="box-label">Definition &mdash; Range Advantage</span>
+  <p>The player whose range connects better with the board texture has the range advantage. On A-K-3 rainbow, the preflop raiser who holds aces, kings, AK, AQ, AJ typically has a massive range advantage over the caller. The caller, who would have 3-bet aces, kings, and AK, instead holds hands like suited connectors, small pairs, and dominated Broadway. The preflop aggressor should exploit this by betting frequently with their entire range.</p>
+</div>
+
+<h3>Multi-Way Pot Adjustments</h3>
+<p>In multi-way pots, the strategy shifts. When three or more players see the flop, the probability that someone has connected with the board increases substantially. As a result:</p>
+<ul>
+  <li>Bet your best hands and draws for value/protection</li>
+  <li>Check your marginal made hands and look to check-call or check-fold</li>
+  <li>Do not bluff into multiple opponents without a credible range to represent</li>
+</ul>
+
+<div class="box box-example">
+  <span class="box-label">Worked Example &mdash; AA vs. Top Pair in Multi-Way Pot</span>
+  <p><strong>Setup:</strong> 4-way pot. Fabian (tight image, UTG+1) opens $30. JCW (BTN) calls with K-Jo. Two others call. Pot ~$130. Fabian has pocket aces.</p>
+  <p><strong>Board:</strong> K-9-7 (two suits). Fabian bets $45.</p>
+  <p><strong>Analysis:</strong> This is a correct small bet on a board where opponents can have a K (JCW does). Fabian should continue betting turn and river. The critical error by Fabian comes later when he checks back the aces on turn and river, surrendering two full streets of value. Against players who call with K-Jo, Q-Jo, A-Jo, and similar hands, pocket aces is worth three streets of value: bet around $45 flop, $115 turn, $250 river. Checking it down against a board that should be dominated by aces-and-big-cards is "embarrassing" &mdash; a direct quote from Jonathan Little, who said he "would be embarrassed to show the pocket aces." The EV cost of missing two streets against a calling station is substantial: if opponent calls $200 total across those streets with a 30% equity hand in a $200 pot, you forfeit approximately $100-$150 in EV by not betting.</p>
+</div>
+
+<h3>The Preflop Aggressor's Continuation Bet Range</h3>
+<p>As the preflop raiser, the general framework is: bet with your best hands AND your draws (to deny equity and maintain balance); check with your marginal made hands and pure garbage. In single-raised pots heads-up, continuation betting frequently with a small size on favorable boards is a core winning play. In multi-way pots, tighten the continuation bet range to hands that can withstand action: strong made hands and strong semi-bluffs.</p>
+
+<!-- ============================================================ -->
+<h2 id="bluffing">4. Bluffing Framework</h2>
+
+<div class="box box-definition">
+  <span class="box-label">Definition &mdash; The Bluff Selection Principle</span>
+  <p>Bluff with the <em>bottom of your range</em> &mdash; hands that have no showdown value and would lose at showdown. Do not bluff with hands that have reasonable showdown value (e.g., middle pair, top pair bad kicker). These hands benefit from checking and winning at showdown. A bluff must also have a credible range to represent; bluffing with 9-8 on A-K-J-Q-3 requires representing exactly a set or AK, which is thin.</p>
+</div>
+
+<h3>When to Bluff: Optimal Bluffing Spots</h3>
+
+<p>The ideal bluff spot has multiple factors converging:</p>
+<ol>
+  <li>Your hand has no or very low showdown value</li>
+  <li>The board texture connects with your perceived range</li>
+  <li>You have a blocker to your opponent's best hands</li>
+  <li>Your opponent's range capped (they checked or called passively)</li>
+  <li>The pot is reasonably sized (not a monster pot where calling is correct for your opponent)</li>
+</ol>
+
+<div class="box box-example">
+  <span class="box-label">Worked Example &mdash; G-Man's 3-Barrel Bluff with K-10s</span>
+  <p><strong>Setup:</strong> G-Man raises K-10s SB over limpers. Fabian calls with Q-8s from CO. Pot ~$130. G-Man is OOP.</p>
+  <p><strong>Board:</strong> J-J-9 (two suits).</p>
+  <p><strong>Turn:</strong> Jack (board is J-J-9-J, four of a kind on board). G-Man fires $125.</p>
+  <p><strong>River:</strong> Blank. G-Man fires $250-$275.</p>
+  <p><strong>Analysis:</strong> This is a recognized spot where G-Man's range should be heavily weighted toward over pairs (AA-QQ) and sets (now full houses). K-10 is clearly the bottom of his range. Key insight: Fabian should have all the jacks (having limped/called from CO, he can represent J-x hands that G-Man as SB would not have). Bluffing here represents exactly sets and over pairs on a board where K-10 has zero showdown value. This is precisely the hands the agent spec says to bluff with: stone-bottom of range, no showdown value, board that favors a bluff. Result: Fabian correctly folds Q-8s and G-Man wins. Jonathan specifically praises G-Man's "nice understanding of what his range looks like."</p>
+</div>
+
+<div class="box box-example">
+  <span class="box-label">Worked Example &mdash; The River Bluff That Should Have Been Made</span>
+  <p><strong>Setup:</strong> Harry (splashy) limps. Fabian opens A-A in CO. 4 players see flop. Pot ~$220. Board: K-9-7 with flush draw.</p>
+  <p><strong>Turn:</strong> Ace. Pot ~$515. Fabian checks.</p>
+  <p><strong>River:</strong> Flush and straight complete. Harry checks with 5-4 (missed). Fabian checks AA.</p>
+  <p><strong>Analysis:</strong> Harry is holding the "stone-bottom" of his range on the river and should absolutely bluff. He has 5-4 with no showdown value. If it checks through, he loses. The flush draw and straight came in, which are credible hands to represent. Jonathan recommends a big river bet "to represent the six" (or the completed draws). By checking, Harry gives up all the money he could have stolen. The EV calculation: if a river bluff of $350 into a $515 pot succeeds 40% of the time, the EV is +$140 (0.4 x $515 - 0.6 x $350 = $206 - $210 = approximately break-even at 40%, so even modest fold equity is very profitable). Any fold equity above zero makes the bluff correct given zero showdown value.</p>
+</div>
+
+<h3>Bluffing in Limp Pots from Out of Position</h3>
+<p>In limp pots from the SB/BB, when you have top pair and lead on the flop, you force a predictable reaction from your opponent. If they raise, you have a straightforward decision. If they call, you can build the pot across three streets with a graduated sizing sequence (25 flop / 60 turn / 120 river). This is the recommended approach vs. checking, which surrenders initiative and leaves you in awkward spots. The quantified value: if leading these spots earns an extra $100 per hand and you face 3 such hands per session, that is an extra $33/hour in win rate at no additional risk to your fundamental hand strength.</p>
+
+<!-- ============================================================ -->
+<h2 id="value-betting">5. Value Betting &amp; Thin Value</h2>
+
+<div class="box box-definition">
+  <span class="box-label">Definition &mdash; Cash Game Value Betting Threshold</span>
+  <p>In cash games (unlike tournaments), you should bet any time you expect to be called by a worse hand more than 50% of the time on the river, assuming you do not fear a raise. This is a lower bar than tournaments (55-60%) because in cash games, going broke has no tournament elimination cost &mdash; you simply reload and keep playing. Many $5/$10 players miss thin value by checking when they have marginal made hands that are still ahead of opponents' ranges.</p>
+</div>
+
+<h3>The Thin Value Leak at $5/$10</h3>
+<p>One of the biggest recurring leaks identified: players do not go for enough thin value on the turn and river. They see a marginal made hand and check it down, leaving money on the table. Jonathan explicitly calls this "a huge leak of cash game players." The remedy is simple: if your made hand beats more than half the range your opponent is calling with, and you don't fear a raise, make a small bet.</p>
+
+<div class="box box-example">
+  <span class="box-label">Worked Example &mdash; Pocket Jacks River Value Bet</span>
+  <p><strong>Setup:</strong> Harry (splashy) opens. G-Man calls with J-J BTN. Heads-up. Pot ~$120.</p>
+  <p><strong>Board:</strong> A-8-3.</p>
+  <p><strong>Turn:</strong> 9 of clubs (flush draw appears). Harry bets ~$200 (slightly over pot). G-Man calls. Pot ~$520.</p>
+  <p><strong>River:</strong> Blank. Harry checks.</p>
+  <p><strong>Analysis:</strong> G-Man should bet small for value &mdash; approximately $220. Harry's check is most consistent with marginal made hands (A-10, A-Q, K-Q, K-J) that will call a small bet. Hands like Q-10 and J-10 can also call. The risk is Harry check-raising as a bluff, but Jonathan notes that if you don't fear the check-raise (and Harry's style makes bluff check-raises unlikely), you should bet whenever you're a favorite when called. G-Man does bet $300 and gets called, winning the pot. Jonathan's critique: the size may have been slightly too large; $220 would have gotten called "every time" whereas $300 may cause some folds. The lesson: on the small side of your opponent's estimated call threshold.</p>
+</div>
+
+<div class="box box-example">
+  <span class="box-label">Worked Example &mdash; Sizing the River Value Bet (Blocker Effect)</span>
+  <p><strong>Setup:</strong> 3-way pot. Big blind has A-K. G-Man had 6-5 (flopped trip sixes). King-two (Harry) was bluffing. Pot ~$1,330 on river (queen falls). G-Man bets $900 with trip sixes.</p>
+  <p><strong>Analysis:</strong> G-Man's sizing is critiqued as possibly too large. He holds a queen on the board, which means he is "blocking ace-queen." His opponent is most likely to have A-K or A-J (not A-Q since the queen is out). Those hands may or may not call $900, but they would reliably call $580-$600. The principle: when you hold a card that eliminates some of the best hands in your opponent's calling range, your effective calling threshold drops. Sizing slightly below their likely call threshold &mdash; say $580-$600 &mdash; ensures you get called every single time, rather than risking a fold at $900. The EV difference: if A-K calls $600 100% of the time vs. $900 only 70% of the time, the smaller bet extracts 0.3 x $600 = $180 more EV, even though it charges less per call.</p>
+</div>
+
+<!-- ============================================================ -->
+<h2 id="3bet-4bet">6. 3-Bet and 4-Bet Dynamics</h2>
+
+<h3>When to 3-Bet vs. Call</h3>
+<p>Against opponents playing wide, loose ranges, 3-betting more hands is generally correct because you get extra value from their garbage. Against tighter opponents (Robin, Fabian), calling with moderate hands (JJ, 10-10, AJs) is more defensible because those opponents' ranges are stronger and your fold equity with 3-bets is lower.</p>
+
+<div class="box box-example">
+  <span class="box-label">Worked Example &mdash; G-Man Calls JJ vs. Harry's Open</span>
+  <p><strong>Setup:</strong> Harry opens to $30 (Harry plays 60-70% of hands). G-Man on BTN holds J-J. He calls. Pot ~$75 heads-up.</p>
+  <p><strong>Board:</strong> A-7-2 (Jonathan recommends small bet for Harry, ~$25).</p>
+  <p><strong>Analysis:</strong> Jonathan identifies the call as a mistake. "If you're not 3-betting with jacks, what are you 3-betting with? And the answer is essentially nothing." Against Harry's wide opening range (7-2o included), JJ is a clear 3-bet for value. Harry would call a 3-bet to ~$100 with A-9, K-10, Q-8, and similar dominated hands. G-Man's call misses a street of value building and also leaves him in a weaker position vs. an A on the flop. Correct play: 3-bet to approximately $100.</p>
+</div>
+
+<h3>3-Bet Sizing</h3>
+<p>Standard 3-bet: approximately 3.5x the original raise. If opponent opened $40, 3-bet to ~$140-$150. From out of position, go slightly larger to compensate for the positional disadvantage. The observed error in the session: a player 3-bet to $205 over a $40 open, which is over 5x and forces the opponent into a binary shove-or-fold decision. This eliminates action from hands like A-J, A-Q, J-J, 10-10 that would call a more standard sizing and stack off later.</p>
+
+<div class="box box-trap">
+  <span class="box-label">Trap &mdash; Oversized 3-Bet Eliminates Action</span>
+  <p>Robin 3-bet to $205 over an UTG $40 open (pocket queens). The oversized 3-bet forced the opponent into a pure shove-or-fold decision. An optimal $115 3-bet would have kept A-J, A-Q, J-J in, with all those hands liable to stack off on a favorable flop. By making it $205, Robin lost action from everything except the strongest hands that always call anyway, and forced marginal holdings to fold. Against amateur players especially, you want smaller 3-bets to keep them in the pot.</p>
+</div>
+
+<h3>4-Bet Decisions</h3>
+<p>Facing a 3-bet with a strong hand, the key consideration is whether a 4-bet or a call generates more EV. When facing a large 3-bet (like $205) from a player who has been tight, 4-betting forces them to shove or fold with a strong range, but calling retains pot control and allows you to get stacks in on favorable flops. Against non-folding opponents (who will call 4-bets with pairs and AK), shoving preflop with AA/KK/QQ is generally superior because it guarantees all the money goes in while you are a significant favorite.</p>
+
+<div class="box box-example">
+  <span class="box-label">Worked Example &mdash; Pocket Kings 4-Bet Spot</span>
+  <p><strong>Setup:</strong> Robin opens $40 UTG (tight image). Leo 3-bets to $205 HJ (big size). Robin holds K-K. He puts in a small 4-bet (~$450), leaving Leo to call or shove.</p>
+  <p><strong>Board:</strong> A-7-3. Robin shoves the flop all-in.</p>
+  <p><strong>Analysis:</strong> Robin's flop all-in is a significant mistake. Against Leo's 3-bet range (which now calling the 4-bet implies a very strong hand &mdash; almost certainly AA or KK/QQ), Robin's KK is in a bad spot when an ace appears. The correct play: check the A-7-3 flop and give Leo the opportunity to bluff or bet with hands like QQ, JJ, and AQ. Then bet small on the turn. By shoving the flop, Robin forces Leo to play perfectly &mdash; an amateur with a glass of wine easily folds his overpair to a shove on an ace-high board. Jonathan: "If Robin just jammed before the flop, he gets paid every time. Instead, he only wins 40 big blinds instead of 100 and that is a big, big mistake." The EV difference between getting stacks in preflop vs. the result achieved (winning just the 3-bet) is approximately 60 big blinds worth of potential EV.</p>
+</div>
+
+<!-- ============================================================ -->
+<h2 id="draws">7. Playing Draws</h2>
+
+<div class="box box-definition">
+  <span class="box-label">Definition &mdash; Draw Hierarchy</span>
+  <p>Not all draws are equal. A nut flush draw on a coordinated board is very different from an open-ended straight draw where many of your outs complete your opponent's better hands. Jonathan explicitly states that "some draws are junk" and can be folded even when they are open-ended straight draws. Key factors: (1) How clean are your outs? (2) Do the outs also improve your opponent's range? (3) Do you have position to realize equity cheaply?</p>
+</div>
+
+<h3>Drawing in Position vs. Out of Position</h3>
+<p>Position dramatically changes draw strategy. In position with a draw, you often benefit from calling and using the draw as a semi-bluffing tool on later streets &mdash; betting when you hit, and sometimes betting when you miss to pick up the pot. Out of position with a draw, the problem is clear: your opponent will check behind on turns when they have nothing, denying you free equity, and bet when they have something, forcing you to call or fold. The positional disadvantage means draws out of position require either (a) a raise to fold out equity or (b) much stronger draws to justify calling.</p>
+
+<div class="box box-example">
+  <span class="box-label">Worked Example &mdash; Robin's 6-5 Suited Check-Raise Spot</span>
+  <p><strong>Setup:</strong> JCW raises UTG. Robin calls SB with 6-5s. Heads-up. Pot ~$85.</p>
+  <p><strong>Board:</strong> 7-5-4 (two-tone). Robin has middle pair + open-ended straight draw.</p>
+  <p><strong>Turn:</strong> 8 (completes the straight). Pot ~$180. JCW bets $125.</p>
+  <p><strong>Analysis:</strong> Robin now has the nuts (6-5 on 7-5-4-8 = straight). He should check-raise to build the pot. Jonathan recommends making it ~$340. With the nut straight, check-raising allows JCW to continue with his draws and top pairs, whereas a call disguises the hand. JCW should call the check-raise (not shove), understanding he is likely behind but has decent equity with his draw. Robin then faces a decision on the river paired board. River: 8 (pairs the board). Jonathan analyzes the river extensively: Robin should check and let JCW bet into him rather than leading and making his hand obvious. When you take the line bet-check-raise-call, your range is very polarized and opponents will only call with the nuts. Contrast: if Robin checks and JCW bets, Robin can call and extract value from all of JCW's bluffs and value bets into what he thinks is a checked-behind range.</p>
+</div>
+
+<div class="box box-example">
+  <span class="box-label">Worked Example &mdash; The "Junk Draw" (6-5 OOP, Turn Raise)</span>
+  <p><strong>Setup:</strong> G-Man has 6-5 of clubs (unknown), OOP. Opponent is Gavin. Pot ~$380 after G-Man bet OOP on turn and called a raise.</p>
+  <p><strong>River:</strong> Comes a club (flush in). G-Man checks. JCW bets ~$125. G-Man folds.</p>
+  <p><strong>Analysis:</strong> Jonathan traces the mistake back to the turn. G-Man bet his draw OOP, then called a raise. The problem: "9 of hearts and 3 of hearts are not particularly good on the river so he really doesn't have very many outs." The draw was a 6-5 on a board where the outs either don't help enough or give the opponent better hands. This led to a scenario where G-Man bet/called OOP and then couldn't profitably continue. The lesson: if your draw is an open-ended straight draw but the completing cards also complete flush draws or give opponents better straights, it is often a fold or a check-fold spot, not a raise spot. Jonathan: "6-5 is just a hand you can actually check fold. It is a really really bad draw."</p>
+</div>
+
+<h3>Turn Overbets with Draws</h3>
+<p>When holding a strong draw on the turn with no showdown value, consider overbetting (pot-sized or greater). This achieves two things: (1) maximum fold equity against medium-strength hands, and (2) protection against being called by mediocre hands that have some equity but would fold to a large bet. Example: In the hand where Harry has K-2s as a bluff and the pot is $430, Jonathan recommended a bet of $600+ (over the pot) rather than the $300 bet made, specifically because "no one's folding an ace for $300. But if you bet $600 or $680, maybe you can start making people fold an ace."</p>
+
+<!-- ============================================================ -->
+<h2 id="hand-examples">8. Complete Hand Analysis Archive</h2>
+
+<h3>Hand 1: Ace-Nine 3-Bet vs. Button &mdash; The Bet-Small Principle</h3>
+
+<div class="box box-example">
+  <span class="box-label">Worked Example &mdash; A-9 as a Bluff in 3-Bet Pot</span>
+  <p><strong>Setup:</strong> JCW (BB) holds A-9 of diamonds. Button open, JCW 3-bets to ~$110. Button (pocket sevens) calls. Pot ~$235 heads-up. Effective stacks ~$1,500 behind.</p>
+  <p><strong>Board:</strong> 5-2-2.</p>
+  <p><strong>Jonathan's Plan for A-9:</strong> "I would play this exactly like I would play aces because this is one of your bluff hands. You want to ask: how would I play aces in this scenario? I would typically bet small, bet small, bet big." Recommended: bet $100 on flop, ~$185 on turn, large on river.</p>
+  <p><strong>Turn:</strong> 6 (board: 5-2-2-6). JCW bets ~$185. Pocket sevens calls.</p>
+  <p><strong>Error:</strong> Pocket sevens RAISES the turn. Jonathan's analysis: "By raising, he made his opponent fold a hand that was drawing very thin." Sevens is turning a hand that has showdown value into a pure bluff when the only range that calls is AA/KK/QQ/JJ/10-10 (all of which dominate sevens). The raise eliminates all the bluffs (like A-9) that were going to fold to a big river bet anyway, while losing all the times JCW has the pocket pair he's claiming to have. Sevens should call the turn and see the river.</p>
+  <p><strong>River:</strong> Queen. JCW gives up (checks). G-Man bets $900 with trip sixes, JCW (A-K) faces fold. Jonathan: JCW should probably fold because no realistic hand in G-Man's line is a bluff given the action, but the sizing critique applies &mdash; G-Man's $900 may be slightly too large given the queen blocker.</p>
+</div>
+
+<h3>Hand 2: Pocket Queens vs. Tight 3-Bet (Oversized 3-Bet Error)</h3>
+
+<div class="box box-example">
+  <span class="box-label">Worked Example &mdash; Robin 3-Bets to $205, Flops KK Overpair</span>
+  <p><strong>Setup:</strong> UTG opens $40. Robin (HJ) holds Q-Q and 3-bets to $205. UTG (K-K) 4-bets small (men raise). Robin then shoves. UTG calls. Pot ~$1,400+.</p>
+  <p><strong>Board:</strong> A-7-3. Robin shoves (remaining $1,000+).</p>
+  <p><strong>Analysis:</strong> Two errors compound. First, the $205 3-bet was too large &mdash; should be ~$115. Second, jamming the A-high flop with K-K is catastrophic: "Every ace is going to call and every pocket queens and worse is going to fold." The correct play: check the A-7-3 flop with KK. Give opponent the opportunity to bet QQ, JJ, AQ into you. Then value bet turn small. Instead, Robin's jam allows the opponent with AQ to make a trivial decision. Jonathan: "A much better play is to check and give your opponent the opportunity to bluff or let it go check, check flop, check, check turn, and then you value bet the river small." The EV cost: Robin likely wins only the pre-flop money vs. what should be 100+ big blinds in EV with KK vs. a player's typical 3-bet calling range.</p>
+</div>
+
+<h3>Hand 3: The "Bet Small vs. Draw Dead" Rule</h3>
+
+<div class="box box-example">
+  <span class="box-label">Worked Example &mdash; Gavin's A-A on A-K-J Board vs. Two Players</span>
+  <p><strong>Setup:</strong> Fabian holds A-A (UTG+1, opens $30). JCW calls K-J BTN. Heads-up. Pot ~$70.</p>
+  <p><strong>Board:</strong> A-K-J. JCW flops top pair (K) with OESD gut-shot (any Q, any 10). Fabian bets $45 (small, correct). JCW calls.</p>
+  <p><strong>Turn:</strong> 9 (JCW now has OESD). Fabian bets $115.</p>
+  <p><strong>JCW Raises to $470.</strong></p>
+  <p><strong>Analysis:</strong> Jonathan says the raise works out "perfectly this time" because JCW has the nuts (K-J makes the best two pair / straight combination on this board). But the general principle is complex: raising with K-J here forces Fabian with AA to either fold or call off, and Fabian gets off the hook. This hand showcases an important meta-principle: when your opponent shows obvious strength (bet, bet, raise), they almost certainly have what they're representing. Fabian folds AA correctly. JCW's raise sizing ($470 into ~$280) was slightly too large &mdash; $380 would have been sufficient to put Fabian in a miserable spot while keeping the bet-to-stack ratio manageable.</p>
+</div>
+
+<h3>Hand 4: The Nut Flush Fold Disaster</h3>
+
+<div class="box box-example">
+  <span class="box-label">Worked Example &mdash; JCW Folds the Nut Flush (Massive Mistake)</span>
+  <p><strong>Setup:</strong> 3-bet pot. JCW holds J-10 of hearts. Board develops to: 5-5-J-9-5 (with four hearts). JCW has made the nut flush (with J-10h on a 5h-5x-Jh-9h-5x board &mdash; or equivalent). Pot ~$795. JCW bets $800.</p>
+  <p><strong>Leo (wine-drinking, splashy player) raises all-in.</strong></p>
+  <p><strong>Analysis:</strong> Jonathan walks through the combination counting carefully. Full houses: 5-2 (one combo), 9-5 (two combos), pocket nines (three combos), pocket twos (three combos) = approximately 10 combos. Flush draws that Leo might overvalue: J-8, J-7, 10-8, 10-7, 8-7, 8-6, 7-6 = 8+ combos. Given JCW needs to win only ~33% of the time at the pot odds offered ($2,000 to win ~$6,000), and there are roughly equal parts bluffs/overvalues vs. full houses, this is an easy call. Jonathan: "If you had to look at a guy who may overvalue their hand, it's going to be a guy who is clearly limping a lot of hands, raising some hands, splashing around after the flop, had a bottle of wine, that's not the guy you want to fold to." JCW folds. Incredible result &mdash; Leo was indeed overvaluing a flush. Jonathan is stunned. Key lesson: "A lot of people pride themselves in making big folds. But especially against players who are capable of overvaluing their hand, you're not going to make money making big folds. You're going to make money making big calls."</p>
+</div>
+
+<h3>Hand 5: Ace-King Must 4-Bet (Not Flat Call)</h3>
+
+<div class="box box-example">
+  <span class="box-label">Worked Example &mdash; Robin Flat-Calls A-K vs. 3-Bet (Error)</span>
+  <p><strong>Setup:</strong> Mike (very tight, has played 1 hand in 50 hands) 3-bets to $130-$150 with J-3s (creative bluff using tight image). Robin in BB holds A-K. Robin flat-calls.</p>
+  <p><strong>Board:</strong> Q-x-x. Mike c-bets ~$120-$150. Robin faces a tough spot OOP with A-K high.</p>
+  <p><strong>Analysis:</strong> Jonathan is clear: "You typically want to be re-raising with ace king, aces, kings, queens, and jacks in almost all scenarios." By flat-calling, Robin ends up OOP facing a c-bet with ace-high and basically nothing. He then check-calls once and folds, losing 15 big blinds in a spot where he should have 4-bet and either won the pot preflop or gotten all-in as a significant favorite if Mike 5-bet shoves with his 3-bet range. Jonathan: "He lost 15 big blinds in a spot where he could have just easily won the pot or worst case gotten it in close enough to a flip." The alternative: 4-bet to ~$400, then shove any flop. Against Mike's tight-image 3-bet range (mostly value hands), you are roughly even money to a flip, which is vastly better than losing 15bb to a missed c-bet sequence.</p>
+</div>
+
+<h3>Hand 6: Fabian's Pocket Aces &mdash; Missed Three Streets of Value</h3>
+
+<div class="box box-example">
+  <span class="box-label">Worked Example &mdash; AA Checks Turn and River (Fatal Value Leak)</span>
+  <p><strong>Setup:</strong> Fabian holds A-A (UTG+1, opens $30). Harry calls (splashy, wide range). Multi-way pot. Pot ~$130.</p>
+  <p><strong>Board:</strong> K-9-7 with flush draw. Fabian bets $140 (good).</p>
+  <p><strong>Turn:</strong> Ace of hearts. Pot ~$515. Fabian checks.</p>
+  <p><strong>River:</strong> Something. Fabian checks again. Pot is checked down. Harry had 5-4 and misses.</p>
+  <p><strong>Analysis:</strong> "Definitely a big leak here by Fabian. You've got to go for value. I would be embarrassed to show the pocket aces." The turn ace is a gift card &mdash; Fabian now has top set (trips with aces on an A-K-9-A board). Harry is likely still in with jacks, queens, flush draws, and random pairs. All of those hands should call a $360 turn bet. Then on the river, with Harry checked to, Fabian should bet $200-$300 to extract from jacks and queens. Jonathan even notes that a small river bet might induce Harry to raise as a bluff with his 5-4, adding additional value. Total missed EV: approximately $500-$600 in value given Harry would call 2-3 streets with his holding.</p>
+</div>
+
+<h3>Hand 7: Fabian vs. JCW &mdash; The River Lead Error</h3>
+
+<div class="box box-example">
+  <span class="box-label">Worked Example &mdash; Leading Into a Checked-Down Range (Line Error)</span>
+  <p><strong>Setup:</strong> Fabian has A-A. JCW raises turn to $470 (K-J). Fabian calls. Turn is a 9. Pot ~$1,100.</p>
+  <p><strong>River:</strong> Pairs. Fabian leads small (~$100-$150).</p>
+  <p><strong>JCW raises small. Fabian re-raises. JCW folds.</strong></p>
+  <p><strong>Analysis:</strong> Jonathan identifies the river lead as the critical error. "The line of bet, your opponent calls, bet your opponent raises, you call, then lead the river is so blatantly face-up to where you just let your opponent off the hook." When Fabian leads the river after bet-call on turn, her range is telegraphed as either: (a) a blocking bet with a medium hand that's folding to a raise, or (b) the absolute nuts. JCW can now raise small to price out case (a). Better line: check the river. JCW, holding K-J (top pair / straight draws missed), is likely to bet $600-$700 as a value bet or bluff. Fabian then check-raises all-in, and JCW is in an agonizing decision that he might actually call. The result: JCW correctly folds to the small lead/re-raise sequence because the line was too obviously the nuts. Jonathan: "Instead of winning 100 big blinds, he only wins 40."</p>
+</div>
+
+<h3>Hand 8: 9-5 Suited 3-Bet Pot &mdash; JCW's Set on Ace-High Board</h3>
+
+<div class="box box-example">
+  <span class="box-label">Worked Example &mdash; Flopping a Set in a 3-Bet Pot</span>
+  <p><strong>Setup:</strong> JCW raises UTG. Gavin calls (or 3-bets setup varies). JCW flops a set (pocket fives on A-9-5, or similar). Pot ~$215.</p>
+  <p><strong>Analysis:</strong> "You're so happy when you make a set and there's an ace on the board because you are just counting your money." Jonathan recommends betting on the bigger side (~$130) because opponents are likely to have big cards (A-x) that will never fold, and there are gut-shot draws available. The key point: when you flop a set with an ace on board, you have the second-nut hand in most situations (losing only to sets of aces). Opponents with A-x are pot-committed. Bet around half-pot to give them correct odds to call and build the pot.</p>
+</div>
+
+<h3>Hand 9: Leo's Ace-Jack Flush &mdash; The Overvalue Raise</h3>
+
+<div class="box box-example">
+  <span class="box-label">Worked Example &mdash; Leo Raises the River with Ace-Jack Flush (Overvalue)</span>
+  <p><strong>Setup:</strong> JCW holds K-Q of hearts (nut-ish flush). Leo holds A-J of hearts (nut flush, better). 3-bet pot. Board runs out with four hearts. River: JCW bets $800 (large). Leo raises all-in.</p>
+  <p><strong>Blocking analysis:</strong> JCW holds K and Q of hearts. Leo cannot have K-Q, K-J, K-10, Q-J, Q-10, J-10 heart draws &mdash; all blocked. Leo's flush must be A-x of hearts where x is not K, Q, or J (blocked by JCW). That means Leo has A-9h, A-8h, A-7h, etc. &mdash; all weaker than JCW's K-Q flush (wait, actually Leo has A-J, which beats K-Q).</p>
+  <p><strong>JCW's decision:</strong> Against Leo's calling range and raising range, Jonathan does the combination math: Leo raising here is either overvaluing a weaker flush (unlikely given JCW's blockers) OR has A-Xh which beats the K-Q flush. Jonathan recommends a call but JCW tanks and folds. Jonathan's verdict: the fold is barely defensible but the math suggested a call based on the number of overvalue combos vs. value combos. The real lesson is about the raiser (Leo): "If you're going to bet the river with that hand, you have to be willing to fold it." Leo's raise is a mistake &mdash; he should call rather than raise with a flush that does not block the best possible flushes his opponent can hold.</p>
+</div>
+
+<h3>Hand 10: G-Man's Check-Raise with King-Jack on Coordinated Board</h3>
+
+<div class="box box-example">
+  <span class="box-label">Worked Example &mdash; Raising to Steal Vs. Robocop's Draw</span>
+  <p><strong>Setup:</strong> Robocop opens UTG (tight image). G-Man calls HJ with K-J. Heads-up OOP. Pot ~$570. Robocop bet $375 (too large per Jonathan).</p>
+  <p><strong>Board:</strong> K-J-x-x (coordinated, G-Man has top two pair or flush draw combination).</p>
+  <p><strong>G-Man raises to ~$875.</strong></p>
+  <p><strong>Analysis:</strong> Jonathan praises the raise. "Even if he's tight, he's still gonna have some bluffs in there &mdash; ace-king and ace-queen which will fold to a raise. And that's why you really need to raise in this spot." G-Man's raise makes Robocop fold his range of A-K and A-Q (which were bluffing/betting for value), while G-Man gets free equity to improve or just steals the pot. Result: Harry folds top pair (pair on board), G-Man steals the pot. Jonathan: "Another, another, another good spot &mdash; well this hand went really fast &mdash; he made Harry fold a pair and just stole the pot from Robocop."</p>
+</div>
+
+<h3>Hand 11: The Right Way to Play Suited Connectors Aggressively</h3>
+
+<div class="box box-example">
+  <span class="box-label">Worked Example &mdash; Robocop 3-Bets Q-8 Suited (Correct Exploit of Tight Image)</span>
+  <p><strong>Setup:</strong> JCW opens (reasonably standard player). Robocop has played very few hands over 25+ hands. He 3-bets Q-8s from the BTN to ~$100.</p>
+  <p><strong>Analysis:</strong> Jonathan praises this: "I actually like this. This is a hand that I was going to say was not quite good enough to call a preflop raise. So if you're going to play it, you want to 3-bet it." The logic: Q-8s is too weak to call and hope to realize equity OOP, but as a 3-bet bluff from a player with an ultra-tight image, it likely gets through frequently. If called, Robocop can bet small with a range advantage on most boards (~$240 into a ~$600 pot). Jonathan: "Remember how I think it was Mike who I said played way too tight and got no action? Well here, Robocop's doing exactly that. Playing tight, not getting action. But that's good when you're bluffing." Result: 3-bet wins the pot preflop.</p>
+</div>
+
+<!-- ============================================================ -->
+<h2 id="live-reads">9. Live Reads &amp; Table Dynamics</h2>
+
+<h3>Physical Tells Observed</h3>
+
+<div class="box box-example">
+  <span class="box-label">Worked Example &mdash; The Heavy Breathing Tell</span>
+  <p><strong>Setup:</strong> UTG raises. Fabian calls. Flop comes A-J-x with flush draw. Fabian has top pair + nut flush draw + other equity. A player looks down and starts breathing heavily, visibly excited.</p>
+  <p><strong>Jonathan's read:</strong> "He is so excited. And if this guy is that excited, you just need to fold. If I'm sitting here with King-Jack or Ace-Jack even and this guy is looking all of a sudden like they have something &mdash; they are excited, they are ready to play &mdash; you need to fold." The heavy breathing correlates with a strong made hand or strong draw. When players with a strong hand check-raise after visible excitement, their range is extremely narrow. Jonathan's advice: "Notice he took a second to kind of look around and see what he had. He's excited. Look at his breathing right here &mdash; his breathing is so heavy. He is so excited." This applies to any player who suddenly becomes animated or breathes differently when facing or initiating a large bet.</p>
+</div>
+
+<div class="box box-example">
+  <span class="box-label">Worked Example &mdash; Looking Back at Cards Before Acting = Strength</span>
+  <p><strong>Repeated observation across multiple hands:</strong> "Definitely do not look back at your hand and then raise. That's almost always a sign of extreme strength." Multiple times in this session, Jonathan identified players who looked back at their hole cards before raising or calling a large bet and subsequently showed the near-nuts. This is one of the most reliable tells in live poker: looking at your hand is typically done to confirm a suit or to make sure you have what you think you have &mdash; actions done when your hand is good. Bluffers rarely need to re-check their cards.</p>
+</div>
+
+<div class="box box-insight">
+  <span class="box-label">Key Insight &mdash; When People Are Excited, They Stand Up</span>
+  <p>Jonathan notes: "As a general read, when people are excited they stand up. Typically when people are bluffing they try to appear as tiny as possible, which implies not standing up." A player who suddenly shifts their posture to become more upright or leans in when they are betting large is likely excited about their hand. Conversely, players hunching, looking away, or making themselves small are often bluffing and trying to appear unthreatening.</p>
+</div>
+
+<h3>Table Talk</h3>
+<p>Players who talk at the table are worth correlating with hand results. Jonathan notes: "You can see that this player says whatever, whenever he has the nuts, and you can see him either say nothing or say something different when he has a bluff, and it's a very good thing to correlate." If you notice a player consistently chatting when they have strong hands and going quiet when bluffing (or vice versa), this is an exploitable pattern that improves your decision quality substantially over a session.</p>
+
+<h3>The "Checked Out" Tell</h3>
+<p>When a player mentally disengages from a pot &mdash; looking away, fidgeting with chips but not really processing, or giving general body language of disinterest &mdash; they are "checked out." This is important because if Player A is still interested and Player B is checked out, Player A's bet is more likely to be for value than as a bluff (since a bluff would not matter if Player B is folding anyway). Jonathan specifically mentions "try to find if Harry's checked out or not. Like if he's just done with the pot, that should make you a little bit more inclined to call."</p>
+
+<!-- ============================================================ -->
+<h2 id="game-selection">10. Game Selection &amp; Exploitative Adjustments</h2>
+
+<h3>Identifying Player Types</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>Player Type</th>
+      <th>Characteristics Observed</th>
+      <th>Exploitation Strategy</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Harry (Splashy Loose)</td>
+      <td>Opens 60-70%+ of hands; plays 7-2o, 8-4s, 10-3o, Q-4s preflop; calls bets with marginal hands but folds top pair to large bets; sometimes bluffs randomly</td>
+      <td>3-bet wide linear range for value; bet thinly for value (he calls marginal hands); don't bluff into him; when he leads large, lean toward folding average hands but not strong ones</td>
+    </tr>
+    <tr>
+      <td>G-Man (Splash-but-Smart)</td>
+      <td>Plays too loose preflop (K-4s, Q-4s, 9-7s, 5-2o from early); but navigates postflop well; makes disciplined folds with top pair on scary boards; runs credible 3-barrel bluffs</td>
+      <td>Don't give him credit for premium hands based on early position alone, but respect his betting patterns postflop; he understands range advantage and will bluff in spots where his range is polarized</td>
+    </tr>
+    <tr>
+      <td>Fabian (Tight-Passive Leaking Value)</td>
+      <td>Plays reasonably tight ranges preflop; but consistently misses streets of value postflop; checks back strong hands on turn/river</td>
+      <td>Don't be intimidated by his bets (he bets less often, so bets carry more weight &mdash; but also call him down more when he does get to showdown); exploit his passivity by stealing more pots in multi-way scenarios</td>
+    </tr>
+    <tr>
+      <td>Robin (Tight-ish, Tactical Errors)</td>
+      <td>Generally tight opener; makes oversized 3-bets and 4-bets that eliminate action; flop shoves with KK on ace-high boards</td>
+      <td>Respect his opening range as strong; when he 3-bets/4-bets large, lean toward folding marginal hands but continue with premiums; exploit his postflop passivity (he under-bets value streets)</td>
+    </tr>
+    <tr>
+      <td>Robocop (Ultra-Tight, Disciplined)</td>
+      <td>Plays &lt;10% of hands; when he does enter a pot, he usually has a strong hand; willing to 3-bet occasionally with suited hands as image-exploitation; makes tough folds with medium hands</td>
+      <td>Give him lots of credit when he opens or 3-bets; fold marginal hands to his aggression; when he checks behind repeatedly, he may have a marginal hand you can bluff on the river</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3>Break Timing: The Harry Rule</h3>
+
+<div class="box box-insight">
+  <span class="box-label">Key Insight &mdash; Take Breaks When the Weak Player Leaves</span>
+  <p>When a weak, action-generating player (Harry in this example) is away from the table taking a break, that is when you should take your break. If you win $100/hour against Harry, you might only win $20/hour when he is gone. Choosing to take your bathroom break, meal break, or stretch during weak player absences rather than during their presence is worth approximately $80/hour in EV in this example. Jonathan: "You'd much rather take your break whenever you're getting paid $20 an hour as opposed to when you're winning $100."</p>
+</div>
+
+<h3>Straddling Policy</h3>
+<p>When the table is straddling, you should straddle too. Not straddling while others do effectively removes you from the equation and may cause the gambling players to stop straddling, drying up the action. The EV of straddling in a neutral sense is approximately zero (you post a double-blind and get last action preflop). But the game dynamics benefit of keeping action players straddling is clearly positive. Jonathan: "If you are a poker professional and you're playing with someone who can just show up and buy in for $6,500, that guy's probably a boss. Do not think you are better at life than them because you're better at poker."</p>
+
+<div class="box box-trap">
+  <span class="box-label">Trap &mdash; Playing Too Many Hands When Others Straddle</span>
+  <p>Even while matching the straddling culture, do not dramatically loosen your calling ranges from early/middle position just because the straddle has inflated the pot. Hands like K-10o, Q-9o, and 8-4s from UTG are still garbage regardless of whether there is a straddle. The straddle does adjust what hands are profitable to defend from the BB/SB (you get slightly better pot odds), but it does not justify calling from early positions with dominated offsuit hands.</p>
+</div>
+
+<h3>Playing Against Players Who Will Call Anything</h3>
+<p>When opponents will call large raises with 6-4s, 10-2s, and similar trash, the correct adjustment is not to play "normal" sized bets &mdash; it is to raise even larger and put money in as a huge equity favorite. Jonathan: "If they will call big raises, raise big. There's nothing wrong with raising big if they're going to call you every time." If a player is going to call $120 raises with Q-4s, raising to $12 big blinds or even larger is correct because you are extracting maximum EV from their willingness to pay inflated prices with poor hands.</p>
+
+<div class="box box-insight">
+  <span class="box-label">Key Insight &mdash; The "Frustrating Game" Is the Best Game</span>
+  <p>Players who complain that "my opponents never fold" are confused about their edge. Opponents who never fold are the most profitable opponents. You don't need fold equity when your opponents call with dominated hands &mdash; you just need to have the best hand and let them pay off. The only adjustment: tighten your bluff frequency and focus on value betting accurately. Jonathan: "All you have to do is sit there, get the best hand, put your money in, and rake in the dough."</p>
+</div>
+
+<div class="footer">
+  Source: PokerCoaching.com &mdash; Jonathan Little &mdash; Beating $5/$10 Cash Games (Live at the Bike Review, 78 Hands)
+</div>
+
+</body>
+</html>

@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>How to Beat the Microstakes &mdash; Quick Reference</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Source+Serif+4:ital,wght@0,400;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+  onload="renderMathInElement(document.body,{delimiters:[{left:'\\(',right:'\\)',display:false},{left:'\\[',right:'\\]',display:true}],throwOnError:false});"></script>
+<style>
+:root {
+  --bg: #FFFFFF;
+  --text: #000000;
+  --text-dim: #525252;
+  --border: #000000;
+  --border-light: #E5E5E5;
+  --blue: #2563EB;
+  --purple: #7C3AED;
+  --orange: #EA580C;
+  --red: #DC2626;
+}
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; border-radius: 0 !important; }
+
+body {
+  font-family: 'Source Serif 4', Georgia, serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 40px 24px 80px;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3 { font-family: 'Playfair Display', serif; font-weight: 700; }
+h1 { font-size: 2.4rem; font-weight: 900; margin-bottom: 8px; }
+h2 { font-size: 1.4rem; margin-top: 48px; margin-bottom: 12px; padding-bottom: 4px; border-bottom: 2px solid var(--border); }
+h3 { font-size: 1.05rem; margin-top: 20px; margin-bottom: 8px; }
+
+.subtitle {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.85rem;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 40px;
+}
+
+.back-link {
+  display: inline-block;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text-dim);
+  text-decoration: none;
+  margin-bottom: 2rem;
+}
+.back-link:hover { color: var(--text); }
+
+p { margin-bottom: 12px; font-size: 0.95rem; }
+
+table { width: 100%; border-collapse: collapse; margin: 12px 0 20px; font-size: 0.9rem; }
+th, td { padding: 8px 10px; border: 1px solid var(--border-light); text-align: left; }
+th {
+  background: var(--bg);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border-bottom: 2px solid var(--border);
+}
+td { vertical-align: top; }
+
+.box {
+  padding: 16px 20px;
+  margin: 16px 0;
+  border-left: 4px solid;
+  background: #FAFAFA;
+  font-size: 0.93rem;
+}
+.box-label {
+  display: block;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 6px;
+}
+.box-definition { border-color: var(--blue); }
+.box-definition .box-label { color: var(--blue); }
+.box-insight { border-color: var(--purple); }
+.box-insight .box-label { color: var(--purple); }
+.box-example { border-color: var(--orange); }
+.box-example .box-label { color: var(--orange); }
+.box-trap { border-color: var(--red); }
+.box-trap .box-label { color: var(--red); }
+
+.two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 16px 0; }
+@media (max-width: 600px) { .two-col { grid-template-columns: 1fr; } }
+
+ul { margin: 8px 0 12px 20px; font-size: 0.93rem; }
+ul li { margin-bottom: 4px; }
+
+.tag {
+  display: inline-block;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  border: 1px solid var(--border-light);
+  padding: 2px 6px;
+  margin-right: 4px;
+}
+.tag-fold { background: #FEF2F2; border-color: #FECACA; color: var(--red); }
+.tag-raise { background: #F0FDF4; border-color: #BBF7D0; color: #15803D; }
+.tag-call { background: #EFF6FF; border-color: #BFDBFE; color: var(--blue); }
+
+.range-cell-raise { background: #F0FDF4; font-weight: 600; }
+.range-cell-fold  { background: #FEF2F2; }
+.range-cell-call  { background: #EFF6FF; }
+.range-cell-situ  { background: #F5F3FF; }
+
+.formula-block {
+  margin: 12px 0;
+  padding: 14px 18px;
+  border: 1px solid var(--border-light);
+  background: #FAFAFA;
+  font-size: 0.92rem;
+}
+.formula-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-dim);
+  margin-bottom: 6px;
+}
+
+.footer {
+  margin-top: 48px;
+  padding-top: 16px;
+  border-top: 1px solid var(--border-light);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  color: var(--text-dim);
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+@media print {
+  body { padding: 16px; font-size: 10pt; max-width: none; }
+  .back-link { display: none; }
+  h1 { font-size: 1.8rem; }
+  h2 { font-size: 1.2rem; break-before: auto; margin-top: 28px; }
+  h3 { font-size: 1rem; margin-top: 14px; }
+  .box { break-inside: avoid; }
+  table { break-inside: avoid; font-size: 8.5pt; }
+  .two-col { break-inside: avoid; }
+  .formula-block { break-inside: avoid; }
+  p, ul li { font-size: 9pt; }
+}
+</style>
+</head>
+<body>
+
+<a href="index.html" class="back-link">&larr; Back to How to Beat the Microstakes</a>
+
+<h1>Quick Reference</h1>
+<div class="subtitle">How to Beat the Microstakes &mdash; Alexander Fitzgerald (Assassinato) &mdash; Printable Cheat Sheet</div>
+
+<!-- ============================================================ -->
+<h2>1. Preflop Ranges by Position</h2>
+
+<p>Positions: <strong>UTG</strong> (Under the Gun), <strong>MP</strong> (Middle Position), <strong>HJ</strong> (Hijack), <strong>CO</strong> (Cutoff), <strong>BTN</strong> (Button), <strong>SB</strong> (Small Blind), <strong>BB</strong> (Big Blind).</p>
+
+<table>
+  <tr>
+    <th>Position</th>
+    <th>Open-Raise Hands</th>
+    <th>Sizing</th>
+    <th>Notes</th>
+  </tr>
+  <tr>
+    <td><strong>UTG</strong></td>
+    <td class="range-cell-fold">AA&ndash;TT, AKs, AQs, AKo. Fold everything else including A9o, QJo.</td>
+    <td>2&ndash;2.5x</td>
+    <td>Never open A9o, A6o, QJo UTG. No exceptions.</td>
+  </tr>
+  <tr>
+    <td><strong>UTG+1 / MP</strong></td>
+    <td class="range-cell-fold">AA&ndash;99, AKs&ndash;AJs, AKo&ndash;AQo, KQs</td>
+    <td>2&ndash;2.5x</td>
+    <td>Tighten further vs early-position opens.</td>
+  </tr>
+  <tr>
+    <td><strong>HJ</strong></td>
+    <td class="range-cell-situ">AA&ndash;77, AKs&ndash;ATs, KQs&ndash;KJs, AKo&ndash;AJo</td>
+    <td>2&ndash;2.5x</td>
+    <td>Check 3-bet % of players to left before opening speculative hands.</td>
+  </tr>
+  <tr>
+    <td><strong>CO</strong></td>
+    <td class="range-cell-raise">AA&ndash;66, Broadways, AXs, suited connectors (98s&ndash;54s)</td>
+    <td>2&ndash;2.5x</td>
+    <td>Villain opening CO = you can 3-bet BTN with pairs down to 66.</td>
+  </tr>
+  <tr>
+    <td><strong>BTN</strong></td>
+    <td class="range-cell-raise">Wider: 55+, most broadways, suited connectors, suited one-gappers</td>
+    <td>2&ndash;2.5x; size up vs loose BB</td>
+    <td>Check BB 3-bet %. If 0%, open liberally. If short stacks behind, tighten slightly.</td>
+  </tr>
+  <tr>
+    <td><strong>SB</strong></td>
+    <td class="range-cell-situ">Raise or fold. Limping marginal. Raise: pairs, broadways, suited connectors.</td>
+    <td>2.5&ndash;3x</td>
+    <td>Limping SB at micros with a big hand is a common trap signal.</td>
+  </tr>
+  <tr>
+    <td><strong>BB (vs raise)</strong></td>
+    <td class="range-cell-call">Defend wide vs loose openers. 3-bet strong hands or bluffs with blockers.</td>
+    <td>3&ndash;4x for 3-bet</td>
+    <td>Calling BB is hardest to profit from. Requires check-raising &amp; leading game.</td>
+  </tr>
+</table>
+
+<div class="box box-trap">
+  <span class="box-label">Trap &mdash; Cold-Calling in Early Position</span>
+  <p>Cold-calling from HJ or earlier with suited connectors and speculative hands is a significant leak. Filter your database by position for cold calls: most players show losses of &minus;40 to &minus;70 bb/100. Only BTN and sometimes CO cold calls are defensible. Fold everything else to a raise + caller.</p>
+</div>
+
+<!-- ============================================================ -->
+<h2>2. 3-Bet Guidelines</h2>
+
+<table>
+  <tr>
+    <th>Situation</th>
+    <th>Action</th>
+    <th>Reasoning</th>
+  </tr>
+  <tr>
+    <td>Loose villain (VP &gt;45%) opens, you are in position</td>
+    <td class="range-cell-raise">3-bet wide for value: pairs, AJ+, KQ</td>
+    <td>They call too much preflop; build pot with superior hands in position.</td>
+  </tr>
+  <tr>
+    <td>Tight villain (&lt;15% VP) opens early</td>
+    <td class="range-cell-fold">Fold AJo, KQo, even AQo sometimes</td>
+    <td>Dominated more often. Not worth building a pot OOP vs a strong range.</td>
+  </tr>
+  <tr>
+    <td>Short stack (&lt;20bb) behind you</td>
+    <td class="range-cell-situ">Raise smaller (2x) or just fold marginal hands</td>
+    <td>Short stacks jam or fold; your 3-bet pricing may force awkward spots.</td>
+  </tr>
+  <tr>
+    <td>Multiple short stacks behind</td>
+    <td class="range-cell-situ">Use 2x; encourages them to jam and gives you calling odds</td>
+    <td>At micros, short stacks jam with much wider ranges than at higher stakes.</td>
+  </tr>
+  <tr>
+    <td>Villain opens, limper(s) already in</td>
+    <td class="range-cell-fold">Often fold marginal hands (KTo, QJo); risk of squeeze &amp; limper reshove</td>
+    <td>Multi-way pot equity collapses for one-pair hands.</td>
+  </tr>
+  <tr>
+    <td>Bluff 3-bet candidate</td>
+    <td class="range-cell-situ">A3o&ndash;A5o vs aggressive steal-heavy opponent; ace blocks their 4-bet range</td>
+    <td>Best vs high-3bet opponents who are stealing from late position frequently.</td>
+  </tr>
+</table>
+
+<div class="box box-insight">
+  <span class="box-label">Key Insight &mdash; Check 3-Bet % Before Every Raise</span>
+  <p>Before opening a speculative hand, scan every player to your left for their 3-bet percentage. A 0% 3-bet player is a green light. Any player at 8%+ or with a short re-jam stack (&lt;20bb) is a stop sign. Getting to the big blind &mdash; who plays the most hands and the worst range &mdash; is the goal.</p>
+</div>
+
+<!-- ============================================================ -->
+<h2>3. Common Microstakes Opponent Types</h2>
+
+<table>
+  <tr>
+    <th>Type</th>
+    <th>Stats (VP / PFR / 3B)</th>
+    <th>How They Play</th>
+    <th>Exploit Strategy</th>
+  </tr>
+  <tr>
+    <td><strong>The Calling Station</strong></td>
+    <td>40&ndash;60% / 8&ndash;14% / 0&ndash;3%</td>
+    <td>Calls raises with garbage, check-calls flop &amp; turn, rarely folds a pair or a draw.</td>
+    <td>Value bet large every street. Never bluff. If they raise, they have it. Size up with TPTK on safe boards.</td>
+  </tr>
+  <tr>
+    <td><strong>The Nit</strong></td>
+    <td>10&ndash;18% / 8&ndash;14% / 0&ndash;4%</td>
+    <td>Plays only strong hands. Folds to most pressure. When they fire twice, they have it.</td>
+    <td>Fold to double-barrels. Steal their blinds frequently. Do not bluff-catch &mdash; trust their showdowns.</td>
+  </tr>
+  <tr>
+    <td><strong>The Maniac</strong></td>
+    <td>45&ndash;70% / 25&ndash;40% / 15%+</td>
+    <td>Opens huge range, fires multiple streets, raises postflop liberally with weak hands.</td>
+    <td>3-bet for value with wider range. Call down with TPTK or better. Do NOT 3-bet bluff them &mdash; they call everything.</td>
+  </tr>
+  <tr>
+    <td><strong>The Loose-Passive (Fish)</strong></td>
+    <td>30&ndash;50% / 5&ndash;10% / 0&ndash;2%</td>
+    <td>Limps frequently, calls raises OOP, checks most flops, won't bet without the nuts.</td>
+    <td>Build pot preflop when in position. Bet every street for thin value. If they check-raise or lead river, fold unless you have a strong hand.</td>
+  </tr>
+  <tr>
+    <td><strong>The Passive Reg</strong></td>
+    <td>18&ndash;28% / 12&ndash;18% / 4&ndash;8%</td>
+    <td>Knows hand selection, bets value hands but rarely bluffs. Position-aware but not exploitative.</td>
+    <td>Respect their double-barrels. Give them credit vs passive lines. Play straightforwardly; don't over-bluff.</td>
+  </tr>
+</table>
+
+<div class="box box-insight">
+  <span class="box-label">Key Insight &mdash; Don't Apply Your Logic to Micro Players</span>
+  <p>Microstakes players are not thinking about balance, MDF, or optimal defense frequencies. A player raising a small c-bet on A&hearts;-Q&diams;-9&diams; may literally have top pair and want more money &mdash; not a sophisticated semi-bluff. Read their stats, not their supposed strategy.</p>
+</div>
+
+<!-- ============================================================ -->
+<h2>4. C-Bet Guide</h2>
+
+<div class="two-col">
+  <div>
+    <h3>When to C-Bet</h3>
+    <table>
+      <tr><th>Board Type</th><th>Action</th><th>Size</th></tr>
+      <tr><td>Heads-up vs passive villain (BB caller)</td><td class="range-cell-raise">Bet for value &amp; equity</td><td>1/3&ndash;1/2 pot</td></tr>
+      <tr><td>Top pair top kicker, microstakes villain</td><td class="range-cell-raise">Bet large &mdash; they won't fold</td><td>1/2&ndash;3/4 pot</td></tr>
+      <tr><td>Dry board, one opponent</td><td class="range-cell-raise">Small stab</td><td>1/4&ndash;1/5 pot</td></tr>
+      <tr><td>Hit set in multi-way pot</td><td class="range-cell-raise">Bet for value immediately</td><td>1/2 pot</td></tr>
+      <tr><td>Overpair vs predictable passive reg</td><td class="range-cell-situ">Check &mdash; let them bet their range, fold to double-barrel</td><td>&mdash;</td></tr>
+    </table>
+  </div>
+  <div>
+    <h3>When NOT to C-Bet</h3>
+    <table>
+      <tr><th>Situation</th><th>Why</th></tr>
+      <tr><td>3+ opponents, missed board</td><td>Someone has a piece; fold equity near zero</td></tr>
+      <tr><td>Weak overpair, dangerous board, multi-way</td><td>Check to pot-control; reassess on turn</td></tr>
+      <tr><td>Tight opponent fires back</td><td>They have it. Fold.</td></tr>
+      <tr><td>High-card board, you have no equity</td><td>Pure bluff needs to work 20&ndash;33%; hard multi-way</td></tr>
+    </table>
+  </div>
+</div>
+
+<div class="box box-insight">
+  <span class="box-label">Key Insight &mdash; The Microstakes C-Bet Edge</span>
+  <p>At microstakes, a 1/4 pot bet needs to work only 20% of the time. But players here WILL call with any pair, any draw. Use larger bets for value (they still call) and save small bets for semi-bluffs on boards where they fold top pair to pressure. Big value bet + they call = you print money over time.</p>
+</div>
+
+<div class="box box-trap">
+  <span class="box-label">Trap &mdash; C-Bet Sizing That Invites Check-Raises</span>
+  <p>A tiny bet (1/5 pot) vs micro players on a live board invites "I don't believe you" check-raises. They cannot calculate pot odds &mdash; they react emotionally to bet sizes. If your c-bet is so small that calling looks free, expect calls and occasional manic check-raises with middle pair. Adjust sizing to what you want them to do with their weakest holdings.</p>
+</div>
+
+<!-- ============================================================ -->
+<h2>5. Multi-Way Pot Rules</h2>
+
+<table>
+  <tr>
+    <th>Scenario</th>
+    <th>Rule</th>
+  </tr>
+  <tr>
+    <td>3+ players, you have one pair</td>
+    <td>One pair is usually not good enough to build a big pot. Check to control size unless it is TPTK on a dry board.</td>
+  </tr>
+  <tr>
+    <td>Everyone checks the flop, turn blank</td>
+    <td>Beware pot-control traps. Passive players check hands like middle set, flush draws, two pair and wait for you to bet into them.</td>
+  </tr>
+  <tr>
+    <td>Villain leads small on the river after checking all streets</td>
+    <td>This is almost always value at microstakes. Rarely a bluff. Fold unless you have two pair or better.</td>
+  </tr>
+  <tr>
+    <td>You have a big hand (set, two pair) in multi-way pot</td>
+    <td>Bet now. Do not slow-play. Micro players happily chase draws and pay off immediately.</td>
+  </tr>
+  <tr>
+    <td>Pocket pair as a cold call, multi-way</td>
+    <td>Cold-calling with pocket pairs in early/middle position multi-way is a losing play in databases. Fold or 3-bet.</td>
+  </tr>
+</table>
+
+<!-- ============================================================ -->
+<h2>6. Key Formulas &amp; Pot Odds</h2>
+
+<div class="two-col">
+  <div>
+    <div class="formula-block">
+      <div class="formula-label">Pot Odds (% equity needed to call)</div>
+      \[\text{Equity Needed} = \frac{\text{Call Amount}}{\text{Total Pot After Call}}\]
+      <p style="margin-top:8px; font-size:0.88rem;">Example: Pot = 100, Call = 50 &rarr; 50 / 150 = <strong>33%</strong> equity needed.</p>
+    </div>
+
+    <div class="formula-block">
+      <div class="formula-label">Bet Breakeven (fold equity needed)</div>
+      \[\text{Fold Eq. Needed} = \frac{\text{Bet}}{\text{Pot} + \text{Bet}}\]
+      <p style="margin-top:8px; font-size:0.88rem;">1/4 pot bet needs to work <strong>20%</strong>. Half pot needs <strong>33%</strong>.</p>
+    </div>
+
+    <div class="formula-block">
+      <div class="formula-label">Minimum Defense Frequency (MDF)</div>
+      \[\text{MDF} = 1 - \frac{\text{Bet}}{\text{Pot} + \text{Bet}}\]
+      <p style="margin-top:8px; font-size:0.88rem;">If villain bets half pot, they need you folding &le;33% &mdash; you must defend 67%.</p>
+    </div>
+  </div>
+  <div>
+    <h3>Quick Pot Odds Table</h3>
+    <table>
+      <tr><th>Bet Size (% pot)</th><th>Fold Eq. Needed</th><th>Equity to Call</th></tr>
+      <tr><td>20% (1/5 pot)</td><td>17%</td><td>14%</td></tr>
+      <tr><td>25% (1/4 pot)</td><td>20%</td><td>17%</td></tr>
+      <tr><td>33% (1/3 pot)</td><td>25%</td><td>20%</td></tr>
+      <tr><td>50% (1/2 pot)</td><td>33%</td><td>25%</td></tr>
+      <tr><td>67% (2/3 pot)</td><td>40%</td><td>29%</td></tr>
+      <tr><td>75% (3/4 pot)</td><td>43%</td><td>30%</td></tr>
+      <tr><td>100% (pot)</td><td>50%</td><td>33%</td></tr>
+      <tr><td>200% (2x pot)</td><td>67%</td><td>40%</td></tr>
+    </table>
+
+    <h3>Outs &rarr; Equity (Rule of 2 &amp; 4)</h3>
+    <table>
+      <tr><th>Draw</th><th>Outs</th><th>Flop (x4)</th><th>Turn (x2)</th></tr>
+      <tr><td>Flush draw</td><td>9</td><td>~36%</td><td>~18%</td></tr>
+      <tr><td>Open-ended straight</td><td>8</td><td>~32%</td><td>~16%</td></tr>
+      <tr><td>Flush + gutshot</td><td>12</td><td>~48%</td><td>~24%</td></tr>
+      <tr><td>Gutshot straight</td><td>4</td><td>~16%</td><td>~8%</td></tr>
+      <tr><td>Two overcards</td><td>6</td><td>~24%</td><td>~12%</td></tr>
+      <tr><td>Pair &rarr; set</td><td>2</td><td>~8%</td><td>~4%</td></tr>
+    </table>
+  </div>
+</div>
+
+<div class="box box-insight">
+  <span class="box-label">Key Formula &mdash; The Big Call Decision</span>
+  <p>Before any big call, ask: <strong>"Does he do this with X?"</strong> where X is the best hand you beat. If the honest answer is "rarely" &mdash; fold. If "yes, sometimes, especially at microstakes where they shove wide" &mdash; call. Do not chase 100% certainty; 80% is enough.</p>
+</div>
+
+<!-- ============================================================ -->
+<h2>7. Bankroll Management</h2>
+
+<table>
+  <tr>
+    <th>Stakes</th>
+    <th>Min Buy-ins</th>
+    <th>Move Up When</th>
+    <th>Move Down When</th>
+  </tr>
+  <tr>
+    <td>$0.50&ndash;$2 MTTs (microstakes)</td>
+    <td>100&ndash;150 buy-ins</td>
+    <td>150+ buy-ins at next level</td>
+    <td>Below 75 buy-ins</td>
+  </tr>
+  <tr>
+    <td>$5&ndash;$22 MTTs (low stakes)</td>
+    <td>100 buy-ins</td>
+    <td>150 buy-ins at next level</td>
+    <td>Below 75 buy-ins</td>
+  </tr>
+  <tr>
+    <td>$50&ndash;$109 MTTs</td>
+    <td>80&ndash;100 buy-ins</td>
+    <td>Proven win rate over 1,000+ games</td>
+    <td>Below 60 buy-ins</td>
+  </tr>
+</table>
+
+<div class="two-col">
+  <div class="box box-insight">
+    <span class="box-label">Key Rule &mdash; Min Cash First</span>
+    <p>When 20% of the field is paid, your first objective is to min-cash. 298th and 68th place pay the same. Once in the money, then go for broke. Consistent min-cashes build your bankroll between deep runs.</p>
+  </div>
+  <div class="box box-insight">
+    <span class="box-label">Key Rule &mdash; Table Selection = 90% of the Job</span>
+    <p>Find the softest sites and tournaments. Crappier software = fewer multi-tablers. Live poker in vacation spots and newly opened markets = recreational players. Soft field + solid play = sustained profit without needing extreme variance.</p>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<h2>8. Positional Awareness Checklist</h2>
+
+<table>
+  <tr>
+    <th>Before Raising, Check&hellip;</th>
+    <th>What to Look For</th>
+    <th>Adjustment</th>
+  </tr>
+  <tr>
+    <td>3-bet % of each player to your left</td>
+    <td>Anyone at 8%+ is a danger; 0% = green light</td>
+    <td>Narrow opening range if 3-bettors lurk</td>
+  </tr>
+  <tr>
+    <td>Stack sizes to your left</td>
+    <td>10&ndash;20bb = rejam danger even from non-3bettors</td>
+    <td>Raise smaller (2x) to give yourself better call-odds on shoves</td>
+  </tr>
+  <tr>
+    <td>Big blind player stats</td>
+    <td>High VP = build pot; Low VP = can still use 2x to keep them in</td>
+    <td>Size up vs loose BB; keep small vs nit BB to avoid fold</td>
+  </tr>
+  <tr>
+    <td>Number of limpers</td>
+    <td>More limpers = more multi-way risk; hands like KTo lose value</td>
+    <td>Tighten raising range or use larger size to thin field</td>
+  </tr>
+</table>
+
+<!-- ============================================================ -->
+<h2>9. Quick Decision Reference</h2>
+
+<div class="two-col">
+  <div>
+    <h3>Almost Always Raise / 3-Bet</h3>
+    <ul>
+      <li>Premium pairs (AA&ndash;JJ) in any position</li>
+      <li>AK / AQs vs aggressive opener</li>
+      <li>Pairs (66+) vs loose late-position opener, you have position</li>
+      <li>AJ+ in position vs loose raiser</li>
+      <li>Suited connectors (98s, 87s) on BTN vs CO open, no 3-bettors behind</li>
+    </ul>
+  </div>
+  <div>
+    <h3>Almost Always Fold</h3>
+    <ul>
+      <li>A9o or worse UTG / MP</li>
+      <li>Suited gappers (3-gap+) facing raise + caller</li>
+      <li>KTo, QJo facing early-position raise</li>
+      <li>Cold-calling with speculative hands HJ or earlier</li>
+      <li>Any hand vs nit's UTG open if you're out of position</li>
+      <li>89o facing raise + cold call</li>
+    </ul>
+  </div>
+</div>
+
+<div class="two-col">
+  <div>
+    <h3>Fold to Villain's Action When&hellip;</h3>
+    <ul>
+      <li>Nit (&lt;18% VP) double-barrels &mdash; they almost always have it</li>
+      <li>Villain leads river after checking all streets &mdash; value, not bluff</li>
+      <li>Small c-bet gets raised on a board that hits raising range</li>
+      <li>Short stack limps then re-raises &mdash; classic micro-trap</li>
+    </ul>
+  </div>
+  <div>
+    <h3>Call / Raise Villain's Action When&hellip;</h3>
+    <ul>
+      <li>Loose villain (45%+ VP) bets after a 3-way checked flop &mdash; likely weak</li>
+      <li>You have TPTK or better and villain is a calling station</li>
+      <li>Short stack shoves in micro tournament &mdash; widen calling range; they shove anything</li>
+      <li>Villain check-raises a very small c-bet heads-up &mdash; often emotional bluff</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<h2>10. Postflop Tendencies at Microstakes</h2>
+
+<div class="box box-definition">
+  <span class="box-label">Definition &mdash; Pot-Control Trap</span>
+  <p>Micro players frequently check strong hands on the flop intending to check-call two streets. When three players check a flop and you consider betting the turn because "nobody has anything" &mdash; beware. Someone is pot-controlling a made hand. Do not fire into passive multi-way action without a strong holding.</p>
+</div>
+
+<table>
+  <tr>
+    <th>Micro Player Tendency</th>
+    <th>Exploit</th>
+  </tr>
+  <tr>
+    <td>Never folds top pair to any street, any size</td>
+    <td>Value bet every street. No bluffing. Get max chips in before river.</td>
+  </tr>
+  <tr>
+    <td>Never leads river after calling two streets</td>
+    <td>Check back river with medium-strength hands; check-call if they do lead (they have it).</td>
+  </tr>
+  <tr>
+    <td>Checks all draws hoping to see free cards</td>
+    <td>Bet to deny equity; do not give free cards to flush or straight draws.</td>
+  </tr>
+  <tr>
+    <td>Folds all high cards to c-bet, even in position</td>
+    <td>Small c-bet (1/5&ndash;1/4 pot) works very often; build fold equity cheaply.</td>
+  </tr>
+  <tr>
+    <td>Check-raises only with the nuts (or close to it)</td>
+    <td>When facing a check-raise, especially from a passive player: fold or call only with very strong hands.</td>
+  </tr>
+  <tr>
+    <td>Emotionally pot-commits after calling flop</td>
+    <td>Bet large on the turn with strong hands. "He can't fold now" is literally true.</td>
+  </tr>
+</table>
+
+<div class="box box-example">
+  <span class="box-label">Worked Example &mdash; TPTK vs Microstakes Field</span>
+  <p><strong>Setup:</strong> BTN open 2x, BB calls (VP 32%, PFR 9%). Board: J&spades;-9&diams;-7&diams;. BB checks.</p>
+  <p><strong>Analysis:</strong> Bet large (50%+ pot). BB called preflop with 9-5, 7-8, Q-J, T-8 &mdash; wide weak range. He is NOT folding a pair of any kind. Make him pay now. If turn is a blank and he checks again, bet large again. If he leads the river, he has two pair or better &mdash; fold. Total extracted EV from one hand vs this player profile is 2x higher with aggressive multi-street betting than with check/pot-control.</p>
+</div>
+
+<div class="footer">
+  Source: PokerCoaching.com &mdash; Alexander Fitzgerald (Assassinato) | How to Beat the Microstakes | Print-friendly
+</div>
+
+</body>
+</html>

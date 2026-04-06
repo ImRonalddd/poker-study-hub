@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>How to Beat the Microstakes &mdash; Revision Guide</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Source+Serif+4:ital,wght@0,400;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+  onload="renderMathInElement(document.body,{delimiters:[{left:'\\(',right:'\\)',display:false},{left:'\\[',right:'\\]',display:true}],throwOnError:false});"></script>
+<style>
+:root {
+  --bg: #FFFFFF;
+  --text: #000000;
+  --text-dim: #525252;
+  --border: #000000;
+  --border-light: #E5E5E5;
+  --blue: #2563EB;
+  --purple: #7C3AED;
+  --orange: #EA580C;
+  --red: #DC2626;
+}
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; border-radius: 0 !important; }
+
+body {
+  font-family: 'Source Serif 4', Georgia, serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.7;
+  max-width: 780px;
+  margin: 0 auto;
+  padding: 40px 24px 80px;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3 { font-family: 'Playfair Display', serif; font-weight: 700; letter-spacing: -0.01em; }
+h1 { font-size: 2.4rem; font-weight: 900; margin-bottom: 8px; line-height: 1.15; }
+h2 { font-size: 1.7rem; margin-top: 56px; margin-bottom: 16px; padding-bottom: 6px; border-bottom: 2px solid var(--border); }
+h3 { font-size: 1.2rem; margin-top: 32px; margin-bottom: 10px; }
+
+.subtitle {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.85rem;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 40px;
+}
+
+.back-link {
+  display: inline-block;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text-dim);
+  text-decoration: none;
+  margin-bottom: 2rem;
+  transition: color 0.1s;
+}
+.back-link:hover { color: var(--text); }
+
+p { margin-bottom: 14px; }
+ul, ol { margin: 10px 0 14px 24px; }
+li { margin-bottom: 6px; }
+strong { font-weight: 700; }
+
+table { width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 0.95rem; }
+th, td { padding: 8px 12px; border: 1px solid var(--border-light); text-align: left; }
+th { background: var(--bg); font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; border-bottom: 2px solid var(--border); }
+
+/* === BOX TYPES === */
+.box {
+  padding: 20px 24px;
+  margin: 24px 0;
+  border-left: 4px solid;
+  background: #FAFAFA;
+}
+.box-label {
+  display: block;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.72rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 8px;
+}
+
+.box-definition { border-color: var(--blue); }
+.box-definition .box-label { color: var(--blue); }
+
+.box-insight { border-color: var(--purple); }
+.box-insight .box-label { color: var(--purple); }
+
+.box-example { border-color: var(--orange); }
+.box-example .box-label { color: var(--orange); }
+
+.box-trap { border-color: var(--red); }
+.box-trap .box-label { color: var(--red); }
+
+/* === TABLE OF CONTENTS === */
+.toc {
+  border: 1px solid var(--border-light);
+  padding: 20px 24px;
+  margin: 24px 0;
+}
+.toc-title {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 10px;
+}
+.toc ol { margin: 0; padding-left: 20px; }
+.toc li { font-size: 0.95rem; margin-bottom: 4px; }
+.toc a { color: var(--text); text-decoration: none; border-bottom: 1px solid var(--border-light); }
+.toc a:hover { border-color: var(--text); }
+
+.footer {
+  margin-top: 60px;
+  padding-top: 20px;
+  border-top: 1px solid var(--border-light);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  color: var(--text-dim);
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+</style>
+</head>
+<body>
+
+<a href="index.html" class="back-link">&larr; Back to How to Beat the Microstakes</a>
+
+<h1>Revision Guide</h1>
+<div class="subtitle">How to Beat the Microstakes &mdash; Alexander Fitzgerald (Assassinato) &mdash; Deep-Dive Reference</div>
+
+<div class="toc">
+  <div class="toc-title">Contents</div>
+  <ol>
+    <li><a href="#microstakes-mindset">The Microstakes Mindset: Why Normal Logic Fails</a></li>
+    <li><a href="#reading-hud-stats">Reading HUD Stats &amp; Player Types</a></li>
+    <li><a href="#preflop-fundamentals">Preflop Fundamentals: Opens, 3-Bets, and Cold Calls</a></li>
+    <li><a href="#c-bet-sizing">C-Bet Sizing: The Microstakes Exploit</a></li>
+    <li><a href="#multiway-pots">Playing Multiway Pots</a></li>
+    <li><a href="#double-barrel">Double Barreling and Triple Barreling</a></li>
+    <li><a href="#big-call-framework">The Big Call Framework: "Does He Do This With X?"</a></li>
+    <li><a href="#donk-leads">Donk Leads and Check-Raises at Microstakes</a></li>
+    <li><a href="#stack-dynamics">Stack Dynamics: Rejam Stacks and Sweet Spots</a></li>
+    <li><a href="#value-betting">Value Betting Relentlessly vs. the Big Blind</a></li>
+    <li><a href="#bluffing">Bluffing at Microstakes: When and How</a></li>
+    <li><a href="#late-tournament">Late Tournament and Final Table Play</a></li>
+    <li><a href="#heads-up">Heads-Up Strategy</a></li>
+    <li><a href="#key-hand-examples">Complete Hand Example Library</a></li>
+  </ol>
+</div>
+
+<!-- ============================================================ -->
+<h2 id="microstakes-mindset">1. The Microstakes Mindset: Why Normal Logic Fails</h2>
+
+<p>The single most important concept in this entire course: <strong>stop applying your own poker logic to your opponents.</strong> The name of the game is not what you think about poker, not what Alex Fitzgerald thinks about poker &mdash; it is what <em>villain</em> thinks about poker. Most microstakes players play purely for fun, have not studied the game, and make decisions based on emotion, boredom, and the size of the buy-in relative to their real life.</p>
+
+<div class="box box-definition">
+  <span class="box-label">Definition &mdash; The Microstakes Player Profile</span>
+  <p>The typical microstakes tournament player is a recreational gambler who may be multi-tabling, watching TV, or doing something else simultaneously. They bought in for $1&ndash;$2 and do not feel the financial pressure of $50&ndash;$100 buy-in players. Key behavioral consequences:</p>
+  <ul>
+    <li>They <strong>do not fold top pair</strong> in a $2 tournament, regardless of bet size, because the stakes are "Monopoly money."</li>
+    <li>They <strong>do not bluff post-flop in multi-way pots</strong> &mdash; their passive stats are reflecting real passivity, not pot-controlling deception.</li>
+    <li>They <strong>will call raises pre-flop</strong> even with stack sizes where they "should" jam or fold. They want to see the flop.</li>
+    <li>They <strong>take one shot at pots</strong> and give up on the turn if it does not work, unlike skilled players who plan 3-street bluffs.</li>
+    <li>They <strong>slow-play big hands</strong> (limping, min-raising) because they are afraid of losing the customer &mdash; they learned this from home-game instincts.</li>
+  </ul>
+</div>
+
+<div class="box box-insight">
+  <span class="box-label">Key Insight &mdash; Bet Size Insensitivity</span>
+  <p>At $50&ndash;$100 buy-ins, a large bet forces players to think: "Is this worth a hundred real dollars?" At microstakes, that mental brake does not exist. A player with top pair will call 60% pot, 80% pot, or 100% pot almost equally. This means: (1) bet larger for value because they are not folding anyway; (2) a small bet bluff is almost as good as a large bet bluff since you risk less; and (3) the financial pressure play does not work. Stop trying to "price them out" of calling &mdash; they cannot be priced out of top pair.</p>
+</div>
+
+<div class="box box-trap">
+  <span class="box-label">Trap &mdash; Projecting Your Own Logic</span>
+  <p>A classic microstakes error: you look at an AQ9&diams; board and think "if I bet 1/4 pot, he needs to defend 80% of hands." At higher stakes, that math applies because players think about MDF. At microstakes, a 31-14 player who just check-raised your 1/4 pot bet could literally have 67 offsuit. Do not fold hands too quickly assuming their raise represents only value &mdash; but also do not call too liberally once you are out of your reads. Judge each opponent individually by their stats and behavior, not by what a "rational" player would do.</p>
+</div>
+
+<!-- ============================================================ -->
+<h2 id="reading-hud-stats">2. Reading HUD Stats &amp; Player Types</h2>
+
+<p>In every hand example in this course, Alex reads four stats: <strong>VP</strong> (voluntarily played, VPIP), <strong>PR</strong> (pre-flop raise percentage, PFR), <strong>3B</strong> (3-bet percentage), and <strong>AF</strong> (aggression frequency). Understanding what these numbers mean in a microstakes context is essential.</p>
+
+<div class="box box-definition">
+  <span class="box-label">Definition &mdash; HUD Stat Meanings at Microstakes</span>
+  <p><strong>VPIP / PFR gap:</strong> The gap between VPIP and PFR is your most important indicator. A 48-24-27 (VPIP-PFR-3bet) is a maniac who bluffs often and cannot be trusted. A 29-6 is a player who calls a lot but rarely raises &mdash; their bets are much more likely to be the real thing. A 14-10 looks like a normal reg &mdash; treat as tight-aggressive.</p>
+  <p><strong>3-bet %:</strong> This is the single most important stat when deciding whether to open speculative hands. Scan everyone to your left. 0% means they never 3-bet &mdash; open freely. 8%+ from someone with a short stack is dangerous. A big-stacked 8%+ player in the big blind is fine &mdash; they prefer to see flops.</p>
+  <p><strong>Very tight player signs:</strong> 10-8, 14-12, 16-5 are very tight. If this type of player leads into you, double-barrels you, or raises your c-bet, they almost certainly have it. "Nits are easy to play &mdash; you just have to trust them."</p>
+  <p><strong>Aggressive player signs:</strong> 48-24-27, 37-31, 52-26-25 are maniacs. Their check to you on the flop is likely a trap ("when aggressive players check to you nine times out of ten it's a trick"). Their donk leads are usually bluffs or thin value, not strong hands.</p>
+</div>
+
+<div class="box box-insight">
+  <span class="box-label">Key Insight &mdash; The Sweet Spot: 20&ndash;30 Big Blind Stacks</span>
+  <p>Players with 10&ndash;20 BB should be shoving pre-flop, and many at higher stakes know this. Players with 50+ BB know to 3-bet or cold-call more freely. The 20&ndash;30 BB range is the "sweet spot" where players are stuck: they feel like they cannot call comfortably but they do not want to shove, and they are not confident enough to 3-bet-fold. At microstakes, these players almost always just call, giving you free flops. At higher stakes, they correctly jam their strong hands. Use this difference: open more liberally when most of your opponents are in that 20&ndash;30 BB zone at microstakes, because you will get flops instead of jams.</p>
+</div>
+
+<table>
+  <thead>
+    <tr>
+      <th>Stat Profile</th>
+      <th>Player Type</th>
+      <th>Key Exploitation</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>48-24-27 or similar</td>
+      <td>Maniac / Action junkie</td>
+      <td>3-bet for value wider; their c-bet is often a bluff; call their leads more liberally</td>
+    </tr>
+    <tr>
+      <td>30-16, 37-31</td>
+      <td>Loose-passive / Calling station</td>
+      <td>Value bet relentlessly; do not bluff them; bet big on turn/river with top pair</td>
+    </tr>
+    <tr>
+      <td>29-6, 25-8</td>
+      <td>Weak-tight / Fit-or-fold</td>
+      <td>C-bet all boards; their bets are very strong; fold to double barrels</td>
+    </tr>
+    <tr>
+      <td>31-14, 23-10</td>
+      <td>Passive reg</td>
+      <td>Check back when ahead; they will not double-barrel bluff; fold when they fire twice</td>
+    </tr>
+    <tr>
+      <td>14-10, 16-5</td>
+      <td>Nit</td>
+      <td>Fold to all aggression; their limps often trap big hands</td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- ============================================================ -->
+<h2 id="preflop-fundamentals">3. Preflop Fundamentals: Opens, 3-Bets, and Cold Calls</h2>
+
+<h3>Opening Ranges</h3>
+
+<p>The core principle: <strong>play big pots in position with generally superior hands.</strong> This simple rule, applied relentlessly, is what wins microstakes tournaments. When you are multi-tabling 12&ndash;16 tables, focus your attention budget on the spots that matter most &mdash; marginal opens burn attention for minimal gain.</p>
+
+<div class="box box-insight">
+  <span class="box-label">Key Insight &mdash; What to Look For Before Opening</span>
+  <p>Before opening any speculative hand (anything less than TT+ / AQo+), scan left for two things: (1) <strong>3-bet percentages</strong> &mdash; who is going to re-raise you? and (2) <strong>rejam stacks (10&ndash;20 BB)</strong> &mdash; who might shove over your raise with a hand you cannot call? The goal is to reach the big blind, which at every table plays the widest range and the most passively post-flop. Anything standing between you and the big blind (3-bets, jams) decreases your expected value from the open.</p>
+</div>
+
+<div class="box box-example">
+  <span class="box-label">Worked Example &mdash; 66 vs. Cutoff Open (Part 1)</span>
+  <p><strong>Setup:</strong> You are on the BTN with 66. The CO (Villain 39, 67-33 VPIP/PFR, clearly very active) opens. All 3-bet stats to your left are 0% except the one player with a rejam stack.</p>
+  <p><strong>Action:</strong> 3-bet (raise to ~3x of open).</p>
+  <p><strong>Analysis:</strong> The CO player is opening garbage constantly (67 VPIP). Your 66 is well ahead of his range. No one to your left has a history of 3-betting. The only concern is the rejam stack, but at microstakes that player will often just call anyway. After 3-betting, Villain 39 calls. <strong>Board: A&hearts; Q&diams; 9&diams;.</strong> He checks &mdash; check back. On this board, a 1/4 pot c-bet "needs to work 20% of the time," which means he must defend 80% of the time. With two cold callers behind and an ace-high board, that threshold is met in theory. But when Villain 39 check-raises your c-bet, fold immediately: you have no evidence he bluffs here and no equity to continue. <strong>EV cost of calling the check-raise:</strong> You put in more chips against a range that has an ace, flopped two pair, or is semi-bluffing a flush draw &mdash; all of which crush your 66. The fold saves you from a big mistake on a board where you have at most 16% equity.</p>
+</div>
+
+<div class="box box-example">
+  <span class="box-label">Worked Example &mdash; AJo Facing Early Position Open (Part 1)</span>
+  <p><strong>Setup:</strong> You have AJo in middle position. Villain opens from under the gun. No 3-bet history established yet. Multiple players to act behind.</p>
+  <p><strong>Action:</strong> Fold.</p>
+  <p><strong>Analysis:</strong> An UTG open from an unknown player represents a tight range, especially at microstakes where players do not open trash from early position unless they are very loose (and you have no evidence of that). AJo is likely dominated: you are behind AK, AQ, KK, QQ, JJ, and flipping against TT. Being out of position compounds the problem. The only time you play this is if you have strong evidence the UTG opener is raising 30%+ of hands &mdash; in which case you 3-bet, not call. "Unless you have some extenuating circumstance, unless you have some indicator this person is just raising all the garbage, you would not care to play." <strong>EV cost of calling:</strong> You play a bloated pot out of position with a hand that often flops second-best pair or top pair with dominated kicker. Even when you hit the ace, you are frequently up against AK or AQ.</p>
+</div>
+
+<h3>Cold Calling: The Biggest Leak</h3>
+
+<div class="box box-trap">
+  <span class="box-label">Trap &mdash; Cold Calling Multi-Way</span>
+  <p>Cold calling is the most dangerous habit in tournament poker. When you cold call from early or middle position, several bad things happen simultaneously: you play out of position, you invite squeezes (which cost you the original call amount with 0% equity), and your speculative hand needs to flop well to continue. Database research consistently shows cold callers losing massive amounts. "If you filter for your cold calls by position in a database, you will see people losing like a big blind every single time from these early positions." The fold loses you the ante (typically -0.1 BB/hand). A bad cold call can be -40 to -70 BB/100. The exception: BTN cold calls are often profitable; CO cold calls are marginal; anything earlier is heavily negative unless you have exceptional reads.</p>
+</div>
+
+<div class="box box-example">
+  <span class="box-label">Worked Example &mdash; 48o Facing Raise and Call (Part 2)</span>
+  <p><strong>Setup:</strong> You have 4&clubs; 8&clubs; facing a raise from Villain 40 and a cold call behind. Short effective stacks. No established reads.</p>
+  <p><strong>Action:</strong> Fold.</p>
+  <p><strong>Analysis:</strong> "I keep trying to prove these are profitable. Just suited three-gappers, the junk ones, raise and a call &mdash; it's tough." The one mitigating factor: Villain 40 is short, so he cannot double-barrel without a hand, which protects your weaker holdings. But this is not enough to overcome being out of position with a weak suited hand in a multi-way pot where someone already showed strength. At microstakes specifically, the problem is the attention cost: spending 4&ndash;5 seconds on marginal calls while multi-tabling means you time-out on premium hands worth 10+ BB. The opportunity cost is real.</p>
+</div>
+
+<h3>3-Bet Sizing and Strategy</h3>
+
+<div class="box box-definition">
+  <span class="box-label">Definition &mdash; 3-Bet Sizing at Microstakes</span>
+  <p>At microstakes, players generally do not pay attention to the 3-bet size &mdash; they either like their hand or they do not. This means: (1) when you have a premium hand against a fish, size up aggressively to build the pot. (2) When you have a bluff-3-bet, the size matters only for break-even calculation, not because the villain adjusts. Size to put the villain in an awkward position based on their stack depth, not to "balance" your range &mdash; they will not notice your range.</p>
+</div>
+
+<div class="box box-example">
+  <span class="box-label">Worked Example &mdash; AKo 3-Bet Sizing (Part 3)</span>
+  <p><strong>Setup:</strong> You have AKo. Villain 39 (52-26-25, very active) opens. You 3-bet to $45,500. Villain 41 moves all-in.</p>
+  <p><strong>Action:</strong> Call the all-in (and win the flip).</p>
+  <p><strong>Analysis:</strong> The key teaching point is sizing, not the all-in call. When facing an active villain like the 52-26-25 player, some players min-raise (to $37k). That is better than calling but still suboptimal. Instead, raise to approximately 25% of the villain's stack (here, $207k). At higher stakes, this forces a fold-or-shove decision. At microstakes, even a 52-VPIP player will sometimes fold if they do not have a real hand. More importantly, if they cannot call but like their hand, they will shove &mdash; and you dominate AJ, AT, KQ, KJ hands that would be "calling" a smaller raise. "If he were a tighter player, it would be difficult for him to call. But since he is playing for fun, what a lot of these guys will do is, well, I can't call, but there's a good chance if I shove he's going to fold. So let's shove." This gives you maximum value against dominated hands.</p>
+</div>
+
+<div class="box box-example">
+  <span class="box-label">Worked Example &mdash; A6o 3-Bet Bluff (Part 5)</span>
+  <p><strong>Setup:</strong> You have A6o in the BB facing a BTN open from Villain 13 (30-16). One short stack (Villain 23) is in the CO. You 3-bet. Villain 13 shoves.</p>
+  <p><strong>Action:</strong> Fold.</p>
+  <p><strong>Analysis:</strong> This is Alex admitting a mistake. The 3-bet was marginal at best because of Villain 23's short stack in the CO &mdash; a rejam risk Alex says he likely missed while multi-tabling. The broader lesson: "One of the worst hands I've found to 3-bet bluff with is just garbage aces." At higher stakes, the ace blocker makes 3-bet bluffing excellent because the villain's strongest hands (AK, AQ) are more likely to be reduced. At modern microstakes where villains call pre-flop and then check-fold flops, the blocker does less work: post-flop, you want the villain to have ace-high (so they check-fold missed boards). If you are holding the ace, there are fewer combos of ace-high in their range to check-fold. <strong>EV cost:</strong> The 3-bet risks ~3x the open and returns nothing when the short stack jams. Against a villain who calls and takes flops, the blocker value is actually negative post-flop.</p>
+</div>
+
+<!-- ============================================================ -->
+<h2 id="c-bet-sizing">4. C-Bet Sizing: The Microstakes Exploit</h2>
+
+<p>C-betting at microstakes is fundamentally different from higher stakes because villains do not adjust to sizing. This creates an opportunity: extract maximum value with your made hands by sizing larger than you would at higher stakes, because they will not fold top pair regardless.</p>
+
+<div class="box box-definition">
+  <span class="box-label">Definition &mdash; C-Bet Break-Even Math</span>
+  <p>The break-even formula for an absolute bluff c-bet:
+  \[\text{Required fold rate} = \frac{\text{Bet Size}}{\text{Pot} + \text{Bet Size}}\]
+  Examples: 1/4 pot bet must work 20% of the time (defend 80%). 1/3 pot must work 25%. 1/2 pot must work 33%. Full pot must work 50%. At microstakes, two things are true simultaneously: (1) opponents defend their made hands at extreme rates (top pair almost never folds), but (2) they check-fold high-card misses to almost any bet. This means small bets work well as bluffs because you get the fold frequency you need cheaply. Large bets work well for value because you extract maximum chips from calling stations who have a pair.</p>
+</div>
+
+<div class="box box-example">
+  <span class="box-label">Worked Example &mdash; 46h C-Bet on A94 Board (Part 2)</span>
+  <p><strong>Setup:</strong> You open 46&hearts; from the BTN. Two callers: Villain 28 and Villain 5. Board: A&hearts; 9&diams; 4&clubs;. Villain 5 is in the BB. It checks to you.</p>
+  <p><strong>Action:</strong> Bet 9.5k (~25% pot).</p>
+  <p><strong>Analysis:</strong> You have bottom pair (unlikely to be best) in a 3-way pot, but the board heavily favors your pre-flop raising range. The 1/4 pot bet needs to work 20% of the time. With an ace on board, players without an ace will often fold (especially nits). Villain 5 calls. <strong>Turn: 4&spades;</strong> (you now have trips). Bet very large. Why? "If the guy has an ace, and this is microstakes, nine times out of ten he's going to call whatever you put out there on the turn." Setting up a large turn bet when you improve is the key. They cannot fold top pair. Get the money in while you have the best hand. <strong>EV of betting large on turn vs. checking:</strong> If you check and he checks back, you lose one street of value. Against a calling station who cannot fold an ace, every missed bet is a direct EV loss.</p>
+</div>
+
+<div class="box box-example">
+  <span class="box-label">Worked Example &mdash; AJs on J95&hearts; Board (Part 3)</span>
+  <p><strong>Setup:</strong> You call pre-flop with AJs (4-handed), multiple passive players. Board: J&hearts; 9&hearts; 5&hearts; (monotone flush board). Both players check to you.</p>
+  <p><strong>Action:</strong> Bet about half pot.</p>
+  <p><strong>Analysis:</strong> The key question &mdash; "does he do this with X?" X = the best value hand you beat. Apply this to each villain. If passive players (31-14, 23-10) raise you on this board, what do they have? King-Jack: maybe from the short stack who has fewer chips. But Villain 18 (passive) raising you here is "most likely a flush." They "probably would have led a flush" and "if Villain 18 suddenly decides to raise you big here, that is really unlikely to be the Ace of Hearts." If they do not raise, they have at most a pair, and you are almost certainly ahead. At microstakes, passive players who check-call one pair on a monotone board are not floating and bluffing the river &mdash; they are pot-controlling and giving up when they miss. Continue betting; collect value from pairs that cannot fold.</p>
+</div>
+
+<div class="box box-example">
+  <span class="box-label">Worked Example &mdash; QJ on J94&clubs; Board (Part 4)</span>
+  <p><strong>Setup:</strong> You open QJ&diams; from the CO. Villain 5 (16-6) calls in the BB. Board: J&spades; 9&clubs; 4&clubs;. Villain checks.</p>
+  <p><strong>Action:</strong> Bet 46k into 78k (roughly 60% pot).</p>
+  <p><strong>Villain calls. Turn: Q&spades;. Villain checks.</strong></p>
+  <p><strong>Action:</strong> Bet fairly large again (around 60&ndash;70% pot).</p>
+  <p><strong>Analysis:</strong> On the flop, you bet larger than you would in a 109 because: a 16-6 player called pre-flop with a huge range including 95o, 84s, 75s &mdash; weak pairs that will pay off twice. In a 109, bet small to keep those hands in. At microstakes, "those guys might not fold because once they've come this far, they've got to do something." So bet larger to extract. On the turn (making two pair), the question: does he call with a missed flush draw? "Most guys really don't like folding what was top pair on the flop. You see this all the time. The board's jack-9-4 and the turn's a queen and hero value bets again. You'll see Villain 5 like just never fold the jack there, even though the ace is a really likely card for the pre-flop raiser to have." If he has Q10 (got there), a flush draw (will pay big), or a J (will keep calling) &mdash; bet large and get the money in now. <strong>EV cost of small bet:</strong> If you bet 30% pot when he will call 70% pot, you leave significant value on the table against a sticky field.</p>
+</div>
+
+<div class="box box-insight">
+  <span class="box-label">Key Insight &mdash; Exploitative vs. Balanced C-Betting</span>
+  <p>The core exploitative insight: "Should you bet that same amount to balance so you're not exploitable? Not if it's going to cost you money. Do you think this guy knows what you're doing? Not at a $2 tournament." When you miss the board, bet 1/5 pot (to induce folds from high cards). When you hit the board, bet 1/2 to 2/3 pot (to extract from pairs). This asymmetric approach is theoretically exploitable but is correct at microstakes because no one is tracking your bet sizing patterns.</p>
+</div>
+
+<!-- ============================================================ -->
+<h2 id="multiway-pots">5. Playing Multiway Pots</h2>
+
+<p>Multiway pots are the defining challenge of microstakes. You will almost never play heads-up pots because everyone calls pre-flop. Understanding how to navigate 3-way and 4-way pots is essential.</p>
+
+<div class="box box-definition">
+  <span class="box-label">Definition &mdash; Multiway Hand Strength</span>
+  <p>Hand strength degrades dramatically in multiway pots. KTo makes one pair, and in a 4-way pot "when the pot starts getting really big, most likely that pair is not good. In multiway pots, when the pot gets big, you start seeing two pair, you start seeing sets, you start seeing flushes, you start seeing straights. This hand makes one pair &mdash; that's what it's really good at, and it's not even a good pair." This is why cold calling hands like KTo and QJo into raised multi-way pots is a losing play. Premium hands need to be a significant favorite over a wide range; marginal one-pair hands are not.</p>
+</div>
+
+<div class="box box-example">
+  <span class="box-label">Worked Example &mdash; 88 on T65&spades; Board Multi-Way (Part 4)</span>
+  <p><strong>Setup:</strong> You open 88 from HJ. Villain 18 (34-15) cold-calls. Villain 32 cold-calls. Board: T&clubs; 6&clubs; 5&spades; (checked to you).</p>
+  <p><strong>Action:</strong> Check (not bet).</p>
+  <p><strong>Turn: Q&clubs;. Checked to you.</strong></p>
+  <p><strong>Action:</strong> Check again.</p>
+  <p><strong>River: 7&spades;. Villain 32 leads 33k (small).</strong></p>
+  <p><strong>Action:</strong> Fold.</p>
+  <p><strong>Analysis:</strong> This is the counter-intuitive hand. You have an overpair pre-flop, but the board is a disaster: three overcards, flush possible, straight draws everywhere. On the flop: "There is a lot of merit to that [betting], because Villain 18 is a 34-15 &mdash; if you value bet because you think Villain 32 is calling you with a 6, is calling you with a 5, is calling you with 7-8, is calling you with two clubs, there is a lot of merit to that. If you said check because in micro-6 tournaments people tend to not bluff post-flop in multi-way pots as much as they should, there's a lot of merit to that too." When Villain 32 bets small on the river after two check-check streets, "does he really expect to get a fold from anyone when he bets that small? That is most likely something betting for value." He could have a queen, a 10, a straight, or a flush. Your 88 beats none of them. <strong>EV cost of calling:</strong> You call against a value-heavy range that is not incentivized to bet this small as a bluff after two passive streets. A small bet after all streets checked = strength, not weakness, from a passive player.</p>
+</div>
+
+<div class="box box-example">
+  <span class="box-label">Worked Example &mdash; 88 Set on J83&spades; (Part 5)</span>
+  <p><strong>Setup:</strong> You open 88. Three callers: Villain 21 (cold-call in position), Villain 24, and Villain 25. Board: J&diams; 8&spades; 3&spades;. Villain 24 moves all-in. Villain 25 calls.</p>
+  <p><strong>Action:</strong> Shove (to potentially get Villain 21 in).</p>
+  <p><strong>Analysis:</strong> You flopped a set in a 4-way pot. At higher stakes, a bet-call sequence would be more sophisticated &mdash; regs would think "if the pre-flop raiser bet into a multi-way pot, he probably has an overpair." At microstakes, "Villain 24 just like shoves right out there. Villain 25 doesn't think about it at all. He's got top pair, he's ready to go." This is why you play these microstakes events: players ship top pair into multi-way pots. The shove is optimal because it looks like a semi-bluff (draw "said F it"), might get Villain 21 in with a jack, and collects maximum value from Villain 24's queen-jack and Villain 25's top pair. "This is why you pick soft tournaments &mdash; this happens a lot more often" in microstakes. Villain 24 had QJ&clubs;, Villain 25 had a jack. You scoop.</p>
+</div>
+
+<div class="box box-insight">
+  <span class="box-label">Key Insight &mdash; Nobody Bluffs Multi-Way at Microstakes</span>
+  <p>"In micro-6 tournaments, people tend to not bluff post-flop in multi-way pots as much as they should." This is exploitable in both directions: (1) You can bet thinner for value because they are not floating and bluffing you off your hand. (2) When they lead into a multi-way pot, it is almost always value. Specifically: "If Villain 32 fires there [on the river in a checked-through multi-way pot], does he really expect to get a fold from anyone when he bets that small? That is most likely something betting for value." Do not hero-call medium-strength hands in multi-way pots at microstakes when passive players show aggression.</p>
+</div>
+
+<!-- ============================================================ -->
+<h2 id="double-barrel">6. Double Barreling and Triple Barreling</h2>
+
+<p>Double barreling is one of the most misunderstood concepts at microstakes. The key principle: most players check-fold high cards to the c-bet but check-call pairs. Once they call the c-bet with a pair, the double barrel rarely gets the pair to fold. You need a specific reason to fire the turn.</p>
+
+<div class="box box-definition">
+  <span class="box-label">Definition &mdash; When to Double Barrel</span>
+  <p>Good turn barrels at microstakes share at least one of these properties:</p>
+  <ol>
+    <li>The turn card is likely to have missed the hands that called the flop (e.g., a blank arrives when they called with draws, or an overcard arrives that represents your range well).</li>
+    <li>You have significant equity improvement (flush draw, open-ended straight draw, top pair picked up).</li>
+    <li>The villain is a "one and done" type whose flop call was exploratory &mdash; they give up on blank turns.</li>
+  </ol>
+  <p>Bad turn barrels at microstakes: firing into hands that are not folding (top pair, mid pair with a draw) or firing a turn that improves their perceived equity ("Oh I have a flush draw now, I should call").</p>
+</div>
+
+<div class="box box-example">
+  <span class="box-label">Worked Example &mdash; 98o Triple Barrel Bluff (Part 9)</span>
+  <p><strong>Setup:</strong> You open 9&clubs; 8&spades; on BTN. Villain 6 (33-28, aggressive) calls in BB. Board: Q&diams; 4&diams; 3&clubs;. You c-bet 117k (~30% pot). He calls. Turn: 5&spades;. You bet ~225k (~30% pot). He calls. River: K&hearts;. You bet 502k (~34% pot). He calls with Q5 (turned two pair).</p>
+  <p><strong>Analysis:</strong> This is Alex walking through a borderline triple-barrel bluff. The c-bet at 30% pot needs to work 30% of the time (defend 70%). A 33-28 player "is very unlikely to fold ace-highs, gut shots, two-card backdoor flush draws" &mdash; he is defending close to 70%. So the c-bet is marginally justified only if you plan to fire again. The 5&spades; turn is a "great card" because it hits flush draws (who might continue) but misses pairs that were check-calling the flop. The key math: betting 30% pot on the turn needs to work 30% of the time. If he folds his weak pairs (7-4, A-3, small pocket pairs) that is around 30&ndash;35% of his range &mdash; marginally profitable. The river king forces the final question: the bet needs to work 34% of the time. Alex estimates around 40&ndash;43% folding frequency given the hand played out. Very close. <strong>Why it is borderline:</strong> "When people check-call, they tend to have a pair. When they raise-call a 3-bet and check on the flop, they tend to have a pair." Those pairs are not easily folded on the river. The bluff is only viable if you correctly estimate his weak-pair folding frequency on the river as above your break-even.</p>
+</div>
+
+<div class="box box-example">
+  <span class="box-label">Worked Example &mdash; Four-Flush Board Bluff (Part 8)</span>
+  <p><strong>Setup:</strong> You have 24o in the BB. Small blind limps. You check. Board: K&spades; Q&spades; 4&spades;. He checks. You bet 1/3 pot. He calls. Turn: 10&spades; (four flush). He checks.</p>
+  <p><strong>Action:</strong> Fire again.</p>
+  <p><strong>Analysis:</strong> This is a key combination-counting insight. Villain limp-called pre-flop with a wide range, then check-called the flop with pairs and flush draws. Now on the four-flush turn, how many flushes does he have? "He has no flush, no draw 64% of the time" (later estimate with gut shots and all pairs: "no flush 47% of the time"). "When this four flush comes, if the guy check-called a number of pairs, he does not have a flush, period, like ever." Your bet needs to work 33% of the time (half-pot) or 25% (1/3 pot). He folds his no-spade pairs far more than those thresholds. The human mind over-weights the vividness of a flush board ("oh he probably has a spade") but the math says his range mostly lacks spades after a flop check-call. <strong>EV of checking vs. betting:</strong> If he check-calls his flush draws and pairs on the flop, then you bet the turn, he folds no-spade hands ~50%+ of the time, making the bet automatically profitable at 1/3 pot. Checking is clearly worse.</p>
+</div>
+
+<!-- ============================================================ -->
+<h2 id="big-call-framework">7. The Big Call Framework: "Does He Do This With X?"</h2>
+
+<p>Every time you face a large bet or potential call for significant chips, apply this two-step framework. It is the fastest way to make correct decisions in 10 seconds.</p>
+
+<div class="box box-definition">
+  <span class="box-label">Definition &mdash; The Order of Operations for Big Calls</span>
+  <p><strong>Step 1:</strong> "Does he do this with X?" where X = the best hand you beat. If yes, continue to Step 2. If no, fold.<br><br>
+  <strong>Step 2:</strong> "Does he do this as a bluff?" Count the missed draws, the busted flush draws, the straight draws that missed. If there are enough missed draws in his range and the bet size is small enough, call. If bluffs are unlikely and value hands are likely, fold.<br><br>
+  At microstakes specifically: (1) Players rarely bluff three streets &mdash; a player firing flop, turn, and river usually has it. (2) Players will bet small amounts with busted draws because they "do not really know why they're betting, they just really don't want you to bet." These tiny river bets after passive streets are bluffs from weak holdings more often than value.</p>
+</div>
+
+<div class="box box-example">
+  <span class="box-label">Worked Example &mdash; 99 vs. Passive 31-14 Player (Part 3)</span>
+  <p><strong>Setup:</strong> You 3-bet 99 out of position. Villain 18 (31-14) calls. Board: Q&hearts; T&spades; 2&diams;. You check. He bets 72k. You call. Turn: T&diams;. You check. He bets 190k. You fold.</p>
+  <p><strong>Analysis:</strong> "Does he do this with X? X is the best hand that you beat." Best hand you beat here = jack-nine (which makes a straight draw). Does a 31-14 player bet twice with a draw in a 3-bet pot? "A 31-14 is going to do nothing with that information. This hand will end on the flop. Why? If a 31-14 double barrels you, he has it nine times out of ten." You are not getting "80-90% sure" information, but you are working with reasonable confidence. "We're not going to get very far if we're always really worried about sleeping well at night and making sure we don't have to worry about anything." The fold is correct because the 31-14 profile makes double-barrel bluffing highly unlikely. <strong>EV of calling the turn:</strong> You are calling against a range heavily weighted toward QQ, TT (full house), AT, QT, QJ, QK &mdash; all of which crush your 99. The rare times he has jack-nine or king-jack do not compensate for the frequency of his value range.</p>
+</div>
+
+<div class="box box-example">
+  <span class="box-label">Worked Example &mdash; A9 Flopping Top Pair, Passive Check-Call (Part 7)</span>
+  <p><strong>Setup:</strong> You call pre-flop with A9&clubs; (Villain 16 opened). Board: 9&diams; 6&spades; 7&hearts;. You check. He bets 71k. You call. Turn: Q&spades;. You check. He bets again. You call. River: Q&diams;. He checks. You check. He has K9.</p>
+  <p><strong>Analysis:</strong> Why did you call pre-flop instead of 3-betting? Because you had just 3-bet this player twice and forced folds. "There are a lot of guys that can't fold to that twice &mdash; there's a ton of them that really get pissed off about that." Calling is the strategic manipulation: let him reload aggression into you. On the flop: "Do you think he does this with X? X would be king-nine. Does he do this as a bluff? If he fires the river as a bluff, he would have ace-four hearts, but his timing/bet-size suggests missed draws." Why you did not fold the turn: "He can develop a lot of draws on the turn that just bricked. Once you're doing a big hero call, there's an order of operations. Does he do this with the best hand that you beat? King-nine? Most likely not. Does he do this as a bluff? There's a lot of draws that miss." The queen pairing on the river helps you: "It's less likely he has a queen now." He ends up with K9 &mdash; did not value-bet the river, correctly read that you probably had an ace.</p>
+</div>
+
+<div class="box box-example">
+  <span class="box-label">Worked Example &mdash; TT, Shoving Villain Holds 10-3o (Part 10)</span>
+  <p><strong>Setup:</strong> You open TT. Villain 9 (button, 35-26 stats, somewhat active) calls. Board: A&clubs; 9&hearts; 2&spades;. Villain leads 106k. You raise. He calls. Turn: 10&diams;. You check. He checks. River: Q&diams;. He leads.</p>
+  <p><strong>Earlier hand: Villain 32 shoves against your TT open at a $2 tournament.</strong></p>
+  <p><strong>Action:</strong> Call the shove.</p>
+  <p><strong>Analysis:</strong> "Does he do this with nines or eights? He'd do it with twos if he wants to go eat his TV dinner." This is the definitive microstakes call principle: at $2 buy-ins, the range for shoving over your open is massive. Players go broke on a whim. "There's a lot of random berserk when you're playing these small stakes tournaments, so a lot of the times you've just got to put on your helmet and hope for the best." In a $50+ tournament, folding TT to a shove over your open requires careful analysis. At $2, they shove pocket 3s, ATo, and suited connectors because "they'd do it with twos if they want to go eat their TV dinner." <strong>EV of folding vs. calling:</strong> You are ahead of most of his range. Folding is a massive mistake against this distribution of shoving hands. Your 55% equity makes calling mandatory.</p>
+</div>
+
+<!-- ============================================================ -->
+<h2 id="donk-leads">8. Donk Leads and Check-Raises at Microstakes</h2>
+
+<div class="box box-definition">
+  <span class="box-label">Definition &mdash; The Honest Donk Lead</span>
+  <p>"How do you statistically identify an honest donk lead?" If a player folds to c-bets 60% of the time, they can only show up donk-leading with real hands. To lead as a bluff at a high frequency AND fold to c-bets frequently is mathematically incoherent &mdash; you need to do one or the other. A tight player (14-12, 16-6) who leads into you on a neutral board after check-folding multiple times is almost certainly leading a strong hand. A loose-aggressive player (37-31, 23% 3-bet) who donk-leads has a wide range including total bluffs.</p>
+</div>
+
+<div class="box box-example">
+  <span class="box-label">Worked Example &mdash; 53&clubs; Donk Lead Call on AA3&spades; (Part 6)</span>
+  <p><strong>Setup:</strong> You open 53&clubs; from CO. Villain 19 (37-31, aggressive) calls in BB. Board: A&spades; A&diams; 3&spades;. Villain 19 donk leads into you.</p>
+  <p><strong>Action:</strong> Call.</p>
+  <p><strong>Turn: 8&hearts;. He checks. You bet ~98k. He folds.</strong></p>
+  <p><strong>Analysis:</strong> Against the tight player (14-12), fold to the donk lead: "He is not leading an absolute bluff especially if he typically folded c-bets. The only range for him leading: flush draw, an ace. And your three doesn't do well against that range." Against the 37-31 player with a 23% 3-bet: "It is very likely he is leading that board with nothing just to see what happens." Additionally: "The higher stakes, nobody's leading that board as a bluff who does not know they need to keep it up on turn and river. When you play microstakes, you'll see a lot of guys take one shot and have no real idea what they're doing on the turn and give up." He does exactly that: leads the flop, checks the turn. Your bottom pair / bottom kicker is good enough to win a pot-sized bet on the turn because he folded his bluff. <strong>EV cost of folding to the donk lead:</strong> You fold the best hand against a player who just took one shot. You also forgo the profitable turn bet.</p>
+</div>
+
+<div class="box box-example">
+  <span class="box-label">Worked Example &mdash; QT on Q54 Board Check-Raise Call (Part 5)</span>
+  <p><strong>Setup:</strong> You open QT&spades;. Villain 9 calls in the BB. Board: Q&clubs; 5&hearts; 4&spades;. You bet 1/3 pot. Villain 9 check-raises. Turn: K&clubs;. He checks.</p>
+  <p><strong>Action on flop:</strong> Call the check-raise. <strong>Action on turn:</strong> Bet 1/3 pot again.</p>
+  <p><strong>Analysis:</strong> "Do you call? Most likely this is nothing." Why? On this board at microstakes, the only hands that make sense for a check-raise are: sets of fours or fives (he would have 3-bet queens pre-flop), and a queen possibly (but who check-raises top pair for value at microstakes against a pre-flop raiser?). "He can't have a whole lot here. He should be check-raising a queen for value, but 99 guys out of 100 can't do that." So you call. "He's given up. His play didn't work." Now on the K&clubs; turn, he checks again &mdash; confirmation he was bluffing or semi-bluffing. You bet 1/3 pot again because: "People get emotional down at $2 tournaments when you make these little bets and they merge their ranges without even knowing what that means. He could have turned a couple of clubs and now he's hoping it goes check-check. He could have just had a 5-7 and flipped out." The small bet on the turn extracts "crying calls" &mdash; players who had Q9 offsuit and wanted to "punish" your small bet with the check-raise now call again, unable to give up.</p>
+</div>
+
+<!-- ============================================================ -->
+<h2 id="stack-dynamics">9. Stack Dynamics: Rejam Stacks and Sweet Spots</h2>
+
+<div class="box box-definition">
+  <span class="box-label">Definition &mdash; Rejam Stack</span>
+  <p>A rejam stack is a player with approximately 10&ndash;20 BB. At higher stakes, these players understand they should "shove or fold" &mdash; their stack is too short to call and play post-flop profitably. At microstakes, rejam-stack players often just call because (1) they want to see the flop, (2) they do not know the optimal stack-to-blinds strategy, and (3) it's only $2. This is exploitable: open wider when rejam stacks are to your left because they will call (giving you a profitable post-flop situation) instead of shoving (forcing you to fold or call for a flip).</p>
+</div>
+
+<div class="box box-example">
+  <span class="box-label">Worked Example &mdash; Opening 33 with Rejam Stack Behind (Part 6)</span>
+  <p><strong>Setup:</strong> You have 33 in late position. Villain 19 (active, shorter stack around 20 BB) is directly to your left.</p>
+  <p><strong>Action:</strong> Raise (small, to 2x if concerned).</p>
+  <p><strong>Analysis:</strong> "In a micro-6 tournament, the problem I see right now is that person gives you a free flop with their 20x stack. And that's great because they're a 21-5 [very tight]. So they voluntarily play 21% of hands preflop, raise 5% of hands, and when this board comes out ace-queen-jack, they're not sure what they have there." At higher stakes, the rejam stack behind forces you to tighten your opening range. At microstakes, the rejam stack almost always calls, which: (1) makes the pot bigger when you have the best hand, (2) gives you position to extract value if you hit, and (3) does not threaten your tournament life nearly as often. "Min raise a little more when I'm multi-tabling" is the default because it reduces the chance of inducing a jam from a rejam stack that might have a real hand, while still building a pot.</p>
+</div>
+
+<div class="box box-example">
+  <span class="box-label">Worked Example &mdash; Cold Calling 98s Facing a Short Stack (Part 4)</span>
+  <p><strong>Setup:</strong> You have 9&clubs; 8&clubs; facing a raise from a short stack. Another player cold calls behind.</p>
+  <p><strong>Action:</strong> Fold.</p>
+  <p><strong>Analysis:</strong> "For the love of God here, don't call. You see a lot of guys do this. They just call versus the short stack because they just don't want to fold a suited connector, and it's microstakes. I mean, it's monopoly money. Who cares, right? But you're not going to make that profitable. There's no way you're going to make that profitable. Any database, if you look that up, you're not going to make it. There's no implied odds. You're most likely going to get heads-up with that guy when he makes it 3x. You have nine-high." A short stack's raise represents a real hand. You lack the implied odds to chase with a connector (implied odds require being able to win a large pot when you hit, but the short stack's effective stack is small). And you are likely dominated or facing a coin flip, not the 3:1+ odds you need for suited connectors to work.</p>
+</div>
+
+<!-- ============================================================ -->
+<h2 id="value-betting">10. Value Betting Relentlessly vs. the Big Blind</h2>
+
+<p>The big blind is the most profitable target in any tournament. They play the widest range, the most passively post-flop, and call pre-flop with trash like 95o, 84s, 64o. When the big blind calls your pre-flop raise, you have hit them in the gut &mdash; beat them up.</p>
+
+<div class="box box-insight">
+  <span class="box-label">Key Insight &mdash; Big Blind Calling Range is Garbage</span>
+  <p>"When the big blind calls you, he could add 9-5 of hearts. And if you're saying he's a 16-6, there's no guarantee he has 9-5 of hearts. When he's calling a 2x raise, there's a really good chance he's got that. And if he's got 9-5, he's got 9-6. He's got 9-7. He's got 9-8. 5-4. Ace-4. 6-4 suited. Your job is: when the big blind calls you, get as much money out of him as possible." The mistake almost everyone makes: they bet 1/3 pot to "keep him in" or they check "to keep the pot small." But the big blind who called pre-flop rarely turns pairs into bluffs. He checks to you and if you check back, you lose a street of value against the widest, most passive range in poker. Value bet relentlessly.</p>
+</div>
+
+<div class="box box-example">
+  <span class="box-label">Worked Example &mdash; AJ on J97&diams; Board (Part 3)</span>
+  <p><strong>Setup:</strong> You open AJ&clubs; to a small size (2x, to encourage action). Villain 35 (tight-ish) and Villain 30 cold call. Board: J&spades; 9&diams; 7&diams;. Both check to you.</p>
+  <p><strong>Action:</strong> Bet 57,188 (large, roughly 60&ndash;70% pot).</p>
+  <p><strong>Villain 35 calls. Turn: 6&spades;. Villain 35 shoves. You call. He has 10-9 (middle pair + gut shot). You hold.</strong></p>
+  <p><strong>Analysis:</strong> "In a 109 when you have top kicker, how much would you bet? Villain 30 in position isn't calling with jack-nine suited, nine-seven suited. He probably would have raised pre-flop. Villain 35: if you bet really big in a higher-stakes tournament, he's going to really reanalyze things. No one's doing that in microstakes." The key quote: "I really don't think 7-8 is folding if you bet like 57k here. Because once people get to the flop, if they flop something, they feel really dumb about folding. Because if you're folding when you have a pair and a gut shot, it's like why did I even call pre-flop?" When Villain 35 shoves the 6&spades; turn (completing an open-ender for some), he has a draw or middle pair + equity and cannot fold. This is the ideal outcome: large flop bet builds a pot that auto-commits Villain 35 with a dominated hand. <strong>EV cost of small bet:</strong> If you bet 30k instead of 57k, Villain 35 still calls with 10-9 or 8-7. But the pot is smaller, so when he shoves the turn, the call is more -EV if he has a better hand. The larger flop bet sets up maximum value capture.</p>
+</div>
+
+<div class="box box-example">
+  <span class="box-label">Worked Example &mdash; AA on AT2&diams; Board (Part 10)</span>
+  <p><strong>Setup:</strong> You have AA. Big blind calls. Board: A&diams; T&spades; 2&diams;. He checks.</p>
+  <p><strong>Action:</strong> Bet immediately (do not slow-play).</p>
+  <p><strong>Turn: T&clubs;. He checks.</strong></p>
+  <p><strong>Action:</strong> Fire again.</p>
+  <p><strong>Analysis:</strong> "He is not folding a 10 on the flop. He assumes when he calls out of the big blind with a large range and checks to you that you're going to be firing more often than he should &mdash; which is, to be fair to him, how the field plays. But that means you don't want to be slow-playing nearly as much here." Betting AA on the A-high flop is correct because: tens are calling; flush draws are calling; backdoor anything is calling; kings are calling. All of these hands will give you at least one street of value. On the turn, re-fire: "A 10 is calling whatever you put out there." The debate Alex had: the turn bet size. Betting bigger (2/3 pot) sets up a river call. But if there is only one ace left in the deck and he called with a flush draw, the flush draw might not call a huge turn bet. "If you think he just looks at this turn bet and calls with any flush draw, by all means bet bigger." This is a judgment call, but the principle is clear: do not slow-play AA in position at microstakes &mdash; extract value on every street.</p>
+</div>
+
+<!-- ============================================================ -->
+<h2 id="bluffing">11. Bluffing at Microstakes: When and How</h2>
+
+<p>Bluffing at microstakes requires a different model than higher stakes. Players at $2 tournaments will not fold top pair regardless of sizing, so you must target the hands they <em>will</em> fold: high cards that missed the board. The "one shot" nature of microstakes players (lead flop, give up turn) also gives you opportunities to steal back pots.</p>
+
+<div class="box box-insight">
+  <span class="box-label">Key Insight &mdash; Target High Cards, Not Pairs</span>
+  <p>At microstakes, bluffing mid-pair out of a pot is very difficult. Bluffing high-card hands that missed is very easy. "You'll normally see very passive players take one shot with their ace-x suited [bluffing], but that's probably going to be it." The correct bluffing targets are: (1) Players who have proven to fold c-bets (check their "fold to c-bet" stat). (2) Boards that are bad for their calling range (ace-high boards when you are the pre-flop raiser). (3) Turn and river cards that complete the draws in your perceived range. Never try to bluff someone off a pair with one bet at microstakes &mdash; it does not work.</p>
+</div>
+
+<div class="box box-example">
+  <span class="box-label">Worked Example &mdash; 3-Bet Bluff with 89o Out of Position (Part 7)</span>
+  <p><strong>Setup:</strong> Villain 16 opens from CO/BTN. You are in the BB with 8&spades; 9&clubs;. You 3-bet to 200k into a 362k pot (including dead BB).</p>
+  <p><strong>Action:</strong> 3-bet. He folds.</p>
+  <p><strong>Analysis:</strong> The math: "Your bet needs to work 55% of the time." Is that achievable? "If you think this guy is raise-folding 60% of the time, you can do this with any two cards." The 3-bet needs 55% success, and a typical BTN/CO player opening 40% of hands will fold roughly 60% of those hands to a large 3-bet. The 8-9 is the "excuse" &mdash; it provides post-flop equity if called. "There will be times you flop an open-ended straight draw and you can check-jam. There will be times you flop two pair." The specific application at microstakes: "In micro stakes, you can do it a lot because people feel like it's Monopoly money. In 109s, people play like it's Monopoly money sometimes and then once you confront them with their whole stack, they go 'oh yeah, this was 100 bucks.'" At microstakes, the opponent does not get that awakening moment. But their opening range is still wide, and if you see them barely looking at their hand before opening, this play has strong EV. <strong>Critical rule:</strong> Only do this if you genuinely believe the player is opening 35-45%+ of hands. If they are a 14-10, they are not, and this 3-bet bluff is losing money.</p>
+</div>
+
+<div class="box box-example">
+  <span class="box-label">Worked Example &mdash; A3o Call and Check Back on KT6 (Part 2)</span>
+  <p><strong>Setup:</strong> Villain 39 (48-24-27) raises. You call A3o in the BB. Board: K&spades; T&spades; 6&diams;. He checks to you.</p>
+  <p><strong>Action:</strong> Check back.</p>
+  <p><strong>Turn: 2&diams; He bets.</strong></p>
+  <p><strong>Action:</strong> Fold.</p>
+  <p><strong>Analysis:</strong> "When aggressive players check to you here nine times out of ten it's a trick." A 48-24-27 player is likely slow-playing something on a KT6 board after raising pre-flop. "He could just be giving up with 5-4 hearts, but something about a 48-24-27. Let's not project how we think about poker on him." You have ace-three with the ace blocking your own flush draws (no spade). "The hands we want check-folding: if he had like A8 of hearts &mdash; we're blocking it. All the hands we want check-folding, it's really less likely he has that because we have that in our hands." So we have no equity, the blocker works against us post-flop, and an aggressive player checked. Check back. Once he fires the turn: nothing changed. He was trapping. Fold. "Fundamentals applied relentlessly is what wins these tournaments."</p>
+</div>
+
+<!-- ============================================================ -->
+<h2 id="late-tournament">12. Late Tournament and Final Table Play</h2>
+
+<h3>Bubble and ICM Considerations</h3>
+
+<div class="box box-insight">
+  <span class="box-label">Key Insight &mdash; Min Cash First, Then Go for Broke</span>
+  <p>"When 20% of the field gets paid, your first job is to min cash. Then after that, because 298th and 68th will pay the same, you go for broke. The first thing is to min cash. Then you go for it." This completely changes your play near the bubble: do not bust for a thin edge when you could fold into the money. But once you are comfortably in the money (and especially once in the top 10% of payouts), stop worrying about ICM and play to win. "Payout jumps in a two dollar tournament probably not going to change your life &mdash; play for the win."</p>
+</div>
+
+<div class="box box-example">
+  <span class="box-label">Worked Example &mdash; Sunk Cost Psychology at the Final Table (Part 10)</span>
+  <p><strong>Setup:</strong> Deep in the tournament, Alex makes a passive play he later second-guesses. He notes players increasingly avoid jamming as the tournament goes long.</p>
+  <p><strong>Analysis:</strong> "There's a lot of times you'll see people justify deep in tournaments like passive play and they have a hundred reasons and they're all bull. Why did you call here? Well, he hadn't been opening as much &mdash; no, dude, you're four hours into the tournament, you didn't want to bust, you knew it was right to do the thin jam, you didn't do it. Why? Because it was going to feel silly after four hours to put it in on such a thin hand. Sunk cost. The time does something." This applies directly to microstakes: players deep in a $2 tournament have invested 3&ndash;4 hours. The sunk cost is no longer $2 &mdash; it is those hours. They will avoid jams, take free flops, and call with pairs they would normally fold, all to protect their time investment. <strong>Exploit this:</strong> Attack short stacks who are scared of busting after a long session. Make small raises that force them to confront losing everything. They will fold more than they should.</p>
+</div>
+
+<h3>Playing the Chip Lead</h3>
+
+<div class="box box-example">
+  <span class="box-label">Worked Example &mdash; Opening King-Deuce UTG Late in Tournament (Part 13)</span>
+  <p><strong>Setup:</strong> Four-handed at the final table. You have a massive chip lead (12 million vs. 2&ndash;3 million for others). Stack statistics: 26-13, 16-13, 17-12, 12-5. You have K&diams; 2&hearts; UTG. It folds around after your open.</p>
+  <p><strong>Analysis:</strong> "What do you have to ask yourself now that you just showed that you open king-deuce offsuit? Is anybody going to do anything about it or is everybody going to get the same bright idea? I'll wait till he gets into big pots with everybody else. Look at the statistics around you: 26-13, 16-13, 17-12, 12-5 &mdash; no one's going to do anything about it." As chip leader with a massive stack, your c-bets and opens have added fold equity because "people know they can't really check-raise finesse versus us. And a lot of people maybe can't articulate that, but subconsciously they know that, and that helps us a lot." Open relentlessly. Bet 1/3 pot. "If you bet one-third pot it needs to work 25% of the time, which means he needs to defend 75% of the hands, which means he needs to defend with a lot of high cards there out of position versus the big stack when he's a 16-11. That is not happening." <strong>EV of aggressive chip-lead play:</strong> Every hand you open and steal picks up 1.5&ndash;2 BB. Over dozens of hands, this compounds into a dominant position that forces your opponents into desperate, high-variance spots.</p>
+</div>
+
+<!-- ============================================================ -->
+<h2 id="heads-up">13. Heads-Up Strategy</h2>
+
+<p>Heads-up is where tournaments are won or lost, and where most players have the least experience. The gap between first and second place is typically the biggest payout jump. Practice heads-up play &mdash; even in $5 heads-up sit-and-goes &mdash; to develop this skill.</p>
+
+<div class="box box-definition">
+  <span class="box-label">Definition &mdash; The Core Heads-Up Strategy</span>
+  <p>The entire heads-up meta boils down to one principle: <strong>play your big pots in position with generally better hands.</strong> To do this, you must (1) raise on the button when you likely have the best hand, (2) 3-bet villain's button opens occasionally to make him gun-shy, (3) check-raise his c-bets to punish position plays, and (4) donk-lead occasionally to prevent him from seeing cheap flops. The goal is to get him to either fold when in position (ideal) or call raises out of position (also ideal). What you do not want: letting him comfortably see cheap flops in position all day.</p>
+</div>
+
+<div class="box box-example">
+  <span class="box-label">Worked Example &mdash; 3-Bet Bluff with T6&hearts; Heads-Up (Part 13)</span>
+  <p><strong>Setup:</strong> Villain opens from the button. You are in the BB with T6&hearts; heads-up, deep-stacked. You 3-bet to 875k. The bet needs to work 65% of the time. He opens ~65% of hands.</p>
+  <p><strong>Action:</strong> 3-bet. He folds.</p>
+  <p><strong>Analysis:</strong> "He's opening this much [65%]. Now you three-bet and let's say he defends 306 combos out of 866 &mdash; that's about 35% of the time, which means 65% of the time he's folding. So this more or less means we're just free-rolling whenever we get to see the flop." But the <em>real</em> reason for this play is strategic: "Early on I want the guy to know your pre-flop raises in position are not safe." One early 3-bet establishes that his button opens cost money. He will tighten up, which means future orbits you get more uncontested pots when you have position. The T6 is "an excuse" &mdash; it plays well enough post-flop (can flop draws, top pair, etc.) that if he calls, you are not dead. <strong>Important caveat:</strong> Do not do this repeatedly until he adjusts (likely after 2&ndash;3 times). "Usually they won't tighten up till like after the second or third time you do it, so you can get away with it a couple times in a row."</p>
+</div>
+
+<div class="box box-example">
+  <span class="box-label">Worked Example &mdash; Flopping 75% Pot Donk Lead (Part 14)</span>
+  <p><strong>Setup:</strong> You have A6o. Villain opens (240k). You 3-bet pre-flop &mdash; he does not call. Next hand: he opens again. You call out of position. Board: 7-5-4 rainbow. You lead out 75% pot.</p>
+  <p><strong>Analysis:</strong> "People really struggle to raise donk leads. Your bet, if you bet 75% pot, needs to work 42.8% of the time. If the guy has ace-four, do you feel good? There's guys who will fold that. And if they're folding that, they're folding way more than 42.8% of the time." The donk lead serves multiple purposes: (1) charges him for being in position on a board that does not hit his wide opening range, (2) reveals his hand strength quickly (raise = strong, call = draw or medium pair, fold = missed), and (3) prevents him from getting a cheap look at a card that might improve his hand. At microstakes heads-up, it is particularly effective because the villain does not know whether you have 8-6 (flopped an open-ender) or 7-5 (flopped two pair). <strong>EV of checking vs. leading:</strong> Checking and calling his c-bet achieves similar information but costs more and gives him a free look at your check-call tendency. Leading is more aggressive and charges him more for his range advantage in position.</p>
+</div>
+
+<div class="box box-example">
+  <span class="box-label">Worked Example &mdash; Kings in the Tank, Catching a Bluff (Part 14)</span>
+  <p><strong>Setup:</strong> Villain has been calling your aggressive 3-bets. You 3-bet a third time with K&hearts; K&diams;. He shoves (presumably with Ace-eight offsuit or similar).</p>
+  <p><strong>Action:</strong> Call (and hold).</p>
+  <p><strong>Analysis:</strong> This is the culmination of the heads-up strategy. "I was going to give him that 3-bet a couple of times and then pocket the 3-bet for a 3-bet call like this. You don't want to just every single time he opens 3-bet because then he has a really simple defense &mdash; which is what you're seeing here." The opponent was primed to shove by repeated 3-bets. He correctly identifies that your 3-betting is wide but misjudges the timing &mdash; this time you have kings. This is the fundamental heads-up leveling game: establish that you 3-bet wide, then 3-bet your premium hands and get action. "Every single time I love watching a grown man give up. I love three-betting and having the guy with just the dry ace just like 'let's go.' That's just God, to this day I still love that feeling."</p>
+</div>
+
+<!-- ============================================================ -->
+<h2 id="key-hand-examples">14. Complete Hand Example Library</h2>
+
+<p>Every specific hand example from the transcripts, organized by concept. Each entry includes full context: positions, stacks, actions, board, analysis, and EV discussion.</p>
+
+<h3>Preflop: Marginal Spots</h3>
+
+<div class="box box-example">
+  <span class="box-label">Worked Example &mdash; K3&hearts; BTN, Multi-Tabling Decision (Part 1)</span>
+  <p><strong>Setup:</strong> BTN, K3&hearts;, soft table, everyone passive. Folded to you.</p>
+  <p><strong>Action:</strong> Typically fold (especially multi-tabling); open if playing 1&ndash;2 tables with a great read on the BB.</p>
+  <p><strong>Analysis:</strong> "If you're multi-tabling, don't open this hand because what's going to happen is you're going to get a really good hand in position somewhere and that hand is going to be worth 4&ndash;5 BB, could be worth a lot more. Your aces in position are generally worth 10 BB and if you play it really well you can get it up to 12 &mdash; that's a much better allocation of your resources." The opportunity cost of marginal opens while multi-tabling: you miss premium hands in other windows while making 0.1 BB on a marginal spot.</p>
+</div>
+
+<div class="box box-example">
+  <span class="box-label">Worked Example &mdash; 44 vs. UTG Open Multi-Way (Part 1)</span>
+  <p><strong>Setup:</strong> You hold 44. Villain 39 (67-33) opens UTG. Several players to act. You are in middle position.</p>
+  <p><strong>Action:</strong> 3-bet to 27,000.</p>
+  <p><strong>Analysis:</strong> Alex acknowledges this is aggressive ("you three bet a 57-29, your hand is supposed to be like eights or nines here"). He did it partly as a teaching moment. Three callers behind (Villain 28, 13, 39 himself). <strong>Board: Q&hearts; 8&clubs; 6&diams;. Checked around.</strong> Correct play: check (you have a pair below the board, four players). "Nobody takes a shot at this board" at microstakes when everyone checks. Do not lead into four players with a pair of fours. Check back, win at showdown. <strong>Key lesson:</strong> Even wild 3-bets can "work" at microstakes because post-flop passivity means no one fires when they miss.</p>
+</div>
+
+<div class="box box-example">
+  <span class="box-label">Worked Example &mdash; QJo vs. Two Limpers (Part 2)</span>
+  <p><strong>Setup:</strong> You have QJo. Two players limp (one is 10-8, very tight). Microstakes $2 tournament.</p>
+  <p><strong>Action:</strong> Fold (marginally; raise is defensible vs. soft tables).</p>
+  <p><strong>Analysis:</strong> "This is something I see people screw up all the time in micro-6 games. If it's a $50 tournament and you make it 25k here, most likely Villain 13 is going to fold. But in micro-6 tournaments: when a guy bought in for $2, if you raise and he's short, he's really likely to go 'F it, I'm in.'" The 10-8 (very tight) could be limping a big hand. Building a pot out of position with QJo into a potential trap plus a player who might shove you off the pot = high-variance situation with low EV.</p>
+</div>
+
+<div class="box box-example">
+  <span class="box-label">Worked Example &mdash; A9o UTG, Part 5 Lesson</span>
+  <p><strong>Setup:</strong> A9o under the gun. Folded to you.</p>
+  <p><strong>Action:</strong> Fold.</p>
+  <p><strong>Analysis:</strong> "Unless you're doing some specific experiment, you really, really should not be opening Ace-9 off under the gun." UTG means 7+ players to act. Even at microstakes, opening A9o from UTG puts you in bad spots: you either get called by better hands (AK, AQ, AJ all dominate you) or you get 3-bet and are in a terrible spot. The 7-wide structure of tournament poker means UTG ranges should be tight even at the lowest stakes.</p>
+</div>
+
+<h3>Postflop: Set Over Set, Coolers</h3>
+
+<div class="box box-example">
+  <span class="box-label">Worked Example &mdash; Pocket Nines vs. Raise and Re-Raise (Part 3)</span>
+  <p><strong>Setup:</strong> You have 99 facing a raise and a re-raise from a short stack (Villain 13, getting short). Villain 28 still to act.</p>
+  <p><strong>Action:</strong> Shove all-in.</p>
+  <p><strong>Analysis:</strong> "Does Villain 13 do this with X? X is the best hand that you beat &mdash; that would be eights. He's getting pretty short now with the blinds going up. A lot of guys get desperate there. Eights, sevens, sixes &mdash; that certainly makes sense." You are ahead of a short stack's desperation-shove range. The fold is defensible ("my friends who play very tight poker &mdash; they would fold here every single time") but at microstakes you "see so much goofy stuff as the blinds go up from the short stacks that I think it's just barely you gotta get it in here."</p>
+</div>
+
+<div class="box box-example">
+  <span class="box-label">Worked Example &mdash; Pocket Threes on AQJ&clubs; (Part 6)</span>
+  <p><strong>Setup:</strong> You open 33 from CO. Villain 21 (21-5, very tight, rejam stack) calls. Board: A&diams; Q&clubs; J&clubs;.</p>
+  <p><strong>Action:</strong> Check (do not c-bet).</p>
+  <p><strong>He bets min (30k). You call. Turn: J&diams;. He bets 30k. You call. River: 5&diams;. He checks. You check. He has an ace.</strong></p>
+  <p><strong>Analysis:</strong> "In higher-stakes tournaments, the cold-calling range from a reg is probably like 6-8% of hands, and on this board, no matter what the guy has, at least a pair, and people typically don't like folding pairs. So it becomes a check-fold very quickly when you have a 21-5 there." You should not c-bet this board: every hand in his cold-calling range has hit it (pairs and high cards). His min-bets indicate he is drawing or probing, not value-betting. Calling twice with 33 (no pair on board) makes sense because: (1) his bet size is tiny, giving excellent pot odds to backdoor; (2) if he had a real hand he would bet more; (3) microstakes players check down rivers on dry runouts when they "don't have it." He checks the river confirming he had nothing strong and we win at showdown.</p>
+</div>
+
+<h3>Postflop: Navigating Specific Board Textures</h3>
+
+<div class="box box-example">
+  <span class="box-label">Worked Example &mdash; 78&diams; on Q83&spades; Board (Part 12)</span>
+  <p><strong>Setup:</strong> You open 7&clubs; 8&diams; from SB. Villain calls in BB. Board: Q&spades; 8&hearts; 3&spades;. You check. He bets 350k.</p>
+  <p><strong>Action:</strong> Call.</p>
+  <p><strong>Turn: 9&diams;. He checks. River: 6&hearts;. You bet 350k (around 1/4 to 1/3 pot).</strong></p>
+  <p><strong>Analysis:</strong> On the flop, second pair no real kicker. "If you said bet, there's merit because Villain 18 (34-15) &mdash; the flop c-bet would probably be called by threes, fives, sixes, and sevens." But the check-call line is chosen because: "For some reason when I bet there and then check the turn, guys really seem to know what range you have. They'll know it's a queen on occasion but they'll know it's a bunch of eights and then they'll know it's a bunch of just crap." On the river, a small value bet because: "The great thing about microstakes is they're so predictable. If he rivered a six or if he has some random three or he's got fours that he took a shot with when that flush draw misses and you bet small, he's not folding." Lead river for thin value.</p>
+</div>
+
+<div class="box box-example">
+  <span class="box-label">Worked Example &mdash; KJ on AQ3&spades;&spades; Board (Part 12)</span>
+  <p><strong>Setup:</strong> You open KJ. Big blind calls (17-12). Board: A&hearts; Q&hearts; 3&clubs;. You check (gutshot, backdoor flush draw with K&hearts;). He checks. Turn: draws develop (clubs appeared). You bet. He calls. River: Q&clubs;. He checks.</p>
+  <p><strong>Action:</strong> Check (do not value-bet the river).</p>
+  <p><strong>Analysis:</strong> On the flop: "With the backdoor flush draw, the gut shot, and the high card I'm fine with the check. Oftentimes you have the best hand but you're sure as hell not going to get a better hand to fold &mdash; you're obviously never getting an ace or a queen to fold. You get a little value out of a hard draw but you're blocking a bunch of them." On the turn, betting is correct as draws developed. On the river: "I probably should have bet more [on the turn]." The Q&clubs; on the river completes the club flush. His range is not folding a queen, and you may be behind if he slow-played it. Checking back is correct: you do not have enough information to bet-call, and value betting with king-high into a board that now has queens and a flush is too thin.</p>
+</div>
+
+<h3>The "Pocket Fours, Shove-or-Fold" Spot</h3>
+
+<div class="box box-example">
+  <span class="box-label">Worked Example &mdash; 44 in BB vs. SB Limp (Part 5)</span>
+  <p><strong>Setup:</strong> You have 44 in the BB. Villain 13 (28-16, with 14% 3-bet, somewhat active) limps from the SB with around 20&ndash;30 BB.</p>
+  <p><strong>Action:</strong> Shove (or raise large).</p>
+  <p><strong>Analysis:</strong> "When you are playing higher-stakes tournaments, you have to be really worried when a guy between 20 to 30 big blinds limps in from the small blind. Because a lot of people have learned that if they raise and they've got like a 6 suited, and the person calls out of the big blind, well now a lot of flops are not going to go well for them &mdash; so what they do with pocket fives or king-ten or ace-six suited is they limp, then when you raise, they just shove." Solution: "One way you can leave them wondering what to do is just take the jam away from them and shove. And you are plus-EV jamming here versus a limping range." Note: "Is it optimal versus a 28-16? That's a tough call with 14% 3-bet. Maybe a little better to cut him off at the pass. But if he was a 28-12 with no 3-bet to speak of, you should raise [not shove] because that guy is really unlikely to be doing that trap."</p>
+</div>
+
+<h3>Late Tournament: ICM and Pressure</h3>
+
+<div class="box box-example">
+  <span class="box-label">Worked Example &mdash; 68&spades; 5-Bet Bluff (Part 11)</span>
+  <p><strong>Setup:</strong> Villain opens. You 3-bet with 6&spades; 8&spades; in position. He 4-bets small (not all-in). You 5-bet shove.</p>
+  <p><strong>Action:</strong> Shove. He calls with aces. You lose.</p>
+  <p><strong>Analysis:</strong> "What happens with a lot of aggressive guys is they go: okay I'll open here but I really don't want him to 3-bet me. I make it 3x on this button. Damn it he 3-bet me. I have to move all-in. But wait, there's another option &mdash; maybe I could just 4-bet really small and he'll fold? Oh no, he moved all-in on top of that." The 5-bet shove works because: "When he four-bets this small, a lot of times people with kings or queens will go 'yes, I get to get my money in' &mdash; they don't think beyond that." Kings and queens shove. Aces four-bet small (trying to trap). So when he four-bets small, you read it as bluff or a hand that does not want to see a flop. The problem: this time it was aces. "He got me. There's no other way to phrase it." Alex still defends the logic: the play works the vast majority of the time against four-bet-small bluffs. Getting it in against aces when running this play is an unavoidable outcome of the strategy.</p>
+</div>
+
+<div class="box box-example">
+  <span class="box-label">Worked Example &mdash; T8h Shove vs. BTN Open Near Final Table (Part 11)</span>
+  <p><strong>Setup:</strong> You have T8&hearts;. Villain opens from CO/BTN. You shove (25x jam). He calls with AJo and beats you.</p>
+  <p><strong>Action:</strong> Shove.</p>
+  <p><strong>Analysis:</strong> "I've been pretty sure he's not going to know what to call that with, especially if his opening range is 40% of hands and he's not calling like 80% of it." The logic: "There's such a disparity between what you're opening and what you're calling. I'm printing money so often when you fold here." At near-final-table situations, many players feel pressure to accumulate chips but are terrified of busting. Their calling range collapses. So a shove over a player opening 40% hands gets through most of the time. The one time he had AJo and called: "He could have argued he should be calling wider with AJo, I might not entirely agree but I see the case. The thing that blows my mind is they don't realize this is gambling &mdash; you're allowed to get lucky."</p>
+</div>
+
+<div class="box box-example">
+  <span class="box-label">Worked Example &mdash; Ace-Up Call vs. Aggressive Short Stack (Part 12)</span>
+  <p><strong>Setup:</strong> You open AJo. Villain 6 (33-25, aggressive) shoves all-in over your raise.</p>
+  <p><strong>Action:</strong> Call.</p>
+  <p><strong>Analysis:</strong> "This is the only guy you call that jam from because this is the only guy who's really likely to look down at ace-eight of hearts and go 'damn it he's opened like half the pots I've got to rejam.' The only guy to look down at king-jack suited or even queen-jack off and go 'you know what, I'm going for it.'" The other players at the table (16-13, 17-12, 12-5, 21-16) are all too tight to shove wide enough to justify calling. Villain 6 at 33-25 is different: "If he's a 18-13, you fold. If he's Villain 3 there, you muck. If he's Villain 5 there, you muck. This is the only guy you call that jam from."</p>
+</div>
+
+<!-- ============================================================ -->
+<h2>Summary: The Microstakes Playbook</h2>
+
+<div class="box box-insight">
+  <span class="box-label">The Fundamental Edge at Microstakes</span>
+  <p>Everything in this course reduces to five principles that compound each other:</p>
+  <ol>
+    <li><strong>Play big pots in position with generally superior hands.</strong> This is the engine of your profit.</li>
+    <li><strong>Value bet relentlessly against the big blind.</strong> They have trash, they cannot fold pairs, and you have position. Extract every chip possible.</li>
+    <li><strong>Do not project your logic onto opponents.</strong> Judge each villain by their stats and behavior &mdash; not by what a "rational" player would do.</li>
+    <li><strong>Recognize when bluffs work and when they do not.</strong> Bluff versus high cards that missed. Never bluff top pair out of a pot. Target passive players on passive boards.</li>
+    <li><strong>Fundamentals applied relentlessly wins tournaments.</strong> Opens, 3-bets, c-bets, and double barrels. Not tricky river bluffs with turned pairs &mdash; those are rare. The opens are 70% of your edge.</li>
+  </ol>
+</div>
+
+<div class="footer">
+  Source: PokerCoaching.com &mdash; Alexander Fitzgerald (Assassinato) &mdash; How to Beat the Microstakes (14-Episode Series)
+</div>
+
+</body>
+</html>

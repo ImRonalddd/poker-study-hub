@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>How to Beat the Microstakes &mdash; Study Hub</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;0,900;1,400&family=Source+Serif+4:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #FFFFFF;
+  --text: #000000;
+  --text-dim: #525252;
+  --border: #000000;
+  --border-light: #E5E5E5;
+  --blue: #2563EB;
+  --purple: #7C3AED;
+  --orange: #EA580C;
+  --red: #DC2626;
+}
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; border-radius: 0 !important; }
+
+body {
+  font-family: 'Source Serif 4', Georgia, serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+}
+
+.container { max-width: 900px; margin: 0 auto; padding: 4rem 2rem 6rem; }
+
+.back-link {
+  display: inline-block;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text-dim);
+  text-decoration: none;
+  margin-bottom: 2rem;
+  transition: color 0.1s;
+}
+.back-link:hover { color: var(--text); }
+
+.header { text-align: center; margin-bottom: 3rem; }
+.header h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: 3rem;
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  margin-bottom: 0.3rem;
+}
+.header .instructor {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--text-dim);
+  margin-bottom: 1rem;
+}
+.header .description {
+  font-size: 1.05rem;
+  color: var(--text-dim);
+  max-width: 640px;
+  margin: 0 auto;
+  line-height: 1.8;
+}
+
+.stats-bar {
+  display: flex;
+  justify-content: center;
+  gap: 3rem;
+  padding: 1.5rem 0;
+  border-top: 4px solid var(--text);
+  border-bottom: 1px solid var(--border-light);
+  margin-bottom: 3rem;
+}
+.stat { text-align: center; }
+.stat-number {
+  font-family: 'Playfair Display', serif;
+  font-size: 2rem;
+  font-weight: 700;
+  display: block;
+}
+.stat-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--text-dim);
+}
+
+.materials { display: flex; flex-direction: column; gap: 1rem; margin-bottom: 3rem; }
+
+.material-card {
+  border: 2px solid var(--text);
+  padding: 1.6rem 2.2rem;
+  text-decoration: none;
+  color: var(--text);
+  display: block;
+  transition: background 0.1s, color 0.1s;
+  position: relative;
+}
+.material-card:hover { background: var(--text); color: var(--bg); }
+.material-card:hover .material-desc,
+.material-card:hover .material-meta { color: rgba(255,255,255,0.7); }
+.material-card:hover .material-tag { border-color: rgba(255,255,255,0.3); color: rgba(255,255,255,0.7); background: rgba(255,255,255,0.08); }
+
+.material-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.4rem;
+  font-weight: 700;
+  margin-bottom: 0.25rem;
+}
+.material-meta {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 0.6rem;
+}
+.material-desc { color: var(--text-dim); line-height: 1.6; margin-bottom: 0.7rem; }
+.material-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+.material-tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.6rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 0.25rem 0.6rem;
+  border: 1px solid var(--border-light);
+  color: var(--text-dim);
+}
+.material-arrow {
+  position: absolute;
+  right: 2rem;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1.4rem;
+  opacity: 0;
+  transition: opacity 0.1s;
+}
+.material-card:hover .material-arrow { opacity: 1; }
+
+.episodes {
+  border: 1px solid var(--border-light);
+  padding: 2rem;
+  margin-bottom: 3rem;
+}
+.episodes-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.3rem;
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 4px solid var(--text);
+}
+
+.episode-list { list-style: none; }
+.episode-list li {
+  padding: 0.55rem 0;
+  border-bottom: 1px solid var(--border-light);
+  display: flex;
+  align-items: baseline;
+  gap: 1rem;
+}
+.episode-list li:last-child { border-bottom: none; }
+.ep-num {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: var(--text-dim);
+  flex-shrink: 0;
+  width: 2.2rem;
+}
+.ep-title { font-weight: 500; font-size: 0.95rem; }
+.ep-dur {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  color: var(--text-dim);
+  margin-left: auto;
+  flex-shrink: 0;
+}
+
+.footer {
+  text-align: center;
+  margin-top: 3rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--border-light);
+}
+.footer p {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+@media (max-width: 600px) {
+  .header h1 { font-size: 2rem; }
+  .stats-bar { gap: 1.5rem; flex-wrap: wrap; }
+  .stat-number { font-size: 1.5rem; }
+  .material-card { padding: 1.3rem; }
+  .material-title { font-size: 1.2rem; }
+  .material-arrow { display: none; }
+}
+</style>
+</head>
+<body>
+<div class="container">
+
+  <a href="../index.html" class="back-link">&larr; Back to Poker Study Hub</a>
+
+  <div class="header">
+    <h1>How to Beat the Microstakes</h1>
+    <div class="instructor">Instructor: Alexander Fitzgerald &mdash; Beginner &bull; Micro Stakes Tournaments</div>
+    <p class="description">
+      A 14-part interactive webinar series where Alex &ldquo;Assassinato&rdquo; Fitzgerald walks you hand-by-hand
+      through a $2 buy-in tournament he won on Americas Cardroom. Every key decision is presented as a quiz,
+      training fundamental tournament poker skills from early levels through heads-up play.
+    </p>
+  </div>
+
+  <div class="stats-bar">
+    <div class="stat">
+      <span class="stat-number">14</span>
+      <span class="stat-label">Lessons</span>
+    </div>
+    <div class="stat">
+      <span class="stat-number">~8h</span>
+      <span class="stat-label">Runtime</span>
+    </div>
+    <div class="stat">
+      <span class="stat-number">30+</span>
+      <span class="stat-label">Drill Questions</span>
+    </div>
+    <div class="stat">
+      <span class="stat-number">Micro Stakes</span>
+      <span class="stat-label">Format</span>
+    </div>
+  </div>
+
+  <div class="materials">
+
+    <a href="crash-course.html" class="material-card">
+      <div class="material-title">Crash Course</div>
+      <div class="material-meta">15&ndash;20 min read</div>
+      <div class="material-desc">
+        Concise overview of the key concepts from the series, organized by topic. Covers microstakes
+        tournament fundamentals: preflop range construction, stack depth adjustments, exploiting
+        recreational players, ICM awareness, and heads-up strategy.
+      </div>
+      <div class="material-tags">
+        <span class="material-tag">Preflop Fundamentals</span>
+        <span class="material-tag">Stack Dynamics</span>
+        <span class="material-tag">Exploitation</span>
+        <span class="material-tag">ICM Basics</span>
+        <span class="material-tag">Heads-Up Play</span>
+      </div>
+      <span class="material-arrow">&rarr;</span>
+    </a>
+
+    <a href="revision-guide.html" class="material-card">
+      <div class="material-title">Revision Guide</div>
+      <div class="material-meta">Deep-dive reference &mdash; comprehensive</div>
+      <div class="material-desc">
+        Full hand-by-hand breakdown of the tournament with complete context: stack sizes, positions,
+        villain tendencies, and the reasoning behind every key decision. Covers every quiz hand from
+        all 14 episodes with EV analysis and exploitative adjustments for typical microstakes player pools.
+      </div>
+      <div class="material-tags">
+        <span class="material-tag">Full Examples</span>
+        <span class="material-tag">Villain Reads</span>
+        <span class="material-tag">HUD Stats</span>
+        <span class="material-tag">Push/Fold</span>
+        <span class="material-tag">Min-Cash Strategy</span>
+      </div>
+      <span class="material-arrow">&rarr;</span>
+    </a>
+
+    <a href="drills.html" class="material-card">
+      <div class="material-title">Interactive Drills</div>
+      <div class="material-meta">Scenario-based multiple choice questions</div>
+      <div class="material-desc">
+        30+ quiz questions drawn directly from the tournament hands. Test your preflop decisions,
+        shove/call ranges, blind stealing, and heads-up adjustments across the full range of stack
+        depths and player types encountered in the series.
+      </div>
+      <div class="material-tags">
+        <span class="material-tag">Preflop Decisions</span>
+        <span class="material-tag">Shove Ranges</span>
+        <span class="material-tag">Blind Stealing</span>
+        <span class="material-tag">Bubble Play</span>
+        <span class="material-tag">Heads-Up</span>
+      </div>
+      <span class="material-arrow">&rarr;</span>
+    </a>
+
+    <a href="quick-reference.html" class="material-card">
+      <div class="material-title">Quick Reference</div>
+      <div class="material-meta">Printable cheat sheet</div>
+      <div class="material-desc">
+        At-a-glance tables for microstakes tournament decisions: open-raise ranges by position,
+        push/fold thresholds by effective stack, HUD stat benchmarks for player-type profiling,
+        and the core exploitative adjustments Fitzgerald applies against recreational players.
+      </div>
+      <div class="material-tags">
+        <span class="material-tag">Open Ranges</span>
+        <span class="material-tag">Push/Fold Charts</span>
+        <span class="material-tag">HUD Benchmarks</span>
+        <span class="material-tag">Player Profiles</span>
+        <span class="material-tag">Exploit Adjustments</span>
+      </div>
+      <span class="material-arrow">&rarr;</span>
+    </a>
+
+  </div>
+
+  <div class="episodes">
+    <div class="episodes-title">Lesson Guide</div>
+
+    <ol class="episode-list">
+      <li>
+        <span class="ep-num">01</span>
+        <span class="ep-title">Introduction &mdash; Early Levels, Fundamentals &amp; Quiz Format</span>
+        <span class="ep-dur">33 min</span>
+      </li>
+      <li>
+        <span class="ep-num">02</span>
+        <span class="ep-title">Playing a Solid Baseline: Folding Trouble Hands &amp; 3-Bet Spots</span>
+        <span class="ep-dur">33 min</span>
+      </li>
+      <li>
+        <span class="ep-num">03</span>
+        <span class="ep-title">Isolating Loose Players &amp; All-In Decisions with Strong Hands</span>
+        <span class="ep-dur">38 min</span>
+      </li>
+      <li>
+        <span class="ep-num">04</span>
+        <span class="ep-title">Stack Depth Adjustments &amp; Value Betting Against Calling Stations</span>
+        <span class="ep-dur">33 min</span>
+      </li>
+      <li>
+        <span class="ep-num">05</span>
+        <span class="ep-title">Mid-Tournament Blind Stealing &amp; Protecting Your Stack</span>
+        <span class="ep-dur">35 min</span>
+      </li>
+      <li>
+        <span class="ep-num">06</span>
+        <span class="ep-title">Exploiting Player Types: Maniacs, Nits &amp; Fun Players</span>
+        <span class="ep-dur">32 min</span>
+      </li>
+      <li>
+        <span class="ep-num">07</span>
+        <span class="ep-title">Short Stack Dynamics &amp; Push/Fold Thresholds</span>
+        <span class="ep-dur">34 min</span>
+      </li>
+      <li>
+        <span class="ep-num">08</span>
+        <span class="ep-title">Bubble Play: Min-Cash Strategy &amp; ICM Pressure</span>
+        <span class="ep-dur">39 min</span>
+      </li>
+      <li>
+        <span class="ep-num">09</span>
+        <span class="ep-title">In the Money: Aggressive Accumulation &amp; Payout Jump Awareness</span>
+        <span class="ep-dur">34 min</span>
+      </li>
+      <li>
+        <span class="ep-num">10</span>
+        <span class="ep-title">Deep Stacked Play: Open-Shoving vs. Raising &amp; Re-Steal Spots</span>
+        <span class="ep-dur">31 min</span>
+      </li>
+      <li>
+        <span class="ep-num">11</span>
+        <span class="ep-title">Final Table Approach: Payout Jumps &amp; Stack-Based Adjustments</span>
+        <span class="ep-dur">37 min</span>
+      </li>
+      <li>
+        <span class="ep-num">12</span>
+        <span class="ep-title">Three-Handed Play: Balancing Aggression &amp; Avoiding Coolers</span>
+        <span class="ep-dur">32 min</span>
+      </li>
+      <li>
+        <span class="ep-num">13</span>
+        <span class="ep-title">Heads-Up Preparation: Position Exploitation &amp; Chip Leader Strategy</span>
+        <span class="ep-dur">37 min</span>
+      </li>
+      <li>
+        <span class="ep-num">14</span>
+        <span class="ep-title">Heads-Up Play: Closing Out the Tournament &amp; Course Wrap-Up</span>
+        <span class="ep-dur">27 min</span>
+      </li>
+    </ol>
+  </div>
+
+  <div class="footer">
+    <p>Study materials generated from PokerCoaching.com course transcripts</p>
+  </div>
+
+</div>
+</body>
+</html>
