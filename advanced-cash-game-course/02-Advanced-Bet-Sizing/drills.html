@@ -63,6 +63,11 @@ h1{font-family:'Playfair Display',serif;font-weight:800;font-size:2.2rem;text-al
 <div class="subtitle">Chapter 2 -- 30 Questions</div>
 <div class="hotkeys"><kbd>1</kbd><kbd>2</kbd><kbd>3</kbd><kbd>4</kbd> answer &nbsp; <kbd>Space</kbd> next &nbsp; <kbd>R</kbd> restart &nbsp; <kbd>H</kbd> toggle hint</div>
 
+<div style="display:flex;gap:0.5rem;justify-content:center;margin-bottom:1rem;">
+  <button id="shuffleBtn" onclick="shuffleRestart()" style="font-family:'JetBrains Mono',monospace;font-size:0.7rem;padding:0.4rem 0.8rem;border:1px solid var(--border-light,#E5E5E5);background:var(--surface,#fff);cursor:pointer;text-transform:uppercase;letter-spacing:0.08em;">Shuffle</button>
+  <button id="reviewMissedBtn" onclick="reviewMissed()" disabled style="font-family:'JetBrains Mono',monospace;font-size:0.7rem;padding:0.4rem 0.8rem;border:1px solid var(--border-light,#E5E5E5);background:var(--surface,#fff);cursor:pointer;text-transform:uppercase;letter-spacing:0.08em;opacity:0.4;">Review Missed (0)</button>
+</div>
+
 <div id="progress-bar"><div id="progress-fill" style="width:0%"></div></div>
 <div id="score-display"></div>
 
@@ -114,9 +119,14 @@ const allQuestions = [
   {q:"Against a loose-aggressive player on the river, you have a straight on a board that favors your range. Best play?",opts:["Overbet for maximum value","Bet small to induce a raise, then call","Check to induce a bluff or bet small to induce a raise","Pot it -- standard value bet"],ans:2,hint:"LAGs bluff too often -- use their aggression against them by inviting them to put in more money.",ex:"Against LAGs, you have two good options: check to induce their bluff, or bet small to induce a raise. On boards favoring YOUR range, bet small to get raised. On boards where opponent naturally has more bluffs, check to let them blast off."},
 ];
 
+var originalQuestions = allQuestions.slice();
 let questions,current,score,missed,answered;
-function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
-function restart(){questions=shuffle([...allQuestions]);current=0;score=0;missed=[];answered=false;document.getElementById('results').style.display='none';document.getElementById('question-area').style.display='block';document.getElementById('next-btn').style.display='none';showQ()}
+function shuffleArray(arr){for(let i=arr.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[arr[i],arr[j]]=[arr[j],arr[i]]}return arr}
+function shuffle(a){return shuffleArray(a.slice())}
+function updateReviewBtn(){var btn=document.getElementById('reviewMissedBtn');if(!btn)return;var n=missed.length;btn.textContent='Review Missed ('+n+')';if(n>0){btn.disabled=false;btn.style.opacity='1';}else{btn.disabled=true;btn.style.opacity='0.4';}}
+function shuffleRestart(){questions=shuffle(originalQuestions);current=0;score=0;missed=[];answered=false;document.getElementById('results').style.display='none';document.getElementById('question-area').style.display='block';document.getElementById('next-btn').style.display='none';updateReviewBtn();showQ();}
+function reviewMissed(){if(!missed.length)return;var savedOrig=originalQuestions.slice();questions=shuffleArray(missed.map(function(m){return{q:m.q,opts:m.opts,ans:m.opts.indexOf(m.correct),hint:m.hint||'',ex:m.ex}}));originalQuestions=questions.slice();current=0;score=0;missed=[];answered=false;document.getElementById('results').style.display='none';document.getElementById('question-area').style.display='block';document.getElementById('next-btn').style.display='none';updateReviewBtn();showQ();}
+function restart(){questions=shuffle(originalQuestions);current=0;score=0;missed=[];answered=false;document.getElementById('results').style.display='none';document.getElementById('question-area').style.display='block';document.getElementById('next-btn').style.display='none';updateReviewBtn();showQ()}
 function showQ(){
   if(current>=questions.length){showResults();return}
   answered=false;
@@ -137,7 +147,8 @@ function pick(idx){
   if(answered)return;answered=true;
   const q=questions[current];const btns=document.querySelectorAll('.option');
   btns.forEach(b=>{b.classList.add('disabled');const bi=parseInt(b.dataset.idx);if(bi===q.ans)b.classList.add('show-correct');if(bi===idx&&idx!==q.ans)b.classList.add('selected-wrong');if(bi===idx&&idx===q.ans)b.classList.add('selected-correct')});
-  if(idx===q.ans)score++;else missed.push({q:q.q,yours:q.opts[idx],correct:q.opts[q.ans],ex:q.ex});
+  if(idx===q.ans)score++;else missed.push({q:q.q,opts:q.opts,correct:q.opts[q.ans],hint:q.hint||'',ex:q.ex});
+  updateReviewBtn();
   document.getElementById('explanation').innerHTML=q.ex;document.getElementById('explanation').className='visible';
   document.getElementById('next-btn').style.display='block';
 }

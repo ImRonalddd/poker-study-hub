@@ -338,6 +338,11 @@ h1 {
 <h1>Interactive Drills</h1>
 <div class="subtitle">Chapter 4 -- Postflop Deep-Stacked Adjustments</div>
 
+<div style="display:flex;gap:0.5rem;justify-content:center;margin-bottom:1rem;">
+  <button id="shuffleBtn" onclick="shuffleRestart()" style="font-family:'JetBrains Mono',monospace;font-size:0.7rem;padding:0.4rem 0.8rem;border:1px solid var(--border-light,#E5E5E5);background:var(--surface,#fff);cursor:pointer;text-transform:uppercase;letter-spacing:0.08em;">Shuffle</button>
+  <button id="reviewMissedBtn" onclick="reviewMissed()" disabled style="font-family:'JetBrains Mono',monospace;font-size:0.7rem;padding:0.4rem 0.8rem;border:1px solid var(--border-light,#E5E5E5);background:var(--surface,#fff);cursor:pointer;text-transform:uppercase;letter-spacing:0.08em;opacity:0.4;">Review Missed (0)</button>
+</div>
+
 <div class="progress-wrap">
   <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
   <div class="progress-text">
@@ -590,6 +595,7 @@ const QUESTIONS = [
 // ============================================================
 // APP STATE
 // ============================================================
+var originalQuestions = QUESTIONS.slice();
 let questions = [];
 let current = 0;
 let score = 0;
@@ -606,6 +612,33 @@ function shuffle(arr) {
   return a;
 }
 
+function updateReviewBtn() {
+  var btn = document.getElementById('reviewMissedBtn');
+  if (!btn) return;
+  var n = missed.length;
+  btn.textContent = 'Review Missed (' + n + ')';
+  if (n > 0) { btn.disabled = false; btn.style.opacity = '1'; }
+  else { btn.disabled = true; btn.style.opacity = '0.4'; }
+}
+
+function shuffleRestart() {
+  originalQuestions = QUESTIONS.slice();
+  questions = shuffle(originalQuestions);
+  current = 0; score = 0; answered = false; missed = []; reviewMode = false;
+  updateReviewBtn();
+  render();
+}
+
+function reviewMissed() {
+  if (!missed.length) return;
+  questions = shuffle(missed);
+  missed = [];
+  current = 0; score = 0; reviewMode = true;
+  questions.forEach(function(q) { q._shuffled = undefined; });
+  updateReviewBtn();
+  render();
+}
+
 function init() {
   questions = shuffle(QUESTIONS);
   current = 0;
@@ -613,6 +646,7 @@ function init() {
   answered = false;
   missed = [];
   reviewMode = false;
+  updateReviewBtn();
   render();
 }
 
@@ -734,6 +768,7 @@ function handleMCAnswer(q, origIdx) {
   const correct = origIdx === q.answer;
   if (correct) score++;
   else missed.push({...q, _shuffled: undefined});
+  updateReviewBtn();
 
   const card = document.getElementById('cardArea');
   card.querySelectorAll('.option-btn').forEach(btn => {
@@ -751,6 +786,7 @@ function handleTFAnswer(q, val) {
   const correct = val === q.answer;
   if (correct) score++;
   else missed.push({...q});
+  updateReviewBtn();
 
   const card = document.getElementById('cardArea');
   card.querySelectorAll('.option-btn').forEach(btn => {
@@ -769,6 +805,7 @@ function handleFIBAnswer(q, val) {
   const correct = q.answer.some(a => a.replace(/[%$,]/g, '') === trimmed);
   if (correct) score++;
   else missed.push({...q});
+  updateReviewBtn();
 
   const input = document.getElementById('fibInput');
   input.disabled = true;

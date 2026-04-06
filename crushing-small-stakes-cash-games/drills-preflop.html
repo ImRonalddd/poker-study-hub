@@ -59,6 +59,11 @@ h1{font-family:'Playfair Display',serif;font-weight:800;font-size:2.2rem;text-al
 <div class="subtitle">Crushing Small Stakes Cash Games &mdash; 18 Questions</div>
 <div class="hotkeys"><kbd>1</kbd><kbd>2</kbd><kbd>3</kbd><kbd>4</kbd> answer &nbsp; <kbd>Space</kbd> next &nbsp; <kbd>R</kbd> restart &nbsp; <kbd>H</kbd> hint</div>
 
+<div style="display:flex;gap:0.5rem;justify-content:center;margin-bottom:1rem;">
+  <button id="shuffleBtn" onclick="shuffleRestart()" style="font-family:'JetBrains Mono',monospace;font-size:0.7rem;padding:0.4rem 0.8rem;border:1px solid var(--border-light,#E5E5E5);background:var(--surface,#fff);cursor:pointer;text-transform:uppercase;letter-spacing:0.08em;">Shuffle</button>
+  <button id="reviewMissedBtn" onclick="reviewMissed()" disabled style="font-family:'JetBrains Mono',monospace;font-size:0.7rem;padding:0.4rem 0.8rem;border:1px solid var(--border-light,#E5E5E5);background:var(--surface,#fff);cursor:pointer;text-transform:uppercase;letter-spacing:0.08em;opacity:0.4;">Review Missed (0)</button>
+</div>
+
 <div id="progress-bar"><div id="progress-fill" style="width:0%"></div></div>
 <div id="score-display"></div>
 
@@ -295,6 +300,7 @@ const allQuestions = [
   }
 ];
 
+var originalQuestions = allQuestions.slice();
 let questions, current, score, missed, answered;
 
 function shuffle(a) {
@@ -305,12 +311,68 @@ function shuffle(a) {
   return a;
 }
 
-function restart() {
-  questions = shuffle([...allQuestions]);
+function shuffleArray(arr) {
+  for (var i = arr.length - 1; i > 0; i--) {
+    var j = Math.floor(Math.random() * (i + 1));
+    var tmp = arr[i]; arr[i] = arr[j]; arr[j] = tmp;
+  }
+}
+
+function updateReviewBtn() {
+  var btn = document.getElementById('reviewMissedBtn');
+  if (!btn) return;
+  btn.textContent = 'Review Missed (' + missed.length + ')';
+  if (missed.length > 0) {
+    btn.disabled = false;
+    btn.style.opacity = '1';
+  } else {
+    btn.disabled = true;
+    btn.style.opacity = '0.4';
+  }
+}
+
+function shuffleRestart() {
+  var pool = originalQuestions.slice();
+  shuffleArray(pool);
+  questions = pool;
   current = 0;
   score = 0;
   missed = [];
   answered = false;
+  updateReviewBtn();
+  document.getElementById('results').style.display = 'none';
+  document.getElementById('question-area').style.display = 'block';
+  document.getElementById('next-btn').style.display = 'none';
+  document.getElementById('explanation').classList.remove('visible');
+  document.getElementById('explanation').textContent = '';
+  showQ();
+}
+
+function reviewMissed() {
+  if (missed.length === 0) return;
+  var pool = missed.slice();
+  shuffleArray(pool);
+  questions = pool;
+  current = 0;
+  score = 0;
+  missed = [];
+  answered = false;
+  updateReviewBtn();
+  document.getElementById('results').style.display = 'none';
+  document.getElementById('question-area').style.display = 'block';
+  document.getElementById('next-btn').style.display = 'none';
+  document.getElementById('explanation').classList.remove('visible');
+  document.getElementById('explanation').textContent = '';
+  showQ();
+}
+
+function restart() {
+  questions = shuffle([...originalQuestions]);
+  current = 0;
+  score = 0;
+  missed = [];
+  answered = false;
+  updateReviewBtn();
   document.getElementById('results').style.display = 'none';
   document.getElementById('question-area').style.display = 'block';
   document.getElementById('next-btn').style.display = 'none';
@@ -356,6 +418,7 @@ function pick(idx) {
   } else {
     missed.push({ q: q.q, your: q.opts[idx], correct: q.opts[q.ans], ex: q.ex });
   }
+  updateReviewBtn();
   document.getElementById('explanation').textContent = q.ex;
   document.getElementById('explanation').classList.add('visible');
   document.getElementById('next-btn').style.display = 'block';

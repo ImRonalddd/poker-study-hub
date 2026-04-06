@@ -72,6 +72,11 @@ footer{margin:3rem 0 1.5rem;padding-top:1rem;border-top:1px solid var(--border-l
 
 <div class="keys">Hotkeys: <strong>1-5</strong> answer &bull; <strong>H</strong> hint &bull; <strong>Space / Enter</strong> next &bull; <strong>R</strong> restart</div>
 
+<div style="display:flex;gap:0.5rem;justify-content:center;margin-bottom:1rem;">
+  <button class="btn" id="shuffleBtn" onclick="startQuiz('shuffle')" style="font-family:'JetBrains Mono',monospace;font-size:0.7rem;padding:0.4rem 0.8rem;border:1px solid var(--border-light);background:var(--surface,#fff);cursor:pointer;text-transform:uppercase;letter-spacing:0.08em;">Shuffle</button>
+  <button class="btn" id="reviewMissedBtn" onclick="startQuiz('missed')" disabled style="font-family:'JetBrains Mono',monospace;font-size:0.7rem;padding:0.4rem 0.8rem;border:1px solid var(--border-light);background:var(--surface,#fff);cursor:pointer;text-transform:uppercase;letter-spacing:0.08em;opacity:0.4;">Review Missed (0)</button>
+</div>
+
 <div class="progress" id="progress"></div>
 <div id="quiz-area"></div>
 
@@ -586,6 +591,7 @@ function startQuiz(mode) {
     state.order = [...Array(Q.length).keys()];
   }
   state.missed = new Set();
+  updateReviewBtn();
   showQuestion();
 }
 
@@ -631,9 +637,20 @@ function answer(idx) {
   fb.innerHTML = `<div class="feedback ${isCorrect ? 'correct-fb' : 'wrong-fb'}"><div class="fb-label">${isCorrect ? 'Correct' : 'Incorrect'}</div>${q.explain}</div>`;
   document.getElementById('nav-row').style.display = 'flex';
   updateProgress();
+  updateReviewBtn();
 }
 
 function nextQ() { state.idx++; showQuestion(); }
+
+function updateReviewBtn() {
+  var btn = document.getElementById('reviewMissedBtn');
+  if (btn) {
+    var cnt = state.missed ? state.missed.size : 0;
+    btn.textContent = 'Review Missed (' + cnt + ')';
+    btn.disabled = cnt === 0;
+    btn.style.opacity = cnt === 0 ? '0.4' : '1';
+  }
+}
 
 function showSummary() {
   const total = state.order.length;

@@ -72,6 +72,11 @@ footer{margin:3rem 0 1.5rem;padding-top:1rem;border-top:1px solid var(--border-l
 
 <div class="keys">Hotkeys: <strong>1-5</strong> answer &bull; <strong>H</strong> hint &bull; <strong>Space / Enter</strong> next &bull; <strong>R</strong> restart</div>
 
+<div style="display:flex;gap:0.5rem;justify-content:center;margin-bottom:1rem;">
+  <button id="shuffleBtn" onclick="startQuiz('shuffle')" style="font-family:'JetBrains Mono',monospace;font-size:0.7rem;padding:0.4rem 0.8rem;border:1px solid var(--border-light,#E5E5E5);background:var(--surface,#fff);cursor:pointer;text-transform:uppercase;letter-spacing:0.08em;">Shuffle</button>
+  <button id="reviewMissedBtn" onclick="startQuiz('missed')" disabled style="font-family:'JetBrains Mono',monospace;font-size:0.7rem;padding:0.4rem 0.8rem;border:1px solid var(--border-light,#E5E5E5);background:var(--surface,#fff);cursor:pointer;text-transform:uppercase;letter-spacing:0.08em;opacity:0.4;">Review Missed (0)</button>
+</div>
+
 <div class="progress" id="progress"></div>
 <div id="quiz-area"></div>
 
@@ -474,9 +479,11 @@ const Q = [
 ];
 
 let order=[], pos=0, score=0, missed=new Set(), answered=false, missedSet=new Set();
+function updateReviewBtn(){var btn=document.getElementById('reviewMissedBtn');if(!btn)return;var n=missedSet.size;btn.textContent='Review Missed ('+n+')';if(n>0){btn.disabled=false;btn.style.opacity='1';}else{btn.disabled=true;btn.style.opacity='0.4';}}
+function shuffleArray(arr){for(let i=arr.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[arr[i],arr[j]]=[arr[j],arr[i]]}return arr}
 function startQuiz(mode){
   document.querySelectorAll('.btn').forEach(b=>b.classList.remove('active'));
-  event.target.classList.add('active');
+  if(event&&event.target)event.target.classList.add('active');
   pos=0; score=0; answered=false;
   if(mode==='missed'){
     order=[...missedSet];
@@ -484,7 +491,7 @@ function startQuiz(mode){
   } else {
     order=[...Array(Q.length).keys()];
   }
-  if(mode==='shuffle') for(let i=order.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[order[i],order[j]]=[order[j],order[i]];}
+  if(mode==='shuffle') shuffleArray(order);
   missed=new Set();
   render();
 }
@@ -507,6 +514,7 @@ function pick(qi,i){
   btns.forEach(b=>{b.disabled=true;const bi=+b.dataset.i;if(bi===d.answer)b.classList.add('correct');if(bi===i&&i!==d.answer)b.classList.add('wrong');});
   const ok=i===d.answer;
   if(ok)score++; else{missed.add(qi);missedSet.add(qi);}
+  updateReviewBtn();
   document.getElementById('fb').innerHTML=`<div class="feedback ${ok?'correct-fb':'wrong-fb'}"><div class="fb-label">${ok?'Correct':'Incorrect'}</div>${d.explain}</div>`;
   document.getElementById('next-btn').style.display='inline-block';
   document.getElementById('progress').innerHTML=`Question ${pos+1} / ${order.length} &nbsp;|&nbsp; Score: <span class="score">${score}</span> &nbsp;|&nbsp; Missed: <span class="missed">${missed.size}</span>`;

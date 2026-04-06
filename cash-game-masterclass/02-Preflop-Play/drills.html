@@ -84,6 +84,11 @@ h1 { font-family: 'Playfair Display', serif; font-size: 2rem; margin-bottom: 0.3
 <h1>Preflop Play Drills</h1>
 <p class="subtitle">Chapter 2 -- 36 questions</p>
 
+<div style="display:flex;gap:0.5rem;justify-content:center;margin-bottom:1rem;">
+  <button class="btn" id="shuffleBtn" onclick="shuffleRestart()" style="font-family:'JetBrains Mono',monospace;font-size:0.7rem;padding:0.4rem 0.8rem;border:1px solid var(--border-light);background:var(--surface,#fff);cursor:pointer;text-transform:uppercase;letter-spacing:0.08em;">Shuffle</button>
+  <button class="btn" id="reviewMissedBtn" onclick="reviewMissedTop()" disabled style="font-family:'JetBrains Mono',monospace;font-size:0.7rem;padding:0.4rem 0.8rem;border:1px solid var(--border-light);background:var(--surface,#fff);cursor:pointer;text-transform:uppercase;letter-spacing:0.08em;opacity:0.4;">Review Missed (0)</button>
+</div>
+
 <div class="progress-text" id="progressText">1 / 36</div>
 <div class="progress-wrap"><div class="progress-bar" id="progressBar" style="width:2.8%"></div></div>
 
@@ -239,6 +244,7 @@ function checkMC(qIdx, chosen) {
   if (chosen !== q.correct) state.missed.push(qIdx);
   document.getElementById('explArea').style.display = 'block';
   document.getElementById('nextBtn').style.display = '';
+  updateReviewBtn();
 }
 
 function checkFIB() {
@@ -265,6 +271,7 @@ function checkFIB() {
 
   document.getElementById('explArea').style.display = 'block';
   document.getElementById('nextBtn').style.display = '';
+  updateReviewBtn();
 }
 
 function showHint() {
@@ -307,11 +314,37 @@ function reviewMissed() {
   state.answered = new Array(questions.length).fill(false);
   state.missed = [];
   state.mode = 'review';
+  updateReviewBtn();
   document.getElementById('controlsArea').innerHTML = `
     <button class="btn" id="hintBtn" onclick="showHint()">Hint (H)</button>
     <button class="btn btn-primary" id="nextBtn" onclick="nextQuestion()" style="display:none">Next (Space)</button>
   `;
   render();
+}
+
+function reviewMissedTop() {
+  reviewMissed();
+}
+
+function shuffleRestart() {
+  state.current = 0;
+  state.answered = new Array(questions.length).fill(false);
+  state.missed = [];
+  state.mode = 'normal';
+  state.order = [...Array(questions.length).keys()];
+  shuffle(state.order);
+  updateReviewBtn();
+  document.getElementById('controlsArea').innerHTML = '<button class="btn" id="hintBtn" onclick="showHint()">Hint (H)</button><button class="btn btn-primary" id="nextBtn" onclick="nextQuestion()" style="display:none">Next (Space)</button>';
+  render();
+}
+
+function updateReviewBtn() {
+  var btn = document.getElementById('reviewMissedBtn');
+  if (btn) {
+    btn.textContent = 'Review Missed (' + state.missed.length + ')';
+    btn.disabled = state.missed.length === 0;
+    btn.style.opacity = state.missed.length === 0 ? '0.4' : '1';
+  }
 }
 
 document.addEventListener('keydown', e => {

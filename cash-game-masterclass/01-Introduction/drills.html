@@ -340,6 +340,11 @@ h1 {
 <h1>Interactive Drills</h1>
 <div class="subtitle">Chapter 1 -- Introduction to Cash Games</div>
 
+<div style="display:flex;gap:0.5rem;justify-content:center;margin-bottom:1rem;">
+  <button class="nav-btn" id="shuffleBtn" onclick="shuffleRestart()" style="font-family:'JetBrains Mono',monospace;font-size:0.7rem;padding:0.4rem 0.8rem;border:1px solid var(--border-light);background:var(--surface,#fff);cursor:pointer;text-transform:uppercase;letter-spacing:0.08em;">Shuffle</button>
+  <button class="nav-btn" id="reviewMissedBtn" onclick="reviewMissedTop()" disabled style="font-family:'JetBrains Mono',monospace;font-size:0.7rem;padding:0.4rem 0.8rem;border:1px solid var(--border-light);background:var(--surface,#fff);cursor:pointer;text-transform:uppercase;letter-spacing:0.08em;opacity:0.4;">Review Missed (0)</button>
+</div>
+
 <div class="progress-wrap">
   <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
   <div class="progress-text">
@@ -825,6 +830,33 @@ function showFeedback(correct, explanation) {
   expl.textContent = explanation;
   fb.classList.add('show');
   updateProgress();
+  updateReviewBtn();
+}
+
+function updateReviewBtn() {
+  var btn = document.getElementById('reviewMissedBtn');
+  if (btn) {
+    btn.textContent = 'Review Missed (' + missed.length + ')';
+    btn.disabled = missed.length === 0;
+    btn.style.opacity = missed.length === 0 ? '0.4' : '1';
+  }
+}
+
+function shuffleRestart() {
+  questions = shuffle(QUESTIONS);
+  current = 0;
+  score = 0;
+  answered = false;
+  missed = [];
+  reviewMode = false;
+  updateReviewBtn();
+  render();
+}
+
+function reviewMissedTop() {
+  if (missed.length === 0) return;
+  startReview();
+  updateReviewBtn();
 }
 
 function toggleHint() {
@@ -866,6 +898,7 @@ function renderSummary() {
   html += `</div></div>`;
   card.innerHTML = html;
   document.getElementById('progressFill').style.width = '100%';
+  updateReviewBtn();
 }
 
 function startReview() {

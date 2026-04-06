@@ -330,6 +330,11 @@ h1 {
 <h1>Interactive Drills</h1>
 <div class="subtitle">Chapter 5 -- GTO Concepts for Live Cash Games</div>
 
+<div style="display:flex;gap:0.5rem;justify-content:center;margin-bottom:1rem;">
+  <button id="shuffleBtn" onclick="shuffleRestart()" style="font-family:'JetBrains Mono',monospace;font-size:0.7rem;padding:0.4rem 0.8rem;border:1px solid var(--border-light,#E5E5E5);background:var(--surface,#fff);cursor:pointer;text-transform:uppercase;letter-spacing:0.08em;">Shuffle</button>
+  <button id="reviewMissedBtn" onclick="reviewMissed()" disabled style="font-family:'JetBrains Mono',monospace;font-size:0.7rem;padding:0.4rem 0.8rem;border:1px solid var(--border-light,#E5E5E5);background:var(--surface,#fff);cursor:pointer;text-transform:uppercase;letter-spacing:0.08em;opacity:0.4;">Review Missed (0)</button>
+</div>
+
 <div class="progress-wrap">
   <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
   <div class="progress-text">
@@ -572,7 +577,30 @@ const QUESTIONS = [
 // ============================================================
 // ENGINE
 // ============================================================
+var activeQuestions = QUESTIONS.slice();
+var missed5 = [];
 let cur = 0, score = 0, answered = Array(QUESTIONS.length).fill(false);
+
+function shuffleArray5(arr) { for(var i=arr.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=arr[i];arr[i]=arr[j];arr[j]=t;} return arr; }
+function updateReviewBtn() {
+  var btn = document.getElementById('reviewMissedBtn');
+  if (!btn) return;
+  var n = missed5.length;
+  btn.textContent = 'Review Missed (' + n + ')';
+  if (n > 0) { btn.disabled = false; btn.style.opacity = '1'; }
+  else { btn.disabled = true; btn.style.opacity = '0.4'; }
+}
+function shuffleRestart() {
+  activeQuestions = shuffleArray5(QUESTIONS.slice());
+  missed5 = []; cur = 0; score = 0; answered = Array(activeQuestions.length).fill(false);
+  updateReviewBtn(); render();
+}
+function reviewMissed() {
+  if (!missed5.length) return;
+  activeQuestions = shuffleArray5(missed5.slice());
+  missed5 = []; cur = 0; score = 0; answered = Array(activeQuestions.length).fill(false);
+  updateReviewBtn(); render();
+}
 
 function render() {
   const q = QUESTIONS[cur];
