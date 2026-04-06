@@ -65,6 +65,48 @@
   background: #052E16;
 }
 
+[data-theme="dark"] .q-text,
+[data-theme="dark"] .q-number,
+[data-theme="dark"] .q-situation,
+[data-theme="dark"] #explanation,
+[data-theme="dark"] .hint-btn,
+[data-theme="dark"] .hint,
+[data-theme="dark"] .hint-box,
+[data-theme="dark"] .review-item,
+[data-theme="dark"] .ri-explain,
+[data-theme="dark"] #score-display,
+[data-theme="dark"] .subtitle,
+[data-theme="dark"] p,
+[data-theme="dark"] li,
+[data-theme="dark"] td {
+  color: #E5E5E5;
+}
+
+[data-theme="dark"] .option {
+  color: #E5E5E5;
+  background: #0A0A0A;
+  border-color: #333333;
+}
+
+[data-theme="dark"] .option.disabled {
+  color: #999999;
+}
+
+[data-theme="dark"] #explanation {
+  background: #1A1A1A;
+  border-left-color: #E5E5E5;
+}
+
+[data-theme="dark"] .hint,
+[data-theme="dark"] .hint-box {
+  background: #1A1A1A;
+}
+
+[data-theme="dark"] .review-item {
+  background: #1A1A1A;
+  border-color: #333333;
+}
+
 [data-theme="dark"] .box {
   background: #141414;
 }
