@@ -74,7 +74,7 @@ header .sub { font-family:'JetBrains Mono',monospace; font-size:0.7rem; font-wei
   <div class="sub">Chapter 8 -- 22 Questions -- Shuffle + Review Missed</div>
 </header>
 
-<div class="hotkeys"><kbd>1</kbd>-<kbd>4</kbd> answer &middot; <kbd>H</kbd> hint &middot; <kbd>N</kbd> next &middot; <kbd>R</kbd> restart</div>
+<div class="hotkeys"><kbd>1</kbd>-<kbd>4</kbd> answer &middot; <kbd>H</kbd> hint &middot; <kbd>Space</kbd>/<kbd>Enter</kbd> next &middot; <kbd>R</kbd> restart</div>
 
 <div class="progress-bar"><div class="progress-fill" id="progFill"></div></div>
 <div class="status" id="status"></div>
@@ -353,7 +353,7 @@ document.addEventListener('keydown',e=>{
     const btns=document.querySelectorAll('.opt-btn');
     const i=parseInt(k)-1; if(btns[i]) btns[i].click();
   }
-  if(k==='n') document.getElementById('nextBtn').click();
+  if(k==='n'||k==='enter'||k===' '){e.preventDefault();document.getElementById('nextBtn').click();}
   if(k==='h') toggleHint();
   if(k==='r') restart();
 });

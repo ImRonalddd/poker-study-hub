@@ -82,7 +82,7 @@ header .sub { font-family:'JetBrains Mono',monospace; font-size:0.7rem; font-wei
   <div class="sub">Chapter 5 -- 23 Questions -- Shuffle + Review Missed</div>
 </header>
 
-<div class="hotkeys"><kbd>1</kbd>-<kbd>4</kbd> answer &middot; <kbd>H</kbd> hint &middot; <kbd>N</kbd> next &middot; <kbd>R</kbd> restart</div>
+<div class="hotkeys"><kbd>1</kbd>-<kbd>4</kbd> answer &middot; <kbd>H</kbd> hint &middot; <kbd>Space</kbd>/<kbd>Enter</kbd> next &middot; <kbd>R</kbd> restart</div>
 
 <div class="progress-bar"><div class="progress-fill" id="progFill"></div></div>
 <div class="status" id="status"></div>
@@ -381,7 +381,8 @@ document.addEventListener('keydown', e => {
     const idx = parseInt(key) - 1;
     const btns = document.querySelectorAll('.opt-btn');
     if (idx < btns.length && !answered[current]) btns[idx].click();
-  } else if (key === 'n') {
+  } else if (key === 'n' || key === 'enter' || key === ' ') {
+    e.preventDefault();
     if (!document.getElementById('nextBtn').disabled) nextQ();
   } else if (key === 'h') {
     toggleHint();

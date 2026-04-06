@@ -70,7 +70,7 @@ footer{margin:3rem 0 1.5rem;padding-top:1rem;border-top:1px solid var(--border-l
   <button class="btn" onclick="startQuiz('shuffle')">Shuffle</button>
 </div>
 
-<div class="keys">Hotkeys: <strong>1-5</strong> answer &bull; <strong>H</strong> hint &bull; <strong>N / Enter</strong> next &bull; <strong>R</strong> restart</div>
+<div class="keys">Hotkeys: <strong>1-5</strong> answer &bull; <strong>H</strong> hint &bull; <strong>Space / Enter</strong> next &bull; <strong>R</strong> restart</div>
 
 <div class="progress" id="progress"></div>
 <div id="quiz-area"></div>
@@ -520,7 +520,7 @@ document.addEventListener('keydown',e=>{
   if(e.target.tagName==='INPUT'||e.target.tagName==='TEXTAREA')return;
   const k=e.key;
   if(k>='1'&&k<='5'&&!answered){const i=+k-1;const qi=order[pos];if(i<Q[qi].choices.length)pick(qi,i);}
-  if((k==='n'||k==='N'||k==='Enter')&&answered){pos++;render();}
+  if((k==='n'||k==='N'||k==='Enter'||k===' ')&&answered){e.preventDefault();pos++;render();}
   if(k==='h'||k==='H'){const el=document.getElementById('hint');if(el)el.classList.toggle('show');}
   if(k==='r'||k==='R')startQuiz('all');
 });
