@@ -53,6 +53,11 @@ header .sub { font-family:'JetBrains Mono',monospace; font-size:0.7rem; font-wei
 .hotkeys { font-family:'JetBrains Mono',monospace; font-size:0.65rem; color:var(--text-dim); text-align:center; margin-bottom:1rem; letter-spacing:0.05em; }
 .hotkeys kbd { background:var(--surface2); border:1px solid var(--border-light); padding:0.1em 0.4em; font-size:0.65rem; }
 
+/* Hint */
+.hint-btn { font-family:'JetBrains Mono',monospace; font-size:0.78rem; color:var(--text-dim); background:none; border:none; cursor:pointer; margin-bottom:0.75rem; text-decoration:underline; }
+.hint { font-size:0.9rem; color:var(--text-dim); margin-bottom:1rem; padding:0.6rem 0.8rem; background:var(--surface2); border-left:3px solid var(--border-light); display:none; }
+.hint.show { display:block; }
+
 /* Nav buttons */
 .nav-row { display:flex; gap:1rem; justify-content:center; margin-top:1.5rem; }
 .nav-btn { font-family:'JetBrains Mono',monospace; font-size:0.75rem; font-weight:600; text-transform:uppercase; letter-spacing:0.1em; padding:0.7rem 1.5rem; border:1px solid var(--border); background:var(--surface); cursor:pointer; transition:background 0.1s, color 0.1s; }
@@ -75,7 +80,7 @@ header .sub { font-family:'JetBrains Mono',monospace; font-size:0.7rem; font-wei
   <div class="sub">Chapter 6 -- 22 Questions -- Shuffle + Review Missed</div>
 </header>
 
-<div class="hotkeys" style="display:none"><kbd>1</kbd>-<kbd>4</kbd> answer &middot; <kbd>N</kbd> next &middot; <kbd>R</kbd> restart</div>
+<div class="hotkeys"><kbd>1</kbd>-<kbd>4</kbd> answer &middot; <kbd>H</kbd> hint &middot; <kbd>N</kbd> next &middot; <kbd>R</kbd> restart</div>
 
 <div class="progress-bar"><div class="progress-fill" id="progFill"></div></div>
 <div class="status" id="status"></div>
@@ -84,6 +89,8 @@ header .sub { font-family:'JetBrains Mono',monospace; font-size:0.7rem; font-wei
   <div class="card" id="card">
     <span class="q-num" id="qNum"></span>
     <div class="q-text" id="qText"></div>
+    <button class="hint-btn" id="hintBtn" onclick="toggleHint()">Show Hint (H)</button>
+    <div class="hint" id="hint"></div>
     <div class="options" id="opts"></div>
     <div class="explanation" id="expl"></div>
   </div>
@@ -109,132 +116,154 @@ const ALL_QUESTIONS = [
     q: "According to Chris Brewer, which matters more for exploiting opponents: their specific combo choices or their overall frequencies?",
     opts: ["Specific combos -- knowing exact hands lets you counter them", "Overall frequencies -- wrong frequencies create massive exploits", "Both matter equally", "Neither -- you should just play GTO regardless"],
     ans: 1,
+    hint: "Think about what happens when someone bets with the wrong bluffs but the right ratio versus when they bluff the right combos but too rarely.",
     expl: "Brewer's central thesis: wrong combos with correct frequencies = almost no EV gain for you. Wrong frequencies (even slightly) = massive exploit with pure strategies. Frequencies dominate."
   },
   {
     q: "In the combo substitution experiment, swapping optimal bluffs (QJ, Q9, J9) for suboptimal bluffs (AJ, AQ) while keeping frequencies constant resulted in:",
     opts: ["A significant EV loss in the betting line", "Zero EV loss in the betting line", "A small EV gain from better blockers", "The opponent could exploit with pure fold"],
     ans: 1,
+    hint: "The frequencies were held constant -- so ask whether the defender can tell you switched bluffs.",
     expl: "Zero EV loss in the betting line. The only small loss came from bluffing with hands that had showdown value (AJ, AQ), not from the opponent exploiting the 'wrong' combos."
   },
   {
     q: "In the nuts-vs-air toy game (AA vs 72s, board 44455), what happens if the bettor under-bluffs by just 0.1%?",
     opts: ["Defender calls slightly less often", "Defender should pure fold every bluff catcher", "Defender adjusts by calling 49.9% instead of 50%", "No meaningful change -- it's too small to matter"],
     ans: 1,
+    hint: "GTO equilibrium in this toy game requires the defender to be exactly indifferent -- any deviation breaks that indifference completely.",
     expl: "Equilibrium is 'outrageously sensitive.' Any under-bluffing, even 0.1%, means the defender should pure fold every bluff catcher. There is no gradual adjustment."
   },
   {
     q: "When building a practical GTO strategy, Chris recommends thinking in terms of:",
     opts: ["Individual combos and their exact frequencies", "Hand classes (e.g., 'I use my gutshots as bluffs')", "Memorized solver outputs for each board", "Always using the same bet size"],
     ans: 1,
+    hint: "Humans can't memorize every combo -- think about what's practical to apply at the table.",
     expl: "Chris recommends thinking in hand classes: 'I bluff with my gutshots' or 'all low flush draws give up.' Use combos as an anchor for frequencies, not as the end goal."
   },
   {
     q: "Giving an opponent slightly more Kx and slightly less Tx on a river node changed the solver's betting frequency by:",
     opts: ["1-2%", "5%", "10%", "25%"],
     ans: 2,
+    hint: "Solver outputs are highly sensitive to input ranges -- a small range tweak can produce a surprisingly large shift in strategy.",
     expl: "A small range change shifted betting frequency by 10% and moved the value threshold from K3 to K8. This demonstrates solver output sensitivity to inputs."
   },
   {
     q: "In a pot-sized jam scenario (pot = 300, stack = 100), what is the correct bluff ratio for the bettor?",
     opts: ["1 bluff per 1 value bet", "1 bluff per 1.5 value bets", "1 bluff per 2 value bets", "1 bluff per 3 value bets"],
     ans: 2,
+    hint: "Calculate how much equity the defender needs to call a pot-sized bet, then derive the bluff ratio from that.",
     expl: "With a pot-sized bet, the defender needs 33% equity to call (100 / (300+100+100)). So the bettor should have about 2 value bets for every 1 bluff, or 1 bluff per 2 value combos."
   },
   {
     q: "When facing a bet of 360 into a pot of 310, approximately what equity do you need to call (for chips)?",
     opts: ["25%", "35%", "45%", "50%"],
     ans: 1,
+    hint: "Divide the call amount by the total pot after you call: call / (original pot + bet + call).",
     expl: "Required equity = 360 / (310 + 360 + 360) = 360/1030 ≈ 35%. With ICM risk premium in a tournament, this increases to approximately 40%."
   },
   {
     q: "What makes a hand a good bluff catcher? It should:",
     opts: ["Beat some of opponent's value range", "Block opponent's value hands and unblock their bluffs", "Have the highest possible card rank", "Always have flush draw blockers"],
     ans: 1,
+    hint: "You want the opponent to have as many bluffs in their range as possible -- what cards help or hurt that?",
     expl: "A good bluff catcher blocks opponent's value hands (reducing their value combos) and unblocks their bluffs (keeping maximum bluff combos in their range)."
   },
   {
     q: "If an opponent ISOs with only 'good hands' (no suited trash), what happens on later streets?",
     opts: ["They play more effectively post-flop", "They have a balanced bluffing range", "They physically cannot bluff enough -- bluff catchers have ~0 EV", "Their flop c-bet frequency increases"],
     ans: 2,
+    hint: "To bluff on later streets you need hands that missed -- what does a tight ISO range leave you with?",
     expl: "Without trash in their ISO range, they must find bluffs with hands like 76cc, 87dd -- nearly impossible for humans. All bluff catchers against them approach zero EV."
   },
   {
     q: "In tight-range spots (e.g., UTG vs BB on high boards), opponents typically:",
     opts: ["Over-bluff because they're comfortable", "Under-bluff because bluffing requires turning decent hands into bluffs", "Play perfectly balanced", "Check-raise more frequently"],
     ans: 1,
+    hint: "When your range is narrow and strong, what hands would you have to sacrifice to bluff enough?",
     expl: "In tight-range spots, to bluff enough you must 'take the bottom of your range and just go gun ho.' Most players won't do uncomfortable things, so they under-bluff."
   },
   {
     q: "In wide-range spots (e.g., BTN vs BB), opponents typically:",
     opts: ["Under-bluff due to caution", "Over-bluff because they have too many trash hands", "Play the same as tight-range spots", "Always range bet the flop"],
     ans: 1,
+    hint: "The BTN opens very wide -- think about how many missed garbage hands end up in their range on later streets.",
     expl: "Button openers have so many offsuit combos (trash) that it's easy to show up with too many bluffs. Their value threshold is tight, making over-bluffing the natural leak."
   },
   {
     q: "At 400-500 BB deep, what should an out-of-position 3-bet size be?",
     opts: ["3-4x the open raise", "5-6x the open raise", "7-10x the open raise", "Pot-sized"],
     ans: 2,
+    hint: "Deep stacks require larger 3-bets OOP to deny the equity of speculative hands that play well post-flop.",
     expl: "Chris states that at 200-400 BB deep, 3-bets out of position should be 7-10x the open. Ranges should be extremely tight: AA, AKs, KK, and a few suited broadways."
   },
   {
     q: "At deep stacks, which hand ranks higher for 5-betting: AKs or KK?",
     opts: ["KK -- pocket pairs always rank higher", "AKs -- having an Ace blocks opponent's Aces", "They rank equally", "Depends entirely on position"],
     ans: 1,
+    hint: "Consider what the opponent's 4-bet range looks like, and which hand reduces the combos of that range most effectively.",
     expl: "AKs outranks KK for 5-betting because having an Ace blocks opponent's Aces. Without an Ace, 'your opponent just has aces kind of a lot.' AKs is above KK in effective hand rankings."
   },
   {
     q: "Why is eliminating your 5-bet range entirely a mistake, even if it's only 1.5% of hands?",
     opts: ["You miss value with premium hands", "Opponents can 4-bet anything without punishment", "It makes your 4-bet range too wide", "It reduces your fold equity on the flop"],
     ans: 1,
+    hint: "Think about what a smart opponent will do if they know you never 5-bet.",
     expl: "Even a tiny 5-bet range deters opponents from exploitative 4-betting. Without it, they 'can kind of 4-bet anything they want' -- either winning the pot or setting their own price."
   },
   {
     q: "When bluffing with a deep stack and trips on the board, what card should you prioritize having?",
     opts: ["A card matching the highest board card", "The Ace of the trip suit (blocks quads)", "Any pocket pair for equity", "A suited connector for backup outs"],
     ans: 1,
+    hint: "When trips are on board, the main value hand to worry about is quads -- what blocks that?",
     expl: "Chris prioritizes having the Ace of the trip suit because it blocks quads. His preferred bluffs: A♥J♠, A♥T♠, A♥K♠ -- only 3 combos, and he'd still be under-bluffing."
   },
   {
     q: "Rampage holds KK on a river in a 3-bet pot (~1000 BB deep) against Mariano. Chris advises:",
     opts: ["Easy call -- KK is too strong to fold", "Call because you block top pair", "Fold -- KK has only negative interaction with opponent's range", "Raise to represent the nuts"],
     ans: 2,
+    hint: "Ask whether KK blocks value hands or bluffs -- and whether it beats anything in the opponent's betting range.",
     expl: "KK doesn't beat any value hand and has negative interaction: it blocks KT, K9 (opponent's bluffs). JT would be a better call. At deep stacks, even strong-looking hands can be clear folds."
   },
   {
     q: "On AKo vs tilted opponent (QQ2 flop, 3-bet pot), why is AKo a strong call-down rather than a 'hero call'?",
     opts: ["AK always has good equity", "AK blocks AQ and KQ (all value hands) and beats every bluff", "AK has good implied odds", "The opponent is on tilt so any call is good"],
     ans: 1,
+    hint: "On QQ2 in a 3-bet pot, what are the realistic value hands an opponent could have, and does AK interact with those?",
     expl: "AKo blocks all value (AQ, KQ), beats every bluff, and has excellent removal properties. Chris says: 'It looks like a hero call but you just have a very strong hand.'"
   },
   {
     q: "When c-betting a flop where equities are 54% vs 45%, what should you do?",
     opts: ["Range bet with a small size", "Bet selectively -- not enough equity advantage for range betting", "Check your entire range", "Overbet to push equity advantage"],
     ans: 1,
+    hint: "A near-even equity split suggests your range doesn't dominate -- what does that imply about betting your entire range?",
     expl: "54-45 equity split is 'not a large enough equity advantage to be betting your entire range.' Check way-ahead-way-behind hands (KK, QQ, JJ). If you range bet, you get check-raised too often."
   },
   {
     q: "After c-betting the flop and reaching the turn with an equity disadvantage but nut advantage, the correct strategy is to:",
     opts: ["Check to control pot size", "Bet small to 'protect' your hand", "Polarize: bet large with strong hands and bluffs, check medium hands", "Range bet again at the same size"],
     ans: 2,
+    hint: "Nut advantage without equity advantage means your strong hands are very strong -- how should you bet to leverage that?",
     expl: "Classic gap theory: on the turn, you polarize. Bet AJ+ for value or bluff. No more medium hands. Size up (80-133% pot) to force indifference from opponent's medium holdings."
   },
   {
     q: "Why does the suit of AK matter when facing a turn check-raise in a 3-bet pot?",
     opts: ["It doesn't -- AK always has to call", "Red AK (no flush interaction) always calls; AK with a club/spade is indifferent", "Suited AK always folds", "Only the suit matching the board matters"],
     ans: 1,
+    hint: "Consider how holding a flush-draw suit card changes the number of bluffs still available in the opponent's range.",
     expl: "Red AK has no interaction with flush draws -- it's too good to fold. AK with a club or spade interacts with flush draws (blocking opponent's bluffs), making it genuinely indifferent."
   },
   {
     q: "Chris says most players exhibit a 'double irony' with AK in deep 3-bet pots. What is it?",
     opts: ["They bet too small and call too little", "They over-call AK (never fold it) but under-bluff (never use it as a bluff)", "They 3-bet it too often and fold post-flop", "They slow-play it when they should fast-play"],
     ans: 1,
+    hint: "Think about both how often players fold AK when called and how often they use AK as a bluff.",
     expl: "Most players never fold AK (over-calling) but everyone under-bluffs. Ideally, you should be willing to bet-fold AK sometimes. But against over-callers, just have it when you stack off."
   },
   {
     q: "According to Chris, what is the correct approach to 'balance' in GTO?",
     opts: ["Always slow-play some sets to stay balanced", "Mix every hand 50/50 between betting and checking", "Choose the dominant EV option; only mix when two actions have identical EV", "Balance is irrelevant -- always play exploitatively"],
     ans: 2,
+    hint: "GTO mixing only makes sense when actions have equal EV -- otherwise, always take the higher EV action.",
     expl: "GTO is about choosing the dominant EV option. If betting is clearly higher EV than checking (e.g., sets on a wet board), just bet. Mix only when truly indifferent between actions."
   }
 ];
@@ -276,9 +305,14 @@ function render() {
   const expl = document.getElementById('expl');
   expl.textContent = '';
   expl.classList.remove('show');
+  const hintEl = document.getElementById('hint');
+  hintEl.textContent = q.hint;
+  hintEl.classList.remove('show');
   document.getElementById('nextBtn').disabled = true;
   answered = false;
 }
+
+function toggleHint() { document.getElementById('hint').classList.toggle('show'); }
 
 function answer(idx) {
   if (answered) return;
@@ -319,6 +353,7 @@ document.addEventListener('keydown', e => {
   const k = e.key.toLowerCase();
   if (k >= '1' && k <= '4' && !answered) { answer(parseInt(k) - 1); }
   else if (k === 'n' && answered) { nextQ(); }
+  else if (k === 'h') { toggleHint(); }
   else if (k === 'r') { restart(); }
 });
 

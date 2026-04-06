@@ -45,6 +45,10 @@ header .sub { font-family:'JetBrains Mono',monospace; font-size:0.7rem; font-wei
 .explanation { margin-top:1rem; padding:1rem 1.25rem; background:var(--surface2); border-left:4px solid var(--accent); font-size:0.95rem; line-height:1.6; display:none; }
 .explanation.show { display:block; }
 
+.hint-btn { font-family:'JetBrains Mono',monospace; font-size:0.75rem; color:var(--text-dim); background:none; border:none; cursor:pointer; margin-bottom:0.75rem; text-decoration:underline; padding:0; }
+.hint { font-size:0.9rem; color:var(--text-dim); margin-bottom:1rem; padding:0.6rem 0.8rem; background:var(--surface2); border-left:3px solid var(--border-light); display:none; }
+.hint.show { display:block; }
+
 .hotkeys { font-family:'JetBrains Mono',monospace; font-size:0.65rem; color:var(--text-dim); text-align:center; margin-bottom:1rem; letter-spacing:0.05em; }
 .hotkeys kbd { background:var(--surface2); border:1px solid var(--border-light); padding:0.1em 0.4em; font-size:0.65rem; }
 
@@ -68,7 +72,7 @@ header .sub { font-family:'JetBrains Mono',monospace; font-size:0.7rem; font-wei
   <div class="sub">Chapter 8 -- 22 Questions -- Shuffle + Review Missed</div>
 </header>
 
-<div class="hotkeys" style="display:none"><kbd>1</kbd>-<kbd>4</kbd> answer &middot; <kbd>N</kbd> next &middot; <kbd>R</kbd> restart</div>
+<div class="hotkeys"><kbd>1</kbd>-<kbd>4</kbd> answer &middot; <kbd>H</kbd> hint &middot; <kbd>N</kbd> next &middot; <kbd>R</kbd> restart</div>
 
 <div class="progress-bar"><div class="progress-fill" id="progFill"></div></div>
 <div class="status" id="status"></div>
@@ -77,6 +81,8 @@ header .sub { font-family:'JetBrains Mono',monospace; font-size:0.7rem; font-wei
   <div class="card" id="card">
     <span class="q-num" id="qNum"></span>
     <div class="q-text" id="qText"></div>
+    <button class="hint-btn" id="hintBtn" onclick="toggleHint()">Show Hint (H)</button>
+    <div class="hint" id="hintBox"></div>
     <div class="options" id="opts"></div>
     <div class="explanation" id="expl"></div>
   </div>
@@ -102,138 +108,161 @@ const ALL_QUESTIONS = [
     q: "According to Jon Jaffe, what is the #1 piece of advice for cash game players transitioning to HUNL?",
     opts: ["3-bet more aggressively", "C-bet less", "Always use overbets on the turn", "Play tighter preflop"],
     ans: 1,
+    hint: "Most 6-max players do this one thing far too often on the flop.",
     expl: "Jaffe's top advice: 'C-bet less.' Most cash players c-bet 80-90% of flops. In HUNL, even 75% is 'frequent' and many boards should be closer to 50-60%."
   },
   {
     q: "In HUNL, what does 'frequent c-betting' typically mean in terms of percentage?",
     opts: ["Range-bet (90-100%)", "About 75%", "About 50%", "About 30%"],
     ans: 1,
+    hint: "The number that would feel low to a 6-max player but is considered high in HUNL.",
     expl: "In HUNL, 'frequent' c-betting is ~75%, which may seem low to 6-max players who range-bet many textures. Many HUNL boards are even lower at 50-60%."
   },
   {
     q: "On a flop like K-4-2 two-tone in HUNL (100bb, single-raised pot), approximately what percentage of your range should you check as the button?",
     opts: ["0% -- range bet this board", "About 10%", "About 25%", "About 50%"],
     ans: 2,
+    hint: "Even on a great button board, you still need to protect your checking range.",
     expl: "Even on boards that look great for the button, you check ~25% of your range in HUNL. If you range-bet, opponent will punish you with check-raises and strong continuing ranges."
   },
   {
     q: "When selecting which hands to c-bet on the flop in HUNL, which property makes a hand a BETTER candidate to bet?",
     opts: ["Having a high side card (e.g., queen or jack)", "Having a backdoor flush draw", "Having top pair with a strong kicker", "Having two overcards to the board"],
     ans: 1,
+    hint: "Think about what gives you future equity and future bluffing opportunities on later streets.",
     expl: "Backdoor flush draws increase betting frequency because they provide future equity and future bluffing opportunities. Lower side cards and backdoors = bet more."
   },
   {
     q: "The 'side card heuristic' says that on low boards (e.g., 5-3-2), lower side cards should bet more. Why?",
     opts: ["Lower cards have more showdown value", "Lower cards unblock opponent's offsuit high-card folds", "Lower cards make better pairs on the turn", "Lower cards are harder to read"],
     ans: 1,
+    hint: "Think about what cards the opponent is folding and whether your side card blocks those folds.",
     expl: "Opponent defends with offsuit high cards (K-x, Q-x, J-x). Low side cards don't block these folds, so opponent folds more often. High side cards block folds, reducing c-bet effectiveness."
   },
   {
     q: "In a HUNL turn probe spot (OOP after check-check), what is the most important property for your bluffing hands?",
     opts: ["Showdown value", "Equity (draws, gut-shots, flush draws)", "Blockers to opponent's value", "Position"],
     ans: 1,
+    hint: "Random garbage with no draw is not an acceptable probe bluff OOP.",
     expl: "When probing OOP, you MUST have equity. You can't just throw in random garbage like Q-Jo with no draw. Prioritize straight draws, flush draws, and gut-shots."
   },
   {
     q: "You're IP in HUNL after check-check on a K-4-2-8 board (brick turn, no new nutted hands). How should you cap your delayed c-bet sizing?",
     opts: ["Always use pot-sized bets", "Use medium sizes (B50-B65) maximum -- no overbets", "Overbet to put maximum pressure", "Only use blocking bets"],
     ans: 1,
+    hint: "Ask yourself: what nutted hand are you representing if you overbet this turn?",
     expl: "Cap your big size when no new nutted hands arrive on the turn. On K-4-2-8, no new straights or flushes are possible, so overbets don't make sense -- what nutted hand are you representing?"
   },
   {
     q: "On a turn that DOES bring new nutted hands (e.g., T-7-3-7), what changes about your IP delayed c-bet strategy?",
     opts: ["Nothing changes -- always use the same size", "You can develop big bets again because you have hands that want to pile money in", "You should always check because the paired board is dangerous", "Use only blocking bets"],
     ans: 1,
+    hint: "The paired 7 means someone could have trips -- does that expand your big-bet range?",
     expl: "When the turn brings new nutted hands (trips, boats, completed draws), you can build big-bet ranges again. The paired 7 gives you potential trip sevens to bet big with."
   },
   {
     q: "What is the 'Check-Back Monster' strategy in HUNL?",
     opts: ["Always check back the nuts on the flop", "Deliberately check back strong hands on the flop, then value-bet later streets when opponent discounts your range", "Check-raise the flop with all monsters", "Block-bet the river with all strong hands"],
     ans: 1,
+    hint: "The goal is to make your opponent think you are weak, then extract value when they call wider.",
     expl: "The Check-Back Monster: check back strong hands on the flop so opponents think you're weak. Then bet for value on later streets when they call wider and raise less, thinking 'how can he have a good hand?'"
   },
   {
     q: "According to the course, how often should you slow-play trips (e.g., T-T-x when you have a ten) on the flop in HUNL?",
     opts: ["Almost always slow-play to trap", "Bet about 80% of the time -- slow-play is a spice, not the main course", "Always bet -- never slow-play in HUNL", "Check about 50% of the time"],
     ans: 1,
+    hint: "With wide HUNL ranges and high SPRs, getting money in fast is usually correct.",
     expl: "Jaffe: 'Bet your trips overall about 80% of the time, maybe more.' Against wide HUNL ranges, slow-playing costs EV. You need to put money in the pot when ranges are wide and SPRs are high."
   },
   {
     q: "You barreled aggressively on the turn with many low-equity hands. The river is a total brick. What should you do with your no-showdown-value hands?",
     opts: ["Bluff all of them -- you have no showdown value", "Give up with many of them -- you must control river bluffing frequency", "Always jam -- maximize fold equity", "Block-bet all of them"],
     ans: 1,
+    hint: "If you over-bluffed the turn, your river bluffing frequency is already too high.",
     expl: "If you barreled many bluffs on the turn, your river range is too bluff-heavy. A brick river doesn't add nutted hands, so you MUST give up with many bluffs. Just check and lose -- that's okay."
   },
   {
     q: "Jon Jaffe divides all opponents into two categories regarding river bluffing. What are they?",
     opts: ["Tight and loose players", "Players who bet-check-bet as a bluff, and players who don't", "Value-heavy and bluff-heavy players", "Players who overbet and players who underbet"],
     ans: 1,
+    hint: "One type can re-emerge with a bluff after showing weakness; the other feels too fraudulent to do so.",
     expl: "Jaffe's key read: some players can re-emerge with a bluff after checking the turn (bet-check-bet). Others feel 'too fraudulent' to bluff after showing weakness. Against the second type, massively over-fold their river bets."
   },
   {
     q: "Your opponent under-bluffs the river by 5%. How should you adjust your calling frequency with bluff catchers?",
     opts: ["Under-call by 5%", "Under-call by 10%", "Never call a bluff catcher -- they all become losing calls", "Adjust based on pot odds"],
     ans: 2,
+    hint: "The exploit is more extreme than a proportional adjustment -- think about EV of each individual call.",
     expl: "The adjustment is extreme: if opponent under-bluffs by even a small amount, EVERY bluff catcher becomes a losing call. The correct response is to literally never call. This is one of the most important exploit concepts in HUNL."
   },
   {
     q: "At 200bb+ deep in HUNL, how should you adjust your approach to overpairs on dynamic boards?",
     opts: ["Pile money in -- overpairs are always strong", "Be more careful; board dynamics can change dramatically with deep SPRs", "Always check overpairs at deep stacks", "Only 3-bet overpairs preflop"],
     ans: 1,
+    hint: "At 400bb, a T-6-4 two-tone board can change dramatically by the river for an overpair.",
     expl: "At deep stacks, boards change too much to blindly pile money in with overpairs. On T-6-4 two-tone at 400bb, an overpair can get in enormous trouble across multiple streets."
   },
   {
     q: "Jon Jaffe says that going into a HUNL match without profiling your opponent is like what?",
     opts: ["Playing blackjack without counting cards", "Game-planning for a football game without knowing what team you're playing", "Playing a tournament without knowing the payout structure", "Bluffing without looking at your cards"],
     ans: 1,
+    hint: "Jaffe uses a sports analogy about preparation without knowing who you are facing.",
     expl: "Jaffe: 'Going into a heads-up match where you don't know your opponent very well with a game plan is like game planning for a football game when you don't know what team you're playing.'"
   },
   {
     q: "How quickly does Jon Jaffe say you can get a 'decent feel' for your HUNL opponent?",
     opts: ["After 100 hands", "After 20 hands, sometimes even quicker", "After 5 hands", "After one full session"],
     ans: 1,
+    hint: "Look for timing tells and c-bet tendencies early -- the number is smaller than you might think.",
     expl: "Jaffe: 'You have a decent feel after 20 hands, sometimes even quicker.' Key early reads include timing tells, c-bet frequency, and whether they standardize their timing."
   },
   {
     q: "In HUNL 3-bet pots, why are your 6-max range advantage assumptions often wrong?",
     opts: ["The deck is shuffled differently", "BB 3-bets ~25% of hands, including tons of suited middling cards the 6-max 3-bet range doesn't contain", "The button's range is narrower in HUNL", "3-bet pots are always good for the caller"],
     ans: 1,
+    hint: "The BB 3-bet range in HUNL is much wider than in 6-max, including many suited connectors.",
     expl: "BB 3-bets ~25% in HUNL, including hands like 8-7s, 6-5s, T-8s. This means boards like K-T-3r are NOT clear button advantages -- the 3-bettor has lots of hands that connect."
   },
   {
     q: "On an ace-high board in a HUNL 3-bet pot, how should both players approach the flop?",
     opts: ["Button should always c-bet; BB should always check-raise", "Both players should show a lot of passivity -- equities are static", "BB should lead out to take initiative", "Button should overbet to leverage nut advantage"],
     ans: 1,
+    hint: "When equities are very static, there is little pressure to bet and risk building a big pot.",
     expl: "On ace-high boards in 3-bet pots, equities are static. If you always bet your ace-x, opponent will run you over in the check-check line and develop polar check-raise strategies."
   },
   {
     q: "On a monotone flop in HUNL, what is the maximum c-bet size you should typically use?",
     opts: ["Pot-sized (B100)", "Two-thirds pot (B66)", "Small -- B25 to B33", "Overbet (B150+)"],
     ans: 2,
+    hint: "If opponent already has a flush, building a large pot is very dangerous for you.",
     expl: "Monotone boards require very small bet sizes (B25-B33). If opponent has a flush, you have zero equity. The board dynamics rarely change, so building a big pot is dangerous."
   },
   {
     q: "The 'gap heuristic' for monotone boards says you should bet more with which type of hand?",
     opts: ["Hands where your two cards are close together (e.g., 9-8)", "Hands with a big gap between cards (e.g., A-2)", "Only pocket pairs", "Only hands with the board's suit"],
     ans: 1,
+    hint: "A-2 vs A-Q: which hand blocks fewer of the opponent's flush combos?",
     expl: "Bigger gap between cards = bet more. A-2 suited wants to bet (big gap, blocks fewer of opponent's flush combos). A-Q suited is more inclined to check (smaller gap, blocks more)."
   },
   {
     q: "In HUNL, why is the concept of 'pushing equity' more important than 'hand strength ranking' for turn betting?",
     opts: ["Because solver outputs are random", "Because hands with added draws benefit from building the pot, while pure top-pair hands create ugly river spots", "Because bluffs are always better than value bets", "Because equity doesn't matter in HUNL"],
     ans: 1,
+    hint: "K-8s with a gut-shot and K-Jo are both top pair, but only one benefits from building the pot.",
     expl: "K-8s with a gut-shot bets the turn because it benefits from building the pot (equity + draws). K-Jo with no draw checks back despite being a 'better hand' because betting it creates difficult river situations."
   },
   {
     q: "When playing very deep (400bb+) in HUNL, how should you adjust your preflop calling range in position?",
     opts: ["Tighten up -- don't play speculative hands", "Call much wider -- positional advantage magnifies at deep stacks and you over-realize equity", "Only play premium hands", "Fold everything except pairs and suited broadways"],
     ans: 1,
+    hint: "Position becomes more valuable at deeper stacks, not less.",
     expl: "The deeper you are, the bigger your positional advantage. At 400bb+, you 'just can't fold good suited cards' in position against 3-bets because you over-realize equity enormously."
   },
   {
     q: "After a blunder in HUNL, what is the correct mental approach according to Justin and Jaffe?",
     opts: ["Tighten up to avoid further losses", "Recognize you're in a new node and make the best decision for THIS spot -- don't let emotions from the previous hand affect you", "Play more aggressively to recover chips", "Take a break from the match"],
     ans: 1,
+    hint: "Think of each decision point as a new node in the game tree, independent of what just happened.",
     expl: "Justin: 'No matter what happened here, we're at this part of the game tree and I need to make a good decision.' Don't tilt-fold or go one-speed aggressive. Recalibrate immediately."
   }
 ];
@@ -252,10 +281,14 @@ function init(list) {
 function showQ() {
   answered=false;
   const q=qs[idx];
-  document.getElementById('qNum').textContent=`Question ${idx+1} of ${qs.length}`;
+  document.getElementById('qNum').textContent='Question '+(idx+1)+' of '+qs.length;
   document.getElementById('qText').textContent=q.q;
-  document.getElementById('status').textContent=`Score: ${score} / ${idx}`;
+  document.getElementById('status').textContent='Score: '+score+' / '+idx;
   document.getElementById('progFill').style.width=((idx/qs.length)*100)+'%';
+  const hintBox=document.getElementById('hintBox');
+  hintBox.textContent=q.hint||'';
+  hintBox.className='hint';
+  document.getElementById('hintBtn').textContent='Show Hint (H)';
   const opts=document.getElementById('opts'); opts.innerHTML='';
   const expl=document.getElementById('expl'); expl.className='explanation'; expl.textContent='';
   document.getElementById('nextBtn').disabled=true;
@@ -265,6 +298,18 @@ function showQ() {
     b.onclick=()=>pick(i,b);
     opts.appendChild(b);
   });
+}
+
+function toggleHint() {
+  const hintBox=document.getElementById('hintBox');
+  const hintBtn=document.getElementById('hintBtn');
+  if(hintBox.classList.contains('show')){
+    hintBox.classList.remove('show');
+    hintBtn.textContent='Show Hint (H)';
+  } else {
+    hintBox.classList.add('show');
+    hintBtn.textContent='Hide Hint (H)';
+  }
 }
 
 function pick(i,btn) {
@@ -279,7 +324,7 @@ function pick(i,btn) {
   const expl=document.getElementById('expl');
   expl.textContent=q.expl; expl.classList.add('show');
   document.getElementById('nextBtn').disabled=false;
-  document.getElementById('status').textContent=`Score: ${score} / ${idx+1}`;
+  document.getElementById('status').textContent='Score: '+score+' / '+(idx+1);
 }
 
 function nextQ() {
@@ -307,6 +352,7 @@ document.addEventListener('keydown',e=>{
     const i=parseInt(k)-1; if(btns[i]) btns[i].click();
   }
   if(k==='n') document.getElementById('nextBtn').click();
+  if(k==='h') toggleHint();
   if(k==='r') restart();
 });
 

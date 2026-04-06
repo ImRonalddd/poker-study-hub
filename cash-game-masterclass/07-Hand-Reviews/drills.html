@@ -38,6 +38,9 @@ header .subtitle { font-family:'JetBrains Mono',monospace; font-size:0.75rem; te
 .option.disabled { cursor:default; opacity:0.7; }
 .option.disabled:hover { border-color:var(--border-light); background:var(--surface); }
 .option.correct.disabled, .option.wrong.disabled { opacity:1; }
+.hint-btn { font-family:'JetBrains Mono',monospace; font-size:0.78rem; color:var(--text-dim); background:none; border:none; cursor:pointer; margin-bottom:0.75rem; text-decoration:underline; }
+.hint-box { font-size:0.9rem; color:var(--text-dim); margin-bottom:1rem; padding:0.6rem 0.8rem; background:var(--surface2); border-left:3px solid var(--border-light); display:none; }
+.hint-box.show { display:block; }
 .explanation { padding:1rem 1.2rem; border-left:4px solid var(--accent); background:var(--surface2); margin-bottom:1.5rem; display:none; }
 .explanation.show { display:block; }
 .explanation p { font-size:0.95rem; margin-bottom:0.3rem; }
@@ -71,7 +74,7 @@ header .subtitle { font-family:'JetBrains Mono',monospace; font-size:0.75rem; te
 </header>
 <hr class="divider">
 
-<div class="hotkeys" style="display:none"><kbd>1</kbd>-<kbd>4</kbd> answer &nbsp; <kbd>Space</kbd> next &nbsp; <kbd>R</kbd> restart &nbsp; <kbd>H</kbd> toggle hotkey help</div>
+<div class="hotkeys"><kbd>1</kbd>-<kbd>4</kbd> answer &nbsp; <kbd>Space</kbd> next &nbsp; <kbd>R</kbd> restart &nbsp; <kbd>H</kbd> toggle hotkey help</div>
 
 <div id="quiz-area">
   <div class="progress-text" id="progress-text">Question 1 of 18</div>
@@ -82,11 +85,12 @@ header .subtitle { font-family:'JetBrains Mono',monospace; font-size:0.75rem; te
   </div>
   <div class="question-num" id="q-num">Question 1</div>
   <div class="question-text" id="q-text"></div>
+  <button class="hint-btn" id="btn-hint" onclick="toggleHint()">Hint (H)</button>
+  <div class="hint-box" id="hint-box"></div>
   <div class="options" id="options"></div>
   <div class="explanation" id="explanation"></div>
   <div class="controls">
     <button class="btn btn-primary" id="btn-next" style="display:none" onclick="nextQuestion()">Next <span class="hotkey">Space</span></button>
-    <button class="btn" id="btn-hint" onclick="showHint()">Hint <span class="hotkey">H</span></button>
   </div>
 </div>
 
@@ -297,7 +301,10 @@ function render() {
   document.getElementById('explanation').classList.remove('show');
   document.getElementById('explanation').innerHTML = '';
   document.getElementById('btn-next').style.display = 'none';
-  document.getElementById('btn-hint').style.display = 'inline-block';
+  var hintBox = document.getElementById('hint-box');
+  hintBox.innerHTML = q.hint ? q.hint : '';
+  hintBox.classList.remove('show');
+  document.getElementById('btn-hint').style.display = q.hint ? 'inline-block' : 'none';
 }
 
 function answer(idx) {
@@ -317,6 +324,7 @@ function answer(idx) {
   expEl.classList.add('show');
   document.getElementById('btn-next').style.display = 'inline-block';
   document.getElementById('btn-hint').style.display = 'none';
+  document.getElementById('hint-box').classList.remove('show');
 }
 
 function nextQuestion() {
@@ -326,12 +334,14 @@ function nextQuestion() {
   render();
 }
 
-function showHint() {
+function toggleHint() {
   if (answered) return;
-  const q = questions[current];
-  const expEl = document.getElementById('explanation');
-  expEl.innerHTML = `<p><em>${q.hint || "Think about what your opponent's range looks like in this spot."}</em></p>`;
-  expEl.classList.add('show');
+  var hintBox = document.getElementById('hint-box');
+  if (hintBox.classList.contains('show')) {
+    hintBox.classList.remove('show');
+  } else {
+    hintBox.classList.add('show');
+  }
 }
 
 function showResults() {
@@ -371,7 +381,7 @@ document.addEventListener('keydown', (e) => {
   if (e.key >= '1' && e.key <= '4') { const idx = parseInt(e.key)-1; const opts = document.querySelectorAll('.option'); if (idx < opts.length) answer(idx); }
   if (e.key === ' ' || e.key === 'Enter') { e.preventDefault(); if (answered) nextQuestion(); }
   if (e.key === 'r' || e.key === 'R') restart();
-  if (e.key === 'h' || e.key === 'H') { const hk = document.querySelector('.hotkeys'); hk.style.display = hk.style.display === 'none' ? 'block' : 'none'; }
+  if (e.key === 'h' || e.key === 'H') { toggleHint(); }
   if (e.key === 'm' || e.key === 'M') { if (document.getElementById('results').style.display !== 'none') reviewMissed(); }
 });
 

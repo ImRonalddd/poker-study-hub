@@ -227,26 +227,27 @@ h1 {
 
 .hint-btn {
   font-family: 'JetBrains Mono', monospace;
-  font-size: 0.75rem;
+  font-size: 0.78rem;
   color: var(--text-dim);
   background: none;
-  border: 1px solid var(--border-light);
-  padding: 4px 10px;
+  border: none;
   cursor: pointer;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  margin-top: 12px;
+  margin-bottom: 0.75rem;
+  text-decoration: underline;
+  padding: 0;
 }
 
-.hint-text {
+.hint {
   font-size: 0.9rem;
-  color: var(--orange);
-  font-style: italic;
-  margin-top: 8px;
+  color: var(--text-dim);
+  margin-bottom: 1rem;
+  padding: 0.6rem 0.8rem;
+  background: var(--surface2);
+  border-left: 3px solid var(--border-light);
   display: none;
 }
 
-.hint-text.show { display: block; }
+.hint.show { display: block; }
 
 /* Navigation */
 .nav-row {
@@ -347,7 +348,7 @@ h1 {
 
 <div class="card" id="cardArea"></div>
 
-<div class="hotkeys" style="display:none">
+<div class="hotkeys">
   <kbd>1</kbd>-<kbd>4</kbd> select answer &nbsp;&middot;&nbsp;
   <kbd>Enter</kbd> submit FIB &nbsp;&middot;&nbsp;
   <kbd>Space</kbd> next question &nbsp;&middot;&nbsp;
@@ -696,47 +697,48 @@ function renderMC(q, card) {
     return shuffled;
   })();
 
-  let html = `<div class="tag">${q.tag}</div>`;
-  html += `<div class="question-text">${q.text}</div>`;
-  html += `<ul class="options">`;
+  let html = '<div class="tag">' + q.tag + '</div>';
+  html += '<div class="question-text">' + q.text + '</div>';
+  html += hintHTML(q);
+  html += '<ul class="options">';
   shuffledOpts.forEach((origIdx, displayIdx) => {
-    html += `<button class="option-btn" data-orig="${origIdx}" data-display="${displayIdx}">
-      <span class="hotkey">${displayIdx + 1}</span>${q.options[origIdx]}</button>`;
+    html += '<button class="option-btn" data-orig="' + origIdx + '" data-display="' + displayIdx + '">'
+      + '<span class="hotkey">' + (displayIdx + 1) + '</span>' + q.options[origIdx] + '</button>';
   });
-  html += `</ul>`;
-  html += feedbackHTML(q);
+  html += '</ul>';
+  html += feedbackHTML();
   card.innerHTML = html;
 
   card.querySelectorAll('.option-btn').forEach(btn => {
     btn.addEventListener('click', () => handleMCAnswer(q, parseInt(btn.dataset.orig)));
   });
-  card.querySelector('.hint-btn').addEventListener('click', toggleHint);
 }
 
 function renderTF(q, card) {
-  let html = `<div class="tag">${q.tag}</div>`;
-  html += `<div class="question-text">${q.text}</div>`;
-  html += `<ul class="options">`;
-  html += `<button class="option-btn" data-val="true"><span class="hotkey">1</span>True</button>`;
-  html += `<button class="option-btn" data-val="false"><span class="hotkey">2</span>False</button>`;
-  html += `</ul>`;
-  html += feedbackHTML(q);
+  let html = '<div class="tag">' + q.tag + '</div>';
+  html += '<div class="question-text">' + q.text + '</div>';
+  html += hintHTML(q);
+  html += '<ul class="options">';
+  html += '<button class="option-btn" data-val="true"><span class="hotkey">1</span>True</button>';
+  html += '<button class="option-btn" data-val="false"><span class="hotkey">2</span>False</button>';
+  html += '</ul>';
+  html += feedbackHTML();
   card.innerHTML = html;
 
   card.querySelectorAll('.option-btn').forEach(btn => {
     btn.addEventListener('click', () => handleTFAnswer(q, btn.dataset.val === 'true'));
   });
-  card.querySelector('.hint-btn').addEventListener('click', toggleHint);
 }
 
 function renderFIB(q, card) {
-  let html = `<div class="tag">${q.tag}</div>`;
-  html += `<div class="question-text">${q.text}</div>`;
-  html += `<div class="fib-wrap">
-    <input class="fib-input" type="text" placeholder="Type your answer..." id="fibInput">
-    <button class="fib-submit" id="fibSubmit">Submit</button>
-  </div>`;
-  html += feedbackHTML(q);
+  let html = '<div class="tag">' + q.tag + '</div>';
+  html += '<div class="question-text">' + q.text + '</div>';
+  html += hintHTML(q);
+  html += '<div class="fib-wrap">'
+    + '<input class="fib-input" type="text" placeholder="Type your answer..." id="fibInput">'
+    + '<button class="fib-submit" id="fibSubmit">Submit</button>'
+    + '</div>';
+  html += feedbackHTML();
   card.innerHTML = html;
 
   const input = document.getElementById('fibInput');
@@ -746,20 +748,21 @@ function renderFIB(q, card) {
     if (e.key === 'Enter') handleFIBAnswer(q, input.value);
   });
   input.focus();
-  card.querySelector('.hint-btn').addEventListener('click', toggleHint);
 }
 
-function feedbackHTML(q) {
-  return `
-    <button class="hint-btn">H -- Hint</button>
-    <div class="hint-text" id="hintText">${q.hint}</div>
-    <div class="feedback" id="feedback">
-      <div class="feedback-verdict" id="verdict"></div>
-      <div class="feedback-explanation" id="explanation"></div>
-      <div class="nav-row">
-        <button class="nav-btn" id="nextBtn" onclick="advance()">Space -- Next</button>
-      </div>
-    </div>`;
+function feedbackHTML() {
+  return '<div class="feedback" id="feedback">'
+    + '<div class="feedback-verdict" id="verdict"></div>'
+    + '<div class="feedback-explanation" id="explanation"></div>'
+    + '<div class="nav-row">'
+    + '<button class="nav-btn" id="nextBtn" onclick="advance()">Space -- Next</button>'
+    + '</div>'
+    + '</div>';
+}
+
+function hintHTML(q) {
+  return '<button class="hint-btn" onclick="toggleHint()">Show Hint (H)</button>'
+    + '<div class="hint" id="hintText">' + q.hint + '</div>';
 }
 
 function handleMCAnswer(q, origIdx) {

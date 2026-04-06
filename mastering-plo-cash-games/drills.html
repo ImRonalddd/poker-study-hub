@@ -64,6 +64,9 @@ h1{font-family:'Playfair Display',serif;font-weight:900;font-size:2.2rem;text-al
 .btn-restart:hover{opacity:0.85}
 
 @media(max-width:600px){h1{font-size:1.8rem}.container{padding:1.5rem 1rem}}
+.hint-btn{font-family:'JetBrains Mono',monospace;font-size:0.78rem;color:var(--text-dim);background:none;border:none;cursor:pointer;margin-bottom:0.75rem;text-decoration:underline;padding:0}
+.hint-box{font-size:0.9rem;color:var(--text-dim);margin-bottom:1rem;padding:0.6rem 0.8rem;background:var(--surface2);border-left:3px solid var(--border-light);display:none}
+.hint-box.show{display:block}
 </style>
 </head>
 <body>
@@ -79,7 +82,7 @@ h1{font-family:'Playfair Display',serif;font-weight:900;font-size:2.2rem;text-al
 <div class="container">
 <h1>Interactive Drills</h1>
 <div class="subtitle">Master PLO Cash Games &mdash; 35 Questions</div>
-<div class="hotkeys" style="display:none"><kbd>1</kbd><kbd>2</kbd><kbd>3</kbd><kbd>4</kbd> answer &nbsp; <kbd>Space</kbd> next &nbsp; <kbd>R</kbd> restart &nbsp; <kbd>H</kbd> toggle hotkey help</div>
+<div class="hotkeys"><kbd>1</kbd><kbd>2</kbd><kbd>3</kbd><kbd>4</kbd> answer &nbsp; <kbd>Space</kbd> next &nbsp; <kbd>R</kbd> restart &nbsp; <kbd>H</kbd> toggle hint</div>
 
 <div id="progress-bar"><div id="progress-fill" style="width:0%"></div></div>
 <div id="score-display"></div>
@@ -104,36 +107,42 @@ const allQuestions = [
    situation:"6-max, Lojack, 100bb effective, standard online rake. Folded to you.",
    opts:["Fold &mdash; low pairs are unplayable from early position","Open (pot) &mdash; double-suited connectivity compensates for low pairs","Open small (2.5bb) to see a cheap flop","Limp and try to see a cheap flop"],
    ans:1,
+   hint:"The second suit is the key factor that separates this hand from its single-suited version.",
    ex:"Despite being the lowest possible pairs, 2233 double-suited is an open from the Lojack. The double suit adds significant equity, and the 2-3 connectivity means you can flop straights (A-4-5 gives you the wheel). However, the single-suited version (2234 single-suited) is a fold. The second suit is what saves this hand."},
 
   {section:"", q:"Button, 100bb deep. You hold Ace-King-Queen-8 with three spades (A, K, 8 are spades). What do you do?",
    situation:"6-max, Button, 100bb effective. Folded to you.",
    opts:["Fold &mdash; three spades ruins the hand","Open (pot) &mdash; on the button, AKQX always opens regardless of suits","Open but plan to fold to any 3-bet","Open only if the blinds are tight"],
    ans:1,
+   hint:"From the button, one specific hand class always opens regardless of suit configuration.",
    ex:"From the button, ALL AKQX combinations are opens regardless of suit configuration. The high cards matter more than suits on the button because you're blocking 3-bets from the blinds and seeing flops cheaply. From the Lojack, the three-spade version would be a fold, but the button's wider range absorbs this hand easily."},
 
   {section:"", q:"Button, 100bb deep. You hold 2234 single-suited (2-3 suited). Should you open?",
    situation:"6-max, Button, 100bb effective. Folded to you.",
    opts:["Open &mdash; it's the button, we play 50% of hands","Fold &mdash; this hand is too weak even for the button","Open only if blinds are very tight","Limp to see a cheap flop"],
    ans:1,
+   hint:"Even the widest position has a floor; low pairs with only low straight potential and one suit never reach it.",
    ex:"Even on the button where you play ~50% of hands, 2234 single-suited is a fold. The Deuce-Deuce pair is the worst pair, the 3-4 makes only low straights that will be dominated, and single-suited doesn't provide enough equity. This hand never enters any position's opening range. Double-suited barely rescues the 2233 version."},
 
   {section:"", q:"Lojack, 100bb. You hold KK76 rainbow. What's your action?",
    situation:"6-max, Lojack, 100bb effective, standard rake.",
    opts:["Always open &mdash; pocket kings are premium in any format","Open about 25% of the time &mdash; this is the worst kings you'd ever open","Fold &mdash; rainbow kings with low disconnected cards are never opens","3-bet if someone has already opened"],
    ans:1,
+   hint:"The 7-6 connectivity barely saves it, making this roughly the minimum kings you would ever open from LJ.",
    ex:"KK76 rainbow is roughly the worst kings you can open, and it's about a 25% open from the Lojack. The 7-6 connectivity just barely saves it. KK72 rainbow or KK73 rainbow would be pure folds. Many NLHE players overvalue kings in PLO &mdash; the equity difference between KK and other hands is much smaller (60-40 vs AA, not 80-20 like in NLHE)."},
 
   {section:"", q:"You're on the Button. How does your opening range change compared to the Lojack?",
    situation:"6-max, comparing Button vs Lojack opening frequencies.",
    opts:["Open about 25% (vs 20% Lojack) &mdash; small increase","Open about 35% &mdash; moderate increase","Open about 50% &mdash; dramatically wider","Open about 65% &mdash; almost everything playable"],
    ans:2,
+   hint:"The button is the highest-EV position and opens a dramatically wider range than any other seat.",
    ex:"The button opens roughly 50% of hands, compared to ~20% from the Lojack. This is a massive difference. All Lojack borderline hands become pure opens. You add an entire tier of hands: middling suited connectors, lower pairs with connectivity, disconnected ace-X hands with suits. The button is your highest-EV position due to position advantage and the widest range."},
 
   {section:"", q:"You're in the Big Blind. The Button opens pot. What is your approximate fold percentage?",
    situation:"6-max, 100bb effective. Button opens to pot (3.5bb).",
    opts:["About 25% &mdash; you defend very wide vs the button","About 42% &mdash; you still fold a lot due to rake","About 60% &mdash; out of position is very tough","About 75% &mdash; most hands can't profitably defend"],
    ans:1,
+   hint:"The wider the opener's range, the more hands you can profitably defend against them.",
    ex:"Against a button open, the big blind folds about 42%, calls ~48%, and 3-bets ~9%. This is significantly wider than defending vs the Lojack (where you fold ~60%). The wider the opener's range, the more hands you can profitably defend with. Against the button's ~50% range, your weaker hands have more equity relative to their range."},
 
   // === SECTION: 3-Betting ===
@@ -141,36 +150,42 @@ const allQuestions = [
    situation:"6-max, 100bb. Cutoff opens pot, you are on the Button.",
    opts:["Call &mdash; rundowns play better as flats seeing cheap flops","3-bet &mdash; this is a premium 3-bet bluff candidate","Fold &mdash; no high cards, not strong enough vs cutoff range","3-bet only if the cutoff is opening too wide"],
    ans:1,
+   hint:"This hand unblocks the opponent's folding range and retains solid equity even against a 4-bet.",
    ex:"T987 double-suited is one of the best 3-bet bluff candidates in PLO. It unblocks the opponent's raise-folds (KQJ9, AK52 type hands). If they 4-bet (almost always aces), your equity is ~35-38% with clean outs &mdash; you can profitably call. Post-flop, you represent both high boards (bluff authority as 3-bettor) and low connected boards (actual equity). This is exactly the type of hand Adam says makes a great PLO 3-bet."},
 
   {section:"", q:"You're in the Hijack. Lojack opens. What percentage of your 3-bet range should be aces?",
    situation:"6-max, 100bb. Lojack opens, you are in the Hijack considering a 3-bet.",
    opts:["About 50% &mdash; balanced with bluffs","About 70% &mdash; mostly value","About 93% &mdash; almost entirely aces","100% &mdash; never 3-bet bluff vs lojack"],
    ans:2,
+   hint:"The Lojack opens the tightest range of any position, giving your bluffs very little fold equity.",
    ex:"Against the Lojack (tightest open), about 93.5% of your 3-betting range is aces. The Lojack range is so tight and strong that non-ace 3-bets have very little fold equity and poor post-flop EV. The remaining ~6.5% is middling double-suited hands (K675 ds, T987 ds) that serve as bluffs with post-flop playability. This is very different from button vs cutoff where the bluff portion is larger."},
 
   {section:"", q:"You hold AA72 rainbow. Cutoff opens. You're on the Button. 3-bet or flat?",
    situation:"6-max, 100bb. Cutoff opens, you are on the Button with AA72 rainbow.",
    opts:["Always 3-bet &mdash; aces are aces","Flat &mdash; rainbow disconnected aces prefer to trap and see flops","Fold &mdash; bad aces are worse than good non-ace hands","Mix between 3-bet and flat, approximately 50/50"],
    ans:1,
+   hint:"After a 3-bet at 100bb the SPR is roughly 4:1, which limits what this hand can do post-flop.",
    ex:"Rainbow disconnected aces (AA72 rainbow) fall into the flatting range, not the 3-bet range. About 1/5 of aces are flats. At 100bb with SPR ~4:1 after a 3-bet, these aces can only flop top set &mdash; no flush draw backup, no straight potential. Flatting keeps the pot smaller and lets you navigate post-flop. If someone squeezes behind, you get to trap with aces."},
 
   {section:"", q:"Cutoff opens. Button 3-bets. How much does the Cutoff fold?",
    situation:"6-max, 100bb. You opened Cutoff, Button 3-bets.",
    opts:["About 40-50% like in No-Limit","About 25-30%","About 14% &mdash; very little folding","About 5% &mdash; almost never fold"],
    ans:2,
+   hint:"In PLO the worst-case preflop equity is around 27%, so folding opened hands rarely makes sense.",
    ex:"In PLO, the cutoff folds only about 14% when facing a button 3-bet. This is the critical stat that distinguishes PLO from NLHE. In NLHE, 3-bets generate 40-50% folds. In PLO, equities run closer (worst case ~27% equity, not 7% like NLHE), so it's rarely correct to fold a hand you opened. This means your 3-bets must be hands that play well post-flop, not pure bluffs."},
 
   {section:"", q:"You hold AK suited (Ace-King of hearts) with Q5 offsuit side cards. Should you 3-bet or flat a cutoff open from the button?",
    situation:"6-max, 100bb. Cutoff opens. You are on the Button.",
    opts:["3-bet &mdash; AK suited is always a 3-bet","Flat &mdash; the AK suited reduces your value when you make flushes","It depends entirely on the queen's suit","Fold &mdash; Q5 offsuit danglers make this unplayable"],
    ans:1,
+   hint:"When you hold both the ace and king of a suit, opponents cannot have the second-nut flush to pay you off.",
    ex:"With Ace-King suited, you lean toward flatting rather than 3-betting. When you make a heart flush, opponents cannot hold the 2nd-nut flush (King-high) &mdash; so they fold more and you get less value. With Ace-Nine suited instead, the King and Queen of hearts are still available for opponents to pay you off with. This suit-value principle means A9 suited 3-bets where AK suited flats."},
 
   {section:"", q:"You're in the Small Blind in a cash game. What should your primary preflop strategy be?",
    situation:"6-max, 100bb, standard rake. Someone opens from middle/late position.",
    opts:["Mostly call, some 3-bets","Mostly 3-bet or fold, very little calling","Defend wider than the Big Blind since you close the action","Always fold unless you have aces"],
    ans:1,
+   hint:"Flatting from the small blind means playing three streets out of position while rake eats your profit.",
    ex:"The small blind should play primarily a 3-bet or fold strategy in PLO cash games. Very little cold calling (~2-5% depending on stack depth). In cash games with rake, flatting from the SB leaks money badly because you're out of position, facing a raise, and the rake eats into your pot. If you're starting out, simplify to pure 3-bet or fold from the SB."},
 
   // === SECTION: Facing 3-Bets ===
@@ -178,30 +193,35 @@ const allQuestions = [
    situation:"6-max, 100bb. You opened Cutoff, Big Blind 3-bets. 50bb effective with the BB.",
    opts:["Call &mdash; KQJ8 is a strong hand","Fold &mdash; BB 3-bets are almost always aces in practice","4-bet to put pressure on the BB","Call only if you have double-suited"],
    ans:1,
+   hint:"Population big blinds almost never 3-bet bluff in PLO, so weight their range heavily toward premium hands.",
    ex:"This is directly from the Saliba sessions. Population tendency: Big Blind players almost never 3-bet bluff in PLO. They cut out bluffs like 5678 double-suited because \"nobody folds anyway.\" When you face a BB 3-bet, weight their range heavily toward aces, premium kings, and AKQJ type hands. KQJ8 with just queen-high suit has terrible equity vs this range &mdash; your K and Q interact (duplicate) with their value range. Adam says fold. With double-suited: call. With T987 (less interaction): call."},
 
   {section:"", q:"You 3-bet AQQ2 double-suited from the Hijack. Lojack 4-bets (almost certainly aces). What do you do?",
    situation:"6-max, 100bb. You 3-bet Hijack, Lojack 4-bets.",
    opts:["Call &mdash; double-suited with a pair is always a call","Jam all-in &mdash; AQQ2 has good equity vs aces","Fold &mdash; this is a painful but correct 3-bet-fold","Call only if your ace is suited"],
    ans:2,
+   hint:"Your ace is dominated and your queens interact heavily with the 4-bet range, giving you only about 28-30% equity.",
    ex:"This is one of the surprising folds in PLO. AQQ2 double-suited looks premium but performs terribly vs a 4-bet range of aces. Your ace is dominated (dead card), your queens need to flop a set but even set of queens can lose to higher sets. The deuce provides nothing. Equity vs aces: ~28-30%. Meanwhile, 8654 double-suited has ~35% equity because all its outs are completely clean &mdash; no card interacts with the 4-bettor's aces. Fold the pretty hand, call with the ugly connected hand."},
 
   {section:"", q:"You opened and got 3-bet. Your hand is Ace-King-King-X. Should you 4-bet?",
    situation:"6-max, 100bb. You opened, facing a 3-bet.",
    opts:["Always 4-bet &mdash; AKK is a monster","4-bet because the ace blocks their aces","Mostly flat &mdash; kings prefer to see flops, and AKK vs aces has terrible equity","Fold &mdash; kings aren't strong enough to continue vs a 3-bet"],
    ans:2,
+   hint:"Kings prefer to see flops and make sets; facing aces your king pair is dominated and your ace is dead.",
    ex:"Ace-King-King is an interesting hand. The ace blocker makes 4-betting tempting, but AKK vs aces specifically has terrible equity because your king pair is dominated and your ace is dead. Kings in general prefer to flat 3-bets and see flops where they can flop sets and straights. The exception: at short stacks (50bb), you can start back-jamming AKK because the SPR is lower and kings push more equity when the hand can end preflop."},
 
   {section:"", q:"You 3-bet K675 double-suited from the Button as a bluff. Cutoff 4-bets. What should you do with this specific hand?",
    situation:"6-max, 100bb. You 3-bet Button, Cutoff 4-bets.",
    opts:["Fold &mdash; you were bluffing, mission failed","Call &mdash; middling double-suited hands are the BEST 4-bet calls","Jam all-in as a re-bluff","Call only against loose 4-bettors"],
    ans:1,
+   hint:"Hands with no card interaction against aces have the cleanest outs, making your bluffs the best 4-bet calls.",
    ex:"This is counter-intuitive: your 3-bet bluffs (K675 ds, T987 ds, 8654 ds) become your BEST calls vs 4-bets. These hands have minimal interaction with the 4-bettor's range (aces, premium). All their outs are clean &mdash; hitting a 5-6-7-8 straight doesn't help anyone's aces. Meanwhile, your \"value\" 3-bets like AQJ2 double-suited are the FOLDS because they interact heavily with the 4-bet range. The bluffs become calls, the value becomes folds."},
 
   {section:"", q:"You're at 50bb effective instead of 100bb. How does your fold % vs a 4-bet change?",
    situation:"6-max, 50bb effective. You 3-bet and face a 4-bet.",
    opts:["Fold more &mdash; shorter stack means more danger","Fold about the same","Fold much less &mdash; ~20% instead of ~42%","Never fold &mdash; pot odds are always good enough at 50bb"],
    ans:2,
+   hint:"With less money behind, the pot odds from the 4-bet size are much better relative to remaining stacks.",
    ex:"At 50bb, you fold only ~20% vs a 4-bet (compared to ~42% at 100bb). The pot odds are much better because the 4-bet size relative to remaining stacks gives you a better price. Hands like AQJ2 double-suited that are folds at 100bb become calls at 50bb. The threshold for continuing drops significantly, which is why shallower-stacked PLO plays very differently."},
 
   // === SECTION: Exploit Decisions ===
@@ -209,30 +229,35 @@ const allQuestions = [
    situation:"6-max, 100bb. Table is playing noticeably tight &mdash; less action than expected.",
    opts:["Tighten up yourself to avoid confrontation","Open all your mixed-frequency hands as pure opens, and add the next tier","3-bet more aggressively with any four cards","Only change your stealing from the button"],
    ans:1,
+   hint:"You need a GTO baseline to know exactly which hands to convert from mixed opens to pure opens.",
    ex:"When the table is tight, your exploit is to take all hands that are mixed opens (50-50 between open and fold) and make them pure opens. Then start adding the next tier of hands below your normal range. This is the concrete meaning of \"playing looser\" &mdash; you know your baseline, so you know exactly which hands to add. Adam emphasizes: if you don't know your baseline, you can't exploit. You'd just be guessing."},
 
   {section:"", q:"The player to your left 3-bets you frequently. What adjustment should you make?",
    situation:"6-max, 100bb. The player immediately to your left has been 3-betting you at a high frequency.",
    opts:["Open wider to fight back","Tighten your opening range and increase your 4-bet frequency","Switch seats","Ignore it &mdash; PLO ranges are strong enough to handle 3-bets"],
    ans:1,
+   hint:"Cut the marginal opens that punish you the most, then fight back with more 4-bets using strong aces.",
    ex:"Against a frequent 3-bettor on your left: (1) Cut your bottom opens &mdash; you're sacrificing a little EV from those marginal hands because the 3-bettor is punishing you. (2) Fight back with more 4-bets &mdash; use your good aces more aggressively and add some 4-bet bluffs. (3) Tighten up slightly but don't over-fold. Adam notes that people won't correctly adjust to your sheer tightening, so you gain EV from both the tighter range and the increased 4-bets."},
 
   {section:"", q:"You notice that the Big Blind's 3-betting range in your game consists almost entirely of aces. No bluffs. How should you adjust your range when facing their 3-bet?",
    situation:"6-max, 100bb. You opened from Cutoff, Big Blind 3-bets. Based on observation, BB only 3-bets premium.",
    opts:["Call wider &mdash; you can outplay them post-flop","Fold more hands that interact with aces (AK-X-X, KK-X-X) and call with connected low hands","4-bet bluff more since they have a capped range","No adjustment needed &mdash; play GTO"],
    ans:1,
+   hint:"The less your hand overlaps with their value range, the cleaner your outs are.",
    ex:"When the BB only 3-bets premium (a common population tendency), fold hands that interact badly with aces: AK-X-X disconnected, KK-X-X with bad side cards. These hands have dirty outs vs aces. Instead, call with hands that have clean outs: T987, 8765, 5678 type hands. Your equity is actually better with the connected low hands because none of your cards duplicate theirs. This is the \"interaction principle\" &mdash; the less your hand overlaps with their value range, the better."},
 
   {section:"", q:"You're playing a live game and notice people min-bet the river with the nuts. You're facing a half-pot river bet. Should you be more or less inclined to call?",
    situation:"Live PLO cash game. Opponent bets half-pot on the river after a large turn bet.",
    opts:["More inclined to call &mdash; if they had it, they'd bet bigger","Less inclined to call &mdash; half-pot is a common nutted sizing in PLO","It doesn't matter &mdash; sizing tells don't exist","Call only with the nuts"],
    ans:0,
+   hint:"In live games players often use smaller sizes with the nuts to get called, not bigger sizes.",
    ex:"Adam talks about sizing tells extensively. In PLO, many players bet unusual amounts with the nuts (like 85% or weird numbers instead of pot) because they're mentally trying to \"give a discount\" to get called. When opponents use a large size (75%+ pot) on the river, they're usually repping nuts (straights, boats). When they go half-pot, it could be thin value or a sizing that indicates less confidence. Pay attention to individual player patterns &mdash; if someone consistently pots the nuts and goes smaller with bluffs, exploit that."},
 
   {section:"", q:"You're playing in a private game with $10 preflop rake on a 5-10 PLO game. How should you adjust?",
    situation:"Live PLO 5-10, private game. House takes $10 from every pot preflop regardless of size.",
    opts:["No adjustment needed &mdash; rake doesn't affect strategy much","Tighten up dramatically &mdash; the rake destroys marginal opens","Play looser to try to win bigger pots to compensate","Only play premium hands from every position"],
    ans:1,
+   hint:"If you open and steal the blinds for $15 but the house takes $10, your steal is nearly worthless.",
    ex:"Preflop rake dramatically changes PLO strategy. If you open to $35 and win the blinds, the house takes $10 of your $15 profit &mdash; you're winning almost nothing. Adam emphasizes this is \"a huge change in how we approach our ranges.\" You need to be much tighter in these games. Conversely, in games with no preflop rake (like some tournament structures), you can open wider because winning the pot preflop retains its full value."},
 
   // === SECTION: Post-Flop ===
@@ -240,42 +265,49 @@ const allQuestions = [
    situation:"3-bet pot, heads up. You are OOP as the 3-bettor. Flop: A-5-3 rainbow. SPR ~3.5.",
    opts:["Check &mdash; your hand is too weak to bet","Bet small (30% pot) &mdash; range bet on ace-high disconnected boards","Bet pot &mdash; you need to protect against draws","Check-raise if they bet"],
    ans:1,
+   hint:"As the 3-bettor you have all the aces, opponents rarely check-raise these boards, and a small size cleans up equity cheaply.",
    ex:"On ace-high disconnected boards as the 3-bettor, you bet your ENTIRE range at a small size (~30% pot). This is a range-based strategy, not hand-based. You don't care about your specific cards. Why: you have all the aces (opponents flatted), opponents under-check-raise these boards (they fear your pocket aces), and the small bet cleans up equity cheaply. Even with AK72 &mdash; the ugliest hand in your range &mdash; you still bet."},
 
   {section:"", q:"You opened the Button. BB defends. Flop: Q-8-5 with a flush draw. Check, check. Turn: 3 (blank). BB checks again. What should you do with a middling hand like K-9-9-7?",
    situation:"Single-raised pot. Button vs BB. Flop check-check. Turn blank. BB checks.",
    opts:["Check back &mdash; your hand has showdown value","Bet small (30%) to see where you are","Pot &mdash; their range is capped from checking flop","Bet half pot as a standard play"],
    ans:2,
+   hint:"PLO players almost always bet the flop with strong hands, so a check-check flop caps their range heavily.",
    ex:"When the flop goes check-check and the turn blanks, the BB's range is heavily capped. Population tendency: PLO players almost always stab the flop with sets, top two pair, and nut flush draws. By checking, they've shown weakness. Potting the turn applies maximum pressure &mdash; they fold equity they'd otherwise realize (their middle pairs, gutshots with 30-40% equity). Even with K-9-9-7, you can pot profitably because their range simply cannot withstand pot-sized pressure after showing weakness."},
 
   {section:"", q:"You're in position. Opponent pots the flop on J-7-4 with one flush draw. You hold T-9-8-6 (wrap + top pair). SPR is ~5. Do you raise or call?",
    situation:"3-bet pot. You are IP. Opponent (OOP) pots flop: J-7-4 with clubs. You have T-9-8-6 with one spade. ~550 behind into ~400 pot.",
    opts:["Raise all-in &mdash; you have huge equity and want to get it in","Call &mdash; use position to navigate turns and evaluate","Fold &mdash; you might be behind","Raise small to build the pot"],
    ans:1,
+   hint:"Going all-in removes all future decisions, but in PLO your edge is in making better decisions on later streets.",
    ex:"From the Saliba sessions. The lazy play is to jam &mdash; it feels right with a wrap. But calling is significantly better because: (1) On club turns, villain's flush gets there and you fold cheaply &mdash; massive EV save. (2) On brick turns, villain pots again with overpairs and you call/stack them. (3) On a 6 (pairing your kicker but giving you just straight draws), you can fold. (4) You can even bluff on club turns from position. The all-in removes all future decision-making, and in PLO, your edge IS the decision-making."},
 
   {section:"", q:"Limped pot. You flopped a full house (55 on J-J-5-4 board). Turn: blank. You check-raised turn. River: blank. What should you do?",
    situation:"Limped pot, multiway. You have 5-5. Board: J-J-5-4-X. You check-raised the turn.",
    opts:["Check, hoping for a check-raise on the river","Bet ~65-75% pot yourself","Bet pot for maximum value","Check and call any bet"],
    ans:1,
+   hint:"Nobody bluff double-raises in a limped pot, so opponents with jacks will often just check behind if you check.",
    ex:"Bet yourself. From the Saliba analysis: (1) Who bluffs a double check-raise in a limped pot? Nobody. (2) Opponents with K-4, A-4, or even a Jack often just check back &mdash; they haven't invested much and won't battle in limped pots. (3) If you bet and they RAISE, you actually have an easy fold (quads or bigger house). Betting gives you two good outcomes: get called by worse, or get raised and save money. The NLHE check-raise instinct is wrong here."},
 
   {section:"", q:"You hold Queen-Queen-Ten-Ten single-suited. Cutoff opens, you call from Hijack. Flop: Q-T-T (you flopped a monster). Opponent bets big. How do you approach?",
    situation:"Single-raised pot. Cutoff opened, you flatted Hijack. Flop: Q-T-T. Opponent bets 70% pot.",
    opts:["Raise immediately to build the pot","Call and let them keep betting","Fold &mdash; they might have the case Ten","Call and plan check-raises on later streets"],
    ans:1,
+   hint:"Raising shuts out bluffs and thin value bets; calling keeps their entire range in the pot.",
    ex:"With quads or a top full house on a paired board, calling is almost always better than raising. When you raise, you shut out their bluffs and thin value bets. By calling, you keep their entire range in &mdash; they'll continue betting overpairs, flush draws, and straight draws on the turn. You also avoid getting them to fold hands you dominate. If the turn is a blank, they'll likely bet again, building the pot naturally."},
 
   {section:"", q:"3-bet pot. You bet flop on K-3-4 rainbow, got called. Turn: 9 (no flush draw). SPR is now ~1.5. You have AA with no redraws. What size?",
    situation:"3-bet pot OOP. Board: K-3-4-9 rainbow. You have AA-X-X no suit. SPR ~1.5.",
    opts:["Check to induce","Bet small (30%) for thin value","Bet pot &mdash; sub-2 SPR, just get the money in","Bet half pot to leave room for a river decision"],
    ans:2,
+   hint:"At sub-2 SPR there is only one street left; big pairs gain value as effective stack depth decreases.",
    ex:"At sub-2 SPR, you don't need redraws or fancy play. Just pot it. Your aces are strong enough at this stack depth &mdash; you're not worried about navigating future streets because there's only one street left. Big pairs gain value as SPR decreases. This is the key SPR insight: at SPR 5+, you need redraws and caution. At sub-2, overpairs are often good enough to go with."},
 
   {section:"", q:"You hold K-K-Q-6 with King-high suit. You 3-bet from SB. Flop: 7-5-3 with two hearts. You have no hearts. Check or bet?",
    situation:"3-bet pot OOP. Board: 7-5-3 with hearts. You have KK-Q-6, no heart.",
    opts:["Always bet &mdash; you have an overpair in a 3-bet pot","Check &mdash; you unblock all their draws and semi-bluffs","Bet pot to protect against draws","Bet small to see where you stand"],
    ans:1,
+   hint:"Not holding the flush suit means you unblock all of the opponent's check-raising semi-bluff combos.",
    ex:"From the Saliba sessions. On low boards with flush draws, when you DON'T have the flush suit, you unblock all their semi-bluffs (their combo draws, flush draws, sets). This means they have maximum check-raising hands. Checking lets you see a turn cheaply and gain clarity. If you had the King of hearts, you'd bet &mdash; because then you block their check-raising range (they have fewer nut flush draw combos) and have bluffing equity on heart turns yourself."},
 
   // === SECTION: Hand Analysis ===
@@ -283,48 +315,56 @@ const allQuestions = [
    situation:"6-max cash, ~100bb. Three players all-in before you. You hold 9865 double-suited on the Button.",
    opts:["Call &mdash; you have great equity against aces with this connected hand","Fold &mdash; multiway, your hand gets dominated by players with higher connected cards","Call only if you think at least 2 players have aces","It depends on the specific players involved"],
    ans:1,
+   hint:"Not everyone has aces in a 4-way all-in; non-ace hands with higher connected cards block your outs.",
    ex:"Adam recommends folding. The key insight: when it's 3-4 ways all-in, not everyone has aces. The non-ace hands (like TTJQ, KQJ9) dominate your 9865 specifically &mdash; they block your straight outs and cover your top pair. Your 9-high and 6-high flush draws can also be dominated. If it were heads up vs known aces, the hand has great equity. But multiway, the interaction with non-ace hands destroys you. Adam suggests 4567 might be better since it doesn't interact with the high cards these players likely hold."},
 
   {section:"", q:"From Saliba Session 2: You have King-Queen-Jack-8 with Queen-high single suit. Cutoff opens. Big Blind (50bb effective) 3-bets pot. You're in the Cutoff. Call or fold?",
    situation:"6-max, ~50bb vs BB. BB 3-bets your Cutoff open.",
    opts:["Always call &mdash; KQJ8 is a strong hand","Fold &mdash; population BB 3-bets are almost always premium, and this hand interacts terribly","Call if double-suited, fold if single-suited","4-bet to exploit the BB's tight range"],
    ans:1,
+   hint:"Your K and Q duplicate heavily with the BB's premium range, leaving you with dirty outs and poor equity.",
    ex:"Fold. This is a critical population exploit. BB players in PLO almost never 3-bet bluff. They cut out the 5678-type bluffs because \"nobody folds.\" So when BB 3-bets, weight heavily toward aces, good kings, AKQJ. Your KQJ8 with single suit is terrible against this range: your K and Q interact with their range, your J-8 disconnection gives limited post-flop playability, and a single queen-high suit isn't enough equity. With double-suited: reluctant call. With T987 (no interaction): easy call."},
 
   {section:"", q:"From the Saliba sessions: You open Button with K997 with a suit. BB defends. Flop: K-7-5 rainbow. You checked the flop. Turn: Q. What should you do?",
    situation:"Single-raised pot. Button vs BB. Flop: K-7-5 rainbow. Check, check. Turn: Q. You have K997 (top two pair + backdoor).",
    opts:["Check again and try to induce on the river","Bet half pot for value","Pot &mdash; their range is capped from checking flop","Bet small to see if they have queens"],
    ans:2,
+   hint:"The BB checked the flop, capping their range; the turn Q does not improve their capped holdings enough to fight back.",
    ex:"Pot the turn. The BB checked the flop &mdash; in PLO, population tends to always stab with sets, top two pair, and nut hands. By checking flop, their range is heavily capped to middle pairs, weak top pairs, and draws. You have a very strong hand (top two pair) and the turn Q doesn't hurt you much. Potting exploits their capped range &mdash; they can't have the strong hands needed to fight back. Adam notes: \"People don't check back enough value on flops, which allows us to pile more on turns.\""},
 
   {section:"", q:"From Episode 8 (Where EV Comes From): Flop goes check-check on A-Q-5 board. Turn brings a low card. Villain bets half pot. You have Ace-Ten-Five-Five. What's the advanced play?",
    situation:"3-bet pot. Flop check-check on A-Q-5. Turn: low brick. Villain bets half pot. You have AT55.",
    opts:["Call &mdash; see a cheap river","Fold &mdash; your hand isn't strong enough","Raise to ~2.5x &mdash; exploit the lazy small bet","Pot to deny equity"],
    ans:2,
+   hint:"A small turn bet after check-check usually indicates a marginal hand that does not expect to be raised.",
    ex:"From Episode 8: When opponents bet small on the turn after check-check, they usually have marginal hands (Queen-X, underpairs, missed draws) and don't expect to be raised. Adam suggests raising to ~2.5x with thin value or even bluffs. Your AT55 has trip fives, which is strong but vulnerable. Raising freezes them out &mdash; they almost never 3-bet the turn in these spots. Adam draws the NLHE parallel: \"When they don't expect the raise, you just pop them and they don't know what's happening.\""},
 
   {section:"", q:"From Episode 8: You hold a Jack-high flush on a 4-heart board. Villain bets 75% pot. You don't have a Queen or Ten (no boat blockers). Should you call?",
    situation:"River. 4 hearts on board. You have J-high flush but no full house blockers. Villain bets 75% pot.",
    opts:["Call &mdash; Jack-high flush is strong","Fold &mdash; without boat blockers, their range is too strong","Call only against known bluffers","Raise as a bluff to represent a full house"],
    ans:1,
+   hint:"A large river bet on a 4-flush board usually represents a full house; without blockers you cannot narrow their range.",
    ex:"Against population: fold. Adam's framework: your Jack-high flush is a pure bluff-catcher. They never bet a worse flush for 75% pot. The key question is: do you block full houses? If you hold a Queen or Ten (board pairing cards), your flush becomes a call because there are fewer boat combos in their range. Without those blockers, lean toward folding. Adam says: \"Even a solver literally separates decisions by: do I have a Ten in my hand? Yes = call. No = fold.\" Against known aggressive players, you can hero-call."},
 
   {section:"", q:"From the Saliba sessions: You have Jack-Ten-Eight-Six rainbow on the Button. Hijack opens. Should you open/call?",
    situation:"6-max, 100bb. Hijack opens. You are on the Cutoff/Button.",
    opts:["Fold &mdash; rainbow hands are never playable","Call &mdash; the connectivity is strong enough despite being rainbow","3-bet as a bluff","Open wider position would make this an open, so definitely call the Hijack open"],
    ans:1,
+   hint:"The straight-making potential of a fully connected rundown can compensate for the absence of a flush draw.",
    ex:"From Saliba Session 1: You always call this hand. Even though it's rainbow, the connectivity (J-T-8-6, all connected with small gaps) provides enough equity through straight draws. Adam notes: \"If you have a suit with this hand, you're always opening. Cutoff becomes very close.\" The rainbow version loses the flush draw equity but the straight-making ability is strong enough for a call in position. You'd fold if the hand were more disconnected like J-T-5-3 rainbow."},
 
   {section:"", q:"From Episode 8: You have Queen-Queen-Eight-Six on a J-J-5 flop. Opponent bets. Your Queens beat what comes on the turn? Should you worry?",
    situation:"3-bet pot, in position. Board: J-J-5. You have QQ86. Opponent bets half pot.",
    opts:["Raise &mdash; queens are an overpair to the board","Call &mdash; queens have showdown value but the jacks are scary","Fold &mdash; the jacks make this too dangerous","Check back and see a free turn"],
    ans:1,
+   hint:"Queens are an overpair with backdoor outs, but heavy action on paired boards usually means someone has trips or better.",
    ex:"From the Saliba sessions: Don't get too attached to flopping trips or overpairs in PLO, but in this case, calling is fine. Your queens are an overpair and you have backdoor straight outs with the 8-6. However, Adam warns: when money goes in heavily on paired boards like J-J-X, opponents often have trips, sets, or full houses. You call the flop bet but proceed cautiously on turns. If opponent pots the turn, you need to think carefully about their range."},
 
   {section:"", q:"From Episode 8: You have Ace-9-9-2 with Ace-high suit. Hijack opens. You're in the Cutoff. How close is this to an open?",
    situation:"6-max. Hijack opens. You hold A992 with A-2 suited in the Cutoff.",
    opts:["Easy call &mdash; Ace-suited pair is always playable","Borderline &mdash; trip nines hurt you, but the suited ace saves it","Fold &mdash; trip anything is unplayable in PLO","3-bet with the ace blocker"],
    ans:1,
+   hint:"Holding three nines leaves only one out to flop a set; the suited ace provides flush equity that barely compensates.",
    ex:"Ace-9-9 single-suited with a deuce is close. The ace suit is excellent, but trip nines severely reduce your set equity (you have 3 of 4 nines, so only 1 out to flop a set). Adam says you fold this from the Hijack but can open from the Cutoff. The key: the suited ace provides enough flush equity to compensate for the dead trip, but only from later positions where you need fewer people to get through."},
 
   // === SECTION: Stack Depth ===
@@ -332,18 +372,21 @@ const allQuestions = [
    situation:"6-max, 50bb effective. You are on the Button.",
    opts:["Opens wider &mdash; less risk per hand","Opens about 15% TIGHTER","Opens the same &mdash; position advantage doesn't change","Opens tighter by about 5%"],
    ans:1,
+   hint:"Speculative hands that rely on implied odds to stack opponents lose value when there is less money behind.",
    ex:"At 50bb, the button opens about 15% LESS than at 100bb. This is surprising but makes sense: with less stack depth, the maximum you can win is smaller, and the rake takes a proportionally bigger bite. Speculative hands that rely on implied odds (hitting a set or flush to stack someone) lose value because there's simply less money behind. You tighten up and cut the most speculative hands."},
 
   {section:"", q:"At 50bb, how does your Small Blind calling range change vs a Button open?",
    situation:"6-max, 50bb effective. Button opens. You are in the Small Blind.",
    opts:["Call more &mdash; cheaper to see flops","Call about 2% of hands &mdash; almost pure 3-bet or fold","Call about 10% like at 100bb","No change from 100bb strategy"],
    ans:1,
+   hint:"Shorter stacks give you even less room to maneuver post-flop from out of position.",
    ex:"At 50bb, the Small Blind calling range drops to about 2% &mdash; virtually nothing. You play almost pure 3-bet or fold. The reason: with shorter stacks, flatting OOP gives you even less room to maneuver post-flop. Your 3-bet range stays similar (maybe slightly wider), but you cut almost all flats. The few hands you do flat are premium trapping hands like AAxx that want to see a flop and potentially face a squeeze."},
 
   {section:"", q:"At 50bb vs 100bb, which type of hand gains the MOST value?",
    situation:"Comparing hand categories at different stack depths.",
    opts:["Connected rundowns like T987","Big pairs (AA, KK) with weak side cards","Suited aces with good draws","Small pocket pairs for set mining"],
    ans:1,
+   hint:"At lower SPR, raw preflop equity matters more and the lack of post-flop playability matters less.",
    ex:"Big pairs with weak side cards gain the most value at shorter stacks. At 100bb, AA72 rainbow needs post-flop playability through 3 streets. At 50bb, the hand can often end preflop or on the flop with low SPR. The pair's raw preflop equity matters more, and the lack of redraws matters less. Adam notes: \"Big pocket pairs gain a lot more value when the SPR is lower.\" This is why bad aces become 3-bets at 50bb that were flats at 100bb, and kings start 3-betting ~30% more."},
 
   // === SECTION: Concepts ===
@@ -351,18 +394,21 @@ const allQuestions = [
    situation:"Conceptual question about PLO equity.",
    opts:["About 7% (like NLHE worst case)","About 15%","About 27%","About 40%"],
    ans:2,
+   hint:"In NLHE the worst hand has about 7% equity vs aces; PLO equities run dramatically closer together.",
    ex:"Even the worst PLO hand has roughly 27% equity against aces. Compare this to NLHE where the worst hand (like 72o vs AA) has about 7% equity. This is why folding is so much rarer in PLO &mdash; you almost always have enough equity to continue. It's also why 3-bet bluffs don't fold people out: their hands always have a \"fighting chance.\" The equities-run-close principle is fundamental to understanding PLO strategy."},
 
   {section:"", q:"What is the primary reason double-suited hands are so much stronger than single-suited?",
    situation:"Conceptual question about suit value in PLO.",
    opts:["You can make two different flushes","You have more bluffing cards on flush boards","You have better equity on turn and river across all runouts","All of the above &mdash; it compounds through the entire game tree"],
    ans:3,
+   hint:"The suit advantages stack: more nut flush potential, more bluffing cards, and better equity across every runout.",
    ex:"All of the above. Double-suited hands are stronger because: (1) You can make flushes in two suits, doubling your nut flush potential. (2) On boards with one flush draw, your second suit gives you a bluffing card. (3) These advantages compound through flop, turn, and river, giving you more equity in every possible runout. The solver treats double-suited as such a massive upgrade that it can change a hand from \"always fold\" to \"always open\" across multiple positions."},
 
   {section:"", q:"You hear someone say \"I'm exploiting by playing looser.\" They don't know their GTO opening range. What is wrong with this statement?",
    situation:"Conceptual question about GTO baseline and exploitative play.",
    opts:["Nothing &mdash; exploiting just means adjusting","They can't exploit without a baseline &mdash; they don't know what \"looser\" actually means in concrete terms","Exploiting always means playing tighter, not looser","You should never deviate from GTO"],
    ans:1,
+   hint:"Without knowing the GTO baseline you cannot identify which specific hands to add or remove.",
    ex:"Adam hammers this point: \"How are you exploiting if you don't know what's the bare minimum we open on the button?\" Without a GTO baseline, saying \"I'm playing looser\" is meaningless. You don't know WHICH hands to add. You might be adding the wrong hands &mdash; ones that cost you money. True exploitation means: I know my baseline is X, the table is doing Y, so I adjust to Z. If you don't know X, you're in \"fantasy land\" with your exploit."}
 ];
 
@@ -403,13 +449,17 @@ function showQ() {
     sectionHtml = `<div class="q-section">${q.section}</div>`;
   }
 
-  let html = `${sectionHtml}<div class="q-number">Question ${current + 1}</div>`;
+  let html = sectionHtml + '<div class="q-number">Question ' + (current + 1) + '</div>';
   if (q.situation) {
-    html += `<div class="q-situation">${q.situation}</div>`;
+    html += '<div class="q-situation">' + q.situation + '</div>';
   }
-  html += `<div class="q-text">${q.q}</div>`;
+  html += '<div class="q-text">' + q.q + '</div>';
+  if (q.hint) {
+    html += '<button class="hint-btn" onclick="toggleHint()">Show Hint (H)</button>';
+    html += '<div class="hint-box" id="hint-box">' + q.hint + '</div>';
+  }
   q.opts.forEach((o, i) => {
-    html += `<button class="option" data-idx="${i}" onclick="pick(${i})"><span class="opt-key">${i + 1}.</span>${o}</button>`;
+    html += '<button class="option" data-idx="' + i + '" onclick="pick(' + i + ')"><span class="opt-key">' + (i + 1) + '.</span>' + o + '</button>';
   });
 
   document.getElementById('question-area').innerHTML = html;
@@ -435,6 +485,16 @@ function pick(idx) {
   document.getElementById('explanation').classList.add('visible');
   document.getElementById('next-btn').style.display = 'block';
   document.getElementById('score-display').textContent = `Question ${current + 1} of ${questions.length}  |  Score: ${score}`;
+}
+
+function toggleHint() {
+  var hb = document.getElementById('hint-box');
+  if (!hb) return;
+  if (hb.classList.contains('show')) {
+    hb.classList.remove('show');
+  } else {
+    hb.classList.add('show');
+  }
 }
 
 function advance() {
@@ -471,8 +531,7 @@ document.addEventListener('keydown', e => {
     if (i < opts.length) pick(i);
   }
   if (e.key === 'h' || e.key === 'H') {
-    const hk = document.querySelector('.hotkeys');
-    hk.style.display = hk.style.display === 'none' ? 'block' : 'none';
+    toggleHint();
   }
 });
 

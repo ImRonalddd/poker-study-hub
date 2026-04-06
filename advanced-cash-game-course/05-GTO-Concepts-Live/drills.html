@@ -338,7 +338,7 @@ h1 {
 
 <div class="card" id="cardArea"></div>
 
-<div class="hotkeys" style="display:none">
+<div class="hotkeys">
   <kbd>1</kbd>-<kbd>4</kbd> select answer &middot;
   <kbd>Enter</kbd> submit FIB &middot;
   <kbd>Space</kbd> next question &middot;
@@ -581,6 +581,8 @@ function render() {
 
   let html = '<div class="tag">' + q.tag + '</div>';
   html += '<div class="question-text">' + q.text + '</div>';
+  html += '<button class="hint-btn" id="hintBtn">Hint (H)</button>';
+  html += '<div class="hint-text" id="hintText">' + (q.hint || '') + '</div>';
 
   if (q.type === 'mc') {
     html += '<ul class="options">';
@@ -598,8 +600,6 @@ function render() {
     html += '<div class="fib-wrap"><input class="fib-input" id="fibIn" placeholder="Type your answer..." autocomplete="off"><button class="fib-submit" id="fibBtn">Submit</button></div>';
   }
 
-  html += '<button class="hint-btn" id="hintBtn">Hint</button>';
-  html += '<div class="hint-text" id="hintText">' + q.hint + '</div>';
   html += '<div class="feedback" id="fb"><div class="feedback-verdict" id="fbVerdict"></div><div class="feedback-explanation" id="fbExpl"></div></div>';
   html += '<div class="nav-row"><button class="nav-btn" id="prevBtn" ' + (cur === 0 ? 'disabled' : '') + '>Prev</button><button class="nav-btn" id="nextBtn">Next</button></div>';
 

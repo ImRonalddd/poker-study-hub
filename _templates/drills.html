@@ -37,6 +37,9 @@ h1{font-family:'Playfair Display',serif;font-weight:800;font-size:2.2rem;text-al
 .option .opt-key{font-family:'JetBrains Mono',monospace;font-weight:700;margin-right:0.5rem;font-size:0.9rem}
 #explanation{margin-top:1.2rem;padding:1rem 1.25rem;border-left:4px solid var(--accent);background:var(--surface2);display:none;font-size:0.95rem;line-height:1.6}
 #explanation.visible{display:block}
+.hint-btn{font-family:'JetBrains Mono',monospace;font-size:0.78rem;color:var(--text-dim);background:none;border:none;cursor:pointer;margin-bottom:0.75rem;text-decoration:underline}
+.hint{font-size:0.9rem;color:var(--text-dim);margin-bottom:1rem;padding:0.6rem 0.8rem;background:var(--surface2);border-left:3px solid var(--border-light);display:none}
+.hint.show{display:block}
 #next-btn{display:none;margin-top:1.5rem;width:100%;padding:0.8rem;font-family:'JetBrains Mono',monospace;font-size:0.85rem;font-weight:600;text-transform:uppercase;letter-spacing:0.1em;border:2px solid var(--accent);background:var(--accent);color:var(--bg);cursor:pointer;transition:opacity 0.15s}
 #next-btn:hover{opacity:0.85}
 #results{display:none;text-align:center}
@@ -62,7 +65,7 @@ h1{font-family:'Playfair Display',serif;font-weight:800;font-size:2.2rem;text-al
 
 <h1>{{DRILL_TITLE}}</h1>
 <div class="subtitle">{{SUBTITLE}} &mdash; {{QUESTION_COUNT}} Questions</div>
-<div class="hotkeys" style="display:none"><kbd>1</kbd><kbd>2</kbd><kbd>3</kbd><kbd>4</kbd> answer &nbsp; <kbd>Space</kbd> next &nbsp; <kbd>R</kbd> restart &nbsp; <kbd>H</kbd> toggle hotkey help</div>
+<div class="hotkeys"><kbd>1</kbd><kbd>2</kbd><kbd>3</kbd><kbd>4</kbd> answer &nbsp; <kbd>H</kbd> hint &nbsp; <kbd>Space</kbd> next &nbsp; <kbd>R</kbd> restart</div>
 
 <div id="progress-bar"><div id="progress-fill" style="width:0%"></div></div>
 <div id="score-display"></div>
@@ -86,7 +89,7 @@ h1{font-family:'Playfair Display',serif;font-weight:800;font-size:2.2rem;text-al
 // Each: {q: "Question text", opts: ["A","B","C","D"], ans: 0-3, ex: "Explanation"}
 // ============================================================
 const allQuestions = [
-  {q:"{{QUESTION_1}}", opts:["{{OPT_A}}","{{OPT_B}}","{{OPT_C}}","{{OPT_D}}"], ans:0, ex:"{{EXPLANATION_1}}"},
+  {q:"{{QUESTION_1}}", opts:["{{OPT_A}}","{{OPT_B}}","{{OPT_C}}","{{OPT_D}}"], ans:0, hint:"{{HINT_TEXT}}", ex:"{{EXPLANATION_1}}"},
   // Add 25-35 questions
 ];
 
@@ -118,6 +121,10 @@ function showQuestion() {
     html += '<span class="opt-key">' + keys[i] + '</span>' + q.opts[i];
     html += '</button>';
   }
+  if (q.hint) {
+    html += '<button class="hint-btn" onclick="toggleHint()">Show Hint (H)</button>';
+    html += '<div class="hint" id="hint">' + q.hint + '</div>';
+  }
   qa.innerHTML = html;
   exEl.className = ''; exEl.style.display = 'none';
   nextBtn.style.display = 'none';
@@ -148,6 +155,11 @@ function selectAnswer(idx) {
 function nextQuestion() {
   current++;
   showQuestion();
+}
+
+function toggleHint() {
+  var el = document.getElementById('hint');
+  if (el) el.classList.toggle('show');
 }
 
 function showResults() {
@@ -186,6 +198,7 @@ function restart() {
 document.addEventListener('keydown', function(e) {
   if (e.key >= '1' && e.key <= '4' && !answered) selectAnswer(parseInt(e.key) - 1);
   if ((e.key === ' ' || e.key === 'Enter') && answered) { e.preventDefault(); nextQuestion(); }
+  if (e.key === 'h' || e.key === 'H') toggleHint();
   if (e.key === 'r' || e.key === 'R') { if (resultsDiv.style.display === 'block') restart(); }
 });
 

@@ -58,6 +58,12 @@ header .subtitle { font-family:'JetBrains Mono',monospace; font-size:0.75rem; te
 .hotkeys { font-family:'JetBrains Mono',monospace; font-size:0.75rem; color:var(--text-dim); text-align:center; margin-bottom:1.5rem; }
 .hotkeys kbd { background:var(--surface2); padding:0.1em 0.4em; border:1px solid var(--border-light); }
 
+/* ── Hint ── */
+.hint-btn { font-family:'JetBrains Mono',monospace; font-size:0.78rem; color:var(--text-dim); background:none; border:none; cursor:pointer; margin-bottom:0.75rem; text-decoration:underline; padding:0; }
+.hint-btn:hover { color:var(--text); }
+.hint { font-size:0.9rem; color:var(--text-dim); margin-bottom:1rem; padding:0.6rem 0.8rem; background:var(--surface2); border-left:3px solid var(--border-light); display:none; }
+.hint.show { display:block; }
+
 /* ── Results ── */
 .results { text-align:center; display:none; }
 .results h2 { font-family:'Playfair Display',serif; font-size:2rem; margin-bottom:1rem; }
@@ -81,18 +87,19 @@ header .subtitle { font-family:'JetBrains Mono',monospace; font-size:0.75rem; te
 </header>
 <hr class="divider">
 
-<div class="hotkeys" style="display:none"><kbd>1</kbd>-<kbd>4</kbd> answer &nbsp; <kbd>Space</kbd> next &nbsp; <kbd>R</kbd> restart &nbsp; <kbd>H</kbd> toggle hotkey help</div>
+<div class="hotkeys"><kbd>1</kbd>-<kbd>4</kbd> answer &nbsp; <kbd>Space</kbd> next &nbsp; <kbd>R</kbd> restart &nbsp; <kbd>H</kbd> toggle hotkey help</div>
 
 <div id="quiz-area">
   <div class="progress-text" id="progress-text">Question 1 of 20</div>
   <div class="progress-bar"><div class="progress-fill" id="progress-fill" style="width:0%"></div></div>
   <div class="question-num" id="q-num">Question 1</div>
   <div class="question-text" id="q-text"></div>
+  <button class="hint-btn" id="btn-hint-inline" onclick="toggleHint()">Show Hint <span class="hotkey">H</span></button>
+  <div class="hint" id="hint-box"></div>
   <div class="options" id="options"></div>
   <div class="explanation" id="explanation"></div>
   <div class="controls">
     <button class="btn btn-primary" id="btn-next" style="display:none" onclick="nextQuestion()">Next <span class="hotkey">Space</span></button>
-    <button class="btn" id="btn-hint" onclick="showHint()">Hint <span class="hotkey">H</span></button>
   </div>
 </div>
 
@@ -117,42 +124,49 @@ const ALL_QUESTIONS = [
     q: "Four-handed NLHE is dramatically different from six or nine-handed play.",
     opts: ["True", "False"],
     ans: 1,
+    hint: "Think about how much ranges actually change as players are removed from the table.",
     exp: "Four-handed is NOT drastically different. The cutoff is now first to act, and ranges widen only slightly (~4-5% more hands). Just assume the first few players at a full table folded."
   },
   {
     q: "In a 4-handed game, the button can raise approximately what percentage of hands?",
     opts: ["35%", "41%", "45%", "55%"],
     ans: 2,
+    hint: "Compare to the 8-handed button range — the difference is smaller than you might expect.",
     exp: "The button can raise about 45% of hands 4-handed, compared to ~41% at an 8-handed table. Just a small bump due to less bunching effect."
   },
   {
     q: "The bunching effect means that when players fold before you, the remaining players are MORE likely to have premium cards.",
     opts: ["True", "False"],
     ans: 0,
+    hint: "When players fold, what kinds of hands are they typically folding?",
     exp: "Correct. When players fold, they're folding weaker hands on average, which means the remaining players are slightly more likely to hold strong hands."
   },
   {
     q: "In heads-up play (100bb), approximately what percentage of hands should you raise from the button/small blind?",
     opts: ["52%", "69%", "76%", "81%"],
     ans: 3,
+    hint: "With only one opponent left, your positional advantage is enormous — open very wide.",
     exp: "You should raise about 81% of hands from the button in heads-up play — roughly double the normal button opening range."
   },
   {
     q: "In heads-up play, you should have a limping range from the button.",
     opts: ["True", "False"],
     ans: 1,
+    hint: "At 100bb heads-up, does limping in position serve any purpose?",
     exp: "No limping range. You raise everything you play from the button in heads-up at 100bb. Raise to about 3 big blinds."
   },
   {
     q: "From the big blind facing a heads-up raise, approximately what percentage of hands should you play?",
     opts: ["50%", "60%", "75%", "90%"],
     ans: 2,
+    hint: "You already have money invested and close the action, so you can defend wide.",
     exp: "The big blind plays about 75% of hands — a mix of 3-betting with strong/linear hands and calling with hands that flop well."
   },
   {
     q: "In heads-up, your 3-bet from the big blind should be to what size?",
     opts: ["8 big blinds", "9 big blinds", "11-12 big blinds", "15 big blinds"],
     ans: 2,
+    hint: "Consider what pot odds you give the button if you size too small.",
     exp: "3-bet to 11-12 big blinds, not 9. If you make it 9 vs. a 3bb open, the button gets 2:1 odds and only needs 33% equity to call, which most hands have."
   },
   {
@@ -164,24 +178,28 @@ const ALL_QUESTIONS = [
       "It confuses recreational players"
     ],
     ans: 1,
+    hint: "Think about playing the same villain many times — what happens if your strategy is 100% predictable?",
     exp: "Against the same opponent repeatedly, if you always 3-bet the same specific hands, they can identify your exact range and exploit you on specific board textures."
   },
   {
     q: "What are the best 4-bet bluff hands from the button facing a heads-up 3-bet?",
     opts: ["Suited connectors (87s, 76s)", "Small pairs (22-55)", "Ace-x suited blockers (A5s-A2s)", "Offsuit broadways (KJo, QJo)"],
     ans: 2,
+    hint: "The best bluffs reduce the chance your opponent holds the strongest possible hands.",
     exp: "Ace-x suited blockers (A5s, A4s, A3s, A2s) are the highest frequency 4-bet bluffs because they block aces in the opponent's range."
   },
   {
     q: "Straddling from UTG is a profitable play if your opponents are loose.",
     opts: ["True", "False"],
     ans: 1,
+    hint: "Consider your positional situation when you straddle from UTG.",
     exp: "Straddling from UTG is always -EV. You're putting extra money in out of position voluntarily. If you want to liven the game, 3-bet more from better positions instead."
   },
   {
     q: "When someone at your table straddles, it is generally good for the NON-straddling players.",
     opts: ["True", "False"],
     ans: 0,
+    hint: "Who gets to play a larger effective game without voluntarily posting extra money?",
     exp: "Great for non-straddlers — you're essentially playing a bigger game without paying extra for it. The exception is if the straddler is on your immediate left."
   },
   {
@@ -193,18 +211,21 @@ const ALL_QUESTIONS = [
       "Limp and hope for a cheap flop"
     ],
     ans: 1,
+    hint: "You want the maniac to put in chips; what happens if you show aggression first?",
     exp: "Slow-play to let the maniac straddler re-raise. If you 3-bet, they fold even with garbage. You beat maniacs by letting them bluff you, not by forcing them to play straightforwardly."
   },
   {
     q: "A Mississippi straddle is posted by which position?",
     opts: ["Under the gun", "The button", "The small blind", "Any position"],
     ans: 1,
+    hint: "This variant gives the straddler positional advantages that UTG straddlers never get.",
     exp: "The button posts the Mississippi straddle. This is the only position where straddling can be close to break-even, because you act last both preflop and postflop."
   },
   {
     q: "In a Mississippi straddle game, which position is hurt the most?",
     opts: ["Under the gun", "The button", "The small blind", "The cutoff"],
     ans: 2,
+    hint: "Think about who has to act first when the button has last action preflop and postflop.",
     exp: "The blinds get crushed, especially the small blind, who must act first before the entire table — effectively worse than UTG position."
   },
   {
@@ -216,18 +237,21 @@ const ALL_QUESTIONS = [
       "3-bet or fold exclusively"
     ],
     ans: 2,
+    hint: "You act first with no positional advantage — tread carefully and keep your best hands disguised.",
     exp: "Fold a lot, and limp your playable range. Include a limp-reraise range with your best hands (AA, KK, QQ, AK) plus blocker bluffs."
   },
   {
     q: "In short-stacked cash games (20bb), which hands make the best bluffs?",
     opts: ["Suited connectors (87s, 76s)", "Blocker hands (Ax, Kx)", "Small pairs (22-55)", "Any two suited cards"],
     ans: 1,
+    hint: "At 20bb, implied odds don't exist — focus on what reduces your opponent's strong holdings.",
     exp: "At shallow stacks, blocker hands become the preferred bluffs. There's no room for playability, so hands that block the opponent's calling range (Ax, Kx) are strongest."
   },
   {
     q: "When playing 20bb deep, AT offsuit is more valuable than T7 suited.",
     opts: ["True", "False"],
     ans: 0,
+    hint: "Consider how much implied odds matter when there are only 20 big blinds left to win.",
     exp: "At 20bb, high card hands go UP in value and implied odds hands go DOWN. You can't profitably chase flushes with T7s when stacks are this shallow."
   },
   {
@@ -239,6 +263,7 @@ const ALL_QUESTIONS = [
       "Limp with a wide range"
     ],
     ans: 1,
+    hint: "If you just call from the small blind, how many players are left behind you who can squeeze?",
     exp: "The small blind must 3-bet or fold. If they call, TWO players behind can overcall or re-raise, and on the flop they'll be first to act with terrible relative position."
   },
   {
@@ -250,6 +275,7 @@ const ALL_QUESTIONS = [
       "Raising too big"
     ],
     ans: 2,
+    hint: "The middle blind is not closing the action and will be out of position — calling is more costly than it looks.",
     exp: "The middle blind calls too loosely thinking 'it's just a little bit more.' But they're not closing the action, they're out of position, and they'll under-realize their equity."
   },
   {
@@ -261,6 +287,7 @@ const ALL_QUESTIONS = [
       "Only affects the blinds' stacks"
     ],
     ans: 2,
+    hint: "The dollar amount stays the same, but the big blind denomination has doubled.",
     exp: "The effective stack in big blinds is halved. If you had 100bb at 1/2 ($200), you now have 50bb at 1/2/4 with the same $200."
   }
 ];
@@ -302,7 +329,16 @@ function render() {
   document.getElementById('explanation').classList.remove('show');
   document.getElementById('explanation').innerHTML = '';
   document.getElementById('btn-next').style.display = 'none';
-  document.getElementById('btn-hint').style.display = 'inline-block';
+  var hintBox = document.getElementById('hint-box');
+  hintBox.textContent = q.hint || '';
+  hintBox.classList.remove('show');
+  var hintBtn = document.getElementById('btn-hint-inline');
+  hintBtn.style.display = 'inline-block';
+  hintBtn.textContent = 'Show Hint ';
+  var hotkey = document.createElement('span');
+  hotkey.className = 'hotkey';
+  hotkey.textContent = 'H';
+  hintBtn.appendChild(hotkey);
 }
 
 function answer(idx) {
@@ -321,7 +357,8 @@ function answer(idx) {
   expEl.innerHTML = `<p><strong>${idx === q.ans ? 'Correct!' : 'Incorrect.'}</strong> ${q.exp}</p>`;
   expEl.classList.add('show');
   document.getElementById('btn-next').style.display = 'inline-block';
-  document.getElementById('btn-hint').style.display = 'none';
+  document.getElementById('btn-hint-inline').style.display = 'none';
+  document.getElementById('hint-box').classList.remove('show');
 }
 
 function nextQuestion() {
@@ -331,17 +368,25 @@ function nextQuestion() {
   render();
 }
 
-function showHint() {
+function toggleHint() {
   if (answered) return;
-  const q = questions[current];
-  const expEl = document.getElementById('explanation');
-  const hints = [
-    "Think about what has actually changed in this format.",
-    "Consider how position and equity realization are affected.",
-    "Remember the core principle: ask what has changed?"
-  ];
-  expEl.innerHTML = `<p><em>${hints[Math.floor(Math.random()*hints.length)]}</em></p>`;
-  expEl.classList.add('show');
+  var hintBox = document.getElementById('hint-box');
+  var hintBtn = document.getElementById('btn-hint-inline');
+  if (hintBox.classList.contains('show')) {
+    hintBox.classList.remove('show');
+    hintBtn.textContent = 'Show Hint ';
+    var hotkey = document.createElement('span');
+    hotkey.className = 'hotkey';
+    hotkey.textContent = 'H';
+    hintBtn.appendChild(hotkey);
+  } else {
+    hintBox.classList.add('show');
+    hintBtn.textContent = 'Hide Hint ';
+    var hotkey2 = document.createElement('span');
+    hotkey2.className = 'hotkey';
+    hotkey2.textContent = 'H';
+    hintBtn.appendChild(hotkey2);
+  }
 }
 
 function showResults() {
@@ -379,7 +424,7 @@ document.addEventListener('keydown', (e) => {
   if (e.key >= '1' && e.key <= '4') { const idx = parseInt(e.key)-1; const opts = document.querySelectorAll('.option'); if (idx < opts.length) answer(idx); }
   if (e.key === ' ' || e.key === 'Enter') { e.preventDefault(); if (answered) nextQuestion(); }
   if (e.key === 'r' || e.key === 'R') restart();
-  if (e.key === 'h' || e.key === 'H') { const hk = document.querySelector('.hotkeys'); hk.style.display = hk.style.display === 'none' ? 'block' : 'none'; }
+  if (e.key === 'h' || e.key === 'H') { toggleHint(); }
   if (e.key === 'm' || e.key === 'M') { if (document.getElementById('results').style.display !== 'none') reviewMissed(); }
 });
 
